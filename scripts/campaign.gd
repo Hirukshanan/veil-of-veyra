@@ -32,7 +32,7 @@ func _build_enemies() -> void:
 	for index in range(remaining_enemies):
 		var enemy: CharacterBody3D = ENEMY_SCRIPT.new()
 		var angle := TAU * float(index) / float(remaining_enemies)
-		enemy.position = Vector3(cos(angle) * 7, 0, sin(angle) * 7 - 2)
+		enemy.position = Vector3(cos(angle) * 10, 0, sin(angle) * 10)
 		enemy.set("target", player)
 		enemy.set("health", 3 + chapter * 2)
 		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
