@@ -140,14 +140,16 @@ func _build_body() -> void:
 	snout.height = 0.6
 	_add_piece(snout, Vector3(0, 1.4, -2.78), Vector3(1.1, 0.7, 1.35), Color(0.33, 0.23, 0.34))
 
-	var horn := ConeMesh.new()
+	var horn := CylinderMesh.new()
+	horn.top_radius = 0.025
 	horn.bottom_radius = 0.18
 	horn.height = 0.8
 	horn.radial_segments = 6
 	_add_piece(horn, Vector3(-0.43, 2.22, -2.18), Vector3.ONE, Color(0.14, 0.11, 0.19), Vector3(0, 0, 0.42))
 	_add_piece(horn, Vector3(0.43, 2.22, -2.18), Vector3.ONE, Color(0.14, 0.11, 0.19), Vector3(0, 0, -0.42))
 
-	var spine_spike := ConeMesh.new()
+	var spine_spike := CylinderMesh.new()
+	spine_spike.top_radius = 0.02
 	spine_spike.bottom_radius = 0.12
 	spine_spike.height = 0.36
 	spine_spike.radial_segments = 5
@@ -158,7 +160,8 @@ func _build_body() -> void:
 	tail.radius = 0.34
 	tail.height = 1.6
 	_add_piece(tail, Vector3(0, 0.76, 1.72), Vector3(0.85, 0.75, 1.0), Color(0.2, 0.16, 0.29), Vector3(PI / 2.0, 0, 0))
-	var tail_tip := ConeMesh.new()
+	var tail_tip := CylinderMesh.new()
+	tail_tip.top_radius = 0.025
 	tail_tip.bottom_radius = 0.31
 	tail_tip.height = 0.9
 	tail_tip.radial_segments = 6
@@ -236,7 +239,8 @@ func _build_warning_ring() -> void:
 
 func _build_fire_cone() -> void:
 	_fire_cone = MeshInstance3D.new()
-	var flame := ConeMesh.new()
+	var flame := CylinderMesh.new()
+	flame.top_radius = 0.025
 	flame.bottom_radius = 1.0
 	flame.height = 4.2
 	flame.radial_segments = 8

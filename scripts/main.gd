@@ -14,7 +14,7 @@ var boss_spawned := false
 var game_finished := false
 
 
-class VirtualJoystick extends Control:
+class IslandJoystick extends Control:
 	signal value_changed(value: Vector2)
 
 	var _touch_index := -1
@@ -231,7 +231,7 @@ func _build_hud() -> void:
 	boss_health_bar.visible = false
 	root.add_child(boss_health_bar)
 
-	var joystick := VirtualJoystick.new()
+	var joystick := IslandJoystick.new()
 	joystick.position = Vector2(24, 495)
 	joystick.size = Vector2(190, 190)
 	joystick.value_changed.connect(Callable(player, "set_move_input"))
