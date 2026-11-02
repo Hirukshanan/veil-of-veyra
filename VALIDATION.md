@@ -1,9 +1,10 @@
-# Gameplay validation — 2026-11-02
+# Gameplay validation — 2026-11-03
 
 Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL rendering on Intel Iris Xe. Test saves isolated under `.validation`; player saves were not used.
 
 ## Passed
 
+- Escape pause/resume through viewport input, focus/background auto-pause, frozen player state during pause, joystick reset, and settings/camp menu guards.
 - Settings sliders, camera scaling, save/reload, discard, mute/unmute, sound stream creation, and invalid setting fallback/clamping.
 - Enemy attack warnings, escaping attack range, delayed damage, and sword-hit interruption.
 - Three-hit sword combo with double-damage finisher and timeout reset.
@@ -31,8 +32,17 @@ godot --headless --path . --script res://tests/gameplay_check.gd
 godot --headless --path . --script res://tests/campaign_smoke.gd
 godot --headless --path . --script res://tests/combat_check.gd
 godot --headless --path . --script res://tests/settings_check.gd
+godot --headless --path . --script res://tests/pause_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.
 
 Audio checks validate stream creation and volume routing, not perceived sound quality. Cues are synthesized placeholders. Combat checks allow audio playback to finish before exiting so the audio server can release its playback resources.
+
+## Live desktop inspection — 2026-11-03
+
+Used the native Windows game window with a separate `.validation/manual` save directory. Directly observed camp/start, enemy approach and warning discs, player damage flashes, death, Escape pause/resume, and retry returning to camp with restored health. Updated the camera hint to specify right-mouse drag on desktop.
+
+The game previously continued combat after losing application focus. Focus loss and application suspension now open the pause menu, and focus return does not automatically resume. Pausing also clears joystick finger ownership and movement to avoid stale touch input after returning. These cases have automated regression coverage; Android lifecycle behavior still needs a device test.
+
+Live input/capture latency prevented a reliable continuous combat playthrough. Full dragon-fight difficulty, sustained movement/camera feel, healing during real-time combat, and touch multitasking remain unverified manually. The limited desktop inspection must not be treated as completed gameplay acceptance testing.

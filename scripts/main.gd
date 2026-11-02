@@ -21,8 +21,13 @@ class IslandJoystick extends Control:
 	var _value := Vector2.ZERO
 
 	func _ready() -> void:
+		add_to_group("movement_joysticks")
 		mouse_filter = Control.MOUSE_FILTER_STOP
 		queue_redraw()
+
+	func reset() -> void:
+		_touch_index = -1
+		_set_value(Vector2.ZERO)
 
 	func _gui_input(event: InputEvent) -> void:
 		if event is InputEventScreenTouch:
@@ -256,7 +261,7 @@ func _build_hud() -> void:
 	root.add_child(combat_hud_timer)
 
 	var hint := Label.new()
-	hint.text = "Move: WASD / joystick    Attack: J    Dodge: K    Camera: drag"
+	hint.text = "Move: WASD / joystick   Attack: J   Dodge: K   Camera: right-drag / touch   Pause: Esc"
 	hint.position = Vector2(28, 104)
 	hint.add_theme_font_size_override("font_size", 15)
 	hint.add_theme_color_override("font_color", Color(0.75, 0.83, 0.79, 0.9))

@@ -19,6 +19,28 @@ var potions := 3
 var started := false
 var camera_sensitivity := 1.0
 var sound_volume := 0.7
+var pause_menu_open := false
+
+class PauseOverlay extends CanvasLayer:
+	signal pause_requested
+
+	func _unhandled_key_input(event: InputEvent) -> void:
+		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
+			pause_requested.emit()
+			get_viewport().set_input_as_handled()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_PAUSED:
+		if is_instance_valid(overlay) and started and not game_finished and not get_tree().paused:
+			_pause_game()
+
+func _toggle_pause() -> void:
+	if game_finished or not started:
+		return
+	if pause_menu_open:
+		_resume()
+	elif not get_tree().paused:
+		_pause_game()
 
 func _ready() -> void:
 	_load_progress()
@@ -73,7 +95,8 @@ func _build_campaign_ui() -> void:
 	heal_button.size = Vector2(140, 48)
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
-	overlay = CanvasLayer.new()
+	overlay = PauseOverlay.new()
+	overlay.connect("pause_requested", _toggle_pause)
 	overlay.layer = 20
 	overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(overlay)
@@ -90,8 +113,10 @@ func _build_campaign_ui() -> void:
 	center.add_child(menu_box)
 
 func _clear_menu(title: String, message: String) -> void:
+	pause_menu_open = false
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
+	get_tree().call_group("movement_joysticks", "reset")
 	overlay.show()
 	for child in menu_box.get_children():
 		menu_box.remove_child(child)
@@ -148,6 +173,7 @@ func _upgrade(blade: bool) -> void:
 	_show_camp()
 
 func _resume() -> void:
+	pause_menu_open = false
 	started = true
 	overlay.hide()
 	get_tree().paused = false
@@ -157,6 +183,7 @@ func _pause_game() -> void:
 	if game_finished or not started:
 		return
 	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting a hunt restores its enemies and your potions.")
+	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Restart hunt", _reload)
 	_menu_button("Settings", func(): _show_settings(_pause_game))
