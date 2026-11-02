@@ -10,6 +10,7 @@ const GRAVITY := 22.0
 
 var target: Node3D
 var health := MAX_HEALTH
+var max_health := MAX_HEALTH
 var _state := AttackState.APPROACH
 var _state_time := 0.0
 var _attack_direction := Vector3.ZERO
@@ -25,7 +26,7 @@ func _ready() -> void:
 	_build_body()
 	_build_warning_ring()
 	_build_fire_cone()
-	health_changed.emit(health, MAX_HEALTH)
+	health_changed.emit(health, max_health)
 
 
 func _physics_process(delta: float) -> void:
@@ -108,7 +109,7 @@ func take_damage(amount: int) -> void:
 	if health <= 0:
 		return
 	health = maxi(0, health - amount)
-	health_changed.emit(health, MAX_HEALTH)
+	health_changed.emit(health, max_health)
 	if health == 0:
 		defeated.emit()
 		queue_free()

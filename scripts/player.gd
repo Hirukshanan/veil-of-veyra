@@ -10,6 +10,7 @@ const ATTACK_DURATION := 0.22
 
 var health := 100
 var max_health := 100
+var attack_damage := 1
 var _touch_move := Vector2.ZERO
 var _dodge_direction := Vector3.ZERO
 var _dodge_time := 0.0
@@ -33,6 +34,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if health <= 0:
+		return
+	if position.y < -8:
+		position = Vector3(0, 1, 4)
+		velocity = Vector3.ZERO
+		take_damage(20)
 	_attack_cooldown = maxf(0.0, _attack_cooldown - delta)
 	_attack_time = maxf(0.0, _attack_time - delta)
 	_dodge_cooldown = maxf(0.0, _dodge_cooldown - delta)
@@ -51,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed(&"dodge"):
 		dodge()
 
-	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.rotation.y)
+	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	if direction.length_squared() > 1.0:
 		direction = direction.normalized()
 	if _dodge_time > 0.0:
@@ -69,6 +76,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 	move_and_slide()
+	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -95,7 +103,7 @@ func attack() -> void:
 	await get_tree().physics_frame
 	for body in _attack_area.get_overlapping_bodies():
 		if body.has_method("take_damage"):
-			body.call("take_damage", 1)
+			body.call("take_damage", attack_damage)
 
 
 func dodge() -> void:
@@ -105,9 +113,9 @@ func dodge() -> void:
 	var keyboard_vector := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
 	if keyboard_vector.length_squared() > 0.01:
 		input_vector = keyboard_vector
-	_dodge_direction = Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.rotation.y)
+	_dodge_direction = Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	if _dodge_direction.length_squared() < 0.01:
-		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.rotation.y)
+		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	_dodge_direction = _dodge_direction.normalized()
 	_dodge_time = 0.2
 	_dodge_cooldown = 0.65
@@ -247,6 +255,8 @@ func _build_camera() -> void:
 	_camera_pivot = Node3D.new()
 	_camera_pivot.position.y = 1.2
 	add_child(_camera_pivot)
+	_camera_pivot.top_level = true
+	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
 	var camera := Camera3D.new()
 	camera.position = Vector3(0, 2.0, 6.0)
 	_camera_pivot.add_child(camera)

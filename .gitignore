@@ -1,4 +1,5 @@
 .godot/
+.validation/
 android/build/
 *.keystore
 *.jks
