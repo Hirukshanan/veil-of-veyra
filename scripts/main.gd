@@ -2,11 +2,15 @@ extends Node3D
 
 const PLAYER_SCRIPT = preload("res://scripts/player.gd")
 const ENEMY_SCRIPT = preload("res://scripts/enemy.gd")
+const BOSS_SCRIPT = preload("res://scripts/boss.gd")
 
 var player: CharacterBody3D
 var status_label: Label
 var health_label: Label
+var boss_name_label: Label
+var boss_health_bar: ProgressBar
 var remaining_enemies := 0
+var boss_spawned := false
 var game_finished := false
 
 
@@ -200,6 +204,33 @@ func _build_hud() -> void:
 	health_label.add_theme_color_override("font_color", Color(0.75, 0.91, 0.81))
 	root.add_child(health_label)
 
+	boss_name_label = Label.new()
+	boss_name_label.text = "REEFCLAW MATRIARCH"
+	boss_name_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	boss_name_label.offset_left = -260
+	boss_name_label.offset_top = 132
+	boss_name_label.offset_right = 260
+	boss_name_label.offset_bottom = 160
+	boss_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	boss_name_label.add_theme_font_size_override("font_size", 20)
+	boss_name_label.add_theme_color_override("font_color", Color(0.97, 0.75, 0.56))
+	boss_name_label.visible = false
+	root.add_child(boss_name_label)
+
+	boss_health_bar = ProgressBar.new()
+	boss_health_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	boss_health_bar.offset_left = -260
+	boss_health_bar.offset_top = 163
+	boss_health_bar.offset_right = 260
+	boss_health_bar.offset_bottom = 185
+	boss_health_bar.max_value = 28
+	boss_health_bar.value = 28
+	boss_health_bar.show_percentage = false
+	boss_health_bar.add_theme_stylebox_override("background", _button_style(Color(0.08, 0.08, 0.09, 0.92)))
+	boss_health_bar.add_theme_stylebox_override("fill", _button_style(Color(0.63, 0.17, 0.11, 0.94)))
+	boss_health_bar.visible = false
+	root.add_child(boss_health_bar)
+
 	var joystick := VirtualJoystick.new()
 	joystick.position = Vector2(24, 495)
 	joystick.size = Vector2(190, 190)
@@ -266,9 +297,34 @@ func _on_health_changed(value: int, maximum: int) -> void:
 
 func _on_enemy_defeated() -> void:
 	remaining_enemies -= 1
-	if remaining_enemies <= 0 and not game_finished:
-		game_finished = true
-		status_label.text = "THE SHORE IS SAFE  •  Chapter complete"
+	if remaining_enemies <= 0 and not boss_spawned and not game_finished:
+		_spawn_boss()
+
+
+func _spawn_boss() -> void:
+	boss_spawned = true
+	status_label.text = "A HEAVY PRESENCE RISES FROM THE REEF"
+	boss_name_label.visible = true
+	boss_health_bar.visible = true
+	var boss: CharacterBody3D = BOSS_SCRIPT.new()
+	boss.name = "Reefclaw Matriarch"
+	boss.position = Vector3(0, 0, -7.5)
+	boss.set("target", player)
+	boss.connect("health_changed", Callable(self, "_on_boss_health_changed"))
+	boss.connect("defeated", Callable(self, "_on_boss_defeated"))
+	add_child(boss)
+
+
+func _on_boss_health_changed(value: int, maximum: int) -> void:
+	boss_health_bar.max_value = maximum
+	boss_health_bar.value = value
+
+
+func _on_boss_defeated() -> void:
+	game_finished = true
+	boss_name_label.visible = false
+	boss_health_bar.visible = false
+	status_label.text = "REEFCLAW MATRIARCH DEFEATED  •  Chapter complete"
 
 
 func _on_player_defeated() -> void:
