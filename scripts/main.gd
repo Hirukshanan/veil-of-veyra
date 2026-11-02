@@ -205,7 +205,7 @@ func _build_hud() -> void:
 	root.add_child(health_label)
 
 	boss_name_label = Label.new()
-	boss_name_label.text = "REEFCLAW MATRIARCH"
+	boss_name_label.text = "TIDEWRAITH DRAGON"
 	boss_name_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	boss_name_label.offset_left = -260
 	boss_name_label.offset_top = 132
@@ -303,11 +303,11 @@ func _on_enemy_defeated() -> void:
 
 func _spawn_boss() -> void:
 	boss_spawned = true
-	status_label.text = "A HEAVY PRESENCE RISES FROM THE REEF"
+	status_label.text = "THE TIDEWRAITH DRAGON RISES FROM THE REEF"
 	boss_name_label.visible = true
 	boss_health_bar.visible = true
 	var boss: CharacterBody3D = BOSS_SCRIPT.new()
-	boss.name = "Reefclaw Matriarch"
+	boss.name = "Tidewraith Dragon"
 	boss.position = Vector3(0, 0, -7.5)
 	boss.set("target", player)
 	boss.connect("health_changed", Callable(self, "_on_boss_health_changed"))
@@ -324,7 +324,7 @@ func _on_boss_defeated() -> void:
 	game_finished = true
 	boss_name_label.visible = false
 	boss_health_bar.visible = false
-	status_label.text = "REEFCLAW MATRIARCH DEFEATED  •  Chapter complete"
+	status_label.text = "TIDEWRAITH DRAGON DEFEATED  •  Chapter complete"
 
 
 func _on_player_defeated() -> void:
