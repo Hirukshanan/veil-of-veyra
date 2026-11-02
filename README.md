@@ -1,0 +1,19 @@
+# Veil of Veyra prototype
+
+This is a Godot 4.7 GDScript prototype for an original third-person island-fantasy action RPG.
+
+## Open the project
+
+1. Download the standard Godot 4.7.2 editor from the [official Godot download page](https://godotengine.org/download/windows/).
+2. Extract the download and open `project.godot` with Godot.
+3. Press **F6** to run the main scene.
+
+## Controls
+
+- Move: **WASD** or arrow keys; on touchscreens, use the lower-left joystick.
+- Attack: **J** or the on-screen **ATTACK** button.
+- Dodge: **K** / **Space** or the on-screen **DODGE** button.
+- Camera: hold the right mouse button and drag, or drag on an open area of the screen.
+- After defeat: press **R** to restart.
+
+The current models are simple generated shapes. Story, character names, art, animation, sound, and Android export setup are still early prototype work.

@@ -1,0 +1,282 @@
+extends Node3D
+
+const PLAYER_SCRIPT = preload("res://scripts/player.gd")
+const ENEMY_SCRIPT = preload("res://scripts/enemy.gd")
+
+var player: CharacterBody3D
+var status_label: Label
+var health_label: Label
+var remaining_enemies := 0
+var game_finished := false
+
+
+class VirtualJoystick extends Control:
+	signal value_changed(value: Vector2)
+
+	var _touch_index := -1
+	var _value := Vector2.ZERO
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_STOP
+		queue_redraw()
+
+	func _gui_input(event: InputEvent) -> void:
+		if event is InputEventScreenTouch:
+			if event.pressed and _touch_index == -1:
+				_touch_index = event.index
+				_update_value(event.position)
+				accept_event()
+			elif not event.pressed and event.index == _touch_index:
+				_touch_index = -1
+				_set_value(Vector2.ZERO)
+				accept_event()
+		elif event is InputEventScreenDrag and event.index == _touch_index:
+			_update_value(event.position)
+			accept_event()
+
+	func _update_value(point: Vector2) -> void:
+		var radius := minf(size.x, size.y) * 0.34
+		_set_value(((point - size * 0.5) / radius).limit_length(1.0))
+
+	func _set_value(value: Vector2) -> void:
+		_value = value
+		value_changed.emit(value)
+		queue_redraw()
+
+	func _draw() -> void:
+		var center := size * 0.5
+		draw_circle(center, minf(size.x, size.y) * 0.44, Color(0.04, 0.12, 0.16, 0.46))
+		draw_circle(center, minf(size.x, size.y) * 0.34, Color(0.4, 0.78, 0.72, 0.23))
+		draw_circle(center + _value * minf(size.x, size.y) * 0.29, minf(size.x, size.y) * 0.17, Color(0.78, 0.93, 0.83, 0.8))
+
+
+func _ready() -> void:
+	_setup_input()
+	_build_island()
+	_build_lighting()
+	_build_decor()
+	_build_player()
+	_build_enemies()
+	_build_hud()
+
+
+func _setup_input() -> void:
+	_bind_keys(&"move_left", [KEY_A, KEY_LEFT])
+	_bind_keys(&"move_right", [KEY_D, KEY_RIGHT])
+	_bind_keys(&"move_forward", [KEY_W, KEY_UP])
+	_bind_keys(&"move_back", [KEY_S, KEY_DOWN])
+	_bind_keys(&"attack", [KEY_J])
+	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
+
+
+func _bind_keys(action: StringName, keys: Array) -> void:
+	if not InputMap.has_action(action):
+		InputMap.add_action(action)
+	for keycode in keys:
+		var event := InputEventKey.new()
+		event.physical_keycode = keycode
+		InputMap.action_add_event(action, event)
+
+
+func _build_island() -> void:
+	var water := MeshInstance3D.new()
+	var water_mesh := PlaneMesh.new()
+	water_mesh.size = Vector2(90, 90)
+	water.mesh = water_mesh
+	water.position.y = -1.45
+	water.material_override = _material(Color(0.025, 0.19, 0.24))
+	add_child(water)
+
+	var island := StaticBody3D.new()
+	island.position.y = -0.7
+	add_child(island)
+
+	var island_mesh := MeshInstance3D.new()
+	var cylinder := CylinderMesh.new()
+	cylinder.top_radius = 16.0
+	cylinder.bottom_radius = 16.0
+	cylinder.height = 1.4
+	cylinder.radial_segments = 40
+	island_mesh.mesh = cylinder
+	island_mesh.material_override = _material(Color(0.22, 0.34, 0.25))
+	island.add_child(island_mesh)
+
+	var island_collision := CollisionShape3D.new()
+	var island_shape := CylinderShape3D.new()
+	island_shape.radius = 16.0
+	island_shape.height = 1.4
+	island_collision.shape = island_shape
+	island.add_child(island_collision)
+
+
+func _build_lighting() -> void:
+	var environment := Environment.new()
+	environment.background_mode = Environment.BG_COLOR
+	environment.background_color = Color(0.035, 0.075, 0.12)
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.ambient_light_color = Color(0.52, 0.65, 0.72)
+	environment.ambient_light_energy = 0.8
+	var world_environment := WorldEnvironment.new()
+	world_environment.environment = environment
+	add_child(world_environment)
+
+	var sun := DirectionalLight3D.new()
+	sun.rotation_degrees = Vector3(-48, 28, 0)
+	sun.light_color = Color(1.0, 0.79, 0.57)
+	sun.light_energy = 1.15
+	add_child(sun)
+
+
+func _build_decor() -> void:
+	for index in range(10):
+		var angle := TAU * float(index) / 10.0
+		var tree := Node3D.new()
+		tree.position = Vector3(cos(angle) * 11.5, 0, sin(angle) * 11.5)
+		add_child(tree)
+
+		var trunk := MeshInstance3D.new()
+		var trunk_mesh := CylinderMesh.new()
+		trunk_mesh.top_radius = 0.22
+		trunk_mesh.bottom_radius = 0.34
+		trunk_mesh.height = 3.0
+		trunk_mesh.radial_segments = 7
+		trunk.mesh = trunk_mesh
+		trunk.position.y = 1.5
+		trunk.material_override = _material(Color(0.31, 0.22, 0.15))
+		tree.add_child(trunk)
+
+		var crown := MeshInstance3D.new()
+		var crown_mesh := SphereMesh.new()
+		crown_mesh.radius = 1.35
+		crown_mesh.height = 2.4
+		crown_mesh.radial_segments = 8
+		crown_mesh.rings = 4
+		crown.mesh = crown_mesh
+		crown.position.y = 3.0
+		crown.material_override = _material(Color(0.17, 0.38, 0.27))
+		tree.add_child(crown)
+
+
+func _build_player() -> void:
+	player = PLAYER_SCRIPT.new()
+	player.name = "Aru"
+	player.position = Vector3(0, 0, 4)
+	add_child(player)
+	player.connect("health_changed", Callable(self, "_on_health_changed"))
+	player.connect("defeated", Callable(self, "_on_player_defeated"))
+
+
+func _build_enemies() -> void:
+	var spawn_points := [Vector3(-4, 0, -3), Vector3(0, 0, -6), Vector3(4, 0, -3)]
+	remaining_enemies = spawn_points.size()
+	for index in range(spawn_points.size()):
+		var enemy: CharacterBody3D = ENEMY_SCRIPT.new()
+		enemy.name = "Shore Demon %d" % (index + 1)
+		enemy.position = spawn_points[index]
+		enemy.set("target", player)
+		add_child(enemy)
+		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
+
+
+func _build_hud() -> void:
+	var canvas := CanvasLayer.new()
+	add_child(canvas)
+	var root := Control.new()
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	canvas.add_child(root)
+
+	status_label = Label.new()
+	status_label.text = "THE VEILED ISLE  •  Hunt the shore demons"
+	status_label.position = Vector2(28, 22)
+	status_label.add_theme_font_size_override("font_size", 24)
+	status_label.add_theme_color_override("font_color", Color(0.9, 0.94, 0.83))
+	root.add_child(status_label)
+
+	health_label = Label.new()
+	health_label.text = "VITALITY  100"
+	health_label.position = Vector2(30, 60)
+	health_label.add_theme_font_size_override("font_size", 20)
+	health_label.add_theme_color_override("font_color", Color(0.75, 0.91, 0.81))
+	root.add_child(health_label)
+
+	var joystick := VirtualJoystick.new()
+	joystick.position = Vector2(24, 495)
+	joystick.size = Vector2(190, 190)
+	joystick.value_changed.connect(Callable(player, "set_move_input"))
+	root.add_child(joystick)
+
+	var attack_button := _make_button("ATTACK", Vector2(-180, -178), Vector2(-32, -30))
+	attack_button.pressed.connect(Callable(player, "attack"))
+	root.add_child(attack_button)
+
+	var dodge_button := _make_button("DODGE", Vector2(-310, -130), Vector2(-196, -32))
+	dodge_button.pressed.connect(Callable(player, "dodge"))
+	root.add_child(dodge_button)
+
+	var hint := Label.new()
+	hint.text = "Move: WASD / joystick    Attack: J    Dodge: K    Camera: drag"
+	hint.position = Vector2(28, 104)
+	hint.add_theme_font_size_override("font_size", 15)
+	hint.add_theme_color_override("font_color", Color(0.75, 0.83, 0.79, 0.9))
+	root.add_child(hint)
+
+
+func _make_button(label: String, top_left: Vector2, bottom_right: Vector2) -> Button:
+	var button := Button.new()
+	button.text = label
+	button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	button.offset_left = top_left.x
+	button.offset_top = top_left.y
+	button.offset_right = bottom_right.x
+	button.offset_bottom = bottom_right.y
+	button.add_theme_font_size_override("font_size", 19)
+	button.add_theme_color_override("font_color", Color(0.94, 0.97, 0.87))
+	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	button.add_theme_stylebox_override("normal", _button_style(Color(0.06, 0.2, 0.22, 0.82)))
+	button.add_theme_stylebox_override("hover", _button_style(Color(0.1, 0.34, 0.33, 0.94)))
+	button.add_theme_stylebox_override("pressed", _button_style(Color(0.3, 0.48, 0.34, 0.95)))
+	button.focus_mode = Control.FOCUS_NONE
+	return button
+
+
+func _button_style(color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.corner_radius_top_left = 24
+	style.corner_radius_top_right = 24
+	style.corner_radius_bottom_left = 24
+	style.corner_radius_bottom_right = 24
+	style.border_color = Color(0.65, 0.84, 0.72, 0.8)
+	style.set_border_width_all(2)
+	return style
+
+
+func _material(color: Color) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	material.roughness = 0.9
+	return material
+
+
+func _on_health_changed(value: int, maximum: int) -> void:
+	if is_instance_valid(health_label):
+		health_label.text = "VITALITY  %d / %d" % [value, maximum]
+
+
+func _on_enemy_defeated() -> void:
+	remaining_enemies -= 1
+	if remaining_enemies <= 0 and not game_finished:
+		game_finished = true
+		status_label.text = "THE SHORE IS SAFE  •  Chapter complete"
+
+
+func _on_player_defeated() -> void:
+	if not game_finished:
+		game_finished = true
+		status_label.text = "Aru has fallen  •  Press R to return to the shore"
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if game_finished and event is InputEventKey and event.pressed and event.physical_keycode == KEY_R:
+		get_tree().reload_current_scene()

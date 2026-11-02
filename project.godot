@@ -1,0 +1,22 @@
+; Engine configuration file.
+; Veil of Veyra - original mobile action RPG prototype.
+
+config_version=5
+
+[application]
+
+config/name="Veil of Veyra"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.035, 0.075, 0.12, 1)
