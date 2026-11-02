@@ -80,4 +80,5 @@ func _run() -> void:
 	assert(current_scene.potions == 3)
 	print("PASS: death and actual scene retry restore health and consumables")
 	paused = false
+	await create_timer(0.4).timeout
 	quit()

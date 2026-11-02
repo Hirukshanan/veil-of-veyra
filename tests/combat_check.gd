@@ -54,4 +54,5 @@ func _run() -> void:
 	assert(hero.combo_step == 1)
 	print("PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout")
 	paused = false
+	await create_timer(0.4).timeout
 	quit()

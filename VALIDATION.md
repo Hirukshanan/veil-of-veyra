@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Settings sliders, camera scaling, save/reload, discard, mute/unmute, sound stream creation, and invalid setting fallback/clamping.
 - Enemy attack warnings, escaping attack range, delayed damage, and sword-hit interruption.
 - Three-hit sword combo with double-damage finisher and timeout reset.
 - Camp startup, resume, pause, healing limits, purchase cost, upgrade application, save reload.
@@ -29,6 +30,9 @@ Set `APPDATA` to an isolated temporary directory and `VEYRA_TEST=1`. Run Godot f
 godot --headless --path . --script res://tests/gameplay_check.gd
 godot --headless --path . --script res://tests/campaign_smoke.gd
 godot --headless --path . --script res://tests/combat_check.gd
+godot --headless --path . --script res://tests/settings_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.
+
+Audio checks validate stream creation and volume routing, not perceived sound quality. Cues are synthesized placeholders. Combat checks allow audio playback to finish before exiting so the audio server can release its playback resources.

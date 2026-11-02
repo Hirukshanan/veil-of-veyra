@@ -5,6 +5,8 @@
 - Third-person movement, curved blade attacks, dodge, touch controls.
 - Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
 - Enemy attack warnings with range escape and interruptible windups.
+- Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.
+- Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.
 - Dragon boss with warning, charge, breath, and health display.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.

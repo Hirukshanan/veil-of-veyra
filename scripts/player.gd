@@ -26,6 +26,9 @@ var _body_material: StandardMaterial3D
 var _hit_time := 0.0
 var combo_step := 0
 var _combo_window := 0.0
+var camera_sensitivity := 1.0
+var _sound: AudioStreamPlayer
+var _sounds: Dictionary = {}
 
 
 func _ready() -> void:
@@ -34,6 +37,7 @@ func _ready() -> void:
 	_build_character()
 	_build_camera()
 	_build_attack_area()
+	_build_sounds()
 	health_changed.emit(health, max_health)
 
 
@@ -96,8 +100,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _rotate_camera(relative: Vector2) -> void:
-	_camera_pivot.rotation.y -= relative.x * 0.005
-	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003, -0.32, 0.5)
+	_camera_pivot.rotation.y -= relative.x * 0.005 * camera_sensitivity
+	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003 * camera_sensitivity, -0.32, 0.5)
 
 
 func set_move_input(value: Vector2) -> void:
@@ -111,6 +115,7 @@ func attack() -> void:
 	_combo_window = 0.95
 	_attack_cooldown = 0.55 if combo_step == 3 else 0.32
 	_attack_time = ATTACK_DURATION
+	play_sound("sword")
 	var damage := attack_damage * (2 if combo_step == 3 else 1)
 	await get_tree().physics_frame
 	if health <= 0:
@@ -132,6 +137,7 @@ func dodge() -> void:
 		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	_dodge_direction = _dodge_direction.normalized()
 	_dodge_time = 0.2
+	play_sound("dodge")
 	_dodge_cooldown = 0.65
 	_invulnerability_time = 0.35
 
@@ -140,12 +146,45 @@ func take_damage(amount: int) -> void:
 	if _invulnerability_time > 0.0 or health <= 0:
 		return
 	health = maxi(0, health - amount)
+	play_sound("hurt")
 	_hit_time = 0.18
 	_invulnerability_time = 0.45
 	health_changed.emit(health, max_health)
 	if health == 0:
 		_touch_move = Vector2.ZERO
 		defeated.emit()
+
+
+func _build_sounds() -> void:
+	_sound = AudioStreamPlayer.new()
+	_sound.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_sound)
+	# Original synthesized placeholder cues; replace with final sound design later.
+	for cue in ["sword", "dodge", "hurt"]:
+		var data := PackedByteArray()
+		var samples := 6615
+		data.resize(samples * 2)
+		var frequency := 660.0 if cue == "sword" else (330.0 if cue == "dodge" else 110.0)
+		for index in range(samples):
+			var progress := float(index) / samples
+			var phase := TAU * frequency * (float(index) / 22050.0) * (1.0 - 0.4 * progress)
+			var envelope := minf(progress * 40.0, 1.0) * pow(1.0 - progress, 3)
+			data.encode_s16(index * 2, int(sin(phase) * envelope * 8000.0))
+		var stream := AudioStreamWAV.new()
+		stream.format = AudioStreamWAV.FORMAT_16_BITS
+		stream.mix_rate = 22050
+		stream.data = data
+		_sounds[cue] = stream
+
+
+func play_sound(cue: String) -> void:
+	_sound.stream = _sounds[cue]
+	_sound.play()
+
+
+func _exit_tree() -> void:
+	if is_instance_valid(_sound):
+		_sound.stop()
 
 
 func _build_character() -> void:

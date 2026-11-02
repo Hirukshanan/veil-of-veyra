@@ -1,6 +1,7 @@
 extends "res://scripts/main.gd"
 
 const SAVE_PATH := "user://campaign.cfg"
+const SETTINGS_PATH := "user://settings.cfg"
 const CHAPTERS := [
 	["The Silent Shore", "The western lantern has gone dark. Clear the shore and drive back the dragon's first manifestation."],
 	["The Broken Grove", "The lantern keeper's trail leads through a corrupted grove. Break the tide demons' hold on the island."],
@@ -16,10 +17,13 @@ var menu_box: VBoxContainer
 var notice := ""
 var potions := 3
 var started := false
+var camera_sensitivity := 1.0
+var sound_volume := 0.7
 
 func _ready() -> void:
 	_load_progress()
 	super._ready()
+	_load_settings()
 	player.set("max_health", 100 + armor_level * 25)
 	player.set("health", 100 + armor_level * 25)
 	player.set("attack_damage", 1 + blade_level)
@@ -121,6 +125,7 @@ func _show_camp() -> void:
 	_menu_button("Upgrade blade — %d shards" % _cost(blade_level), func(): _upgrade(true), shards < _cost(blade_level) or blade_level >= 4)
 	_menu_button("Upgrade armor — %d shards" % _cost(armor_level), func(): _upgrade(false), shards < _cost(armor_level) or armor_level >= 4)
 	_menu_button("New journey", _confirm_reset)
+	_menu_button("Settings", func(): _show_settings(_show_camp))
 	_menu_button("Quit", func(): get_tree().quit())
 
 func _cost(level: int) -> int:
@@ -154,7 +159,68 @@ func _pause_game() -> void:
 	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting a hunt restores its enemies and your potions.")
 	_menu_button("Resume", _resume)
 	_menu_button("Restart hunt", _reload)
+	_menu_button("Settings", func(): _show_settings(_pause_game))
 	_menu_button("Quit", func(): get_tree().quit())
+
+func _show_settings(back: Callable) -> void:
+	_clear_menu("SETTINGS", "Adjust camera drag speed and sound volume. Changes apply immediately; use Save and back to keep them.")
+	_settings_slider("Camera sensitivity", 0.25, 2.0, 0.05, camera_sensitivity, func(value: float):
+		camera_sensitivity = value
+		_apply_settings())
+	_settings_slider("Sound volume", 0.0, 1.0, 0.05, sound_volume, func(value: float):
+		sound_volume = value
+		_apply_settings())
+	_menu_button("Preview sound", func(): player.call("play_sound", "sword"))
+	var feedback := Label.new()
+	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	menu_box.add_child(feedback)
+	_menu_button("Save and back", func():
+		if _save_settings() == OK:
+			back.call()
+		else:
+			feedback.text = "Settings could not be saved. Try again or go back without saving.")
+	_menu_button("Back without saving", func():
+		_load_settings()
+		back.call())
+
+func _settings_slider(title: String, minimum: float, maximum: float, increment: float, value: float, changed: Callable) -> void:
+	var label := Label.new()
+	label.text = "%s: %.2f" % [title, value]
+	menu_box.add_child(label)
+	var slider := HSlider.new()
+	slider.min_value = minimum
+	slider.max_value = maximum
+	slider.step = increment
+	slider.value = value
+	slider.custom_minimum_size.y = 44
+	slider.value_changed.connect(func(updated: float):
+		label.text = "%s: %.2f" % [title, updated]
+		changed.call(updated))
+	menu_box.add_child(slider)
+
+func _apply_settings() -> void:
+	player.set("camera_sensitivity", camera_sensitivity)
+	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(sound_volume, 0.0001)))
+	AudioServer.set_bus_mute(0, sound_volume == 0.0)
+
+func _save_settings() -> Error:
+	var config := ConfigFile.new()
+	config.set_value("settings", "camera_sensitivity", camera_sensitivity)
+	config.set_value("settings", "sound_volume", sound_volume)
+	return config.save(SETTINGS_PATH)
+
+func _load_settings() -> void:
+	var config := ConfigFile.new()
+	config.load(SETTINGS_PATH)
+	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
+	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
+	_apply_settings()
+
+func _setting_number(config: ConfigFile, key: String, fallback: float, minimum: float, maximum: float) -> float:
+	var value: Variant = config.get_value("settings", key, fallback)
+	if (value is float or value is int) and is_finite(float(value)):
+		return clampf(float(value), minimum, maximum)
+	return fallback
 
 func _heal() -> void:
 	if game_finished or potions <= 0 or int(player.get("health")) <= 0:
