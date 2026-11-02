@@ -3,6 +3,8 @@
 ## Implemented
 
 - Third-person movement, curved blade attacks, dodge, touch controls.
+- Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
+- Enemy attack warnings with range escape and interruptible windups.
 - Three sequential hunts with increasing enemy counts and durability.
 - Dragon boss with warning, charge, breath, and health display.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.

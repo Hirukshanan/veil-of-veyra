@@ -4,6 +4,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Enemy attack warnings, escaping attack range, delayed damage, and sword-hit interruption.
+- Three-hit sword combo with double-damage finisher and timeout reset.
 - Camp startup, resume, pause, healing limits, purchase cost, upgrade application, save reload.
 - All three chapters: enemy count, safe spawn distance, actual sword Area3D overlap damage.
 - Dodge invulnerability and camera orientation independent of player rotation.
@@ -26,6 +28,7 @@ Set `APPDATA` to an isolated temporary directory and `VEYRA_TEST=1`. Run Godot f
 ```text
 godot --headless --path . --script res://tests/gameplay_check.gd
 godot --headless --path . --script res://tests/campaign_smoke.gd
+godot --headless --path . --script res://tests/combat_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

@@ -22,6 +22,10 @@ var _camera_pivot: Node3D
 var _attack_area: Area3D
 var _weapon: Node3D
 var _blade_material: StandardMaterial3D
+var _body_material: StandardMaterial3D
+var _hit_time := 0.0
+var combo_step := 0
+var _combo_window := 0.0
 
 
 func _ready() -> void:
@@ -41,12 +45,17 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		take_damage(20)
 	_attack_cooldown = maxf(0.0, _attack_cooldown - delta)
+	_combo_window = maxf(0.0, _combo_window - delta)
+	if _combo_window == 0.0:
+		combo_step = 0
+	_hit_time = maxf(0.0, _hit_time - delta)
+	_body_material.albedo_color = Color(1, 0.25, 0.2) if _hit_time > 0.0 else Color(0.76, 0.65, 0.39)
 	_attack_time = maxf(0.0, _attack_time - delta)
 	_dodge_cooldown = maxf(0.0, _dodge_cooldown - delta)
 	_invulnerability_time = maxf(0.0, _invulnerability_time - delta)
 	var swing := sin((1.0 - _attack_time / ATTACK_DURATION) * PI) if _attack_time > 0.0 else 0.0
 	_weapon.rotation.z = -0.12 + swing * 0.9
-	_weapon.rotation.y = swing * 0.48
+	_weapon.rotation.y = swing * (-0.65 if combo_step == 2 else 0.65)
 	_blade_material.emission_enabled = _attack_time > 0.0
 
 	var input_vector := _touch_move
@@ -98,12 +107,17 @@ func set_move_input(value: Vector2) -> void:
 func attack() -> void:
 	if _attack_cooldown > 0.0 or health <= 0:
 		return
-	_attack_cooldown = 0.42
+	combo_step = combo_step % 3 + 1
+	_combo_window = 0.95
+	_attack_cooldown = 0.55 if combo_step == 3 else 0.32
 	_attack_time = ATTACK_DURATION
+	var damage := attack_damage * (2 if combo_step == 3 else 1)
 	await get_tree().physics_frame
+	if health <= 0:
+		return
 	for body in _attack_area.get_overlapping_bodies():
 		if body.has_method("take_damage"):
-			body.call("take_damage", attack_damage)
+			body.call("take_damage", damage)
 
 
 func dodge() -> void:
@@ -126,6 +140,7 @@ func take_damage(amount: int) -> void:
 	if _invulnerability_time > 0.0 or health <= 0:
 		return
 	health = maxi(0, health - amount)
+	_hit_time = 0.18
 	_invulnerability_time = 0.45
 	health_changed.emit(health, max_health)
 	if health == 0:
@@ -141,6 +156,7 @@ func _build_character() -> void:
 	body_mesh.mesh = capsule
 	body_mesh.position.y = 0.9
 	var body_material := StandardMaterial3D.new()
+	_body_material = body_material
 	body_material.albedo_color = Color(0.76, 0.65, 0.39)
 	body_material.roughness = 0.82
 	body_mesh.material_override = body_material

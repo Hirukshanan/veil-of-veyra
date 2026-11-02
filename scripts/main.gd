@@ -244,6 +244,16 @@ func _build_hud() -> void:
 	var dodge_button := _make_button("DODGE", Vector2(-310, -130), Vector2(-196, -32))
 	dodge_button.pressed.connect(Callable(player, "dodge"))
 	root.add_child(dodge_button)
+	var combat_hud_timer := Timer.new()
+	combat_hud_timer.wait_time = 0.05
+	combat_hud_timer.autostart = true
+	combat_hud_timer.timeout.connect(func():
+		var cooldown := float(player.get("_dodge_cooldown"))
+		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
+		var step := int(player.get("combo_step"))
+		attack_button.text = "ATTACK\n%d / 3" % step if step > 0 else "ATTACK"
+	)
+	root.add_child(combat_hud_timer)
 
 	var hint := Label.new()
 	hint.text = "Move: WASD / joystick    Attack: J    Dodge: K    Camera: drag"
