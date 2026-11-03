@@ -19,6 +19,7 @@ var _attack_cooldown := 0.0
 var _attack_time := 0.0
 var _invulnerability_time := 0.0
 var _camera_pivot: Node3D
+var _camera_arm: SpringArm3D
 var _attack_area: Area3D
 var _weapon: Node3D
 var _blade_material: StandardMaterial3D
@@ -312,11 +313,25 @@ func _build_camera() -> void:
 	add_child(_camera_pivot)
 	_camera_pivot.top_level = true
 	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
+	_camera_arm = SpringArm3D.new()
+	_camera_arm.rotation.x = -atan(2.0 / 6.0)
+	_camera_arm.spring_length = 6.3
+	_camera_arm.collision_mask = 1 | 4
+	_camera_arm.margin = 0.2
+	var camera_shape := SphereShape3D.new()
+	camera_shape.radius = 0.25
+	_camera_arm.shape = camera_shape
+	_camera_pivot.add_child(_camera_arm)
+	_camera_arm.add_excluded_object(get_rid())
 	var camera := Camera3D.new()
-	camera.position = Vector3(0, 2.0, 6.0)
-	_camera_pivot.add_child(camera)
-	camera.look_at(global_position + Vector3(0, 1.0, 0), Vector3.UP)
+	camera.near = 0.1
+	camera.position.z = _camera_arm.spring_length
+	_camera_arm.add_child(camera)
 	camera.make_current()
+
+
+func set_camera_distance(value: float) -> void:
+	_camera_arm.spring_length = clampf(value, 4.0, 9.0)
 
 
 func _build_attack_area() -> void:

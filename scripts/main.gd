@@ -154,6 +154,19 @@ func _build_decor() -> void:
 		trunk.material_override = _material(Color(0.31, 0.22, 0.15))
 		tree.add_child(trunk)
 
+		# Camera-only blocker: scenery must not trap enemies using direct pursuit.
+		var camera_blocker := StaticBody3D.new()
+		camera_blocker.collision_layer = 4
+		camera_blocker.collision_mask = 0
+		var trunk_collision := CollisionShape3D.new()
+		var trunk_shape := CylinderShape3D.new()
+		trunk_shape.radius = 0.34
+		trunk_shape.height = 3.0
+		trunk_collision.shape = trunk_shape
+		trunk_collision.position.y = 1.5
+		camera_blocker.add_child(trunk_collision)
+		tree.add_child(camera_blocker)
+
 		var crown := MeshInstance3D.new()
 		var crown_mesh := SphereMesh.new()
 		crown_mesh.radius = 1.35

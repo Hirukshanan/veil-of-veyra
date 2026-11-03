@@ -19,6 +19,7 @@ var notice := ""
 var potions := 3
 var started := false
 var camera_sensitivity := 1.0
+var camera_distance := 6.3
 var sound_volume := 0.7
 var pause_menu_open := false
 var lantern: Node3D
@@ -280,12 +281,15 @@ func _pause_game() -> void:
 	_menu_button("Quit", func(): get_tree().quit())
 
 func _show_settings(back: Callable) -> void:
-	_clear_menu("SETTINGS", "Adjust camera drag speed and sound volume. Changes apply immediately; use Save and back to keep them.")
+	_clear_menu("SETTINGS", "Adjust the camera and sound. Changes apply immediately; use Save and back to keep them.")
 	_settings_slider("Camera sensitivity", 0.25, 2.0, 0.05, camera_sensitivity, func(value: float):
 		camera_sensitivity = value
 		_apply_settings())
 	_settings_slider("Sound volume", 0.0, 1.0, 0.05, sound_volume, func(value: float):
 		sound_volume = value
+		_apply_settings())
+	_settings_slider("Camera distance", 4.0, 9.0, 0.1, camera_distance, func(value: float):
+		camera_distance = value
 		_apply_settings())
 	_menu_button("Preview sound", func(): player.call("play_sound", "sword"))
 	var feedback := Label.new()
@@ -317,12 +321,14 @@ func _settings_slider(title: String, minimum: float, maximum: float, increment: 
 
 func _apply_settings() -> void:
 	player.set("camera_sensitivity", camera_sensitivity)
+	player.call("set_camera_distance", camera_distance)
 	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(sound_volume, 0.0001)))
 	AudioServer.set_bus_mute(0, sound_volume == 0.0)
 
 func _save_settings() -> Error:
 	var config := ConfigFile.new()
 	config.set_value("settings", "camera_sensitivity", camera_sensitivity)
+	config.set_value("settings", "camera_distance", camera_distance)
 	config.set_value("settings", "sound_volume", sound_volume)
 	return config.save(SETTINGS_PATH)
 
@@ -330,6 +336,7 @@ func _load_settings() -> void:
 	var config := ConfigFile.new()
 	config.load(SETTINGS_PATH)
 	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
+	camera_distance = _setting_number(config, "camera_distance", 6.3, 4.0, 9.0)
 	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
 	_apply_settings()
 

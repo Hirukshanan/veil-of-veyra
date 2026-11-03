@@ -18,6 +18,8 @@ func _run() -> void:
 			sliders.append(child)
 	sliders[0].value = 1.5
 	sliders[1].value = 0.0
+	sliders[2].value = 8.0
+	assert(scene.player._camera_arm.spring_length == 8.0)
 	assert(scene.player.camera_sensitivity == 1.5)
 	assert(AudioServer.is_bus_mute(0))
 	var yaw := float(scene.player._camera_pivot.rotation.y)
@@ -30,6 +32,7 @@ func _run() -> void:
 	root.add_child(scene)
 	await process_frame
 	assert(scene.camera_sensitivity == 1.5 and scene.sound_volume == 0.0)
+	assert(scene.camera_distance == 8.0 and scene.player._camera_arm.spring_length == 8.0)
 	scene.sound_volume = 0.5
 	scene._apply_settings()
 	assert(not AudioServer.is_bus_mute(0))
@@ -42,9 +45,11 @@ func _run() -> void:
 	var config := ConfigFile.new()
 	config.set_value("settings", "camera_sensitivity", "invalid")
 	config.set_value("settings", "sound_volume", 30)
+	config.set_value("settings", "camera_distance", -100)
 	assert(config.save(scene.SETTINGS_PATH) == OK)
 	scene._load_settings()
 	assert(scene.camera_sensitivity == 1.0 and scene.sound_volume == 1.0)
+	assert(scene.camera_distance == 4.0)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(scene.SETTINGS_PATH))
 	print("PASS: settings controls, pause, camera scaling, save/reload, discard, mute, sound streams, invalid values")
 	paused = false

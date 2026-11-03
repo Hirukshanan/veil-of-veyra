@@ -3,6 +3,7 @@
 ## Implemented
 
 - Third-person movement, curved blade attacks, dodge, touch controls.
+- Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
 - Enemy attack warnings with range escape and interruptible windups.
 - Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.

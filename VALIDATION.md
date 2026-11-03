@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Camera: owner excluded from collision, wall retraction, unobstructed extension, distance adjustment, terrain collision, saved distance reload and invalid-distance clamping.
 - Keeper relics: reachable placement in all chapters, proximity collection, camp/pause guards, single pickup counting, partial versus full victory rewards, no duplicate reward, persisted currency, and collection reset on reload.
 - Escape pause/resume through viewport input, focus/background auto-pause, frozen player state during pause, joystick reset, and settings/camp menu guards.
 - Settings sliders, camera scaling, save/reload, discard, mute/unmute, sound stream creation, and invalid setting fallback/clamping.
@@ -27,6 +28,8 @@ The lantern objective update was checked headlessly only, without opening or foc
 
 The Keeper relic update was also checked headlessly only. Pickup visuals, the additional camp button, and the relic HUD still require visual/device review. Relics are optional and reset with each hunt; only victory rewards are persisted.
 
+Camera collision and distance settings were verified with headless physics, not visual rendering. Camera framing, rapid movement near corners, and the expanded settings layout still need visual/device review. Tree trunks use camera-only blockers; foliage and other decorative meshes without collision shapes do not block the camera. The implementation uses Godot's native [SpringArm3D](https://docs.godotengine.org/en/4.0/classes/class_springarm3d.html).
+
 These checks do not establish Android device performance, multitouch reliability, all display aspect ratios, long-session stability, or enjoyable difficulty. Combat checks use scripted positioning and damage to exercise transitions; they are not a complete human playthrough. Art and animations remain placeholders.
 
 ## Reproduce
@@ -40,6 +43,7 @@ godot --headless --path . --script res://tests/combat_check.gd
 godot --headless --path . --script res://tests/settings_check.gd
 godot --headless --path . --script res://tests/pause_check.gd
 godot --headless --path . --script res://tests/relic_check.gd
+godot --headless --path . --script res://tests/camera_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.
