@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Target lock: keyboard/button activation, nearest living enemy selection, facing/camera movement, actual locked sword overlap damage, explicit/manual camera/range/freed-target/menu/death release, empty selection, and boss selection.
 - Dragon phase thresholds across chapter-scaled health, one-time transition, no phase announcement on lethal damage, preserved active windup/recovery, faster future charge/recovery, attack labels, single-hit damage, and Enraged HUD wiring.
 - Enemy types: chapter composition, health modifiers, pursuit speed, warning radius/timing, damage, escape, interruptibility, health labels, hit-flash recovery, and single defeat signal across Shore/Scout/Brute.
 - Campaign save promotion, previous snapshot rotation, invalid/missing primary recovery, simulated interruption between renames, blocked temporary-file write, invalid type/range rejection, and protection against overwriting two unreadable snapshots.
@@ -27,6 +28,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+Target lock is nearest-by-distance, including targets behind the player; it does not filter by screen visibility or line of sight. Rotation/framing feel and the new touch button/3D marker require visual and phone testing. Menus deliberately clear the lock.
 
 The Enraged phase uses 0.65-second windups and 0.6-second recovery for attacks started after the transition (normal: 0.85 and 0.8). Charge speed increases from 9 to 11; damage is unchanged. Headless state tests pass, but visual legibility, warning coverage, and player difficulty remain unverified.
 
@@ -60,6 +63,7 @@ godot --headless --path . --script res://tests/layout_check.gd
 godot --headless --path . --script res://tests/save_check.gd
 godot --headless --path . --script res://tests/enemy_check.gd
 godot --headless --path . --script res://tests/boss_phase_check.gd
+godot --headless --path . --script res://tests/target_lock_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

@@ -223,6 +223,7 @@ func _clear_menu(title: String, message: String) -> void:
 	pause_menu_open = false
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
+	player.call("clear_target_lock")
 	get_tree().call_group("movement_joysticks", "reset")
 	overlay.show()
 	menu_scroll.scroll_vertical = 0
@@ -272,7 +273,7 @@ func _show_keeper_request() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "SHORE DEMON: balanced movement and melee damage.\n\nSCOUT: fast, fragile, and teal. Its short warning leads to a lighter strike.\n\nBRUTE: large, tough, and red. Its wide attack deals heavy damage after a longer warning.\n\nLeave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or LOCK to face the nearest living enemy within 14 metres. Press again to release. Dragging the camera or opening a menu also releases the lock.\n\nSHORE DEMON: balanced movement and melee damage.\n\nSCOUT: fast, fragile, and teal. Its short warning leads to a lighter strike.\n\nBRUTE: large, tough, and red. Its wide attack deals heavy damage after a longer warning.\n\nLeave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:

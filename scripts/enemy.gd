@@ -27,6 +27,7 @@ var _warning: MeshInstance3D
 
 
 func _ready() -> void:
+	add_to_group("lock_targets")
 	collision_layer = 2
 	collision_mask = 1
 	match kind:

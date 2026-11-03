@@ -7,6 +7,7 @@ const MOVE_SPEED := 5.2
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
+const LOCK_RANGE := 14.0
 
 var health := 100
 var max_health := 100
@@ -30,6 +31,8 @@ var _combo_window := 0.0
 var camera_sensitivity := 1.0
 var _sound: AudioStreamPlayer
 var _sounds: Dictionary = {}
+var locked_target: Node3D
+var _lock_marker: Label3D
 
 
 func _ready() -> void:
@@ -39,6 +42,14 @@ func _ready() -> void:
 	_build_camera()
 	_build_attack_area()
 	_build_sounds()
+	_lock_marker = Label3D.new()
+	_lock_marker.text = "▼ LOCKED"
+	_lock_marker.modulate = Color(1.0, 0.85, 0.3)
+	_lock_marker.font_size = 32
+	_lock_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	add_child(_lock_marker)
+	_lock_marker.top_level = true
+	_lock_marker.hide()
 	health_changed.emit(health, max_health)
 
 
@@ -71,6 +82,9 @@ func _physics_process(delta: float) -> void:
 		attack()
 	if Input.is_action_just_pressed(&"dodge"):
 		dodge()
+	if Input.is_action_just_pressed(&"target_lock"):
+		toggle_target_lock()
+	_update_target_lock(delta)
 
 	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	if direction.length_squared() > 1.0:
@@ -82,7 +96,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = direction.x * MOVE_SPEED
 		velocity.z = direction.z * MOVE_SPEED
-		if direction.length_squared() > 0.01:
+		if direction.length_squared() > 0.01 and not is_instance_valid(locked_target):
 			rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), delta * 12.0)
 
 	if not is_on_floor():
@@ -101,12 +115,52 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _rotate_camera(relative: Vector2) -> void:
+	clear_target_lock()
 	_camera_pivot.rotation.y -= relative.x * 0.005 * camera_sensitivity
 	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003 * camera_sensitivity, -0.32, 0.5)
 
 
 func set_move_input(value: Vector2) -> void:
 	_touch_move = value
+
+
+func _can_lock(candidate: Node3D) -> bool:
+	return is_instance_valid(candidate) and not candidate.is_queued_for_deletion() and int(candidate.get("health")) > 0 and global_position.distance_to(candidate.global_position) <= LOCK_RANGE
+
+
+func toggle_target_lock() -> void:
+	if health <= 0 or get_tree().paused:
+		return
+	if is_instance_valid(locked_target):
+		clear_target_lock()
+		return
+	var nearest := LOCK_RANGE + 0.01
+	for candidate in get_tree().get_nodes_in_group("lock_targets"):
+		if _can_lock(candidate):
+			var distance := global_position.distance_to(candidate.global_position)
+			if distance < nearest:
+				nearest = distance
+				locked_target = candidate
+	_update_target_lock(0.0)
+
+
+func clear_target_lock() -> void:
+	locked_target = null
+	if is_instance_valid(_lock_marker):
+		_lock_marker.hide()
+
+
+func _update_target_lock(delta: float) -> void:
+	if not _can_lock(locked_target):
+		clear_target_lock()
+		return
+	var offset := locked_target.global_position - global_position
+	if Vector2(offset.x, offset.z).length_squared() > 0.01:
+		var yaw := atan2(-offset.x, -offset.z)
+		rotation.y = yaw
+		_camera_pivot.rotation.y = lerp_angle(_camera_pivot.rotation.y, yaw, 1.0 - exp(-6.0 * delta))
+	_lock_marker.global_position = locked_target.global_position + Vector3(0, 3.7, 0)
+	_lock_marker.show()
 
 
 func attack() -> void:
@@ -152,6 +206,7 @@ func take_damage(amount: int) -> void:
 	_invulnerability_time = 0.45
 	health_changed.emit(health, max_health)
 	if health == 0:
+		clear_target_lock()
 		_touch_move = Vector2.ZERO
 		defeated.emit()
 

@@ -3,6 +3,7 @@
 ## Implemented
 
 - Third-person movement, curved blade attacks, dodge, touch controls.
+- Tab/on-screen target lock selects the nearest living enemy within 14 metres, tracks facing/camera, marks the target, and releases on manual camera input, menus, death, removal or range exit.
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
 - Enemy attack warnings with range escape and interruptible windups.

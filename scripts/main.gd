@@ -76,6 +76,7 @@ func _setup_input() -> void:
 	_bind_keys(&"move_back", [KEY_S, KEY_DOWN])
 	_bind_keys(&"attack", [KEY_J])
 	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
+	_bind_keys(&"target_lock", [KEY_TAB])
 
 
 func _bind_keys(action: StringName, keys: Array) -> void:
@@ -265,6 +266,10 @@ func _build_hud() -> void:
 	var dodge_button := _make_button("DODGE", Vector2(-310, -130), Vector2(-196, -32))
 	dodge_button.pressed.connect(Callable(player, "dodge"))
 	root.add_child(dodge_button)
+	var lock_button := _make_button("LOCK\n[TAB]", Vector2(-310, -210), Vector2(-196, -145))
+	lock_button.name = "TargetLockButton"
+	lock_button.pressed.connect(Callable(player, "toggle_target_lock"))
+	root.add_child(lock_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
@@ -273,6 +278,7 @@ func _build_hud() -> void:
 		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
 		var step := int(player.get("combo_step"))
 		attack_button.text = "ATTACK\n%d / 3" % step if step > 0 else "ATTACK"
+		lock_button.text = "UNLOCK" if is_instance_valid(player.get("locked_target")) else "LOCK\n[TAB]"
 	)
 	root.add_child(combat_hud_timer)
 

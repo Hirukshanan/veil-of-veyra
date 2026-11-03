@@ -26,6 +26,7 @@ var _attack_label: Label3D
 
 
 func _ready() -> void:
+	add_to_group("lock_targets")
 	collision_layer = 2
 	collision_mask = 1
 	_build_body()
