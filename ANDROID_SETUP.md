@@ -1,6 +1,6 @@
 # Android development setup
 
-Status checked on 2026-11-03: Java 21 and Android Studio are installed. Android SDK/platform tools and Godot export templates were not found in their default locations; no export preset exists. No APK/AAB has been produced or tested.
+Status checked on 2026-11-03: Java 21, Android Studio, and the SDK/platform/build tools at `C:\Users\Dark\AppData\Local\Android\Sdk` are installed. Matching Godot export templates and an export preset are missing. No APK/AAB has been produced or tested. The sandbox redirects LOCALAPPDATA, so its default SDK lookup initially gave a false negative; use the explicit SDK path above for this machine.
 
 ## Check prerequisites without opening a window
 
