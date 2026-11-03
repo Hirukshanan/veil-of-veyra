@@ -11,7 +11,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 - Camp startup, resume, pause, healing limits, purchase cost, upgrade application, save reload.
 - All three chapters: enemy count, safe spawn distance, actual sword Area3D overlap damage.
 - Dodge invulnerability and camera orientation independent of player rotation.
-- Actual wave defeat signals spawn the dragon with chapter-scaled health.
+- Wave defeat unlocks the chapter lantern. Nearby E/button interaction lights it and spawns one dragon with chapter-scaled health.
+- Lantern interaction rejects uncleared enemies, distant players, paused gameplay, and repeated activation; retry resets the objective.
 - Dragon windup/breath transition and damage to a player in its attack cone.
 - Boss defeat signals advance chapters, grant rewards, and reach the final ending.
 - Player death and actual scene reload restore health and potions.
@@ -20,6 +21,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+The lantern objective update was checked headlessly only, without opening or focusing a game window. Its visual layout and on-device touch interaction remain pending.
 
 These checks do not establish Android device performance, multitouch reliability, all display aspect ratios, long-session stability, or enjoyable difficulty. Combat checks use scripted positioning and damage to exercise transitions; they are not a complete human playthrough. Art and animations remain placeholders.
 

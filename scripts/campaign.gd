@@ -3,9 +3,9 @@ extends "res://scripts/main.gd"
 const SAVE_PATH := "user://campaign.cfg"
 const SETTINGS_PATH := "user://settings.cfg"
 const CHAPTERS := [
-	["The Silent Shore", "The western lantern has gone dark. Clear the shore and drive back the dragon's first manifestation."],
-	["The Broken Grove", "The lantern keeper's trail leads through a corrupted grove. Break the tide demons' hold on the island."],
-	["The Last Lantern", "The Tidewraith guards the source of the darkness. Defeat its final manifestation and restore Veyra's light."]
+	["The Silent Shore", "The western lantern has gone dark. Defeat the shore demons, then approach the lantern and light it to draw out the dragon."],
+	["The Broken Grove", "Follow the keeper's trail. Clear the grove's demons and light its lantern to expose the Tidewraith's next manifestation."],
+	["The Last Lantern", "Break the final seal: defeat the demons and light the last lantern. Destroy the dragon to restore Veyra's light."]
 ]
 var chapter := 0
 var shards := 0
@@ -20,6 +20,72 @@ var started := false
 var camera_sensitivity := 1.0
 var sound_volume := 0.7
 var pause_menu_open := false
+var lantern: Node3D
+var lantern_flame: MeshInstance3D
+var lantern_label: Label3D
+var interact_button: Button
+var lantern_lit := false
+
+func _process(_delta: float) -> void:
+	if started and not game_finished:
+		_update_objective()
+		if Input.is_action_just_pressed(&"interact"):
+			_interact_lantern()
+
+func _build_lantern() -> void:
+	lantern = Node3D.new()
+	lantern.name = "ChapterLantern"
+	lantern.position = [Vector3(-7, 0, 1), Vector3(7, 0, 1), Vector3(0, 0, 5)][chapter]
+	add_child(lantern)
+	var pedestal := MeshInstance3D.new()
+	var stone := CylinderMesh.new()
+	stone.top_radius = 0.45
+	stone.bottom_radius = 0.7
+	stone.height = 1.4
+	pedestal.mesh = stone
+	pedestal.position.y = 0.7
+	pedestal.material_override = _material(Color(0.3, 0.35, 0.38))
+	lantern.add_child(pedestal)
+	lantern_flame = MeshInstance3D.new()
+	var flame := SphereMesh.new()
+	flame.radius = 0.3
+	flame.height = 0.8
+	lantern_flame.mesh = flame
+	lantern_flame.position.y = 1.8
+	var glow := _material(Color(0.3, 0.75, 0.9))
+	glow.emission_enabled = true
+	glow.emission = Color(0.2, 0.65, 0.85)
+	lantern_flame.material_override = glow
+	lantern_flame.hide()
+	lantern.add_child(lantern_flame)
+	lantern_label = Label3D.new()
+	lantern_label.text = "SEALED LANTERN"
+	lantern_label.position.y = 2.7
+	lantern_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	lantern_label.font_size = 40
+	lantern.add_child(lantern_label)
+	_bind_keys(&"interact", [KEY_E])
+
+func _update_objective() -> void:
+	var objective := "Defeat shore demons: %d" % remaining_enemies
+	if boss_spawned:
+		objective = "Defeat the Tidewraith Dragon"
+	elif remaining_enemies == 0:
+		objective = "Light the lantern: %.0f m | E / LIGHT" % player.global_position.distance_to(lantern.global_position)
+	status_label.text = "%s | Potions: %d" % [objective, potions]
+	interact_button.visible = remaining_enemies == 0 and not lantern_lit
+	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
+
+func _interact_lantern() -> void:
+	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or lantern_lit:
+		return
+	if player.global_position.distance_to(lantern.global_position) > 2.5:
+		return
+	lantern_lit = true
+	lantern_flame.show()
+	lantern_label.text = "LANTERN RESTORED"
+	_spawn_boss()
+	_update_objective()
 
 class PauseOverlay extends CanvasLayer:
 	signal pause_requested
@@ -51,6 +117,7 @@ func _ready() -> void:
 	player.set("attack_damage", 1 + blade_level)
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
+	_build_lantern()
 	_show_camp()
 
 func _build_enemies() -> void:
@@ -95,6 +162,10 @@ func _build_campaign_ui() -> void:
 	heal_button.size = Vector2(140, 48)
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
+	interact_button = _make_button("LIGHT [E]", Vector2(-470, -105), Vector2(-330, -35))
+	interact_button.pressed.connect(_interact_lantern)
+	interact_button.hide()
+	controls.add_child(interact_button)
 	overlay = PauseOverlay.new()
 	overlay.connect("pause_requested", _toggle_pause)
 	overlay.layer = 20
@@ -177,7 +248,7 @@ func _resume() -> void:
 	started = true
 	overlay.hide()
 	get_tree().paused = false
-	status_label.text = "%s | Shore demons: %d | Potions: %d" % [CHAPTERS[chapter][0], remaining_enemies, potions]
+	_update_objective()
 
 func _pause_game() -> void:
 	if game_finished or not started:
@@ -258,12 +329,13 @@ func _heal() -> void:
 	potions -= 1
 	player.set("health", mini(maximum, int(player.get("health")) + 50))
 	_on_health_changed(int(player.get("health")), maximum)
-	status_label.text = "Healing draught used | Potions: %d" % potions
+	_update_objective()
 
 func _on_enemy_defeated() -> void:
-	super._on_enemy_defeated()
-	if not boss_spawned:
-		status_label.text = "%s | Shore demons remaining: %d" % [CHAPTERS[chapter][0], remaining_enemies]
+	remaining_enemies = maxi(0, remaining_enemies - 1)
+	if remaining_enemies == 0 and not game_finished:
+		lantern_label.text = "LIGHT THE LANTERN"
+	_update_objective()
 
 func _on_boss_defeated() -> void:
 	if game_finished:
