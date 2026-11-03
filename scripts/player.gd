@@ -26,7 +26,7 @@ var _camera_arm: SpringArm3D
 var _attack_area: Area3D
 var _weapon: Node3D
 var _blade_material: StandardMaterial3D
-var _body_material: StandardMaterial3D
+var _visual: Node3D
 var _hit_time := 0.0
 var combo_step := 0
 var _combo_window := 0.0
@@ -69,13 +69,9 @@ func _physics_process(delta: float) -> void:
 	if _combo_window == 0.0:
 		combo_step = 0
 	_hit_time = maxf(0.0, _hit_time - delta)
-	_body_material.albedo_color = Color(1, 0.25, 0.2) if _hit_time > 0.0 else Color(0.76, 0.65, 0.39)
 	_attack_time = maxf(0.0, _attack_time - delta)
 	_dodge_cooldown = maxf(0.0, _dodge_cooldown - delta)
 	_invulnerability_time = maxf(0.0, _invulnerability_time - delta)
-	var swing := sin((1.0 - _attack_time / ATTACK_DURATION) * PI) if _attack_time > 0.0 else 0.0
-	_weapon.rotation.z = -0.12 + swing * 0.9
-	_weapon.rotation.y = swing * (-0.65 if combo_step == 2 else 0.65)
 	_blade_material.emission_enabled = _attack_time > 0.0
 
 	var input_vector := _touch_move
@@ -114,6 +110,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 	move_and_slide()
+	_visual.update_motion(delta, Vector2(velocity.x, velocity.z).length() > 0.2, _hit_time > 0)
 	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
 
 
@@ -180,6 +177,7 @@ func attack() -> void:
 	_combo_window = 0.95
 	_attack_cooldown = 0.55 if combo_step == 3 else 0.32
 	_attack_time = ATTACK_DURATION
+	_visual.action("Sword_Attack", _attack_cooldown)
 	play_sound("sword")
 	var damage := attack_damage * (2 if combo_step == 3 else 1)
 	await get_tree().physics_frame
@@ -203,6 +201,7 @@ func spirit_burst() -> void:
 
 func _perform_spirit_burst() -> void:
 	spirit = 0
+	_visual.action("Spell_Simple_Shoot", 0.65)
 	_attack_cooldown = 0.65
 	combo_step = 0
 	_combo_window = 0.0
@@ -250,6 +249,7 @@ func dodge() -> void:
 		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	_dodge_direction = _dodge_direction.normalized()
 	_dodge_time = 0.2
+	_visual.action("Roll", 0.4)
 	play_sound("dodge")
 	_dodge_cooldown = 0.65
 	_invulnerability_time = 0.35
@@ -261,6 +261,7 @@ func take_damage(amount: int) -> void:
 	health = maxi(0, health - amount)
 	play_sound("hurt")
 	_hit_time = 0.18
+	_visual.action("Death01" if health == 0 else "Hit_Chest", 1.2 if health == 0 else 0.18)
 	_invulnerability_time = 0.45
 	health_changed.emit(health, max_health)
 	if health == 0:
@@ -303,18 +304,8 @@ func _exit_tree() -> void:
 
 
 func _build_character() -> void:
-	var body_mesh := MeshInstance3D.new()
-	var capsule := CapsuleMesh.new()
-	capsule.radius = 0.42
-	capsule.height = 1.8
-	body_mesh.mesh = capsule
-	body_mesh.position.y = 0.9
-	var body_material := StandardMaterial3D.new()
-	_body_material = body_material
-	body_material.albedo_color = Color(0.76, 0.65, 0.39)
-	body_material.roughness = 0.82
-	body_mesh.material_override = body_material
-	add_child(body_mesh)
+	_visual = preload("res://scripts/hero_visual.gd").new()
+	add_child(_visual)
 
 	var collision := CollisionShape3D.new()
 	var shape := CapsuleShape3D.new()
@@ -329,9 +320,9 @@ func _build_character() -> void:
 
 func _build_weapon() -> void:
 	_weapon = Node3D.new()
-	_weapon.position = Vector3(0.48, 0.78, -0.32)
-	_weapon.rotation.z = -0.12
-	add_child(_weapon)
+	_visual.hand.add_child(_weapon)
+	_weapon.position = Vector3(0, 0.08, 0.18)
+	_weapon.rotation.x = PI / 2.0
 
 	var blade_instance := MeshInstance3D.new()
 	blade_instance.mesh = _make_curved_blade()

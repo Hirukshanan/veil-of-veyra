@@ -21,4 +21,4 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 
 See [Android setup](ANDROID_SETUP.md) for build prerequisites and device acceptance checks.
 
-The current models are simple generated shapes. Story, character names, art, animation, sound, and Android export setup are still early prototype work.
+The hero now uses a Quaternius rigged base with idle, sprint, sword attack, roll, hit, death, and Spirit Burst animations. The base body is temporary; Aru's costume and hair are not final. Enemies and environments still use generated shapes. See [asset credits](assets/characters/quaternius/README.md) for sources and licenses. Story, sound, visual polish, and Android export remain prototype work.

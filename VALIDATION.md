@@ -72,6 +72,7 @@ godot --headless --path . --script res://tests/boss_phase_check.gd
 godot --headless --path . --script res://tests/target_lock_check.gd
 godot --headless --path . --script res://tests/environment_check.gd
 godot --headless --path . --script res://tests/spirit_check.gd
+godot --headless --path . --script res://tests/hero_animation_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.
@@ -93,3 +94,18 @@ Rendered and inspected six 1280×720 screenshots on Windows / Intel Iris Xe Open
 Fixed a relic label becoming oversized near the camera, moved the final lantern away from the initial player view, and made menu backgrounds opaque. Re-rendered and inspected the corrected views. Gameplay, relic, environment, and layout regression checks passed after the edits. Screenshots are in ignored `.validation/review_*.png`.
 
 Remaining: distant 3D labels are small, art is primitive, camp requires scrolling, full combat readability/motion and continuous manual playthrough remain unverified. The capture script stages positions and effects; it is not a completed hunt. Android adb was absent from PATH and the default SDK location, and no export preset was found. No physical-device or emulator test was performed.
+
+## Animated hero pass — 2026-11-03
+
+Replaced the capsule hero with the CC0 Quaternius base and seven selected skeletal
+clips. All 15 headless suites passed, including the new rig/track validity,
+right-hand weapon attachment, locomotion/action priority, death state, and
+visual-only movement check. Existing combat damage and movement checks still pass.
+
+Rendered via a minimized native Windows OpenGL window and inspected static idle,
+attack, sprint, and roll poses plus the chapter-zero gameplay view. Screenshots
+are in ignored `.validation/hero_*.png` and `.validation/review_*.png`. These are
+staged poses, not a continuous animation-quality or complete-hunt acceptance test.
+The base is visibly unfinished (bare torso/shorts); final costume, transitions,
+combo variety, weapon contact timing, and real Android performance remain pending.
+No APK or physical-device test was performed in this pass.
