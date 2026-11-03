@@ -3,7 +3,7 @@ extends Node3D
 # Quaternius CC0 art. Gameplay movement remains on the CharacterBody3D.
 const MODEL = preload("res://assets/characters/quaternius/Superhero_Male_FullBody.gltf")
 const MOTIONS = preload("res://assets/characters/quaternius/UAL1_Standard.glb")
-const CLIPS := ["Sword_Idle", "Sprint", "Sword_Attack", "Roll", "Hit_Chest", "Death01", "Spell_Simple_Shoot"]
+const CLIPS := ["Sword_Idle", "Walk", "Sprint", "Sword_Attack", "Roll", "Hit_Chest", "Death01", "Spell_Simple_Shoot"]
 
 var animator: AnimationPlayer
 var hand: BoneAttachment3D
@@ -26,7 +26,7 @@ func _ready() -> void:
 	var library := AnimationLibrary.new()
 	for clip in CLIPS:
 		var animation: Animation = source_player.get_animation(clip).duplicate(true)
-		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Sprint"] else Animation.LOOP_NONE
+		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Walk", "Sprint"] else Animation.LOOP_NONE
 		for track in range(animation.get_track_count() - 1, -1, -1):
 			var bone_name := animation.track_get_path(track).get_subname(0)
 			var target_bone := skeleton.find_bone(bone_name)
@@ -57,15 +57,16 @@ func _ready() -> void:
 	animator.play("Sword_Idle")
 
 
-func update_motion(delta: float, moving: bool, hurt: bool) -> void:
+func update_motion(delta: float, speed: float, hurt: bool) -> void:
 	for mesh in _meshes:
 		mesh.material_overlay = _flash if hurt else null
 	_action_time = maxf(0, _action_time - delta)
 	if _dead or _action_time > 0:
 		return
-	var clip := "Sprint" if moving else "Sword_Idle"
+	var clip := "Sword_Idle" if speed <= 0.2 else ("Walk" if speed < 3.0 else "Sprint")
 	if animator.current_animation != clip:
 		animator.play(clip, 0.12)
+	animator.speed_scale = 1.0 if clip == "Sword_Idle" else clampf(speed / (2.0 if clip == "Walk" else 5.2), 0.25, 1.5)
 
 
 func action(clip: String, duration: float) -> void:
@@ -73,5 +74,11 @@ func action(clip: String, duration: float) -> void:
 		return
 	_dead = clip == "Death01"
 	_action_time = duration
-	animator.stop()
+	animator.speed_scale = 1.0
+	if _dead:
+		for mesh in _meshes:
+			mesh.material_overlay = null
+	# Preserve the outgoing pose for blending; only repeated clips need a restart.
+	if animator.current_animation == clip:
+		animator.seek(0.0)
 	animator.play(clip, 0.04, animator.get_animation(clip).length / duration)

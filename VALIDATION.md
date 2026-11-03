@@ -121,3 +121,15 @@ All 15 headless suites passed. Combat coverage now verifies no early damage and
 cancellation by dodge, damage, and menu transitions. Precise blade/contact-frame
 alignment and continuous animation feel still require visual playtesting; these
 initial windup values are gameplay tuning, not mesh-based sword collision.
+
+## Analog locomotion and action transitions — 2026-11-03
+
+The hero now walks below 3 m/s and sprints above that speed, with playback scaled
+to horizontal movement. Idle starts at or below 0.2 m/s. Actions restore normal
+playback speed before applying their duration, and preserve outgoing poses for
+blending instead of stopping the animator. Repeated actions restart their clip.
+Death also clears any lingering damage overlay.
+
+The hero animation, combat, and three-chapter gameplay suites passed headlessly.
+Coverage includes slow-walk playback and restoring normal action speed. Continuous
+visual smoothness and physical-device behavior remain unverified for this pass.

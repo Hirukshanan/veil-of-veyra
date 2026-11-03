@@ -16,8 +16,8 @@ The glTF's missing texture references `T_Hair_1_Normal_png.png` and
 No original geometry or textures were changed. Godot `.import` sidecars are included;
 generated `.godot` caches are not.
 
-`scripts/hero_visual.gd` selects seven clips, adjusts local bone rotation/rest-position
-differences onto the base skeleton, loops idle/sprint, and rotates the visual to face -Z.
+`scripts/hero_visual.gd` selects eight clips, adjusts local bone rotation/rest-position
+differences onto the base skeleton, loops idle/walk/sprint, and rotates the visual to face -Z.
 The original procedural island blade attaches to `hand_r`. Animation never drives
 the player's collision body. Existing hit volumes remain
 unchanged; animation playback fits action durations, with 0.12-second light and 0.20-second heavy contact windups.

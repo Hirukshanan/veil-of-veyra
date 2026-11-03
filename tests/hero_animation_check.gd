@@ -22,20 +22,24 @@ func _run() -> void:
 		assert(animation != null and animation.get_track_count() > 0)
 		for track in range(animation.get_track_count()):
 			assert(rig.find_bone(animation.track_get_path(track).get_subname(0)) >= 0)
-	visual.update_motion(1, true, false)
+	visual.update_motion(1, 5.2, false)
 	assert(visual.animator.current_animation == "Sprint")
-	visual.update_motion(1, false, false)
+	visual.update_motion(1, 0.0, false)
 	assert(visual.animator.current_animation == "Sword_Idle")
+	visual.update_motion(1, 1.0, false)
+	assert(visual.animator.current_animation == "Walk")
+	assert(is_equal_approx(visual.animator.speed_scale, 0.5))
 	var start: Vector3 = hero.position
 	hero.attack()
 	assert(visual.animator.current_animation == "Sword_Attack")
+	assert(visual.animator.speed_scale == 1.0, "Slow walking must not slow combat playback")
 	await physics_frame
 	await physics_frame
 	visual.animator.advance(0.1)
 	assert(hero.position == start, "Animation must not move the gameplay body")
-	visual.update_motion(0.01, true, false)
+	visual.update_motion(0.01, 5.2, false)
 	assert(visual.animator.current_animation == "Sword_Attack", "Locomotion must not interrupt attacks")
-	visual.update_motion(1, false, false)
+	visual.update_motion(1, 0.0, false)
 	assert(visual.animator.current_animation == "Sword_Idle")
 	hero.dodge()
 	assert(visual.animator.current_animation == "Roll")
@@ -45,7 +49,7 @@ func _run() -> void:
 	hero._invulnerability_time = 0
 	hero.take_damage(999)
 	assert(visual.animator.current_animation == "Death01")
-	visual.update_motion(3, true, false)
+	visual.update_motion(3, 5.2, false)
 	visual.action("Sword_Attack", 0.32)
 	assert(visual.animator.current_animation == "Death01", "Death must remain terminal")
 	paused = false

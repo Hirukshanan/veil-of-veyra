@@ -111,7 +111,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0.0
 	move_and_slide()
-	_visual.update_motion(delta, Vector2(velocity.x, velocity.z).length() > 0.2, _hit_time > 0)
+	_visual.update_motion(delta, Vector2(velocity.x, velocity.z).length(), _hit_time > 0)
 	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
 
 
