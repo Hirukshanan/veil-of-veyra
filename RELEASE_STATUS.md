@@ -9,6 +9,7 @@
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.
 - Chapter lantern objectives: clear enemies, approach and light the lantern with E or the on-screen button, then defeat the dragon.
+- Optional Keeper relic hunt: three chapter-specific pickup locations, distance/progress HUD, camp instructions, and 20 bonus shards for collecting all three before victory.
 - Dragon boss with warning, charge, breath, and health display.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.

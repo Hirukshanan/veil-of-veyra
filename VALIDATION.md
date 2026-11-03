@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Keeper relics: reachable placement in all chapters, proximity collection, camp/pause guards, single pickup counting, partial versus full victory rewards, no duplicate reward, persisted currency, and collection reset on reload.
 - Escape pause/resume through viewport input, focus/background auto-pause, frozen player state during pause, joystick reset, and settings/camp menu guards.
 - Settings sliders, camera scaling, save/reload, discard, mute/unmute, sound stream creation, and invalid setting fallback/clamping.
 - Enemy attack warnings, escaping attack range, delayed damage, and sword-hit interruption.
@@ -24,6 +25,8 @@ The rendered gameplay inspection showed enemies starting too close to the player
 
 The lantern objective update was checked headlessly only, without opening or focusing a game window. Its visual layout and on-device touch interaction remain pending.
 
+The Keeper relic update was also checked headlessly only. Pickup visuals, the additional camp button, and the relic HUD still require visual/device review. Relics are optional and reset with each hunt; only victory rewards are persisted.
+
 These checks do not establish Android device performance, multitouch reliability, all display aspect ratios, long-session stability, or enjoyable difficulty. Combat checks use scripted positioning and damage to exercise transitions; they are not a complete human playthrough. Art and animations remain placeholders.
 
 ## Reproduce
@@ -36,6 +39,7 @@ godot --headless --path . --script res://tests/campaign_smoke.gd
 godot --headless --path . --script res://tests/combat_check.gd
 godot --headless --path . --script res://tests/settings_check.gd
 godot --headless --path . --script res://tests/pause_check.gd
+godot --headless --path . --script res://tests/relic_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

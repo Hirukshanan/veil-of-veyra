@@ -2,6 +2,7 @@ extends "res://scripts/main.gd"
 
 const SAVE_PATH := "user://campaign.cfg"
 const SETTINGS_PATH := "user://settings.cfg"
+const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
 const CHAPTERS := [
 	["The Silent Shore", "The western lantern has gone dark. Defeat the shore demons, then approach the lantern and light it to draw out the dragon."],
 	["The Broken Grove", "Follow the keeper's trail. Clear the grove's demons and light its lantern to expose the Tidewraith's next manifestation."],
@@ -25,6 +26,8 @@ var lantern_flame: MeshInstance3D
 var lantern_label: Label3D
 var interact_button: Button
 var lantern_lit := false
+var relic_hunt: Node3D
+var relic_status: Label
 
 func _process(_delta: float) -> void:
 	if started and not game_finished:
@@ -73,6 +76,7 @@ func _update_objective() -> void:
 	elif remaining_enemies == 0:
 		objective = "Light the lantern: %.0f m | E / LIGHT" % player.global_position.distance_to(lantern.global_position)
 	status_label.text = "%s | Potions: %d" % [objective, potions]
+	relic_status.text = relic_hunt.call("progress_text")
 	interact_button.visible = remaining_enemies == 0 and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
 
@@ -118,6 +122,10 @@ func _ready() -> void:
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
 	_build_lantern()
+	relic_hunt = RELIC_HUNT_SCRIPT.new()
+	relic_hunt.set("player", player)
+	relic_hunt.set("chapter", chapter)
+	add_child(relic_hunt)
 	_show_camp()
 
 func _build_enemies() -> void:
@@ -162,6 +170,11 @@ func _build_campaign_ui() -> void:
 	heal_button.size = Vector2(140, 48)
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
+	relic_status = Label.new()
+	relic_status.position = Vector2(30, 84)
+	relic_status.add_theme_font_size_override("font_size", 15)
+	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
+	controls.add_child(relic_status)
 	interact_button = _make_button("LIGHT [E]", Vector2(-470, -105), Vector2(-330, -35))
 	interact_button.pressed.connect(_interact_lantern)
 	interact_button.hide()
@@ -221,11 +234,16 @@ func _show_camp() -> void:
 	_menu_button("Upgrade blade — %d shards" % _cost(blade_level), func(): _upgrade(true), shards < _cost(blade_level) or blade_level >= 4)
 	_menu_button("Upgrade armor — %d shards" % _cost(armor_level), func(): _upgrade(false), shards < _cost(armor_level) or armor_level >= 4)
 	_menu_button("New journey", _confirm_reset)
+	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
 	_menu_button("Quit", func(): get_tree().quit())
 
 func _cost(level: int) -> int:
 	return (level + 1) * 20
+
+func _show_keeper_request() -> void:
+	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon in the same hunt to earn 20 bonus shards.\n\nThis quest is optional. Restarting a hunt resets collected relics.")
+	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:
 	var level := blade_level if blade else armor_level
@@ -246,6 +264,7 @@ func _upgrade(blade: bool) -> void:
 func _resume() -> void:
 	pause_menu_open = false
 	started = true
+	relic_hunt.set("active", true)
 	overlay.hide()
 	get_tree().paused = false
 	_update_objective()
@@ -253,7 +272,7 @@ func _resume() -> void:
 func _pause_game() -> void:
 	if game_finished or not started:
 		return
-	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting a hunt restores its enemies and your potions.")
+	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting resets enemies, potions, and relic collection.")
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Restart hunt", _reload)
@@ -341,7 +360,9 @@ func _on_boss_defeated() -> void:
 	if game_finished:
 		return
 	super._on_boss_defeated()
-	var reward := 40 + chapter * 20
+	relic_hunt.set("active", false)
+	var bonus := int(relic_hunt.call("reward"))
+	var reward := 40 + chapter * 20 + bonus
 	shards += reward
 	var final_hunt := chapter == CHAPTERS.size() - 1
 	if final_hunt:
@@ -349,7 +370,7 @@ func _on_boss_defeated() -> void:
 	else:
 		chapter += 1
 	_save_progress()
-	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards.\n%s\n%s" % [reward, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
+	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards (relic bonus: %d).\n%s\n%s" % [reward, bonus, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
 	_menu_button("Return to camp", _reload)
 
 func _on_player_defeated() -> void:
