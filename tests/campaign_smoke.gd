@@ -7,6 +7,7 @@ func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1", "Run only with an isolated test APPDATA directory")
 	if FileAccess.file_exists("user://campaign.cfg"):
 		DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg"))
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg.bak"))
 	var scene = load("res://scenes/main.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame

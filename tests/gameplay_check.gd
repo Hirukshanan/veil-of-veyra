@@ -6,6 +6,7 @@ func _initialize() -> void:
 func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg"))
+	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg.bak"))
 	for chapter in range(3):
 		var scene = load("res://scenes/main.tscn").instantiate()
 		root.add_child(scene)

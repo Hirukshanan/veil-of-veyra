@@ -1,6 +1,7 @@
 extends "res://scripts/main.gd"
 
 const SAVE_PATH := "user://campaign.cfg"
+const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
 const CHAPTERS := [
@@ -17,6 +18,7 @@ var overlay: CanvasLayer
 var menu_box: VBoxContainer
 var menu_scroll: ScrollContainer
 var notice := ""
+var progress_unreadable := false
 var potions := 3
 var started := false
 var camera_sensitivity := 1.0
@@ -396,9 +398,22 @@ func _on_boss_defeated() -> void:
 		completed = true
 	else:
 		chapter += 1
-	_save_progress()
+	var saved := _save_progress()
 	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards (relic bonus: %d).\n%s\n%s" % [reward, bonus, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
-	_menu_button("Return to camp", _reload)
+	_menu_button("Return to camp" if saved else "Retry save and return", _reload if saved else _retry_save_and_return)
+	if not saved:
+		_menu_button("Return without saving this session", _reload)
+
+func _retry_save_and_return() -> void:
+	if _save_progress():
+		_reload()
+	else:
+		_show_save_failure()
+
+func _show_save_failure() -> void:
+	_clear_menu("PROGRESS NOT SAVED", notice)
+	_menu_button("Retry save and return", _retry_save_and_return)
+	_menu_button("Return without saving this session", _reload)
 
 func _on_player_defeated() -> void:
 	super._on_player_defeated()
@@ -415,29 +430,34 @@ func _confirm_reset() -> void:
 		blade_level = 0
 		armor_level = 0
 		completed = false
-		_save_progress()
-		_reload())
+		progress_unreadable = false
+		if _save_progress():
+			_reload()
+		else:
+			_show_save_failure())
 
 func _reload() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
-func _save_progress() -> void:
-	var save := ConfigFile.new()
+func _save_progress() -> bool:
+	if progress_unreadable:
+		notice = "Save protected: unreadable progress was not overwritten. Use New journey to reset it."
+		return false
+	var data := {}
 	for key in ["chapter", "shards", "blade_level", "armor_level", "completed"]:
-		save.set_value("campaign", key, get(key))
-	var result := save.save(SAVE_PATH)
+		data[key] = get(key)
+	var result: Error = CAMPAIGN_STORE.save_progress(data)
 	notice = "Progress saved." if result == OK else "Save failed. Keep the game open to retain this session."
+	return result == OK
 
 func _load_progress() -> void:
-	var save := ConfigFile.new()
-	var result := save.load(SAVE_PATH)
-	if result != OK:
-		if result != ERR_FILE_NOT_FOUND:
-			notice = "Saved progress could not be read. A temporary new journey is available."
+	var result: Dictionary = CAMPAIGN_STORE.load_progress()
+	progress_unreadable = result.error != OK
+	if progress_unreadable:
+		notice = "Progress and backup could not be read. Temporary play is available; saving is blocked until New journey."
 		return
-	chapter = clampi(int(save.get_value("campaign", "chapter", 0)), 0, CHAPTERS.size() - 1)
-	shards = clampi(int(save.get_value("campaign", "shards", 0)), 0, 999999)
-	blade_level = clampi(int(save.get_value("campaign", "blade_level", 0)), 0, 4)
-	armor_level = clampi(int(save.get_value("campaign", "armor_level", 0)), 0, 4)
-	completed = bool(save.get_value("campaign", "completed", false))
+	for key in result.data:
+		set(key, result.data[key])
+	if result.recovered:
+		notice = "Previous progress recovered from backup. The most recent save may be lost."

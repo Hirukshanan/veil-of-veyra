@@ -16,6 +16,7 @@
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.
 - Anchored landscape controls and scrollable camp/settings menus with keyboard focus following.
 - Shard rewards, blade/armor upgrades, and local campaign persistence.
+- Campaign saves use a validated temporary file and previous-save backup; invalid primary files recover from backup, with explicit protection when both snapshots are unreadable and retry options on failed victory/reset saves.
 - Headless campaign flow regression check using isolated save storage.
 
 ## Required before public release
@@ -25,7 +26,7 @@
 - Add original or licensed music, combat sound, and accessibility settings.
 - Visually review touch layouts across phone aspect ratios and safe areas.
 - Playtest combat balance, camera collision, enemy navigation, and performance.
-- Validate interrupted/corrupt saves and Android background/resume behavior.
+- Validate real device storage/power interruption and Android background/resume behavior (simulated save failures have regression coverage).
 - Configure Android export templates, SDK, app icon, package identifier, and release signing.
 - Produce and test a signed Android App Bundle on physical devices.
 - Complete privacy/Data Safety, age rating, store assets, and required closed testing.
