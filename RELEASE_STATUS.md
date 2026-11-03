@@ -14,6 +14,7 @@
 - Dragon boss with warning, charge, breath, and health display.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.
+- Anchored landscape controls and scrollable camp/settings menus with keyboard focus following.
 - Shard rewards, blade/armor upgrades, and local campaign persistence.
 - Headless campaign flow regression check using isolated save storage.
 

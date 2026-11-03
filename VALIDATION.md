@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Logical landscape layouts at 800×450, 1280×720, and 1920×864: joystick/action controls remain inside the viewport, action buttons do not overlap the joystick, and the last camp/request/settings button remains reachable by scrolling.
 - Camera: owner excluded from collision, wall retraction, unobstructed extension, distance adjustment, terrain collision, saved distance reload and invalid-distance clamping.
 - Keeper relics: reachable placement in all chapters, proximity collection, camp/pause guards, single pickup counting, partial versus full victory rewards, no duplicate reward, persisted currency, and collection reset on reload.
 - Escape pause/resume through viewport input, focus/background auto-pause, frozen player state during pause, joystick reset, and settings/camp menu guards.
@@ -23,6 +24,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+Layout checks use headless Control rectangles with window content scaling disabled to exercise different logical viewport sizes. They are not screenshot inspection or physical-device verification. Portrait, display cutouts/safe areas, readable physical touch sizes, text overlap, and simultaneous touch input remain unverified.
 
 The lantern objective update was checked headlessly only, without opening or focusing a game window. Its visual layout and on-device touch interaction remain pending.
 
@@ -44,6 +47,7 @@ godot --headless --path . --script res://tests/settings_check.gd
 godot --headless --path . --script res://tests/pause_check.gd
 godot --headless --path . --script res://tests/relic_check.gd
 godot --headless --path . --script res://tests/camera_check.gd
+godot --headless --path . --script res://tests/layout_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

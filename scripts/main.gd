@@ -250,8 +250,11 @@ func _build_hud() -> void:
 	root.add_child(boss_health_bar)
 
 	var joystick := IslandJoystick.new()
-	joystick.position = Vector2(24, 495)
-	joystick.size = Vector2(190, 190)
+	joystick.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	joystick.offset_left = 24
+	joystick.offset_right = 214
+	joystick.offset_top = -225
+	joystick.offset_bottom = -35
 	joystick.value_changed.connect(Callable(player, "set_move_input"))
 	root.add_child(joystick)
 

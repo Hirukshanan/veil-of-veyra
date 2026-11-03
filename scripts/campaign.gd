@@ -15,6 +15,7 @@ var armor_level := 0
 var completed := false
 var overlay: CanvasLayer
 var menu_box: VBoxContainer
+var menu_scroll: ScrollContainer
 var notice := ""
 var potions := 3
 var started := false
@@ -161,14 +162,20 @@ func _build_campaign_ui() -> void:
 	add_child(controls)
 	var pause_button := Button.new()
 	pause_button.text = "PAUSE"
-	pause_button.position = Vector2(1100, 20)
-	pause_button.size = Vector2(140, 48)
+	pause_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	pause_button.offset_left = -180
+	pause_button.offset_right = -40
+	pause_button.offset_top = 20
+	pause_button.offset_bottom = 68
 	pause_button.pressed.connect(_pause_game)
 	controls.add_child(pause_button)
 	var heal_button := Button.new()
 	heal_button.text = "HEAL"
-	heal_button.position = Vector2(1100, 80)
-	heal_button.size = Vector2(140, 48)
+	heal_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	heal_button.offset_left = -180
+	heal_button.offset_right = -40
+	heal_button.offset_top = 80
+	heal_button.offset_bottom = 128
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
 	relic_status = Label.new()
@@ -189,13 +196,24 @@ func _build_campaign_ui() -> void:
 	shade.color = Color(0.015, 0.035, 0.055, 0.96)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(shade)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	overlay.add_child(center)
+	menu_scroll = ScrollContainer.new()
+	menu_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	menu_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	menu_scroll.follow_focus = true
+	overlay.add_child(menu_scroll)
 	menu_box = VBoxContainer.new()
-	menu_box.custom_minimum_size = Vector2(650, 0)
+	menu_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu_box.add_theme_constant_override("separation", 12)
-	center.add_child(menu_box)
+	menu_scroll.add_child(menu_box)
+	get_viewport().size_changed.connect(_layout_menu)
+	_layout_menu()
+
+func _layout_menu() -> void:
+	var margin := maxf(24.0, (get_viewport().get_visible_rect().size.x - 700.0) * 0.5)
+	menu_scroll.offset_left = margin
+	menu_scroll.offset_right = -margin
+	menu_scroll.offset_top = 24
+	menu_scroll.offset_bottom = -24
 
 func _clear_menu(title: String, message: String) -> void:
 	pause_menu_open = false
@@ -203,18 +221,20 @@ func _clear_menu(title: String, message: String) -> void:
 	player.call("set_move_input", Vector2.ZERO)
 	get_tree().call_group("movement_joysticks", "reset")
 	overlay.show()
+	menu_scroll.scroll_vertical = 0
 	for child in menu_box.get_children():
 		menu_box.remove_child(child)
 		child.queue_free()
 	var heading := Label.new()
 	heading.text = title
 	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	heading.add_theme_font_size_override("font_size", 36)
 	menu_box.add_child(heading)
 	var body := Label.new()
 	body.text = message
 	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	body.custom_minimum_size = Vector2(650, 95)
+	body.custom_minimum_size.y = 95
 	body.add_theme_font_size_override("font_size", 20)
 	menu_box.add_child(body)
 
