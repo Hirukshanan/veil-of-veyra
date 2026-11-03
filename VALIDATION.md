@@ -85,3 +85,11 @@ Used the native Windows game window with a separate `.validation/manual` save di
 The game previously continued combat after losing application focus. Focus loss and application suspension now open the pause menu, and focus return does not automatically resume. Pausing also clears joystick finger ownership and movement to avoid stale touch input after returning. These cases have automated regression coverage; Android lifecycle behavior still needs a device test.
 
 Live input/capture latency prevented a reliable continuous combat playthrough. Full dragon-fight difficulty, sustained movement/camera feel, healing during real-time combat, and touch multitasking remain unverified manually. The limited desktop inspection must not be treated as completed gameplay acceptance testing.
+
+## Latest desktop render review — 2026-11-03
+
+Rendered and inspected six 1280×720 screenshots on Windows / Intel Iris Xe OpenGL: camp, settings, all three chapter environments, and a staged Enraged dragon with Spirit Burst. This review supersedes earlier blanket statements that these features had no visual inspection, but only for these desktop views.
+
+Fixed a relic label becoming oversized near the camera, moved the final lantern away from the initial player view, and made menu backgrounds opaque. Re-rendered and inspected the corrected views. Gameplay, relic, environment, and layout regression checks passed after the edits. Screenshots are in ignored `.validation/review_*.png`.
+
+Remaining: distant 3D labels are small, art is primitive, camp requires scrolling, full combat readability/motion and continuous manual playthrough remain unverified. The capture script stages positions and effects; it is not a completed hunt. Android adb was absent from PATH and the default SDK location, and no export preset was found. No physical-device or emulator test was performed.

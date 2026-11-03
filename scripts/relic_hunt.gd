@@ -45,6 +45,14 @@ func _physics_process(delta: float) -> void:
 			collected += 1
 			relic.queue_free()
 
+func _process(_delta: float) -> void:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return
+	for relic in relics:
+		var label := relic.get_child(1) as Label3D
+		label.visible = camera.global_position.distance_to(label.global_position) > 3.0
+
 func progress_text() -> String:
 	if collected == RELIC_COUNT:
 		return "Keeper relics: 3/3 — Defeat the dragon for +20 shards"

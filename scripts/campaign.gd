@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 func _build_lantern() -> void:
 	lantern = Node3D.new()
 	lantern.name = "ChapterLantern"
-	lantern.position = [Vector3(-7, 0, 1), Vector3(7, 0, 1), Vector3(0, 0, 5)][chapter]
+	lantern.position = [Vector3(-7, 0, 1), Vector3(7, 0, 1), Vector3(5, 0, 5)][chapter]
 	add_child(lantern)
 	var pedestal := MeshInstance3D.new()
 	var stone := CylinderMesh.new()
@@ -198,7 +198,7 @@ func _build_campaign_ui() -> void:
 	overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(overlay)
 	var shade := ColorRect.new()
-	shade.color = Color(0.015, 0.035, 0.055, 0.96)
+	shade.color = Color(0.015, 0.035, 0.055, 1.0)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(shade)
 	menu_scroll = ScrollContainer.new()
