@@ -27,6 +27,7 @@ func _run() -> void:
 			enemies.append(child)
 	await _settle()
 	hero.attack()
+	await create_timer(0.25).timeout
 	await _settle()
 	assert(hero.spirit == 0, "Missing must not charge spirit")
 	hero.spirit_burst()
@@ -38,6 +39,7 @@ func _run() -> void:
 	for swing in range(5):
 		hero._attack_cooldown = 0
 		hero.attack()
+		await create_timer(0.25).timeout
 		await _settle()
 		assert(hero.spirit == mini(100, (swing + 1) * 25), "Crowd hits grant once per swing and charge caps at 100")
 	hero._attack_cooldown = 0

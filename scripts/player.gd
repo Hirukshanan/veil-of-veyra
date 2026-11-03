@@ -37,6 +37,7 @@ var locked_target: Node3D
 var _lock_marker: Label3D
 var spirit := 0
 var _burst_requested := false
+var _swing_id := 0
 
 
 func _ready() -> void:
@@ -171,7 +172,7 @@ func _update_target_lock(delta: float) -> void:
 
 
 func attack() -> void:
-	if _attack_cooldown > 0.0 or health <= 0:
+	if get_tree().paused or _attack_cooldown > 0.0 or health <= 0:
 		return
 	combo_step = combo_step % 3 + 1
 	_combo_window = 0.95
@@ -180,8 +181,12 @@ func attack() -> void:
 	_visual.action("Sword_Attack", _attack_cooldown)
 	play_sound("sword")
 	var damage := attack_damage * (2 if combo_step == 3 else 1)
+	_swing_id += 1
+	var swing_id := _swing_id
+	# Resolve contact after the visible windup; pausing freezes this timer.
+	await get_tree().create_timer(0.20 if combo_step == 3 else 0.12, false, true).timeout
 	await get_tree().physics_frame
-	if health <= 0:
+	if health <= 0 or swing_id != _swing_id:
 		return
 	var connected := false
 	for body in _attack_area.get_overlapping_bodies():
@@ -238,7 +243,7 @@ func _perform_spirit_burst() -> void:
 
 
 func dodge() -> void:
-	if _dodge_cooldown > 0.0 or health <= 0:
+	if get_tree().paused or _dodge_cooldown > 0.0 or health <= 0:
 		return
 	var input_vector := _touch_move
 	var keyboard_vector := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
@@ -249,6 +254,7 @@ func dodge() -> void:
 		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	_dodge_direction = _dodge_direction.normalized()
 	_dodge_time = 0.2
+	cancel_swing()
 	_visual.action("Roll", 0.4)
 	play_sound("dodge")
 	_dodge_cooldown = 0.65
@@ -258,6 +264,7 @@ func dodge() -> void:
 func take_damage(amount: int) -> void:
 	if _invulnerability_time > 0.0 or health <= 0:
 		return
+	cancel_swing()
 	health = maxi(0, health - amount)
 	play_sound("hurt")
 	_hit_time = 0.18
@@ -451,3 +458,8 @@ func _build_attack_area() -> void:
 	shape.radius = 1.0
 	collision.shape = shape
 	_attack_area.add_child(collision)
+
+
+func cancel_swing() -> void:
+	_swing_id += 1
+	_attack_time = 0.0

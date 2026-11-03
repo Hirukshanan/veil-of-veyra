@@ -226,6 +226,7 @@ func _clear_menu(title: String, message: String) -> void:
 	player.call("set_move_input", Vector2.ZERO)
 	player.call("clear_target_lock")
 	player.set("_burst_requested", false)
+	player.call("cancel_swing")
 	get_tree().call_group("movement_joysticks", "reset")
 	overlay.show()
 	menu_scroll.scroll_vertical = 0

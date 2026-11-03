@@ -43,6 +43,7 @@ func _run() -> void:
 	assert(absf(angle_difference(hero.rotation.y, -PI / 2.0)) < 0.01)
 	assert(hero._camera_pivot.rotation.y < 0, "Camera must turn toward the target")
 	hero.attack()
+	await create_timer(0.25).timeout
 	await _settle()
 	assert(target.health == 100 - hero.attack_damage, "Locked facing must produce a real sword overlap hit")
 	hero.toggle_target_lock()

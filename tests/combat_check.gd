@@ -40,9 +40,29 @@ func _run() -> void:
 	enemy.health = 100
 	await physics_frame
 	await physics_frame
+	hero.attack()
+	await physics_frame
+	assert(enemy.health == 100, "Sword must not hit during windup")
+	hero.dodge()
+	await create_timer(0.3).timeout
+	assert(enemy.health == 100, "Dodge must cancel pending sword contact")
+	hero._attack_cooldown = 0
+	hero.attack()
+	hero._invulnerability_time = 0
+	hero.take_damage(1)
+	await create_timer(0.3).timeout
+	assert(enemy.health == 100, "Taking damage must cancel pending contact")
+	hero._attack_cooldown = 0
+	hero.attack()
+	scene._show_camp()
+	scene._resume()
+	await create_timer(0.3).timeout
+	assert(enemy.health == 100, "Opening a menu must cancel pending contact")
+	hero.combo_step = 0
 	for step in range(1, 4):
 		hero._attack_cooldown = 0
 		hero.attack()
+		await create_timer(0.25).timeout
 		await physics_frame
 		await physics_frame
 		assert(hero.combo_step == step)
@@ -50,6 +70,7 @@ func _run() -> void:
 	hero._physics_process(1.0)
 	assert(hero.combo_step == 0, "Waiting must reset combo")
 	hero.attack()
+	await create_timer(0.25).timeout
 	await physics_frame
 	await physics_frame
 	assert(hero.combo_step == 1)

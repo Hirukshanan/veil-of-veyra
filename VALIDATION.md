@@ -109,3 +109,15 @@ staged poses, not a continuous animation-quality or complete-hunt acceptance tes
 The base is visibly unfinished (bare torso/shorts); final costume, transitions,
 combo variety, weapon contact timing, and real Android performance remain pending.
 No APK or physical-device test was performed in this pass.
+
+## Sword windup and interruption — 2026-11-03
+
+Sword damage now resolves after a 0.12-second light or 0.20-second heavy windup,
+using overlap at contact time. Dodge, taking damage, death, and opening a menu
+invalidate pending contact. Paused attack/dodge calls are ignored. The third hit
+still deals double damage and successful contact still charges Spirit Burst.
+
+All 15 headless suites passed. Combat coverage now verifies no early damage and
+cancellation by dodge, damage, and menu transitions. Precise blade/contact-frame
+alignment and continuous animation feel still require visual playtesting; these
+initial windup values are gameplay tuning, not mesh-based sword collision.

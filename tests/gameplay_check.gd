@@ -40,6 +40,7 @@ func _run() -> void:
 		await physics_frame
 		var before := int(enemy.health)
 		hero.attack()
+		await create_timer(0.25).timeout
 		await physics_frame
 		await physics_frame
 		assert(enemy.health == before - 1, "Sword must damage overlapping enemy")
