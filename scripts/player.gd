@@ -8,6 +8,8 @@ const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
 const LOCK_RANGE := 14.0
+const SPIRIT_MAX := 100
+const BURST_RADIUS := 3.0
 
 var health := 100
 var max_health := 100
@@ -33,6 +35,8 @@ var _sound: AudioStreamPlayer
 var _sounds: Dictionary = {}
 var locked_target: Node3D
 var _lock_marker: Label3D
+var spirit := 0
+var _burst_requested := false
 
 
 func _ready() -> void:
@@ -84,6 +88,12 @@ func _physics_process(delta: float) -> void:
 		dodge()
 	if Input.is_action_just_pressed(&"target_lock"):
 		toggle_target_lock()
+	if Input.is_action_just_pressed(&"spirit_burst"):
+		spirit_burst()
+	if _burst_requested:
+		_burst_requested = false
+		if spirit >= SPIRIT_MAX and _attack_cooldown <= 0.0:
+			_perform_spirit_burst()
 	_update_target_lock(delta)
 
 	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
@@ -175,9 +185,57 @@ func attack() -> void:
 	await get_tree().physics_frame
 	if health <= 0:
 		return
+	var connected := false
 	for body in _attack_area.get_overlapping_bodies():
-		if body.has_method("take_damage"):
+		if body.has_method("take_damage") and int(body.get("health")) > 0:
+			var before := int(body.get("health"))
 			body.call("take_damage", damage)
+			connected = connected or int(body.get("health")) < before
+	if connected:
+		spirit = mini(SPIRIT_MAX, spirit + 25)
+
+
+func spirit_burst() -> void:
+	if get_tree().paused or health <= 0 or spirit < SPIRIT_MAX or _attack_cooldown > 0.0:
+		return
+	_burst_requested = true
+
+
+func _perform_spirit_burst() -> void:
+	spirit = 0
+	_attack_cooldown = 0.65
+	combo_step = 0
+	_combo_window = 0.0
+	var sphere := SphereShape3D.new()
+	sphere.radius = BURST_RADIUS
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = sphere
+	query.transform = Transform3D(Basis.IDENTITY, global_position + Vector3.UP)
+	query.collision_mask = 2
+	for hit in get_world_3d().direct_space_state.intersect_shape(query, 32):
+		var body: Node3D = hit.collider
+		if body.has_method("take_damage") and int(body.get("health")) > 0:
+			body.call("take_damage", attack_damage * 3)
+	play_sound("sword")
+	var pulse := MeshInstance3D.new()
+	var disc := CylinderMesh.new()
+	disc.top_radius = BURST_RADIUS
+	disc.bottom_radius = BURST_RADIUS
+	disc.height = 0.04
+	pulse.mesh = disc
+	var material := StandardMaterial3D.new()
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.albedo_color = Color(0.2, 0.9, 1.0, 0.6)
+	pulse.material_override = material
+	add_child(pulse)
+	pulse.top_level = true
+	pulse.global_position = global_position + Vector3(0, 0.08, 0)
+	pulse.scale = Vector3(0.15, 1, 0.15)
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(pulse, "scale", Vector3.ONE, 0.3)
+	tween.tween_property(material, "albedo_color:a", 0.0, 0.35)
+	tween.chain().tween_callback(pulse.queue_free)
 
 
 func dodge() -> void:
@@ -206,6 +264,7 @@ func take_damage(amount: int) -> void:
 	_invulnerability_time = 0.45
 	health_changed.emit(health, max_health)
 	if health == 0:
+		_burst_requested = false
 		clear_target_lock()
 		_touch_move = Vector2.ZERO
 		defeated.emit()

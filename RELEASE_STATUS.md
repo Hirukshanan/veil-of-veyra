@@ -6,6 +6,7 @@
 - Tab/on-screen target lock selects the nearest living enemy within 14 metres, tracks facing/camera, marks the target, and releases on manual camera input, menus, death, removal or range exit.
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
+- Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.
 - Enemy attack warnings with range escape and interruptible windups.
 - Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
 - Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.

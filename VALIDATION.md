@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Spirit Burst: misses grant no charge; crowd hits grant once per swing; charge caps at 100; pause cancels pending requests; keyboard/button activation, actual area damage, normal-enemy interruption, no self-hit, out-of-range/resource/death guards, empty-cast cost, and restart reset.
 - Chapter environments: correct theme/palette on load, all scenery mesh bounds inside the island, clear inner arena, camera-only trunk/pillar collision via physics raycasts, and grounded lantern/relic positions.
 - Target lock: keyboard/button activation, nearest living enemy selection, facing/camera movement, actual locked sword overlap damage, explicit/manual camera/range/freed-target/menu/death release, empty selection, and boss selection.
 - Dragon phase thresholds across chapter-scaled health, one-time transition, no phase announcement on lethal damage, preserved active windup/recovery, faster future charge/recovery, attack labels, single-hit damage, and Enraged HUD wiring.
@@ -29,6 +30,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+Spirit Burst is tested through physics overlap queries and input events. Its pulse visual, touch-button readability and combat balance are not visually verified. It uses a spherical 3-metre physics query against enemy colliders and does not test line of sight through future walls; the current arena has no gameplay-blocking walls.
 
 Chapter scenery is a procedural placeholder environment pass on the same circular arena, not three distinct exploration maps. Appearance/composition and frame rate have not been visually or physically tested. Trunks/pillars block cameras only; characters can pass through perimeter scenery until navigation-aware physical obstacles are implemented.
 
@@ -68,6 +71,7 @@ godot --headless --path . --script res://tests/enemy_check.gd
 godot --headless --path . --script res://tests/boss_phase_check.gd
 godot --headless --path . --script res://tests/target_lock_check.gd
 godot --headless --path . --script res://tests/environment_check.gd
+godot --headless --path . --script res://tests/spirit_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

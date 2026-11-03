@@ -21,7 +21,7 @@ func _run() -> void:
 		root.size = resolution
 		await _settle()
 		var bounds := Rect2(Vector2.ZERO, Vector2(resolution))
-		for menu in [scene._show_camp, scene._show_keeper_request, scene._show_enemy_guide, func(): scene._show_settings(scene._show_camp)]:
+		for menu in [scene._show_camp, scene._show_keeper_request, scene._show_enemy_guide, scene._show_burst_guide, func(): scene._show_settings(scene._show_camp)]:
 			menu.call()
 			await _settle()
 			_inside(scene.menu_scroll, bounds)

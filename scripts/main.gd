@@ -79,6 +79,7 @@ func _setup_input() -> void:
 	_bind_keys(&"attack", [KEY_J])
 	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
 	_bind_keys(&"target_lock", [KEY_TAB])
+	_bind_keys(&"spirit_burst", [KEY_L])
 
 
 func _bind_keys(action: StringName, keys: Array) -> void:
@@ -239,6 +240,11 @@ func _build_hud() -> void:
 	lock_button.name = "TargetLockButton"
 	lock_button.pressed.connect(Callable(player, "toggle_target_lock"))
 	root.add_child(lock_button)
+	var burst_button := _make_button("BURST [L]\n0/100", Vector2(-470, -210), Vector2(-330, -125))
+	burst_button.name = "SpiritBurstButton"
+	burst_button.disabled = true
+	burst_button.pressed.connect(Callable(player, "spirit_burst"))
+	root.add_child(burst_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
@@ -248,6 +254,9 @@ func _build_hud() -> void:
 		var step := int(player.get("combo_step"))
 		attack_button.text = "ATTACK\n%d / 3" % step if step > 0 else "ATTACK"
 		lock_button.text = "UNLOCK" if is_instance_valid(player.get("locked_target")) else "LOCK\n[TAB]"
+		var charge := int(player.get("spirit"))
+		burst_button.text = "BURST [L]\n%d/100" % charge
+		burst_button.disabled = charge < 100 or float(player.get("_attack_cooldown")) > 0.0
 	)
 	root.add_child(combat_hud_timer)
 

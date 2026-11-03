@@ -225,6 +225,7 @@ func _clear_menu(title: String, message: String) -> void:
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
 	player.call("clear_target_lock")
+	player.set("_burst_requested", false)
 	get_tree().call_group("movement_joysticks", "reset")
 	overlay.show()
 	menu_scroll.scroll_vertical = 0
@@ -263,6 +264,7 @@ func _show_camp() -> void:
 	_menu_button("New journey", _confirm_reset)
 	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
 	_menu_button("Enemy guide", _show_enemy_guide)
+	_menu_button("Spirit Burst guide", _show_burst_guide)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
 	_menu_button("Quit", func(): get_tree().quit())
 
@@ -271,6 +273,10 @@ func _cost(level: int) -> int:
 
 func _show_keeper_request() -> void:
 	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon in the same hunt to earn 20 bonus shards.\n\nThis quest is optional. Restarting a hunt resets collected relics.")
+	_menu_button("Back to camp", _show_camp)
+
+func _show_burst_guide() -> void:
+	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing; hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. It interrupts ordinary enemies but not the dragon.\n\nSpirit resets when you restart a hunt. An empty burst still spends the charge.")
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
