@@ -118,6 +118,7 @@ func _toggle_pause() -> void:
 
 func _ready() -> void:
 	_load_progress()
+	environment_chapter = chapter
 	super._ready()
 	_load_settings()
 	player.set("max_health", 100 + armor_level * 25)

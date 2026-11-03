@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Chapter environments: correct theme/palette on load, all scenery mesh bounds inside the island, clear inner arena, camera-only trunk/pillar collision via physics raycasts, and grounded lantern/relic positions.
 - Target lock: keyboard/button activation, nearest living enemy selection, facing/camera movement, actual locked sword overlap damage, explicit/manual camera/range/freed-target/menu/death release, empty selection, and boss selection.
 - Dragon phase thresholds across chapter-scaled health, one-time transition, no phase announcement on lethal damage, preserved active windup/recovery, faster future charge/recovery, attack labels, single-hit damage, and Enraged HUD wiring.
 - Enemy types: chapter composition, health modifiers, pursuit speed, warning radius/timing, damage, escape, interruptibility, health labels, hit-flash recovery, and single defeat signal across Shore/Scout/Brute.
@@ -28,6 +29,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+Chapter scenery is a procedural placeholder environment pass on the same circular arena, not three distinct exploration maps. Appearance/composition and frame rate have not been visually or physically tested. Trunks/pillars block cameras only; characters can pass through perimeter scenery until navigation-aware physical obstacles are implemented.
 
 Target lock is nearest-by-distance, including targets behind the player; it does not filter by screen visibility or line of sight. Rotation/framing feel and the new touch button/3D marker require visual and phone testing. Menus deliberately clear the lock.
 
@@ -64,6 +67,7 @@ godot --headless --path . --script res://tests/save_check.gd
 godot --headless --path . --script res://tests/enemy_check.gd
 godot --headless --path . --script res://tests/boss_phase_check.gd
 godot --headless --path . --script res://tests/target_lock_check.gd
+godot --headless --path . --script res://tests/environment_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

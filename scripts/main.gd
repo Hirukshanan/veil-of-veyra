@@ -3,6 +3,8 @@ extends Node3D
 const PLAYER_SCRIPT = preload("res://scripts/player.gd")
 const ENEMY_SCRIPT = preload("res://scripts/enemy.gd")
 const BOSS_SCRIPT = preload("res://scripts/boss.gd")
+const ENVIRONMENT_SCRIPT = preload("res://scripts/chapter_environment.gd")
+var environment_chapter := 0
 
 var player: CharacterBody3D
 var status_label: Label
@@ -90,25 +92,28 @@ func _bind_keys(action: StringName, keys: Array) -> void:
 
 func _build_island() -> void:
 	var water := MeshInstance3D.new()
+	water.name = "Sea"
 	var water_mesh := PlaneMesh.new()
 	water_mesh.size = Vector2(90, 90)
 	water.mesh = water_mesh
 	water.position.y = -1.45
-	water.material_override = _material(Color(0.025, 0.19, 0.24))
+	water.material_override = _material(ENVIRONMENT_SCRIPT.SEA_COLORS[environment_chapter])
 	add_child(water)
 
 	var island := StaticBody3D.new()
+	island.name = "Island"
 	island.position.y = -0.7
 	add_child(island)
 
 	var island_mesh := MeshInstance3D.new()
+	island_mesh.name = "Surface"
 	var cylinder := CylinderMesh.new()
 	cylinder.top_radius = 16.0
 	cylinder.bottom_radius = 16.0
 	cylinder.height = 1.4
 	cylinder.radial_segments = 40
 	island_mesh.mesh = cylinder
-	island_mesh.material_override = _material(Color(0.22, 0.34, 0.25))
+	island_mesh.material_override = _material(ENVIRONMENT_SCRIPT.GROUND_COLORS[environment_chapter])
 	island.add_child(island_mesh)
 
 	var island_collision := CollisionShape3D.new()
@@ -138,46 +143,10 @@ func _build_lighting() -> void:
 
 
 func _build_decor() -> void:
-	for index in range(10):
-		var angle := TAU * float(index) / 10.0
-		var tree := Node3D.new()
-		tree.position = Vector3(cos(angle) * 11.5, 0, sin(angle) * 11.5)
-		add_child(tree)
-
-		var trunk := MeshInstance3D.new()
-		var trunk_mesh := CylinderMesh.new()
-		trunk_mesh.top_radius = 0.22
-		trunk_mesh.bottom_radius = 0.34
-		trunk_mesh.height = 3.0
-		trunk_mesh.radial_segments = 7
-		trunk.mesh = trunk_mesh
-		trunk.position.y = 1.5
-		trunk.material_override = _material(Color(0.31, 0.22, 0.15))
-		tree.add_child(trunk)
-
-		# Camera-only blocker: scenery must not trap enemies using direct pursuit.
-		var camera_blocker := StaticBody3D.new()
-		camera_blocker.collision_layer = 4
-		camera_blocker.collision_mask = 0
-		var trunk_collision := CollisionShape3D.new()
-		var trunk_shape := CylinderShape3D.new()
-		trunk_shape.radius = 0.34
-		trunk_shape.height = 3.0
-		trunk_collision.shape = trunk_shape
-		trunk_collision.position.y = 1.5
-		camera_blocker.add_child(trunk_collision)
-		tree.add_child(camera_blocker)
-
-		var crown := MeshInstance3D.new()
-		var crown_mesh := SphereMesh.new()
-		crown_mesh.radius = 1.35
-		crown_mesh.height = 2.4
-		crown_mesh.radial_segments = 8
-		crown_mesh.rings = 4
-		crown.mesh = crown_mesh
-		crown.position.y = 3.0
-		crown.material_override = _material(Color(0.17, 0.38, 0.27))
-		tree.add_child(crown)
+	var decor := ENVIRONMENT_SCRIPT.new()
+	decor.name = "ChapterEnvironment"
+	decor.set("chapter", environment_chapter)
+	add_child(decor)
 
 
 func _build_player() -> void:
