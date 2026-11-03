@@ -343,7 +343,13 @@ func _spawn_boss() -> void:
 	boss.set("target", player)
 	boss.connect("health_changed", Callable(self, "_on_boss_health_changed"))
 	boss.connect("defeated", Callable(self, "_on_boss_defeated"))
+	boss.connect("enraged_started", Callable(self, "_on_boss_enraged"))
 	add_child(boss)
+
+
+func _on_boss_enraged() -> void:
+	boss_name_label.text = "TIDEWRAITH DRAGON — ENRAGED"
+	boss_name_label.add_theme_color_override("font_color", Color(1.0, 0.35, 0.2))
 
 
 func _on_boss_health_changed(value: int, maximum: int) -> void:

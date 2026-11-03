@@ -13,6 +13,7 @@
 - Chapter lantern objectives: clear enemies, approach and light the lantern with E or the on-screen button, then defeat the dragon.
 - Optional Keeper relic hunt: three chapter-specific pickup locations, distance/progress HUD, camp instructions, and 20 bonus shards for collecting all three before victory.
 - Dragon boss with warning, charge, breath, and health display.
+- Dragon Enraged phase at half health: explicit HUD/action labels, faster pursuit/charge, and shorter future windups/recovery while preserving attacks already in progress.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.
 - Anchored landscape controls and scrollable camp/settings menus with keyboard focus following.

@@ -272,7 +272,7 @@ func _show_keeper_request() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "SHORE DEMON: balanced movement and melee damage.\n\nSCOUT: fast, fragile, and teal. Its short warning leads to a lighter strike.\n\nBRUTE: large, tough, and red. Its wide attack deals heavy damage after a longer warning.\n\nLeave the warning circle or interrupt the windup with a sword hit.")
+	_clear_menu("KNOW YOUR ENEMY", "SHORE DEMON: balanced movement and melee damage.\n\nSCOUT: fast, fragile, and teal. Its short warning leads to a lighter strike.\n\nBRUTE: large, tough, and red. Its wide attack deals heavy damage after a longer warning.\n\nLeave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:

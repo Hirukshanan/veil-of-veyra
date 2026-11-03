@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal health_changed(value: int, maximum: int)
 signal defeated
+signal enraged_started
 
 enum AttackState { APPROACH, WINDUP, BREATH, CHARGE, RECOVER }
 
@@ -18,6 +19,10 @@ var _attack_hit := false
 var _use_breath := false
 var _warning_ring: MeshInstance3D
 var _fire_cone: MeshInstance3D
+var enraged := false
+var _attack_enraged := false
+var _core_material: StandardMaterial3D
+var _attack_label: Label3D
 
 
 func _ready() -> void:
@@ -26,6 +31,11 @@ func _ready() -> void:
 	_build_body()
 	_build_warning_ring()
 	_build_fire_cone()
+	_attack_label = Label3D.new()
+	_attack_label.position.y = 3.1
+	_attack_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	_attack_label.font_size = 40
+	add_child(_attack_label)
 	health_changed.emit(health, max_health)
 
 
@@ -43,15 +53,19 @@ func _physics_process(delta: float) -> void:
 			_warning_ring.visible = false
 			_fire_cone.visible = false
 			if distance > 5.8:
-				velocity.x = direction.x * 2.0
-				velocity.z = direction.z * 2.0
+				var speed := 2.6 if enraged else 2.0
+				velocity.x = direction.x * speed
+				velocity.z = direction.z * speed
 				rotation.y = atan2(-direction.x, -direction.z)
 			else:
 				_attack_direction = direction
 				rotation.y = atan2(-direction.x, -direction.z)
 				_use_breath = distance > 3.6
+				# A phase change must not shorten an attack already being telegraphed.
+				_attack_enraged = enraged
 				_state = AttackState.WINDUP
-				_state_time = 0.85
+				_state_time = 0.65 if _attack_enraged else 0.85
+				_attack_label.text = "FIRE BREATH — MOVE ASIDE" if _use_breath else "CHARGE — DODGE SIDEWAYS"
 				_warning_ring.visible = true
 		AttackState.WINDUP:
 			_state_time -= delta
@@ -80,17 +94,20 @@ func _physics_process(delta: float) -> void:
 			if _state_time <= 0.0:
 				_fire_cone.visible = false
 				_state = AttackState.RECOVER
-				_state_time = 0.8
+				_state_time = 0.6 if _attack_enraged else 0.8
+				_attack_label.text = "ENRAGED" if enraged else ""
 		AttackState.CHARGE:
-			velocity.x = _attack_direction.x * 9.0
-			velocity.z = _attack_direction.z * 9.0
+			var charge_speed := 11.0 if _attack_enraged else 9.0
+			velocity.x = _attack_direction.x * charge_speed
+			velocity.z = _attack_direction.z * charge_speed
 			_state_time -= delta
 			if not _attack_hit and distance < 2.6:
 				_attack_hit = true
 				target.call("take_damage", 18)
 			if _state_time <= 0.0:
 				_state = AttackState.RECOVER
-				_state_time = 0.8
+				_state_time = 0.6 if _attack_enraged else 0.8
+				_attack_label.text = "ENRAGED" if enraged else ""
 		AttackState.RECOVER:
 			_state_time -= delta
 			velocity.x = move_toward(velocity.x, 0.0, 18.0 * delta)
@@ -110,6 +127,13 @@ func take_damage(amount: int) -> void:
 		return
 	health = maxi(0, health - amount)
 	health_changed.emit(health, max_health)
+	if health > 0 and health * 2 <= max_health and not enraged:
+		enraged = true
+		_core_material.albedo_color = Color(1.0, 0.05, 0.02)
+		_core_material.emission = Color(1.0, 0.02, 0.01)
+		if _state == AttackState.APPROACH or _state == AttackState.RECOVER:
+			_attack_label.text = "ENRAGED"
+		enraged_started.emit()
 	if health == 0:
 		defeated.emit()
 		queue_free()
@@ -195,6 +219,7 @@ func _build_body() -> void:
 	core_mesh.radius = 0.22
 	core_mesh.height = 0.44
 	var core_material := _material(Color(0.96, 0.27, 0.06))
+	_core_material = core_material
 	core_material.emission_enabled = true
 	core_material.emission = Color(0.85, 0.12, 0.02)
 	_add_piece(core_mesh, Vector3(0, 1.18, -1.25), Vector3.ONE, Color.WHITE, Vector3.ZERO, core_material)

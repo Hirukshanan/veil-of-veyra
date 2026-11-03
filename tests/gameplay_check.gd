@@ -94,6 +94,8 @@ func _run() -> void:
 		assert(boss._state == boss.AttackState.BREATH)
 		boss._physics_process(0.01)
 		assert(hero.health == hp - 16, "Breath must damage player in cone")
+		boss.take_damage(int(boss.max_health / 2))
+		assert(boss.enraged and "ENRAGED" in scene.boss_name_label.text)
 		boss.take_damage(1000)
 		await process_frame
 		assert(scene.game_finished and paused)
