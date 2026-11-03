@@ -140,6 +140,8 @@ func _build_enemies() -> void:
 		enemy.position = Vector3(cos(angle) * 10, 0, sin(angle) * 10)
 		enemy.set("target", player)
 		enemy.set("health", 3 + chapter * 2)
+		# Introduce the scout on the shore; later chapters mix all three kinds.
+		enemy.set("kind", (1 if index == 2 else 0) if chapter == 0 else index % 3)
 		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
 		add_child(enemy)
 
@@ -258,6 +260,7 @@ func _show_camp() -> void:
 	_menu_button("Upgrade armor — %d shards" % _cost(armor_level), func(): _upgrade(false), shards < _cost(armor_level) or armor_level >= 4)
 	_menu_button("New journey", _confirm_reset)
 	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
+	_menu_button("Enemy guide", _show_enemy_guide)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
 	_menu_button("Quit", func(): get_tree().quit())
 
@@ -266,6 +269,10 @@ func _cost(level: int) -> int:
 
 func _show_keeper_request() -> void:
 	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon in the same hunt to earn 20 bonus shards.\n\nThis quest is optional. Restarting a hunt resets collected relics.")
+	_menu_button("Back to camp", _show_camp)
+
+func _show_enemy_guide() -> void:
+	_clear_menu("KNOW YOUR ENEMY", "SHORE DEMON: balanced movement and melee damage.\n\nSCOUT: fast, fragile, and teal. Its short warning leads to a lighter strike.\n\nBRUTE: large, tough, and red. Its wide attack deals heavy damage after a longer warning.\n\nLeave the warning circle or interrupt the windup with a sword hit.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:

@@ -6,6 +6,7 @@
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
 - Enemy attack warnings with range escape and interruptible windups.
+- Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
 - Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.

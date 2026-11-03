@@ -15,7 +15,8 @@ func _run() -> void:
 	for child in scene.get_children():
 		if child.get_script() == scene.ENEMY_SCRIPT:
 			child.set_physics_process(false)
-			enemy = child
+			if enemy == null:
+				enemy = child
 	hero.position = Vector3(0, 0, 4)
 	hero.rotation = Vector3.ZERO
 	enemy.position = Vector3(0, 0, 2.8)

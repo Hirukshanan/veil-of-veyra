@@ -4,6 +4,7 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 
 ## Passed
 
+- Enemy types: chapter composition, health modifiers, pursuit speed, warning radius/timing, damage, escape, interruptibility, health labels, hit-flash recovery, and single defeat signal across Shore/Scout/Brute.
 - Campaign save promotion, previous snapshot rotation, invalid/missing primary recovery, simulated interruption between renames, blocked temporary-file write, invalid type/range rejection, and protection against overwriting two unreadable snapshots.
 - Logical landscape layouts at 800×450, 1280×720, and 1920×864: joystick/action controls remain inside the viewport, action buttons do not overlap the joystick, and the last camp/request/settings button remains reachable by scrolling.
 - Camera: owner excluded from collision, wall retraction, unobstructed extension, distance adjustment, terrain collision, saved distance reload and invalid-distance clamping.
@@ -25,6 +26,8 @@ Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL renderin
 The rendered gameplay inspection showed enemies starting too close to the player in later chapters. Spawns now use a wider ring, with a regression assertion requiring at least five units of separation.
 
 ## Limits
+
+Enemy variants use placeholder capsule silhouettes. Automated checks verify their combat rules, not enjoyable difficulty, readable labels during crowds, or visual quality. Scout base damage is 5 with a 0.4-second warning; Brute damage is 16 with a 0.95-second warning. Actual balance playtesting remains pending.
 
 Save recovery tests simulate filesystem states and write failure; they do not prove power-loss durability or Android storage behavior. Backup recovery may lose the latest checkpoint. Settings still use their separate simple save file.
 
@@ -52,6 +55,7 @@ godot --headless --path . --script res://tests/relic_check.gd
 godot --headless --path . --script res://tests/camera_check.gd
 godot --headless --path . --script res://tests/layout_check.gd
 godot --headless --path . --script res://tests/save_check.gd
+godot --headless --path . --script res://tests/enemy_check.gd
 ```
 
 The tests replace campaign saves in that isolated directory. Never point test APPDATA at your regular user profile.

@@ -28,6 +28,11 @@ func _run() -> void:
 				enemies.append(child)
 				child.set_physics_process(false)
 		var enemy = enemies[0]
+		var kinds: Array = []
+		for mob in enemies:
+			kinds.append(mob.kind)
+		assert(kinds.has(scene.ENEMY_SCRIPT.Kind.SCOUT))
+		assert(kinds.has(scene.ENEMY_SCRIPT.Kind.BRUTE) == (chapter > 0))
 		hero.position = Vector3(0, 0, 4)
 		hero.rotation = Vector3.ZERO
 		enemy.position = Vector3(0, 0, 2.8)
