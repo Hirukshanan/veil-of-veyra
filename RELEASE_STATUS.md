@@ -8,6 +8,7 @@
 - Three-hit sword combo, double-damage finisher, hit flashes, dodge cooldown display, and a 0.18-second input buffer near the end of attack recovery.
 - Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.
 - Enemy attack warnings with range escape and interruptible windups.
+- Floating damage numbers for enemy and boss hits, including finishing hits, with pause-aware expiry and a 24-label limit.
 - Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
 - Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.

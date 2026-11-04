@@ -101,6 +101,9 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	if health <= 0:
 		return
+	if amount <= 0:
+		return
+	preload("res://scripts/damage_number.gd").show_hit(self, mini(amount, health), body_height + 0.65)
 	health -= amount
 	_health_label.text = "%s  %d / %d" % [display_name, maxi(0, health), _maximum_health]
 	_hit_time = 0.18

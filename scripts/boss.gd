@@ -126,6 +126,9 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	if health <= 0:
 		return
+	if amount <= 0:
+		return
+	preload("res://scripts/damage_number.gd").show_hit(self, mini(amount, health), 3.0)
 	health = maxi(0, health - amount)
 	health_changed.emit(health, max_health)
 	if health > 0 and health * 2 <= max_health and not enraged:

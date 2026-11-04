@@ -148,3 +148,19 @@ setup used above:
 ```powershell
 godot --headless --path . --script res://tests/attack_buffer_check.gd
 ```
+
+## Floating damage feedback — 2026-11-04
+
+Enemy and boss damage now spawns a gold floating number for actual health lost,
+including finishing hits. Numbers belong to the world rather than the victim,
+pause with gameplay, fade over 0.65 seconds, and are limited to 24 active labels.
+Zero/negative damage does not produce feedback or heal enemies.
+
+The damage_feedback_check, combat_check, boss_phase_check, and spirit_check suites
+passed headlessly. The new check covers values, victim removal, pause, expiry,
+boss damage, scene cleanup, and the population limit. Desktop/phone readability
+and overlapping-number appearance still require visual review.
+
+```powershell
+godot --headless --path . --script res://tests/damage_feedback_check.gd
+```
