@@ -11,6 +11,7 @@
 - Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.
 - Licensed textured, skeletal Dire Wolf Lite model integrated as Ember Wolf, Ash Stalker and Dire Warg size/tint variants. Local-only source model installation is required; earlier procedural animals remain a missing-asset fallback.
 - Enemy attack warnings with range escape and interruptible windups, plus quadruped gait, serpent sway, anticipation, bite/lunge and hit-recoil poses. Dragon wings and body react to windup, breath, charge and recovery.
+- Textured wolf damage flash and pause-aware visual fall/fade on defeat, with immediate gameplay removal and a maximum of eight temporary remains.
 - Floating damage numbers for enemy and boss hits, including finishing hits, with pause-aware expiry and a 24-label limit.
 - Ember Wolf/Ash Stalker/Dire Warg enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; stalkers appear in chapter one and wargs join later chapters.
 - Camp/pause settings with saved camera sensitivity, camera distance, master volume, mute, sound preview, a Shadows on/off toggle, and a saved 30/60 FPS cap.

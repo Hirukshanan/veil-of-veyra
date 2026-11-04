@@ -321,3 +321,20 @@ interruption, pause, sword contact, chapter progression and retry. Staged native
 OpenGL model preview inspected. This is approximately 10k triangles per enemy
 with 2K textures; phone performance and continuous-motion acceptance are pending.
 Latest debug build: 0.1.4-dev (code 5). Earlier phone feedback does not cover it.
+
+## Wolf impact and defeat feedback — 2026-11-05
+
+Imported wolf materials now receive a short warm emission flash from the existing
+hurt timer. Normal texturing returns when it expires. Defeat detaches only the
+visual, pauses its skeleton, rolls it onto its side over 0.24 seconds, holds for
+0.15 seconds, then fades over 0.45 seconds. This is procedural fall/fade feedback,
+not a new skeletal death clip. Alpha depth prepass fixes overlapping transparent
+surfaces seen during native preview. Enemy defeat signals/collider removal remain
+immediate; visuals cannot take hits or be locked. At most eight remains persist,
+respect pause, and are freed with the world or on effect expiry.
+
+wolf_feedback_check, enemy_check, target_lock_check and gameplay_check passed.
+The dedicated test covers flash reset, single defeat, immediate enemy removal,
+non-colliding remains, pause, expiry, the limit and world cleanup. Native OpenGL
+hit/fall poses were inspected in `.validation/wolf_feedback.png`; phone visual
+quality/performance is pending. Debug APK version: 0.1.5-dev (code 6).

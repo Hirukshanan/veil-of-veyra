@@ -118,6 +118,7 @@ func take_damage(amount: int) -> void:
 	_warning.hide()
 	_attack_cooldown = maxf(_attack_cooldown, 0.35)
 	if health <= 0:
+		_visual.show_defeat(get_parent())
 		defeated.emit()
 		queue_free()
 
@@ -162,6 +163,8 @@ func _build_body() -> void:
 
 
 func _process(delta: float) -> void:
+	if health <= 0:
+		return
 	var anticipation := 1.0 - _windup / windup_duration if _windup > 0.0 else 0.0
 	var strike := _strike_time / 0.2
 	var hurt := _hit_time / 0.18
