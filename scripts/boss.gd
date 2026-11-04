@@ -23,6 +23,9 @@ var enraged := false
 var _attack_enraged := false
 var _core_material: StandardMaterial3D
 var _attack_label: Label3D
+var _visual: Node3D
+var _wings: Array[Node3D] = []
+var _motion_time := 0.0
 
 
 func _ready() -> void:
@@ -144,6 +147,9 @@ func take_damage(amount: int) -> void:
 
 
 func _build_body() -> void:
+	_visual = Node3D.new()
+	_visual.name = "Visual"
+	add_child(_visual)
 	var torso := SphereMesh.new()
 	torso.radius = 1.0
 	torso.height = 1.8
@@ -208,7 +214,12 @@ func _build_body() -> void:
 		var wing := MeshInstance3D.new()
 		wing.mesh = _make_wing(side)
 		wing.material_override = wing_material
-		add_child(wing)
+		var hinge := Node3D.new()
+		hinge.position = Vector3(side * 0.5, 1.72, 0.05)
+		_visual.add_child(hinge)
+		hinge.add_child(wing)
+		wing.position = -hinge.position
+		_wings.append(hinge)
 
 	var eye_mesh := SphereMesh.new()
 	eye_mesh.radius = 0.12
@@ -293,7 +304,7 @@ func _add_piece(mesh: Mesh, local_position: Vector3, local_scale: Vector3, color
 	instance.scale = local_scale
 	instance.rotation = local_rotation
 	instance.material_override = material if material != null else _material(color)
-	add_child(instance)
+	_visual.add_child(instance)
 
 
 func _add_triangle(surface: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
@@ -307,3 +318,31 @@ func _material(color: Color) -> StandardMaterial3D:
 	material.albedo_color = color
 	material.roughness = 0.78
 	return material
+
+
+func _process(delta: float) -> void:
+	_motion_time += delta
+	var pitch := 0.0
+	var crouch := 0.0
+	var spread := 0.0
+	match _state:
+		AttackState.WINDUP:
+			var duration := 0.65 if _attack_enraged else 0.85
+			var anticipation := clampf(1.0 - _state_time / duration, 0.0, 1.0)
+			pitch = (0.10 if _use_breath else -0.08) * anticipation
+			crouch = -0.12 * anticipation
+			spread = 0.35 * anticipation
+		AttackState.BREATH:
+			pitch = -0.04
+			spread = 0.4
+		AttackState.CHARGE:
+			pitch = -0.08
+			crouch = -0.12
+			spread = -0.3
+	var blend := minf(1.0, delta * 14.0)
+	_visual.rotation.x = lerpf(_visual.rotation.x, pitch, blend)
+	_visual.position.y = lerpf(_visual.position.y, crouch, blend)
+	for index in range(_wings.size()):
+		var side := -1.0 if index == 0 else 1.0
+		var idle_flap := sin(_motion_time * 2.5) * 0.07
+		_wings[index].rotation.z = lerpf(_wings[index].rotation.z, side * (spread + idle_flap), blend)

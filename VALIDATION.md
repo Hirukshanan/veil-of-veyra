@@ -268,3 +268,56 @@ The landscape layout check passed at 800x450, 1280x720, and 1920x864.
 background/resume, saves, safe areas, and sustained performance on Android remain
 unverified. This APK uses debug signing and the default icon, not release/store
 configuration. Local build/import logs are in ignored `.validation/android/`.
+
+## Device feedback and demon creatures — 2026-11-04
+
+Owner-reported testing of the first Android debug APK on Samsung A37: gameplay
+was smooth without noticeable lag, three levels were available, and progress
+persisted after closing and reopening the app. Android version, measured frame
+rate/temperature, and background/resume behavior were not supplied or verified.
+
+Replaced capsule enemy visuals with original procedural animal meshes: Ember
+Fox (ears, muzzle, bushy tail), Dusk Serpent (continuous coiled body, hood, fangs),
+and Iron Tusk (quadruped boar, curved tusks). Dark fitted carapace, horns, spikes
+and glowing eyes provide the demon theme. The existing SHORE/SCOUT/BRUTE enum
+values remain internal behavior IDs, preserving chapter composition and stats.
+
+Creature visuals animate diagonal quadruped gait, serpent neck sway, windup,
+bite/lunge, recoil and tail movement. Dragon wings pivot at their shoulders and
+body poses follow breath/charge/recovery states. Collision shapes, warning
+geometry, damage and timing remain unchanged. The new visuals are procedural
+stylized models, not externally sourced or skeletal-animation assets.
+
+combat_pose_check, enemy_check, boss_phase_check, target_lock_check and
+gameplay_check passed. Coverage includes species names and limb counts,
+diagonal gait, serpent sway, interrupted strikes, pose reset, pause, collider
+isolation, actual sword hits, all three chapter objectives and retry.
+A close-up native OpenGL preview was inspected using a minimized window:
+`.validation/combat_poses.png`. A tube-mesh winding issue was corrected during
+inspection. Continuous motion quality and added mesh cost need phone testing.
+
+Latest debug APK: 0.1.3-dev (code 4). Earlier phone acceptance does not cover
+these new models/animations. No staging or commits were performed.
+## Licensed skeletal wolf integration — 2026-11-05
+
+Beast Quest mobile wolf screenshots informed the natural anatomy/textured-art
+direction only. Selected Dire Wolf Lite 1.0.0 from Literock Studios:
+https://literock-studios.itch.io/direwolf-lite
+Creator documentation and bundled license permit commercial packaged game use
+but prohibit standalone redistribution. The GLB is gitignored, installed locally,
+and included only in the packaged game. Setup and AI-assisted provenance are in
+assets/characters/literock/README.md. No Beast Quest assets were extracted.
+
+All three enemy roles now use size/tint variants of this ONE textured model;
+they are not three independently modeled species. Previous animal geometry is
+only a warned fallback for source checkouts without the licensed dependency.
+Idle/walk/run use the imported skeleton; bite pose sampling follows the existing
+windup/contact/recovery clock. Imported +Z facing is rotated to gameplay -Z.
+The 0.65-second bite contact sample is an initial mapping needing playtest tuning.
+
+combat_pose_check, enemy_check, target_lock_check and gameplay_check passed,
+including required imported asset presence, animation transitions/sampling,
+interruption, pause, sword contact, chapter progression and retry. Staged native
+OpenGL model preview inspected. This is approximately 10k triangles per enemy
+with 2K textures; phone performance and continuous-motion acceptance are pending.
+Latest debug build: 0.1.4-dev (code 5). Earlier phone feedback does not cover it.

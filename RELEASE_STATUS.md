@@ -2,16 +2,17 @@
 
 ## Implemented
 
-- First signed ARM64 Android debug APK exported and signature-verified; physical-device execution remains pending.
+- First signed ARM64 Android debug APK exported and signature-verified. Owner reports smooth gameplay and persisted progress after reopening on Samsung A37; background/resume and measured performance remain pending.
 
 - Third-person movement, curved blade attacks, dodge, touch controls.
 - Tab/on-screen target lock selects the nearest living enemy within 14 metres, tracks facing/camera, marks the target, and releases on manual camera input, menus, death, removal or range exit.
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, dodge cooldown display, and a 0.18-second input buffer near the end of attack recovery.
 - Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.
-- Enemy attack warnings with range escape and interruptible windups.
+- Licensed textured, skeletal Dire Wolf Lite model integrated as Ember Wolf, Ash Stalker and Dire Warg size/tint variants. Local-only source model installation is required; earlier procedural animals remain a missing-asset fallback.
+- Enemy attack warnings with range escape and interruptible windups, plus quadruped gait, serpent sway, anticipation, bite/lunge and hit-recoil poses. Dragon wings and body react to windup, breath, charge and recovery.
 - Floating damage numbers for enemy and boss hits, including finishing hits, with pause-aware expiry and a 24-label limit.
-- Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
+- Ember Wolf/Ash Stalker/Dire Warg enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; stalkers appear in chapter one and wargs join later chapters.
 - Camp/pause settings with saved camera sensitivity, camera distance, master volume, mute, sound preview, a Shadows on/off toggle, and a saved 30/60 FPS cap.
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.

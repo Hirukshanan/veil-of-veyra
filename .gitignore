@@ -4,3 +4,6 @@ android/build/
 *.keystore
 *.jks
 builds/
+
+# Creator license prohibits redistribution of the standalone model.
+assets/characters/literock/*.glb
