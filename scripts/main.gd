@@ -95,7 +95,7 @@ func _build_island() -> void:
 	var water := MeshInstance3D.new()
 	water.name = "Sea"
 	var water_mesh := PlaneMesh.new()
-	water_mesh.size = Vector2(90, 90)
+	water_mesh.size = Vector2(2000, 2000)
 	water.mesh = water_mesh
 	water.position.y = -1.45
 	water.material_override = _material(ENVIRONMENT_SCRIPT.SEA_COLORS[environment_chapter])
@@ -127,19 +127,30 @@ func _build_island() -> void:
 
 func _build_lighting() -> void:
 	var environment := Environment.new()
-	environment.background_mode = Environment.BG_COLOR
+	var sky_material := ProceduralSkyMaterial.new()
+	sky_material.sky_top_color = [Color(0.12, 0.34, 0.58), Color(0.10, 0.22, 0.28), Color(0.12, 0.07, 0.22)][environment_chapter]
+	sky_material.sky_horizon_color = [Color(0.76, 0.83, 0.78), Color(0.55, 0.68, 0.59), Color(0.68, 0.36, 0.29)][environment_chapter]
+	sky_material.ground_horizon_color = sky_material.sky_horizon_color
+	sky_material.ground_bottom_color = ENVIRONMENT_SCRIPT.SEA_COLORS[environment_chapter]
+	sky_material.sky_curve = 0.2
+	var sky := Sky.new()
+	sky.sky_material = sky_material
+	environment.sky = sky
+	environment.background_mode = Environment.BG_SKY
 	environment.background_color = Color(0.035, 0.075, 0.12)
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color(0.52, 0.65, 0.72)
-	environment.ambient_light_energy = 0.8
+	environment.ambient_light_energy = 0.65
 	var world_environment := WorldEnvironment.new()
 	world_environment.environment = environment
 	add_child(world_environment)
 
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-48, 28, 0)
-	sun.light_color = Color(1.0, 0.79, 0.57)
-	sun.light_energy = 1.15
+	sun.light_color = [Color(1.0, 0.88, 0.7), Color(0.75, 0.9, 0.83), Color(1.0, 0.67, 0.48)][environment_chapter]
+	sun.light_energy = 1.0
+	sun.shadow_enabled = true
+	sun.directional_shadow_max_distance = 45.0
 	add_child(sun)
 
 
@@ -266,6 +277,9 @@ func _build_hud() -> void:
 	hint.add_theme_font_size_override("font_size", 15)
 	hint.add_theme_color_override("font_color", Color(0.75, 0.83, 0.79, 0.9))
 	root.add_child(hint)
+	for label in [status_label, health_label, boss_name_label, hint]:
+		label.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
+		label.add_theme_constant_override("outline_size", 4)
 
 
 func _make_button(label: String, top_left: Vector2, bottom_right: Vector2) -> Button:

@@ -152,13 +152,6 @@ func _build_enemies() -> void:
 		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
 		add_child(enemy)
 
-func _build_lighting() -> void:
-	super._build_lighting()
-	var colors := [Color(0.035, 0.075, 0.12), Color(0.06, 0.12, 0.08), Color(0.13, 0.035, 0.04)]
-	for child in get_children():
-		if child is WorldEnvironment:
-			child.environment.background_color = colors[chapter]
-
 func _spawn_boss() -> void:
 	super._spawn_boss()
 	var dragon := get_node_or_null("Tidewraith Dragon")
@@ -190,6 +183,8 @@ func _build_campaign_ui() -> void:
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
 	relic_status = Label.new()
+	relic_status.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
+	relic_status.add_theme_constant_override("outline_size", 4)
 	relic_status.position = Vector2(30, 84)
 	relic_status.add_theme_font_size_override("font_size", 15)
 	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))

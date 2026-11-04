@@ -209,3 +209,18 @@ with an additional assertion for return-button order.
 Screenshots live in ignored `.validation/journal_desktop.png`,
 `journal_small_top.png`, and `journal_small_bottom.png`. This desktop simulation
 does not replace touch scrolling or safe-area acceptance on a physical phone.
+
+## Chapter skies and sunlight — 2026-11-04
+
+Added procedural skies with coastal, cool grove, and sunset ruin palettes. Sunlight
+colors vary by chapter and directional shadows are enabled within 45 metres.
+The sea is now a 2000-metre plane to avoid the nearby square edge. HUD text has dark
+outlines for contrast against bright skies. Removed the obsolete flat-background
+campaign override.
+
+Rendered and inspected all three chapters at 1280x720 with native OpenGL on Intel
+Iris Xe, then re-rendered and inspected the shore HUD contrast correction.
+Environment, camera and layout suites passed. Screenshots are ignored
+`.validation/sky_chapter_0.png` through `sky_chapter_2.png`. Native desktop rendering
+worked without reported errors; frame-rate and shadow cost on Android have not
+been measured. This remains primitive prototype geometry with a static sea.

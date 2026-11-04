@@ -13,6 +13,7 @@
 - Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.
+- Procedural chapter skies, colored sunlight, directional shadows, extended sea horizon, and outlined HUD text.
 - First chapter environment pass: sandy shore with palms, green grove with trees/fungi, and dark stone ruins; distinct ground/sea palettes with perimeter camera blockers.
 - Chapter lantern objectives: clear enemies, approach and light the lantern with E or the on-screen button, then defeat the dragon.
 - Optional Keeper relic hunt: three chapter-specific pickup locations, distance/progress HUD, camp instructions, and 20 bonus shards for collecting all three before victory.
