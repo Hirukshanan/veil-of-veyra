@@ -20,7 +20,7 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 - Quest Journal: **Q** during a hunt, or **Pause → Quest Journal** on touchscreens. Q or Escape returns to the hunt.
 - Pause/resume: **Escape**; after defeat use **Retry hunt**.
 
-Settings includes a saved **Shadows** toggle; turn it off to reduce rendering cost on slower devices.
+Settings includes saved **30/60 FPS** and **Shadows** controls; turn it off to reduce rendering cost on slower devices.
 
 See [Android setup](ANDROID_SETUP.md) for build prerequisites and device acceptance checks.
 

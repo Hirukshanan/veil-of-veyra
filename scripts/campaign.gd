@@ -25,6 +25,7 @@ var camera_sensitivity := 1.0
 var camera_distance := 6.3
 var sound_volume := 0.7
 var shadows_enabled := true
+var frame_limit := 60
 var pause_menu_open := false
 var journal_open := false
 var lantern: Node3D
@@ -344,6 +345,20 @@ func _show_settings(back: Callable) -> void:
 		shadows_enabled = enabled
 		_apply_settings())
 	menu_box.add_child(shadows)
+	var frame_label := Label.new()
+	frame_label.text = "Frame-rate limit (30 uses less rendering work)"
+	frame_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	menu_box.add_child(frame_label)
+	var frame_choice := OptionButton.new()
+	frame_choice.name = "FrameLimitChoice"
+	frame_choice.custom_minimum_size.y = 48
+	frame_choice.add_item("30 FPS", 30)
+	frame_choice.add_item("60 FPS", 60)
+	frame_choice.select(0 if frame_limit == 30 else 1)
+	frame_choice.item_selected.connect(func(index: int):
+		frame_limit = frame_choice.get_item_id(index)
+		_apply_settings())
+	menu_box.add_child(frame_choice)
 	_menu_button("Preview sound", func(): player.call("play_sound", "sword"))
 	var feedback := Label.new()
 	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -373,6 +388,7 @@ func _settings_slider(title: String, minimum: float, maximum: float, increment: 
 	menu_box.add_child(slider)
 
 func _apply_settings() -> void:
+	Engine.max_fps = frame_limit
 	for child in get_children():
 		if child is DirectionalLight3D:
 			child.shadow_enabled = shadows_enabled
@@ -387,6 +403,7 @@ func _save_settings() -> Error:
 	config.set_value("settings", "camera_distance", camera_distance)
 	config.set_value("settings", "sound_volume", sound_volume)
 	config.set_value("settings", "shadows_enabled", shadows_enabled)
+	config.set_value("settings", "frame_limit", frame_limit)
 	return config.save(SETTINGS_PATH)
 
 func _load_settings() -> void:
@@ -397,6 +414,8 @@ func _load_settings() -> void:
 	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
 	var saved_shadows: Variant = config.get_value("settings", "shadows_enabled", true)
 	shadows_enabled = saved_shadows if saved_shadows is bool else true
+	var saved_limit: Variant = config.get_value("settings", "frame_limit", 60)
+	frame_limit = saved_limit if saved_limit is int and saved_limit in [30, 60] else 60
 	_apply_settings()
 
 func _setting_number(config: ConfigFile, key: String, fallback: float, minimum: float, maximum: float) -> float:

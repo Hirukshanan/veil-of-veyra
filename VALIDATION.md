@@ -237,3 +237,14 @@ light, reload, discard, and invalid-value fallback. Rendered the settings menu
 at an 800x450 logical viewport with native OpenGL and inspected the toggle.
 Capture: ignored `.validation/shadows_settings.png`. Android performance gains
 remain unmeasured; a toggle is not a substitute for physical-device profiling.
+
+## Frame-rate limit — 2026-11-04
+
+Settings offers 30 or 60 FPS (default 60), applied immediately through Engine.max_fps
+and persisted with the existing settings. Back without saving restores the saved
+limit. Missing, zero, non-integer, or unsupported limits use 60. Physics tick rate
+is unchanged; the selected value is a cap, not a guaranteed measured frame rate.
+
+settings_check and layout_check passed, including 30 FPS selection, save/reload,
+discard to the saved cap, and invalid-limit fallback. The new dropdown has not
+had native visual or physical-phone performance acceptance yet.
