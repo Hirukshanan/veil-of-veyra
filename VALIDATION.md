@@ -224,3 +224,16 @@ Environment, camera and layout suites passed. Screenshots are ignored
 `.validation/sky_chapter_0.png` through `sky_chapter_2.png`. Native desktop rendering
 worked without reported errors; frame-rate and shadow cost on Android have not
 been measured. This remains primitive prototype geometry with a static sea.
+
+## Saved shadow setting — 2026-11-04
+
+Settings now includes a Shadows toggle (default on). It updates directional lights
+immediately, persists with Save and back, and reverts with Back without saving.
+Missing or non-boolean saved values use the default. This gives players a manual
+option to reduce shadow rendering cost; no automatic quality selection is used.
+
+settings_check and layout_check passed, including shadow state on the actual
+light, reload, discard, and invalid-value fallback. Rendered the settings menu
+at an 800x450 logical viewport with native OpenGL and inspected the toggle.
+Capture: ignored `.validation/shadows_settings.png`. Android performance gains
+remain unmeasured; a toggle is not a substitute for physical-device profiling.

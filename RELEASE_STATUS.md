@@ -10,7 +10,7 @@
 - Enemy attack warnings with range escape and interruptible windups.
 - Floating damage numbers for enemy and boss hits, including finishing hits, with pause-aware expiry and a 24-label limit.
 - Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
-- Camp/pause settings with saved camera sensitivity and master volume, mute, and sound preview.
+- Camp/pause settings with saved camera sensitivity, camera distance, master volume, mute, sound preview, and a Shadows on/off toggle.
 - Original synthesized placeholder sword, dodge, and player-damage audio cues.
 - Three sequential hunts with increasing enemy counts and durability.
 - Procedural chapter skies, colored sunlight, directional shadows, extended sea horizon, and outlined HUD text.

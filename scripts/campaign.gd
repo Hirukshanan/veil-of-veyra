@@ -24,6 +24,7 @@ var started := false
 var camera_sensitivity := 1.0
 var camera_distance := 6.3
 var sound_volume := 0.7
+var shadows_enabled := true
 var pause_menu_open := false
 var journal_open := false
 var lantern: Node3D
@@ -324,7 +325,7 @@ func _pause_game() -> void:
 	_menu_button("Quit", func(): get_tree().quit())
 
 func _show_settings(back: Callable) -> void:
-	_clear_menu("SETTINGS", "Adjust the camera and sound. Changes apply immediately; use Save and back to keep them.")
+	_clear_menu("SETTINGS", "Adjust the camera, sound, and graphics. Changes apply immediately; use Save and back to keep them.")
 	_settings_slider("Camera sensitivity", 0.25, 2.0, 0.05, camera_sensitivity, func(value: float):
 		camera_sensitivity = value
 		_apply_settings())
@@ -334,6 +335,15 @@ func _show_settings(back: Callable) -> void:
 	_settings_slider("Camera distance", 4.0, 9.0, 0.1, camera_distance, func(value: float):
 		camera_distance = value
 		_apply_settings())
+	var shadows := CheckButton.new()
+	shadows.name = "ShadowsToggle"
+	shadows.text = "Shadows (turn off for better performance)"
+	shadows.custom_minimum_size.y = 48
+	shadows.button_pressed = shadows_enabled
+	shadows.toggled.connect(func(enabled: bool):
+		shadows_enabled = enabled
+		_apply_settings())
+	menu_box.add_child(shadows)
 	_menu_button("Preview sound", func(): player.call("play_sound", "sword"))
 	var feedback := Label.new()
 	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -363,6 +373,9 @@ func _settings_slider(title: String, minimum: float, maximum: float, increment: 
 	menu_box.add_child(slider)
 
 func _apply_settings() -> void:
+	for child in get_children():
+		if child is DirectionalLight3D:
+			child.shadow_enabled = shadows_enabled
 	player.set("camera_sensitivity", camera_sensitivity)
 	player.call("set_camera_distance", camera_distance)
 	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(sound_volume, 0.0001)))
@@ -373,6 +386,7 @@ func _save_settings() -> Error:
 	config.set_value("settings", "camera_sensitivity", camera_sensitivity)
 	config.set_value("settings", "camera_distance", camera_distance)
 	config.set_value("settings", "sound_volume", sound_volume)
+	config.set_value("settings", "shadows_enabled", shadows_enabled)
 	return config.save(SETTINGS_PATH)
 
 func _load_settings() -> void:
@@ -381,6 +395,8 @@ func _load_settings() -> void:
 	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
 	camera_distance = _setting_number(config, "camera_distance", 6.3, 4.0, 9.0)
 	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
+	var saved_shadows: Variant = config.get_value("settings", "shadows_enabled", true)
+	shadows_enabled = saved_shadows if saved_shadows is bool else true
 	_apply_settings()
 
 func _setting_number(config: ConfigFile, key: String, fallback: float, minimum: float, maximum: float) -> float:

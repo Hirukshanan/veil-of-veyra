@@ -20,6 +20,8 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 - Quest Journal: **Q** during a hunt, or **Pause → Quest Journal** on touchscreens. Q or Escape returns to the hunt.
 - Pause/resume: **Escape**; after defeat use **Retry hunt**.
 
+Settings includes a saved **Shadows** toggle; turn it off to reduce rendering cost on slower devices.
+
 See [Android setup](ANDROID_SETUP.md) for build prerequisites and device acceptance checks.
 
 The hero now uses a Quaternius rigged base with idle, walk, sprint, sword attack, roll, hit, death, and Spirit Burst animations. The base body is temporary; Aru's costume and hair are not final. Enemies and environments still use generated shapes. See [asset credits](assets/characters/quaternius/README.md) for sources and licenses. Story, sound, visual polish, and Android export remain prototype work.
