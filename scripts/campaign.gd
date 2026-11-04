@@ -508,4 +508,5 @@ func _show_journal() -> void:
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
+	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
 	_menu_button("Pause menu", _pause_game)

@@ -195,3 +195,17 @@ Run with the isolated test profile described above:
 ```powershell
 godot --headless --path . --script res://tests/journal_check.gd
 ```
+
+## Quest Journal visual review — 2026-11-04
+
+Rendered the initial chapter at 1280x720 and a staged final-chapter boss objective
+at an 800x450 logical viewport in a minimized native OpenGL window. Inspected the
+compact journal at both scroll ends: text wraps and lower content is reachable.
+The original return button required scrolling on the smaller viewport, so moved
+it immediately below the title. Re-rendered the compact view and verified the
+return control is visible at the initial scroll position. journal_check passed
+with an additional assertion for return-button order.
+
+Screenshots live in ignored `.validation/journal_desktop.png`,
+`journal_small_top.png`, and `journal_small_bottom.png`. This desktop simulation
+does not replace touch scrolling or safe-area acceptance on a physical phone.

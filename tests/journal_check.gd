@@ -16,6 +16,7 @@ func _run():
  Input.parse_input_event(key)
  await process_frame
  assert(scene.journal_open and paused)
+ assert(scene.menu_box.get_child(1) is Button and scene.menu_box.get_child(1).text == "Return to hunt [Q / Esc]", "Touch return must precede scrollable objectives")
  assert(scene.player._attack_buffer == 0, "Journal must clear queued combat")
  assert("remaining" in scene._journal_text() and "LOCKED" in scene._journal_text())
  scene._toggle_pause()
