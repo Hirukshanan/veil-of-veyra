@@ -248,3 +248,23 @@ is unchanged; the selected value is a cap, not a guaranteed measured frame rate.
 settings_check and layout_check passed, including 30 FPS selection, save/reload,
 discard to the saved cap, and invalid-limit fallback. The new dropdown has not
 had native visual or physical-phone performance acceptance yet.
+
+## Android debug export — 2026-11-04
+
+Added the Android Debug preset with development package identity, ARM64-only
+libraries, explicit landscape orientation, and ETC2/ASTC texture imports.
+Installed the official Godot 4.7.2 Android APK templates after verifying the
+complete downloaded archive against the release SHA512 checksum.
+
+Godot headless import and debug export succeeded using Java 21 and Android SDK
+build tools 36.0.0. `builds/android/veyra-debug.apk` is 49,496,107 bytes.
+Android apksigner verification passed (v2 and v3). aapt confirmed package
+`com.hirukshanan.veilofveyra.dev`, version `0.1.0-dev` / code 1, minimum SDK 24,
+target SDK 36, and arm64-v8a only. Archive inspection found no bundled tests,
+tools, or Markdown documents. Android prerequisite presence checks passed.
+The landscape layout check passed at 800x450, 1280x720, and 1920x864.
+
+`adb devices -l` reported no connected devices. Installation, startup, multitouch,
+background/resume, saves, safe areas, and sustained performance on Android remain
+unverified. This APK uses debug signing and the default icon, not release/store
+configuration. Local build/import logs are in ignored `.validation/android/`.

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcfpr6ek78qll"
 path.s3tc="res://.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/characters/quaternius/T_Hair_1_Normal.png"
-dest_files=["res://.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.s3tc.ctex", "res://.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.etc2.ctex"]
 
 [params]
 
