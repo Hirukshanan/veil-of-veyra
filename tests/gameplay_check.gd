@@ -86,6 +86,7 @@ func _run() -> void:
 		assert(boss.health == 34 + chapter * 14)
 		boss.set_physics_process(false)
 		boss.position = Vector3.ZERO
+		boss._state = boss.AttackState.APPROACH
 		hero.position = Vector3(0, 0, -5)
 		hero.set_physics_process(false)
 		hero._invulnerability_time = 0

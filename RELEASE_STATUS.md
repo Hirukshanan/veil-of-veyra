@@ -2,6 +2,8 @@
 
 ## Implemented
 
+- First expanded island layout: sloped sandy coastline, beach arrival, branching forest trail, ruins, three distributed wolf camps and current-hunt water-rescue waystones. Chapters share this layout; natural terrain polish and persistent checkpoints remain pending.
+
 - First signed ARM64 Android debug APK exported and signature-verified. Owner reports smooth gameplay and persisted progress after reopening on Samsung A37; background/resume and measured performance remain pending.
 
 - Third-person movement, curved blade attacks, dodge, touch controls.

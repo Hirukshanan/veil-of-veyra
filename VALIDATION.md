@@ -360,3 +360,35 @@ Native minimized OpenGL HUD/settings previews at 800x450 were inspected:
 text overlap found during that pass. These simulated margins do not establish
 real Android cutout, gesture navigation or multitouch acceptance.
 Debug APK: 0.1.6-dev (code 7).
+
+## First explorable island layout — 2026-11-05
+
+Expanded the terrain from a 16 m radius arena to a 38 m radius flat interior
+with a sloped sandy perimeter reaching 48 m below water. The native mesh collider
+matches the slope; this remains a circular first-layout terrain, not a finished
+organic coastline. Added a beach arrival, branching trail, forest scenery and
+northern ruins, using existing lightweight procedural scenery. All chapters
+share this layout with their existing palettes and progression.
+
+Existing enemy totals are distributed among three camps. Detection starts within
+11 m; wolves disengage beyond 24 m from the target or 20 m from their camp and
+return home. Relics are spread across the route. The northern lantern still
+requires all enemies defeated; its dragon spawns at the ruins. Three waystones
+bind a rescue position for the current hunt. Entering deep water returns the
+player there with a 20-vitality damage attempt under existing invulnerability
+rules. Waystones do not persist across app restart or defeat/retry, and do not
+save partially cleared camps. Swimming and persistent checkpoints remain future work.
+
+Passed exploration_check, gameplay_check, environment_check, enemy_check,
+relic_check, target_lock_check and campaign_smoke. Updated the old relic radius
+assertion and explicitly reset boss state in the isolated breath test, since the
+new nearby spawn can already have entered windup. Exploration checks raycast
+camp/waystone ground and the beach slope, validate rescue/penalty and local aggro.
+Two shutdown ObjectDB instances were reported by exploration_check; assertions
+passed, but leak origin remains unconfirmed.
+
+Native minimized OpenGL overview and trail previews were inspected:
+`.validation/island_overview.png`, `.validation/island_trail.png` (paused staging).
+This is an initial playable map layout: terrain art, navigation balance, long
+manual traversal and phone performance still need review. Debug version 0.2.0-dev
+(code 8). Earlier Samsung A37 feedback does not validate the larger map.

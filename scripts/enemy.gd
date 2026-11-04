@@ -26,6 +26,8 @@ var _material: StandardMaterial3D
 var _warning: MeshInstance3D
 var _visual: Node3D
 var _strike_time := 0.0
+var _home := Vector3.ZERO
+var _alert := false
 
 
 
@@ -57,6 +59,7 @@ func _ready() -> void:
 			body_color = Color(0.24, 0.1, 0.13)
 			body_radius = 0.68
 			body_height = 2.1
+	_home = position
 	_maximum_health = health
 	_build_body()
 
@@ -72,6 +75,19 @@ func _physics_process(delta: float) -> void:
 	var offset := target.global_position - global_position
 	offset.y = 0.0
 	var distance := offset.length()
+	if distance < 11.0:
+		_alert = true
+	if global_position.distance_to(_home) > 20.0 or distance > 24.0:
+		_alert = false
+	if not _alert:
+		_windup = 0.0
+		_warning.hide()
+		var home_direction := (_home - position).normalized()
+		velocity = home_direction * move_speed if position.distance_to(_home) > 0.5 else Vector3.ZERO
+		if not is_on_floor():
+			velocity.y -= GRAVITY * delta
+		move_and_slide()
+		return
 	var direction := offset.normalized() if distance > 0.01 else Vector3.ZERO
 	if _windup > 0.0:
 		velocity.x = 0.0

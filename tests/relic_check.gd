@@ -21,7 +21,7 @@ func _run() -> void:
 				child.set_physics_process(false)
 		assert(hunt.collected == 0 and hunt.relics.size() == 3)
 		for relic in hunt.relics:
-			assert(relic.position.length() < 12.0, "Relics must be reachable on the island")
+			assert(relic.position.length() < 35.5, "Relics must be reachable on the island")
 		hero.position = hunt.relics[0].global_position
 		await physics_frame
 		await physics_frame

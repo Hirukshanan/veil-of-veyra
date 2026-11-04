@@ -5,7 +5,7 @@ const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
 const CHAPTERS := [
-	["The Silent Shore", "The western lantern has gone dark. Defeat the shore demons, then approach the lantern and light it to draw out the dragon."],
+	["The Silent Shore", "Follow the sandy trail from the beach through the forest. Clear all three wolf camps, then light the lantern at the northern ruins. Approach waystones to bind a water-rescue point; deep water costs 20 vitality. Waystones last for this hunt only."],
 	["The Broken Grove", "Follow the keeper's trail. Clear the grove's demons and light its lantern to expose the Tidewraith's next manifestation."],
 	["The Last Lantern", "Break the final seal: defeat the demons and light the last lantern. Destroy the dragon to restore Veyra's light."]
 ]
@@ -45,7 +45,7 @@ func _process(_delta: float) -> void:
 func _build_lantern() -> void:
 	lantern = Node3D.new()
 	lantern.name = "ChapterLantern"
-	lantern.position = [Vector3(-7, 0, 1), Vector3(7, 0, 1), Vector3(5, 0, 5)][chapter]
+	lantern.position = Vector3(0, 0, -20)
 	add_child(lantern)
 	var pedestal := MeshInstance3D.new()
 	var stone := CylinderMesh.new()
@@ -77,7 +77,7 @@ func _build_lantern() -> void:
 	_bind_keys(&"interact", [KEY_E])
 
 func _update_objective() -> void:
-	var objective := "Defeat shore demons: %d" % remaining_enemies
+	var objective := "Clear the three camps: %d wolves" % remaining_enemies
 	if boss_spawned:
 		objective = "Defeat the Tidewraith Dragon"
 	elif remaining_enemies == 0:
@@ -135,6 +135,10 @@ func _ready() -> void:
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
 	_build_lantern()
+	var exploration := preload("res://scripts/island_exploration.gd").new()
+	exploration.name = "IslandExploration"
+	exploration.player = player
+	add_child(exploration)
 	relic_hunt = RELIC_HUNT_SCRIPT.new()
 	relic_hunt.set("player", player)
 	relic_hunt.set("chapter", chapter)
@@ -146,7 +150,7 @@ func _build_enemies() -> void:
 	for index in range(remaining_enemies):
 		var enemy: CharacterBody3D = ENEMY_SCRIPT.new()
 		var angle := TAU * float(index) / float(remaining_enemies)
-		enemy.position = Vector3(cos(angle) * 10, 0, sin(angle) * 10)
+		enemy.position = preload("res://scripts/island_exploration.gd").CAMPS[index % 3] + Vector3(cos(angle) * 2, 0, sin(angle) * 2)
 		enemy.set("target", player)
 		enemy.set("health", 3 + chapter * 2)
 		# Introduce the scout on the shore; later chapters mix all three kinds.

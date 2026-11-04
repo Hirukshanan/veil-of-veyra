@@ -103,25 +103,33 @@ func _build_island() -> void:
 
 	var island := StaticBody3D.new()
 	island.name = "Island"
-	island.position.y = -0.7
+	island.position.y = -1.0
 	add_child(island)
 
 	var island_mesh := MeshInstance3D.new()
 	island_mesh.name = "Surface"
 	var cylinder := CylinderMesh.new()
-	cylinder.top_radius = 16.0
-	cylinder.bottom_radius = 16.0
-	cylinder.height = 1.4
+	cylinder.top_radius = 38.0
+	cylinder.bottom_radius = 48.0
+	cylinder.height = 2.0
 	cylinder.radial_segments = 40
 	island_mesh.mesh = cylinder
-	island_mesh.material_override = _material(ENVIRONMENT_SCRIPT.GROUND_COLORS[environment_chapter])
+	island_mesh.material_override = _material(Color(0.66, 0.57, 0.38))
 	island.add_child(island_mesh)
+	var interior := MeshInstance3D.new()
+	interior.name = "Interior"
+	var interior_mesh := CylinderMesh.new()
+	interior_mesh.top_radius = 35.5
+	interior_mesh.bottom_radius = 35.5
+	interior_mesh.height = 0.02
+	interior_mesh.radial_segments = 64
+	interior.mesh = interior_mesh
+	interior.position.y = 1.0
+	interior.material_override = _material(ENVIRONMENT_SCRIPT.GROUND_COLORS[environment_chapter])
+	island.add_child(interior)
 
 	var island_collision := CollisionShape3D.new()
-	var island_shape := CylinderShape3D.new()
-	island_shape.radius = 16.0
-	island_shape.height = 1.4
-	island_collision.shape = island_shape
+	island_collision.shape = cylinder.create_trimesh_shape()
 	island.add_child(island_collision)
 
 
@@ -164,7 +172,8 @@ func _build_decor() -> void:
 func _build_player() -> void:
 	player = PLAYER_SCRIPT.new()
 	player.name = "Aru"
-	player.position = Vector3(0, 0, 4)
+	player.position = Vector3(0, 0, 27)
+	player.rescue_position = Vector3(0, 1, 27)
 	add_child(player)
 	player.connect("health_changed", Callable(self, "_on_health_changed"))
 	player.connect("defeated", Callable(self, "_on_player_defeated"))
@@ -341,7 +350,7 @@ func _spawn_boss() -> void:
 	boss_health_bar.visible = true
 	var boss: CharacterBody3D = BOSS_SCRIPT.new()
 	boss.name = "Tidewraith Dragon"
-	boss.position = Vector3(0, 0, -7.5)
+	boss.position = Vector3(0, 0, -25)
 	boss.set("target", player)
 	boss.connect("health_changed", Callable(self, "_on_boss_health_changed"))
 	boss.connect("defeated", Callable(self, "_on_boss_defeated"))

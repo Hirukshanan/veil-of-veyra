@@ -18,7 +18,7 @@ func _run() -> void:
 		var decor = scene.get_node("ChapterEnvironment")
 		assert(decor.chapter == chapter)
 		assert(decor.landmarks.size() == [10, 14, 8][chapter])
-		var palette: Color = scene.get_node("Island/Surface").material_override.albedo_color
+		var palette: Color = scene.get_node("Island/Interior").material_override.albedo_color
 		assert(not palettes.has(palette), "Each chapter needs a distinct ground palette")
 		palettes.append(palette)
 		var space: PhysicsDirectSpaceState3D = scene.get_world_3d().direct_space_state

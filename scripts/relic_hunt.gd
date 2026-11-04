@@ -10,11 +10,11 @@ var collected := 0
 var relics: Array[Node3D] = []
 
 func _ready() -> void:
-	var locations := [Vector3(-8, 0, -4), Vector3(8, 0, -4), Vector3(0, 0, 9)]
+	var locations := [Vector3(-22, 0, 15), Vector3(22, 0, -7), Vector3(-6, 0, -29)]
 	for index in range(RELIC_COUNT):
 		var relic := Node3D.new()
 		relic.name = "KeeperRelic%d" % (index + 1)
-		relic.position = locations[index].rotated(Vector3.UP, chapter * 0.5)
+		relic.position = locations[index]
 		add_child(relic)
 		relics.append(relic)
 		var gem := MeshInstance3D.new()

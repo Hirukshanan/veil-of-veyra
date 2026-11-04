@@ -7,6 +7,8 @@ const MOVE_SPEED := 5.2
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
+var rescue_position := Vector3(0, 1, 27)
+
 const ATTACK_BUFFER_WINDOW := 0.18
 const LOCK_RANGE := 14.0
 const SPIRIT_MAX := 100
@@ -64,7 +66,7 @@ func _physics_process(delta: float) -> void:
 	if health <= 0:
 		return
 	if position.y < -8:
-		position = Vector3(0, 1, 4)
+		position = rescue_position
 		velocity = Vector3.ZERO
 		take_damage(20)
 	_attack_cooldown = maxf(0.0, _attack_cooldown - delta)
