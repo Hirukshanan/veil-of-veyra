@@ -25,6 +25,7 @@ var camera_sensitivity := 1.0
 var camera_distance := 6.3
 var sound_volume := 0.7
 var pause_menu_open := false
+var journal_open := false
 var lantern: Node3D
 var lantern_flame: MeshInstance3D
 var lantern_label: Label3D
@@ -97,8 +98,13 @@ func _interact_lantern() -> void:
 
 class PauseOverlay extends CanvasLayer:
 	signal pause_requested
+	signal journal_requested
 
 	func _unhandled_key_input(event: InputEvent) -> void:
+		if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_Q:
+			journal_requested.emit()
+			get_viewport().set_input_as_handled()
+			return
 		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
 			pause_requested.emit()
 			get_viewport().set_input_as_handled()
@@ -194,6 +200,7 @@ func _build_campaign_ui() -> void:
 	controls.add_child(interact_button)
 	overlay = PauseOverlay.new()
 	overlay.connect("pause_requested", _toggle_pause)
+	overlay.connect("journal_requested", _toggle_journal)
 	overlay.layer = 20
 	overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(overlay)
@@ -221,6 +228,7 @@ func _layout_menu() -> void:
 	menu_scroll.offset_bottom = -24
 
 func _clear_menu(title: String, message: String) -> void:
+	journal_open = false
 	pause_menu_open = false
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
@@ -301,6 +309,7 @@ func _upgrade(blade: bool) -> void:
 	_show_camp()
 
 func _resume() -> void:
+	journal_open = false
 	pause_menu_open = false
 	started = true
 	relic_hunt.set("active", true)
@@ -314,6 +323,7 @@ func _pause_game() -> void:
 	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting resets enemies, potions, and relic collection.")
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
+	_menu_button("Quest Journal [Q]", _show_journal)
 	_menu_button("Restart hunt", _reload)
 	_menu_button("Settings", func(): _show_settings(_pause_game))
 	_menu_button("Quit", func(): get_tree().quit())
@@ -477,3 +487,25 @@ func _load_progress() -> void:
 		set(key, result.data[key])
 	if result.recovered:
 		notice = "Previous progress recovered from backup. The most recent save may be lost."
+
+func _toggle_journal() -> void:
+	if journal_open:
+		_resume()
+	elif not get_tree().paused:
+		_show_journal()
+
+func _journal_text() -> String:
+	var cleared := remaining_enemies == 0
+	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
+	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
+	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
+	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")]
+
+func _show_journal() -> void:
+	if not started or game_finished or (get_tree().paused and not pause_menu_open):
+		return
+	_clear_menu("QUEST JOURNAL - " + str(CHAPTERS[chapter][0]), _journal_text())
+	journal_open = true
+	pause_menu_open = true
+	_menu_button("Return to hunt [Q / Esc]", _resume)
+	_menu_button("Pause menu", _pause_game)

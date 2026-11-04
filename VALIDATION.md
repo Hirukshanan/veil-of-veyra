@@ -164,3 +164,34 @@ and overlapping-number appearance still require visual review.
 ```powershell
 godot --headless --path . --script res://tests/damage_feedback_check.gd
 ```
+
+## Damage feedback visual review — 2026-11-04
+
+Rendered normal, lethal, boss, and eight simultaneous same-target hits at 1280x720
+using a minimized native Windows OpenGL window (Intel Iris Xe), with isolated saves.
+Initial numbers were too small and same-target labels overlapped. Increased their
+world-space display size and spread simultaneous labels horizontally, then into
+lower rows. Re-rendered and inspected the corrected normal and boss/crowd views;
+the eight-hit view is readable and avoids the boss HUD at the staged camera angle.
+The feedback lifecycle regression check passed after the size/spacing change.
+
+Captures: ignored `.validation/feedback_normal.png`, `feedback_finisher.png`,
+`feedback_boss.png`, and `feedback_crowd.png`. These staged screenshots do not
+validate a full fight, all camera distances, phone aspect ratios, or device performance.
+
+## Quest Journal — 2026-11-04
+
+Q opens the active hunt journal; touch players can use Pause > Quest Journal.
+It shows chapter instructions, remaining demons, lantern readiness/completion,
+dragon activation and optional relic progress. Q/Escape returns to gameplay.
+Opening it uses the existing menu pause/input cleanup; camp and ended hunts do
+not open an active journal. No additional save state is introduced.
+
+journal_check, pause_check and layout_check passed headlessly. The new check covers
+keyboard and pause-menu access, objective states, queued-input cleanup and menu
+exit guards. Journal text/layout has not yet had a native screenshot review.
+Run with the isolated test profile described above:
+
+```powershell
+godot --headless --path . --script res://tests/journal_check.gd
+```

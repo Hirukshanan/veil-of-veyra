@@ -17,6 +17,7 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 - Target lock: **Tab** or **LOCK**.
 - Spirit Burst: **L** or **BURST** when fully charged.
 - Lantern: **E** or **LIGHT** when nearby and unlocked.
+- Quest Journal: **Q** during a hunt, or **Pause → Quest Journal** on touchscreens. Q or Escape returns to the hunt.
 - Pause/resume: **Escape**; after defeat use **Retry hunt**.
 
 See [Android setup](ANDROID_SETUP.md) for build prerequisites and device acceptance checks.

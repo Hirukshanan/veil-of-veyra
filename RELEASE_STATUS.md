@@ -19,6 +19,7 @@
 - Dragon boss with warning, charge, breath, and health display.
 - Dragon Enraged phase at half health: explicit HUD/action labels, faster pursuit/charge, and shorter future windups/recovery while preserving attacks already in progress.
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.
+- Quest Journal (Q or Pause menu) shows chapter instructions, demon/lantern/dragon stages and optional relic progress, with paused combat while reading.
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.
 - Anchored landscape controls and scrollable camp/settings menus with keyboard focus following.
 - Shard rewards, blade/armor upgrades, and local campaign persistence.
