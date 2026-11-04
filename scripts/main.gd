@@ -185,8 +185,7 @@ func _build_enemies() -> void:
 func _build_hud() -> void:
 	var canvas := CanvasLayer.new()
 	add_child(canvas)
-	var root := Control.new()
-	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var root := preload("res://scripts/safe_area.gd").new()
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(root)
 
@@ -272,8 +271,13 @@ func _build_hud() -> void:
 	root.add_child(combat_hud_timer)
 
 	var hint := Label.new()
-	hint.text = "Move: WASD / joystick   Attack: J   Dodge: K   Camera: right-drag / touch   Pause: Esc"
-	hint.position = Vector2(28, 104)
+	hint.text = "Drag open space to turn the camera" if OS.has_feature("mobile") else "WASD: Move   J: Attack   K: Dodge   Esc: Pause"
+	hint.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	hint.offset_left = 28
+	hint.offset_right = -210
+	hint.offset_top = 104
+	hint.offset_bottom = 128
+	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hint.add_theme_font_size_override("font_size", 15)
 	hint.add_theme_color_override("font_color", Color(0.75, 0.83, 0.79, 0.9))
 	root.add_child(hint)

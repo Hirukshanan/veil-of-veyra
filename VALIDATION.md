@@ -338,3 +338,25 @@ The dedicated test covers flash reset, single defeat, immediate enemy removal,
 non-colliding remains, pause, expiry, the limit and world cleanup. Native OpenGL
 hit/fall poses were inspected in `.validation/wolf_feedback.png`; phone visual
 quality/performance is pending. Debug APK version: 0.1.5-dev (code 6).
+
+## Mobile safe-area layout — 2026-11-05
+
+HUD, campaign actions and menu contents now share a safe-area Control script.
+On mobile it converts DisplayServer.get_display_safe_area() through the inverse
+viewport screen transform into logical canvas coordinates, intersects the viewport,
+and falls back to full bounds for missing/outside rectangles. Desktop keeps the
+full viewport. Resize and a paused-safe 0.5-second timer refresh the layout;
+background shade and 3D rendering still cover the entire display. Compact hints
+reserve the HEAL column and mobile shows a touch-camera instruction.
+API reference: https://docs.godotengine.org/en/stable/classes/class_displayserver.html#class-displayserver-method-get-display-safe-area
+
+layout_check, safe_area_check, pause_check and settings_check passed. Tests cover
+800x450, 1280x720, 1920x864, asymmetric simulated cutout/gesture margins, scaled
+and translated pixel conversion, invalid-rectangle fallback, action separation,
+scroll reachability, pause and settings. settings_check emitted a two-object
+shutdown leak warning; it did not fail assertions, and the cause is not established.
+Native minimized OpenGL HUD/settings previews at 800x450 were inspected:
+`.validation/safe_area_hud.png` and `.validation/safe_area_menu.png`. Fixed a hint
+text overlap found during that pass. These simulated margins do not establish
+real Android cutout, gesture navigation or multitouch acceptance.
+Debug APK: 0.1.6-dev (code 7).

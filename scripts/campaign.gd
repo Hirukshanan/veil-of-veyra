@@ -164,8 +164,10 @@ func _spawn_boss() -> void:
 		_on_boss_health_changed(maximum, maximum)
 
 func _build_campaign_ui() -> void:
-	var controls := CanvasLayer.new()
-	add_child(controls)
+	var controls_layer := CanvasLayer.new()
+	add_child(controls_layer)
+	var controls := preload("res://scripts/safe_area.gd").new()
+	controls_layer.add_child(controls)
 	var pause_button := Button.new()
 	pause_button.text = "PAUSE"
 	pause_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
@@ -205,20 +207,22 @@ func _build_campaign_ui() -> void:
 	shade.color = Color(0.015, 0.035, 0.055, 1.0)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(shade)
+	var menu_safe := preload("res://scripts/safe_area.gd").new()
+	overlay.add_child(menu_safe)
 	menu_scroll = ScrollContainer.new()
 	menu_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	menu_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	menu_scroll.follow_focus = true
-	overlay.add_child(menu_scroll)
+	menu_safe.add_child(menu_scroll)
 	menu_box = VBoxContainer.new()
 	menu_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu_box.add_theme_constant_override("separation", 12)
 	menu_scroll.add_child(menu_box)
-	get_viewport().size_changed.connect(_layout_menu)
+	menu_safe.resized.connect(_layout_menu)
 	_layout_menu()
 
 func _layout_menu() -> void:
-	var margin := maxf(24.0, (get_viewport().get_visible_rect().size.x - 700.0) * 0.5)
+	var margin := maxf(24.0, (menu_scroll.get_parent().size.x - 700.0) * 0.5)
 	menu_scroll.offset_left = margin
 	menu_scroll.offset_right = -margin
 	menu_scroll.offset_top = 24

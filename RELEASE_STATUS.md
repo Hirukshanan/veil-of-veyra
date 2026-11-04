@@ -26,6 +26,7 @@
 - Camp, chapter introductions, pause, healing, defeat/retry, and ending.
 - Quest Journal (Q or Pause menu) shows chapter instructions, demon/lantern/dragon stages and optional relic progress, with paused combat while reading.
 - Escape pause/resume, automatic pause on application focus loss/backgrounding, and joystick reset on menus.
+- Mobile safe-area insets for HUD/actions and menu contents, with scaled display-coordinate mapping; actual cutout-device acceptance remains pending.
 - Anchored landscape controls and scrollable camp/settings menus with keyboard focus following.
 - Shard rewards, blade/armor upgrades, and local campaign persistence.
 - Campaign saves use a validated temporary file and previous-save backup; invalid primary files recover from backup, with explicit protection when both snapshots are unreadable and retry options on failed victory/reset saves.
