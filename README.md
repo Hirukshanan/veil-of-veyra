@@ -11,7 +11,7 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 ## Controls
 
 - Move: **WASD** or arrow keys; on touchscreens, use the lower-left joystick.
-- Attack: **J** or the on-screen **ATTACK** button.
+- Attack: **J** or the on-screen **ATTACK** button. Press near the end of a swing to queue the next combo hit; dodge or taking damage cancels it.
 - Dodge: **K** / **Space** or the on-screen **DODGE** button.
 - Camera: hold the right mouse button and drag, or drag on an open area of the screen.
 - Target lock: **Tab** or **LOCK**.

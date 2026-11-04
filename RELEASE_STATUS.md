@@ -5,7 +5,7 @@
 - Third-person movement, curved blade attacks, dodge, touch controls.
 - Tab/on-screen target lock selects the nearest living enemy within 14 metres, tracks facing/camera, marks the target, and releases on manual camera input, menus, death, removal or range exit.
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
-- Three-hit sword combo, double-damage finisher, hit flashes, and dodge cooldown display.
+- Three-hit sword combo, double-damage finisher, hit flashes, dodge cooldown display, and a 0.18-second input buffer near the end of attack recovery.
 - Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.
 - Enemy attack warnings with range escape and interruptible windups.
 - Shore/Scout/Brute enemy types with distinct stats, silhouettes, colors, health labels, and a camp enemy guide; Scouts appear in chapter one and Brutes join later chapters.
@@ -41,5 +41,5 @@ This is an evolving playable prototype, not a finished commercial release.
 
 ## Version control
 
-The assistant creates local commits only. The project owner controls branches, pushes, and merges.
+The assistant edits and verifies changes, then suggests a commit message. The project owner creates commits and controls branches, pushes, and merges.
 Code, game text, documentation, and commit messages are written in English.

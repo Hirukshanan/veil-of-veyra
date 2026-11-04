@@ -133,3 +133,18 @@ Death also clears any lingering damage overlay.
 The hero animation, combat, and three-chapter gameplay suites passed headlessly.
 Coverage includes slow-walk playback and restoring normal action speed. Continuous
 visual smoothness and physical-device behavior remain unverified for this pass.
+
+## Combo input buffer — 2026-11-04
+
+Attack presses during the final 0.18 seconds of recovery queue one next swing.
+Earlier presses are ignored; repeated presses do not stack attacks. Dodge, damage,
+death, and menus clear queued input. Paused input does not create a queue.
+
+The new attack_buffer_check plus combat_check, gameplay_check, and pause_check
+passed headlessly. Continuous touch feel and device behavior still require manual
+playtesting. Run the new suite with the same isolated APPDATA and VEYRA_TEST=1
+setup used above:
+
+```powershell
+godot --headless --path . --script res://tests/attack_buffer_check.gd
+```

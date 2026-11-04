@@ -7,6 +7,7 @@ const MOVE_SPEED := 5.2
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
+const ATTACK_BUFFER_WINDOW := 0.18
 const LOCK_RANGE := 14.0
 const SPIRIT_MAX := 100
 const BURST_RADIUS := 3.0
@@ -38,6 +39,7 @@ var _lock_marker: Label3D
 var spirit := 0
 var _burst_requested := false
 var _swing_id := 0
+var _attack_buffer := 0.0
 
 
 func _ready() -> void:
@@ -66,6 +68,12 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		take_damage(20)
 	_attack_cooldown = maxf(0.0, _attack_cooldown - delta)
+	if _attack_buffer > 0.0:
+		if _attack_cooldown <= 0.0 and _dodge_time <= 0.0:
+			_attack_buffer = 0.0
+			attack()
+		else:
+			_attack_buffer = maxf(0.0, _attack_buffer - delta)
 	_combo_window = maxf(0.0, _combo_window - delta)
 	if _combo_window == 0.0:
 		combo_step = 0
@@ -172,8 +180,13 @@ func _update_target_lock(delta: float) -> void:
 
 
 func attack() -> void:
-	if get_tree().paused or _attack_cooldown > 0.0 or health <= 0:
+	if get_tree().paused or health <= 0:
 		return
+	if _attack_cooldown > 0.0:
+		if _attack_cooldown <= ATTACK_BUFFER_WINDOW:
+			_attack_buffer = ATTACK_BUFFER_WINDOW
+		return
+	_attack_buffer = 0.0
 	combo_step = combo_step % 3 + 1
 	_combo_window = 0.95
 	_attack_cooldown = 0.55 if combo_step == 3 else 0.32
@@ -461,5 +474,6 @@ func _build_attack_area() -> void:
 
 
 func cancel_swing() -> void:
+	_attack_buffer = 0.0
 	_swing_id += 1
 	_attack_time = 0.0
