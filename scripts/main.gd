@@ -77,6 +77,7 @@ func _setup_input() -> void:
 	_bind_keys(&"move_forward", [KEY_W, KEY_UP])
 	_bind_keys(&"move_back", [KEY_S, KEY_DOWN])
 	_bind_keys(&"attack", [KEY_J])
+	_bind_keys(&"sprint", [KEY_SHIFT])
 	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
 	_bind_keys(&"target_lock", [KEY_TAB])
 	_bind_keys(&"spirit_burst", [KEY_L])
@@ -215,9 +216,9 @@ func _build_hud() -> void:
 	boss_name_label = Label.new()
 	boss_name_label.text = "TIDEWRAITH DRAGON"
 	boss_name_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	boss_name_label.offset_left = -260
+	boss_name_label.offset_left = -180
 	boss_name_label.offset_top = 132
-	boss_name_label.offset_right = 260
+	boss_name_label.offset_right = 180
 	boss_name_label.offset_bottom = 160
 	boss_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	boss_name_label.add_theme_font_size_override("font_size", 20)
@@ -227,9 +228,9 @@ func _build_hud() -> void:
 
 	boss_health_bar = ProgressBar.new()
 	boss_health_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	boss_health_bar.offset_left = -260
+	boss_health_bar.offset_left = -180
 	boss_health_bar.offset_top = 163
-	boss_health_bar.offset_right = 260
+	boss_health_bar.offset_right = 180
 	boss_health_bar.offset_bottom = 185
 	boss_health_bar.max_value = 28
 	boss_health_bar.value = 28
@@ -264,10 +265,18 @@ func _build_hud() -> void:
 	burst_button.disabled = true
 	burst_button.pressed.connect(Callable(player, "spirit_burst"))
 	root.add_child(burst_button)
+	var sprint_button := Button.new()
+	sprint_button.name = "SprintButton"
+	sprint_button.position = Vector2(24, 140)
+	sprint_button.size = Vector2(140, 48)
+	sprint_button.pressed.connect(Callable(player, "toggle_sprint"))
+	root.add_child(sprint_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
+		sprint_button.text = "%s %d%%" % ["STOP" if player.sprint_enabled else "SPRINT", int(player.stamina)]
+		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		var cooldown := float(player.get("_dodge_cooldown"))
 		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
 		var step := int(player.get("combo_step"))

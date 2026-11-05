@@ -11,6 +11,7 @@ This is a Godot 4.7 GDScript prototype for an original third-person island-fanta
 ## Controls
 
 - Move: **WASD** or arrow keys; on touchscreens, use the lower-left joystick.
+- Sprint: **Shift** or **SPRINT** toggles faster travel while moving. Stamina drains while sprinting and recovers otherwise; at least 20% is required to start. Combat actions, damage and menus cancel sprint.
 - Attack: **J** or the on-screen **ATTACK** button. Press near the end of a swing to queue the next combo hit; dodge or taking damage cancels it.
 - Dodge: **K** / **Space** or the on-screen **DODGE** button.
 - Camera: hold the right mouse button and drag, or drag on an open area of the screen.

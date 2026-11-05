@@ -4,6 +4,9 @@ signal health_changed(value: int, maximum: int)
 signal defeated
 
 const MOVE_SPEED := 5.2
+const SPRINT_SPEED := 8.3
+var stamina := 100.0
+var sprint_enabled := false
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
@@ -89,6 +92,8 @@ func _physics_process(delta: float) -> void:
 	var keyboard_vector := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
 	if keyboard_vector.length_squared() > 0.01:
 		input_vector = keyboard_vector
+	if Input.is_action_just_pressed(&"sprint"):
+		toggle_sprint()
 	if Input.is_action_just_pressed(&"attack"):
 		attack()
 	if Input.is_action_just_pressed(&"dodge"):
@@ -106,13 +111,14 @@ func _physics_process(delta: float) -> void:
 	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	if direction.length_squared() > 1.0:
 		direction = direction.normalized()
+	var move_speed := _sprint_speed(delta, direction.length())
 	if _dodge_time > 0.0:
 		_dodge_time -= delta
 		velocity.x = _dodge_direction.x * DODGE_SPEED
 		velocity.z = _dodge_direction.z * DODGE_SPEED
 	else:
-		velocity.x = direction.x * MOVE_SPEED
-		velocity.z = direction.z * MOVE_SPEED
+		velocity.x = direction.x * move_speed
+		velocity.z = direction.z * move_speed
 		if direction.length_squared() > 0.01 and not is_instance_valid(locked_target):
 			rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), delta * 12.0)
 
@@ -188,6 +194,7 @@ func attack() -> void:
 		if _attack_cooldown <= ATTACK_BUFFER_WINDOW:
 			_attack_buffer = ATTACK_BUFFER_WINDOW
 		return
+	sprint_enabled = false
 	_attack_buffer = 0.0
 	combo_step = combo_step % 3 + 1
 	_combo_window = 0.95
@@ -220,6 +227,7 @@ func spirit_burst() -> void:
 
 
 func _perform_spirit_burst() -> void:
+	sprint_enabled = false
 	spirit = 0
 	_visual.action("Spell_Simple_Shoot", 0.65)
 	_attack_cooldown = 0.65
@@ -476,6 +484,25 @@ func _build_attack_area() -> void:
 
 
 func cancel_swing() -> void:
+	sprint_enabled = false
 	_attack_buffer = 0.0
 	_swing_id += 1
 	_attack_time = 0.0
+
+func toggle_sprint() -> void:
+	if get_tree().paused or health <= 0 or _attack_cooldown > 0.0 or _dodge_time > 0.0:
+		return
+	if sprint_enabled:
+		sprint_enabled = false
+	elif stamina >= 20.0:
+		sprint_enabled = true
+
+func _sprint_speed(delta: float, input_strength: float) -> float:
+	if sprint_enabled and input_strength > 0.1 and _attack_cooldown <= 0.0 and _dodge_time <= 0.0 and _hit_time <= 0.0:
+		stamina = maxf(0.0, stamina - 25.0 * delta)
+		if stamina > 0.0:
+			return SPRINT_SPEED
+		sprint_enabled = false
+	else:
+		stamina = minf(100.0, stamina + 18.0 * delta)
+	return MOVE_SPEED

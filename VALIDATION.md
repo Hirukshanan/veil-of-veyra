@@ -421,3 +421,18 @@ island_map_check, pause_check and layout_check passed. Native minimized OpenGL
 preview at 800x450 with simulated cutouts was inspected; reduced diagram height
 and adjusted label spacing. Actual phone readability/touch testing is pending.
 Debug APK: 0.2.2-dev (code 10).
+
+## Sprint and stamina — 2026-11-05
+
+Shift or the SPRINT touch button toggles sprint (8.3 m/s versus 5.2 m/s).
+Stamina is session-only, capped at 100, drains 25/s while moving in sprint and
+recovers 18/s otherwise; starting requires 20. Exhaustion disables sprint.
+Accepted sword attacks, dodge, hit cancellation, Spirit Burst and menus stop
+sprint. Paused gameplay does not regenerate stamina. The button shows remaining
+percentage and can stop active sprint even below the start threshold. Existing
+analog movement and dodge speed remain unchanged. Boss HUD width is reduced to
+reserve space above the joystick for the new 140x48 control.
+
+sprint_check, safe_area_check and combat_check passed. Native OpenGL compact
+HUD preview inspected. Phone multitouch and movement/balance acceptance remain
+pending. Debug APK: 0.2.3-dev (code 11).
