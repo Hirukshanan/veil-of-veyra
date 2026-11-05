@@ -406,3 +406,18 @@ Checks cover rotated-camera bearings, vertical distance exclusion, objective
 progression, bound waypoint text and compact cutout layouts. The existing two
 ObjectDB shutdown warning in exploration_check remains unresolved. Device
 navigation readability/traversal still needs playtesting. Debug 0.2.1-dev (code 9).
+
+## Island map screen — 2026-11-05
+
+Pause menu now opens an Island Map: a north-up schematic with a player/facing
+arrow, three camp statuses, numbered waystones and the current bound point.
+Lantern/dragon status and explicit cleared/remaining text appear in the legend.
+Camp state uses living enemies' home locations, so chasing wolves do not move
+camp markers. This is a paused snapshot, not fast travel or a live minimap.
+Return to hunt stays above the map; legend/pause navigation remains scrollable.
+Height adapts so the full diagram fits the tested compact menu.
+
+island_map_check, pause_check and layout_check passed. Native minimized OpenGL
+preview at 800x450 with simulated cutouts was inspected; reduced diagram height
+and adjusted label spacing. Actual phone readability/touch testing is pending.
+Debug APK: 0.2.2-dev (code 10).

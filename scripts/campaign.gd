@@ -344,6 +344,7 @@ func _pause_game() -> void:
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Quest Journal [Q]", _show_journal)
+	_menu_button("Island Map", _show_island_map)
 	_menu_button("Restart hunt", _reload)
 	_menu_button("Settings", func(): _show_settings(_pause_game))
 	_menu_button("Quit", func(): get_tree().quit())
@@ -562,4 +563,31 @@ func _show_journal() -> void:
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
 	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
+	_menu_button("Pause menu", _pause_game)
+func _show_island_map() -> void:
+	if not started or game_finished or (get_tree().paused and not pause_menu_open):
+		return
+	var exploration = get_node("IslandExploration")
+	var map = preload("res://scripts/island_map.gd").new()
+	map.name = "IslandMap"
+	map.player_position = player.global_position
+	map.player_heading = player.global_rotation.y
+	map.bound_waystone = exploration.checkpoint_index
+	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():
+			continue
+		for index in range(3):
+			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
+				map.camps_cleared[index] = false
+	var legend := "Cyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	if boss_spawned:
+		legend += " The dragon is at the ruins."
+	for index in range(3):
+		legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
+	_clear_menu("ISLAND MAP", legend)
+	pause_menu_open = true
+	_menu_button("Return to hunt [Esc]", _resume)
+	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
+	menu_box.add_child(map)
+	menu_box.move_child(map, 2)
 	_menu_button("Pause menu", _pause_game)
