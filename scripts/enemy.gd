@@ -28,6 +28,12 @@ var _visual: Node3D
 var _strike_time := 0.0
 var _home := Vector3.ZERO
 var _alert := false
+var _returning := false
+var _patrol_goal := Vector3.ZERO
+var _patrol_step := 0
+var _patrol_wait := 0.0
+var _alert_time := 0.0
+var _alert_label: Label3D
 
 
 
@@ -60,8 +66,18 @@ func _ready() -> void:
 			body_radius = 0.68
 			body_height = 2.1
 	_home = position
+	_patrol_goal = _home
+	_patrol_wait = 1.0 + absf(sin(_home.x + _home.z)) * 2.0
 	_maximum_health = health
 	_build_body()
+	_alert_label = Label3D.new()
+	_alert_label.text = "!"
+	_alert_label.font_size = 48
+	_alert_label.position.y = body_height + 0.95
+	_alert_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	_alert_label.modulate = Color(1, 0.8, 0.2)
+	_alert_label.hide()
+	add_child(_alert_label)
 
 
 func _physics_process(delta: float) -> void:
@@ -75,20 +91,39 @@ func _physics_process(delta: float) -> void:
 	var offset := target.global_position - global_position
 	offset.y = 0.0
 	var distance := offset.length()
-	if distance < 11.0:
+	_alert_time = maxf(0.0, _alert_time - delta)
+	if _returning and position.distance_to(_home) < 1.0:
+		_returning = false
+		_patrol_goal = _home
+		_patrol_wait = 1.5
+	if not _returning and distance < 11.0 and not _alert:
 		_alert = true
-	if global_position.distance_to(_home) > 20.0 or distance > 24.0:
+		_alert_time = 1.0
+	if _alert and (position.distance_to(_home) > 20.0 or distance > 24.0):
 		_alert = false
+		_returning = true
+		_alert_time = 0.0
+	_alert_label.visible = _alert_time > 0.0
 	if not _alert:
 		_windup = 0.0
 		_warning.hide()
-		var home_offset := _home - position
+		if not _returning:
+			_patrol_wait = maxf(0.0, _patrol_wait - delta)
+			if position.distance_to(_patrol_goal) < 0.5 and _patrol_wait == 0.0:
+				_patrol_step += 1
+				var angle := _patrol_step * PI * 0.5 + _home.x * 0.1
+				_patrol_goal = _home + Vector3(cos(angle), 0, sin(angle)) * 2.5
+				_patrol_wait = 1.5
+		var destination := _home if _returning else _patrol_goal
+		var home_offset := destination - position
 		home_offset.y = 0.0
-		var home_direction := home_offset.normalized() if home_offset.length() > 0.5 else Vector3.ZERO
-		velocity.x = home_direction.x * move_speed
-		velocity.z = home_direction.z * move_speed
+		var moving := home_offset.length() > 0.5 and (_returning or _patrol_wait == 0.0)
+		var home_direction := home_offset.normalized() if moving else Vector3.ZERO
+		var speed := move_speed if _returning else move_speed * 0.55
+		velocity.x = home_direction.x * speed
+		velocity.z = home_direction.z * speed
 		if home_direction != Vector3.ZERO:
-			rotation.y = atan2(-home_direction.x, -home_direction.z)
+			rotation.y = lerp_angle(rotation.y, atan2(-home_direction.x, -home_direction.z), minf(1.0, delta * 6.0))
 		velocity.y = velocity.y - GRAVITY * delta if not is_on_floor() else 0.0
 		move_and_slide()
 		return

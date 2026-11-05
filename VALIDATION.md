@@ -436,3 +436,19 @@ reserve space above the joystick for the new 140x48 control.
 sprint_check, safe_area_check and combat_check passed. Native OpenGL compact
 HUD preview inspected. Phone multitouch and movement/balance acceptance remain
 pending. Debug APK: 0.2.3-dev (code 11).
+
+## Wolf patrols and alerts — 2026-11-05
+
+Unalerted wolves follow four short patrol points 2.5 m from home, at 55% of
+pursuit speed, with staggered starts and 1.5-second pauses. Detection shows a
+one-second yellow exclamation mark. Existing detection/attack values remain.
+A leashed wolf returns home before it can reacquire the player, preventing
+repeated alert/return switching at the boundary. Patrols are direct movement,
+not pathfinding; existing scenery remains camera-only collision.
+
+patrol_check, enemy_check, exploration_check and gameplay_check passed. Covered
+bounded goals, slower movement, alert expiry, return-state hysteresis, home reset
+and pause. Exploration's existing two-object shutdown warning remains. A staged
+native OpenGL alert/walking preview was inspected in `.validation/patrol_alert.png`.
+Long-session patrol behavior and phone performance remain unverified.
+Debug APK: 0.2.4-dev (code 12).
