@@ -53,3 +53,10 @@ This is an evolving playable prototype, not a finished commercial release.
 
 The assistant edits and verifies changes, then suggests a commit message. The project owner creates commits and controls branches, pushes, and merges.
 Code, game text, documentation, and commit messages are written in English.
+
+## Island exploration update (0.3.1-dev)
+- Expanded island with three hunting camps, rescue waystones, camera-relative objective guidance, pause map, and stamina-based sprint.
+- Wolves patrol locally and approach faster after detection while retaining attack warnings.
+- CC0 scanned foliage and ground textures, lightweight reduced vegetation meshes, and animated coastal water.
+- Irregular coastline with matching beach collision and curved trails shared with the pause map. Combat ground remains level.
+- Device acceptance for these additions is pending. Earlier Samsung A37 feedback covers the initial build, not this version.

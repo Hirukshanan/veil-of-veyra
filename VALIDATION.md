@@ -485,3 +485,9 @@ Debug version: 0.3.0-dev (code 13).
 - Inspected native OpenGL overview and ground-level captures. Ground still has sharp material boundaries; this is not a finished photorealistic terrain pass.
 - Samsung A37 performance and playtesting remain pending.
 - Exploration assertions passed; the previously observed two ObjectDB instances warning recurred at process shutdown. Its cause remains unresolved.
+
+## Android terrain build: 0.3.1-dev (code 14)
+- Exported ARM64 Android Debug APK successfully; signature verified with apksigner.
+- Manifest confirms com.hirukshanan.veilofveyra.dev, version 0.3.1-dev, code 14.
+- APK size: 82,170,475 bytes. New island terrain script is packaged; original heavy tree/fern glTF and BIN files remain excluded.
+- Physical device installation, performance, and gameplay acceptance remain pending. This export does not resolve the previously documented test shutdown warning.
