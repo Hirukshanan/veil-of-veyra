@@ -8,7 +8,8 @@ enum Kind { SHORE, SCOUT, BRUTE }
 var target: Node3D
 var health := 3
 var kind := Kind.SHORE
-var move_speed := 2.15
+var move_speed := 4.4
+var patrol_speed := 1.18
 var attack_damage := 8
 var attack_range := 1.8
 var windup_duration := 0.55
@@ -46,7 +47,8 @@ func _ready() -> void:
 		Kind.SCOUT:
 			display_name = "ASH STALKER"
 			health = maxi(2, health - 1)
-			move_speed = 3.1
+			move_speed = 5.8
+			patrol_speed = 1.7
 			attack_damage = 5
 			attack_range = 1.6
 			windup_duration = 0.4
@@ -57,7 +59,8 @@ func _ready() -> void:
 		Kind.BRUTE:
 			display_name = "DIRE WARG"
 			health += 3
-			move_speed = 1.45
+			move_speed = 3.8
+			patrol_speed = 0.8
 			attack_damage = 16
 			attack_range = 2.3
 			windup_duration = 0.95
@@ -119,7 +122,7 @@ func _physics_process(delta: float) -> void:
 		home_offset.y = 0.0
 		var moving := home_offset.length() > 0.5 and (_returning or _patrol_wait == 0.0)
 		var home_direction := home_offset.normalized() if moving else Vector3.ZERO
-		var speed := move_speed if _returning else move_speed * 0.55
+		var speed := move_speed if _returning else patrol_speed
 		velocity.x = home_direction.x * speed
 		velocity.z = home_direction.z * speed
 		if home_direction != Vector3.ZERO:

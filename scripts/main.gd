@@ -99,7 +99,9 @@ func _build_island() -> void:
 	water_mesh.size = Vector2(2000, 2000)
 	water.mesh = water_mesh
 	water.position.y = -1.45
-	water.material_override = _material(ENVIRONMENT_SCRIPT.SEA_COLORS[environment_chapter])
+	var sea_material := ShaderMaterial.new()
+	sea_material.shader = preload("res://assets/environment/coastal_water.gdshader")
+	water.material_override = sea_material
 	add_child(water)
 
 	var island := StaticBody3D.new()
@@ -115,7 +117,7 @@ func _build_island() -> void:
 	cylinder.height = 2.0
 	cylinder.radial_segments = 40
 	island_mesh.mesh = cylinder
-	island_mesh.material_override = _material(Color(0.66, 0.57, 0.38))
+	island_mesh.material_override = preload("res://scripts/environment_materials.gd").surface("coast_sand_01", 0.12)
 	island.add_child(island_mesh)
 	var interior := MeshInstance3D.new()
 	interior.name = "Interior"
@@ -126,7 +128,7 @@ func _build_island() -> void:
 	interior_mesh.radial_segments = 64
 	interior.mesh = interior_mesh
 	interior.position.y = 1.0
-	interior.material_override = _material(ENVIRONMENT_SCRIPT.GROUND_COLORS[environment_chapter])
+	interior.material_override = preload("res://scripts/environment_materials.gd").surface("leafy_grass", 0.25, [Color(1, 0.97, 0.9), Color(0.85, 1, 0.85), Color(0.85, 0.85, 0.95)][environment_chapter])
 	island.add_child(interior)
 
 	var island_collision := CollisionShape3D.new()
@@ -149,7 +151,7 @@ func _build_lighting() -> void:
 	environment.background_color = Color(0.035, 0.075, 0.12)
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color(0.52, 0.65, 0.72)
-	environment.ambient_light_energy = 0.65
+	environment.ambient_light_energy = 0.45
 	var world_environment := WorldEnvironment.new()
 	world_environment.environment = environment
 	add_child(world_environment)

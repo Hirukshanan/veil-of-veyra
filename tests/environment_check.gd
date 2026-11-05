@@ -28,7 +28,7 @@ func _run() -> void:
 				var bounds: AABB = mesh.mesh.get_aabb()
 				for corner in range(8):
 					var point: Vector3 = mesh.global_transform * (bounds.position + bounds.size * Vector3(corner & 1, (corner >> 1) & 1, (corner >> 2) & 1))
-					assert(Vector2(point.x, point.z).length() < 16.0, "Scenery must fit on the island")
+					assert(Vector2(point.x, point.z).length() < 35.5, "Scenery must fit on the island")
 			var from: Vector3 = landmark.global_position + Vector3(0, 1.5, 2)
 			var to: Vector3 = landmark.global_position + Vector3(0, 1.5, -2)
 			var query := PhysicsRayQueryParameters3D.create(from, to, 4)

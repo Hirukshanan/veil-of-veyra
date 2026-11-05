@@ -8,14 +8,39 @@ var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
 	var decor = preload("res://scripts/chapter_environment.gd").new()
-	for index in range(28):
+	for index in range(20):
 		var tree := Node3D.new()
-		tree.position = Vector3((-1 if index % 2 == 0 else 1) * (8 + (index % 4) * 3), 0, 22 - (index / 2) * 3)
+		tree.position = Vector3((-1 if index % 2 == 0 else 1) * (8 + (index % 4) * 3), 0, 22 - (index / 2) * 4.3)
+		tree.position.x += sin(index * 5.3) * 1.8
+		tree.position.z += cos(index * 3.7) * 1.4
 		add_child(tree)
 		if tree.position.z > 10:
 			decor._palm(tree)
 		else:
 			decor._grove_tree(tree, index)
+	for index in range(12):
+		var fern := preload("res://assets/environment/fern_02_mobile.scn").instantiate()
+		fern.position = Vector3((-1 if index % 2 == 0 else 1) * (6 + index % 4), 0, 18 - index * 3.5)
+		fern.rotation.y = index * 2.1
+		add_child(fern)
+		for mesh in fern.find_children("*", "MeshInstance3D", true, false):
+			mesh.visibility_range_end = 28.0
+	var rock_material := preload("res://scripts/environment_materials.gd").surface("rocky_terrain_02", 0.7)
+	for index in range(16):
+		var rock := MeshInstance3D.new()
+		var mesh := SphereMesh.new()
+		mesh.radius = 1.0
+		mesh.height = 2.0
+		mesh.radial_segments = 10
+		mesh.rings = 5
+		rock.mesh = mesh
+		var angle := index * TAU / 16
+		rock.position = Vector3(cos(angle) * 34.0, 0.3, sin(angle) * 34.0)
+		rock.scale = Vector3(1.2 + absf(sin(index * 3.1)), 0.7 + absf(cos(index * 2.1)), 1.0 + absf(cos(index)))
+		rock.rotation = Vector3(0.2 * sin(index), angle, 0.2 * cos(index))
+		rock.material_override = rock_material
+		rock.visibility_range_end = 65.0
+		add_child(rock)
 	for index in range(8):
 		var ruin := Node3D.new()
 		ruin.position = Vector3(cos(index * TAU / 8) * 9, 0, -25 + sin(index * TAU / 8) * 8)
@@ -41,8 +66,8 @@ func _ready() -> void:
 	path_mesh.size = Vector2(4.5, 54)
 	path.mesh = path_mesh
 	path.position = Vector3(0, 0.012, 2)
-	var sand := StandardMaterial3D.new()
-	sand.albedo_color = Color(0.53, 0.46, 0.3)
+	var sand := preload("res://scripts/environment_materials.gd").surface("forest_ground_04", 0.25)
+	sand.albedo_color = Color(0.85, 0.85, 0.8)
 	path.material_override = sand
 	add_child(path)
 	decor.free()

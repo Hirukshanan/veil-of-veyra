@@ -26,7 +26,7 @@ func _piece(parent: Node3D, mesh: Mesh, location: Vector3, color: Color) -> Mesh
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
 	material.roughness = 0.9
-	instance.material_override = material
+	instance.material_override = preload("res://scripts/environment_materials.gd").surface("rocky_terrain_02", 0.5, Color(0.9, 0.9, 0.85))
 	parent.add_child(instance)
 	return instance
 
@@ -50,30 +50,30 @@ func _column(parent: Node3D, radius: float, height: float, color: Color) -> void
 	blocker.add_child(collision)
 	parent.add_child(blocker)
 
+func _tree(parent: Node3D, size_factor: float) -> void:
+	var tree := preload("res://assets/environment/island_tree_01_mobile.scn").instantiate()
+	tree.scale = Vector3.ONE * size_factor
+	tree.rotation.y = parent.position.x * 0.7
+	parent.add_child(tree)
+	for mesh in tree.find_children("*", "MeshInstance3D", true, false):
+		mesh.visibility_range_end = 55.0
+	var blocker := StaticBody3D.new()
+	blocker.collision_layer = 4
+	blocker.collision_mask = 0
+	var collision := CollisionShape3D.new()
+	var shape := CylinderShape3D.new()
+	shape.radius = 0.38
+	shape.height = 3.0
+	collision.shape = shape
+	collision.position.y = 1.5
+	blocker.add_child(collision)
+	parent.add_child(blocker)
+
 func _palm(parent: Node3D) -> void:
-	_column(parent, 0.25, 3.6, Color(0.43, 0.3, 0.18))
-	for index in range(5):
-		var angle := TAU * index / 5.0
-		var frond := PrismMesh.new()
-		frond.size = Vector3(0.8, 0.25, 2.6)
-		var leaf := _piece(parent, frond, Vector3(sin(angle) * 1.1, 3.55, cos(angle) * 1.1), Color(0.2, 0.43, 0.25))
-		leaf.rotation = Vector3(0.15, angle, 0)
+	_tree(parent, 0.9)
 
 func _grove_tree(parent: Node3D, index: int) -> void:
-	var height := 3.0 + (index % 3) * 0.4
-	_column(parent, 0.38, height, Color(0.22, 0.17, 0.16))
-	var crown := SphereMesh.new()
-	crown.radius = 1.5
-	crown.height = 2.7
-	crown.radial_segments = 8
-	crown.rings = 4
-	_piece(parent, crown, Vector3(0, height, 0), Color(0.12, 0.3, 0.24))
-	var fungus := SphereMesh.new()
-	fungus.radius = 0.25
-	fungus.height = 0.2
-	fungus.radial_segments = 8
-	fungus.rings = 4
-	_piece(parent, fungus, Vector3(0.6, 0.2, 0.3), Color(0.3, 0.65, 0.65))
+	_tree(parent, 0.95 + (index % 3) * 0.1)
 
 func _ruin(parent: Node3D, index: int) -> void:
 	var height := 2.3 if index % 2 == 0 else 3.7

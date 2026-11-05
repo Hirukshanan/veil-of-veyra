@@ -29,7 +29,7 @@ func _run() -> void:
 		assert(is_equal_approx(enemy._warning.mesh.top_radius, enemy.attack_range))
 		target.position = Vector3(0, 0, -8)
 		enemy._physics_process(0.01)
-		assert(is_equal_approx(Vector2(enemy.velocity.x, enemy.velocity.z).length(), [2.15, 3.1, 1.45][kind]))
+		assert(is_equal_approx(Vector2(enemy.velocity.x, enemy.velocity.z).length(), [4.4, 5.8, 3.8][kind]))
 		enemy.position = Vector3.ZERO
 		enemy.velocity = Vector3.ZERO
 		target.position = Vector3(0, 0, -1.2)

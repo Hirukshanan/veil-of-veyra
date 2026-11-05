@@ -452,3 +452,28 @@ and pause. Exploration's existing two-object shutdown warning remains. A staged
 native OpenGL alert/walking preview was inspected in `.validation/patrol_alert.png`.
 Long-session patrol behavior and phone performance remain unverified.
 Debug APK: 0.2.4-dev (code 12).
+
+## Environment realism and faster pursuit — 2026-11-05
+
+Added CC0 Poly Haven 1K sand, grass, forest-floor and rock texture sets, world
+triplanar normal/roughness materials, scanned island trees and ferns, textured
+ruins and procedural shoreline boulders. Ground imports enable mipmaps, VRAM
+compression and anisotropic filtering. Original coastal shader adds subtle moving
+water detail and shallow/deep colors. Reduced ambient fill for more directional
+lighting. Terrain remains the circular layout with flat inland geometry; roads
+and foliage silhouettes still need art refinement.
+
+Reduced tree scene: 16,794 triangles; fern cluster: 6,232. Additional trail trees
+reduced from 28 to 20. Tree/fern visibility distances are 55/28 m. Source glTF and
+BIN files are excluded from export; dependency inspection confirmed generated
+SCNs reference only texture files. Provenance and regeneration instructions are
+in assets/environment/README.md. These assets may be committed under CC0.
+
+Pursuit: Ember Wolf 4.4, Ash Stalker 5.8, Dire Warg 3.8 m/s. Patrol rates remain
+1.18/1.7/0.8 m/s. Attack windups/damage unchanged. enemy_check validates the new
+speeds and existing warning/escape behavior. environment_check, patrol_check,
+exploration_check and gameplay_check also passed. Native minimized OpenGL trail
+and overview renders inspected; iterated texture filtering, foliage reduction
+and water glare. This larger visual workload still needs Samsung A37 frame-rate,
+heat and battery acceptance; earlier smoothness reports do not cover this build.
+Debug version: 0.3.0-dev (code 13).
