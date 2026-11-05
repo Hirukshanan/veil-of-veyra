@@ -21,15 +21,22 @@ func _caption(at: Vector2, text: String, color: Color) -> void:
 
 func _draw() -> void:
 	var center := size * 0.5
-	var radius := minf(size.x, size.y) * 0.5 - 38.0
 	draw_style_box(_background(), Rect2(Vector2.ZERO, size))
-	draw_circle(center, radius, Color(0.73, 0.64, 0.42))
-	draw_circle(center, radius * 35.5 / 48.0, Color(0.19, 0.31, 0.23))
-	draw_line(_point(Vector3(0, 0, 29)), _point(Vector3(0, 0, -25)), Color(0.74, 0.65, 0.43), 5.0, true)
+	var terrain = preload("res://scripts/island_terrain.gd")
+	for base in [45.25, 33.0]:
+		var outline := PackedVector2Array()
+		for index in range(128):
+			var angle := index * TAU / 128.0
+			outline.append(_point(Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, base)))
+		draw_colored_polygon(outline, Color(0.73, 0.64, 0.42) if base > 40 else Color(0.19, 0.31, 0.23))
+	for route in terrain.trails():
+		var line := PackedVector2Array()
+		for point in route:
+			line.append(_point(point))
+		draw_polyline(line, Color(0.74, 0.65, 0.43), 4.0, true)
 	for index in range(3):
 		var camp: Vector3 = MAP.CAMPS[index]
 		var spot := _point(camp)
-		draw_line(_point(Vector3(0, 0, camp.z)), spot, Color(0.74, 0.65, 0.43), 4.0, true)
 		var color := Color(0.4, 0.95, 0.6) if camps_cleared[index] else Color(1, 0.3, 0.24)
 		draw_circle(spot, 7, color)
 		_caption(spot + (Vector2(14, 5) if index == 1 else Vector2(-25, -14)), ["West", "Forest", "Ruins"][index], Color.WHITE)

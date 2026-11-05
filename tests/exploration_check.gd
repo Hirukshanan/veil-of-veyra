@@ -15,6 +15,16 @@ func _run():
 	for point in exploration.CAMPS + exploration.CHECKPOINTS:
 		var result = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1))
 		assert(not result.is_empty() and absf(result.position.y) < 0.1)
+	var terrain = preload("res://scripts/island_terrain.gd")
+	for index in range(32):
+		var angle := index * TAU / 32.0
+		var point := Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, 42.0)
+		var shore = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1))
+		assert(not shore.is_empty() and absf(shore.position.y + 0.8) < 0.1, "Entire irregular beach must have matching collision")
+	for route in terrain.trails():
+		for point in route:
+			var ground = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1))
+			assert(not ground.is_empty() and absf(ground.position.y) < 0.1, "Curved trails must stay on the combat plateau")
 	var beach = space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(42, 4, 0), Vector3(42, -4, 0), 1))
 	assert(not beach.is_empty() and beach.position.y < -0.5 and beach.position.y > -1.2)
 	hero.position = exploration.CHECKPOINTS[1]

@@ -477,3 +477,11 @@ and overview renders inspected; iterated texture filtering, foliage reduction
 and water glare. This larger visual workload still needs Samsung A37 frame-rate,
 heat and battery acceptance; earlier smoothness reports do not cover this build.
 Debug version: 0.3.0-dev (code 13).
+
+## Curved island terrain pass
+- Replaced circular cylinder ground with an irregular 128-segment coastline and matching sloped-beach collision. Combat plateau remains level.
+- Replaced rectangular paths with sampled curves; the pause map uses the same paths and coastline.
+- Passed exploration (including rays around 32 shoreline points and every trail sample), environment, island map, and gameplay checks.
+- Inspected native OpenGL overview and ground-level captures. Ground still has sharp material boundaries; this is not a finished photorealistic terrain pass.
+- Samsung A37 performance and playtesting remain pending.
+- Exploration assertions passed; the previously observed two ObjectDB instances warning recurred at process shutdown. Its cause remains unresolved.

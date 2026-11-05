@@ -111,28 +111,18 @@ func _build_island() -> void:
 
 	var island_mesh := MeshInstance3D.new()
 	island_mesh.name = "Surface"
-	var cylinder := CylinderMesh.new()
-	cylinder.top_radius = 38.0
-	cylinder.bottom_radius = 48.0
-	cylinder.height = 2.0
-	cylinder.radial_segments = 40
-	island_mesh.mesh = cylinder
+	var terrain := preload("res://scripts/island_terrain.gd").ground()
+	island_mesh.mesh = terrain
 	island_mesh.material_override = preload("res://scripts/environment_materials.gd").surface("coast_sand_01", 0.12)
 	island.add_child(island_mesh)
 	var interior := MeshInstance3D.new()
 	interior.name = "Interior"
-	var interior_mesh := CylinderMesh.new()
-	interior_mesh.top_radius = 35.5
-	interior_mesh.bottom_radius = 35.5
-	interior_mesh.height = 0.02
-	interior_mesh.radial_segments = 64
-	interior.mesh = interior_mesh
-	interior.position.y = 1.0
+	interior.mesh = preload("res://scripts/island_terrain.gd").ground(true)
 	interior.material_override = preload("res://scripts/environment_materials.gd").surface("leafy_grass", 0.25, [Color(1, 0.97, 0.9), Color(0.85, 1, 0.85), Color(0.85, 0.85, 0.95)][environment_chapter])
 	island.add_child(interior)
 
 	var island_collision := CollisionShape3D.new()
-	island_collision.shape = cylinder.create_trimesh_shape()
+	island_collision.shape = terrain.create_trimesh_shape()
 	island.add_child(island_collision)
 
 
