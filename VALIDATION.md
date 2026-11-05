@@ -392,3 +392,17 @@ Native minimized OpenGL overview and trail previews were inspected:
 This is an initial playable map layout: terrain art, navigation balance, long
 manual traversal and phone performance still need review. Debug version 0.2.0-dev
 (code 8). Earlier Samsung A37 feedback does not validate the larger map.
+
+## Island objective guidance — 2026-11-05
+
+HUD now shows camera-relative direction and horizontal distance to the nearest
+living wolf, then the lantern, then the dragon. It does not change target lock.
+The journal explains these directions and names the bound water-rescue waystone.
+Compact status text uses a 20px font. Camp return now faces home and preserves
+vertical gravity instead of overwriting velocity each frame.
+
+navigation_check, exploration_check, journal_check and safe_area_check passed.
+Checks cover rotated-camera bearings, vertical distance exclusion, objective
+progression, bound waypoint text and compact cutout layouts. The existing two
+ObjectDB shutdown warning in exploration_check remains unresolved. Device
+navigation readability/traversal still needs playtesting. Debug 0.2.1-dev (code 9).

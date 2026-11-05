@@ -201,7 +201,7 @@ func _build_hud() -> void:
 	status_label = Label.new()
 	status_label.text = "THE VEILED ISLE  •  Hunt the shore demons"
 	status_label.position = Vector2(28, 22)
-	status_label.add_theme_font_size_override("font_size", 24)
+	status_label.add_theme_font_size_override("font_size", 20)
 	status_label.add_theme_color_override("font_color", Color(0.9, 0.94, 0.83))
 	root.add_child(status_label)
 

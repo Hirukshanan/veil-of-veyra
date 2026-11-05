@@ -79,3 +79,21 @@ func _physics_process(_delta: float) -> void:
 		player.global_position = player.rescue_position
 		player.velocity = Vector3.ZERO
 		player.take_damage(20)
+
+static func direction_hint(origin: Vector3, destination: Vector3, camera_basis: Basis) -> String:
+	var offset := destination - origin
+	offset.y = 0
+	if offset.length() < 2.0:
+		return "Nearby"
+	var forward := -camera_basis.z
+	forward.y = 0
+	if forward.length_squared() < 0.001:
+		forward = Vector3.FORWARD
+	forward = forward.normalized()
+	var right := forward.cross(Vector3.UP)
+	var angle := atan2(offset.dot(right), offset.dot(forward))
+	var sector := posmod(roundi(angle / (PI / 4.0)), 8)
+	return "%s %.0fm" % [["Ahead", "Ahead-R", "Right", "Back-R", "Behind", "Back-L", "Left", "Ahead-L"][sector], offset.length()]
+
+func rescue_name() -> String:
+	return ["Beach", "Forest", "Ruins"][checkpoint_index] if checkpoint_index >= 0 else "Beach"

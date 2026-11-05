@@ -82,10 +82,14 @@ func _physics_process(delta: float) -> void:
 	if not _alert:
 		_windup = 0.0
 		_warning.hide()
-		var home_direction := (_home - position).normalized()
-		velocity = home_direction * move_speed if position.distance_to(_home) > 0.5 else Vector3.ZERO
-		if not is_on_floor():
-			velocity.y -= GRAVITY * delta
+		var home_offset := _home - position
+		home_offset.y = 0.0
+		var home_direction := home_offset.normalized() if home_offset.length() > 0.5 else Vector3.ZERO
+		velocity.x = home_direction.x * move_speed
+		velocity.z = home_direction.z * move_speed
+		if home_direction != Vector3.ZERO:
+			rotation.y = atan2(-home_direction.x, -home_direction.z)
+		velocity.y = velocity.y - GRAVITY * delta if not is_on_floor() else 0.0
 		move_and_slide()
 		return
 	var direction := offset.normalized() if distance > 0.01 else Vector3.ZERO

@@ -77,12 +77,27 @@ func _build_lantern() -> void:
 	_bind_keys(&"interact", [KEY_E])
 
 func _update_objective() -> void:
-	var objective := "Clear the three camps: %d wolves" % remaining_enemies
+	var destination: Node3D = null
+	var objective := "Wolves %d" % remaining_enemies
 	if boss_spawned:
-		objective = "Defeat the Tidewraith Dragon"
+		objective = "Dragon"
+		destination = get_node_or_null("Tidewraith Dragon")
 	elif remaining_enemies == 0:
-		objective = "Light the lantern: %.0f m | E / LIGHT" % player.global_position.distance_to(lantern.global_position)
-	status_label.text = "%s | Potions: %d" % [objective, potions]
+		objective = "Lantern"
+		destination = lantern
+	else:
+		var nearest := INF
+		for candidate in get_tree().get_nodes_in_group("lock_targets"):
+			if not is_instance_valid(candidate) or candidate.is_queued_for_deletion() or candidate.get("health") <= 0:
+				continue
+			var distance: float = player.global_position.distance_squared_to(candidate.global_position)
+			if distance < nearest:
+				nearest = distance
+				destination = candidate
+	var guidance := ""
+	if is_instance_valid(destination):
+		guidance = " | " + preload("res://scripts/island_exploration.gd").direction_hint(player.global_position, destination.global_position, player._camera_pivot.global_basis)
+	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
 	relic_status.text = relic_hunt.call("progress_text")
 	interact_button.visible = remaining_enemies == 0 and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
@@ -537,7 +552,7 @@ func _journal_text() -> String:
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
 	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")]
+	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only)."
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
