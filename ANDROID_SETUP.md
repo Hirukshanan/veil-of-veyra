@@ -13,7 +13,7 @@ This checks file presence only. It does not install software, accept SDK license
 1. Finish the SDK setup in Android Studio or use Godot's Android build setup if offered by the installed editor. Follow the [Godot 4.7 Android export instructions](https://docs.godotengine.org/en/4.7/tutorials/export/exporting_for_android.html) for compatible package versions. OpenJDK 17 is recommended there; newer JDKs are supported but must be validated with the chosen build tools.
 2. Install export templates matching the exact installed Godot version, currently `4.7.2.stable`. Android debug/release templates are installed on this machine; other-platform templates and the Gradle source template are not installed by this step.
 3. Configure Godot's Java SDK Path and Android SDK Path. These are local editor settings, not repository secrets.
-4. The checked-in `Android Debug` preset uses `com.hirukshanan.veilofveyra.dev`, version `0.4.0-dev` (code 15), ARM64, and the app label `Veil of Veyra Dev`. Project orientation is landscape. Tests, tools, and development Markdown documents are excluded. x86_64 is disabled; enable it separately for a compatible emulator.
+4. The checked-in `Android Debug` preset uses `com.hirukshanan.veilofveyra.dev`, version `0.5.0-dev` (code 16), ARM64, and the app label `Veil of Veyra Dev`. Project orientation is landscape. Tests, tools, and development Markdown documents are excluded. x86_64 is disabled; enable it separately for a compatible emulator.
 5. Export to `builds/android/veyra-debug.apk`. Run the prerequisite checker, then validate the actual export log.
 
 ## Device acceptance

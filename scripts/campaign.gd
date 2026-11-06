@@ -35,12 +35,13 @@ var interact_button: Button
 var lantern_lit := false
 var relic_hunt: Node3D
 var relic_status: Label
+var keeper: Node3D
 
 func _process(_delta: float) -> void:
 	if started and not game_finished:
 		_update_objective()
 		if Input.is_action_just_pressed(&"interact"):
-			_interact_lantern()
+			_interact_world()
 
 func _build_lantern() -> void:
 	lantern = Node3D.new()
@@ -99,8 +100,13 @@ func _update_objective() -> void:
 		guidance = " | " + preload("res://scripts/island_exploration.gd").direction_hint(player.global_position, destination.global_position, player._camera_pivot.global_basis)
 	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
 	relic_status.text = relic_hunt.call("progress_text")
-	interact_button.visible = remaining_enemies == 0 and not lantern_lit
-	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
+	if is_instance_valid(keeper):
+		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
+		keeper.update_marker()
+	var near_keeper := is_instance_valid(keeper) and player.global_position.distance_to(keeper.global_position) <= 3.0
+	interact_button.text = "TALK [E]" if near_keeper else "LIGHT [E]"
+	interact_button.visible = near_keeper or (remaining_enemies == 0 and not lantern_lit)
+	interact_button.disabled = not near_keeper and player.global_position.distance_to(lantern.global_position) > 2.5
 
 func _interact_lantern() -> void:
 	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or lantern_lit:
@@ -149,6 +155,7 @@ func _ready() -> void:
 	player.set("attack_damage", 1 + blade_level)
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
+	find_child("ControlsHint", true, false).hide()
 	_build_lantern()
 	var exploration := preload("res://scripts/island_exploration.gd").new()
 	exploration.name = "IslandExploration"
@@ -158,6 +165,8 @@ func _ready() -> void:
 	relic_hunt.set("player", player)
 	relic_hunt.set("chapter", chapter)
 	add_child(relic_hunt)
+	keeper = preload("res://scripts/shore_keeper.gd").new()
+	add_child(keeper)
 	_show_camp()
 
 func _build_enemies() -> void:
@@ -208,12 +217,18 @@ func _build_campaign_ui() -> void:
 	relic_status = Label.new()
 	relic_status.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
 	relic_status.add_theme_constant_override("outline_size", 4)
-	relic_status.position = Vector2(30, 84)
+	relic_status.anchor_right = 1.0
+	relic_status.offset_left = 30
+	relic_status.offset_right = -210
+	relic_status.offset_top = 84
+	relic_status.offset_bottom = 126
+	relic_status.clip_text = true
+	relic_status.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	relic_status.add_theme_font_size_override("font_size", 15)
 	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
 	controls.add_child(relic_status)
 	interact_button = _make_button("LIGHT [E]", Vector2(-470, -105), Vector2(-330, -35))
-	interact_button.pressed.connect(_interact_lantern)
+	interact_button.pressed.connect(_interact_world)
 	interact_button.hide()
 	controls.add_child(interact_button)
 	overlay = PauseOverlay.new()
@@ -471,7 +486,8 @@ func _on_boss_defeated() -> void:
 	super._on_boss_defeated()
 	relic_hunt.set("active", false)
 	var bonus := int(relic_hunt.call("reward"))
-	var reward := 40 + chapter * 20 + bonus
+	var keeper_bonus: int = keeper.reward()
+	var reward := 40 + chapter * 20 + bonus + keeper_bonus
 	shards += reward
 	var final_hunt := chapter == CHAPTERS.size() - 1
 	if final_hunt:
@@ -479,7 +495,7 @@ func _on_boss_defeated() -> void:
 	else:
 		chapter += 1
 	var saved := _save_progress()
-	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards (relic bonus: %d).\n%s\n%s" % [reward, bonus, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
+	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards (relic bonus: %d; Keeper bounty: %d).\n%s\n%s" % [reward, bonus, keeper_bonus, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
 	_menu_button("Return to camp" if saved else "Retry save and return", _reload if saved else _retry_save_and_return)
 	if not saved:
 		_menu_button("Return without saving this session", _reload)
@@ -553,7 +569,7 @@ func _journal_text() -> String:
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
 	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only)."
+	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. K / DODGE: evade. E / TALK or LIGHT: interact. Drag open space to turn the camera."
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
@@ -579,7 +595,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Cyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -591,3 +607,36 @@ func _show_island_map() -> void:
 	menu_box.add_child(map)
 	menu_box.move_child(map, 2)
 	_menu_button("Pause menu", _pause_game)
+func _interact_world() -> void:
+	if not started or game_finished or get_tree().paused or player.health <= 0:
+		return
+	if is_instance_valid(keeper) and player.global_position.distance_to(keeper.global_position) <= 3.0:
+		_show_keeper_dialogue()
+	else:
+		_interact_lantern()
+
+func _show_keeper_dialogue() -> void:
+	if not started or game_finished or player.health <= 0 or player.global_position.distance_to(keeper.global_position) > 3.0:
+		return
+	var message := "I kept watch here before the lanterns went dark. Wolves now hold the western trail. Will you clear their camp and bring word back to me?\n\nOptional bounty: 15 shards, paid after reporting back and defeating the dragon in this hunt."
+	if keeper.reported:
+		message = "The western watch is restored. Break the dragon's seal and the island will remember your service.\n\n15 bonus shards are secured for this hunt's victory."
+	elif keeper.accepted:
+		message = "The western trail is quiet again. Tell me what you found." if keeper.remaining() == 0 else "The wolves still hold the western camp. Follow the western branch of the trail, then return to me."
+	_clear_menu("THE SHORE KEEPER", message)
+	pause_menu_open = true
+	_menu_button("Return to hunt [Esc]", _resume)
+	if not keeper.accepted:
+		_menu_button("Accept: The Western Watch", func():
+			keeper.accept()
+			_resume())
+	elif not keeper.reported and keeper.remaining() == 0:
+		_menu_button("Report: the western camp is clear", func():
+			keeper.report()
+			_resume())
+	_menu_button("Ask about the scattered relics", _show_keeper_relics)
+
+func _show_keeper_relics() -> void:
+	_clear_menu("THE LOST RELICS", "Three golden relics lie near the western camp, eastern forest and northern ruins. Recover all three and defeat the dragon in the same hunt for a separate 20-shard bonus.\n\nBoth optional rewards reset if you restart before victory.")
+	pause_menu_open = true
+	_menu_button("Back to the Keeper", _show_keeper_dialogue)

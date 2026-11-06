@@ -500,3 +500,11 @@ Debug version: 0.3.0-dev (code 13).
 - Terrain is still a flat combat plateau with sloped beaches. This pass does not add elevation, swimming, or new chapters.
 - Shader rendering verified on desktop Intel Iris Xe; Samsung A37 visual/performance acceptance pending.
 - Android 0.4.0-dev (code 15) export and signature verification passed; ARM64 APK size 82174665 bytes. New terrain shader packaged; heavy source models excluded.
+
+## Keeper quest (2026-11-06)
+- keeper_check passed in all three chapters: proximity, touch dialogue, paused combat/input reset, acceptance, home-camp tracking, blocked premature/double reports, once-only victory payment, saved shards and fresh-hunt reset.
+- gameplay_check, relic_check, journal_check, layout_check, safe_area_check and island_map_check passed.
+- Captured and inspected Keeper world view, dialogue and HUD at 800x450 with simulated safe-area insets. Fixed a controls-hint overlap by putting those instructions in the journal. Accept is visible; further dialogue choices remain scrollable.
+- Keeper uses the existing hero rig and idle clip with a blue spirit material. No new external art dependency.
+- Physical-device interaction, visual quality and performance remain pending.
+- Android 0.5.0-dev (code 16), ARM64 debug APK exported and signature verified. Size: 82178920 bytes.

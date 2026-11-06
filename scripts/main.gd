@@ -276,6 +276,7 @@ func _build_hud() -> void:
 	root.add_child(combat_hud_timer)
 
 	var hint := Label.new()
+	hint.name = "ControlsHint"
 	hint.text = "Drag open space to turn the camera" if OS.has_feature("mobile") else "WASD: Move   J: Attack   K: Dodge   Esc: Pause"
 	hint.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	hint.offset_left = 28

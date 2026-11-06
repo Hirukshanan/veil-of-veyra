@@ -66,3 +66,11 @@ Code, game text, documentation, and commit messages are written in English.
 - Feathered path edges, varied beach/grass transition, wet shoreline sand, and animated coastal foam.
 - Existing flat combat plateau, collision, rescue threshold, and map navigation remain intact.
 - Native desktop captures checked; performance and visuals on Android remain pending.
+
+## Shore Keeper and Western Watch (0.5.0-dev)
+- In-world Shore Keeper beside the beach waystone, using the existing CC0 humanoid rig with an original blue spirit material and marker ring. This is reused art, not a new bespoke character model.
+- E / TALK within three metres opens paused dialogue with accept, report, relic information and return choices.
+- Optional Western Watch bounty: accept, clear the western camp, return to report, then defeat the dragon for 15 additional shards.
+- Bounty tracking uses enemy home camps, including wolves pursuing elsewhere. It can be accepted after clearing the camp.
+- Journal, HUD guidance and a blue Keeper marker on the island map support the quest.
+- Accepted/reported state resets with each hunt. Bounty currency saves only with chapter victory, using existing save/retry handling. Existing relic bonus remains separate.
