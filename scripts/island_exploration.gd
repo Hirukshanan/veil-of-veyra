@@ -61,16 +61,6 @@ func _ready() -> void:
 		stone.material_override = material
 		add_child(stone)
 		_waystone_labels.append(_label("WAYSTONE • approach to bind", CHECKPOINTS[index] + Vector3(0, 2, 0)))
-	var soil := preload("res://scripts/environment_materials.gd").surface("forest_ground_04", 0.25)
-	soil.albedo_color = Color(0.85, 0.85, 0.8)
-	var terrain = preload("res://scripts/island_terrain.gd")
-	var routes: Array[PackedVector3Array] = terrain.trails()
-	for index in range(routes.size()):
-		var path := MeshInstance3D.new()
-		path.name = "Trail%d" % index
-		path.mesh = terrain.trail_mesh(routes[index], 4.2 if index == 0 else 3.0)
-		path.material_override = soil
-		add_child(path)
 	decor.free()
 
 

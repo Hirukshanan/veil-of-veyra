@@ -113,13 +113,8 @@ func _build_island() -> void:
 	island_mesh.name = "Surface"
 	var terrain := preload("res://scripts/island_terrain.gd").ground()
 	island_mesh.mesh = terrain
-	island_mesh.material_override = preload("res://scripts/environment_materials.gd").surface("coast_sand_01", 0.12)
+	island_mesh.material_override = preload("res://scripts/island_terrain.gd").material(environment_chapter)
 	island.add_child(island_mesh)
-	var interior := MeshInstance3D.new()
-	interior.name = "Interior"
-	interior.mesh = preload("res://scripts/island_terrain.gd").ground(true)
-	interior.material_override = preload("res://scripts/environment_materials.gd").surface("leafy_grass", 0.25, [Color(1, 0.97, 0.9), Color(0.85, 1, 0.85), Color(0.85, 0.85, 0.95)][environment_chapter])
-	island.add_child(interior)
 
 	var island_collision := CollisionShape3D.new()
 	island_collision.shape = terrain.create_trimesh_shape()

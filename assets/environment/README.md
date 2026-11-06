@@ -26,3 +26,13 @@ physical-device performance has not been measured on this version.
 Rock silhouettes and terrain geometry are procedural; their surface textures
 are sourced above. Coastal water shader is original project code. This is a
 realism improvement pass, not a photorealistic terrain or swimming simulation.
+
+The island now uses one opaque ground material blending sand, grass and soil.
+A cached 256x256 single-channel mask is rasterized from the navigation trails.
+World-space planar diffuse/normal samples preserve detail across boundaries.
+The grass edge varies along the coastline; wet sand darkens and becomes less
+rough near the water. Water foam follows the same radial shoreline function.
+There are no transparent ground overlays or per-frame path-distance loops.
+Rocks retain the original StandardMaterial3D triplanar setup. The ground shader
+uses fixed dry/wet roughness instead of the source roughness maps.
+Shader reference: https://docs.godotengine.org/en/4.6/tutorials/shaders/shader_reference/spatial_shader.html

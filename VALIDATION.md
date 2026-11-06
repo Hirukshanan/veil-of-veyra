@@ -491,3 +491,12 @@ Debug version: 0.3.0-dev (code 13).
 - Manifest confirms com.hirukshanan.veilofveyra.dev, version 0.3.1-dev, code 14.
 - APK size: 82,170,475 bytes. New island terrain script is packaged; original heavy tree/fern glTF and BIN files remain excluded.
 - Physical device installation, performance, and gameplay acceptance remain pending. This export does not resolve the previously documented test shutdown warning.
+
+## Blended terrain and shoreline (2026-11-06)
+- terrain_material_check passed: continuous path coverage, feathered borders, no beach spill, cached mask reuse, and textures for all chapter palettes. Desktop mask/material check took 36 ms (not a phone performance measurement).
+- environment_check, exploration_check, island_map_check, and gameplay_check passed.
+- Native OpenGL captures inspected at overview, hero-height trail, and beach views. Material boundaries blend without overlapping path meshes; wet sand and coastal foam follow the irregular shore.
+- Exploration still reports the previously documented two ObjectDB instances at shutdown; assertions pass, cause unresolved.
+- Terrain is still a flat combat plateau with sloped beaches. This pass does not add elevation, swimming, or new chapters.
+- Shader rendering verified on desktop Intel Iris Xe; Samsung A37 visual/performance acceptance pending.
+- Android 0.4.0-dev (code 15) export and signature verification passed; ARM64 APK size 82174665 bytes. New terrain shader packaged; heavy source models excluded.

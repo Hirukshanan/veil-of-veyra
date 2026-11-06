@@ -60,3 +60,9 @@ Code, game text, documentation, and commit messages are written in English.
 - CC0 scanned foliage and ground textures, lightweight reduced vegetation meshes, and animated coastal water.
 - Irregular coastline with matching beach collision and curved trails shared with the pause map. Combat ground remains level.
 - Device acceptance for these additions is pending. Earlier Samsung A37 feedback covers the initial build, not this version.
+
+## Blended terrain update (0.4.0-dev)
+- Unified opaque sand/grass/soil terrain replaces separate interior and path meshes.
+- Feathered path edges, varied beach/grass transition, wet shoreline sand, and animated coastal foam.
+- Existing flat combat plateau, collision, rescue threshold, and map navigation remain intact.
+- Native desktop captures checked; performance and visuals on Android remain pending.
