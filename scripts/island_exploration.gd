@@ -7,6 +7,7 @@ var checkpoint_index := -1
 var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
+	add_child(preload("res://scripts/mountain_rim.gd").new())
 	var decor = preload("res://scripts/chapter_environment.gd").new()
 	for index in range(20):
 		var tree := Node3D.new()

@@ -82,3 +82,11 @@ Code, game text, documentation, and commit messages are written in English.
 - Ordinary wolves stagger for 0.65 seconds. Boss attacks retain their existing resistance to interruption.
 - Dodge, incoming damage, death, and menus cancel pending contact without refunding stamina. Misses still cost stamina; one connected swing grants 25 spirit.
 - Camp guide and journal describe the controls and tradeoffs. Device combat balance and performance remain pending.
+
+## Mountain rim and imposing demons (0.7.0-dev)
+- Seven irregular multi-peak formations and six connecting rocky ridges frame the north/east/west shore. Southern beach and existing routes remain open.
+- Mountain meshes have physical and camera collision; grey triangles mark the main peaks on the island map.
+- Wolf model scales increased from 0.78/0.66/1.05 to 1.25/1.05/1.7, with larger collision capsules and raised labels.
+- Detection triggers a brief sampled snarl and a distance-attenuated original synthesized growl; bite anticipation, forward lunge and hit recoil are stronger.
+- Existing pursuit speeds, warning durations, damage and attack ranges are retained. Larger bodies still need physical-device playtesting.
+- Mountains use procedural rock geometry; this is not a new traversable mountain quest or a finished photorealistic landscape.

@@ -36,3 +36,9 @@ There are no transparent ground overlays or per-frame path-distance loops.
 Rocks retain the original StandardMaterial3D triplanar setup. The ground shader
 uses fixed dry/wet roughness instead of the source roughness maps.
 Shader reference: https://docs.godotengine.org/en/4.6/tutorials/shaders/shader_reference/spatial_shader.html
+
+The mountain rim is original procedural geometry: seven multi-peak formations
+and six lower connecting ridges, with matching terrain/camera collision.
+Its original shader samples the existing CC0 rock diffuse map with world-space
+triplanar mapping and desaturates it to a grey-brown rock palette. These are
+scenic perimeter formations, not a designed mountain-climbing quest area.

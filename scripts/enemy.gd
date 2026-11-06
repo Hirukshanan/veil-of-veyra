@@ -15,8 +15,8 @@ var attack_range := 1.8
 var windup_duration := 0.55
 var recovery_duration := 0.8
 var body_color := Color(0.48, 0.14, 0.055)
-var body_radius := 0.5
-var body_height := 1.5
+var body_radius := 0.72
+var body_height := 2.1
 var display_name := "EMBER WOLF"
 var _maximum_health := 3
 var _health_label: Label3D
@@ -35,6 +35,8 @@ var _patrol_step := 0
 var _patrol_wait := 0.0
 var _alert_time := 0.0
 var _alert_label: Label3D
+var _growl: AudioStreamPlayer3D
+static var _growl_stream: AudioStreamWAV
 
 
 
@@ -54,8 +56,8 @@ func _ready() -> void:
 			windup_duration = 0.4
 			recovery_duration = 0.9
 			body_color = Color(0.13, 0.4, 0.4)
-			body_radius = 0.38
-			body_height = 1.35
+			body_radius = 0.6
+			body_height = 1.85
 		Kind.BRUTE:
 			display_name = "DIRE WARG"
 			health += 3
@@ -66,13 +68,14 @@ func _ready() -> void:
 			windup_duration = 0.95
 			recovery_duration = 1.2
 			body_color = Color(0.24, 0.1, 0.13)
-			body_radius = 0.68
-			body_height = 2.1
+			body_radius = 0.95
+			body_height = 2.8
 	_home = position
 	_patrol_goal = _home
 	_patrol_wait = 1.0 + absf(sin(_home.x + _home.z)) * 2.0
 	_maximum_health = health
 	_build_body()
+	_build_growl()
 	_alert_label = Label3D.new()
 	_alert_label.text = "!"
 	_alert_label.font_size = 48
@@ -102,6 +105,7 @@ func _physics_process(delta: float) -> void:
 	if not _returning and distance < 11.0 and not _alert:
 		_alert = true
 		_alert_time = 1.0
+		_growl.play()
 	if _alert and (position.distance_to(_home) > 20.0 or distance > 24.0):
 		_alert = false
 		_returning = true
@@ -227,9 +231,9 @@ func _process(delta: float) -> void:
 	var strike := _strike_time / 0.2
 	var hurt := clampf(_hit_time / 0.18, 0.0, 1.0)
 	var speed := Vector2(velocity.x, velocity.z).length()
-	_visual.position = Vector3(0, -anticipation * 0.06, -strike * 0.12 + hurt * 0.04)
-	_visual.rotation.x = anticipation * 0.08 - strike * 0.12 + hurt * 0.12
-	_visual.animate(delta, speed, anticipation, strike, hurt)
+	_visual.position = Vector3(0, -anticipation * 0.13, -strike * 0.32 + hurt * 0.12)
+	_visual.rotation.x = anticipation * 0.14 - strike * 0.22 + hurt * 0.18
+	_visual.animate(delta, speed, anticipation, strike, hurt, clampf((_alert_time - 0.35) / 0.65, 0.0, 1.0))
 func stagger(duration: float) -> void:
 	if health <= 0:
 		return
@@ -237,3 +241,29 @@ func stagger(duration: float) -> void:
 	_attack_cooldown = maxf(_attack_cooldown, duration)
 	_windup = 0.0
 	_warning.hide()
+
+func _build_growl() -> void:
+	if _growl_stream == null:
+		# Original low, breathy growl; no external audio dependency.
+		var samples := 8268
+		var data := PackedByteArray()
+		data.resize(samples * 2)
+		var random := RandomNumberGenerator.new()
+		random.seed = 7193
+		for index in range(samples):
+			var progress := float(index) / samples
+			var time := float(index) / 11025.0
+			var envelope := sin(progress * PI) * (1.0 - progress * 0.45)
+			var voice := sin(TAU * (72.0 - progress * 18.0) * time) * 0.55 + sin(TAU * 43.0 * time) * 0.25 + random.randf_range(-0.2, 0.2)
+			data.encode_s16(index * 2, int(voice * envelope * 10000))
+		_growl_stream = AudioStreamWAV.new()
+		_growl_stream.format = AudioStreamWAV.FORMAT_16_BITS
+		_growl_stream.mix_rate = 11025
+		_growl_stream.data = data
+	_growl = AudioStreamPlayer3D.new()
+	_growl.stream = _growl_stream
+	_growl.max_distance = 24.0
+	_growl.unit_size = 4.0
+	_growl.volume_db = -8.0
+	_growl.pitch_scale = [0.95, 1.12, 0.75][kind]
+	add_child(_growl)

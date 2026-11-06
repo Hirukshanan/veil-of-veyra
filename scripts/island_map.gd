@@ -29,6 +29,9 @@ func _draw() -> void:
 			var angle := index * TAU / 128.0
 			outline.append(_point(Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, base)))
 		draw_colored_polygon(outline, Color(0.73, 0.64, 0.42) if base > 40 else Color(0.19, 0.31, 0.23))
+	for peak in preload("res://scripts/mountain_rim.gd").PEAKS:
+		var point := _point(Vector3(peak.x, 0, peak.y))
+		draw_colored_polygon(PackedVector2Array([point + Vector2(0, -8), point + Vector2(-7, 5), point + Vector2(7, 5)]), Color(0.58, 0.62, 0.65))
 	for route in terrain.trails():
 		var line := PackedVector2Array()
 		for point in route:

@@ -19,7 +19,7 @@ func _ready() -> void:
 		add_child(_fallback)
 		return
 	_model = load(MODEL_PATH).instantiate()
-	_model.scale = Vector3.ONE * [0.78, 0.66, 1.05][kind]
+	_model.scale = Vector3.ONE * [1.25, 1.05, 1.7][kind]
 	_model.rotation.y = PI # Imported wolf faces +Z; combat faces -Z.
 	add_child(_model)
 	animator = _model.find_children("*", "AnimationPlayer", true, false)[0]
@@ -32,7 +32,7 @@ func _ready() -> void:
 			mesh.set_surface_override_material(surface, material)
 			_materials.append(material)
 
-func animate(delta: float, speed: float, anticipation: float, strike: float, hurt: float) -> void:
+func animate(delta: float, speed: float, anticipation: float, strike: float, hurt: float, threat: float = 0.0) -> void:
 	if _defeated:
 		return
 	for material in _materials:
@@ -41,7 +41,7 @@ func animate(delta: float, speed: float, anticipation: float, strike: float, hur
 	if _fallback != null:
 		_fallback.animate(delta, speed, anticipation, strike, hurt)
 		return
-	var next := "bite" if anticipation > 0.0 or strike > 0.0 else ("run" if speed > 2.5 else ("walk" if speed > 0.1 else "idle"))
+	var next := "bite" if anticipation > 0.0 or strike > 0.0 or threat > 0.0 else ("run" if speed > 2.5 else ("walk" if speed > 0.1 else "idle"))
 	if hurt > 0.0:
 		next = "idle"
 	if next != _clip:
@@ -49,7 +49,10 @@ func animate(delta: float, speed: float, anticipation: float, strike: float, hur
 		_clip = next
 	if next == "bite":
 		# Sample anticipation/contact/recovery from the gameplay clock; no second damage timer.
-		animator.seek(0.65 + (1.0 - strike) * 0.35 if strike > 0.0 else anticipation * 0.65, true)
+		var pose := 0.65 + (1.0 - strike) * 0.35 if strike > 0.0 else anticipation * 0.65
+		if threat > 0.0 and anticipation <= 0.0 and strike <= 0.0:
+			pose = 0.18 + sin(threat * PI) * 0.32
+		animator.seek(pose, true)
 		animator.pause()
 	else:
 		if not animator.is_playing():

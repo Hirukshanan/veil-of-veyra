@@ -325,7 +325,7 @@ func _show_burst_guide() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or LOCK to face the nearest living enemy within 14 metres. Press again to release. Dragging the camera or opening a menu also releases the lock.\n\nEMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow ! means they detected you. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or LOCK to face the nearest living enemy within 14 metres. Press again to release. Dragging the camera or opening a menu also releases the lock.\n\nEMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:
@@ -596,7 +596,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):

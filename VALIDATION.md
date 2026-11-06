@@ -516,3 +516,13 @@ Debug version: 0.3.0-dev (code 13).
 - Sprint check reported four ObjectDB instances at shutdown. Assertions passed; shutdown resource warnings remain unresolved and are not presented as a clean leak check.
 - Physical-device touch combat, balance, thermal behavior and performance are pending.
 - Android 0.6.0-dev (code 17), ARM64 debug APK export and signature verification passed. Size: 82183016 bytes.
+
+## Mountains and demon presence (2026-11-07)
+- mountain_demons_check passed: seven physical peaks plus six ridges, camera collision, every trail sample stays level/unobstructed, enlarged wolf scales/capsules, snarl-to-idle transitions, and growl resource/distance bounds.
+- environment_check and exploration_check passed after refining mountain geometry. Objectives/relics and camp/waystone ground remain accessible. The base beach slope is tested separately beneath mountain feet; exposed southern beach remains checked.
+- enemy_check, combat_pose_check, wolf_feedback_check, heavy_attack_check and gameplay_check passed with enlarged demons.
+- Native OpenGL island overview/trail views and staged three-demon comparison inspected. Initial conical silhouettes were revised into multi-peak rock formations and connected by lower ridges.
+- Growl is an original synthesized cue; auditory quality and device volume balance have not been listening-tested.
+- Intermittent ObjectDB shutdown warnings (2-4 instances) remain unresolved. Assertions passed.
+- Samsung A37 performance, combat feel and navigation around cliff feet remain pending.
+- Android 0.7.0-dev (code 18), ARM64 debug APK export and signature verification passed. Size: 82191461 bytes.
