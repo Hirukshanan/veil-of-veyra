@@ -225,8 +225,15 @@ func _process(delta: float) -> void:
 		return
 	var anticipation := 1.0 - _windup / windup_duration if _windup > 0.0 else 0.0
 	var strike := _strike_time / 0.2
-	var hurt := _hit_time / 0.18
+	var hurt := clampf(_hit_time / 0.18, 0.0, 1.0)
 	var speed := Vector2(velocity.x, velocity.z).length()
 	_visual.position = Vector3(0, -anticipation * 0.06, -strike * 0.12 + hurt * 0.04)
 	_visual.rotation.x = anticipation * 0.08 - strike * 0.12 + hurt * 0.12
 	_visual.animate(delta, speed, anticipation, strike, hurt)
+func stagger(duration: float) -> void:
+	if health <= 0:
+		return
+	_hit_time = maxf(_hit_time, duration)
+	_attack_cooldown = maxf(_attack_cooldown, duration)
+	_windup = 0.0
+	_warning.hide()

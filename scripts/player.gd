@@ -10,6 +10,11 @@ var sprint_enabled := false
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
 const ATTACK_DURATION := 0.22
+const HEAVY_COST := 40.0
+const HEAVY_WINDUP := 0.6
+const HEAVY_DURATION := 1.1
+var _heavy_time := 0.0
+var _heavy_warning: MeshInstance3D
 var rescue_position := Vector3(0, 1, 27)
 
 const ATTACK_BUFFER_WINDOW := 0.18
@@ -53,6 +58,7 @@ func _ready() -> void:
 	_build_character()
 	_build_camera()
 	_build_attack_area()
+	_build_heavy_warning()
 	_build_sounds()
 	_lock_marker = Label3D.new()
 	_lock_marker.text = "▼ LOCKED"
@@ -73,6 +79,7 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		take_damage(20)
 	_attack_cooldown = maxf(0.0, _attack_cooldown - delta)
+	_heavy_time = maxf(0.0, _heavy_time - delta)
 	if _attack_buffer > 0.0:
 		if _attack_cooldown <= 0.0 and _dodge_time <= 0.0:
 			_attack_buffer = 0.0
@@ -87,6 +94,7 @@ func _physics_process(delta: float) -> void:
 	_dodge_cooldown = maxf(0.0, _dodge_cooldown - delta)
 	_invulnerability_time = maxf(0.0, _invulnerability_time - delta)
 	_blade_material.emission_enabled = _attack_time > 0.0
+	_blade_material.emission = Color(1.0, 0.4, 0.06) if _heavy_time > 0.0 else Color(0.12, 0.56, 0.39)
 
 	var input_vector := _touch_move
 	var keyboard_vector := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
@@ -96,6 +104,8 @@ func _physics_process(delta: float) -> void:
 		toggle_sprint()
 	if Input.is_action_just_pressed(&"attack"):
 		attack()
+	if Input.is_action_just_pressed(&"heavy_attack"):
+		heavy_attack()
 	if Input.is_action_just_pressed(&"dodge"):
 		dodge()
 	if Input.is_action_just_pressed(&"target_lock"):
@@ -112,6 +122,8 @@ func _physics_process(delta: float) -> void:
 	if direction.length_squared() > 1.0:
 		direction = direction.normalized()
 	var move_speed := _sprint_speed(delta, direction.length())
+	if _heavy_time > 0.0:
+		move_speed *= 0.35
 	if _dodge_time > 0.0:
 		_dodge_time -= delta
 		velocity.x = _dodge_direction.x * DODGE_SPEED
@@ -488,6 +500,9 @@ func cancel_swing() -> void:
 	_attack_buffer = 0.0
 	_swing_id += 1
 	_attack_time = 0.0
+	_heavy_time = 0.0
+	if is_instance_valid(_heavy_warning):
+		_heavy_warning.hide()
 
 func toggle_sprint() -> void:
 	if get_tree().paused or health <= 0 or _attack_cooldown > 0.0 or _dodge_time > 0.0:
@@ -498,6 +513,8 @@ func toggle_sprint() -> void:
 		sprint_enabled = true
 
 func _sprint_speed(delta: float, input_strength: float) -> float:
+	if _heavy_time > 0.0:
+		return MOVE_SPEED
 	if sprint_enabled and input_strength > 0.1 and _attack_cooldown <= 0.0 and _dodge_time <= 0.0 and _hit_time <= 0.0:
 		stamina = maxf(0.0, stamina - 25.0 * delta)
 		if stamina > 0.0:
@@ -506,3 +523,71 @@ func _sprint_speed(delta: float, input_strength: float) -> float:
 	else:
 		stamina = minf(100.0, stamina + 18.0 * delta)
 	return MOVE_SPEED
+func heavy_attack() -> void:
+	if get_tree().paused or health <= 0 or stamina < HEAVY_COST or _attack_cooldown > 0.0 or _dodge_time > 0.0 or _hit_time > 0.0:
+		return
+	stamina -= HEAVY_COST
+	sprint_enabled = false
+	_attack_buffer = 0.0
+	_burst_requested = false
+	combo_step = 0
+	_combo_window = 0.0
+	_attack_cooldown = HEAVY_DURATION
+	_heavy_time = HEAVY_DURATION
+	_attack_time = HEAVY_DURATION
+	_swing_id += 1
+	var swing_id := _swing_id
+	_visual.action("Sword_Attack", HEAVY_DURATION)
+	_heavy_warning.show()
+	await get_tree().create_timer(HEAVY_WINDUP, false, true).timeout
+	await get_tree().physics_frame
+	if health <= 0 or swing_id != _swing_id:
+		return
+	_heavy_warning.hide()
+	play_sound("sword")
+	var shape := SphereShape3D.new()
+	shape.radius = 2.6
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = shape
+	query.transform = Transform3D(Basis.IDENTITY, global_position + Vector3.UP)
+	query.collision_mask = 2
+	var connected := false
+	for hit in get_world_3d().direct_space_state.intersect_shape(query, 32):
+		var body: Node3D = hit.collider
+		if not body.has_method("take_damage") or int(body.get("health")) <= 0:
+			continue
+		var offset := body.global_position - global_position
+		var flat := Vector3(offset.x, 0, offset.z)
+		if flat.length() > 2.6 or absf(offset.y) > 1.8 or flat.normalized().dot(-global_basis.z) < 0.5:
+			continue
+		var before := int(body.get("health"))
+		body.call("take_damage", attack_damage * 4)
+		if int(body.get("health")) < before:
+			connected = true
+			if int(body.get("health")) > 0 and body.has_method("stagger"):
+				body.call("stagger", 0.65)
+	if connected:
+		spirit = mini(SPIRIT_MAX, spirit + 25)
+
+func _build_heavy_warning() -> void:
+	_heavy_warning = MeshInstance3D.new()
+	_heavy_warning.name = "HeavyAttackArc"
+	var surface := SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for index in range(24):
+		var a := -PI / 3.0 + index * (2.0 * PI / 3.0) / 24.0
+		var b := -PI / 3.0 + (index + 1) * (2.0 * PI / 3.0) / 24.0
+		for point in [Vector3.ZERO, Vector3(sin(a), 0, -cos(a)) * 2.6, Vector3(sin(b), 0, -cos(b)) * 2.6]:
+			surface.add_vertex(point)
+	surface.generate_normals()
+	_heavy_warning.mesh = surface.commit()
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	material.albedo_color = Color(1.0, 0.55, 0.12, 0.32)
+	_heavy_warning.material_override = material
+	_heavy_warning.position.y = 0.06
+	_heavy_warning.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(_heavy_warning)
+	_heavy_warning.hide()

@@ -508,3 +508,11 @@ Debug version: 0.3.0-dev (code 13).
 - Keeper uses the existing hero rig and idle clip with a blue spirit material. No new external art dependency.
 - Physical-device interaction, visual quality and performance remain pending.
 - Android 0.5.0-dev (code 16), ARM64 debug APK exported and signature verified. Size: 82178920 bytes.
+
+## Heavy attack (2026-11-07)
+- heavy_attack_check passed: touch activation, cost/low-stamina/repeat/death guards, delayed 4x damage, front-only range/height filtering, enemy stagger, spirit gain, no recovery while committed, dodge/hit/menu cancellation, and pause-aware damage timing.
+- combat_check, sprint_check, attack_buffer_check, spirit_check, enemy_check, gameplay_check, layout_check and safe_area_check passed.
+- Inspected staged native OpenGL charge-arc and 800x450 safe-area HUD captures; new heavy button fits above existing combat controls.
+- Sprint check reported four ObjectDB instances at shutdown. Assertions passed; shutdown resource warnings remain unresolved and are not presented as a clean leak check.
+- Physical-device touch combat, balance, thermal behavior and performance are pending.
+- Android 0.6.0-dev (code 17), ARM64 debug APK export and signature verification passed. Size: 82183016 bytes.

@@ -308,6 +308,7 @@ func _show_camp() -> void:
 	_menu_button("New journey", _confirm_reset)
 	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
 	_menu_button("Enemy guide", _show_enemy_guide)
+	_menu_button("Heavy Attack guide", _show_heavy_guide)
 	_menu_button("Spirit Burst guide", _show_burst_guide)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
 	_menu_button("Quit", func(): get_tree().quit())
@@ -569,7 +570,7 @@ func _journal_text() -> String:
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
 	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. K / DODGE: evade. E / TALK or LIGHT: interact. Drag open space to turn the camera."
+	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike (40 stamina). K / DODGE: evade. E / TALK or LIGHT: interact. Drag open space to turn the camera."
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
@@ -640,3 +641,7 @@ func _show_keeper_relics() -> void:
 	_clear_menu("THE LOST RELICS", "Three golden relics lie near the western camp, eastern forest and northern ruins. Recover all three and defeat the dragon in the same hunt for a separate 20-shard bonus.\n\nBoth optional rewards reset if you restart before victory.")
 	pause_menu_open = true
 	_menu_button("Back to the Keeper", _show_keeper_dialogue)
+
+func _show_heavy_guide() -> void:
+	_clear_menu("HEAVY ATTACK", "Press H or tap HEAVY for a committed sword strike. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
+	_menu_button("Back to camp", _show_camp)

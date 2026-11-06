@@ -77,6 +77,7 @@ func _setup_input() -> void:
 	_bind_keys(&"move_forward", [KEY_W, KEY_UP])
 	_bind_keys(&"move_back", [KEY_S, KEY_DOWN])
 	_bind_keys(&"attack", [KEY_J])
+	_bind_keys(&"heavy_attack", [KEY_H])
 	_bind_keys(&"sprint", [KEY_SHIFT])
 	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
 	_bind_keys(&"target_lock", [KEY_TAB])
@@ -258,12 +259,24 @@ func _build_hud() -> void:
 	sprint_button.size = Vector2(140, 48)
 	sprint_button.pressed.connect(Callable(player, "toggle_sprint"))
 	root.add_child(sprint_button)
+	var heavy_button := Button.new()
+	heavy_button.name = "HeavyAttackButton"
+	heavy_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	heavy_button.offset_left = -180
+	heavy_button.offset_right = -40
+	heavy_button.offset_top = 140
+	heavy_button.offset_bottom = 188
+	heavy_button.pressed.connect(Callable(player, "heavy_attack"))
+	root.add_child(heavy_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
 		sprint_button.text = "%s %d%%" % ["STOP" if player.sprint_enabled else "SPRINT", int(player.stamina)]
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
+		var heavy_time := float(player.get("_heavy_time"))
+		heavy_button.text = "HEAVY %.1fs" % heavy_time if heavy_time > 0 else "HEAVY [H] 40"
+		heavy_button.disabled = player.stamina < player.HEAVY_COST or player._attack_cooldown > 0 or player._dodge_time > 0 or player._hit_time > 0
 		var cooldown := float(player.get("_dodge_cooldown"))
 		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
 		var step := int(player.get("combo_step"))

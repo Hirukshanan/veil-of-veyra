@@ -74,3 +74,11 @@ Code, game text, documentation, and commit messages are written in English.
 - Bounty tracking uses enemy home camps, including wolves pursuing elsewhere. It can be accepted after clearing the camp.
 - Journal, HUD guidance and a blue Keeper marker on the island map support the quest.
 - Accepted/reported state resets with each hunt. Bounty currency saves only with chapter victory, using existing save/retry handling. Existing relic bonus remains separate.
+
+## Heavy sword attack (0.6.0-dev)
+- H / HEAVY spends 40 stamina for a 0.6-second windup and four-times-blade-damage strike in a 2.6 m, 120-degree forward arc.
+- Uses the existing sword clip at a slower speed, an orange ground arc, blade glow, and a mobile cooldown display.
+- Total commitment is 1.1 seconds; movement is reduced to 35% and stamina regeneration stops during it.
+- Ordinary wolves stagger for 0.65 seconds. Boss attacks retain their existing resistance to interruption.
+- Dodge, incoming damage, death, and menus cancel pending contact without refunding stamina. Misses still cost stamina; one connected swing grants 25 spirit.
+- Camp guide and journal describe the controls and tradeoffs. Device combat balance and performance remain pending.
