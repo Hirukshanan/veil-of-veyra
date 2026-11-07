@@ -526,3 +526,11 @@ Debug version: 0.3.0-dev (code 13).
 - Intermittent ObjectDB shutdown warnings (2-4 instances) remain unresolved. Assertions passed.
 - Samsung A37 performance, combat feel and navigation around cliff feet remain pending.
 - Android 0.7.0-dev (code 18), ARM64 debug APK export and signature verification passed. Size: 82191461 bytes.
+
+## Waystone fast travel (2026-11-08)
+- fast_travel_check passed: discovery, invalid/locked destinations, current location, nearby enemies at both ends, combat cooldown, active boss, touch button travel, rescue binding, no resource refill and fresh-hunt reset.
+- island_map_check, exploration_check and gameplay_check passed.
+- Native OpenGL map/scroll captures at 800x450 with safe-area insets inspected; destination buttons are reachable by scrolling and include blocked reasons.
+- Existing exploration shutdown warning recurred (four ObjectDB instances); assertions passed, cause unresolved.
+- Physical-device travel controls and performance remain pending.
+- Android 0.8.0-dev (code 19), ARM64 debug export and APK signature verification passed; size 82191461 bytes.

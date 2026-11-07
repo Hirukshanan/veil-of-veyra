@@ -5,6 +5,7 @@ var player_position := Vector3.ZERO
 var player_heading := 0.0
 var camps_cleared: Array[bool] = [true, true, true]
 var bound_waystone := -1
+var discovered: Array[bool] = [true, false, false]
 
 func _ready() -> void:
 	_fit_height()
@@ -44,7 +45,7 @@ func _draw() -> void:
 		draw_circle(spot, 7, color)
 		_caption(spot + (Vector2(14, 5) if index == 1 else Vector2(-25, -14)), ["West", "Forest", "Ruins"][index], Color.WHITE)
 		var stone := _point(MAP.CHECKPOINTS[index])
-		draw_rect(Rect2(stone - Vector2(5, 5), Vector2(10, 10)), Color.WHITE if bound_waystone == index else Color(1, 0.78, 0.25))
+		draw_rect(Rect2(stone - Vector2(5, 5), Vector2(10, 10)), Color.WHITE if bound_waystone == index else (Color(1, 0.78, 0.25) if discovered[index] else Color(0.4, 0.45, 0.48)))
 		_caption(stone + Vector2(9, 5), str(index + 1), Color.WHITE)
 	var keeper := _point(preload("res://scripts/shore_keeper.gd").HOME)
 	draw_colored_polygon(PackedVector2Array([keeper + Vector2(0, -6), keeper + Vector2(6, 0), keeper + Vector2(0, 6), keeper + Vector2(-6, 0)]), Color(0.25, 0.65, 1.0))

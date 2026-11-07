@@ -590,23 +590,33 @@ func _show_island_map() -> void:
 	map.player_position = player.global_position
 	map.player_heading = player.global_rotation.y
 	map.bound_waystone = exploration.checkpoint_index
+	map.discovered = exploration.discovered.duplicate()
 	for enemy in get_tree().get_nodes_in_group("lock_targets"):
 		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():
 			continue
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: waystone; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
 		legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
+	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovery lasts for this hunt. Travel does not restore health, stamina or potions."
 	_clear_menu("ISLAND MAP", legend)
 	pause_menu_open = true
 	_menu_button("Return to hunt [Esc]", _resume)
 	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
 	menu_box.add_child(map)
 	menu_box.move_child(map, 2)
+	for index in range(3):
+		var reason: String = exploration.travel_block_reason(index)
+		var caption: String = "Travel to " + ["Beach", "Forest", "Ruins"][index]
+		if not reason.is_empty():
+			caption += " - " + reason
+		_menu_button(caption, _travel_waystone.bind(index), not reason.is_empty())
+		# Destinations precede the long legend, with Resume always first.
+		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 3 + index)
 	_menu_button("Pause menu", _pause_game)
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
@@ -645,3 +655,11 @@ func _show_keeper_relics() -> void:
 func _show_heavy_guide() -> void:
 	_clear_menu("HEAVY ATTACK", "Press H or tap HEAVY for a committed sword strike. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
 	_menu_button("Back to camp", _show_camp)
+
+func _travel_waystone(index: int) -> void:
+	if not started or game_finished or not pause_menu_open or not get_tree().paused:
+		return
+	if get_node("IslandExploration").travel_to(index):
+		_resume()
+	else:
+		_show_island_map()

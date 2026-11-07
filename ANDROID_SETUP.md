@@ -1,34 +1,82 @@
-# Android development setup
+# Android development
 
-Status checked on 2026-11-04: Java 21, Android Studio, and SDK/platform/build tools are installed. Matching Godot 4.7.2 Android templates were downloaded from the official GitHub release, SHA512-verified, and installed. The initial Android Debug export produced a signed ARM64 APK (49,496,107 bytes). The latest build replaces `builds/android/veyra-debug.apk`. APK signature verification passed. No phone/emulator was connected to the development machine. The owner subsequently reported smooth gameplay and saved progress after reopening on Samsung A37. Background/resume, measured performance and AAB/release signing remain pending. The sandbox redirects LOCALAPPDATA, so use the explicit local paths below.
+This guide covers local development APKs for **Veil of Veyra**. Run commands from the repository root. Installation paths belong in your local environment or Godot editor settings.
 
-## Check prerequisites without opening a window
+## Prerequisites
 
-From the repository root, run `powershell -NoProfile -File tools/check_android.ps1 -SdkPath "C:\Users\Dark\AppData\Local\Android\Sdk" -TemplatePath "C:\Users\Dark\AppData\Roaming\Godot\export_templates\4.7.2.stable"` on this machine. Exit 1 means a prerequisite is missing. For a custom SDK location, supply `-SdkPath C:\path\to\sdk`; a custom template directory can be supplied with `-TemplatePath`.
+1. Install the standard Godot **4.7.2** editor.
+2. Install export templates matching the editor version through Godot's export-template manager.
+3. Install compatible Java and Android SDK components using the [official Android export guide](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html).
+4. Configure **Java SDK Path** and **Android SDK Path** in Godot's editor settings.
+5. Follow the [wolf asset setup](assets/characters/literock/README.md) for the intended enemy visuals.
+6. Open the project and allow imports to finish.
 
-This checks file presence only. It does not install software, accept SDK licenses, start an emulator, or modify a connected device.
+Examples assume the executable is available as `godot` on `PATH`. Substitute your executable name if necessary.
 
-## Prepare a debug APK
-
-1. Finish the SDK setup in Android Studio or use Godot's Android build setup if offered by the installed editor. Follow the [Godot 4.7 Android export instructions](https://docs.godotengine.org/en/4.7/tutorials/export/exporting_for_android.html) for compatible package versions. OpenJDK 17 is recommended there; newer JDKs are supported but must be validated with the chosen build tools.
-2. Install export templates matching the exact installed Godot version, currently `4.7.2.stable`. Android debug/release templates are installed on this machine; other-platform templates and the Gradle source template are not installed by this step.
-3. Configure Godot's Java SDK Path and Android SDK Path. These are local editor settings, not repository secrets.
-4. The checked-in `Android Debug` preset uses `com.hirukshanan.veilofveyra.dev`, version `0.7.0-dev` (code 18), ARM64, and the app label `Veil of Veyra Dev`. Project orientation is landscape. Tests, tools, and development Markdown documents are excluded. x86_64 is disabled; enable it separately for a compatible emulator.
-5. Export to `builds/android/veyra-debug.apk`. Run the prerequisite checker, then validate the actual export log.
-
-## Device acceptance
-
-On a developer-enabled test device, verify installation/startup, simultaneous joystick plus attack/dodge, camera drag, lock-on, Spirit Burst, all chapter objectives, readable controls around display cutouts, pause/resume on backgrounding, save persistence after relaunch, sound/mute, and sustained frame rate/temperature. Record device model, Android version, build identifier and failures. A desktop screenshot is not device acceptance.
-
-Release signing, the production package identifier, Gradle/AAB setup and Play Console requirements remain separate work. Never commit signing keys or passwords. A successful debug export does not establish Play Store readiness.
-
-## Repeat the debug export
-
-Use Godot's Export dialog with the `Android Debug` preset, or run from the repository root:
+### Optional Windows prerequisite check
 
 ```powershell
-& 'C:\Users\Dark\Documents\Godot_v4.7.2-stable_win64.exe\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --export-debug 'Android Debug' builds/android/veyra-debug.apk
+powershell -NoProfile -File tools/check_android.ps1
 ```
 
-Create `builds/android` first if it does not exist. Check the process exit code and export log before using the APK. The APK, local template downloads, and signing keys stay outside version control. This development preset uses debug signing and the default Godot icon; it is not the production store configuration.
-Before exporting the intended wolf visuals, install the local licensed model as described in assets/characters/literock/README.md. Run combat_pose_check to verify it is loaded; source checkout alone uses procedural fallback art.
+The helper checks `ANDROID_HOME`, then `ANDROID_SDK_ROOT`, then the standard per-user SDK location. It uses the standard per-user Godot template location. For custom installations, supply your own `-SdkPath` and `-TemplatePath` arguments.
+
+This checks presence only; it does not install dependencies, accept licenses, or validate an export.
+
+## Export a debug APK
+
+Create the output directory:
+
+```powershell
+New-Item -ItemType Directory -Force builds/android | Out-Null
+```
+
+Export from the repository root:
+
+```sh
+godot --headless --path . --export-debug "Android Debug" builds/android/veyra-debug.apk
+```
+
+Alternatively, use **Project → Export → Android Debug** in the editor.
+
+| Preset field | Development configuration |
+| --- | --- |
+| App label | Veil of Veyra Dev |
+| Package | `com.hirukshanan.veilofveyra.dev` |
+| Architecture | ARM64 |
+| Orientation | Landscape |
+| Signing | Debug |
+| Output | `builds/android/veyra-debug.apk` |
+
+Version name and code are maintained in `export_presets.cfg`. Tests, development tools, and documentation are excluded from exports. Heavy environment source models are excluded; reduced runtime scenes and their textures are included.
+
+## Verify and install
+
+Confirm the export succeeds. With Android SDK build tools and platform tools on `PATH`:
+
+```sh
+apksigner verify builds/android/veyra-debug.apk
+adb install -r builds/android/veyra-debug.apk
+```
+
+`adb` requires an authorized device with USB debugging enabled. Alternatively, transfer and install the APK manually on a test device. Retain the same local debug signing key for compatible updates; do not commit or share it.
+
+## Device testing
+
+Record the app build, device model, Android version, and observed failures.
+
+- Installation, startup, relaunch, and saved campaign progress.
+- Simultaneous movement, camera drag, attacks, dodge, and Spirit Burst.
+- Keeper dialogue, relics, waystone discovery, and safe travel.
+- Chapter objectives, boss encounters, defeat, and retry.
+- Readable menus and reachable controls around display cutouts.
+- Background/resume, sound, and settings persistence.
+- Sustained frame rate, temperature, and battery behavior.
+
+Desktop checks do not establish physical-device acceptance. See [validation notes](VALIDATION.md) for testing scope.
+
+## Production release
+
+The debug preset is not the store configuration. Remaining work includes final artwork and identifier, release signing, Gradle/AAB setup, device acceptance, and store submission requirements.
+
+Keep export outputs, signing keys, passwords, and local SDK settings out of version control. Never include signing credentials in documentation or committed scripts.

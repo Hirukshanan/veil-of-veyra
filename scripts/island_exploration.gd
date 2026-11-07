@@ -4,6 +4,7 @@ const CAMPS := [Vector3(-18, 0, 12), Vector3(16, 0, -4), Vector3(0, 0, -25)]
 const CHECKPOINTS := [Vector3(0, 0, 27), Vector3(0, 0, 2), Vector3(0, 0, -20)]
 var player: Node3D
 var checkpoint_index := -1
+var discovered: Array[bool] = [true, false, false]
 var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
@@ -80,10 +81,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	for index in range(CHECKPOINTS.size()):
 		if player.global_position.distance_to(CHECKPOINTS[index]) < 2.0:
-			checkpoint_index = index
-			for label_index in range(_waystone_labels.size()):
-				_waystone_labels[label_index].text = "WAYSTONE • BOUND" if label_index == index else "WAYSTONE • approach to bind"
-			player.rescue_position = CHECKPOINTS[index] + Vector3.UP
+			bind_waystone(index)
 	# Water is a boundary, not a swimming mechanic. Rescue has the existing fall penalty.
 	if player.global_position.y < -1.2:
 		player.global_position = player.rescue_position
@@ -107,3 +105,44 @@ static func direction_hint(origin: Vector3, destination: Vector3, camera_basis: 
 
 func rescue_name() -> String:
 	return ["Beach", "Forest", "Ruins"][checkpoint_index] if checkpoint_index >= 0 else "Beach"
+func bind_waystone(index: int) -> void:
+	checkpoint_index = index
+	discovered[index] = true
+	for label_index in range(_waystone_labels.size()):
+		_waystone_labels[label_index].text = "WAYSTONE • BOUND" if label_index == index else ("WAYSTONE • DISCOVERED" if discovered[label_index] else "WAYSTONE • approach to discover")
+	player.rescue_position = CHECKPOINTS[index] + Vector3.UP
+
+func travel_block_reason(index: int) -> String:
+	if index < 0 or index >= CHECKPOINTS.size():
+		return "Unknown waystone"
+	if not discovered[index]:
+		return "Discover this waystone first"
+	if not is_instance_valid(player) or player.health <= 0:
+		return "Hunter is defeated"
+	if player.global_position.distance_to(CHECKPOINTS[index]) < 3.0:
+		return "Already here"
+	if player._attack_cooldown > 0.0 or player._dodge_time > 0.0 or player._hit_time > 0.0:
+		return "Finish your combat action"
+	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or int(enemy.get("health")) <= 0:
+			continue
+		if enemy.get_script() == preload("res://scripts/boss.gd"):
+			return "Defeat the dragon before travelling"
+		if enemy.global_position.distance_to(player.global_position) < 14.0:
+			return "Enemies are too close"
+		if enemy.global_position.distance_to(CHECKPOINTS[index]) < 14.0:
+			return "Destination is unsafe"
+	return ""
+
+func travel_to(index: int) -> bool:
+	if not travel_block_reason(index).is_empty():
+		return false
+	player.cancel_swing()
+	player.clear_target_lock()
+	player.set_move_input(Vector2.ZERO)
+	player._burst_requested = false
+	player.velocity = Vector3.ZERO
+	player.global_position = CHECKPOINTS[index] + Vector3.UP * 0.1
+	player._camera_pivot.global_position = player.global_position + Vector3(0, 1.2, 0)
+	bind_waystone(index)
+	return true

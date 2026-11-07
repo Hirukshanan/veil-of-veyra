@@ -1,28 +1,120 @@
-# Veil of Veyra prototype
+# Veil of Veyra
 
-This is a Godot 4.7 GDScript prototype for an original third-person island-fantasy action RPG.
+An original third-person action RPG set on a demon-haunted island. Play as Aru, reclaim the lanterns, and confront the Tidewraith Dragon.
 
-## Open the project
+Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for Android and keyboard/mouse controls for desktop development.
 
-1. Download the standard Godot 4.7.2 editor from the [official Godot download page](https://godotengine.org/download/windows/).
-2. Extract the download and open `project.godot` with Godot.
-3. Press **F5** to run the project.
+> **In development:** a playable prototype with three sequential hunts. Art, audio, combat balance, performance testing, and release preparation are still evolving.
+
+## Explore, fight, reclaim
+
+- **Island exploration:** forest trails, beaches, coastal water, mountain formations, ruins, and hunting camps.
+- **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
+- **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
+- **Optional quests:** recover Keeper relics and complete the Shore Keeper's Western Watch bounty.
+- **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
+- **Progression:** earn shards, upgrade blade and armor, and save campaign progress between chapters.
+- **Mobile settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
+
+## Run locally
+
+1. Install the standard **Godot 4.7.2** editor; .NET is not required.
+2. Clone or download this repository.
+3. Import `project.godot` and allow asset imports to finish.
+4. Install the separately distributed wolf model for the intended visuals; see [asset setup](#assets-and-credits).
+5. Press **F5** and select **Begin** in the camp menu.
+
+The project uses Godot's **GL Compatibility** renderer. Command examples assume the executable is available as `godot` on your `PATH`; substitute your executable name or local path if needed.
+
+```sh
+godot --editor --path .
+```
 
 ## Controls
 
-- Move: **WASD** or arrow keys; on touchscreens, use the lower-left joystick.
-- Sprint: **Shift** or **SPRINT** toggles faster travel while moving. Stamina drains while sprinting and recovers otherwise; at least 20% is required to start. Combat actions, damage and menus cancel sprint.
-- Attack: **J** or the on-screen **ATTACK** button. Press near the end of a swing to queue the next combo hit; dodge or taking damage cancels it.
-- Dodge: **K** / **Space** or the on-screen **DODGE** button.
-- Camera: hold the right mouse button and drag, or drag on an open area of the screen.
-- Target lock: **Tab** or **LOCK**.
-- Spirit Burst: **L** or **BURST** when fully charged.
-- Lantern: **E** or **LIGHT** when nearby and unlocked.
-- Quest Journal: **Q** during a hunt, or **Pause → Quest Journal** on touchscreens. Q or Escape returns to the hunt.
-- Pause/resume: **Escape**; after defeat use **Retry hunt**.
+| Action | Keyboard / mouse | Touch |
+| --- | --- | --- |
+| Move | WASD / arrow keys | Left joystick |
+| Camera | Hold right mouse button and drag | Drag open screen space |
+| Sprint | Shift | SPRINT |
+| Sword combo | J | ATTACK |
+| Heavy attack | H | HEAVY |
+| Dodge | K / Space | DODGE |
+| Target lock | Tab | LOCK |
+| Spirit Burst | L | BURST |
+| Talk / light lantern | E | TALK / LIGHT |
+| Quest journal | Q | Pause → Quest Journal |
+| Map / fast travel | Pause → Island Map | Pause → Island Map |
+| Pause / resume | Escape | PAUSE / Resume |
+| Heal | On-screen button | HEAL |
 
-Settings includes saved **30/60 FPS** and **Shadows** controls; turn it off to reduce rendering cost on slower devices.
+Heavy attacks cost **40 stamina**. Spirit Burst requires a full spirit meter. In-game guides explain combat timing and optional rewards.
 
-See [Android setup](ANDROID_SETUP.md) for build prerequisites and device acceptance checks.
+## Progress and travel
 
-The hero now uses a Quaternius rigged base with idle, walk, sprint, sword attack, roll, hit, death, and Spirit Burst animations. The base body is temporary; Aru's costume and hair are not final. Enemies and environments still use generated shapes. See [asset credits](assets/characters/quaternius/README.md) for sources and licenses. Story, sound, visual polish, and Android export remain prototype work.
+Campaign progress, shards, and upgrades save between chapters. Enemies, relic collection, bounty acceptance/reporting, and waystone discovery reset when a hunt restarts.
+
+Approach a waystone to discover it and bind a water-rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
+
+## Android builds
+
+The `Android Debug` preset produces an ARM64 development APK. Configure the Android SDK, Java, and matching Godot export templates first. Create `builds/android`, then run:
+
+```sh
+godot --headless --path . --export-debug "Android Debug" builds/android/veyra-debug.apk
+```
+
+See [Android setup](ANDROID_SETUP.md) for portable setup instructions, verification, and device checks. Build outputs and signing keys are excluded from Git. Production signing, AAB delivery, and store preparation remain unfinished.
+
+## Assets and credits
+
+| Asset | Source and setup |
+| --- | --- |
+| Hero base and animations | [Quaternius asset notes](assets/characters/quaternius/README.md) |
+| Dire Wolf Lite | [Literock asset notes and installation](assets/characters/literock/README.md) |
+| Ground textures and scanned foliage | [Environment credits](assets/environment/README.md) |
+
+**The wolf source model is not included in Git.** Obtain it from the creator and follow the installation notes. Without it, the game uses procedural fallback creatures. Install the model before evaluating the intended visuals or exporting them.
+
+The three wolf variants share one model with different sizes and colors. Hero costume and dragon art are provisional; terrain and mountains are procedural.
+
+Third-party assets retain their respective licenses. Repository access does not grant redistribution rights to those assets. Consult the linked notes before reuse.
+
+## Project structure
+
+| Directory | Purpose |
+| --- | --- |
+| `scenes/` | Game scene entry points |
+| `scripts/` | Combat, campaign, exploration, UI, and persistence |
+| `assets/` | Art, shaders, and attribution |
+| `tests/` | Godot regression checks |
+| `tools/` | Development and asset-preparation utilities |
+| `builds/` | Local export output; ignored by Git |
+
+## Development checks
+
+Run tests with isolated save storage to protect personal playthroughs. From the repository root, this PowerShell example restores the environment afterward:
+
+```powershell
+$previousAppData = $env:APPDATA
+$previousTestMode = $env:VEYRA_TEST
+try {
+    $env:APPDATA = Join-Path (Get-Location) '.validation'
+    $env:VEYRA_TEST = '1'
+    godot --headless --path . --script res://tests/gameplay_check.gd
+} finally {
+    $env:APPDATA = $previousAppData
+    $env:VEYRA_TEST = $previousTestMode
+}
+```
+
+Additional targeted checks cover combat, quests, saves, terrain, UI, and travel. See [validation notes](VALIDATION.md) for recorded results and limitations.
+
+## Current priorities
+
+- Improve character presentation, environmental detail, and audio.
+- Playtest combat, navigation, and touch controls on physical Android devices.
+- Measure sustained performance and investigate shutdown resource warnings.
+- Finish release artwork, signing, packaging, and store requirements.
+
+See [release status](RELEASE_STATUS.md) for implemented systems and remaining work.
