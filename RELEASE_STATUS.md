@@ -110,3 +110,8 @@ Code, game text, documentation, and commit messages are written in English.
 - Add collectible medicinal plants and a healing-resource system.
 - Allow limited shallow-water movement and enforce a movement boundary instead of the current sea damage/respawn rule.
 These are planned changes, not features of the current build.
+
+## NPC removal and health adjustment (0.9.1-dev)
+- Removed the Shore Keeper character, ring, overhead marker and island-map marker. Western Watch is now a non-spatial quest state accessed entirely through the quest scroll.
+- Campaign demon base health is 12/18/24 (previously 5/8/11). Scout health is base minus one; brute health is base plus three. Standalone enemy default health is also 12.
+- Damage, sword upgrades and reward values remain unchanged.

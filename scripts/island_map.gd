@@ -47,8 +47,6 @@ func _draw() -> void:
 		var stone := _point(MAP.CHECKPOINTS[index])
 		draw_rect(Rect2(stone - Vector2(5, 5), Vector2(10, 10)), Color.WHITE if bound_waystone == index else (Color(1, 0.78, 0.25) if discovered[index] else Color(0.4, 0.45, 0.48)))
 		_caption(stone + Vector2(9, 5), str(index + 1), Color.WHITE)
-	var keeper := _point(preload("res://scripts/shore_keeper.gd").HOME)
-	draw_colored_polygon(PackedVector2Array([keeper + Vector2(0, -6), keeper + Vector2(6, 0), keeper + Vector2(0, 6), keeper + Vector2(-6, 0)]), Color(0.25, 0.65, 1.0))
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))
 	var right := Vector2(-forward.y, forward.x)

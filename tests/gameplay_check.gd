@@ -25,7 +25,8 @@ func _run() -> void:
 		for child in scene.get_children():
 			if child.get_script() == scene.ENEMY_SCRIPT:
 				assert(child.position.distance_to(hero.position) >= 5.0, "Enemies must spawn clear of the player")
-				assert(child.health == 5 + chapter * 3 + (-1 if child.kind == 1 else (3 if child.kind == 2 else 0)), "Campaign demon health must scale by hunt and kind")
+				assert(child.health == 12 + chapter * 6 + (-1 if child.kind == 1 else (3 if child.kind == 2 else 0)), "Campaign demon health must scale by hunt and kind")
+				assert(child._health_label.text.contains("%d / %d" % [child.health, child.health]), "Visible health must match actual health")
 				enemies.append(child)
 				child.set_physics_process(false)
 		var enemy = enemies[0]

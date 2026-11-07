@@ -6,7 +6,7 @@ const GRAVITY := 22.0
 enum Kind { SHORE, SCOUT, BRUTE }
 
 var target: Node3D
-var health := 3
+var health := 12
 var kind := Kind.SHORE
 var move_speed := 4.4
 var patrol_speed := 1.18
@@ -18,7 +18,7 @@ var body_color := Color(0.48, 0.14, 0.055)
 var body_radius := 0.72
 var body_height := 2.1
 var display_name := "EMBER WOLF"
-var _maximum_health := 3
+var _maximum_health := 12
 var _health_label: Label3D
 var _attack_cooldown := 0.0
 var _windup := 0.0

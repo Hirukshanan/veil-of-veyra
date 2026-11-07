@@ -1,41 +1,11 @@
-extends Node3D
+extends Node
 
-const HOME := Vector3(4, 0, 25)
 const CAMP := Vector3(-18, 0, 12)
 const BONUS := 15
 var accepted := false
 var reported := false
-var marker: Label3D
-
 func _ready() -> void:
-	name = "ShoreKeeper"
-	position = HOME
-	var visual := preload("res://scripts/hero_visual.gd").new()
-	add_child(visual)
-	var spirit := StandardMaterial3D.new()
-	spirit.albedo_color = Color(0.22, 0.62, 0.74)
-	spirit.emission_enabled = true
-	spirit.emission = Color(0.03, 0.16, 0.2)
-	spirit.roughness = 0.85
-	for mesh in visual._meshes:
-		mesh.material_override = spirit
-	var ring := MeshInstance3D.new()
-	var shape := TorusMesh.new()
-	shape.inner_radius = 0.75
-	shape.outer_radius = 0.85
-	shape.rings = 24
-	shape.ring_segments = 8
-	ring.mesh = shape
-	ring.position.y = 0.06
-	ring.material_override = spirit
-	add_child(ring)
-	marker = Label3D.new()
-	marker.position.y = 2.4
-	marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	marker.font_size = 32
-	marker.visibility_range_end = 18.0
-	add_child(marker)
-	update_marker()
+	name = "WesternWatchQuest"
 
 func remaining() -> int:
 	var count := 0
@@ -46,18 +16,13 @@ func remaining() -> int:
 			count += 1
 	return count
 
-func update_marker() -> void:
-	marker.text = "SHORE KEEPER\n" + ("WATCH RESTORED" if reported else ("QUEST READY" if accepted and remaining() == 0 else ("WESTERN WATCH" if accepted else "QUEST SCROLL [Q]")))
-
 func accept() -> void:
 	accepted = true
-	update_marker()
 
 func report() -> bool:
 	if not accepted or reported or remaining() > 0:
 		return false
 	reported = true
-	update_marker()
 	return true
 
 func reward() -> int:

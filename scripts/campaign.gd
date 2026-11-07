@@ -35,7 +35,7 @@ var interact_button: Button
 var lantern_lit := false
 var relic_hunt: Node3D
 var relic_status: Label
-var keeper: Node3D
+var keeper: Node
 
 func _process(_delta: float) -> void:
 	if started and not game_finished:
@@ -102,7 +102,6 @@ func _update_objective() -> void:
 	relic_status.text = relic_hunt.call("progress_text")
 	if is_instance_valid(keeper):
 		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
-		keeper.update_marker()
 	interact_button.text = "LIGHT\n[E]"
 	interact_button.visible = remaining_enemies == 0 and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
@@ -175,7 +174,7 @@ func _build_enemies() -> void:
 		var angle := TAU * float(index) / float(remaining_enemies)
 		enemy.position = preload("res://scripts/island_exploration.gd").CAMPS[index % 3] + Vector3(cos(angle) * 2, 0, sin(angle) * 2)
 		enemy.set("target", player)
-		enemy.set("health", 5 + chapter * 3)
+		enemy.set("health", 12 + chapter * 6)
 		# Introduce the scout on the shore; later chapters mix all three kinds.
 		enemy.set("kind", (1 if index == 2 else 0) if chapter == 0 else index % 3)
 		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
@@ -585,7 +584,7 @@ func _journal_text() -> String:
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
 	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike (40 stamina). K / DODGE: evade. E / TALK or LIGHT: interact. Drag open space to turn the camera."
+	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike (40 stamina). K / DODGE: evade. E / LIGHT: restore lantern. Drag open space to turn the camera."
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
@@ -618,7 +617,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):

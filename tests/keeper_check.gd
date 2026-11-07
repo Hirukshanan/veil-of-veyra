@@ -20,6 +20,7 @@ func _run() -> void:
 		root.add_child(scene)
 		await process_frame
 		var keeper = scene.keeper
+		assert(not keeper is Node3D and keeper.get_child_count() == 0, "Quest must not spawn an NPC or visual children")
 		scene.player.set_physics_process(false)
 		assert(not keeper.accepted and keeper.reward() == 0)
 		scene._interact_world()

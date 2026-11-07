@@ -543,3 +543,10 @@ Debug version: 0.3.0-dev (code 13).
 - Increased campaign demon health still needs player balance feedback. Physical-device touch comfort remains pending.
 - Larger world, continuous progression, herbs and new water boundaries are deferred to separate stages.
 - Android 0.9.0-dev (code 20), ARM64 export and APK signature verification passed; size 82195925 bytes. Device testing remains pending.
+
+## NPC removal and demon health (2026-11-08)
+- keeper_check verifies a non-spatial quest with no visual children and passing accept/complete/reward/reset behavior.
+- gameplay_check verifies every campaign enemy's health and initial visible health label in all three hunts. enemy_check, island_map_check and quest_hud_check passed.
+- Native spawn/HUD capture inspected: NPC, ring and label removed; quest scroll retained.
+- Stronger demon health needs device combat-balance feedback.
+- Android 0.9.1-dev (code 21) ARM64 export and signature verification passed. Physical-device acceptance pending.
