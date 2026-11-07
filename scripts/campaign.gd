@@ -103,10 +103,9 @@ func _update_objective() -> void:
 	if is_instance_valid(keeper):
 		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
 		keeper.update_marker()
-	var near_keeper := is_instance_valid(keeper) and player.global_position.distance_to(keeper.global_position) <= 3.0
-	interact_button.text = "TALK [E]" if near_keeper else "LIGHT [E]"
-	interact_button.visible = near_keeper or (remaining_enemies == 0 and not lantern_lit)
-	interact_button.disabled = not near_keeper and player.global_position.distance_to(lantern.global_position) > 2.5
+	interact_button.text = "LIGHT\n[E]"
+	interact_button.visible = remaining_enemies == 0 and not lantern_lit
+	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
 
 func _interact_lantern() -> void:
 	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or lantern_lit:
@@ -176,7 +175,7 @@ func _build_enemies() -> void:
 		var angle := TAU * float(index) / float(remaining_enemies)
 		enemy.position = preload("res://scripts/island_exploration.gd").CAMPS[index % 3] + Vector3(cos(angle) * 2, 0, sin(angle) * 2)
 		enemy.set("target", player)
-		enemy.set("health", 3 + chapter * 2)
+		enemy.set("health", 5 + chapter * 3)
 		# Introduce the scout on the shore; later chapters mix all three kinds.
 		enemy.set("kind", (1 if index == 2 else 0) if chapter == 0 else index % 3)
 		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
@@ -196,24 +195,36 @@ func _build_campaign_ui() -> void:
 	add_child(controls_layer)
 	var controls := preload("res://scripts/safe_area.gd").new()
 	controls_layer.add_child(controls)
-	var pause_button := Button.new()
-	pause_button.text = "PAUSE"
+	var pause_button := _make_button("PAUSE", Vector2.ZERO, Vector2(60, 60))
 	pause_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	pause_button.offset_left = -180
-	pause_button.offset_right = -40
+	pause_button.offset_left = -80
+	pause_button.offset_right = -20
 	pause_button.offset_top = 20
-	pause_button.offset_bottom = 68
+	pause_button.offset_bottom = 80
 	pause_button.pressed.connect(_pause_game)
 	controls.add_child(pause_button)
-	var heal_button := Button.new()
-	heal_button.text = "HEAL"
+	var heal_button := _make_button("HEAL", Vector2.ZERO, Vector2(60, 60))
 	heal_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	heal_button.offset_left = -180
-	heal_button.offset_right = -40
-	heal_button.offset_top = 80
-	heal_button.offset_bottom = 128
+	heal_button.offset_left = -148
+	heal_button.offset_right = -88
+	heal_button.offset_top = 20
+	heal_button.offset_bottom = 80
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
+	var quest_button := _make_button("", Vector2.ZERO, Vector2(48, 48))
+	quest_button.name = "QuestScrollButton"
+	quest_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	quest_button.position = Vector2(28, 136)
+	quest_button.size = Vector2(48, 48)
+	quest_button.icon = preload("res://assets/ui/quest_scroll.svg")
+	quest_button.expand_icon = true
+	quest_button.add_theme_constant_override("icon_max_width", 22)
+	quest_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	quest_button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	quest_button.add_theme_font_size_override("font_size", 9)
+	quest_button.tooltip_text = "Quest scroll: objectives, rewards and progress [Q]"
+	quest_button.pressed.connect(_show_journal)
+	controls.add_child(quest_button)
 	relic_status = Label.new()
 	relic_status.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
 	relic_status.add_theme_constant_override("outline_size", 4)
@@ -227,7 +238,7 @@ func _build_campaign_ui() -> void:
 	relic_status.add_theme_font_size_override("font_size", 15)
 	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
 	controls.add_child(relic_status)
-	interact_button = _make_button("LIGHT [E]", Vector2(-470, -105), Vector2(-330, -35))
+	interact_button = _make_button("LIGHT [E]", Vector2(-380, -100), Vector2(-300, -20))
 	interact_button.pressed.connect(_interact_world)
 	interact_button.hide()
 	controls.add_child(interact_button)
@@ -293,6 +304,10 @@ func _menu_button(text: String, action: Callable, disabled := false) -> void:
 	var button := Button.new()
 	button.text = text
 	button.custom_minimum_size.y = 48
+	button.add_theme_stylebox_override("normal", _button_style(Color(0.06, 0.2, 0.22, 0.9)))
+	button.add_theme_stylebox_override("hover", _button_style(Color(0.1, 0.34, 0.33, 0.94)))
+	button.add_theme_stylebox_override("pressed", _button_style(Color(0.3, 0.48, 0.34, 0.95)))
+	button.add_theme_stylebox_override("disabled", _button_style(Color(0.06, 0.11, 0.13, 0.8)))
 	button.disabled = disabled
 	button.pressed.connect(action)
 	menu_box.add_child(button)
@@ -580,6 +595,12 @@ func _show_journal() -> void:
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
 	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
+	if not keeper.accepted:
+		_menu_button("Accept: The Western Watch (+15 shards)", _accept_scroll_quest)
+		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 2)
+	elif not keeper.reported:
+		_menu_button("Complete: The Western Watch", _complete_scroll_quest, keeper.remaining() > 0)
+		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 2)
 	_menu_button("Pause menu", _pause_game)
 func _show_island_map() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
@@ -597,7 +618,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Press E / TALK nearby for the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Grey triangles: mountain peaks. Blue diamond: Shore Keeper at the beach. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -621,36 +642,7 @@ func _show_island_map() -> void:
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
 		return
-	if is_instance_valid(keeper) and player.global_position.distance_to(keeper.global_position) <= 3.0:
-		_show_keeper_dialogue()
-	else:
-		_interact_lantern()
-
-func _show_keeper_dialogue() -> void:
-	if not started or game_finished or player.health <= 0 or player.global_position.distance_to(keeper.global_position) > 3.0:
-		return
-	var message := "I kept watch here before the lanterns went dark. Wolves now hold the western trail. Will you clear their camp and bring word back to me?\n\nOptional bounty: 15 shards, paid after reporting back and defeating the dragon in this hunt."
-	if keeper.reported:
-		message = "The western watch is restored. Break the dragon's seal and the island will remember your service.\n\n15 bonus shards are secured for this hunt's victory."
-	elif keeper.accepted:
-		message = "The western trail is quiet again. Tell me what you found." if keeper.remaining() == 0 else "The wolves still hold the western camp. Follow the western branch of the trail, then return to me."
-	_clear_menu("THE SHORE KEEPER", message)
-	pause_menu_open = true
-	_menu_button("Return to hunt [Esc]", _resume)
-	if not keeper.accepted:
-		_menu_button("Accept: The Western Watch", func():
-			keeper.accept()
-			_resume())
-	elif not keeper.reported and keeper.remaining() == 0:
-		_menu_button("Report: the western camp is clear", func():
-			keeper.report()
-			_resume())
-	_menu_button("Ask about the scattered relics", _show_keeper_relics)
-
-func _show_keeper_relics() -> void:
-	_clear_menu("THE LOST RELICS", "Three golden relics lie near the western camp, eastern forest and northern ruins. Recover all three and defeat the dragon in the same hunt for a separate 20-shard bonus.\n\nBoth optional rewards reset if you restart before victory.")
-	pause_menu_open = true
-	_menu_button("Back to the Keeper", _show_keeper_dialogue)
+	_interact_lantern()
 
 func _show_heavy_guide() -> void:
 	_clear_menu("HEAVY ATTACK", "Press H or tap HEAVY for a committed sword strike. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
@@ -663,3 +655,15 @@ func _travel_waystone(index: int) -> void:
 		_resume()
 	else:
 		_show_island_map()
+
+func _accept_scroll_quest() -> void:
+	if not journal_open or not started or game_finished:
+		return
+	keeper.accept()
+	_show_journal()
+
+func _complete_scroll_quest() -> void:
+	if not journal_open or not started or game_finished:
+		return
+	keeper.report()
+	_show_journal()

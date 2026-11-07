@@ -47,7 +47,7 @@ func remaining() -> int:
 	return count
 
 func update_marker() -> void:
-	marker.text = "SHORE KEEPER\n" + ("WATCH RESTORED" if reported else ("REPORT BACK [E]" if accepted and remaining() == 0 else ("WESTERN WATCH" if accepted else "TALK [E]")))
+	marker.text = "SHORE KEEPER\n" + ("WATCH RESTORED" if reported else ("QUEST READY" if accepted and remaining() == 0 else ("WESTERN WATCH" if accepted else "QUEST SCROLL [Q]")))
 
 func accept() -> void:
 	accepted = true
@@ -67,15 +67,17 @@ func journal_text() -> String:
 	if reported:
 		return "WESTERN WATCH - REPORTED\nDefeat the dragon to receive 15 bonus shards."
 	if not accepted:
-		return "WESTERN WATCH - AVAILABLE\nSpeak with the Shore Keeper beside the beach waystone to accept an optional bounty."
+		return "WESTERN WATCH - AVAILABLE\nAccept this bounty using the button in this quest scroll. No conversation is required."
 	if remaining() > 0:
-		return "WESTERN WATCH - ACTIVE\nClear the western camp: %d wolves remaining. Then return to the Shore Keeper." % remaining()
-	return "WESTERN WATCH - RETURN\nThe western camp is clear. Speak with the Shore Keeper at the beach to secure your bonus."
+		return "WESTERN WATCH - ACTIVE\nClear the western camp: %d wolves remaining. Then complete the bounty in QUEST." % remaining()
+	return "WESTERN WATCH - RETURN\nThe western camp is clear. Use Complete in QUEST to secure your bonus."
 
 func hint(origin: Vector3, camera_basis: Basis) -> String:
 	if not accepted:
-		return "Shore Keeper at beach: optional bounty"
+		return "QUEST: optional Western Watch bounty"
 	if reported:
 		return "Western Watch: +15 shards on victory"
-	var target := CAMP if remaining() > 0 else HOME
+	if remaining() == 0:
+		return "QUEST: Western Watch ready to complete"
+	var target := CAMP
 	return ("Western camp | " if remaining() > 0 else "Return to Keeper | ") + preload("res://scripts/island_exploration.gd").direction_hint(origin, target, camera_basis)

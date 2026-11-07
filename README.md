@@ -11,10 +11,10 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Island exploration:** forest trails, beaches, coastal water, mountain formations, ruins, and hunting camps.
 - **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
-- **Optional quests:** recover Keeper relics and complete the Shore Keeper's Western Watch bounty.
+- **Optional quests:** recover Keeper relics and accept and complete the Western Watch bounty directly from the on-screen quest scroll.
 - **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
 - **Progression:** earn shards, upgrade blade and armor, and save campaign progress between chapters.
-- **Mobile settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
+- **Mobile controls:** circular action buttons and right-side sprint; **settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
 
 ## Run locally
 
@@ -43,7 +43,7 @@ godot --editor --path .
 | Target lock | Tab | LOCK |
 | Spirit Burst | L | BURST |
 | Talk / light lantern | E | TALK / LIGHT |
-| Quest journal | Q | Pause → Quest Journal |
+| Quest journal | Q | Scroll icon / Pause → Quest Journal |
 | Map / fast travel | Pause → Island Map | Pause → Island Map |
 | Pause / resume | Escape | PAUSE / Resume |
 | Heal | On-screen button | HEAL |

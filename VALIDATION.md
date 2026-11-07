@@ -534,3 +534,12 @@ Debug version: 0.3.0-dev (code 13).
 - Existing exploration shutdown warning recurred (four ObjectDB instances); assertions passed, cause unresolved.
 - Physical-device travel controls and performance remain pending.
 - Android 0.8.0-dev (code 19), ARM64 debug export and APK signature verification passed; size 82191461 bytes.
+
+## Quest scroll and round HUD (2026-11-08)
+- Updated keeper_check passed: accept and complete remotely through the scroll, blocked premature/double completion, chapter victory payment, persistence and hunt reset.
+- journal_check, layout_check, safe_area_check, sprint_check and gameplay_check passed.
+- quest_hud_check passed at 800x450, 1280x720 and 1920x864: equal width/height, circular hit testing, non-overlapping controls, sprint on right, scroll access and blocked incomplete quest.
+- Native OpenGL HUD and quest menu inspected at 800x450 with simulated display insets. Long menus scroll; accept/complete appears ahead of objective details.
+- Increased campaign demon health still needs player balance feedback. Physical-device touch comfort remains pending.
+- Larger world, continuous progression, herbs and new water boundaries are deferred to separate stages.
+- Android 0.9.0-dev (code 20), ARM64 export and APK signature verification passed; size 82195925 bytes. Device testing remains pending.

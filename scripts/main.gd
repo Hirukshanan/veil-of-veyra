@@ -237,45 +237,38 @@ func _build_hud() -> void:
 	joystick.value_changed.connect(Callable(player, "set_move_input"))
 	root.add_child(joystick)
 
-	var attack_button := _make_button("ATTACK", Vector2(-180, -178), Vector2(-32, -30))
+	var attack_button := _make_button("ATTACK", Vector2(-116, -116), Vector2(-20, -20))
 	attack_button.pressed.connect(Callable(player, "attack"))
 	root.add_child(attack_button)
 
-	var dodge_button := _make_button("DODGE", Vector2(-310, -130), Vector2(-196, -32))
+	var dodge_button := _make_button("DODGE", Vector2(-204, -100), Vector2(-124, -20))
 	dodge_button.pressed.connect(Callable(player, "dodge"))
 	root.add_child(dodge_button)
-	var lock_button := _make_button("LOCK\n[TAB]", Vector2(-310, -210), Vector2(-196, -145))
+	var lock_button := _make_button("LOCK\n[TAB]", Vector2(-204, -188), Vector2(-124, -108))
 	lock_button.name = "TargetLockButton"
 	lock_button.pressed.connect(Callable(player, "toggle_target_lock"))
 	root.add_child(lock_button)
-	var burst_button := _make_button("BURST [L]\n0/100", Vector2(-470, -210), Vector2(-330, -125))
+	var burst_button := _make_button("BURST\n0/100", Vector2(-292, -188), Vector2(-212, -108))
 	burst_button.name = "SpiritBurstButton"
 	burst_button.disabled = true
 	burst_button.pressed.connect(Callable(player, "spirit_burst"))
 	root.add_child(burst_button)
-	var sprint_button := Button.new()
+	var sprint_button := _make_button("SPRINT", Vector2(-292, -100), Vector2(-212, -20))
 	sprint_button.name = "SprintButton"
-	sprint_button.position = Vector2(24, 140)
-	sprint_button.size = Vector2(140, 48)
 	sprint_button.pressed.connect(Callable(player, "toggle_sprint"))
 	root.add_child(sprint_button)
-	var heavy_button := Button.new()
+	var heavy_button := _make_button("HEAVY", Vector2(-116, -204), Vector2(-36, -124))
 	heavy_button.name = "HeavyAttackButton"
-	heavy_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	heavy_button.offset_left = -180
-	heavy_button.offset_right = -40
-	heavy_button.offset_top = 140
-	heavy_button.offset_bottom = 188
 	heavy_button.pressed.connect(Callable(player, "heavy_attack"))
 	root.add_child(heavy_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
-		sprint_button.text = "%s %d%%" % ["STOP" if player.sprint_enabled else "SPRINT", int(player.stamina)]
+		sprint_button.text = "%s\n%d%%" % ["STOP" if player.sprint_enabled else "SPRINT", int(player.stamina)]
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		var heavy_time := float(player.get("_heavy_time"))
-		heavy_button.text = "HEAVY %.1fs" % heavy_time if heavy_time > 0 else "HEAVY [H] 40"
+		heavy_button.text = "HEAVY\n%.1fs" % heavy_time if heavy_time > 0 else "HEAVY\n40 STA"
 		heavy_button.disabled = player.stamina < player.HEAVY_COST or player._attack_cooldown > 0 or player._dodge_time > 0 or player._hit_time > 0
 		var cooldown := float(player.get("_dodge_cooldown"))
 		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
@@ -283,7 +276,7 @@ func _build_hud() -> void:
 		attack_button.text = "ATTACK\n%d / 3" % step if step > 0 else "ATTACK"
 		lock_button.text = "UNLOCK" if is_instance_valid(player.get("locked_target")) else "LOCK\n[TAB]"
 		var charge := int(player.get("spirit"))
-		burst_button.text = "BURST [L]\n%d/100" % charge
+		burst_button.text = "BURST\n%d/100" % charge
 		burst_button.disabled = charge < 100 or float(player.get("_attack_cooldown")) > 0.0
 	)
 	root.add_child(combat_hud_timer)
@@ -306,19 +299,21 @@ func _build_hud() -> void:
 
 
 func _make_button(label: String, top_left: Vector2, bottom_right: Vector2) -> Button:
-	var button := Button.new()
+	var button := preload("res://scripts/round_button.gd").new()
 	button.text = label
 	button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	button.offset_left = top_left.x
 	button.offset_top = top_left.y
 	button.offset_right = bottom_right.x
 	button.offset_bottom = bottom_right.y
-	button.add_theme_font_size_override("font_size", 19)
+	button.add_theme_font_size_override("font_size", 13)
 	button.add_theme_color_override("font_color", Color(0.94, 0.97, 0.87))
 	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
 	button.add_theme_stylebox_override("normal", _button_style(Color(0.06, 0.2, 0.22, 0.82)))
 	button.add_theme_stylebox_override("hover", _button_style(Color(0.1, 0.34, 0.33, 0.94)))
 	button.add_theme_stylebox_override("pressed", _button_style(Color(0.3, 0.48, 0.34, 0.95)))
+	button.add_theme_stylebox_override("disabled", _button_style(Color(0.06, 0.11, 0.13, 0.8)))
+	button.add_theme_color_override("font_disabled_color", Color(0.61, 0.68, 0.65))
 	button.focus_mode = Control.FOCUS_NONE
 	return button
 
@@ -326,10 +321,10 @@ func _make_button(label: String, top_left: Vector2, bottom_right: Vector2) -> Bu
 func _button_style(color: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
-	style.corner_radius_top_left = 24
-	style.corner_radius_top_right = 24
-	style.corner_radius_bottom_left = 24
-	style.corner_radius_bottom_right = 24
+	style.corner_radius_top_left = 200
+	style.corner_radius_top_right = 200
+	style.corner_radius_bottom_left = 200
+	style.corner_radius_bottom_right = 200
 	style.border_color = Color(0.65, 0.84, 0.72, 0.8)
 	style.set_border_width_all(2)
 	return style

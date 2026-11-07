@@ -25,17 +25,12 @@ func _run() -> void:
 		scene._interact_world()
 		assert(not keeper.accepted, "Cannot accept from initial camp menu")
 		scene._resume()
-		scene.player.position = Vector3.ZERO
-		scene._interact_world()
-		assert(not paused, "Dialogue needs proximity")
-		scene.player.position = keeper.HOME + Vector3(0, 0, 2)
-		scene._update_objective()
-		assert(scene.interact_button.visible and scene.interact_button.text == "TALK [E]" and not scene.interact_button.disabled)
+		scene.player.position = Vector3(0, 0, -10)
 		scene.player._attack_buffer = 0.1
-		scene.interact_button.pressed.emit()
-		assert(paused and scene.pause_menu_open and scene.player._attack_buffer == 0)
-		_press(scene, "Accept: The Western Watch")
-		assert(keeper.accepted and not paused and not keeper.report())
+		scene.find_child("QuestScrollButton", true, false).pressed.emit()
+		assert(paused and scene.journal_open and scene.player._attack_buffer == 0)
+		_press(scene, "Accept: The Western Watch (+15 shards)")
+		assert(keeper.accepted and paused and not keeper.report())
 		assert("ACTIVE" in scene._journal_text())
 		var expected: int = keeper.remaining()
 		assert(expected > 0)
@@ -47,14 +42,11 @@ func _run() -> void:
 			if enemy.get_script() == scene.ENEMY_SCRIPT and enemy._home.distance_to(keeper.CAMP) < 6:
 				enemy.take_damage(10000)
 		assert(keeper.remaining() == 0 and "RETURN" in keeper.journal_text())
-		scene._interact_world()
-		_press(scene, "Report: the western camp is clear")
+		scene._show_journal()
+		_press(scene, "Complete: The Western Watch")
 		assert(keeper.reported and keeper.reward() == 15 and scene.shards == 0)
 		assert(not keeper.report(), "Reporting twice must not grant another bonus")
-		scene._interact_world()
-		_press(scene, "Ask about the scattered relics")
-		assert(paused and scene.pause_menu_open)
-		_press(scene, "Back to the Keeper")
+
 		scene._toggle_pause()
 		assert(not paused)
 		scene._on_boss_defeated()
@@ -74,5 +66,5 @@ func _run() -> void:
 		retry.queue_free()
 		await process_frame
 		paused = false
-	print("PASS: Keeper proximity, touch dialogue, combat pause, acceptance, camp identity, report guards, single victory payout, saved shards and hunt reset in all chapters")
+	print("PASS: Remote quest scroll, touch acceptance/completion, combat pause, acceptance, camp identity, report guards, single victory payout, saved shards and hunt reset in all chapters")
 	quit()

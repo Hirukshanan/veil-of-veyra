@@ -97,3 +97,16 @@ Code, game text, documentation, and commit messages are written in English.
 - Travel is blocked by living enemies within 14 metres of departure or destination, active dragon encounters, or unfinished player combat actions.
 - Travel clears motion and queued attacks, updates camera and rescue binding, and resumes gameplay. No health, stamina or potion refill.
 - Discovery resets on hunt restart/chapter reload; campaign save format is unchanged.
+
+## Quest scroll and circular controls (0.9.0-dev)
+- Dedicated HUD scroll icon opens full objectives, rewards, progress and Western Watch acceptance/completion from anywhere. NPC dialogue is no longer required; the Keeper remains scenery.
+- Circular HUD buttons with circular hit areas; transparent corners allow touches through. Sprint joins attack/dodge on the right. Menus use rounded pill buttons for longer text.
+- Campaign wolf base health increased from 3/5/7 to 5/8/11; scout (-1) and brute (+3) modifiers remain. Damage and attack timing are unchanged.
+- This stage retains three sequential hunts and the existing island size/water rescue behavior.
+
+## Requested next stages
+- Replace sequential hunts with a continuous, quest-driven island progression model.
+- Expand the island substantially, with visible ground grass and additional exploration quests.
+- Add collectible medicinal plants and a healing-resource system.
+- Allow limited shallow-water movement and enforce a movement boundary instead of the current sea damage/respawn rule.
+These are planned changes, not features of the current build.
