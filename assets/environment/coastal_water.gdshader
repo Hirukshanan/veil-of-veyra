@@ -7,9 +7,9 @@ void vertex() {
 void fragment() {
 	vec2 p = world_position.xz;
 	float angle = atan(p.y, p.x);
-	// Same radial contour as island_terrain.gd; water intersects at base radius 45.25.
+	// Same radial contour as island_terrain.gd; water intersects at base radius 90.5.
 	float contour = length(p) - (1.5 * sin(angle * 3.0) + 0.8 * sin(angle * 5.0) + 0.5 * sin(angle * 7.0));
-	float shore_distance = contour - 45.25;
+	float shore_distance = contour - 90.5;
 	float wave_a = dot(p, vec2(0.18, 0.11)) + TIME * 0.65;
 	float wave_b = dot(p, vec2(-0.08, 0.23)) - TIME * 0.43;
 	float wave = sin(wave_a) * 0.65 + sin(wave_b) * 0.35;

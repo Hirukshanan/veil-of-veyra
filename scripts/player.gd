@@ -54,7 +54,7 @@ var _attack_buffer := 0.0
 
 func _ready() -> void:
 	collision_layer = 1
-	collision_mask = 1
+	collision_mask = 1 | 8
 	_build_character()
 	_build_camera()
 	_build_attack_area()

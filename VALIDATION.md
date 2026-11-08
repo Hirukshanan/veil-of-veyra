@@ -574,3 +574,9 @@ Debug version: 0.3.0-dev (code 13).
 - Reproduced right-foot translation drift after 12 frames of grounded movement. Constant channels omitted from GLB retained procedural offsets from the previous frame.
 - Reset skeleton bone poses before every animation sample, then apply current-frame offsets.
 - 1,200-frame walking regression now passes with bounded per-bone translations; no APK generated for this change.
+
+## Island expansion first pass
+
+- Ground radius 38 to 76, outer beach 48 to 96; shoreline shading and map scale updated. Existing landmarks/objectives remain in the original central area.
+- Added chunked, distance-culled grass; trees/columns now block player layer 8 and camera layer 4. Rocks have convex colliders matching their transforms. Enemy collision masks are unchanged.
+- prop_collision_check and gameplay_check passed. Expanded outer-area content and single-world save/progression migration are still pending. No APK exported.

@@ -8,6 +8,7 @@ var discovered: Array[bool] = [true, false, false]
 var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
+	add_child(preload("res://scripts/island_grass.gd").new())
 	add_child(preload("res://scripts/mountain_rim.gd").new())
 	var decor = preload("res://scripts/chapter_environment.gd").new()
 	for index in range(20):
@@ -43,6 +44,10 @@ func _ready() -> void:
 		rock.material_override = rock_material
 		rock.visibility_range_end = 65.0
 		add_child(rock)
+		rock.create_convex_collision()
+		var blocker := rock.get_child(0) as StaticBody3D
+		blocker.collision_layer = 4 | 8
+		blocker.collision_mask = 0
 	for index in range(8):
 		var ruin := Node3D.new()
 		ruin.position = Vector3(cos(index * TAU / 8) * 9, 0, -25 + sin(index * TAU / 8) * 8)

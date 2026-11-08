@@ -21,15 +21,17 @@ void fragment() {
 	float contour = length(p) - (1.5 * sin(angle * 3.0) + 0.8 * sin(angle * 5.0) + 0.5 * sin(angle * 7.0));
 	// Low-frequency variation breaks up material boundaries and tiling.
 	float variation = sin(p.x * 0.43 + sin(p.y * 0.31)) * sin(p.y * 0.57 + cos(p.x * 0.24));
-	float grass = 1.0 - smoothstep(29.0, 35.0, contour + variation * 1.8);
+	float grass = 1.0 - smoothstep(64.0, 73.0, contour + variation * 1.8);
 	float path = texture(trail_mask, p / 104.0 + 0.5).r;
 	path = smoothstep(0.08 + variation * 0.06, 0.92 + variation * 0.06, path);
 	vec3 sand = texture(sand_color, p * 0.12).rgb;
-	vec3 greenery = texture(grass_color, p * 0.25).rgb * chapter_tint.rgb;
+	vec3 grass_detail = texture(grass_color, p * 0.65).rgb;
+	float grass_value = dot(grass_detail, vec3(0.299, 0.587, 0.114));
+	vec3 greenery = mix(vec3(0.075, 0.19, 0.025), vec3(0.26, 0.43, 0.085), grass_value) * (0.94 + variation * 0.10);
 	vec3 soil = texture(soil_color, p * 0.25).rgb * vec3(0.85, 0.85, 0.8);
 	vec3 color = mix(sand, greenery, grass);
 	color = mix(color, soil, path);
-	float wet = smoothstep(40.0, 45.0, contour + variation * 0.3);
+	float wet = smoothstep(80.0, 90.0, contour + variation * 0.3);
 	ALBEDO = color * (1.0 + variation * 0.045) * mix(1.0, 0.56, wet);
 	vec3 detail = mix(texture(sand_normal, p * 0.12).rgb, texture(grass_normal, p * 0.25).rgb, grass);
 	NORMAL_MAP = mix(detail, texture(soil_normal, p * 0.25).rgb, path);

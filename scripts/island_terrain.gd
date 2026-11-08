@@ -10,15 +10,15 @@ static func ground() -> ArrayMesh:
 	for index in range(128):
 		var a := index * TAU / 128.0
 		var b := (index + 1) * TAU / 128.0
-		var base := 38.0
+		var base := 76.0
 		var p := Vector3(cos(a), 0, sin(a)) * coast_radius(a, base)
 		var q := Vector3(cos(b), 0, sin(b)) * coast_radius(b, base)
 		p.y = 1.0
 		q.y = p.y
 		for vertex in [Vector3(0, p.y, 0), p, q]:
 			surface.add_vertex(vertex)
-		var outer_p := Vector3(cos(a), 0, sin(a)) * coast_radius(a, 48.0)
-		var outer_q := Vector3(cos(b), 0, sin(b)) * coast_radius(b, 48.0)
+		var outer_p := Vector3(cos(a), 0, sin(a)) * coast_radius(a, 96.0)
+		var outer_q := Vector3(cos(b), 0, sin(b)) * coast_radius(b, 96.0)
 		outer_p.y = -1.0
 		outer_q.y = -1.0
 		for vertex in [p, outer_p, q, q, outer_p, outer_q]:

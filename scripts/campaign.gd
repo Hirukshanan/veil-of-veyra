@@ -16,10 +16,12 @@ var armor_level := 0
 var completed := false
 var overlay: CanvasLayer
 var menu_box: VBoxContainer
+var quest_parchment: TextureRect
 var menu_scroll: ScrollContainer
 var notice := ""
 var progress_unreadable := false
 var potions := 3
+var herbs: Node3D
 var started := false
 var camera_sensitivity := 1.0
 var camera_distance := 6.3
@@ -105,6 +107,10 @@ func _update_objective() -> void:
 	interact_button.text = "LIGHT\n[E]"
 	interact_button.visible = remaining_enemies == 0 and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
+	if herbs.nearest(player.global_position) != null:
+		interact_button.text = "COLLECT\n[E]"
+		interact_button.visible = true
+		interact_button.disabled = false
 
 func _interact_lantern() -> void:
 	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or lantern_lit:
@@ -144,6 +150,9 @@ func _toggle_pause() -> void:
 		_pause_game()
 
 func _ready() -> void:
+	herbs = preload("res://scripts/herbal_plants.gd").new()
+	herbs.name = "HerbalPlants"
+	add_child(herbs)
 	_load_progress()
 	environment_chapter = chapter
 	super._ready()
@@ -251,6 +260,24 @@ func _build_campaign_ui() -> void:
 	shade.color = Color(0.015, 0.035, 0.055, 1.0)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(shade)
+	quest_parchment = TextureRect.new()
+	quest_parchment.texture = preload("res://assets/ui/quest_parchment.jpg")
+	quest_parchment.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	quest_parchment.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var parchment_shader := Shader.new()
+	parchment_shader.code = """
+shader_type canvas_item;
+void fragment() {
+ vec4 paper = texture(TEXTURE, UV);
+ float outside = step(0.96, min(paper.r, min(paper.g, paper.b)));
+ COLOR = vec4(paper.rgb, 1.0 - outside);
+}
+"""
+	var parchment_material := ShaderMaterial.new()
+	parchment_material.shader = parchment_shader
+	quest_parchment.material = parchment_material
+	quest_parchment.hide()
+	overlay.add_child(quest_parchment)
 	var menu_safe := preload("res://scripts/safe_area.gd").new()
 	overlay.add_child(menu_safe)
 	menu_scroll = ScrollContainer.new()
@@ -266,6 +293,16 @@ func _build_campaign_ui() -> void:
 	_layout_menu()
 
 func _layout_menu() -> void:
+	if journal_open:
+		var screen: Vector2 = menu_scroll.get_parent().size
+		var width := minf(820.0, screen.x - 12.0)
+		quest_parchment.position = menu_scroll.get_parent().position + Vector2((screen.x - width) * 0.5, 4)
+		quest_parchment.size = Vector2(width, screen.y - 8)
+		menu_scroll.offset_left = (screen.x - width) * 0.5 + width * 0.17
+		menu_scroll.offset_right = -menu_scroll.offset_left
+		menu_scroll.offset_top = screen.y * 0.19
+		menu_scroll.offset_bottom = -screen.y * 0.17
+		return
 	var margin := maxf(24.0, (menu_scroll.get_parent().size.x - 700.0) * 0.5)
 	menu_scroll.offset_left = margin
 	menu_scroll.offset_right = -margin
@@ -274,6 +311,8 @@ func _layout_menu() -> void:
 
 func _clear_menu(title: String, message: String) -> void:
 	journal_open = false
+	quest_parchment.hide()
+	_layout_menu()
 	pause_menu_open = false
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
@@ -361,6 +400,8 @@ func _upgrade(blade: bool) -> void:
 
 func _resume() -> void:
 	journal_open = false
+	quest_parchment.hide()
+	_layout_menu()
 	pause_menu_open = false
 	started = true
 	relic_hunt.set("active", true)
@@ -590,7 +631,7 @@ func _journal_text() -> String:
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
-	_clear_menu("QUEST JOURNAL - " + str(CHAPTERS[chapter][0]), _journal_text())
+	_clear_menu("QUEST JOURNAL - " + str(CHAPTERS[chapter][0]), _journal_text() + "\n\n" + herbs.journal_text())
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
@@ -602,6 +643,21 @@ func _show_journal() -> void:
 		_menu_button("Complete: The Western Watch", _complete_scroll_quest, keeper.remaining() > 0)
 		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 2)
 	_menu_button("Pause menu", _pause_game)
+	quest_parchment.show()
+	_layout_menu()
+	for control in menu_box.get_children():
+		if control is Label:
+			control.add_theme_font_override("font", preload("res://assets/ui/fonts/Cinzel.ttf") if control == menu_box.get_child(0) else preload("res://assets/ui/fonts/CrimsonText-Regular.ttf"))
+			control.add_theme_color_override("font_color", Color("352015"))
+			control.add_theme_font_size_override("font_size", 25 if control == menu_box.get_child(0) else 24)
+			control.add_theme_constant_override("line_spacing", 5)
+		elif control is Button:
+			control.add_theme_font_override("font", preload("res://assets/ui/fonts/Cinzel.ttf"))
+			control.add_theme_font_size_override("font_size", 16)
+			control.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			control.add_theme_stylebox_override("normal", _button_style(Color("61442d")))
+			control.add_theme_stylebox_override("hover", _button_style(Color("84603c")))
+			control.add_theme_stylebox_override("pressed", _button_style(Color("473020")))
 func _show_island_map() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
@@ -641,6 +697,10 @@ func _show_island_map() -> void:
 	_menu_button("Pause menu", _pause_game)
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
+		return
+	if herbs.collect(player.global_position):
+		potions += 1
+		_update_objective()
 		return
 	_interact_lantern()
 

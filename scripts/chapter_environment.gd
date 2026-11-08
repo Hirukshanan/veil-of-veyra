@@ -37,9 +37,9 @@ func _column(parent: Node3D, radius: float, height: float, color: Color) -> void
 	mesh.height = height
 	mesh.radial_segments = 8
 	_piece(parent, mesh, Vector3(0, height * 0.5, 0), color)
-	# Camera-only blockers keep direct-pursuit enemies from getting trapped.
+	# Player and camera blockers; direct-pursuit enemies retain their existing mask.
 	var blocker := StaticBody3D.new()
-	blocker.collision_layer = 4
+	blocker.collision_layer = 4 | 8
 	blocker.collision_mask = 0
 	var collision := CollisionShape3D.new()
 	var shape := CylinderShape3D.new()
@@ -58,14 +58,14 @@ func _tree(parent: Node3D, size_factor: float) -> void:
 	for mesh in tree.find_children("*", "MeshInstance3D", true, false):
 		mesh.visibility_range_end = 55.0
 	var blocker := StaticBody3D.new()
-	blocker.collision_layer = 4
+	blocker.collision_layer = 4 | 8
 	blocker.collision_mask = 0
 	var collision := CollisionShape3D.new()
 	var shape := CylinderShape3D.new()
-	shape.radius = 0.38
-	shape.height = 3.0
+	shape.radius = 0.38 * size_factor
+	shape.height = 3.0 * size_factor
 	collision.shape = shape
-	collision.position.y = 1.5
+	collision.position.y = 1.5 * size_factor
 	blocker.add_child(collision)
 	parent.add_child(blocker)
 
