@@ -322,6 +322,7 @@ func _show_camp() -> void:
 	_menu_button("New journey", _confirm_reset)
 	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
 	_menu_button("Enemy guide", _show_enemy_guide)
+	_menu_button("Art credits", _show_art_credits)
 	_menu_button("Heavy Attack guide", _show_heavy_guide)
 	_menu_button("Spirit Burst guide", _show_burst_guide)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
@@ -666,3 +667,8 @@ func _complete_scroll_quest() -> void:
 		return
 	keeper.report()
 	_show_journal()
+
+
+func _show_art_credits() -> void:
+	_clear_menu("ART CREDITS", "Charcoal Black Dark Dragon by Pigcraft (@s8819296)\nCC BY 4.0 - creativecommons.org/licenses/by/4.0\nSource: sketchfab.com/3d-models/charcoal-black-dark-dragon-25c51b198dd54e538f62569d52f61d8e\nModified: mesh reduction, UV consolidation, rig and combat animations.\n\nDire Wolf by Literock Studios.\nHero art by Quaternius (CC0).\nEnvironment textures and scans by Poly Haven (CC0).")
+	_menu_button("Back to camp", _show_camp)

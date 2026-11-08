@@ -2,6 +2,8 @@
 
 ## Implemented
 
+- 0.10.0-dev (Android code 22): optimized Charcoal dragon replaces the procedural boss. Original black scales/ivory horns, 21-bone rig, eight custom hover/combat clips, synchronized attack poses, hit feedback and detached death fade. Attribution is available in camp Art credits. Device performance for this update remains unverified.
+
 - First expanded island layout: sloped sandy coastline, beach arrival, branching forest trail, ruins, three distributed wolf camps and current-hunt water-rescue waystones. Chapters share this layout; natural terrain polish and persistent checkpoints remain pending.
 
 - First signed ARM64 Android debug APK exported and signature-verified. Owner reports smooth gameplay and persisted progress after reopening on Samsung A37; background/resume and measured performance remain pending.

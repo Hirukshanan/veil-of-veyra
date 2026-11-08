@@ -76,7 +76,7 @@ See [Android setup](ANDROID_SETUP.md) for portable setup instructions, verificat
 
 **The wolf source model is not included in Git.** Obtain it from the creator and follow the installation notes. Without it, the game uses procedural fallback creatures. Install the model before evaluating the intended visuals or exporting them.
 
-The three wolf variants share one model with different sizes and colors. Hero costume and dragon art are provisional; terrain and mountains are procedural.
+The three wolf variants share one model with different sizes and colors. Hero costume is provisional; terrain and mountains are procedural. The dragon uses an optimized, rigged [Charcoal Black Dark Dragon by Pigcraft](assets/characters/pigcraft/README.md), included under CC BY 4.0. Its hovering combat motions are custom and remain subject to device playtesting.
 
 Third-party assets retain their respective licenses. Repository access does not grant redistribution rights to those assets. Consult the linked notes before reuse.
 

@@ -75,17 +75,17 @@ func _run() -> void:
 	boss._state_time = 0.2
 	boss._use_breath = true
 	boss._process(0.1)
-	assert(boss._visual.rotation.x > 0.0)
-	assert(boss._wings[0].rotation.z < 0.0 and boss._wings[1].rotation.z > 0.0)
+	assert(boss._visual._clip == "windup")
+	assert(boss._visual.animator.current_animation_position > 0.5)
 	boss._state = boss.AttackState.CHARGE
 	boss._process(0.1)
-	assert(boss._visual.rotation.x < 0.0 and boss._visual.position.y < 0.0)
+	assert(boss._visual._clip == "charge")
 	assert(boss._fire_cone.get_parent() == boss and boss._warning_ring.get_parent() == boss)
 	boss.set_process(true)
 	paused = true
-	var frozen: Transform3D = boss._visual.transform
+	var frozen: float = boss._visual.animator.current_animation_position
 	await create_timer(0.1, true).timeout
-	assert(boss._visual.transform == frozen, "Combat visuals must freeze with pause")
+	assert(boss._visual.animator.current_animation_position == frozen, "Combat visuals must freeze with pause")
 	paused = false
 	world.queue_free()
 	await process_frame

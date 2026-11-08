@@ -550,3 +550,21 @@ Debug version: 0.3.0-dev (code 13).
 - Native spawn/HUD capture inspected: NPC, ring and label removed; quest scroll retained.
 - Stronger demon health needs device combat-balance feedback.
 - Android 0.9.1-dev (code 21) ARM64 export and signature verification passed. Physical-device acceptance pending.
+
+
+## Charcoal dragon integration (2026-11-08)
+
+- Original 2K GLB inspected: 1,000,038 triangles, no skeleton or animation.
+- Offline Blender preparation: welded primitive seams, baked orientation, consolidated identical UV maps, reduced to 34,999 triangles (about 5.9 MiB), added 21 bones and eight motion clips. Original texture colors and ivory horns retained.
+- Native Godot renders reviewed for idle, breath and death; full island encounter captured with the normal player camera and side camera. No UV compatibility warning after preparation.
+- Passed dragon_check, boss_phase_check, combat_pose_check, gameplay_check and target_lock_check. Coverage includes mesh budget, skinning, finite poses, head motion, warning synchronization, pause, death cleanup, existing damage/rewards and target lock.
+- Animations use small anatomical-envelope motions for the source flying pose; this is a hovering boss, not a ground-walking dragon. No free-flight navigation or new bite damage attack was added.
+- Physical Android performance, thermal behavior and touch combat playtesting remain pending.
+
+- Follow-up motion audit: five samples per clip revealed restrained wing travel; this remains a prototype hover animation rather than a polished flight cycle. Added a 100 ms bone-pose transition blend to avoid abrupt clip changes. Do not treat the current APK as final animation-quality approval.
+
+## Dragon motion and fire correction
+
+- Added visible shoulder-axis wingbeats, delayed wing-tip follow-through and hover bob, retaining the 100 ms pose transition blend.
+- Replaced the static cone with a bounded 48-instance additive flame stream following the animated head muzzle. Existing damage range/timing remains unchanged.
+- Reviewed runtime motion phase captures and the island breath render. Regression checks cover wing rotation amplitude, muzzle attachment, fire clock, pause and existing combat. Physical phone feel/performance remain unverified.

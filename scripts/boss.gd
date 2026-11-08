@@ -18,14 +18,14 @@ var _attack_direction := Vector3.ZERO
 var _attack_hit := false
 var _use_breath := false
 var _warning_ring: MeshInstance3D
-var _fire_cone: MeshInstance3D
+var _fire_cone: Node3D
 var enraged := false
 var _attack_enraged := false
-var _core_material: StandardMaterial3D
+
 var _attack_label: Label3D
 var _visual: Node3D
-var _wings: Array[Node3D] = []
-var _motion_time := 0.0
+
+
 
 
 func _ready() -> void:
@@ -36,7 +36,7 @@ func _ready() -> void:
 	_build_warning_ring()
 	_build_fire_cone()
 	_attack_label = Label3D.new()
-	_attack_label.position.y = 3.1
+	_attack_label.position.y = 4.6
 	_attack_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	_attack_label.font_size = 40
 	add_child(_attack_label)
@@ -132,113 +132,24 @@ func take_damage(amount: int) -> void:
 	if amount <= 0:
 		return
 	preload("res://scripts/damage_number.gd").show_hit(self, mini(amount, health), 3.0)
+	_visual.show_hit()
 	health = maxi(0, health - amount)
 	health_changed.emit(health, max_health)
 	if health > 0 and health * 2 <= max_health and not enraged:
 		enraged = true
-		_core_material.albedo_color = Color(1.0, 0.05, 0.02)
-		_core_material.emission = Color(1.0, 0.02, 0.01)
 		if _state == AttackState.APPROACH or _state == AttackState.RECOVER:
 			_attack_label.text = "ENRAGED"
 		enraged_started.emit()
 	if health == 0:
+		_visual.show_defeat(get_parent())
 		defeated.emit()
 		queue_free()
 
 
 func _build_body() -> void:
-	_visual = Node3D.new()
+	_visual = preload("res://scripts/dragon_visual.gd").new()
 	_visual.name = "Visual"
 	add_child(_visual)
-	var torso := SphereMesh.new()
-	torso.radius = 1.0
-	torso.height = 1.8
-	_add_piece(torso, Vector3(0, 1.05, 0.15), Vector3(0.95, 0.82, 1.5), Color(0.19, 0.16, 0.31))
-
-	var chest := SphereMesh.new()
-	chest.radius = 1.0
-	chest.height = 1.5
-	_add_piece(chest, Vector3(0, 1.15, -0.72), Vector3(0.78, 0.72, 0.78), Color(0.28, 0.2, 0.37))
-
-	var neck := CapsuleMesh.new()
-	neck.radius = 0.43
-	neck.height = 1.8
-	_add_piece(neck, Vector3(0, 1.55, -1.42), Vector3.ONE, Color(0.24, 0.19, 0.34), Vector3(PI / 2.0, 0, 0))
-
-	var head := SphereMesh.new()
-	head.radius = 0.68
-	head.height = 1.15
-	_add_piece(head, Vector3(0, 1.7, -2.25), Vector3(1.0, 0.88, 1.0), Color(0.27, 0.2, 0.36))
-
-	var snout := SphereMesh.new()
-	snout.radius = 0.42
-	snout.height = 0.6
-	_add_piece(snout, Vector3(0, 1.4, -2.78), Vector3(1.1, 0.7, 1.35), Color(0.33, 0.23, 0.34))
-
-	var horn := CylinderMesh.new()
-	horn.top_radius = 0.025
-	horn.bottom_radius = 0.18
-	horn.height = 0.8
-	horn.radial_segments = 6
-	_add_piece(horn, Vector3(-0.43, 2.22, -2.18), Vector3.ONE, Color(0.14, 0.11, 0.19), Vector3(0, 0, 0.42))
-	_add_piece(horn, Vector3(0.43, 2.22, -2.18), Vector3.ONE, Color(0.14, 0.11, 0.19), Vector3(0, 0, -0.42))
-
-	var spine_spike := CylinderMesh.new()
-	spine_spike.top_radius = 0.02
-	spine_spike.bottom_radius = 0.12
-	spine_spike.height = 0.36
-	spine_spike.radial_segments = 5
-	for index in range(5):
-		_add_piece(spine_spike, Vector3(0, 1.72, -0.15 + index * 0.42), Vector3.ONE, Color(0.49, 0.29, 0.34))
-
-	var tail := CapsuleMesh.new()
-	tail.radius = 0.34
-	tail.height = 1.6
-	_add_piece(tail, Vector3(0, 0.76, 1.72), Vector3(0.85, 0.75, 1.0), Color(0.2, 0.16, 0.29), Vector3(PI / 2.0, 0, 0))
-	var tail_tip := CylinderMesh.new()
-	tail_tip.top_radius = 0.025
-	tail_tip.bottom_radius = 0.31
-	tail_tip.height = 0.9
-	tail_tip.radial_segments = 6
-	_add_piece(tail_tip, Vector3(0, 0.74, 2.85), Vector3.ONE, Color(0.45, 0.18, 0.24), Vector3(PI / 2.0, 0, 0))
-
-	var leg := CapsuleMesh.new()
-	leg.radius = 0.24
-	leg.height = 0.82
-	_add_piece(leg, Vector3(-0.62, 0.38, 0.25), Vector3.ONE, Color(0.17, 0.14, 0.25), Vector3(0, 0, 0.32))
-	_add_piece(leg, Vector3(0.62, 0.38, 0.25), Vector3.ONE, Color(0.17, 0.14, 0.25), Vector3(0, 0, -0.32))
-
-	var wing_material := _material(Color(0.12, 0.1, 0.2, 0.92))
-	wing_material.cull_mode = BaseMaterial3D.CULL_DISABLED
-	for side in [-1, 1]:
-		var wing := MeshInstance3D.new()
-		wing.mesh = _make_wing(side)
-		wing.material_override = wing_material
-		var hinge := Node3D.new()
-		hinge.position = Vector3(side * 0.5, 1.72, 0.05)
-		_visual.add_child(hinge)
-		hinge.add_child(wing)
-		wing.position = -hinge.position
-		_wings.append(hinge)
-
-	var eye_mesh := SphereMesh.new()
-	eye_mesh.radius = 0.12
-	eye_mesh.height = 0.24
-	var eye_material := _material(Color(1.0, 0.34, 0.09))
-	eye_material.emission_enabled = true
-	eye_material.emission = Color(0.95, 0.12, 0.02)
-	_add_piece(eye_mesh, Vector3(-0.35, 1.72, -2.82), Vector3.ONE, Color.WHITE, Vector3.ZERO, eye_material)
-	_add_piece(eye_mesh, Vector3(0.35, 1.72, -2.82), Vector3.ONE, Color.WHITE, Vector3.ZERO, eye_material)
-
-	var core_mesh := SphereMesh.new()
-	core_mesh.radius = 0.22
-	core_mesh.height = 0.44
-	var core_material := _material(Color(0.96, 0.27, 0.06))
-	_core_material = core_material
-	core_material.emission_enabled = true
-	core_material.emission = Color(0.85, 0.12, 0.02)
-	_add_piece(core_mesh, Vector3(0, 1.18, -1.25), Vector3.ONE, Color.WHITE, Vector3.ZERO, core_material)
-
 	var collision := CollisionShape3D.new()
 	var shape := CapsuleShape3D.new()
 	shape.radius = 0.9
@@ -246,21 +157,6 @@ func _build_body() -> void:
 	collision.shape = shape
 	collision.position.y = 1.1
 	add_child(collision)
-
-
-func _make_wing(side: int) -> ArrayMesh:
-	var surface := SurfaceTool.new()
-	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var shoulder := Vector3(side * 0.5, 1.72, 0.05)
-	var outer_tip := Vector3(side * 2.7, 2.05, 0.22)
-	var rear_tip := Vector3(side * 2.1, 0.82, 0.9)
-	var inner_tip := Vector3(side * 0.78, 1.02, 0.72)
-	_add_triangle(surface, shoulder, outer_tip, inner_tip)
-	_add_triangle(surface, outer_tip, rear_tip, inner_tip)
-	_add_triangle(surface, shoulder, inner_tip, Vector3(side * 1.12, 1.4, 0.58))
-	surface.generate_normals()
-	return surface.commit()
-
 
 func _build_warning_ring() -> void:
 	_warning_ring = MeshInstance3D.new()
@@ -279,38 +175,9 @@ func _build_warning_ring() -> void:
 
 
 func _build_fire_cone() -> void:
-	_fire_cone = MeshInstance3D.new()
-	var flame := CylinderMesh.new()
-	flame.top_radius = 0.025
-	flame.bottom_radius = 1.0
-	flame.height = 4.2
-	flame.radial_segments = 8
-	_fire_cone.mesh = flame
-	_fire_cone.position = Vector3(0, 1.42, -4.25)
-	_fire_cone.rotation.x = -PI / 2.0
-	var flame_material := _material(Color(1.0, 0.25, 0.04, 0.58))
-	flame_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	flame_material.emission_enabled = true
-	flame_material.emission = Color(0.85, 0.12, 0.01)
-	_fire_cone.material_override = flame_material
+	_fire_cone = preload("res://scripts/dragon_fire.gd").new()
 	_fire_cone.visible = false
 	add_child(_fire_cone)
-
-
-func _add_piece(mesh: Mesh, local_position: Vector3, local_scale: Vector3, color: Color, local_rotation: Vector3 = Vector3.ZERO, material: StandardMaterial3D = null) -> void:
-	var instance := MeshInstance3D.new()
-	instance.mesh = mesh
-	instance.position = local_position
-	instance.scale = local_scale
-	instance.rotation = local_rotation
-	instance.material_override = material if material != null else _material(color)
-	_visual.add_child(instance)
-
-
-func _add_triangle(surface: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
-	surface.add_vertex(a)
-	surface.add_vertex(b)
-	surface.add_vertex(c)
 
 
 func _material(color: Color) -> StandardMaterial3D:
@@ -321,28 +188,24 @@ func _material(color: Color) -> StandardMaterial3D:
 
 
 func _process(delta: float) -> void:
-	_motion_time += delta
-	var pitch := 0.0
-	var crouch := 0.0
-	var spread := 0.0
+	if health <= 0:
+		return
+	var clip := "idle"
+	var progress := 0.0
 	match _state:
 		AttackState.WINDUP:
-			var duration := 0.65 if _attack_enraged else 0.85
-			var anticipation := clampf(1.0 - _state_time / duration, 0.0, 1.0)
-			pitch = (0.10 if _use_breath else -0.08) * anticipation
-			crouch = -0.12 * anticipation
-			spread = 0.35 * anticipation
+			clip = "windup"
+			progress = 1.0 - _state_time / (0.65 if _attack_enraged else 0.85)
 		AttackState.BREATH:
-			pitch = -0.04
-			spread = 0.4
+			clip = "breath"
+			progress = 1.0 - _state_time / 0.55
 		AttackState.CHARGE:
-			pitch = -0.08
-			crouch = -0.12
-			spread = -0.3
-	var blend := minf(1.0, delta * 14.0)
-	_visual.rotation.x = lerpf(_visual.rotation.x, pitch, blend)
-	_visual.position.y = lerpf(_visual.position.y, crouch, blend)
-	for index in range(_wings.size()):
-		var side := -1.0 if index == 0 else 1.0
-		var idle_flap := sin(_motion_time * 2.5) * 0.07
-		_wings[index].rotation.z = lerpf(_wings[index].rotation.z, side * (spread + idle_flap), blend)
+			clip = "charge"
+			progress = 1.0 - _state_time / 0.48
+		AttackState.RECOVER:
+			clip = "recover"
+			progress = 1.0 - _state_time / (0.6 if _attack_enraged else 0.8)
+	_visual.animate(delta, clip, clampf(progress, 0.0, 1.0), Vector2(velocity.x, velocity.z).length() > 0.1, enraged)
+	if _fire_cone.visible:
+		_fire_cone.position = to_local(_visual.mouth_position())
+		_fire_cone.animate(delta)
