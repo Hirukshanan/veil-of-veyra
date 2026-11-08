@@ -25,6 +25,9 @@ func _run():
 		for surface in range(mesh.mesh.get_surface_count()):
 			triangles += mesh.mesh.surface_get_array_index_len(surface) / 3
 	assert(triangles > 10000 and triangles <= 40000, "Dragon must stay within its mesh budget")
+	assert(visual.find_children("*", "BoneAttachment3D", true, false).is_empty(), "Eye highlights must use skinned face geometry")
+	visual.flying = true
+	visual._flight_blend = 1.0
 	visual._clock = 0.3
 	visual.animate(0.01, "idle", 0.0, true, false)
 	var wing: int = visual.skeleton.find_bone("wing_L")

@@ -16,6 +16,7 @@ var _state := AttackState.APPROACH
 var _state_time := 0.0
 var _attack_direction := Vector3.ZERO
 var _attack_hit := false
+var _flying := false
 var _use_breath := false
 var _warning_ring: MeshInstance3D
 var _fire_cone: Node3D
@@ -57,11 +58,16 @@ func _physics_process(delta: float) -> void:
 			_warning_ring.visible = false
 			_fire_cone.visible = false
 			if distance > 5.8:
-				var speed := 2.6 if enraged else 2.0
+				if distance > 11.0:
+					_flying = true
+				elif distance < 7.0:
+					_flying = false
+				var speed := (5.0 if enraged else 4.2) if _flying else (2.6 if enraged else 2.0)
 				velocity.x = direction.x * speed
 				velocity.z = direction.z * speed
 				rotation.y = atan2(-direction.x, -direction.z)
 			else:
+				_flying = false
 				_attack_direction = direction
 				rotation.y = atan2(-direction.x, -direction.z)
 				_use_breath = distance > 3.6
@@ -205,6 +211,9 @@ func _process(delta: float) -> void:
 		AttackState.RECOVER:
 			clip = "recover"
 			progress = 1.0 - _state_time / (0.6 if _attack_enraged else 0.8)
+	_visual.flying = _flying
+	if is_instance_valid(target):
+		_visual.look_direction = global_basis.inverse() * (target.global_position - global_position)
 	_visual.animate(delta, clip, clampf(progress, 0.0, 1.0), Vector2(velocity.x, velocity.z).length() > 0.1, enraged)
 	if _fire_cone.visible:
 		_fire_cone.position = to_local(_visual.mouth_position())

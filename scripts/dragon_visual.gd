@@ -6,6 +6,9 @@ var skeleton: Skeleton3D
 var _materials: Array[StandardMaterial3D] = []
 var _clip := ""
 var _clock := 0.0
+var flying := false
+var look_direction := Vector3.FORWARD
+var _flight_blend := 0.0
 var _hurt_time := 0.0
 var _dead := false
 var _death_time := 0.0
@@ -23,6 +26,40 @@ func _ready() -> void:
 			var material: StandardMaterial3D = mesh.get_active_material(surface).duplicate()
 			mesh.set_surface_override_material(surface, material)
 			_materials.append(material)
+	# Eye highlights belong to the skinned surface, never separate rigid objects.
+	var eye_shader := Shader.new()
+	eye_shader.code = """
+shader_type spatial;
+render_mode unshaded, blend_add, depth_draw_never;
+void fragment() {
+ float mask = COLOR.r;
+ if (mask < 0.05) { discard; }
+ ALBEDO = vec3(1.0, 0.24, 0.008) * mask;
+ ALPHA = mask;
+}
+"""
+	for mesh in model.find_children("*", "MeshInstance3D", true, false):
+		var original := mesh.mesh as ArrayMesh
+		var marked := ArrayMesh.new()
+		for shape_index in range(original.get_blend_shape_count()):
+			marked.add_blend_shape(original.get_blend_shape_name(shape_index))
+		marked.blend_shape_mode = original.blend_shape_mode
+		for surface in range(original.get_surface_count()):
+			var arrays := original.surface_get_arrays(surface)
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			var colors := PackedColorArray()
+			for vertex in vertices:
+				var eye := Vector3(signf(vertex.x) * 0.1405, 2.3004, -2.1986)
+				var mask := 1.0 - smoothstep(0.018, 0.065, vertex.distance_to(eye))
+				colors.append(Color(mask, 0, 0, 1))
+			arrays[Mesh.ARRAY_COLOR] = colors
+			marked.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, original.surface_get_blend_shape_arrays(surface))
+			marked.surface_set_material(surface, original.surface_get_material(surface))
+			var material := mesh.get_active_material(surface) as StandardMaterial3D
+			var eye_pass := ShaderMaterial.new()
+			eye_pass.shader = eye_shader
+			material.next_pass = eye_pass
+		mesh.mesh = marked
 	pose("idle", 0.0)
 	set_process(false)
 
@@ -54,7 +91,8 @@ func animate(delta: float, clip: String, progress: float, moving: bool, enraged:
 		pose(clip, progress * animator.get_animation(clip).length)
 	# Flap across the shoulder instead of twisting along the wing bone.
 	var beat := sin(_clock * TAU / 1.25)
-	var amplitude := 0.28 if moving else 0.20
+	_flight_blend = move_toward(_flight_blend, 1.0 if flying else 0.0, delta * 1.8)
+	var amplitude := lerpf(0.025, 0.38, _flight_blend)
 	if clip in ["windup", "breath"]:
 		amplitude = 0.12
 	for side in ["L", "R"]:
@@ -63,7 +101,22 @@ func animate(delta: float, clip: String, progress: float, moving: bool, enraged:
 		var tip := skeleton.find_bone("wing_tip_" + side)
 		skeleton.set_bone_pose_rotation(wing, skeleton.get_bone_pose_rotation(wing) * Quaternion(Vector3.FORWARD, sign_value * beat * amplitude))
 		skeleton.set_bone_pose_rotation(tip, skeleton.get_bone_pose_rotation(tip) * Quaternion(Vector3.FORWARD, -sign_value * sin(_clock * TAU / 1.25 - 0.45) * amplitude * 0.45))
-	position.y = 0.12 + sin(_clock * TAU / 1.25 - 0.6) * 0.08
+	position.y = lerpf(-0.65, 0.5, _flight_blend) + sin(_clock * TAU / 1.25 - 0.6) * lerpf(0.025, 0.12, _flight_blend)
+	var stride := sin(_clock * 6.0) * (1.0 - _flight_blend) * (1.0 if moving else 0.0)
+	for side in ["L", "R"]:
+		var sign_value := 1.0 if side == "L" else -1.0
+		for limb in ["leg_", "arm_"]:
+			var bone := skeleton.find_bone(limb + side)
+			skeleton.set_bone_pose_rotation(bone, skeleton.get_bone_pose_rotation(bone) * Quaternion(Vector3.RIGHT, sign_value * stride * (0.3 if limb == "leg_" else -0.22)))
+	var chest := skeleton.find_bone("chest")
+	skeleton.set_bone_pose_rotation(chest, skeleton.get_bone_pose_rotation(chest) * Quaternion(Vector3.UP, stride * 0.045))
+	if clip in ["idle", "hover", "hit"]:
+		var yaw := clampf(atan2(-look_direction.x, -look_direction.z), -0.55, 0.55)
+		for name in ["neck", "head"]:
+			var bone := skeleton.find_bone(name)
+			var rest_basis := skeleton.get_bone_global_rest(bone).basis
+			var axis := rest_basis.inverse() * Vector3.UP
+			skeleton.set_bone_pose_rotation(bone, skeleton.get_bone_pose_rotation(bone) * Quaternion(axis.normalized(), yaw * 0.5))
 	if previous_clip != _clip:
 		_blend_rotations = rotations
 		_blend_positions = positions
