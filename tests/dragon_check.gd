@@ -19,6 +19,15 @@ func _run():
 		visual.pose(clip, visual.animator.get_animation(clip).length * 0.5)
 		for index in range(visual.skeleton.get_bone_count()):
 			assert(visual.skeleton.get_bone_pose(index).is_finite(), "Every animated bone must stay finite")
+	# Repeated procedural offsets must never accumulate on unkeyed GLB channels.
+	visual.flying = false
+	visual.movement_speed = 2.0
+	for frame in range(1200):
+		visual.animate(1.0 / 60.0, "idle", 0.0, true, false)
+		for bone in range(visual.skeleton.get_bone_count()):
+			var translation: Vector3 = visual.skeleton.get_bone_pose_position(bone)
+			var baseline: Vector3 = visual.skeleton.get_bone_rest(bone).origin
+			assert(translation.distance_to(baseline) < 1.5, "Procedural pose drift at frame %d bone %s" % [frame, visual.skeleton.get_bone_name(bone)])
 	var triangles := 0
 	for mesh in visual.find_children("*", "MeshInstance3D", true, false):
 		assert(mesh.skin != null, "Dragon must have a weighted skin")

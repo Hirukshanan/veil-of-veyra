@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 					_flying = true
 				elif distance < 7.0:
 					_flying = false
-				var speed := (5.0 if enraged else 4.2) if _flying else (2.6 if enraged else 2.0)
+				var speed := lerpf(2.6 if enraged else 2.0, 5.0 if enraged else 4.2, _visual._flight_blend)
 				velocity.x = direction.x * speed
 				velocity.z = direction.z * speed
 				rotation.y = atan2(-direction.x, -direction.z)
@@ -211,6 +211,7 @@ func _process(delta: float) -> void:
 		AttackState.RECOVER:
 			clip = "recover"
 			progress = 1.0 - _state_time / (0.6 if _attack_enraged else 0.8)
+	_visual.movement_speed = Vector2(velocity.x, velocity.z).length()
 	_visual.flying = _flying
 	if is_instance_valid(target):
 		_visual.look_direction = global_basis.inverse() * (target.global_position - global_position)

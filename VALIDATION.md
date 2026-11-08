@@ -568,3 +568,9 @@ Debug version: 0.3.0-dev (code 13).
 - Added visible shoulder-axis wingbeats, delayed wing-tip follow-through and hover bob, retaining the 100 ms pose transition blend.
 - Replaced the static cone with a bounded 48-instance additive flame stream following the animated head muzzle. Existing damage range/timing remains unchanged.
 - Reviewed runtime motion phase captures and the island breath render. Regression checks cover wing rotation amplitude, muzzle attachment, fire clock, pause and existing combat. Physical phone feel/performance remain unverified.
+
+## Procedural pose drift fix
+
+- Reproduced right-foot translation drift after 12 frames of grounded movement. Constant channels omitted from GLB retained procedural offsets from the previous frame.
+- Reset skeleton bone poses before every animation sample, then apply current-frame offsets.
+- 1,200-frame walking regression now passes with bounded per-bone translations; no APK generated for this change.

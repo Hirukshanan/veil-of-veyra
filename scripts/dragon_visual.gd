@@ -9,6 +9,8 @@ var _clock := 0.0
 var flying := false
 var look_direction := Vector3.FORWARD
 var _flight_blend := 0.0
+var movement_speed := 0.0
+var _walk_phase := 0.0
 var _hurt_time := 0.0
 var _dead := false
 var _death_time := 0.0
@@ -64,6 +66,8 @@ void fragment() {
 	set_process(false)
 
 func pose(clip: String, time: float) -> void:
+	# GLB omits constant channels. Clear last frame's procedural offsets before sampling.
+	skeleton.reset_bone_poses()
 	if clip != _clip:
 		animator.play(clip)
 		_clip = clip
@@ -80,6 +84,7 @@ func animate(delta: float, clip: String, progress: float, moving: bool, enraged:
 		rotations.append(skeleton.get_bone_pose_rotation(index))
 		positions.append(skeleton.get_bone_pose_position(index))
 	_clock += delta
+	_walk_phase = fmod(_walk_phase + movement_speed * delta / 1.4, 1.0)
 	_hurt_time = maxf(0.0, _hurt_time - delta)
 	if clip == "idle":
 		clip = "hover" if moving else "idle"
@@ -91,7 +96,7 @@ func animate(delta: float, clip: String, progress: float, moving: bool, enraged:
 		pose(clip, progress * animator.get_animation(clip).length)
 	# Flap across the shoulder instead of twisting along the wing bone.
 	var beat := sin(_clock * TAU / 1.25)
-	_flight_blend = move_toward(_flight_blend, 1.0 if flying else 0.0, delta * 1.8)
+	_flight_blend = move_toward(_flight_blend, 1.0 if flying else 0.0, delta * 1.1)
 	var amplitude := lerpf(0.025, 0.38, _flight_blend)
 	if clip in ["windup", "breath"]:
 		amplitude = 0.12
@@ -102,12 +107,32 @@ func animate(delta: float, clip: String, progress: float, moving: bool, enraged:
 		skeleton.set_bone_pose_rotation(wing, skeleton.get_bone_pose_rotation(wing) * Quaternion(Vector3.FORWARD, sign_value * beat * amplitude))
 		skeleton.set_bone_pose_rotation(tip, skeleton.get_bone_pose_rotation(tip) * Quaternion(Vector3.FORWARD, -sign_value * sin(_clock * TAU / 1.25 - 0.45) * amplitude * 0.45))
 	position.y = lerpf(-0.65, 0.5, _flight_blend) + sin(_clock * TAU / 1.25 - 0.6) * lerpf(0.025, 0.12, _flight_blend)
-	var stride := sin(_clock * 6.0) * (1.0 - _flight_blend) * (1.0 if moving else 0.0)
+	var grounded := 1.0 - smoothstep(0.0, 1.0, _flight_blend)
+	var stride := sin(_walk_phase * TAU) * grounded * (1.0 if moving else 0.0)
 	for side in ["L", "R"]:
 		var sign_value := 1.0 if side == "L" else -1.0
+		var phase := fmod(_walk_phase + (0.5 if side == "R" else 0.0), 1.0)
+		var swing := maxf(0.0, sin((phase - 0.6) / 0.4 * PI)) if phase > 0.6 else 0.0
+		var travel := lerpf(-0.42, 0.42, phase / 0.6) if phase < 0.6 else lerpf(0.42, -0.42, (phase - 0.6) / 0.4)
+		if not moving:
+			travel = 0.0
+			swing = 0.0
 		for limb in ["leg_", "arm_"]:
 			var bone := skeleton.find_bone(limb + side)
-			skeleton.set_bone_pose_rotation(bone, skeleton.get_bone_pose_rotation(bone) * Quaternion(Vector3.RIGHT, sign_value * stride * (0.3 if limb == "leg_" else -0.22)))
+			var rest_basis := skeleton.get_bone_global_rest(bone).basis
+			var axis := (rest_basis.inverse() * Vector3.RIGHT).normalized()
+			var angle := -travel * (0.65 if limb == "leg_" else -0.4)
+			skeleton.set_bone_pose_rotation(bone, skeleton.get_bone_pose_rotation(bone) * Quaternion(axis, angle * grounded))
+		var foot := skeleton.find_bone("foot_" + side)
+		var parent := skeleton.get_bone_parent(foot)
+		var parent_basis := skeleton.get_bone_global_rest(parent).basis
+		var offset := Vector3(0, swing * 0.20, travel * 0.45) * grounded
+		skeleton.set_bone_pose_position(foot, skeleton.get_bone_pose_position(foot) + parent_basis.inverse() * offset)
+		# Fold the flight silhouette while grounded; unfold smoothly on takeoff.
+		var wing := skeleton.find_bone("wing_" + side)
+		var tip := skeleton.find_bone("wing_tip_" + side)
+		skeleton.set_bone_pose_rotation(wing, skeleton.get_bone_pose_rotation(wing) * Quaternion(Vector3.FORWARD, sign_value * 0.22 * grounded))
+		skeleton.set_bone_pose_rotation(tip, skeleton.get_bone_pose_rotation(tip) * Quaternion(Vector3.UP, -sign_value * 0.25 * grounded))
 	var chest := skeleton.find_bone("chest")
 	skeleton.set_bone_pose_rotation(chest, skeleton.get_bone_pose_rotation(chest) * Quaternion(Vector3.UP, stride * 0.045))
 	if clip in ["idle", "hover", "hit"]:
