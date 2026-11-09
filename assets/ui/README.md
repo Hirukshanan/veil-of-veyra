@@ -18,3 +18,7 @@ Final prompt (built-in image generation):
 `brand/launcher.png` is the 512px project/legacy launcher icon. `brand/launcher_foreground.png` and `brand/launcher_background.png` are 432px adaptive layers. Rebuild derivatives locally with `godot --headless --path . --script res://tools/prepare_launcher.gd`. The original generated image is retained in the project.
 
 Android icon configuration follows the [Godot 4.7 Android export settings](https://docs.godotengine.org/en/4.7/classes/class_editorexportplatformandroid.html) and [launcher icon guidance](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html). Device launcher appearance is verified only after a new APK is installed.
+
+## Gameplay control icons
+
+The original project-native SVGs in `controls/` represent sword attack, dodge, sprint, Spirit Burst, healing, pause, collection and lantern interaction. They contain no lettering. Screen-reader action names remain available through Godot accessibility properties. Resource/hold rings are drawn by `round_button.gd`; combat shortcuts remain documented in Field guide.

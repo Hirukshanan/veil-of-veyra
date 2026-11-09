@@ -46,8 +46,6 @@ func _process(delta: float) -> void:
 		if _autosave_time >= 5.0:
 			_autosave_time = 0.0
 			_save_progress()
-		if Input.is_action_just_pressed(&"interact"):
-			_interact_world()
 
 func _build_lantern() -> void:
 	lantern = Node3D.new()
@@ -114,11 +112,14 @@ func _update_objective() -> void:
 	relic_status.text = relic_hunt.call("progress_text")
 	if is_instance_valid(keeper):
 		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
-	interact_button.text = "LIGHT\n[E]"
+	interact_button.text = ""
+	interact_button.icon = preload("res://assets/ui/controls/lantern.svg")
+	interact_button.accessibility_name = "Light lantern"
 	interact_button.visible = remaining_enemies == 0 and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
 	if herbs.nearest(player.global_position) != null:
-		interact_button.text = "COLLECT\n[E]"
+		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
+		interact_button.accessibility_name = "Collect herb"
 		interact_button.visible = true
 		interact_button.disabled = false
 
@@ -137,6 +138,12 @@ func _interact_lantern() -> void:
 class PauseOverlay extends CanvasLayer:
 	signal pause_requested
 	signal journal_requested
+	signal interaction_requested
+
+	func _input(event: InputEvent) -> void:
+		if event is InputEventKey and event.pressed and not event.echo and event.is_action_pressed(&"interact"):
+			interaction_requested.emit()
+			get_viewport().set_input_as_handled()
 
 	func _unhandled_key_input(event: InputEvent) -> void:
 		if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_Q:
@@ -235,20 +242,24 @@ func _build_campaign_ui() -> void:
 	add_child(controls_layer)
 	var controls := preload("res://scripts/safe_area.gd").new()
 	controls_layer.add_child(controls)
-	var pause_button := _make_button("PAUSE", Vector2.ZERO, Vector2(60, 60))
+	var pause_button := _make_button("", Vector2.ZERO, Vector2(60, 60))
 	pause_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	pause_button.offset_left = -80
 	pause_button.offset_right = -20
 	pause_button.offset_top = 20
 	pause_button.offset_bottom = 80
+	_set_action_icon(pause_button, "pause", "Pause")
+	pause_button.name = "PauseButton"
 	pause_button.pressed.connect(_pause_game)
 	controls.add_child(pause_button)
-	var heal_button := _make_button("HEAL", Vector2.ZERO, Vector2(60, 60))
+	var heal_button := _make_button("", Vector2.ZERO, Vector2(60, 60))
 	heal_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	heal_button.offset_left = -148
 	heal_button.offset_right = -88
 	heal_button.offset_top = 20
 	heal_button.offset_bottom = 80
+	_set_action_icon(heal_button, "heal", "Heal")
+	heal_button.name = "HealButton"
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
 	var quest_button := _make_button("", Vector2.ZERO, Vector2(48, 48))
@@ -278,13 +289,18 @@ func _build_campaign_ui() -> void:
 	relic_status.add_theme_font_size_override("font_size", 15)
 	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
 	controls.add_child(relic_status)
-	interact_button = _make_button("LIGHT [E]", Vector2(-380, -100), Vector2(-300, -20))
+	interact_button = _make_button("", Vector2(-204, -188), Vector2(-124, -108))
+	interact_button.name = "InteractButton"
+	interact_button.expand_icon = true
+	interact_button.add_theme_constant_override("icon_max_width", 38)
+	interact_button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 	interact_button.pressed.connect(_interact_world)
 	interact_button.hide()
 	controls.add_child(interact_button)
 	overlay = PauseOverlay.new()
 	overlay.connect("pause_requested", _toggle_pause)
 	overlay.connect("journal_requested", _toggle_journal)
+	overlay.connect("interaction_requested", _interact_world)
 	overlay.layer = 20
 	overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(overlay)
@@ -369,6 +385,7 @@ func _clear_menu(title: String, message: String, save_world := true) -> void:
 	player.set("_burst_requested", false)
 	player.call("cancel_swing")
 	get_tree().call_group("movement_joysticks", "reset")
+	get_tree().call_group("attack_gestures", "cancel_hold")
 	overlay.show()
 	menu_scroll.scroll_vertical = 0
 	for child in menu_box.get_children():
@@ -687,7 +704,7 @@ func _journal_text() -> String:
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
 	if completed:
 		dragon = "COMPLETE - continue exploring Veyra"
-	return "%s\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
+	return "%s\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
 
 
 func _show_journal() -> void:
@@ -769,7 +786,7 @@ func _interact_world() -> void:
 	_interact_lantern()
 
 func _show_heavy_guide() -> void:
-	_clear_menu("HEAVY ATTACK", "Press H or tap HEAVY for a committed sword strike. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
+	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds, or press H, for a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
 	_menu_button("Back to camp", _show_camp)
 
 func _travel_waystone(index: int) -> void:

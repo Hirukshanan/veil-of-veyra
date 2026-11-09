@@ -18,7 +18,7 @@ func harvest(id: int):
 	var locations: Array=scene.herbs.LOCATIONS+scene.herbs.GROVE.HERBS
 	scene.player.position=locations[id]
 	scene._update_objective()
-	assert("COLLECT" in scene.interact_button.text)
+	assert(scene.interact_button.text.is_empty() and scene.interact_button.accessibility_name == "Collect herb" and scene.interact_button.icon != null)
 	scene._interact_world()
 func run():
 	assert(OS.get_environment("VEYRA_TEST")=="1")

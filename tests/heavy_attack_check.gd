@@ -43,7 +43,10 @@ func _run():
 	assert(hero.stamina == 39 and hero._heavy_time == 0)
 	hero.stamina = 100
 	hero.attack_damage = 2
-	scene.find_child("HeavyAttackButton", true, false).pressed.emit()
+	var attack_button = scene.find_child("AttackButton", true, false)
+	attack_button._begin(0)
+	attack_button._process(0.41)
+	attack_button._finish(true)
 	assert(hero.stamina == 60 and hero._heavy_warning.visible and hero.combo_step == 0)
 	hero.heavy_attack()
 	assert(hero.stamina == 60, "No repeat spend during recovery")

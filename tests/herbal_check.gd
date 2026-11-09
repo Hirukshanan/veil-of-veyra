@@ -15,7 +15,7 @@ func run():
 	assert(scene.potions==before)
 	paused=false
 	scene._update_objective()
-	assert("COLLECT" in scene.interact_button.text)
+	assert(scene.interact_button.text.is_empty() and scene.interact_button.accessibility_name == "Collect herb" and scene.interact_button.icon != null)
 	scene.interact_button.pressed.emit()
 	assert(scene.potions==before+1 and scene.herbs.collected==1)
 	scene._interact_world()

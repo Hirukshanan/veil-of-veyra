@@ -237,47 +237,39 @@ func _build_hud() -> void:
 	joystick.value_changed.connect(Callable(player, "set_move_input"))
 	root.add_child(joystick)
 
-	var attack_button := _make_button("ATTACK", Vector2(-116, -116), Vector2(-20, -20))
-	attack_button.pressed.connect(Callable(player, "attack"))
+	var attack_button := _make_button("", Vector2(-116,-116),Vector2(-20,-20))
+	attack_button.set_script(preload("res://scripts/attack_button.gd"))
+	attack_button.name = "AttackButton"
+	_set_action_icon(attack_button,"attack","Attack; hold for heavy attack")
+	attack_button.tap_requested.connect(Callable(player,"attack"))
+	attack_button.heavy_requested.connect(Callable(player,"heavy_attack"))
 	root.add_child(attack_button)
-
-	var dodge_button := _make_button("DODGE", Vector2(-204, -100), Vector2(-124, -20))
-	dodge_button.pressed.connect(Callable(player, "dodge"))
+	var dodge_button := _make_button("",Vector2(-204,-100),Vector2(-124,-20))
+	dodge_button.name = "DodgeButton"
+	_set_action_icon(dodge_button,"dodge","Dodge")
+	dodge_button.pressed.connect(Callable(player,"dodge"))
 	root.add_child(dodge_button)
-	var lock_button := _make_button("LOCK\n[TAB]", Vector2(-204, -188), Vector2(-124, -108))
-	lock_button.name = "TargetLockButton"
-	lock_button.pressed.connect(Callable(player, "toggle_target_lock"))
-	root.add_child(lock_button)
-	var burst_button := _make_button("BURST\n0/100", Vector2(-292, -188), Vector2(-212, -108))
+	var burst_button := _make_button("",Vector2(-116,-204),Vector2(-36,-124))
 	burst_button.name = "SpiritBurstButton"
+	_set_action_icon(burst_button,"burst","Spirit burst")
 	burst_button.disabled = true
-	burst_button.pressed.connect(Callable(player, "spirit_burst"))
+	burst_button.pressed.connect(Callable(player,"spirit_burst"))
 	root.add_child(burst_button)
-	var sprint_button := _make_button("SPRINT", Vector2(-292, -100), Vector2(-212, -20))
+	var sprint_button := _make_button("",Vector2(-292,-100),Vector2(-212,-20))
 	sprint_button.name = "SprintButton"
-	sprint_button.pressed.connect(Callable(player, "toggle_sprint"))
+	_set_action_icon(sprint_button,"sprint","Sprint")
+	sprint_button.pressed.connect(Callable(player,"toggle_sprint"))
 	root.add_child(sprint_button)
-	var heavy_button := _make_button("HEAVY", Vector2(-116, -204), Vector2(-36, -124))
-	heavy_button.name = "HeavyAttackButton"
-	heavy_button.pressed.connect(Callable(player, "heavy_attack"))
-	root.add_child(heavy_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
-		sprint_button.text = "%s\n%d%%" % ["STOP" if player.sprint_enabled else "SPRINT", int(player.stamina)]
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
-		var heavy_time := float(player.get("_heavy_time"))
-		heavy_button.text = "HEAVY\n%.1fs" % heavy_time if heavy_time > 0 else "HEAVY\n40 STA"
-		heavy_button.disabled = player.stamina < player.HEAVY_COST or player._attack_cooldown > 0 or player._dodge_time > 0 or player._hit_time > 0
-		var cooldown := float(player.get("_dodge_cooldown"))
-		dodge_button.text = "DODGE\n%.1fs" % cooldown if cooldown > 0.0 else "DODGE\nREADY"
-		var step := int(player.get("combo_step"))
-		attack_button.text = "ATTACK\n%d / 3" % step if step > 0 else "ATTACK"
-		lock_button.text = "UNLOCK" if is_instance_valid(player.get("locked_target")) else "LOCK\n[TAB]"
-		var charge := int(player.get("spirit"))
-		burst_button.text = "BURST\n%d/100" % charge
-		burst_button.disabled = charge < 100 or float(player.get("_attack_cooldown")) > 0.0
+		sprint_button.meter = player.stamina/100.0
+		sprint_button.self_modulate = Color(1.0,0.8,0.4) if player.sprint_enabled else Color.WHITE
+		dodge_button.meter = clampf(float(player.get("_dodge_cooldown")),0.0,1.0)
+		burst_button.meter = float(player.spirit)/100.0
+		burst_button.disabled = player.spirit < 100 or float(player.get("_attack_cooldown")) > 0.0
 	)
 	root.add_child(combat_hud_timer)
 
@@ -314,8 +306,19 @@ func _make_button(label: String, top_left: Vector2, bottom_right: Vector2) -> Bu
 	button.add_theme_stylebox_override("pressed", _button_style(Color(0.3, 0.48, 0.34, 0.95)))
 	button.add_theme_stylebox_override("disabled", _button_style(Color(0.06, 0.11, 0.13, 0.8)))
 	button.add_theme_color_override("font_disabled_color", Color(0.61, 0.68, 0.65))
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 	button.focus_mode = Control.FOCUS_NONE
 	return button
+
+
+func _set_action_icon(button: Button, id: String, accessible_name: String) -> void:
+	button.text = ""
+	button.icon = load("res://assets/ui/controls/"+id+".svg")
+	button.expand_icon = true
+	button.add_theme_constant_override("icon_max_width",38)
+	button.accessibility_name = accessible_name
+	button.tooltip_text = ""
 
 
 func _button_style(color: Color) -> StyleBoxFlat:

@@ -496,6 +496,7 @@ func _build_attack_area() -> void:
 
 
 func cancel_swing() -> void:
+	get_tree().call_group("attack_gestures", "cancel_hold")
 	sprint_enabled = false
 	_attack_buffer = 0.0
 	_swing_id += 1

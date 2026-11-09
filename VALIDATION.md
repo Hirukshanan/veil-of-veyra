@@ -621,3 +621,13 @@ Debug version: 0.3.0-dev (code 13).
 - Manifest checked: version 0.11.0-dev/code 25, ARM64 only, minimum SDK 24, target SDK 36.
 - Approved dragon launcher image extracted from packaged mipmap resources and visually confirmed; adaptive icon XML and foreground/background resources are present.
 - Includes current persistent island, Moonleaf Grove, grass/collision improvements and redesigned camp. Physical-device install/performance testing remains pending.
+
+## Collection input and icon-only controls (2026-11-10)
+
+- Reproduced a quick E press/release not reaching frame-polled collection in the event test. Collection now routes from the key event and ignores repeat; touch interaction fires on press so movement out of range before release cannot lose the pickup. Existing range/pause/death guards remain in the shared action.
+- Removed separate target-lock and heavy-attack touch buttons. Sword tap releases a normal attack; 0.4-second hold emits one heavy attack. Outside release/drag, menu, dodge and taking damage cancel pending holds. A release after a heavy never emits a light attack. H and Tab keyboard shortcuts remain.
+- Gameplay buttons now use original centered SVG icons with screen-reader names and visual meter rings, without visible action text. Native 800x450 captures checked near a herb and during a hold.
+- interaction_controls_check covers quick E, touch-down pickup while moving away, range/pause guards, real pointer short tap/hold, no repeated heavy, outside/menu cancellation, stamina gating, icon-only controls and absence of removed buttons. Existing harvesting, grove and heavy combat tests updated to the new controls.
+
+- Final checks passed: interaction_controls_check, herbal_check, grove_check, heavy_attack_check, target_lock_check, quest_hud_check, safe_area_check, gameplay_check, pause_check, sprint_check and spirit_check.
+- Android 0.11.1-dev/code 26 exported as builds/android/veyra-0.11.1-dev.apk (95,484,605 bytes); usual veyra-debug.apk updated. Signature verifies and matches 0.11.0; manifest confirms code 26/0.11.1-dev and ARM64. Physical-device test pending.
