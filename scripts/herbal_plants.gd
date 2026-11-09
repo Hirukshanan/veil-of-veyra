@@ -3,6 +3,10 @@ extends Node3D
 var collected_ids: Array[int] = []
 
 const LOCATIONS := [Vector3(3,0,25),Vector3(-6,0,18),Vector3(-15,0,9),Vector3(11,0,-2),Vector3(5,0,-17),Vector3(26,0,18),Vector3(-29,0,-12),Vector3(42,0,10)]
+const GROVE = preload("res://scripts/moonleaf_grove.gd")
+const GROVE_START := 8
+const GROVE_GOAL := 3
+const GROVE_REWARD := 25
 var plants: Array[Node3D] = []
 var collected := 0
 
@@ -13,7 +17,7 @@ func _ready() -> void:
 	bloom.albedo_color = Color(0.3,0.9,0.9)
 	bloom.emission_enabled = true
 	bloom.emission = Color(0.04,0.22,0.18)
-	for location in LOCATIONS:
+	for location in LOCATIONS + GROVE.HERBS:
 		var plant := Node3D.new()
 		plant.set_meta("pickup_id", plants.size())
 		plant.position = location
@@ -42,7 +46,7 @@ func _ready() -> void:
 		flower.material_override = bloom
 		plant.add_child(flower)
 		var label := Label3D.new()
-		label.text = "MOONLEAF"
+		label.text = "GROVE MOONLEAF" if int(plant.get_meta("pickup_id")) >= GROVE_START else "MOONLEAF"
 		label.position.y = 1.1
 		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		label.font_size = 25
@@ -79,3 +83,14 @@ func restore(ids: Array) -> void:
 		if int(item.get_meta("pickup_id")) in ids:
 			plants.erase(item)
 			item.queue_free()
+
+func grove_count() -> int:
+	var count := 0
+	for id in collected_ids:
+		if id >= GROVE_START:
+			count += 1
+	return count
+
+func grove_journal(rewarded: bool) -> String:
+	var stage := "COMPLETE - 25 shards received" if rewarded else ("%d/3 flowers gathered" % mini(grove_count(), GROVE_GOAL))
+	return "MOONLEAF GROVE: %s\nFollow the eastern trail from the Beach waystone into the south-east meadow. The green leaf on MAP marks the grove. Gather 3 cyan-flowered plants inside the grove for 25 shards, paid once automatically. Each flower also adds one healing potion. Ordinary Moonleaf elsewhere does not count for this quest." % stage

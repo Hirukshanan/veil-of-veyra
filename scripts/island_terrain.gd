@@ -31,7 +31,8 @@ static func trails() -> Array[PackedVector3Array]:
 	for points in [
 		[Vector3(0, 0, 29), Vector3(0, 0, 27), Vector3(-3, 0, 18), Vector3(0, 0, 12), Vector3(0, 0, 2), Vector3(2, 0, -4), Vector3(-2, 0, -13), Vector3(0, 0, -20), Vector3(0, 0, -25)],
 		[Vector3(0, 0, 12), Vector3(-8, 0, 9), Vector3(-18, 0, 12)],
-		[Vector3(2, 0, -4), Vector3(9, 0, -1), Vector3(16, 0, -4)]
+		[Vector3(2, 0, -4), Vector3(9, 0, -1), Vector3(16, 0, -4)],
+		[Vector3(0,0,27), Vector3(12,0,29), Vector3(24,0,29), Vector3(36,0,28), Vector3(44,0,28)]
 	]:
 		var curve := Curve3D.new()
 		curve.bake_interval = 0.8

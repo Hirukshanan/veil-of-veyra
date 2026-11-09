@@ -11,6 +11,7 @@ var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
 	add_child(preload("res://scripts/island_grass.gd").new())
+	add_child(preload("res://scripts/moonleaf_grove.gd").new())
 	add_child(preload("res://scripts/mountain_rim.gd").new())
 	var decor = preload("res://scripts/chapter_environment.gd").new()
 	for index in range(20):

@@ -597,3 +597,10 @@ Debug version: 0.3.0-dev (code 13).
 
 - Removed the second Dire Warg (CampDemon5) from the ruins. One Dire Warg remains, alongside two Ember Wolves and two Ash Stalkers.
 - Retired ID 5 is marked cleared on world load, keeping existing version-2 saves and the lantern unlock condition compatible. Persistent-world regression verifies five active demons, one brute, reopen persistence and lantern/dragon progression. No APK exported.
+
+## Moonleaf Grove (2026-11-09)
+
+- Added a south-east grove at (44, 0, 28), with a clear western entrance, trees/ferns, colliding rocks, five new stable-ID herbs and a map leaf marker. A branching trail from Beach waystone stays clear of existing props and mountains.
+- Gathering three grove herbs automatically awards 25 shards once. Ordinary herbs do not count; all flowers add one potion each. Grove progress and reward state persist through reload.
+- Save format version 3 migrates existing v1/v2 records without changing old pickup IDs; potion limit accommodates all 13 finite pickups. Future formats and malformed current records remain protected.
+- grove_check covers v2 migration, route/plant physics accessibility, partial progress across reopen, exact third-flower payout, no repeat payout, reward-flag consistency and potion capacity. Native grove arrival/overview renders reviewed. No APK exported. Physical device performance is pending.

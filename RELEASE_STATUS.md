@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Moonleaf Grove: a wooded clearing in the south-east meadow, linked to the Beach waystone by a walkable trail. Five new cyan-flowered plants, map leaf marker and a collect-three quest paying 25 shards once, independent of dragon completion. Save version 3 preserves v1/v2 progress while tracking the new reward.
+
 - One persistent island; sequential level/three-hunt advancement has been removed.
 - Five persistent demons across three camps lead to the lantern and a single dragon encounter. Victory allows continued exploration.
 - Moonleaf pickups, relics, bounty status, cleared demons, waystone discovery/binding, player location/health/potions, shards and upgrades persist.

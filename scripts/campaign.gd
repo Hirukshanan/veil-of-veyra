@@ -106,6 +106,8 @@ func _update_objective() -> void:
 	if is_instance_valid(destination):
 		guidance = " | " + preload("res://scripts/island_exploration.gd").direction_hint(player.global_position, destination.global_position, player._camera_pivot.global_basis)
 	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
+	if player.global_position.distance_to(herbs.GROVE.CENTER) < 18.0:
+		status_label.text += " | Grove complete +25 shards" if world_data.grove_reward else " | Grove %d/3" % mini(herbs.grove_count(), 3)
 	if _save_failed:
 		status_label.text += " | SAVE FAILED - open camp to retry"
 	relic_status.text = relic_hunt.call("progress_text")
@@ -644,7 +646,7 @@ func _load_progress() -> void:
 	for key in result.data:
 		set(key, result.data[key])
 	if result.get("migrated", false):
-		notice = "Previous journey migrated to the persistent island. Shards, upgrades and victory are retained."
+		notice = "Journey updated. Saved island progress, shards and upgrades are retained."
 	if result.recovered:
 		notice = "Previous progress recovered from backup. The most recent save may be lost."
 
@@ -667,7 +669,7 @@ func _journal_text() -> String:
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
-	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + herbs.journal_text())
+	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + herbs.journal_text() + "\n\n" + herbs.grove_journal(world_data.grove_reward))
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
@@ -710,7 +712,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -736,6 +738,7 @@ func _interact_world() -> void:
 		return
 	if herbs.collect(player.global_position):
 		potions += 1
+		_claim_optional_rewards()
 		_save_progress()
 		_update_objective()
 		return
@@ -814,6 +817,9 @@ func _restore_world() -> void:
 		lantern_label.text = "LIGHT THE LANTERN"
 
 func _claim_optional_rewards() -> void:
+	if herbs.grove_count() >= herbs.GROVE_GOAL and not world_data.grove_reward:
+		shards = mini(999999, shards + herbs.GROVE_REWARD)
+		world_data.grove_reward = true
 	if not completed:
 		return
 	if relic_hunt.collected == 3 and not world_data.relic_reward:
