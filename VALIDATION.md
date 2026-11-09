@@ -604,3 +604,20 @@ Debug version: 0.3.0-dev (code 13).
 - Gathering three grove herbs automatically awards 25 shards once. Ordinary herbs do not count; all flowers add one potion each. Grove progress and reward state persist through reload.
 - Save format version 3 migrates existing v1/v2 records without changing old pickup IDs; potion limit accommodates all 13 finite pickups. Future formats and malformed current records remain protected.
 - grove_check covers v2 migration, route/plant physics accessibility, partial progress across reopen, exact third-flower payout, no repeat payout, reward-flag consistency and potion capacity. Native grove arrival/overview renders reviewed. No APK exported. Physical device performance is pending.
+
+## Camp redesign and launcher icon (2026-11-09)
+
+- Approved generated dragon/lantern artwork saved in assets/ui/brand; prepared 512px main and 432px adaptive foreground/background PNGs, configured in project.godot and Android export preset. No APK exported. Actual Android launcher mask/caching behavior requires installation of the next APK.
+- Camp scroll list replaced with an adaptive two-column composition: title, equipment/currency cards, primary Continue action, two upgrades and quest/guide/settings/reset/quit navigation. Detailed guides remain accessible through Field guide; New journey retains confirmation. Quest parchment and other menu flows remain functional.
+- Native renders reviewed at 800x450, 1280x720 and 1920x864. Initial stat-card overlap corrected before final capture.
+- camp_menu_check covers safe-area bounds, nonoverlapping touch targets, disabled/working upgrade actions, menu navigation, reset confirmation, play/pause and configured image dimensions. Existing layout_check understands the dedicated camp view.
+
+- Final checks passed: camp_menu_check, layout_check, settings_check, pause_check, campaign_smoke, save_check, persistent_world_check, journal_check and safe_area_check. Native captures at all three landscape sizes reviewed after spacing correction. Existing Android APK was left unchanged; launcher appearance on the phone awaits the next build/install.
+
+## Android debug build 0.11.0-dev (2026-11-10)
+
+- Exported code 25 as builds/android/veyra-0.11.0-dev.apk and updated the usual builds/android/veyra-debug.apk copy. Size: 95,466,418 bytes (about 91.0 MiB).
+- apksigner verification passed; signer matches the prior debug APK, allowing an in-place update without changing the application ID.
+- Manifest checked: version 0.11.0-dev/code 25, ARM64 only, minimum SDK 24, target SDK 36.
+- Approved dragon launcher image extracted from packaged mipmap resources and visually confirmed; adaptive icon XML and foreground/background resources are present.
+- Includes current persistent island, Moonleaf Grove, grass/collision improvements and redesigned camp. Physical-device install/performance testing remains pending.

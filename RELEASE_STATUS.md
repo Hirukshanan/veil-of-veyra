@@ -2,6 +2,10 @@
 
 ## Current gameplay
 
+- Latest local Android debug APK: 0.11.0-dev/code 25, exported and signature/manifest/icon verified on 2026-11-10. The signing identity matches the previous debug APK.
+
+- Redesigned camp: approved dragon/lantern art, fantasy title, persistent shard/equipment values, upgrade actions and compact quest/guide/settings navigation. Legacy/project and adaptive Android icons are configured; included in Android debug 0.11.0-dev (code 25); device validation is pending.
+
 - Moonleaf Grove: a wooded clearing in the south-east meadow, linked to the Beach waystone by a walkable trail. Five new cyan-flowered plants, map leaf marker and a collect-three quest paying 25 shards once, independent of dragon completion. Save version 3 preserves v1/v2 progress while tracking the new reward.
 
 - One persistent island; sequential level/three-hunt advancement has been removed.

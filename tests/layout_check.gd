@@ -24,6 +24,11 @@ func _run() -> void:
 		for menu in [scene._show_camp, scene._show_keeper_request, scene._show_enemy_guide, scene._show_burst_guide, func(): scene._show_settings(scene._show_camp)]:
 			menu.call()
 			await _settle()
+			if scene.camp_menu.visible:
+				_inside(scene.camp_menu, bounds)
+				for button in scene.camp_menu.buttons.values():
+					_inside(button, bounds)
+				continue
 			_inside(scene.menu_scroll, bounds)
 			assert(scene.menu_box.size.x <= scene.menu_scroll.size.x)
 			var last: Control = scene.menu_box.get_child(scene.menu_box.get_child_count() - 1)

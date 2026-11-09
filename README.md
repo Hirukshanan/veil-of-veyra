@@ -14,6 +14,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Optional quests:** gather three grove flowers in Moonleaf Grove for a one-time 25-shard reward, recover Keeper relics, and complete the Western Watch bounty through the quest scroll.
 - **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
 - **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
+- **Camp menu:** dragon-and-lantern artwork, prominent Continue action, shard/equipment cards, upgrades, and quick access to quests, guides, settings and New journey.
 - **Mobile controls:** circular action buttons and right-side sprint; **settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
 
 ## Run locally

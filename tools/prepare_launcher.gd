@@ -1,0 +1,20 @@
+extends SceneTree
+func _initialize():
+	var source := Image.load_from_file("res://assets/ui/brand/dragon_lantern.png")
+	assert(source != null and not source.is_empty())
+	var main := source.duplicate()
+	main.resize(512,512,Image.INTERPOLATE_LANCZOS)
+	assert(main.save_png("res://assets/ui/brand/launcher.png") == OK)
+	var background := Image.create(432,432,false,Image.FORMAT_RGBA8)
+	background.fill(Color("020b12"))
+	assert(background.save_png("res://assets/ui/brand/launcher_background.png") == OK)
+	var foreground := Image.create(432,432,false,Image.FORMAT_RGBA8)
+	foreground.fill(Color.TRANSPARENT)
+	# Keep the approved square artwork centered for adaptive launcher masks.
+	var inset := source.duplicate()
+	inset.convert(Image.FORMAT_RGBA8)
+	inset.resize(360,360,Image.INTERPOLATE_LANCZOS)
+	foreground.blit_rect(inset,Rect2i(0,0,360,360),Vector2i(36,36))
+	assert(foreground.save_png("res://assets/ui/brand/launcher_foreground.png") == OK)
+	print("READY: approved launcher art, 512px legacy icon and 432px adaptive layers")
+	quit()

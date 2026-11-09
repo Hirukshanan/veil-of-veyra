@@ -16,6 +16,7 @@ var completed := false
 var overlay: CanvasLayer
 var menu_box: VBoxContainer
 var quest_parchment: TextureRect
+var camp_menu: Control
 var menu_scroll: ScrollContainer
 var notice := ""
 var progress_unreadable := false
@@ -320,6 +321,19 @@ void fragment() {
 	menu_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu_box.add_theme_constant_override("separation", 12)
 	menu_scroll.add_child(menu_box)
+	camp_menu = preload("res://scripts/camp_menu.gd").new()
+	camp_menu.name = "CampMenu"
+	camp_menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	menu_safe.add_child(camp_menu)
+	camp_menu.play_requested.connect(_resume)
+	camp_menu.blade_requested.connect(func(): _upgrade(true))
+	camp_menu.armor_requested.connect(func(): _upgrade(false))
+	camp_menu.quests_requested.connect(_camp_journal)
+	camp_menu.guides_requested.connect(_show_field_guide)
+	camp_menu.settings_requested.connect(func(): _show_settings(_show_camp))
+	camp_menu.reset_requested.connect(_confirm_reset)
+	camp_menu.quit_requested.connect(_quit_world)
+	camp_menu.hide()
 	menu_safe.resized.connect(_layout_menu)
 	_layout_menu()
 
@@ -343,6 +357,8 @@ func _layout_menu() -> void:
 func _clear_menu(title: String, message: String, save_world := true) -> void:
 	if _world_ready and save_world:
 		_save_progress()
+	camp_menu.hide()
+	menu_scroll.show()
 	journal_open = false
 	quest_parchment.hide()
 	_layout_menu()
@@ -384,21 +400,29 @@ func _menu_button(text: String, action: Callable, disabled := false) -> void:
 	menu_box.add_child(button)
 
 func _show_camp() -> void:
-	var story: String = WORLD_STORY
-	if completed:
-		story = "The Tidewraith has fallen. Continue exploring Veyra, gathering herbs and completing optional quests."
-	_clear_menu("VEIL OF VEYRA", "%s\n\nShards: %d  |  Blade: %d  |  Armor: %d\n%s" % [story, shards, blade_level + 1, armor_level + 1, notice])
-	_menu_button("Continue exploring Veyra", _resume)
-	_menu_button("Upgrade blade — %d shards" % _cost(blade_level), func(): _upgrade(true), shards < _cost(blade_level) or blade_level >= 4)
-	_menu_button("Upgrade armor — %d shards" % _cost(armor_level), func(): _upgrade(false), shards < _cost(armor_level) or armor_level >= 4)
-	_menu_button("New journey", _confirm_reset)
-	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
+	_clear_menu("VEIL OF VEYRA", "")
+	menu_scroll.hide()
+	camp_menu.show()
+	var stage := "Clear the demon camps.\nRestore the lantern at the northern ruins."
+	if lantern_lit:
+		stage = "The seal is broken.\nDefeat the Tidewraith at the northern ruins."
+	elif remaining_enemies == 0:
+		stage = "The camps are quiet.\nLight the northern lantern to break the seal."
+	camp_menu.configure(shards, blade_level, armor_level, _cost(blade_level), _cost(armor_level), completed, notice, stage)
+
+func _camp_journal() -> void:
+	started = true
+	pause_menu_open = true
+	_show_journal()
+
+func _show_field_guide() -> void:
+	_clear_menu("FIELD GUIDE", "Prepare for the journey. Learn combat techniques, explore optional quests, or view the game's art credits.")
 	_menu_button("Enemy guide", _show_enemy_guide)
-	_menu_button("Art credits", _show_art_credits)
 	_menu_button("Heavy Attack guide", _show_heavy_guide)
 	_menu_button("Spirit Burst guide", _show_burst_guide)
-	_menu_button("Settings", func(): _show_settings(_show_camp))
-	_menu_button("Quit", _quit_world)
+	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
+	_menu_button("Art credits", _show_art_credits)
+	_menu_button("Back to camp", _show_camp)
 
 func _cost(level: int) -> int:
 	return (level + 1) * 20
