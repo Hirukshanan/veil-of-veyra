@@ -1,6 +1,17 @@
 # Veil of Veyra — development status
 
-## Implemented
+## Current gameplay
+
+- One persistent island; sequential level/three-hunt advancement has been removed.
+- Five persistent demons across three camps lead to the lantern and a single dragon encounter. Victory allows continued exploration.
+- Moonleaf pickups, relics, bounty status, cleared demons, waystone discovery/binding, player location/health/potions, shards and upgrades persist.
+- Version 2 save migration preserves legacy currency, upgrades and final victory. Backup recovery and explicit unreadable-save protection remain.
+- Autosave on quest actions, menus, every five seconds of exploration, and normal exit. Surviving enemy/boss health restarts after reload; death returns to the bound waystone.
+- Optional rewards can be completed before or after victory, each once. No chapter reload is required.
+- Expanded island ground and grass are present. Outer-region content placement and dragon locomotion polish remain unfinished; physical-device testing of recent changes is pending.
+- Historical entries below describe earlier prototype stages and may mention removed chapter behavior.
+
+## Earlier implementation history
 
 - 0.10.0-dev (Android code 22): optimized Charcoal dragon replaces the procedural boss. Original black scales/ivory horns, 21-bone rig, eight custom hover/combat clips, synchronized attack poses, hit feedback and detached death fade. Attribution is available in camp Art credits. Device performance for this update remains unverified.
 
@@ -106,7 +117,7 @@ Code, game text, documentation, and commit messages are written in English.
 - Campaign wolf base health increased from 3/5/7 to 5/8/11; scout (-1) and brute (+3) modifiers remain. Damage and attack timing are unchanged.
 - This stage retains three sequential hunts and the existing island size/water rescue behavior.
 
-## Requested next stages
+## Earlier requested stages (current status above)
 - Replace sequential hunts with a continuous, quest-driven island progression model.
 - Expand the island substantially, with visible ground grass and additional exploration quests.
 - Add collectible medicinal plants and a healing-resource system.

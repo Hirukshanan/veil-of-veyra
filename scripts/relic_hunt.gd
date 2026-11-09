@@ -1,10 +1,12 @@
 extends Node3D
 
+signal progress_changed
+var collected_ids: Array[int] = []
+
 const BONUS_SHARDS := 20
 const RELIC_COUNT := 3
 
 var player: Node3D
-var chapter := 0
 var active := false
 var collected := 0
 var relics: Array[Node3D] = []
@@ -13,6 +15,7 @@ func _ready() -> void:
 	var locations := [Vector3(-22, 0, 15), Vector3(22, 0, -7), Vector3(-6, 0, -29)]
 	for index in range(RELIC_COUNT):
 		var relic := Node3D.new()
+		relic.set_meta("pickup_id", index)
 		relic.name = "KeeperRelic%d" % (index + 1)
 		relic.position = locations[index]
 		add_child(relic)
@@ -41,9 +44,11 @@ func _physics_process(delta: float) -> void:
 	for relic in relics.duplicate():
 		relic.get_child(0).rotate_y(delta)
 		if player.global_position.distance_to(relic.global_position) <= 1.4:
+			collected_ids.append(int(relic.get_meta("pickup_id")))
 			relics.erase(relic)
 			collected += 1
 			relic.queue_free()
+			progress_changed.emit()
 
 func _process(_delta: float) -> void:
 	var camera := get_viewport().get_camera_3d()
@@ -55,7 +60,7 @@ func _process(_delta: float) -> void:
 
 func progress_text() -> String:
 	if collected == RELIC_COUNT:
-		return "Keeper relics: 3/3 — Defeat the dragon for +20 shards"
+		return "Keeper relics: 3/3 — Relics recovered - reward unlocks after the dragon falls"
 	var nearest := INF
 	for relic in relics:
 		nearest = minf(nearest, player.global_position.distance_to(relic.global_position))
@@ -63,3 +68,11 @@ func progress_text() -> String:
 
 func reward() -> int:
 	return BONUS_SHARDS if collected == RELIC_COUNT else 0
+
+func restore(ids: Array) -> void:
+	collected_ids.assign(ids)
+	collected = ids.size()
+	for item in relics.duplicate():
+		if int(item.get_meta("pickup_id")) in ids:
+			relics.erase(item)
+			item.queue_free()

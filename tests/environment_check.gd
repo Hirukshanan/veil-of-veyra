@@ -16,10 +16,10 @@ func _run() -> void:
 		for frame in range(3):
 			await physics_frame
 		var decor = scene.get_node("ChapterEnvironment")
-		assert(decor.chapter == chapter)
-		assert(decor.landmarks.size() == [10, 14, 8][chapter])
+		assert(decor.chapter == 0)
+		assert(decor.landmarks.size() == 10)
 		var palette: Color = scene.get_node("Island/Surface").material_override.get_shader_parameter("chapter_tint")
-		assert(not palettes.has(palette), "Each chapter needs a distinct ground palette")
+		assert(palettes.is_empty() or palettes[0] == palette, "Legacy chapter saves must use the same island")
 		palettes.append(palette)
 		var space: PhysicsDirectSpaceState3D = scene.get_world_3d().direct_space_state
 		for landmark in decor.landmarks:
@@ -33,8 +33,8 @@ func _run() -> void:
 			var to: Vector3 = landmark.global_position + Vector3(0, 1.5, -2)
 			var query := PhysicsRayQueryParameters3D.create(from, to, 4)
 			assert(not space.intersect_ray(query).is_empty(), "Trunks and pillars must block the camera")
-			query.collision_mask = 1
-			assert(space.intersect_ray(query).is_empty(), "Decor must not obstruct direct-pursuit gameplay")
+			query.collision_mask = 8
+			assert(not space.intersect_ray(query).is_empty(), "Decor must block the player")
 		var objectives: Array[Vector3] = [scene.lantern.global_position]
 		for relic in scene.relic_hunt.relics:
 			objectives.append(relic.global_position)
@@ -44,5 +44,5 @@ func _run() -> void:
 		scene.queue_free()
 		await process_frame
 		paused = false
-	print("PASS: three chapter themes, distinct palettes, island bounds, clear arena, actual camera-only collision and grounded objectives")
+	print("PASS: one world across legacy chapter migrations, island bounds, clear arena, player/camera collision and grounded objectives")
 	quit()

@@ -4,12 +4,11 @@ const SAVE_PATH := "user://campaign.cfg"
 const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
-const CHAPTERS := [
-	["The Silent Shore", "Follow the sandy trail from the beach through the forest. Clear all three wolf camps, then light the lantern at the northern ruins. Approach waystones to bind a water-rescue point; deep water costs 20 vitality. Waystones last for this hunt only."],
-	["The Broken Grove", "Follow the keeper's trail. Clear the grove's demons and light its lantern to expose the Tidewraith's next manifestation."],
-	["The Last Lantern", "Break the final seal: defeat the demons and light the last lantern. Destroy the dragon to restore Veyra's light."]
-]
-var chapter := 0
+const WORLD_STORY := "Explore Veyra. Clear the three demon camps, restore the northern lantern, then defeat the Tidewraith. Your island progress is saved as you explore."
+var world_data := CAMPAIGN_STORE.fresh_world()
+var _world_ready := false
+var _autosave_time := 0.0
+var _save_failed := false
 var shards := 0
 var blade_level := 0
 var armor_level := 0
@@ -39,9 +38,13 @@ var relic_hunt: Node3D
 var relic_status: Label
 var keeper: Node
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if started and not game_finished:
 		_update_objective()
+		_autosave_time += delta
+		if _autosave_time >= 5.0:
+			_autosave_time = 0.0
+			_save_progress()
 		if Input.is_action_just_pressed(&"interact"):
 			_interact_world()
 
@@ -82,7 +85,9 @@ func _build_lantern() -> void:
 func _update_objective() -> void:
 	var destination: Node3D = null
 	var objective := "Wolves %d" % remaining_enemies
-	if boss_spawned:
+	if completed:
+		objective = "Explore Veyra - Tidewraith defeated"
+	elif boss_spawned:
 		objective = "Dragon"
 		destination = get_node_or_null("Tidewraith Dragon")
 	elif remaining_enemies == 0:
@@ -101,6 +106,8 @@ func _update_objective() -> void:
 	if is_instance_valid(destination):
 		guidance = " | " + preload("res://scripts/island_exploration.gd").direction_hint(player.global_position, destination.global_position, player._camera_pivot.global_basis)
 	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
+	if _save_failed:
+		status_label.text += " | SAVE FAILED - open camp to retry"
 	relic_status.text = relic_hunt.call("progress_text")
 	if is_instance_valid(keeper):
 		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
@@ -121,6 +128,7 @@ func _interact_lantern() -> void:
 	lantern_flame.show()
 	lantern_label.text = "LANTERN RESTORED"
 	_spawn_boss()
+	_save_progress()
 	_update_objective()
 
 class PauseOverlay extends CanvasLayer:
@@ -137,6 +145,9 @@ class PauseOverlay extends CanvasLayer:
 			get_viewport().set_input_as_handled()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and _world_ready:
+		_quit_world()
+		return
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_PAUSED:
 		if is_instance_valid(overlay) and started and not game_finished and not get_tree().paused:
 			_pause_game()
@@ -154,7 +165,10 @@ func _ready() -> void:
 	herbs.name = "HerbalPlants"
 	add_child(herbs)
 	_load_progress()
-	environment_chapter = chapter
+	# Retain the retired spawn ID as cleared so version-2 quest saves stay compatible.
+	if 5 not in world_data.cleared:
+		world_data.cleared.append(5)
+	environment_chapter = 0
 	super._ready()
 	_load_settings()
 	player.set("max_health", 100 + armor_level * 25)
@@ -170,33 +184,48 @@ func _ready() -> void:
 	add_child(exploration)
 	relic_hunt = RELIC_HUNT_SCRIPT.new()
 	relic_hunt.set("player", player)
-	relic_hunt.set("chapter", chapter)
 	add_child(relic_hunt)
 	keeper = preload("res://scripts/shore_keeper.gd").new()
 	add_child(keeper)
+	_restore_world()
+	get_tree().auto_accept_quit = false
+	_world_ready = true
+	relic_hunt.progress_changed.connect(_world_changed)
+	exploration.progress_changed.connect(_world_changed)
 	_show_camp()
 
 func _build_enemies() -> void:
-	remaining_enemies = 3 + chapter * 2
-	for index in range(remaining_enemies):
+	remaining_enemies = 0
+	for index in range(6):
+		if index in world_data.cleared:
+			continue
+		remaining_enemies += 1
 		var enemy: CharacterBody3D = ENEMY_SCRIPT.new()
-		var angle := TAU * float(index) / float(remaining_enemies)
-		enemy.position = preload("res://scripts/island_exploration.gd").CAMPS[index % 3] + Vector3(cos(angle) * 2, 0, sin(angle) * 2)
+		enemy.name = "CampDemon%d" % index
+		var camp: Vector3 = preload("res://scripts/island_exploration.gd").CAMPS[index % 3]
+		enemy.position = camp + Vector3(-2 if index < 3 else 2, 0, 0)
 		enemy.set("target", player)
-		enemy.set("health", 12 + chapter * 6)
-		# Introduce the scout on the shore; later chapters mix all three kinds.
-		enemy.set("kind", (1 if index == 2 else 0) if chapter == 0 else index % 3)
-		enemy.connect("defeated", Callable(self, "_on_enemy_defeated"))
+		enemy.set("health", 18)
+		enemy.set("kind", index % 3)
+		enemy.connect("defeated", _defeat_world_enemy.bind(index))
 		add_child(enemy)
 
+func _defeat_world_enemy(index: int) -> void:
+	if index in world_data.cleared:
+		return
+	world_data.cleared.append(index)
+	_on_enemy_defeated()
+	_save_progress()
+
 func _spawn_boss() -> void:
+	if completed or boss_spawned:
+		return
 	super._spawn_boss()
 	var dragon := get_node_or_null("Tidewraith Dragon")
 	if dragon != null:
-		var maximum := 34 + chapter * 14
-		dragon.set("max_health", maximum)
-		dragon.set("health", maximum)
-		_on_boss_health_changed(maximum, maximum)
+		dragon.set("max_health", 62)
+		dragon.set("health", 62)
+		_on_boss_health_changed(62, 62)
 
 func _build_campaign_ui() -> void:
 	var controls_layer := CanvasLayer.new()
@@ -309,7 +338,9 @@ func _layout_menu() -> void:
 	menu_scroll.offset_top = 24
 	menu_scroll.offset_bottom = -24
 
-func _clear_menu(title: String, message: String) -> void:
+func _clear_menu(title: String, message: String, save_world := true) -> void:
+	if _world_ready and save_world:
+		_save_progress()
 	journal_open = false
 	quest_parchment.hide()
 	_layout_menu()
@@ -351,11 +382,11 @@ func _menu_button(text: String, action: Callable, disabled := false) -> void:
 	menu_box.add_child(button)
 
 func _show_camp() -> void:
-	var story: String = CHAPTERS[chapter][1]
+	var story: String = WORLD_STORY
 	if completed:
-		story = "Veyra's lanterns shine again. Aru has broken the Tidewraith's hold. Replay the final hunt or begin a new journey."
+		story = "The Tidewraith has fallen. Continue exploring Veyra, gathering herbs and completing optional quests."
 	_clear_menu("VEIL OF VEYRA", "%s\n\nShards: %d  |  Blade: %d  |  Armor: %d\n%s" % [story, shards, blade_level + 1, armor_level + 1, notice])
-	_menu_button("Begin: " + str(CHAPTERS[chapter][0]), _resume)
+	_menu_button("Continue exploring Veyra", _resume)
 	_menu_button("Upgrade blade — %d shards" % _cost(blade_level), func(): _upgrade(true), shards < _cost(blade_level) or blade_level >= 4)
 	_menu_button("Upgrade armor — %d shards" % _cost(armor_level), func(): _upgrade(false), shards < _cost(armor_level) or armor_level >= 4)
 	_menu_button("New journey", _confirm_reset)
@@ -365,17 +396,17 @@ func _show_camp() -> void:
 	_menu_button("Heavy Attack guide", _show_heavy_guide)
 	_menu_button("Spirit Burst guide", _show_burst_guide)
 	_menu_button("Settings", func(): _show_settings(_show_camp))
-	_menu_button("Quit", func(): get_tree().quit())
+	_menu_button("Quit", _quit_world)
 
 func _cost(level: int) -> int:
 	return (level + 1) * 20
 
 func _show_keeper_request() -> void:
-	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon in the same hunt to earn 20 bonus shards.\n\nThis quest is optional. Restarting a hunt resets collected relics.")
+	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon to earn 20 bonus shards. The relics may be collected before or after victory.\n\nThis quest is optional. Collected relics are saved.")
 	_menu_button("Back to camp", _show_camp)
 
 func _show_burst_guide() -> void:
-	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing; hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. It interrupts ordinary enemies but not the dragon.\n\nSpirit resets when you restart a hunt. An empty burst still spends the charge.")
+	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing; hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. It interrupts ordinary enemies but not the dragon.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
@@ -412,14 +443,14 @@ func _resume() -> void:
 func _pause_game() -> void:
 	if game_finished or not started:
 		return
-	_clear_menu("HUNT PAUSED", "Progress is saved between chapters. Restarting resets enemies, potions, and relic collection.")
+	_clear_menu("EXPLORATION PAUSED", "Island progress saves on quest actions, every five seconds, and when opening menus. Unfinished enemies and the dragon recover health after reloading.")
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Quest Journal [Q]", _show_journal)
 	_menu_button("Island Map", _show_island_map)
-	_menu_button("Restart hunt", _reload)
+	_menu_button("Save and return to camp", _show_camp)
 	_menu_button("Settings", func(): _show_settings(_pause_game))
-	_menu_button("Quit", func(): get_tree().quit())
+	_menu_button("Quit", _quit_world)
 
 func _show_settings(back: Callable) -> void:
 	_clear_menu("SETTINGS", "Adjust the camera, sound, and graphics. Changes apply immediately; use Save and back to keep them.")
@@ -521,7 +552,7 @@ func _setting_number(config: ConfigFile, key: String, fallback: float, minimum: 
 	return fallback
 
 func _heal() -> void:
-	if game_finished or potions <= 0 or int(player.get("health")) <= 0:
+	if not started or get_tree().paused or game_finished or potions <= 0 or int(player.get("health")) <= 0:
 		return
 	var maximum := int(player.get("max_health"))
 	if int(player.get("health")) >= maximum:
@@ -530,6 +561,7 @@ func _heal() -> void:
 	player.set("health", mini(maximum, int(player.get("health")) + 50))
 	_on_health_changed(int(player.get("health")), maximum)
 	_update_objective()
+	_save_progress()
 
 func _on_enemy_defeated() -> void:
 	remaining_enemies = maxi(0, remaining_enemies - 1)
@@ -538,69 +570,68 @@ func _on_enemy_defeated() -> void:
 	_update_objective()
 
 func _on_boss_defeated() -> void:
-	if game_finished:
+	if completed:
 		return
-	super._on_boss_defeated()
-	relic_hunt.set("active", false)
-	var bonus := int(relic_hunt.call("reward"))
-	var keeper_bonus: int = keeper.reward()
-	var reward := 40 + chapter * 20 + bonus + keeper_bonus
-	shards += reward
-	var final_hunt := chapter == CHAPTERS.size() - 1
-	if final_hunt:
-		completed = true
-	else:
-		chapter += 1
+	completed = true
+	boss_health_bar.hide()
+	boss_name_label.hide()
+	shards = mini(999999, shards + 80)
+	_claim_optional_rewards()
 	var saved := _save_progress()
-	_clear_menu("VEYRA RESTORED" if final_hunt else "LANTERN RECLAIMED", "The Tidewraith falls. Aru gathers %d Tide Shards (relic bonus: %d; Keeper bounty: %d).\n%s\n%s" % [reward, bonus, keeper_bonus, "The island is free." if final_hunt else "A new path opens deeper into the island.", notice])
-	_menu_button("Return to camp" if saved else "Retry save and return", _reload if saved else _retry_save_and_return)
+	_clear_menu("VEYRA RESTORED", "The Tidewraith has fallen. You earned 80 Tide Shards. Continue exploring this island and finish any remaining quests.\n" + notice, false)
+	_menu_button("Continue exploring", _resume)
 	if not saved:
-		_menu_button("Return without saving this session", _reload)
+		_menu_button("Retry save", _retry_save_and_return)
 
 func _retry_save_and_return() -> void:
 	if _save_progress():
-		_reload()
+		_show_camp()
 	else:
 		_show_save_failure()
 
 func _show_save_failure() -> void:
-	_clear_menu("PROGRESS NOT SAVED", notice)
+	_clear_menu("PROGRESS NOT SAVED", notice, false)
 	_menu_button("Retry save and return", _retry_save_and_return)
 	_menu_button("Return without saving this session", _reload)
 
 func _on_player_defeated() -> void:
 	super._on_player_defeated()
-	_clear_menu("THE HUNT IS NOT OVER", "The lantern's light calls Aru back. Your chapter progress and purchased upgrades are safe.")
-	_menu_button("Retry hunt", _reload)
-	_menu_button("Quit", func(): get_tree().quit())
+	_clear_menu("RETURN TO YOUR WAYSTONE", "Return to your bound waystone. Cleared camps, collected items and upgrades remain saved; remaining enemies recover health.")
+	_menu_button("Return to waystone", _reload)
+	_menu_button("Quit", _quit_world)
 
 func _confirm_reset() -> void:
-	_clear_menu("BEGIN A NEW JOURNEY?", "This replaces your saved chapter progress, shards, and upgrades.")
+	_clear_menu("BEGIN A NEW JOURNEY?", "This replaces your saved island progress, shards, and upgrades.")
 	_menu_button("Keep my journey", _show_camp)
-	_menu_button("Reset progress", func():
-		chapter = 0
-		shards = 0
-		blade_level = 0
-		armor_level = 0
-		completed = false
-		progress_unreadable = false
-		if _save_progress():
-			_reload()
-		else:
-			_show_save_failure())
+	_menu_button("Reset progress", _reset_world)
+
+func _reset_world() -> void:
+	var data := CAMPAIGN_STORE.DEFAULTS.duplicate()
+	data.world_data = CAMPAIGN_STORE.fresh_world()
+	var error: Error = CAMPAIGN_STORE.save_progress(data)
+	if error == OK:
+		_reload()
+	else:
+		_clear_menu("NEW JOURNEY NOT SAVED", "Your existing world has been kept. Retry when saving is available.", false)
+		_menu_button("Retry new journey", _reset_world)
+		_menu_button("Keep my journey", _show_camp)
+
 
 func _reload() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
-func _save_progress() -> bool:
+func _save_progress(capture := true) -> bool:
 	if progress_unreadable:
 		notice = "Save protected: unreadable progress was not overwritten. Use New journey to reset it."
 		return false
+	if capture and _world_ready:
+		_capture_world()
 	var data := {}
-	for key in ["chapter", "shards", "blade_level", "armor_level", "completed"]:
+	for key in ["shards", "blade_level", "armor_level", "completed", "world_data"]:
 		data[key] = get(key)
 	var result: Error = CAMPAIGN_STORE.save_progress(data)
+	_save_failed = result != OK
 	notice = "Progress saved." if result == OK else "Save failed. Keep the game open to retain this session."
 	return result == OK
 
@@ -612,6 +643,8 @@ func _load_progress() -> void:
 		return
 	for key in result.data:
 		set(key, result.data[key])
+	if result.get("migrated", false):
+		notice = "Previous journey migrated to the persistent island. Shards, upgrades and victory are retained."
 	if result.recovered:
 		notice = "Previous progress recovered from backup. The most recent save may be lost."
 
@@ -626,12 +659,15 @@ func _journal_text() -> String:
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
 	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	return "%s\n\n1. Clear the demons: %s\n\n2. Restore the lantern: %s\n\n3. Break the seal: %s\n\nOPTIONAL - Keeper's request\n%s\nCollect all three relics and defeat the dragon in this hunt for 20 bonus shards.\n\nRestarting the hunt resets these objectives. Progress is saved between chapters." % [CHAPTERS[chapter][1], wave, light, dragon, relic_hunt.call("progress_text")] + "\n\nNAVIGATION\nHUD direction is relative to the camera. It points to the nearest living wolf, then the lantern and dragon.\nWater rescue: " + get_node("IslandExploration").rescue_name() + " waystone (this hunt only).\n\n" + keeper.journal_text() + "\nAccept/report progress resets when restarting a hunt. Bounty shards save with chapter victory.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike (40 stamina). K / DODGE: evade. E / LIGHT: restore lantern. Drag open space to turn the camera."
+	if completed:
+		dragon = "COMPLETE - continue exploring Veyra"
+	return "%s\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. H / HEAVY: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
+
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
-	_clear_menu("QUEST JOURNAL - " + str(CHAPTERS[chapter][0]), _journal_text() + "\n\n" + herbs.journal_text())
+	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + herbs.journal_text())
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
@@ -674,12 +710,12 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (this hunt only).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
 		legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
-	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovery lasts for this hunt. Travel does not restore health, stamina or potions."
+	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovered waystones remain saved. Travel does not restore health, stamina or potions."
 	_clear_menu("ISLAND MAP", legend)
 	pause_menu_open = true
 	_menu_button("Return to hunt [Esc]", _resume)
@@ -700,6 +736,7 @@ func _interact_world() -> void:
 		return
 	if herbs.collect(player.global_position):
 		potions += 1
+		_save_progress()
 		_update_objective()
 		return
 	_interact_lantern()
@@ -720,15 +757,79 @@ func _accept_scroll_quest() -> void:
 	if not journal_open or not started or game_finished:
 		return
 	keeper.accept()
+	_save_progress()
 	_show_journal()
 
 func _complete_scroll_quest() -> void:
 	if not journal_open or not started or game_finished:
 		return
 	keeper.report()
+	_claim_optional_rewards()
+	_save_progress()
 	_show_journal()
 
 
 func _show_art_credits() -> void:
 	_clear_menu("ART CREDITS", "Charcoal Black Dark Dragon by Pigcraft (@s8819296)\nCC BY 4.0 - creativecommons.org/licenses/by/4.0\nSource: sketchfab.com/3d-models/charcoal-black-dark-dragon-25c51b198dd54e538f62569d52f61d8e\nModified: mesh reduction, UV consolidation, rig and combat animations.\n\nDire Wolf by Literock Studios.\nHero art by Quaternius (CC0).\nEnvironment textures and scans by Poly Haven (CC0).")
 	_menu_button("Back to camp", _show_camp)
+
+
+func _capture_world() -> void:
+	world_data.herbs = herbs.collected_ids.duplicate()
+	world_data.relics = relic_hunt.collected_ids.duplicate()
+	var exploration = get_node("IslandExploration")
+	world_data.discovered = exploration.discovered.duplicate()
+	world_data.checkpoint = exploration.checkpoint_index
+	world_data.lantern = lantern_lit
+	world_data.position = player.global_position
+	world_data.health = int(player.health)
+	world_data.potions = potions
+	world_data.accepted = keeper.accepted
+	world_data.reported = keeper.reported
+
+func _restore_world() -> void:
+	herbs.restore(world_data.herbs)
+	relic_hunt.restore(world_data.relics)
+	var exploration = get_node("IslandExploration")
+	exploration.discovered.assign(world_data.discovered)
+	if world_data.checkpoint >= 0:
+		exploration.bind_waystone(world_data.checkpoint)
+	keeper.accepted = world_data.accepted
+	keeper.reported = world_data.reported
+	potions = world_data.potions
+	player.health = world_data.health
+	player.global_position = world_data.position
+	if player.health <= 0:
+		player.health = player.max_health
+		player.global_position = player.rescue_position
+	player._camera_pivot.global_position = player.global_position + Vector3(0,1.2,0)
+	_on_health_changed(player.health, player.max_health)
+	lantern_lit = world_data.lantern
+	if lantern_lit:
+		lantern_flame.show()
+		lantern_label.text = "LANTERN RESTORED"
+		if not completed:
+			_spawn_boss()
+	elif remaining_enemies == 0:
+		lantern_label.text = "LIGHT THE LANTERN"
+
+func _claim_optional_rewards() -> void:
+	if not completed:
+		return
+	if relic_hunt.collected == 3 and not world_data.relic_reward:
+		shards = mini(999999, shards + 20)
+		world_data.relic_reward = true
+	if keeper.reported and not world_data.bounty_reward:
+		shards = mini(999999, shards + 15)
+		world_data.bounty_reward = true
+
+func _world_changed() -> void:
+	if _world_ready:
+		_claim_optional_rewards()
+		_save_progress()
+
+func _quit_world() -> void:
+	if _save_progress():
+		get_tree().quit()
+	else:
+		_show_save_failure()

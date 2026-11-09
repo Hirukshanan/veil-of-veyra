@@ -7,13 +7,13 @@ func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg"))
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg.bak"))
-	for chapter in range(3):
+	for chapter in range(1):
 		var scene = load("res://scenes/main.tscn").instantiate()
 		root.add_child(scene)
 		current_scene = scene
 		await process_frame
-		assert(scene.chapter == chapter)
-		assert(scene.remaining_enemies == 3 + chapter * 2)
+		assert(not scene.completed)
+		assert(scene.remaining_enemies == 5)
 		scene._resume()
 		var hero = scene.player
 		var spawn: Vector3 = hero.position
@@ -25,7 +25,7 @@ func _run() -> void:
 		for child in scene.get_children():
 			if child.get_script() == scene.ENEMY_SCRIPT:
 				assert(child.position.distance_to(hero.position) >= 5.0, "Enemies must spawn clear of the player")
-				assert(child.health == 12 + chapter * 6 + (-1 if child.kind == 1 else (3 if child.kind == 2 else 0)), "Campaign demon health must scale by hunt and kind")
+				assert(child.health == 18 + (-1 if child.kind == 1 else (3 if child.kind == 2 else 0)), "Campaign demon health must scale by hunt and kind")
 				assert(child._health_label.text.contains("%d / %d" % [child.health, child.health]), "Visible health must match actual health")
 				enemies.append(child)
 				child.set_physics_process(false)
@@ -34,7 +34,7 @@ func _run() -> void:
 		for mob in enemies:
 			kinds.append(mob.kind)
 		assert(kinds.has(scene.ENEMY_SCRIPT.Kind.SCOUT))
-		assert(kinds.has(scene.ENEMY_SCRIPT.Kind.BRUTE) == (chapter > 0))
+		assert(kinds.has(scene.ENEMY_SCRIPT.Kind.BRUTE))
 		hero.position = Vector3(0, 0, 4)
 		hero.rotation = Vector3.ZERO
 		enemy.position = Vector3(0, 0, 2.8)
@@ -85,7 +85,7 @@ func _run() -> void:
 		scene._interact_lantern()
 		assert(scene.find_children("Tidewraith Dragon*", "", false, false).size() == 1, "Repeated interaction must not duplicate the boss")
 		var boss = scene.get_node("Tidewraith Dragon")
-		assert(boss.health == 34 + chapter * 14)
+		assert(boss.health == 62)
 		boss.set_physics_process(false)
 		boss.position = Vector3.ZERO
 		boss._state = boss.AttackState.APPROACH
@@ -102,13 +102,13 @@ func _run() -> void:
 		assert(boss.enraged and "ENRAGED" in scene.boss_name_label.text)
 		boss.take_damage(1000)
 		await process_frame
-		assert(scene.game_finished and paused)
-		assert(scene.chapter == mini(chapter + 1, 2))
-		assert(scene.completed == (chapter == 2))
+		assert(scene.completed and not scene.game_finished and paused)
+		assert(scene.shards >= 80)
+		assert(scene.completed)
 		paused = false
 		scene.queue_free()
 		await process_frame
-	print("PASS: three waves, sword hits, dodge, camera, lantern gates, keyboard/button interaction, single boss spawn, boss combat and ending")
+	print("PASS: single island encounter, sword hits, dodge, camera, lantern gates, keyboard/button interaction, single boss spawn, boss combat and ending")
 	var retry = load("res://scenes/main.tscn").instantiate()
 	root.add_child(retry)
 	current_scene = retry
@@ -121,8 +121,8 @@ func _run() -> void:
 	await process_frame
 	assert(current_scene.player.health == current_scene.player.max_health)
 	assert(current_scene.potions == 3)
-	assert(not current_scene.lantern_lit and not current_scene.boss_spawned)
-	print("PASS: death and actual scene retry restore health and consumables")
+	assert(current_scene.completed and current_scene.lantern_lit and not current_scene.boss_spawned)
+	print("PASS: death and actual scene retry restore health while preserving island progress")
 	paused = false
 	await create_timer(0.4).timeout
 	quit()

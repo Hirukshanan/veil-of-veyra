@@ -21,17 +21,20 @@ func _run() -> void:
 	scene._pause_game()
 	assert(paused)
 	scene._resume()
-	scene.chapter = 0
 	scene.shards = 0
-	scene._on_boss_defeated()
-	assert(scene.chapter == 1)
-	assert(scene.shards == 40)
+	for enemy in get_nodes_in_group("lock_targets"): enemy.take_damage(1000)
+	await process_frame
+	scene.player.position = scene.lantern.position
+	scene._interact_lantern()
+	scene.get_node("Tidewraith Dragon").take_damage(10000)
+	assert(scene.completed and not scene.game_finished)
+	assert(scene.shards == 80)
 	assert(paused)
 	scene._upgrade(true)
 	assert(scene.blade_level == 1)
-	assert(scene.shards == 20)
+	assert(scene.shards == 60)
 	scene._load_progress()
-	assert(scene.chapter == 1 and scene.blade_level == 1)
+	assert(scene.completed and scene.blade_level == 1)
 	print("PASS: camp, resume, healing, pause, rewards, upgrades, and save reload")
 	paused = false
 	scene.queue_free()

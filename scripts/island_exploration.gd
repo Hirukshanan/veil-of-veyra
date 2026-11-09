@@ -1,5 +1,7 @@
 extends Node3D
 
+signal progress_changed
+
 const CAMPS := [Vector3(-18, 0, 12), Vector3(16, 0, -4), Vector3(0, 0, -25)]
 const CHECKPOINTS := [Vector3(0, 0, 27), Vector3(0, 0, 2), Vector3(0, 0, -20)]
 var player: Node3D
@@ -111,11 +113,14 @@ static func direction_hint(origin: Vector3, destination: Vector3, camera_basis: 
 func rescue_name() -> String:
 	return ["Beach", "Forest", "Ruins"][checkpoint_index] if checkpoint_index >= 0 else "Beach"
 func bind_waystone(index: int) -> void:
+	var changed := checkpoint_index != index or not discovered[index]
 	checkpoint_index = index
 	discovered[index] = true
 	for label_index in range(_waystone_labels.size()):
 		_waystone_labels[label_index].text = "WAYSTONE • BOUND" if label_index == index else ("WAYSTONE • DISCOVERED" if discovered[label_index] else "WAYSTONE • approach to discover")
 	player.rescue_position = CHECKPOINTS[index] + Vector3.UP
+	if changed:
+		progress_changed.emit()
 
 func travel_block_reason(index: int) -> String:
 	if index < 0 or index >= CHECKPOINTS.size():

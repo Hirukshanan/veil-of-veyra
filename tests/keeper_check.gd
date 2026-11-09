@@ -12,7 +12,7 @@ func _press(scene: Node, caption: String) -> void:
 
 func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
-	for chapter in range(3):
+	for chapter in range(1):
 		var config := ConfigFile.new()
 		config.set_value("campaign", "chapter", chapter)
 		assert(config.save("user://campaign.cfg") == OK)
@@ -50,8 +50,13 @@ func _run() -> void:
 
 		scene._toggle_pause()
 		assert(not paused)
+		for enemy in get_nodes_in_group("lock_targets"):
+			if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(10000)
+		scene.player.position = scene.lantern.position
+		scene._resume()
+		scene._interact_lantern()
 		scene._on_boss_defeated()
-		var reward := 40 + chapter * 20 + 15
+		var reward := 80 + 15
 		assert(scene.shards == reward)
 		scene._on_boss_defeated()
 		assert(scene.shards == reward)
@@ -63,9 +68,9 @@ func _run() -> void:
 		var retry = load("res://scenes/main.tscn").instantiate()
 		root.add_child(retry)
 		await process_frame
-		assert(not retry.keeper.accepted and not retry.keeper.reported and retry.shards == reward)
+		assert(retry.keeper.accepted and retry.keeper.reported and retry.shards == reward)
 		retry.queue_free()
 		await process_frame
 		paused = false
-	print("PASS: Remote quest scroll, touch acceptance/completion, combat pause, acceptance, camp identity, report guards, single victory payout, saved shards and hunt reset in all chapters")
+	print("PASS: Remote quest scroll, touch acceptance/completion, combat pause, acceptance, camp identity, report guards, single victory payout, saved shards and persisted bounty")
 	quit()

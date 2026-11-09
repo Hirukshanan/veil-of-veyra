@@ -57,9 +57,9 @@ func _run():
 	var retry = load("res://scenes/main.tscn").instantiate()
 	root.add_child(retry)
 	await process_frame
-	assert(retry.get_node("IslandExploration").discovered == [true, false, false])
+	assert(retry.get_node("IslandExploration").discovered == [true, true, false])
 	retry.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: discovery/reset, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill")
+	print("PASS: persistent discovery, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill")
 	quit()

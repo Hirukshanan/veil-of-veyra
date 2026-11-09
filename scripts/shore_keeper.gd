@@ -30,7 +30,7 @@ func reward() -> int:
 
 func journal_text() -> String:
 	if reported:
-		return "WESTERN WATCH - REPORTED\nDefeat the dragon to receive 15 bonus shards."
+		return "WESTERN WATCH - REPORTED\nYour 15-shard bounty is paid once the dragon is defeated."
 	if not accepted:
 		return "WESTERN WATCH - AVAILABLE\nAccept this bounty using the button in this quest scroll. No conversation is required."
 	if remaining() > 0:
@@ -41,7 +41,7 @@ func hint(origin: Vector3, camera_basis: Basis) -> String:
 	if not accepted:
 		return "QUEST: optional Western Watch bounty"
 	if reported:
-		return "Western Watch: +15 shards on victory"
+		return "Western Watch: bounty secured"
 	if remaining() == 0:
 		return "QUEST: Western Watch ready to complete"
 	var target := CAMP

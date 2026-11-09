@@ -11,7 +11,7 @@ A third-person mobile demon-hunter RPG set on an original folklore-inspired isla
 - Explore a small island area from behind the hero.
 - Fight with a curved island blade and a short dodge.
 - Learn the shore demons' attack rhythm, then face the Tidewraith Dragon.
-- Earn Tide Shards to unlock new abilities in later chapters.
+- Earn Tide Shards to unlock new abilities through island quests.
 - Keep the story and all names, characters, designs, music, and lore original.
 
 ## First playable slice
@@ -26,3 +26,7 @@ A third-person mobile demon-hunter RPG set on an original folklore-inspired isla
 
 The player can move around the clearing, understand the controls, defeat the tide demons and boss, and reach a short victory message.
 
+
+
+## Persistent island progression
+The current game uses one continuous island: clear the camps, restore the northern lantern, defeat the dragon, then continue exploring. Quest actions and pickups persist across sessions. Optional herb gathering, relic recovery and Western Watch remain available after victory. New quests and characters can extend this world without chapter resets.

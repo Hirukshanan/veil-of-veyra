@@ -4,7 +4,7 @@ An original third-person action RPG set on a demon-haunted island. Play as Aru, 
 
 Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for Android and keyboard/mouse controls for desktop development.
 
-> **In development:** a playable prototype with three sequential hunts. Art, audio, combat balance, performance testing, and release preparation are still evolving.
+> **In development:** a playable prototype with one persistent island. Art, audio, combat balance, performance testing, and release preparation are still evolving.
 
 ## Explore, fight, reclaim
 
@@ -13,7 +13,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
 - **Optional quests:** recover Keeper relics and accept and complete the Western Watch bounty directly from the on-screen quest scroll.
 - **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
-- **Progression:** earn shards, upgrade blade and armor, and save campaign progress between chapters.
+- **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
 - **Mobile controls:** circular action buttons and right-side sprint; **settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
 
 ## Run locally
@@ -22,7 +22,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 2. Clone or download this repository.
 3. Import `project.godot` and allow asset imports to finish.
 4. Install the separately distributed wolf model for the intended visuals; see [asset setup](#assets-and-credits).
-5. Press **F5** and select **Begin** in the camp menu.
+5. Press **F5** and select **Continue exploring Veyra** in the camp menu.
 
 The project uses Godot's **GL Compatibility** renderer. Command examples assume the executable is available as `godot` on your `PATH`; substitute your executable name or local path if needed.
 
@@ -42,7 +42,7 @@ godot --editor --path .
 | Dodge | K / Space | DODGE |
 | Target lock | Tab | LOCK |
 | Spirit Burst | L | BURST |
-| Talk / light lantern | E | TALK / LIGHT |
+| Collect herb / light lantern | E | COLLECT / LIGHT |
 | Quest journal | Q | Scroll icon / Pause → Quest Journal |
 | Map / fast travel | Pause → Island Map | Pause → Island Map |
 | Pause / resume | Escape | PAUSE / Resume |
@@ -52,7 +52,13 @@ Heavy attacks cost **40 stamina**. Spirit Burst requires a full spirit meter. In
 
 ## Progress and travel
 
-Campaign progress, shards, and upgrades save between chapters. Enemies, relic collection, bounty acceptance/reporting, and waystone discovery reset when a hunt restarts.
+One continuous island replaces the three sequential hunts. Clear five demons across three camps, restore the lantern, and defeat the Tidewraith; then continue exploring without advancing a level or reloading the map.
+
+Cleared enemies, collected Moonleaf herbs and relics, Western Watch status, discovered/bound waystones, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
+
+Death returns Aru to the bound waystone at full health while preserving world progress and potion stock. Dragon rewards and optional relic/bounty rewards are paid once; optional quests can finish after victory. Moonleaf plants are finite pickups in this prototype and do not respawn.
+
+Older chapter saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. New journey explicitly resets the world; save failures keep the existing journey intact.
 
 Approach a waystone to discover it and bind a water-rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
 

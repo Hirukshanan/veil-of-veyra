@@ -1,5 +1,7 @@
 extends Node3D
 
+var collected_ids: Array[int] = []
+
 const LOCATIONS := [Vector3(3,0,25),Vector3(-6,0,18),Vector3(-15,0,9),Vector3(11,0,-2),Vector3(5,0,-17),Vector3(26,0,18),Vector3(-29,0,-12),Vector3(42,0,10)]
 var plants: Array[Node3D] = []
 var collected := 0
@@ -13,6 +15,7 @@ func _ready() -> void:
 	bloom.emission = Color(0.04,0.22,0.18)
 	for location in LOCATIONS:
 		var plant := Node3D.new()
+		plant.set_meta("pickup_id", plants.size())
 		plant.position = location
 		add_child(plant)
 		plants.append(plant)
@@ -60,10 +63,19 @@ func collect(point: Vector3) -> bool:
 	var plant := nearest(point)
 	if plant == null:
 		return false
+	collected_ids.append(int(plant.get_meta("pickup_id")))
 	plants.erase(plant)
 	plant.queue_free()
 	collected += 1
 	return true
 
 func journal_text() -> String:
-	return "HERBAL GATHERING: %d/5\nFind cyan-flowered Moonleaf near paths and in the meadows. Approach and press COLLECT / E. Each plant adds one healing potion; use HEAL when injured. Plants and collection progress reset when restarting the hunt." % mini(collected,5)
+	return "HERBAL GATHERING: %d/5\nFind cyan-flowered Moonleaf near paths and in the meadows. Approach and press COLLECT / E. Each plant adds one healing potion; use HEAL when injured. Plants and collection progress remain saved." % mini(collected,5)
+
+func restore(ids: Array) -> void:
+	collected_ids.assign(ids)
+	collected = ids.size()
+	for item in plants.duplicate():
+		if int(item.get_meta("pickup_id")) in ids:
+			plants.erase(item)
+			item.queue_free()

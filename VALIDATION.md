@@ -580,3 +580,20 @@ Debug version: 0.3.0-dev (code 13).
 - Ground radius 38 to 76, outer beach 48 to 96; shoreline shading and map scale updated. Existing landmarks/objectives remain in the original central area.
 - Added chunked, distance-culled grass; trees/columns now block player layer 8 and camera layer 4. Rocks have convex colliders matching their transforms. Enemy collision masks are unchanged.
 - prop_collision_check and gameplay_check passed. Expanded outer-area content and single-world save/progression migration are still pending. No APK exported.
+
+
+## Persistent island conversion (2026-11-09)
+
+- Removed runtime chapter advancement and three-hunt reload loop. Added six fixed-ID demons across existing camps; one lantern/dragon quest with continued exploration after victory.
+- Save version 2 stores cleared IDs, herb/relic IDs, bounty state, reward claims, discovered waystones, bound checkpoint, position, health and potion stock, plus economy/completion. Legacy chapter saves migrate currency/upgrades/final victory; old in-hunt state was never present and cannot be recovered.
+- Save boundaries: quest actions, menus, five-second exploration interval and normal exit/focus pause. Forced termination can lose recent movement. Living enemy/boss health and session spirit/stamina are not persisted. Death restores health at the bound waystone without resetting objectives or potion stock.
+- Save format validates bounded unique IDs, types, finite map positions, resource ranges, discovery/checkpoint consistency and completion/reward prerequisites. Existing temporary/backup promotion retained. Reset is committed before replacing in-memory state.
+- End-to-end persistent_world_check covers autosave, scene reopen, item/camp persistence, death, lantern/boss restoration, post-victory exploration and one-time optional rewards. save_check covers legacy migration, malformed state, backups, failed/interrupted writes, unreadable-save protection, victory retry and failed reset.
+- Existing gameplay/optional-quest tests migrated to the single-world behavior. No APK exported for this update.
+
+- Final targeted checks passed: persistent_world_check, save_check, gameplay_check, campaign_smoke, keeper_check, relic_check, environment_check, journal_check, herbal_check, fast_travel_check, quest_hud_check, navigation_check, pause_check, settings_check, prop_collision_check and island_map_check. Each used isolated APPDATA. Native 960x540 camp, quest scroll and victory captures reviewed; Continue exploring is available after victory. APK remains the earlier build.
+
+## Dire Warg encounter adjustment (2026-11-09)
+
+- Removed the second Dire Warg (CampDemon5) from the ruins. One Dire Warg remains, alongside two Ember Wolves and two Ash Stalkers.
+- Retired ID 5 is marked cleared on world load, keeping existing version-2 saves and the lantern unlock condition compatible. Persistent-world regression verifies five active demons, one brute, reopen persistence and lantern/dragon progression. No APK exported.

@@ -5,7 +5,7 @@ func _initialize() -> void:
 
 func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
-	for chapter in range(3):
+	for chapter in range(1):
 		var config := ConfigFile.new()
 		config.set_value("campaign", "chapter", chapter)
 		assert(config.save("user://campaign.cfg") == OK)
@@ -49,7 +49,12 @@ func _run() -> void:
 			assert(hunt.collected == 3 and hunt.reward() == 20)
 			await process_frame
 			assert("3/3" in scene.relic_status.text)
-		var reward := 40 + chapter * 20 + (20 if chapter > 0 else 0)
+		var reward := 80 + (20 if chapter > 0 else 0)
+		for enemy in get_nodes_in_group("lock_targets"):
+			if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(10000)
+		scene.player.position = scene.lantern.position
+		scene._resume()
+		scene._interact_lantern()
 		scene._on_boss_defeated()
 		assert(scene.shards == reward)
 		scene._on_boss_defeated()
@@ -59,11 +64,11 @@ func _run() -> void:
 		scene._reload()
 		await process_frame
 		await process_frame
-		assert(current_scene.relic_hunt.collected == 0)
-		assert(current_scene.relic_hunt.relics.size() == 3)
+		assert(current_scene.relic_hunt.collected == 1)
+		assert(current_scene.relic_hunt.relics.size() == 2)
 		assert(current_scene.shards == reward)
 		current_scene.queue_free()
 		await process_frame
 		paused = false
-	print("PASS: relic placement, proximity pickup, camp/pause guards, single collection, optional/full rewards, persistence and reset")
+	print("PASS: relic placement, proximity pickup, camp/pause guards, single collection, optional/full rewards, persistence")
 	quit()
