@@ -11,6 +11,10 @@ func run():
 	assert(scene.player.collision_mask & 8)
 	var blockers=0
 	for node in scene.find_children("*","StaticBody3D",true,false):
+		# The sea boundary blocks the player without retracting the camera.
+		if node == scene.get_node("ShallowWaterWall"):
+			assert(node.collision_layer == 8)
+			continue
 		if node.collision_layer & 8:
 			blockers+=1
 			assert(node.collision_layer & 4)

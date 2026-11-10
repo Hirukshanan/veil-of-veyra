@@ -1,5 +1,7 @@
 extends RefCounted
 
+const TERRAIN = preload("res://scripts/island_terrain.gd")
+
 const PATH := "user://campaign.cfg"
 const BACKUP := PATH + ".bak"
 const TEMP := PATH + ".tmp"
@@ -37,7 +39,12 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	for key in ["lantern", "accepted", "reported", "relic_reward", "bounty_reward", "grove_reward"]:
 		if not world[key] is bool:
 			return false
-	if not world.position is Vector3 or not world.position.is_finite() or Vector2(world.position.x,world.position.z).length() > 92 or world.position.y < -8 or world.position.y > 50:
+	if not world.position is Vector3 or not world.position.is_finite() or world.position.y < -8 or world.position.y > 50:
+		return false
+	var flat := Vector2(world.position.x, world.position.z)
+	var coast_limit := TERRAIN.coast_radius(flat.angle(), TERRAIN.SHALLOW_WATER_BASE)
+	# Accept the old 92m save area for relocation on load, plus the new wading area.
+	if flat.length() > maxf(92.0, coast_limit):
 		return false
 	if not world.health is int or world.health < 0 or world.health > 100 + armor * 25:
 		return false

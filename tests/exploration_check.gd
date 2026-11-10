@@ -18,7 +18,7 @@ func _run():
 	var terrain = preload("res://scripts/island_terrain.gd")
 	for index in range(32):
 		var angle := index * TAU / 32.0
-		var point := Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, 42.0)
+		var point := Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, 84.0)
 		var shore_query := PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1)
 		var peaks: Array[RID] = []
 		for peak in exploration.get_node("MountainRim").get_children():
@@ -30,16 +30,18 @@ func _run():
 		for point in route:
 			var ground = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1))
 			assert(not ground.is_empty() and absf(ground.position.y) < 0.1, "Curved trails must stay on the combat plateau")
-	var beach = space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 4, 42), Vector3(0, -4, 42), 1))
+	var beach = space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 4, 84), Vector3(0, -4, 84), 1))
 	assert(not beach.is_empty() and beach.position.y < -0.5 and beach.position.y > -1.2)
 	hero.position = exploration.CHECKPOINTS[1]
 	exploration._physics_process(0.1)
 	assert(exploration.checkpoint_index == 1)
+	# Emergency rescue fires only for genuine falls well below the surface.
+	# The shallow-water wall blocks normal sea entry, so y < -4.0 is the new threshold.
 	var health = hero.health
-	hero.position = Vector3(47, -1.3, 0)
+	hero.position = Vector3(47, -4.5, 0)
 	hero._invulnerability_time = 0
 	exploration._physics_process(0.1)
-	assert(hero.position == hero.rescue_position and hero.health == health - 20)
+	assert(hero.position == hero.rescue_position and hero.health == health - 20, "Genuine falls retain the existing rescue penalty")
 	var enemy = scene.ENEMY_SCRIPT.new()
 	enemy.position = Vector3(-18, 0, 12)
 	enemy.target = hero
@@ -57,5 +59,5 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: expanded camp/checkpoint ground, sloped beach, bound water rescue, health penalty, local aggro and leash")
+	print("PASS: expanded camp/checkpoint ground, sloped beach, emergency fall rescue and penalty, local aggro and leash")
 	quit()

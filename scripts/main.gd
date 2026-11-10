@@ -121,6 +121,10 @@ func _build_island() -> void:
 	island_collision.shape = terrain.create_trimesh_shape()
 	island.add_child(island_collision)
 
+	# Allow a short wade, then slide along the coastline instead of taking damage.
+	var wall := preload("res://scripts/island_terrain.gd").shallow_water_wall()
+	add_child(wall)
+
 
 func _build_lighting() -> void:
 	var environment := Environment.new()

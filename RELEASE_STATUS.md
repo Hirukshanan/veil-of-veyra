@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Shallow-water movement boundary follows the irregular coast. Aru can wade briefly, slide along the shore and return to land; deep-water entry is blocked without ordinary health loss or respawn. Genuine falls retain emergency rescue. New wading positions save correctly, and old outside positions relocate safely without losing progress. Desktop physics/render checks passed; Android device acceptance and a new APK remain pending.
+
 - Tideseal Ruins: a south-west coastal ruin with three saved seal fragments, a trail from Beach waystone and a cyan map marker. The lantern requires both all fragments and cleared camps. Existing lit/completed journeys migrate with their seal already recovered (save version 4). No new APK has been exported for this quest.
 
 - Icon-only gameplay controls: normal/heavy attacks share a sword button (tap vs 0.4-second hold), with no separate HEAVY or target-lock button. Keyboard H/Tab remain supported. Collection responds immediately on touch-down or E key events; hold/cancel and actual touch input have regression coverage.

@@ -22,11 +22,11 @@ func _run():
 	scene.seal_fragments.restore([0,1,2])
 	scene._update_objective()
 	assert("Lantern" in scene.status_label.text)
-	assert("Water rescue: Beach" in scene._journal_text())
+	assert("Boundary: shallow water" in scene._journal_text())
 	var map = scene.get_node("IslandExploration")
 	map.player.position = map.CHECKPOINTS[1]
 	map._physics_process(0.01)
-	assert("Water rescue: Forest" in scene._journal_text())
+	assert("Waystone: Forest" in scene._journal_text())
 	scene._spawn_boss()
 	scene._update_objective()
 	assert("Dragon" in scene.status_label.text)

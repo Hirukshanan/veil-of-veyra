@@ -90,8 +90,10 @@ func _physics_process(_delta: float) -> void:
 	for index in range(CHECKPOINTS.size()):
 		if player.global_position.distance_to(CHECKPOINTS[index]) < 2.0:
 			bind_waystone(index)
-	# Water is a boundary, not a swimming mechanic. Rescue has the existing fall penalty.
-	if player.global_position.y < -1.2:
+	# Emergency rescue for genuine falls through geometry.
+	# Normal sea entry is blocked by the shallow-water boundary wall;
+	# this only fires for positions well below the water surface.
+	if player.global_position.y < -4.0:
 		player.global_position = player.rescue_position
 		player.velocity = Vector3.ZERO
 		player.take_damage(20)

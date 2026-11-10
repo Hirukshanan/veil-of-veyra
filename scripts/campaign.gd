@@ -719,7 +719,7 @@ func _journal_text() -> String:
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
 	if completed:
 		dragon = "COMPLETE - continue exploring Veyra"
-	return "%s\n\nSEAL FRAGMENTS: %d/3 recovered\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, seal_fragments.collected_ids.size(), wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
+	return "%s\n\nSEAL FRAGMENTS: %d/3 recovered\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, seal_fragments.collected_ids.size(), wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nBoundary: shallow water blocks deep-sea access. Waystone: " + get_node("IslandExploration").rescue_name()
 
 
 func _show_journal() -> void:
@@ -768,7 +768,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
+	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -864,6 +864,16 @@ func _restore_world() -> void:
 	potions = world_data.potions
 	player.health = world_data.health
 	player.global_position = world_data.position
+	# Relocate old saves that lie beyond the new shallow-water boundary wall.
+	var terrain_script = preload("res://scripts/island_terrain.gd")
+	var flat := Vector2(player.global_position.x, player.global_position.z)
+	if flat.length() > 0.01:
+		var angle := atan2(flat.y, flat.x)
+		var coast: float = terrain_script.coast_radius(angle, terrain_script.SHALLOW_WATER_BASE)
+		# Preserve normal positions, including the capsule's resting contact with the wall.
+		if flat.length() > coast - 0.4:
+			var safe_radius := coast - 1.0
+			player.global_position = Vector3(cos(angle) * safe_radius, 0, sin(angle) * safe_radius)
 	if player.health <= 0:
 		player.health = player.max_health
 		player.global_position = player.rescue_position

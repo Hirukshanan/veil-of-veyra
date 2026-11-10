@@ -1,15 +1,45 @@
 extends RefCounted
 
+# The boundary follows the beach mesh, just beyond the waterline (base 90.5).
+const SHALLOW_WATER_BASE := 93.0
+const COAST_SEGMENTS := 128
+
 # Keep combat ground level and slope only the beach.
 static func coast_radius(angle: float, base: float) -> float:
 	return base + 1.5 * sin(angle * 3.0) + 0.8 * sin(angle * 5.0) + 0.5 * sin(angle * 7.0)
 
+# One continuous collision surface avoids gaps and overlapping box ends.
+# Only the player hits layer 8; the camera and enemies keep their existing masks.
+static func shallow_water_wall() -> StaticBody3D:
+	var body := StaticBody3D.new()
+	body.name = "ShallowWaterWall"
+	body.collision_layer = 8
+	body.collision_mask = 0
+	var faces := PackedVector3Array()
+	for index in range(COAST_SEGMENTS):
+		var a := index * TAU / COAST_SEGMENTS
+		var b := (index + 1) * TAU / COAST_SEGMENTS
+		var p := Vector3(cos(a), 0, sin(a)) * coast_radius(a, SHALLOW_WATER_BASE)
+		var q := Vector3(cos(b), 0, sin(b)) * coast_radius(b, SHALLOW_WATER_BASE)
+		var bottom_p := p + Vector3.DOWN * 4.0
+		var bottom_q := q + Vector3.DOWN * 4.0
+		var top_p := p + Vector3.UP * 3.0
+		var top_q := q + Vector3.UP * 3.0
+		faces.append_array(PackedVector3Array([bottom_p, top_p, bottom_q, bottom_q, top_p, top_q]))
+	var shape := ConcavePolygonShape3D.new()
+	shape.set_faces(faces)
+	shape.backface_collision = true
+	var collision := CollisionShape3D.new()
+	collision.shape = shape
+	body.add_child(collision)
+	return body
+
 static func ground() -> ArrayMesh:
 	var surface := SurfaceTool.new()
 	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for index in range(128):
-		var a := index * TAU / 128.0
-		var b := (index + 1) * TAU / 128.0
+	for index in range(COAST_SEGMENTS):
+		var a := index * TAU / COAST_SEGMENTS
+		var b := (index + 1) * TAU / COAST_SEGMENTS
 		var base := 76.0
 		var p := Vector3(cos(a), 0, sin(a)) * coast_radius(a, base)
 		var q := Vector3(cos(b), 0, sin(b)) * coast_radius(b, base)

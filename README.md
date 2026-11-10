@@ -62,7 +62,9 @@ Death returns Aru to the bound waystone at full health while preserving world pr
 
 Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. Earlier saves with an already-lit lantern automatically receive completed seal-fragment progress, keeping the lantern and dragon encounter state intact. New journey explicitly resets the world; save failures keep the existing journey intact.
 
-Approach a waystone to discover it and bind a water-rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
+Aru can wade a short distance into shallow coastal water. An invisible boundary follows the irregular coastline and blocks deeper water while allowing movement along the shore and back to land; ordinary water entry does not cost health or teleport Aru. Genuine falls below the terrain still trigger emergency rescue and its existing health penalty. Older saved positions outside the boundary are moved just inside it without changing health or progress.
+
+Approach a waystone to discover it and bind a rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
 
 ## Android builds
 
