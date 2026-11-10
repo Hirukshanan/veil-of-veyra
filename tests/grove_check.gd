@@ -87,6 +87,7 @@ func run():
 	assert(config.load(STORE.PATH)==OK)
 	var missing:Dictionary=capped.duplicate(true)
 	missing.erase("grove_reward")
+	config.set_value("campaign","version",STORE.VERSION)
 	config.set_value("campaign","world",missing)
 	assert(config.save("user://invalid_grove.cfg")==OK)
 	assert(STORE.read_file("user://invalid_grove.cfg").error==ERR_INVALID_DATA,"Current format must require its reward flag")

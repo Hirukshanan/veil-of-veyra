@@ -3,12 +3,12 @@ extends RefCounted
 const PATH := "user://campaign.cfg"
 const BACKUP := PATH + ".bak"
 const TEMP := PATH + ".tmp"
-const VERSION := 3
+const VERSION := 4
 const DEFAULTS := {"shards": 0, "blade_level": 0, "armor_level": 0, "completed": false}
 const MAXIMUMS := {"shards": 999999, "blade_level": 4, "armor_level": 4}
 
 static func fresh_world() -> Dictionary:
-	return {"cleared": [], "herbs": [], "relics": [], "discovered": [true,false,false], "checkpoint": -1, "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "relic_reward": false, "bounty_reward": false, "grove_reward": false}
+	return {"cleared": [], "herbs": [], "relics": [], "discovered": [true,false,false], "checkpoint": -1, "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "relic_reward": false, "bounty_reward": false, "grove_reward": false, "seal_fragments": []}
 
 static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	if not world is Dictionary:
@@ -16,8 +16,8 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	for key in fresh_world():
 		if not world.has(key):
 			return false
-	for key in ["cleared", "herbs", "relics"]:
-		var limit: int = {"cleared":6,"herbs":13,"relics":3}[key]
+	for key in ["cleared", "herbs", "relics", "seal_fragments"]:
+		var limit: int = {"cleared":6,"herbs":13,"relics":3,"seal_fragments":3}[key]
 		if not world[key] is Array or world[key].size() > limit:
 			return false
 		var seen := []
@@ -43,7 +43,7 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 		return false
 	if not world.potions is int or world.potions < 0 or world.potions > 16:
 		return false
-	if (world.lantern and world.cleared.size() != 6) or (completed and not world.lantern):
+	if (world.lantern and (world.cleared.size() != 6 or world.seal_fragments.size() != 3)) or (completed and not world.lantern):
 		return false
 	if (world.reported and not world.accepted) or (world.relic_reward and (not completed or world.relics.size() != 3)) or (world.bounty_reward and (not completed or not world.reported)):
 		return false
@@ -61,7 +61,7 @@ static func read_file(path: String) -> Dictionary:
 	if error != OK:
 		return {"error": error}
 	var version: Variant = config.get_value("campaign", "version", 1)
-	if not version is int or version not in [1, 2, VERSION]:
+	if not version is int or version not in [1, 2, 3, VERSION]:
 		return {"error": ERR_INVALID_DATA}
 	var data := {}
 	for key in DEFAULTS:
@@ -87,6 +87,10 @@ static func read_file(path: String) -> Dictionary:
 		if version == 2 and data.world_data is Dictionary:
 			data.world_data = data.world_data.duplicate(true)
 			data.world_data["grove_reward"] = false
+	# Existing lit lanterns remain lit; earlier versions had no fragment quest.
+	if version < VERSION and data.world_data is Dictionary:
+		data.world_data = data.world_data.duplicate(true)
+		data.world_data["seal_fragments"] = [0,1,2] if data.world_data.get("lantern",false) == true else []
 	if not valid_world(data.world_data, data.completed, data.armor_level):
 		return {"error": ERR_INVALID_DATA}
 	return {"error": OK, "data": data, "migrated": version != VERSION}

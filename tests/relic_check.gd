@@ -54,6 +54,7 @@ func _run() -> void:
 			if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(10000)
 		scene.player.position = scene.lantern.position
 		scene._resume()
+		scene.seal_fragments.restore([0,1,2])
 		scene._interact_lantern()
 		scene._on_boss_defeated()
 		assert(scene.shards == reward)

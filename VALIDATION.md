@@ -631,3 +631,12 @@ Debug version: 0.3.0-dev (code 13).
 
 - Final checks passed: interaction_controls_check, herbal_check, grove_check, heavy_attack_check, target_lock_check, quest_hud_check, safe_area_check, gameplay_check, pause_check, sprint_check and spirit_check.
 - Android 0.11.1-dev/code 26 exported as builds/android/veyra-0.11.1-dev.apk (95,484,605 bytes); usual veyra-debug.apk updated. Signature verifies and matches 0.11.0; manifest confirms code 26/0.11.1-dev and ARM64. Physical-device test pending.
+
+## Beach seal fragments and lantern prerequisite (2026-11-10)
+
+- Added Tideseal Ruins at (-44, 0, 54), standing/broken colliding pillars, three fragment pickups and a cyan map marker. The new Beach waystone trail routes around existing shoreline boulders. Expanded the trail mask to a 208 m span/512px so beach paths outside the old 104 m range appear and grass stays clear.
+- The northern lantern requires all three seal fragments and cleared camps. Either collection/clear order works. Fragment collection uses the existing hand icon/E event path and immediately saves without modifying health, potions or shards. HUD, journal, camp summary, map legend and lantern label describe the same gate.
+- Save version 4 requires bounded unique fragment IDs; lit lanterns require a full seal. Old v1/v2/v3 lit or completed saves automatically receive full fragment progress, avoiding a reset. Earlier unlit saves retain other progress and receive the new quest.
+- beach_seals_check verifies beach trail and pickup accessibility, input/duplicate/pause/range guards, partial reopen persistence, both prerequisite gates, single boss spawn and legacy lit/completed migration. Native arrival/overview renders reviewed. Fixed an orphaned pillar node discovered via exit warnings. No APK exported; device testing remains pending.
+
+- Passed beach_seals_check plus persistent_world_check, save_check, gameplay_check, grove_check, terrain_material_check, campaign_smoke, keeper_check, relic_check, navigation_check, journal_check, interaction_controls_check, mountain_demons_check and island_map_check. Dedicated migration rerun after freeing the skipped pillar exits without resource-leak warnings.

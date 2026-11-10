@@ -32,7 +32,8 @@ static func trails() -> Array[PackedVector3Array]:
 		[Vector3(0, 0, 29), Vector3(0, 0, 27), Vector3(-3, 0, 18), Vector3(0, 0, 12), Vector3(0, 0, 2), Vector3(2, 0, -4), Vector3(-2, 0, -13), Vector3(0, 0, -20), Vector3(0, 0, -25)],
 		[Vector3(0, 0, 12), Vector3(-8, 0, 9), Vector3(-18, 0, 12)],
 		[Vector3(2, 0, -4), Vector3(9, 0, -1), Vector3(16, 0, -4)],
-		[Vector3(0,0,27), Vector3(12,0,29), Vector3(24,0,29), Vector3(36,0,28), Vector3(44,0,28)]
+		[Vector3(0,0,27), Vector3(12,0,29), Vector3(24,0,29), Vector3(36,0,28), Vector3(44,0,28)],
+		[Vector3(0,0,27),Vector3(-6,0,36),Vector3(-20,0,43),Vector3(-35,0,48),Vector3(-44,0,54)]
 	]:
 		var curve := Curve3D.new()
 		curve.bake_interval = 0.8
@@ -48,17 +49,17 @@ static var _trail_mask: ImageTexture
 static func trail_mask() -> ImageTexture:
 	if _trail_mask != null:
 		return _trail_mask
-	var image := Image.create(256, 256, false, Image.FORMAT_R8)
+	var image := Image.create(512, 512, false, Image.FORMAT_R8)
 	image.fill(Color.BLACK)
 	var routes := trails()
 	for route_index in range(routes.size()):
 		var radius := 3.0 if route_index == 0 else 2.3
 		for point in routes[route_index]:
-			var center := (Vector2(point.x, point.z) / 104.0 + Vector2.ONE * 0.5) * 256.0
-			var pixels := ceili(radius * 256.0 / 104.0)
-			for y in range(maxi(0, int(center.y) - pixels), mini(256, int(center.y) + pixels + 1)):
-				for x in range(maxi(0, int(center.x) - pixels), mini(256, int(center.x) + pixels + 1)):
-					var distance := (Vector2(x + 0.5, y + 0.5) - center).length() * 104.0 / 256.0
+			var center := (Vector2(point.x, point.z) / 208.0 + Vector2.ONE * 0.5) * 512.0
+			var pixels := ceili(radius * 512.0 / 208.0)
+			for y in range(maxi(0, int(center.y) - pixels), mini(512, int(center.y) + pixels + 1)):
+				for x in range(maxi(0, int(center.x) - pixels), mini(512, int(center.x) + pixels + 1)):
+					var distance := (Vector2(x + 0.5, y + 0.5) - center).length() * 208.0 / 512.0
 					var weight := 1.0 - smoothstep(radius * 0.4, radius, distance)
 					if weight > image.get_pixel(x, y).r:
 						image.set_pixel(x, y, Color(weight, 0, 0))

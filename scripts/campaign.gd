@@ -4,7 +4,7 @@ const SAVE_PATH := "user://campaign.cfg"
 const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
-const WORLD_STORY := "Explore Veyra. Clear the three demon camps, restore the northern lantern, then defeat the Tidewraith. Your island progress is saved as you explore."
+const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach ruins, clear the demon camps, and light the northern lantern to confront the Tidewraith. Your island progress is saved as you explore."
 var world_data := CAMPAIGN_STORE.fresh_world()
 var _world_ready := false
 var _autosave_time := 0.0
@@ -22,6 +22,7 @@ var notice := ""
 var progress_unreadable := false
 var potions := 3
 var herbs: Node3D
+var seal_fragments: Node3D
 var started := false
 var camera_sensitivity := 1.0
 var camera_distance := 6.3
@@ -89,6 +90,9 @@ func _update_objective() -> void:
 	elif boss_spawned:
 		objective = "Dragon"
 		destination = get_node_or_null("Tidewraith Dragon")
+	elif remaining_enemies == 0 and not seal_fragments.complete():
+		objective = "Seal fragments %d/3" % seal_fragments.collected_ids.size()
+		destination = seal_fragments.nearest(player.global_position, INF)
 	elif remaining_enemies == 0:
 		objective = "Lantern"
 		destination = lantern
@@ -107,6 +111,10 @@ func _update_objective() -> void:
 	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
 	if player.global_position.distance_to(herbs.GROVE.CENTER) < 18.0:
 		status_label.text += " | Grove complete +25 shards" if world_data.grove_reward else " | Grove %d/3" % mini(herbs.grove_count(), 3)
+	if not lantern_lit:
+		status_label.text += " | Seal %d/3" % seal_fragments.collected_ids.size()
+		if remaining_enemies == 0:
+			lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
 	if _save_failed:
 		status_label.text += " | SAVE FAILED - open camp to retry"
 	relic_status.text = relic_hunt.call("progress_text")
@@ -115,16 +123,21 @@ func _update_objective() -> void:
 	interact_button.text = ""
 	interact_button.icon = preload("res://assets/ui/controls/lantern.svg")
 	interact_button.accessibility_name = "Light lantern"
-	interact_button.visible = remaining_enemies == 0 and not lantern_lit
+	interact_button.visible = remaining_enemies == 0 and seal_fragments.complete() and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
-	if herbs.nearest(player.global_position) != null:
+	if seal_fragments.nearest(player.global_position) != null:
+		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
+		interact_button.accessibility_name = "Collect seal fragment"
+		interact_button.visible = true
+		interact_button.disabled = false
+	elif herbs.nearest(player.global_position) != null:
 		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
 		interact_button.accessibility_name = "Collect herb"
 		interact_button.visible = true
 		interact_button.disabled = false
 
 func _interact_lantern() -> void:
-	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or lantern_lit:
+	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or not seal_fragments.complete() or lantern_lit:
 		return
 	if player.global_position.distance_to(lantern.global_position) > 2.5:
 		return
@@ -197,6 +210,8 @@ func _ready() -> void:
 	add_child(relic_hunt)
 	keeper = preload("res://scripts/shore_keeper.gd").new()
 	add_child(keeper)
+	seal_fragments = preload("res://scripts/beach_seals.gd").new()
+	add_child(seal_fragments)
 	_restore_world()
 	get_tree().auto_accept_quit = false
 	_world_ready = true
@@ -420,11 +435,11 @@ func _show_camp() -> void:
 	_clear_menu("VEIL OF VEYRA", "")
 	menu_scroll.hide()
 	camp_menu.show()
-	var stage := "Clear the demon camps.\nRestore the lantern at the northern ruins."
+	var stage := "Recover the beach ruins seal fragments.\nClear the camps to restore the lantern."
 	if lantern_lit:
 		stage = "The seal is broken.\nDefeat the Tidewraith at the northern ruins."
 	elif remaining_enemies == 0:
-		stage = "The camps are quiet.\nLight the northern lantern to break the seal."
+		stage = "The camps are quiet.\nRecover the beach seal to light the lantern." if not seal_fragments.complete() else "The seal is whole.\nLight the northern lantern to break the curse."
 	camp_menu.configure(shards, blade_level, armor_level, _cost(blade_level), _cost(armor_level), completed, notice, stage)
 
 func _camp_journal() -> void:
@@ -609,7 +624,7 @@ func _heal() -> void:
 func _on_enemy_defeated() -> void:
 	remaining_enemies = maxi(0, remaining_enemies - 1)
 	if remaining_enemies == 0 and not game_finished:
-		lantern_label.text = "LIGHT THE LANTERN"
+		lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
 	_update_objective()
 
 func _on_boss_defeated() -> void:
@@ -700,17 +715,17 @@ func _toggle_journal() -> void:
 func _journal_text() -> String:
 	var cleared := remaining_enemies == 0
 	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
-	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared else "LOCKED - clear the demons first")
+	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared and seal_fragments.complete() else "LOCKED - recover all 3 seal fragments and clear the demon camps")
 	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
 	if completed:
 		dragon = "COMPLETE - continue exploring Veyra"
-	return "%s\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
+	return "%s\n\nSEAL FRAGMENTS: %d/3 recovered\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. E / COLLECT / LIGHT: interact." % [WORLD_STORY, seal_fragments.collected_ids.size(), wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nWater rescue: " + get_node("IslandExploration").rescue_name()
 
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
-	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + herbs.journal_text() + "\n\n" + herbs.grove_journal(world_data.grove_reward))
+	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + seal_fragments.journal_text() + "\n\n" + herbs.journal_text() + "\n\n" + herbs.grove_journal(world_data.grove_reward))
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)
@@ -753,7 +768,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 else "LOCKED - clear all camps")]
+	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nWater rescue: %s (saved waystone).\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -776,6 +791,10 @@ func _show_island_map() -> void:
 	_menu_button("Pause menu", _pause_game)
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
+		return
+	if seal_fragments.collect(player.global_position):
+		_save_progress()
+		_update_objective()
 		return
 	if herbs.collect(player.global_position):
 		potions += 1
@@ -820,6 +839,7 @@ func _show_art_credits() -> void:
 
 func _capture_world() -> void:
 	world_data.herbs = herbs.collected_ids.duplicate()
+	world_data.seal_fragments = seal_fragments.collected_ids.duplicate()
 	world_data.relics = relic_hunt.collected_ids.duplicate()
 	var exploration = get_node("IslandExploration")
 	world_data.discovered = exploration.discovered.duplicate()
@@ -833,6 +853,7 @@ func _capture_world() -> void:
 
 func _restore_world() -> void:
 	herbs.restore(world_data.herbs)
+	seal_fragments.restore(world_data.seal_fragments)
 	relic_hunt.restore(world_data.relics)
 	var exploration = get_node("IslandExploration")
 	exploration.discovered.assign(world_data.discovered)
@@ -855,7 +876,7 @@ func _restore_world() -> void:
 		if not completed:
 			_spawn_boss()
 	elif remaining_enemies == 0:
-		lantern_label.text = "LIGHT THE LANTERN"
+		lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
 
 func _claim_optional_rewards() -> void:
 	if herbs.grove_count() >= herbs.GROVE_GOAL and not world_data.grove_reward:

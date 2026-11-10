@@ -22,6 +22,8 @@ func _run():
  scene._toggle_pause()
  assert(not paused and not scene.journal_open, "Escape must resume")
  scene.remaining_enemies = 0
+ assert("LOCKED" in scene._journal_text())
+ scene.seal_fragments.restore([0,1,2])
  assert("READY" in scene._journal_text())
  scene.lantern_lit = true
  scene.boss_spawned = true

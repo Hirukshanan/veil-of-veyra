@@ -73,6 +73,7 @@ func run():
 	await process_frame
 	assert(scene.remaining_enemies==0 and not scene.boss_spawned)
 	scene.player.position=scene.lantern.position
+	scene.seal_fragments.restore([0,1,2])
 	scene._interact_lantern()
 	assert(scene.lantern_lit and scene.boss_spawned)
 	await close_world()

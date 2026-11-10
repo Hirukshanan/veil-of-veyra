@@ -22,7 +22,7 @@ void fragment() {
 	// Low-frequency variation breaks up material boundaries and tiling.
 	float variation = sin(p.x * 0.43 + sin(p.y * 0.31)) * sin(p.y * 0.57 + cos(p.x * 0.24));
 	float grass = 1.0 - smoothstep(64.0, 73.0, contour + variation * 1.8);
-	float path = texture(trail_mask, p / 104.0 + 0.5).r;
+	float path = texture(trail_mask, p / 208.0 + 0.5).r;
 	path = smoothstep(0.08 + variation * 0.06, 0.92 + variation * 0.06, path);
 	vec3 sand = texture(sand_color, p * 0.12).rgb;
 	vec3 grass_detail = texture(grass_color, p * 0.65).rgb;

@@ -79,6 +79,7 @@ func run():
 	for enemy in get_nodes_in_group("lock_targets"): enemy.take_damage(1000)
 	await process_frame
 	scene.player.position=scene.lantern.position
+	scene.seal_fragments.restore([0,1,2])
 	scene._interact_lantern()
 	assert(DirAccess.make_dir_absolute(STORE.TEMP)==OK)
 	scene.get_node("Tidewraith Dragon").take_damage(10000)

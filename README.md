@@ -11,6 +11,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Island exploration:** forest trails, beaches, coastal water, mountain formations, ruins, and hunting camps.
 - **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
+- **Lantern seal quest:** follow the south-west trail from the Beach waystone, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on MAP marks Tideseal Ruins.
 - **Optional quests:** gather three grove flowers in Moonleaf Grove for a one-time 25-shard reward, recover Keeper relics, and complete the Western Watch bounty through the quest scroll.
 - **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
 - **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
@@ -53,13 +54,13 @@ Gameplay action buttons use icons without text labels. Tap/release the sword for
 
 ## Progress and travel
 
-One continuous island replaces the three sequential hunts. Clear five demons across three camps, restore the lantern, and defeat the Tidewraith; then continue exploring without advancing a level or reloading the map.
+One continuous island replaces the three sequential hunts. Recover the three lantern-seal fragments from Tideseal Ruins on the south-west coast, clear five demons across three camps, restore the lantern, and defeat the Tidewraith; then continue exploring without advancing a level or reloading the map.
 
-Cleared enemies, collected Moonleaf herbs and relics, Western Watch status, discovered/bound waystones, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
+Cleared enemies, seal fragments, collected Moonleaf herbs and relics, Western Watch status, discovered/bound waystones, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
 
 Death returns Aru to the bound waystone at full health while preserving world progress and potion stock. Dragon rewards and optional relic/bounty rewards are paid once; optional quests can finish after victory. Moonleaf plants are finite pickups in this prototype and do not respawn. The original eight pickups retain their IDs; five more grow in Moonleaf Grove, reached by the eastern trail from the Beach waystone. A green leaf on the island map marks the grove. Only grove flowers count toward its three-flower quest; each flower also provides one potion.
 
-Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. New journey explicitly resets the world; save failures keep the existing journey intact.
+Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. Earlier saves with an already-lit lantern automatically receive completed seal-fragment progress, keeping the lantern and dragon encounter state intact. New journey explicitly resets the world; save failures keep the existing journey intact.
 
 Approach a waystone to discover it and bind a water-rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
 

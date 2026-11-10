@@ -30,3 +30,7 @@ The player can move around the clearing, understand the controls, defeat the tid
 
 ## Persistent island progression
 The current game uses one continuous island: clear the camps, restore the northern lantern, defeat the dragon, then continue exploring. Quest actions and pickups persist across sessions. Optional herb gathering, relic recovery and Western Watch remain available after victory. New quests and characters can extend this world without chapter resets.
+
+
+## Lantern seal quest
+Recover three seal fragments at the south-west Tideseal Ruins and clear the three demon camps. Both objectives can be completed in either order. They unlock the northern lantern; lighting it reveals the Tidewraith. Each fragment is a persistent quest item collected with the contextual hand icon or E, with no potion cost or separate currency reward. Earlier saves with a lit lantern retain their progress automatically.

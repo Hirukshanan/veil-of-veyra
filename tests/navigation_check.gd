@@ -18,6 +18,9 @@ func _run():
 	for enemy in get_nodes_in_group("lock_targets"):
 		enemy.take_damage(1000)
 	scene._update_objective()
+	assert("Seal fragments" in scene.status_label.text)
+	scene.seal_fragments.restore([0,1,2])
+	scene._update_objective()
 	assert("Lantern" in scene.status_label.text)
 	assert("Water rescue: Beach" in scene._journal_text())
 	var map = scene.get_node("IslandExploration")

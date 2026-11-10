@@ -34,9 +34,9 @@ func _ready() -> void:
 			for index in range(1400):
 				var local := Vector3(rng.randf_range(-5,5),0.02,rng.randf_range(-5,5))
 				var world := center + local
-				var uv := (Vector2(world.x, world.z) / 104.0 + Vector2.ONE * 0.5) * 256.0
+				var uv := (Vector2(world.x, world.z) / 208.0 + Vector2.ONE * 0.5) * 512.0
 				var on_path := false
-				if uv.x >= 0 and uv.y >= 0 and uv.x < 256 and uv.y < 256:
+				if uv.x >= 0 and uv.y >= 0 and uv.x < 512 and uv.y < 512:
 					on_path = trail.get_pixel(int(uv.x), int(uv.y)).r > 0.15
 				var scale_value := 0.0 if on_path else rng.randf_range(0.65,1.15) * (1.65 if sin(world.x * 0.3) * cos(world.z * 0.27) > 0.65 else 1.0)
 				instances.set_instance_transform(index,Transform3D(Basis(Vector3.UP,rng.randf()*TAU).scaled(Vector3.ONE*scale_value),local))

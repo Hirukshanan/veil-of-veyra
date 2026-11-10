@@ -18,6 +18,7 @@ func _run() -> void:
 		var hero = scene.player
 		var spawn: Vector3 = hero.position
 		hero.position = scene.lantern.position
+		scene.seal_fragments.restore([0,1,2])
 		scene._interact_lantern()
 		assert(not scene.boss_spawned, "Enemies must be cleared before lighting")
 		hero.position = spawn
