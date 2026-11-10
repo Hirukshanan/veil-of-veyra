@@ -47,6 +47,7 @@ func run():
 	scene.keeper.accept()
 	hero.health=63
 	scene._process(5.1)
+	scene._finish_autosave(true)
 	assert(STORE.load_progress().data.world_data.health == 63, "Periodic autosave must persist player state")
 	scene._pause_game()
 	assert(STORE.read_file(STORE.PATH).error==OK)

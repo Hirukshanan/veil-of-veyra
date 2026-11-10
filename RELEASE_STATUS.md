@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Periodic autosaves run off the gameplay thread to prevent storage-induced walking stalls. Independent snapshots and serialized quest/menu/reset/exit writes retain save/backup safety. Slow-storage and rendered walking regression checks passed; confirmation on the reported phone is pending. Existing APKs do not include this fix.
+
 - Shallow-water movement boundary follows the irregular coast. Aru can wade briefly, slide along the shore and return to land; deep-water entry is blocked without ordinary health loss or respawn. Genuine falls retain emergency rescue. New wading positions save correctly, and old outside positions relocate safely without losing progress. Desktop physics/render checks passed; Android device acceptance and a new APK remain pending.
 
 - Tideseal Ruins: a south-west coastal ruin with three saved seal fragments, a trail from Beach waystone and a cyan map marker. The lantern requires both all fragments and cleared camps. Existing lit/completed journeys migrate with their seal already recovered (save version 4). No new APK has been exported for this quest.

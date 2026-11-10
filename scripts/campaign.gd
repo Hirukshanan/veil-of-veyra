@@ -8,6 +8,7 @@ const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach
 var world_data := CAMPAIGN_STORE.fresh_world()
 var _world_ready := false
 var _autosave_time := 0.0
+var _autosave_thread: Thread
 var _save_failed := false
 var shards := 0
 var blade_level := 0
@@ -41,12 +42,13 @@ var relic_status: Label
 var keeper: Node
 
 func _process(delta: float) -> void:
+	_finish_autosave()
 	if started and not game_finished:
 		_update_objective()
 		_autosave_time += delta
 		if _autosave_time >= 5.0:
 			_autosave_time = 0.0
-			_save_progress()
+			_start_autosave()
 
 func _build_lantern() -> void:
 	lantern = Node3D.new()
@@ -664,6 +666,7 @@ func _confirm_reset() -> void:
 	_menu_button("Reset progress", _reset_world)
 
 func _reset_world() -> void:
+	_finish_autosave(true)
 	var data := CAMPAIGN_STORE.DEFAULTS.duplicate()
 	data.world_data = CAMPAIGN_STORE.fresh_world()
 	var error: Error = CAMPAIGN_STORE.save_progress(data)
@@ -679,21 +682,54 @@ func _reload() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
-func _save_progress(capture := true) -> bool:
-	if progress_unreadable:
-		notice = "Save protected: unreadable progress was not overwritten. Use New journey to reset it."
-		return false
+# Capture only plain data on the main thread; the worker never touches the scene.
+func _progress_snapshot(capture := true) -> Dictionary:
 	if capture and _world_ready:
 		_capture_world()
 	var data := {}
 	for key in ["shards", "blade_level", "armor_level", "completed", "world_data"]:
 		data[key] = get(key)
-	var result: Error = CAMPAIGN_STORE.save_progress(data)
+	return data.duplicate(true)
+
+func _write_progress(data: Dictionary) -> Error:
+	return CAMPAIGN_STORE.save_progress(data)
+
+func _save_result(result: Error) -> bool:
 	_save_failed = result != OK
 	notice = "Progress saved." if result == OK else "Save failed. Keep the game open to retain this session."
 	return result == OK
 
+func _start_autosave() -> void:
+	if progress_unreadable or _autosave_thread != null:
+		return
+	var snapshot := _progress_snapshot()
+	_autosave_thread = Thread.new()
+	var error := _autosave_thread.start(_write_progress.bind(snapshot), Thread.PRIORITY_LOW)
+	if error != OK:
+		_autosave_thread = null
+		_save_result(error)
+
+func _finish_autosave(wait := false) -> void:
+	if _autosave_thread == null or (not wait and _autosave_thread.is_alive()):
+		return
+	var result: Error = _autosave_thread.wait_to_finish()
+	_autosave_thread = null
+	_save_result(result)
+
+func _save_progress(capture := true) -> bool:
+	# Serialize quest/menu/exit writes after an in-flight autosave, keeping the newest state.
+	_finish_autosave(true)
+	if progress_unreadable:
+		notice = "Save protected: unreadable progress was not overwritten. Use New journey to reset it."
+		return false
+	return _save_result(_write_progress(_progress_snapshot(capture)))
+
+func _exit_tree() -> void:
+	# A scene reload must not leave a worker writing over the next journey.
+	_finish_autosave(true)
+
 func _load_progress() -> void:
+	_finish_autosave(true)
 	var result: Dictionary = CAMPAIGN_STORE.load_progress()
 	progress_unreadable = result.error != OK
 	if progress_unreadable:
