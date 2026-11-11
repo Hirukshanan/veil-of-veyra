@@ -9,6 +9,8 @@ var stamina := 100.0
 var sprint_enabled := false
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
+const JUMP_SPEED := 7.2
+var _jumping := false
 const ATTACK_DURATION := 0.22
 const HEAVY_COST := 40.0
 const HEAVY_WINDUP := 0.6
@@ -136,12 +138,29 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
-	else:
+	elif not _jumping:
 		velocity.y = 0.0
 	move_and_slide()
-	_visual.update_motion(delta, Vector2(velocity.x, velocity.z).length(), _hit_time > 0)
+	if is_on_floor():
+		_jumping = false
+	_visual.update_motion(delta, Vector2(velocity.x, velocity.z).length(), _hit_time > 0, is_on_floor())
 	_camera_pivot.global_position = global_position + Vector3(0, 1.2, 0)
 
+
+func can_jump() -> bool:
+	return health > 0 and not get_tree().paused and is_on_floor() and not _jumping and _dodge_time <= 0.0 and _attack_cooldown <= 0.0 and _hit_time <= 0.0
+
+func jump() -> void:
+	if not can_jump():
+		return
+	_jumping = true
+	velocity.y = JUMP_SPEED
+	_visual.action("Jump_Start", 0.12)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.is_action_pressed(&"jump"):
+		jump()
+		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):

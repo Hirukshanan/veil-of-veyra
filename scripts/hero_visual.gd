@@ -3,12 +3,14 @@ extends Node3D
 # Quaternius CC0 art. Gameplay movement remains on the CharacterBody3D.
 const MODEL = preload("res://assets/characters/quaternius/Superhero_Male_FullBody.gltf")
 const MOTIONS = preload("res://assets/characters/quaternius/UAL1_Standard.glb")
-const CLIPS := ["Sword_Idle", "Walk", "Sprint", "Sword_Attack", "Roll", "Hit_Chest", "Death01", "Spell_Simple_Shoot"]
+# Godot imports the source Jump_Loop animation as Jump.
+const CLIPS := ["Sword_Idle", "Walk", "Sprint", "Sword_Attack", "Roll", "Hit_Chest", "Death01", "Spell_Simple_Shoot", "Jump_Start", "Jump", "Jump_Land"]
 
 var animator: AnimationPlayer
 var hand: BoneAttachment3D
 var _action_time := 0.0
 var _dead := false
+var _grounded := true
 var _meshes: Array[Node] = []
 var _flash: StandardMaterial3D
 
@@ -26,7 +28,7 @@ func _ready() -> void:
 	var library := AnimationLibrary.new()
 	for clip in CLIPS:
 		var animation: Animation = source_player.get_animation(clip).duplicate(true)
-		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Walk", "Sprint"] else Animation.LOOP_NONE
+		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Walk", "Sprint", "Jump"] else Animation.LOOP_NONE
 		for track in range(animation.get_track_count() - 1, -1, -1):
 			var bone_name := animation.track_get_path(track).get_subname(0)
 			var target_bone := skeleton.find_bone(bone_name)
@@ -57,16 +59,21 @@ func _ready() -> void:
 	animator.play("Sword_Idle")
 
 
-func update_motion(delta: float, speed: float, hurt: bool) -> void:
+func update_motion(delta: float, speed: float, hurt: bool, grounded := true) -> void:
 	for mesh in _meshes:
 		mesh.material_overlay = _flash if hurt else null
 	_action_time = maxf(0, _action_time - delta)
+	var landed := grounded and not _grounded
+	_grounded = grounded
+	if landed and not _dead and not hurt and _action_time <= 0.0:
+		action("Jump_Land", 0.12)
+		return
 	if _dead or _action_time > 0:
 		return
-	var clip := "Sword_Idle" if speed <= 0.2 else ("Walk" if speed < 3.0 else "Sprint")
+	var clip := "Jump" if not grounded else ("Sword_Idle" if speed <= 0.2 else ("Walk" if speed < 3.0 else "Sprint"))
 	if animator.current_animation != clip:
 		animator.play(clip, 0.12)
-	animator.speed_scale = 1.0 if clip == "Sword_Idle" else clampf(speed / (2.0 if clip == "Walk" else 5.2), 0.25, 1.5)
+	animator.speed_scale = 1.0 if clip in ["Sword_Idle", "Jump"] else clampf(speed / (2.0 if clip == "Walk" else 5.2), 0.25, 1.5)
 
 
 func action(clip: String, duration: float) -> void:

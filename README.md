@@ -41,7 +41,8 @@ godot --editor --path .
 | Sprint | Shift | Running figure icon |
 | Sword combo | J | Tap the sword icon |
 | Heavy attack | H | Hold the sword icon for 0.4 seconds |
-| Dodge | K / Space | Evasion/boot icon |
+| Dodge | K | Evasion/boot icon |
+| Jump | Space | Jumping figure icon above Sprint |
 | Target lock | Tab | Keyboard only; no HUD button |
 | Spirit Burst | L | Starburst icon |
 | Collect herb / light lantern | E | Contextual hand / lantern icon |
@@ -50,7 +51,7 @@ godot --editor --path .
 | Pause / resume | Escape | Pause icon / Resume |
 | Heal | On-screen button | Potion icon |
 
-Gameplay action buttons use icons without text labels. Tap/release the sword for a normal attack; hold for 0.4 seconds for one heavy attack. Moving the finger off the button or opening a menu cancels a pending hold. Collection responds on touch-down or the E key event. Heavy attacks cost **40 stamina**. Spirit Burst requires a full spirit meter. In-game guides explain combat timing and optional rewards.
+Gameplay action buttons use icons without text labels. Tap/release the sword for a normal attack; hold for 0.4 seconds for one heavy attack. Moving the finger off the button or opening a menu cancels a pending hold. Collection responds on touch-down or the E key event. Jump is available while grounded and moving, with no double jump; attacks, dodges and hit reactions must finish before takeoff. Space jumps and K dodges. Heavy attacks cost **40 stamina**. Spirit Burst requires a full spirit meter. In-game guides explain combat timing and optional rewards.
 
 ## Progress and travel
 

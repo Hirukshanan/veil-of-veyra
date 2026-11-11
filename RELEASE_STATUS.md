@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Grounded jump: icon-only round button above Sprint, with Space on keyboard and K retained for dodge. Movement continues in the air; takeoff/air/landing animations use the existing Quaternius library. Midair repeat and menu/death/committed-action guards are checked. Desktop input/layout/visual validation passed; phone acceptance remains pending.
+
 - Expanded island: land-mesh radius 120 m (from 96 m; approximately 56% larger footprint), six separated rolling hills with walkable slopes, two tall woodland areas and a tree-free sandy coast. Hills, vegetation, minimap, shoreline foam and movement/save bounds agree. Existing quest locations/progress remain intact; old below-ground saves are raised safely. Desktop checks and native previews passed; APK/device acceptance remains pending.
 
 - Periodic autosaves run off the gameplay thread to prevent storage-induced walking stalls. Independent snapshots and serialized quest/menu/reset/exit writes retain save/backup safety. Slow-storage and rendered walking regression checks passed; confirmation on the reported phone is pending. Existing APKs do not include this fix.

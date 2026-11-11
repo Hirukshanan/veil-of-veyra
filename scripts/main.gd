@@ -79,7 +79,8 @@ func _setup_input() -> void:
 	_bind_keys(&"attack", [KEY_J])
 	_bind_keys(&"heavy_attack", [KEY_H])
 	_bind_keys(&"sprint", [KEY_SHIFT])
-	_bind_keys(&"dodge", [KEY_K, KEY_SPACE])
+	_bind_keys(&"dodge", [KEY_K])
+	_bind_keys(&"jump", [KEY_SPACE])
 	_bind_keys(&"target_lock", [KEY_TAB])
 	_bind_keys(&"spirit_burst", [KEY_L])
 
@@ -265,10 +266,18 @@ func _build_hud() -> void:
 	_set_action_icon(sprint_button,"sprint","Sprint")
 	sprint_button.pressed.connect(Callable(player,"toggle_sprint"))
 	root.add_child(sprint_button)
+	var jump_button := _make_button("",Vector2(-292,-188),Vector2(-212,-108))
+	jump_button.name = "JumpButton"
+	_set_action_icon(jump_button,"jump","Jump")
+	jump_button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
+	jump_button.disabled = true
+	jump_button.pressed.connect(Callable(player,"jump"))
+	root.add_child(jump_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
+		jump_button.disabled = not player.can_jump()
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		sprint_button.meter = player.stamina/100.0
 		sprint_button.self_modulate = Color(1.0,0.8,0.4) if player.sprint_enabled else Color.WHITE
@@ -280,7 +289,7 @@ func _build_hud() -> void:
 
 	var hint := Label.new()
 	hint.name = "ControlsHint"
-	hint.text = "Drag open space to turn the camera" if OS.has_feature("mobile") else "WASD: Move   J: Attack   K: Dodge   Esc: Pause"
+	hint.text = "Drag open space to turn the camera" if OS.has_feature("mobile") else "WASD: Move   J: Attack   K: Dodge   Space: Jump   Esc: Pause"
 	hint.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	hint.offset_left = 28
 	hint.offset_right = -210
