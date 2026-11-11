@@ -8,14 +8,14 @@ func _run():
 	await process_frame
 	await physics_frame
 	await physics_frame
-	var rim = scene.get_node("IslandExploration/MountainRim")
-	assert(rim.get_child_count() == 13)
+	var hills = preload("res://scripts/mountain_rim.gd")
+	assert(hills.PEAKS.size()==6)
 	var space = scene.get_world_3d().direct_space_state
-	for peak in rim.PEAKS:
-		var position := Vector3(peak.x + peak.z * 0.18, 0, peak.y)
+	for peak in hills.PEAKS:
+		var position := Vector3(peak.x, 0, peak.y)
 		var hit = space.intersect_ray(PhysicsRayQueryParameters3D.create(position + Vector3.UP * 40, position + Vector3.DOWN * 3, 1))
-		assert(not hit.is_empty() and hit.position.y > 8.0, "Every peak must have matching physical terrain")
-		assert(hit.collider.collision_layer & 4, "Mountain must block camera")
+		assert(not hit.is_empty() and absf(hit.position.y - peak.w) < 0.3, "Every peak must have matching physical terrain")
+		assert(hit.collider.collision_layer & 1, "Mountain must block camera")
 	for route in preload("res://scripts/island_terrain.gd").trails():
 		for point in route:
 			var hit = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 40, point + Vector3.DOWN * 3, 1))
@@ -39,5 +39,5 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: seven solid camera-blocking peaks, unobstructed trails, larger demon scale/colliders, snarl transition and bounded growl")
+	print("PASS: six broad walkable hills, unobstructed trails, larger demon scale/colliders, snarl transition and bounded growl")
 	quit()

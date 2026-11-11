@@ -804,7 +804,7 @@ func _show_island_map() -> void:
 		for index in range(3):
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
-	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: mountain peaks. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
+	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: rolling hills. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	for index in range(3):
@@ -910,6 +910,10 @@ func _restore_world() -> void:
 		if flat.length() > coast - 0.4:
 			var safe_radius := coast - 1.0
 			player.global_position = Vector3(cos(angle) * safe_radius, 0, sin(angle) * safe_radius)
+	# Expanded land and new hills can cover a formerly valid saved beach position.
+	var ground_height: float = terrain_script.height_at(Vector2(player.position.x,player.position.z))
+	if player.position.y < ground_height - 0.25:
+		player.position.y = ground_height + 0.1
 	if player.health <= 0:
 		player.health = player.max_health
 		player.global_position = player.rescue_position

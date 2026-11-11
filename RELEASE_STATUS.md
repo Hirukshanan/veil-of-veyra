@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Expanded island: land-mesh radius 120 m (from 96 m; approximately 56% larger footprint), six separated rolling hills with walkable slopes, two tall woodland areas and a tree-free sandy coast. Hills, vegetation, minimap, shoreline foam and movement/save bounds agree. Existing quest locations/progress remain intact; old below-ground saves are raised safely. Desktop checks and native previews passed; APK/device acceptance remains pending.
+
 - Periodic autosaves run off the gameplay thread to prevent storage-induced walking stalls. Independent snapshots and serialized quest/menu/reset/exit writes retain save/backup safety. Slow-storage and rendered walking regression checks passed; confirmation on the reported phone is pending. Existing APKs do not include this fix.
 
 - Shallow-water movement boundary follows the irregular coast. Aru can wade briefly, slide along the shore and return to land; deep-water entry is blocked without ordinary health loss or respawn. Genuine falls retain emergency rescue. New wading positions save correctly, and old outside positions relocate safely without losing progress. Desktop physics/render checks passed; Android device acceptance and a new APK remain pending.

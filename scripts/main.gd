@@ -102,6 +102,7 @@ func _build_island() -> void:
 	water.position.y = -1.45
 	var sea_material := ShaderMaterial.new()
 	sea_material.shader = preload("res://assets/environment/coastal_water.gdshader")
+	sea_material.set_shader_parameter("waterline_base",preload("res://scripts/island_terrain.gd").WATERLINE_BASE)
 	water.material_override = sea_material
 	add_child(water)
 

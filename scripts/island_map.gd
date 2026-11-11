@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _point(world: Vector3) -> Vector2:
 	var radius := minf(size.x, size.y) * 0.5 - 38.0
-	return size * 0.5 + Vector2(world.x, world.z) * radius / 96.0
+	return size * 0.5 + Vector2(world.x, world.z) * radius / preload("res://scripts/island_terrain.gd").OUTER_RADIUS
 
 func _caption(at: Vector2, text: String, color: Color) -> void:
 	draw_string(ThemeDB.fallback_font, at, text, HORIZONTAL_ALIGNMENT_CENTER, -1, 16, color)
@@ -24,12 +24,18 @@ func _draw() -> void:
 	var center := size * 0.5
 	draw_style_box(_background(), Rect2(Vector2.ZERO, size))
 	var terrain = preload("res://scripts/island_terrain.gd")
-	for base in [90.5, 70.0]:
+	for base in [terrain.WATERLINE_BASE, terrain.GRASS_RADIUS]:
 		var outline := PackedVector2Array()
 		for index in range(128):
 			var angle := index * TAU / 128.0
 			outline.append(_point(Vector3(cos(angle), 0, sin(angle)) * terrain.coast_radius(angle, base)))
-		draw_colored_polygon(outline, Color(0.73, 0.64, 0.42) if base > 80 else Color(0.19, 0.31, 0.23))
+		draw_colored_polygon(outline, Color(0.73, 0.64, 0.42) if base == terrain.WATERLINE_BASE else Color(0.19, 0.31, 0.23))
+	for forest in terrain.FORESTS:
+		var woodland:=PackedVector2Array()
+		for index in range(24):
+			var angle:=index*TAU/24.0
+			woodland.append(_point(Vector3(forest.x+cos(angle)*forest.z,0,forest.y+sin(angle)*forest.w)))
+		draw_colored_polygon(woodland,Color(0.10,0.23,0.14))
 	for peak in preload("res://scripts/mountain_rim.gd").PEAKS:
 		var point := _point(Vector3(peak.x, 0, peak.y))
 		draw_colored_polygon(PackedVector2Array([point + Vector2(0, -8), point + Vector2(-7, 5), point + Vector2(7, 5)]), Color(0.58, 0.62, 0.65))

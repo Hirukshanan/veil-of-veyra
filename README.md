@@ -8,7 +8,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 
 ## Explore, fight, reclaim
 
-- **Island exploration:** forest trails, beaches, coastal water, mountain formations, ruins, and hunting camps.
+- **Island exploration:** a larger island with six scattered, walkable grassy hills, tall woodland areas, forest trails, ruins and hunting camps. A clear sandy coast surrounds the land.
 - **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
 - **Lantern seal quest:** follow the south-west trail from the Beach waystone, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on MAP marks Tideseal Ruins.
@@ -62,7 +62,7 @@ Death returns Aru to the bound waystone at full health while preserving world pr
 
 Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. Earlier saves with an already-lit lantern automatically receive completed seal-fragment progress, keeping the lantern and dragon encounter state intact. New journey explicitly resets the world; save failures keep the existing journey intact.
 
-Aru can wade a short distance into shallow coastal water. An invisible boundary follows the irregular coastline and blocks deeper water while allowing movement along the shore and back to land; ordinary water entry does not cost health or teleport Aru. Genuine falls below the terrain still trigger emergency rescue and its existing health penalty. Older saved positions outside the boundary are moved just inside it without changing health or progress.
+Aru can wade a short distance into shallow coastal water. An invisible boundary follows the irregular coastline and blocks deeper water while allowing movement along the shore and back to land; ordinary water entry does not cost health or teleport Aru. Genuine falls below the terrain still trigger emergency rescue and its existing health penalty. Older saved positions outside the boundary are moved just inside it without changing health or progress. After terrain changes, saved positions below the new ground are raised safely above it.
 
 Approach a waystone to discover it and bind a rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
 

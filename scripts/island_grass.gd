@@ -1,5 +1,7 @@
 extends Node3D
 
+const TERRAIN = preload("res://scripts/island_terrain.gd")
+
 func _ready() -> void:
 	var trail := preload("res://scripts/island_terrain.gd").trail_mask().get_image()
 	var rng := RandomNumberGenerator.new()
@@ -12,15 +14,15 @@ func _ready() -> void:
 	blade.generate_normals()
 	var mesh := blade.commit()
 	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(0.26,0.43,0.085)
+	material.albedo_color = Color(0.23,0.34,0.10)
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	material.vertex_color_use_as_albedo = true
 	mesh.surface_set_material(0,material)
 	# Separate chunks allow distance culling instead of drawing the whole island.
-	for x in range(-6,7):
-		for z in range(-6,7):
+	for x in range(-9,10):
+		for z in range(-9,10):
 			var center := Vector3(x*10,0,z*10)
-			if center.length() > 65: continue
+			if center.length() > TERRAIN.GRASS_RADIUS - 5: continue
 			var patch := MultiMeshInstance3D.new()
 			patch.position = center
 			patch.visibility_range_end = 30.0
@@ -34,7 +36,8 @@ func _ready() -> void:
 			for index in range(1400):
 				var local := Vector3(rng.randf_range(-5,5),0.02,rng.randf_range(-5,5))
 				var world := center + local
-				var uv := (Vector2(world.x, world.z) / 208.0 + Vector2.ONE * 0.5) * 512.0
+				local.y = TERRAIN.height_at(Vector2(world.x,world.z)) - 0.06
+				var uv := (Vector2(world.x, world.z) / TERRAIN.TRAIL_SPAN + Vector2.ONE * 0.5) * 512.0
 				var on_path := false
 				if uv.x >= 0 and uv.y >= 0 and uv.x < 512 and uv.y < 512:
 					on_path = trail.get_pixel(int(uv.x), int(uv.y)).r > 0.15

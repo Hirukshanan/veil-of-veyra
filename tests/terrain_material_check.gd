@@ -8,10 +8,10 @@ func _initialize() -> void:
 	var image := mask.get_image()
 	for route in terrain.trails():
 		for point in route:
-			var pixel := Vector2i((Vector2(point.x, point.z) / 208.0 + Vector2.ONE * 0.5) * 512.0)
+			var pixel := Vector2i((Vector2(point.x, point.z) / terrain.TRAIL_SPAN + Vector2.ONE * 0.5) * 512.0)
 			assert(image.get_pixelv(pixel).r > 0.85, "Trail center must remain continuous")
 	for point in [Vector2(28, 0), Vector2(-28, 0), Vector2(0, 40), Vector2(40, 0)]:
-		var pixel := Vector2i((point / 208.0 + Vector2.ONE * 0.5) * 512.0)
+		var pixel := Vector2i((point / terrain.TRAIL_SPAN + Vector2.ONE * 0.5) * 512.0)
 		assert(image.get_pixelv(pixel).r == 0.0, "Trail texture must not spill over the beach")
 	var soft_pixels := 0
 	for x in range(512):

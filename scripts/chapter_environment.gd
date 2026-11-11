@@ -51,21 +51,27 @@ func _column(parent: Node3D, radius: float, height: float, color: Color) -> void
 	parent.add_child(blocker)
 
 func _tree(parent: Node3D, size_factor: float) -> void:
-	var tree := preload("res://assets/environment/island_tree_01_mobile.scn").instantiate()
-	tree.scale = Vector3.ONE * size_factor
+	var tree := MeshInstance3D.new()
+	tree.mesh=preload("res://assets/environment/forest_tree_mobile.res")
+	tree.visibility_range_end=55.0
+	tree.scale = Vector3(size_factor,size_factor*2.4,size_factor)
 	tree.rotation.y = parent.position.x * 0.7
 	parent.add_child(tree)
-	for mesh in tree.find_children("*", "MeshInstance3D", true, false):
-		mesh.visibility_range_end = 55.0
+	var canopy:=MeshInstance3D.new()
+	canopy.mesh=preload("res://scripts/tree_canopy.gd").mesh()
+	canopy.scale=tree.scale
+	canopy.rotation=tree.rotation
+	canopy.visibility_range_end=55.0
+	parent.add_child(canopy)
 	var blocker := StaticBody3D.new()
 	blocker.collision_layer = 4 | 8
 	blocker.collision_mask = 0
 	var collision := CollisionShape3D.new()
 	var shape := CylinderShape3D.new()
 	shape.radius = 0.38 * size_factor
-	shape.height = 3.0 * size_factor
+	shape.height = 7.2 * size_factor
 	collision.shape = shape
-	collision.position.y = 1.5 * size_factor
+	collision.position.y = 3.6 * size_factor
 	blocker.add_child(collision)
 	parent.add_child(blocker)
 

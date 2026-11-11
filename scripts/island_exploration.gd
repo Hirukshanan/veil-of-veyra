@@ -12,18 +12,11 @@ var _waystone_labels: Array[Label3D] = []
 func _ready() -> void:
 	add_child(preload("res://scripts/island_grass.gd").new())
 	add_child(preload("res://scripts/moonleaf_grove.gd").new())
-	add_child(preload("res://scripts/mountain_rim.gd").new())
+	var forest:=preload("res://scripts/island_forest.gd").new()
+	for camp in CAMPS: forest.clearings.append(Vector4(camp.x,camp.y,camp.z,6.5))
+	for stone in CHECKPOINTS: forest.clearings.append(Vector4(stone.x,stone.y,stone.z,4.0))
+	add_child(forest)
 	var decor = preload("res://scripts/chapter_environment.gd").new()
-	for index in range(20):
-		var tree := Node3D.new()
-		tree.position = Vector3((-1 if index % 2 == 0 else 1) * (8 + (index % 4) * 3), 0, 22 - (index / 2) * 4.3)
-		tree.position.x += sin(index * 5.3) * 1.8
-		tree.position.z += cos(index * 3.7) * 1.4
-		add_child(tree)
-		if tree.position.z > 10:
-			decor._palm(tree)
-		else:
-			decor._grove_tree(tree, index)
 	for index in range(12):
 		var fern := preload("res://assets/environment/fern_02_mobile.scn").instantiate()
 		fern.position = Vector3((-1 if index % 2 == 0 else 1) * (6 + index % 4), 0, 18 - index * 3.5)

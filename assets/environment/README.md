@@ -19,7 +19,7 @@ The tree and fern source glTF packages are retained for reproducibility, but
 excluded from game export. Generated mobile SCNs depend only on their textures.
 Run `godot --headless --path . --script res://tools/prepare_environment.gd`
 after importing sources to regenerate the reduced scenes using native mesh LODs.
-Final geometry: tree 16,794 triangles; fern cluster (four plants) 6,232 triangles.
+Original reduced geometry: tree 16,794 triangles; fern cluster (four plants) 6,232 triangles. The current gameplay tree uses the smaller derivative described below.
 Mesh density, tree count and visibility distances were reduced for mobile;
 physical-device performance has not been measured on this version.
 
@@ -28,7 +28,7 @@ are sourced above. Coastal water shader is original project code. This is a
 realism improvement pass, not a photorealistic terrain or swimming simulation.
 
 The island now uses one opaque ground material blending sand, grass and soil.
-A cached 256x256 single-channel mask is rasterized from the navigation trails.
+A cached 512x512 single-channel mask over a 256 m span is rasterized from the navigation trails.
 World-space planar diffuse/normal samples preserve detail across boundaries.
 The grass edge varies along the coastline; wet sand darkens and becomes less
 rough near the water. Water foam follows the same radial shoreline function.
@@ -42,3 +42,26 @@ and six lower connecting ridges, with matching terrain/camera collision.
 Its original shader samples the existing CC0 rock diffuse map with world-space
 triplanar mapping and desaturates it to a grey-brown rock palette. These are
 scenic perimeter formations, not a designed mountain-climbing quest area.
+
+## Expanded island woodland and hills
+
+The current land mesh extends to a base radius of 120 m (previously 96 m), with
+six broad hills built into the same visible/collision surface. Tree-free sand
+and shallow water surround the inland grass. Ground, foam, boundary and map
+use the shared radii from island_terrain.gd. Existing quest locations are retained.
+
+forest_tree_mobile.res reuses the original CC0 tree's textured trunk/branches
+with 1,835 triangles. Regenerate it with:
+
+```sh
+godot --headless --path . --script res://tools/prepare_forest_tree.gd
+```
+
+The existing Poly Haven leaf atlas supplies 500 original leaf cards (1,000
+triangles) per canopy, rendered with an alpha-scissor shader. No new raster art
+or external asset download was added. The original dense leaf surface is omitted
+from the derivative. Forest trees are spatially batched in 20 m cells, culled at
+70 m, and use individual player/camera trunk colliders. Existing central/grove
+trees use the same wood/canopy meshes with taller proportions. New woodland
+placement excludes trails, camp/waystone clearings, pickups and the coastal strip.
+These are mobile geometry budgets, not a physical-device performance guarantee.

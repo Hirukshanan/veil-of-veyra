@@ -133,19 +133,12 @@ func run():
 		scene._restore_world()
 		assert(hero.position.is_equal_approx(saved), "Resting against the wall must not cause relocation on reload")
 
-	# A save inside the previous 92m limit may be outside a concave part of the new coast.
-	var old_angle := 0.0
-	for index in range(128):
-		var angle := index * TAU / 128.0
-		if TERRAIN.coast_radius(angle, TERRAIN.SHALLOW_WATER_BASE) < 91.5:
-			old_angle = angle
-			break
-	assert(old_angle != 0.0)
-	hero.position = Vector3(cos(old_angle) * 91.8, -1.7, sin(old_angle) * 91.8)
+	# The old waterline is dry land after expansion. Raise old submerged saves safely.
+	hero.position = Vector3(0,-1.7,91.8)
 	assert(scene._save_progress(), "Old save positions must remain readable for relocation")
 	await close_world()
 	await open_world()
-	assert(Vector2(hero.position.x, hero.position.z).length() < coast(hero.position) - 0.9)
+	assert(hero.position.y >= TERRAIN.height_at(Vector2(hero.position.x,hero.position.z)))
 	assert(hero.health == 63 and scene.potions == 5 and scene.shards == 27 and scene.seal_fragments.complete(),
 		"Relocation must preserve resources and quest progress")
 	assert(scene._save_progress())
@@ -154,7 +147,7 @@ func run():
 	await open_world()
 	assert(hero.position.is_equal_approx(safe_position), "A relocated save must remain stable on the next reopen")
 	var invalid: Dictionary = scene.world_data.duplicate(true)
-	invalid.position = Vector3(120, 0, 0)
+	invalid.position = Vector3(TERRAIN.OUTER_RADIUS+20,0,0)
 	assert(not STORE.valid_world(invalid, false, 0))
 	await close_world()
 	print("PASS: seamless coast, shallow water without damage, emergency recovery, all seal pickups, wading save/reload and legacy position relocation")
