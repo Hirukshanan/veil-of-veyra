@@ -84,3 +84,13 @@ To complete packaging verification later, run with permitted Godot editor config
 Reviewed PNGs: `arrival_hud.png`, `island_overview.png`, `forest.png`, `beach.png`, `ruins.png`, `dragon_identity_inspection.png`, `dragon_eye_inspection.png`. Capture script and logs are local in the evidence directory. The Dragon appears in a separate inspection scene; no cameo trigger or story scene was added. The arrival hero remains temporary art. No video/full player route was recorded in this audit.
 
 `preservation.json` records 306 original tracked-file hashes checked, zero changed, branch `main`. Only six new documentation files are added to the tracked scope; test/capture data is ignored.
+
+## Phase 1 follow-up (separate from the Phase 0 results above)
+
+**20/20 targeted checks PASS** on the final Phase 1 code, including new `chapter_route_check` and existing terrain/regions, mountain, material, prop/camera collision, navigation, beach seals, grove/herbal, persistent-world/save/autosave/gameplay, island-map/layout/safe-area, fast-travel, environment and complete shallow-water checks. No warnings in this selected subset; unrelated Phase 0 heavy/sprint warnings are not declared fixed.
+
+Evidence is isolated in `.validation/ch1_phase1_2026-11-13/`. The new test uses oversized capsule sweeps and actual controller movement for a 711-waypoint shore/foothills/forest/ruins/grove loop, eastern return, Moonleaf round trip and partial-seal save/reopen. Native rendered rerun passes and provides a 20.4-second controlled route video at 4x simulation with enemy AI frozen. This advances desktop T04/T05 route evidence, not mobile combat/touch acceptance.
+
+Grove floor and reserved Dragon camera/perch orientation/sightlines are checked; native retained-model framing is previewed only in validation. T11/T11A story boss/reveal remain absent; no Phase 5 progression feature was added. Save version, rewards and quest coordinates are retained.
+
+Two map sizes (1280x720 and 800x450), overview, woodland and new clearing were visually reviewed. Desktop before/after counters and capture-method limitations are in [Phase 1 report](CH1_PHASE1_REPORT.md). No connected handset, sustained thermal test or new APK. Packaging keeps the Phase 0 environment blocker. Hardware acceptance remains open.

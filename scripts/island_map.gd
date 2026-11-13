@@ -18,7 +18,8 @@ func _point(world: Vector3) -> Vector2:
 	return size * 0.5 + Vector2(world.x, world.z) * radius / preload("res://scripts/island_terrain.gd").OUTER_RADIUS
 
 func _caption(at: Vector2, text: String, color: Color) -> void:
-	draw_string(ThemeDB.fallback_font, at, text, HORIZONTAL_ALIGNMENT_CENTER, -1, 16, color)
+	var font_size := 14 if minf(size.x, size.y) < 300.0 else 16
+	draw_string(ThemeDB.fallback_font, at, text, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size, color)
 
 func _draw() -> void:
 	var center := size * 0.5
@@ -58,7 +59,14 @@ func _draw() -> void:
 	_caption(seals+Vector2(-30,-11),"Tideseal",Color(0.65,0.95,1.0))
 	var grove := _point(preload("res://scripts/moonleaf_grove.gd").CENTER)
 	draw_colored_polygon(PackedVector2Array([grove+Vector2(-6,5),grove+Vector2(-4,-4),grove+Vector2(6,-6),grove+Vector2(4,4)]),Color(0.35,1.0,0.48))
-	_caption(grove+Vector2(-28,20),"Grove",Color(0.65,1.0,0.7))
+	_caption(grove+Vector2(-28,20),"Moonleaf",Color(0.65,1.0,0.7))
+	var region = terrain.REGION
+	var ancient := _point(region.GROVE_CENTER)
+	draw_arc(ancient, 8.0, 0, TAU, 24, Color(0.98, 0.78, 0.42), 2.0, true)
+	draw_line(ancient + Vector2(4, -5), ancient + Vector2(12, -24), Color(0.98, 0.78, 0.42), 1.0, true)
+	_caption(ancient + Vector2(14, -26), "Ancient Grove", Color(1.0, 0.86, 0.61))
+	var rise := _point(Vector3(-64, 0, 18))
+	_caption(rise + Vector2(-105, 0), "Western Rise", Color(0.78, 0.83, 0.75))
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))
 	var right := Vector2(-forward.y, forward.x)

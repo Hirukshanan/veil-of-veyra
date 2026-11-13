@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Chapter I route pass: three connecting woodland/grove trails, a small central trunk/pillar detour, four solid wayfinding stones, clearer map landmarks and a separate Ancient Grove clearing. Existing terrain heights, sea, quest coordinates, rewards and version-4 saves are retained. Dragon perch/camera markers reserve a later shot without creating a cutscene or changing the current boss. Desktop route/save/collision evidence is in `docs/CH1_PHASE1_REPORT.md`; phone performance/acceptance and a new Android build remain pending. No new branch or commit was created by the implementation agent.
+
 - Grounded jump: icon-only round button above Sprint, with Space on keyboard and K retained for dodge. Movement continues in the air; takeoff/air/landing animations use the existing Quaternius library. Midair repeat and menu/death/committed-action guards are checked. Desktop input/layout/visual validation passed; phone acceptance remains pending.
 
 - Expanded island: land-mesh radius 120 m (from 96 m; approximately 56% larger footprint), six separated rolling hills with walkable slopes, two tall woodland areas and a tree-free sandy coast. Hills, vegetation, minimap, shoreline foam and movement/save bounds agree. Existing quest locations/progress remain intact; old below-ground saves are raised safely. Desktop checks and native previews passed; Included in Android debug 0.12.0-dev/code 27; phone acceptance remains pending.

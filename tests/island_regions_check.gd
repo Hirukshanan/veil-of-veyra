@@ -17,7 +17,14 @@ func run():
 	var space=scene.get_world_3d().direct_space_state
 	assert(TERRAIN.OUTER_RADIUS==120 and TERRAIN.WATERLINE_BASE==114.5)
 	var forest=scene.get_node("IslandExploration/TallForests")
-	assert(forest.tree_positions.size()>=40 and forest.tree_positions.size()<=65)
+	# New trails, the grove and its vista deliberately reduce tree density.
+	assert(forest.tree_positions.size()>=32 and forest.tree_positions.size()<=65)
+	for woodland in TERRAIN.FORESTS:
+		var trees := 0
+		for point in forest.tree_positions:
+			if ((Vector2(point.x,point.z)-Vector2(woodland.x,woodland.y))/Vector2(woodland.z,woodland.w)).length()<1.0:
+				trees += 1
+		assert(trees>=12,"Both woodland areas must retain a substantial canopy")
 	assert(forest.tree_heights.min()>12.0 and forest.tree_heights.max()<17.0)
 	var mesh: Mesh=forest.TREE_MESH
 	var triangles:=0

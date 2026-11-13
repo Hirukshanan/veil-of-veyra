@@ -31,3 +31,7 @@ Date: 2026-11-13. Status derives from the local Phase 0 audit. Items are dedupli
 Already reusable: persistent island, beach/forest meshes and collision, sea shader, hero rig/jump/controller, scroll-only bounty, three seal fragments, herbs/grove quest, fast travel, numeric upgrades and version-4 save/backup/async autosave. Passing desktop tests do not remove physical-device acceptance requirements.
 
 Next authorized scope after review: **Phase 1 only**. Preserve `main`, original user changes, the retired giant-wolf spawn, no mandatory NPC, original Dragon eyes/identity and personal saves.
+
+## Phase 1 implementation update
+
+The owner subsequently authorized Phase 1. C1-01 and C1-02 now have desktop implementations: connected routes, existing trunk/pillar avoidance, four solid waymarks, separate Ancient Grove floor, map landmarks and a clear, oriented Dragon camera/perch reservation. See `CH1_REGION_LAYOUT.md` and `CH1_PHASE1_REPORT.md` for exact evidence and phone/build limitations. This does not implement C1-11/C1-12 boss/reveal behavior. Phase 2 remains a proposal until owner review.

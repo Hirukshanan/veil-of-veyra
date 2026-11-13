@@ -807,6 +807,7 @@ func _show_island_map() -> void:
 	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: rolling hills. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
+	legend += "\n\nTRAILS\nFrom Tideseal Ruins, follow the woodland trail north past Western Rise to the lantern ruins. The north-east path reaches Ancient Grove (gold ring); its eastern trail returns to the forest camp. Moonleaf Grove remains the optional flower clearing on the south-east trail."
 	for index in range(3):
 		legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
 	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovered waystones remain saved. Travel does not restore health, stamina or potions."

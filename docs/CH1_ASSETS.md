@@ -17,3 +17,7 @@ Date: 2026-11-13. Offline repository inventory; no assets were downloaded, uploa
 | Cursed Bear, production Boar/Serpent, finished hero equipment | No dedicated production assets found in inspected inventory | Unknown / not acquired | Do not purchase/import or claim readiness in Phase 0. A fallback procedural animal is not proof of a licensed production species or its combat behavior. |
 
 Existing `campaign.gd::_show_art_credits` lists Dragon/CC BY/source/modifications, wolf, Quaternius and Poly Haven. Check complete shipped attributions, dependency notices and font notices before public distribution. There is no commercial release approval in this audit.
+
+## Phase 1 additions
+
+Four low-poly wayfinding stones, text labels and non-rendered geography markers are defined procedurally in `scripts/chapter_one_region.gd`. The stones share one project-generated cylinder mesh and reuse the existing Poly Haven rock material/CC0 textures. No new model, texture, font, audio, dependency, purchase or external asset acquisition was introduced. The original license gaps above remain unchanged. Dragon framing previews use the retained asset locally in ignored validation scripts; no new Dragon copy or story scene is shipped.

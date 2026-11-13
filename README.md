@@ -9,6 +9,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 ## Explore, fight, reclaim
 
 - **Island exploration:** a larger island with six scattered, walkable grassy hills, tall woodland areas, forest trails, ruins and hunting camps. A clear sandy coast surrounds the land.
+- **Connected trails:** walk north from Tideseal Ruins past Western Rise and through the western woodland to the lantern ruins. Continue north-east to Ancient Grove, then return through the eastern woodland to the forest camp. The map marks both Ancient Grove and the separate optional Moonleaf Grove. Ancient Grove is currently an exploration clearing; its later story encounter is not implemented.
 - **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
 - **Lantern seal quest:** follow the south-west trail from the Beach waystone, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on MAP marks Tideseal Ruins.

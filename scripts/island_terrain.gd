@@ -1,6 +1,7 @@
 extends RefCounted
 
 const HILLS = preload("res://scripts/mountain_rim.gd")
+const REGION = preload("res://scripts/chapter_one_region.gd")
 const FORESTS := [Vector4(-39,-7,20,26),Vector4(30,-41,21,20)]
 const INNER_RADIUS := 100.0
 const OUTER_RADIUS := 120.0
@@ -83,13 +84,15 @@ static func ground() -> ArrayMesh:
 
 static func trails() -> Array[PackedVector3Array]:
 	var routes: Array[PackedVector3Array] = []
-	for points in [
-		[Vector3(0, 0, 29), Vector3(0, 0, 27), Vector3(-3, 0, 18), Vector3(0, 0, 12), Vector3(0, 0, 2), Vector3(2, 0, -4), Vector3(-2, 0, -13), Vector3(0, 0, -20), Vector3(0, 0, -25)],
+	var point_sets := [
+		[Vector3(0, 0, 29), Vector3(0, 0, 27), Vector3(-3, 0, 18), Vector3(0, 0, 12), Vector3(0, 0, 2), Vector3(2, 0, -4), Vector3(0, 0, -13), Vector3(3, 0, -16), Vector3(3, 0, -20), Vector3(0, 0, -20), Vector3(0, 0, -25)],
 		[Vector3(0, 0, 12), Vector3(-8, 0, 9), Vector3(-18, 0, 12)],
 		[Vector3(2, 0, -4), Vector3(9, 0, -1), Vector3(16, 0, -4)],
 		[Vector3(0,0,27), Vector3(12,0,29), Vector3(24,0,29), Vector3(36,0,28), Vector3(44,0,28)],
 		[Vector3(0,0,27),Vector3(-6,0,36),Vector3(-20,0,43),Vector3(-35,0,48),Vector3(-44,0,54)]
-	]:
+	]
+	point_sets.append_array(REGION.TRAILS)
+	for points in point_sets:
 		var curve := Curve3D.new()
 		curve.bake_interval = 0.8
 		for index in range(points.size()):
@@ -110,16 +113,21 @@ static func trail_mask() -> ImageTexture:
 	for route_index in range(routes.size()):
 		var radius := 3.0 if route_index == 0 else 2.3
 		for point in routes[route_index]:
-			var center := (Vector2(point.x, point.z) / TRAIL_SPAN + Vector2.ONE * 0.5) * 512.0
-			var pixels := ceili(radius * 512.0 / TRAIL_SPAN)
-			for y in range(maxi(0, int(center.y) - pixels), mini(512, int(center.y) + pixels + 1)):
-				for x in range(maxi(0, int(center.x) - pixels), mini(512, int(center.x) + pixels + 1)):
-					var distance := (Vector2(x + 0.5, y + 0.5) - center).length() * TRAIL_SPAN / 512.0
-					var weight := 1.0 - smoothstep(radius * 0.4, radius, distance)
-					if weight > image.get_pixel(x, y).r:
-						image.set_pixel(x, y, Color(weight, 0, 0))
+			_paint_mask(image, Vector2(point.x, point.z), radius)
+	# Reuse the same material/grass mask; no extra overlay mesh or per-frame work.
+	_paint_mask(image, Vector2(REGION.GROVE_CENTER.x, REGION.GROVE_CENTER.z), REGION.GROVE_RADIUS)
 	_trail_mask = ImageTexture.create_from_image(image)
 	return _trail_mask
+
+static func _paint_mask(image: Image, point: Vector2, radius: float) -> void:
+	var center := (point / TRAIL_SPAN + Vector2.ONE * 0.5) * 512.0
+	var pixels := ceili(radius * 512.0 / TRAIL_SPAN)
+	for y in range(maxi(0, int(center.y) - pixels), mini(512, int(center.y) + pixels + 1)):
+		for x in range(maxi(0, int(center.x) - pixels), mini(512, int(center.x) + pixels + 1)):
+			var distance := (Vector2(x + 0.5, y + 0.5) - center).length() * TRAIL_SPAN / 512.0
+			var weight := 1.0 - smoothstep(radius * 0.4, radius, distance)
+			if weight > image.get_pixel(x, y).r:
+				image.set_pixel(x, y, Color(weight, 0, 0))
 
 static func material(chapter: int) -> ShaderMaterial:
 	var result := ShaderMaterial.new()

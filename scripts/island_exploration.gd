@@ -10,6 +10,7 @@ var discovered: Array[bool] = [true, false, false]
 var _waystone_labels: Array[Label3D] = []
 
 func _ready() -> void:
+	add_child(preload("res://scripts/chapter_one_region.gd").new())
 	add_child(preload("res://scripts/island_grass.gd").new())
 	add_child(preload("res://scripts/moonleaf_grove.gd").new())
 	var forest:=preload("res://scripts/island_forest.gd").new()

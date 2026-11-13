@@ -73,6 +73,7 @@ static func _inside_forest(point: Vector2) -> bool:
 
 func _clear_ground(point: Vector2,trail: Image) -> bool:
 	if TERRAIN.contour(point)>TERRAIN.GRASS_RADIUS-6.0: return false
+	if TERRAIN.REGION.reserves_forest(point): return false
 	var pixel:=Vector2i((point/TERRAIN.TRAIL_SPAN+Vector2.ONE*0.5)*512.0)
 	if trail.get_pixelv(pixel).r>0.02: return false
 	for clearing in clearings:
