@@ -682,3 +682,13 @@ Debug version: 0.3.0-dev (code 13).
 - Passed jump_check, layout_check, safe_area_check, hero_animation_check, heavy_attack_check, interaction_controls_check, pause_check and gameplay_check. interaction_controls_check reported two existing shutdown ObjectDB instances; its behavioral assertions passed.
 - Native 800x450 offscreen captures reviewed with the button grounded/enabled and airborne/disabled. The airborne capture records height 1.08 m and the Jump clip. No foreground game window was opened. PNGs and synthetic saves remain ignored local validation artifacts.
 - No APK exported and no changes staged, committed or pushed. Physical-phone verification remains pending.
+
+
+## Android debug 0.12.0-dev (2026-11-11)
+
+- Exported current project using Godot 4.7.2 Android Debug preset: `builds/android/veyra-0.12.0-dev.apk`; `veyra-debug.apk` contains the same build.
+- Version code 27; package `com.hirukshanan.veilofveyra.dev`; ARM64; minimum API 24; target API 36.
+- APK signature verification passed. Signing certificate matches 0.11.1-dev, allowing an in-place update.
+- ZIP integrity passed. Jump icon, player script, reduced forest tree, foliage shader, island forest and beach seal scripts are included; development tests/tools are excluded.
+- File size: 95,784,476 bytes. SHA-256: `55231FC649A2241E6C8F460CBF8B5C0715D1BD26DF71B4979A2B5850ABE795C5`.
+- Export stderr was empty. This is packaging verification; installation, jump touch controls, expanded-island performance, save continuity and sustained gameplay still require phone testing.
