@@ -1,0 +1,55 @@
+{
+  "clips": {
+    "idle": {
+      "frames": 120,
+      "seconds": 4.0,
+      "speed_mps": 0.0,
+      "duty": 1.0,
+      "stride_m": 0.0,
+      "lift_m": 0.0
+    },
+    "walk": {
+      "frames": 36,
+      "seconds": 1.2,
+      "speed_mps": 0.65,
+      "duty": 0.65,
+      "stride_m": 0.507,
+      "lift_m": 0.12
+    },
+    "run": {
+      "frames": 18,
+      "seconds": 0.6,
+      "speed_mps": 2.6,
+      "duty": 0.42,
+      "stride_m": 0.6552,
+      "lift_m": 0.19
+    }
+  },
+  "measurements": {
+    "idle": {
+      "ik_target_error_m": 3.9085379387748244e-07,
+      "stance_sole_height_error_m": 3.8023753745619615e-07,
+      "stance_slip_per_frame_m": 6.92908396280756e-07,
+      "leg_length_relative_error": 5.473177733250623e-07,
+      "root_translation_m": 0.0,
+      "loop_matrix_difference": 0.0
+    },
+    "walk": {
+      "ik_target_error_m": 7.069166152699343e-05,
+      "stance_sole_height_error_m": 6.062842658138834e-05,
+      "stance_slip_per_frame_m": 3.911814368809885e-05,
+      "leg_length_relative_error": 6.317024763280443e-07,
+      "root_translation_m": 0.0,
+      "loop_matrix_difference": 0.0
+    },
+    "run": {
+      "ik_target_error_m": 0.00010850318766101664,
+      "stance_sole_height_error_m": 7.571203605039045e-05,
+      "stance_slip_per_frame_m": 4.347412692958987e-05,
+      "leg_length_relative_error": 8.357872876008088e-07,
+      "root_translation_m": 0.0,
+      "loop_matrix_difference": 0.0
+    }
+  },
+  "notes": "Slip is measured after compensating the in-place cycle with its declared travel speed. Preview actor displacement is separate from exported root motion."
+}

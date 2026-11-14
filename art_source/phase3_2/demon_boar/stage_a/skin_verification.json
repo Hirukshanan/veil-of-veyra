@@ -1,0 +1,141 @@
+{
+  "result": "PASS",
+  "editable_control_bones": 41,
+  "runtime_deform_bones": 30,
+  "weights": {
+    "DemonBoar_LOD0": {
+      "vertices": 59964,
+      "unweighted": 0,
+      "maximum_influences": 4,
+      "maximum_weight_sum_error": 0.0
+    },
+    "DemonBoar_HighSource": {
+      "vertices": 1023627,
+      "unweighted": 0,
+      "maximum_influences": 4,
+      "maximum_weight_sum_error": 0.0
+    }
+  },
+  "sampled_skin_deformation": {
+    "idle": [
+      {
+        "frame": 1,
+        "minimum_z_m": -0.0001726187765598297,
+        "edge_stretch_p99": 1.074644832611084,
+        "edge_stretch_max": 1.2706965208053589,
+        "long_edges_over_2x": 0
+      },
+      {
+        "frame": 31,
+        "minimum_z_m": -0.0001726783812046051,
+        "edge_stretch_p99": 1.0803147304058074,
+        "edge_stretch_max": 1.2922465801239014,
+        "long_edges_over_2x": 0
+      },
+      {
+        "frame": 61,
+        "minimum_z_m": -0.0001726187765598297,
+        "edge_stretch_p99": 1.0735498309135436,
+        "edge_stretch_max": 1.2622437477111816,
+        "long_edges_over_2x": 0
+      },
+      {
+        "frame": 91,
+        "minimum_z_m": -0.0001726783812046051,
+        "edge_stretch_p99": 1.068269282579422,
+        "edge_stretch_max": 1.242072582244873,
+        "long_edges_over_2x": 0
+      }
+    ],
+    "walk": [
+      {
+        "frame": 1,
+        "minimum_z_m": -0.0001726187765598297,
+        "edge_stretch_p99": 1.4487195563316344,
+        "edge_stretch_max": 3.091209650039673,
+        "long_edges_over_2x": 110
+      },
+      {
+        "frame": 10,
+        "minimum_z_m": -1.922808587551117e-05,
+        "edge_stretch_p99": 1.3952256572246549,
+        "edge_stretch_max": 3.1307473182678223,
+        "long_edges_over_2x": 63
+      },
+      {
+        "frame": 19,
+        "minimum_z_m": -0.0001727379858493805,
+        "edge_stretch_p99": 1.4570725929737087,
+        "edge_stretch_max": 3.5302536487579346,
+        "long_edges_over_2x": 114
+      },
+      {
+        "frame": 28,
+        "minimum_z_m": -0.00017249956727027893,
+        "edge_stretch_p99": 1.379618865251541,
+        "edge_stretch_max": 2.87884783744812,
+        "long_edges_over_2x": 64
+      }
+    ],
+    "run": [
+      {
+        "frame": 1,
+        "minimum_z_m": -0.0001726485788822174,
+        "edge_stretch_p99": 1.5948333203792568,
+        "edge_stretch_max": 3.6416242122650146,
+        "long_edges_over_2x": 216
+      },
+      {
+        "frame": 5,
+        "minimum_z_m": -0.00017258897423744202,
+        "edge_stretch_p99": 1.4921837139129632,
+        "edge_stretch_max": 3.6847565174102783,
+        "long_edges_over_2x": 150
+      },
+      {
+        "frame": 10,
+        "minimum_z_m": -1.917220652103424e-05,
+        "edge_stretch_p99": 1.5794213116168976,
+        "edge_stretch_max": 3.243597984313965,
+        "long_edges_over_2x": 178
+      },
+      {
+        "frame": 15,
+        "minimum_z_m": -1.9468367099761963e-05,
+        "edge_stretch_p99": 1.445391056537628,
+        "edge_stretch_max": 3.4620604515075684,
+        "long_edges_over_2x": 118
+      }
+    ]
+  },
+  "high_source_vertices_preserved": true,
+  "original_source_glb_sha256": "950ca3587e4e0ab59dd727d75d21cec613ed146b6852f2de65e3ef2a82cc06cd",
+  "sha256": {
+    "demon_boar_stage_a.blend": "ea386562911e22d6ffaf2e1a3c979430945604bf3e8ca22aad166d809b0576b1",
+    "demon_boar_stage_a.glb": "3545d9111c6699be40ad5016e43628b614ac4aefadb3c1a899ed7f95f02f98f0"
+  },
+  "notes": "Edge samples are diagnostics for visual review, not a blanket anatomical-quality certification.",
+  "animated_uv_seam_regression": {
+    "idle": {
+      "sampled_frames": 121,
+      "maximum_coincident_seam_gap_m": 0.0,
+      "coincident_seam_groups": 0
+    },
+    "walk": {
+      "sampled_frames": 37,
+      "maximum_coincident_seam_gap_m": 0.0,
+      "coincident_seam_groups": 0
+    },
+    "run": {
+      "sampled_frames": 19,
+      "maximum_coincident_seam_gap_m": 0.0,
+      "coincident_seam_groups": 0
+    }
+  },
+  "surface_topology": {
+    "boundary_edges": 0,
+    "loose_edges": 0,
+    "nonmanifold_edges": 0,
+    "note": "UVs remain per-corner; exported UV-split vertices inherit the shared geometric skin weights."
+  }
+}

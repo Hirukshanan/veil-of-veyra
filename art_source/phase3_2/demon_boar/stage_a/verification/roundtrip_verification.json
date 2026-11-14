@@ -1,0 +1,30 @@
+{
+  "clips": {
+    "idle": {
+      "maximum_deformation_matrix_error": 1.428648829460144e-06,
+      "imported_frame_range": [
+        0.0,
+        120.0
+      ],
+      "sampled_frames": 121
+    },
+    "walk": {
+      "maximum_deformation_matrix_error": 1.5664845705032349e-06,
+      "imported_frame_range": [
+        0.0,
+        36.0
+      ],
+      "sampled_frames": 37
+    },
+    "run": {
+      "maximum_deformation_matrix_error": 1.6354024410247803e-06,
+      "imported_frame_range": [
+        0.0,
+        18.0
+      ],
+      "sampled_frames": 19
+    }
+  },
+  "maximum_allowed_matrix_error": 0.0001,
+  "result": "PASS"
+}

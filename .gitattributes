@@ -1,0 +1,7 @@
+# Binary art sources and review media use Git LFS.
+art_source/**/*.blend filter=lfs diff=lfs merge=lfs -text
+art_source/**/*.glb filter=lfs diff=lfs merge=lfs -text
+art_source/**/*.zip filter=lfs diff=lfs merge=lfs -text
+art_source/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+art_source/**/*.png filter=lfs diff=lfs merge=lfs -text
+art_source/**/*.jpg filter=lfs diff=lfs merge=lfs -text

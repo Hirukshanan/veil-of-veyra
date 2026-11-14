@@ -1,0 +1,55 @@
+{
+  "phase": "3.1 supplied-source review only",
+  "input_sha256": "950ca3587e4e0ab59dd727d75d21cec613ed146b6852f2de65e3ef2a82cc06cd",
+  "input_bytes": 50880796,
+  "source_meshes": 1,
+  "source_materials": 1,
+  "source_textures": 1,
+  "source_skins": 0,
+  "source_animations": 0,
+  "meshes": [
+    {
+      "name": "tripo_node_313fa8bd-7632-4876-9b5d-9e770c1e5476",
+      "vertices": 1023627,
+      "triangles": 1917784,
+      "uv_layers": 1,
+      "degenerate_triangles": 0,
+      "material_slots": 1
+    }
+  ],
+  "total_vertices": 1023627,
+  "total_triangles": 1917784,
+  "degenerate_triangles": 0,
+  "dimensions_imported_units": [
+    0.978790283203125,
+    0.317779541015625,
+    0.50372314453125
+  ],
+  "bounds_minimum": [
+    -0.48931884765625,
+    -0.158782958984375,
+    -0.25164794921875
+  ],
+  "bounds_maximum": [
+    0.489471435546875,
+    0.15899658203125,
+    0.2520751953125
+  ],
+  "armature_objects": 0,
+  "animation_actions": 0,
+  "textures": [
+    {
+      "name": "base_color.jpg",
+      "width": 4096,
+      "height": 4096,
+      "packed": true
+    }
+  ],
+  "finite_geometry": true,
+  "mesh_edits_performed": false,
+  "rigging_performed": false,
+  "animation_work_performed": false,
+  "network_processing_performed": false,
+  "game_integration_performed": false,
+  "source_texture_reload_count": 1
+}

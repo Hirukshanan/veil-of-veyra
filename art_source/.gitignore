@@ -1,0 +1,10 @@
+# Preserve final deliverables; keep working snapshots local.
+*.blend1
+*.blend2
+phase3_1/demon_boar/previews/
+phase3_1/demon_boar/revision_*/
+phase3_1/demon_boar/tripo_import_01/demon_boar_source.blend
+phase3_2/demon_boar/stage_a/prepared_source.blend
+phase3_2/demon_boar/stage_a/rigged_*.blend
+phase3_2/demon_boar/stage_a/locomotion_work.blend
+phase3_2/demon_boar/stage_a/runtime_export_snapshot.blend

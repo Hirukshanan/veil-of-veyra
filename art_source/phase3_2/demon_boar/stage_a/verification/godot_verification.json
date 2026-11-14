@@ -1,0 +1,31 @@
+{
+  "clips": {
+    "idle": {
+      "duration_seconds": 4.0,
+      "maximum_deformation_matrix_error": 0.00000163912773132324,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 121
+    },
+    "run": {
+      "duration_seconds": 0.600000023841858,
+      "maximum_deformation_matrix_error": 0.00000149011611938477,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 19
+    },
+    "walk": {
+      "duration_seconds": 1.20000004768372,
+      "maximum_deformation_matrix_error": 0.00000117253512144089,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 37
+    }
+  },
+  "engine": "4.7.2-stable (official)",
+  "imported_uv_seam_duplicates": 28237,
+  "maximum_imported_seam_weight_difference": 0.0,
+  "maximum_weight_sum_error": 0.0000458215363323689,
+  "mesh_vertices": 88201,
+  "result": "PASS",
+  "skeleton_bones": 30,
+  "skin_joints": 30,
+  "triangles": 120000
+}
