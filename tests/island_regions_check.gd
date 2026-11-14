@@ -12,7 +12,7 @@ func run():
 	scene._resume()
 	var hero=scene.player
 	hero.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 	await physics_frame
 	var space=scene.get_world_3d().direct_space_state
 	assert(TERRAIN.OUTER_RADIUS==120 and TERRAIN.WATERLINE_BASE==114.5)

@@ -1,8 +1,9 @@
 extends Node
 
 const PATH := "user://hud_profile.cfg"
-const MOVABLE := ["MovementJoystick","SprintButton","AttackButton","DodgeButton","JumpButton","GuardButton","TargetLockButton","SpiritBurstButton","InteractButton","HealButton"]
-const SIZES := {"MovementJoystick":144.0,"SprintButton":54.0,"AttackButton":100.0,"DodgeButton":68.0,"JumpButton":68.0,"GuardButton":72.0,"TargetLockButton":60.0,"SpiritBurstButton":62.0,"InteractButton":56.0,"HealButton":56.0}
+const MOVABLE := ["MovementJoystick","SprintButton","AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton"]
+const PRIMARY := ["MovementJoystick","AttackButton"]
+const SIZES := {"MovementJoystick":144.0,"SprintButton":54.0,"AttackButton":144.0,"DodgeButton":68.0,"JumpButton":68.0,"GuardButton":76.0,"SpiritBurstButton":62.0,"InteractButton":56.0,"HealButton":56.0}
 var hud_scale := 1.0
 var left_handed := false
 var profile: Dictionary = {"preset":"Battle","controls":{}}
@@ -45,26 +46,33 @@ func rectangles(bounds: Vector2, draft: Dictionary = {}, use_settings := true) -
 	var data: Dictionary = profile if draft.is_empty() else draft
 	var f := ui_factor(bounds)
 	var s := f * (hud_scale if use_settings else 1.0)
+	# Equal primary diameters and identical edge margins balance both thumbs.
+	var primary_radius := clampf(float(SIZES.MovementJoystick)*s,104.0,210.0)*0.5
+	var secondary_radius := clampf(float(SIZES.GuardButton)*s,48.0,150.0)*0.5
+	var sprint_radius := clampf(float(SIZES.SprintButton)*s,48.0,150.0)*0.5
+	var edge := clampf(36.0*s,32.0,48.0)
+	var gap := maxf(12.0*f,10.0)
+	var movement := Vector2(edge+primary_radius,bounds.y-edge-primary_radius)
+	var attack := Vector2(bounds.x-movement.x,movement.y)
+	var reach := primary_radius+secondary_radius+gap
+	var row := secondary_radius*2.0+gap
 	var centers := {
-		"MovementJoystick":Vector2(38+72*s,bounds.y-40-72*s),
-		"SprintButton":Vector2(38+72*s,bounds.y-56-174*s),
-		"AttackButton":bounds+Vector2(-90,-100)*s,
-		"DodgeButton":bounds+Vector2(-202,-80)*s,
-		"JumpButton":bounds+Vector2(-84,-214)*s,
-		"GuardButton":bounds+Vector2(-198,-188)*s,
-		"TargetLockButton":bounds+Vector2(-298,-128)*s,
-		"SpiritBurstButton":bounds+Vector2(-202,-286)*s,
-		"InteractButton":bounds+Vector2(-84,-308)*s,
+		"MovementJoystick":movement,
+		"SprintButton":movement-Vector2(0,primary_radius+sprint_radius+gap),
+		"AttackButton":attack,
+		"DodgeButton":attack+Vector2(-reach,24.0*s),
+		"JumpButton":attack-Vector2(0,reach),
+		"GuardButton":attack-Vector2(reach,row),
+		"SpiritBurstButton":attack-Vector2(reach,row*2.0),
+		"InteractButton":attack-Vector2(0,reach+row),
 		"HealButton":Vector2(bounds.x*0.5-66*f,bounds.y-48*f)
 	}
 	var preset: String = str(data.get("preset","Battle"))
-	if preset=="Classic":
-		centers.TargetLockButton=bounds+Vector2(-300,-75)*s
 	var mirror := preset=="Left-Handed" or (use_settings and left_handed)
 	var result := {}
 	for key in MOVABLE:
 		var entry: Dictionary = data.get("controls",{}).get(key,{})
-		var diameter := clampf(float(SIZES[key])*s*float(entry.get("scale",1.0)),104.0 if key=="MovementJoystick" else 48.0,210.0 if key=="MovementJoystick" else 150.0)
+		var diameter := clampf(float(SIZES[key])*s*float(entry.get("scale",1.0)),104.0 if key in PRIMARY else 48.0,210.0 if key in PRIMARY else 150.0)
 		var center: Vector2 = centers[key]
 		if mirror: center.x=bounds.x-center.x
 		if entry.has("x") and entry.has("y"): center=Vector2(float(entry.x),float(entry.y))*bounds
@@ -111,7 +119,7 @@ static func style_button(button: Button) -> void:
 			var style:=StyleBoxFlat.new()
 			style.bg_color=Color(0.045,0.065,0.067,0.75 if state=="pressed" else 0.62)
 			style.border_color=Color("f4e6b9") if state=="pressed" else Color("ae9e78")
-			style.set_border_width_all(2 if state=="pressed" else 1)
+			style.set_border_width_all(2 if state=="pressed" or button.name=="AttackButton" else 1)
 			style.set_corner_radius_all(80)
 			style.shadow_color=Color(0,0,0,0.25)
 			style.shadow_size=2
@@ -150,17 +158,18 @@ func layout_error(data: Dictionary, bounds: Vector2) -> String:
 	return ""
 
 static func display_name(value: String) -> String:
-	return value.replace("Button","").replace("MovementJoystick","Movement").replace("Target","Target ").replace("SpiritBurst","Spirit burst").capitalize()
+	return value.replace("Button","").replace("MovementJoystick","Movement").replace("SpiritBurst","Spirit burst").capitalize()
 
 func load_profile() -> void:
 	for path in [PATH,PATH+".bak"]:
 		var config:=ConfigFile.new()
 		if config.load(path)==OK and config.get_value("hud","version",0)==1:
 			var data: Variant=config.get_value("hud","profile",{})
-			# Retire the separate cycle icon without discarding existing custom layouts.
+			# Retire removed combat controls without discarding existing custom layouts.
 			if data is Dictionary and data.get("controls") is Dictionary:
 				data=data.duplicate(true)
 				data.controls.erase("TargetSwitchButton")
+				data.controls.erase("TargetLockButton")
 			if valid_data(data):
 				profile=data.duplicate(true)
 				return

@@ -226,7 +226,7 @@ func map_overlay(canvas: Control) -> void:
 	canvas.draw_arc(center,radius,0,TAU,64,GOLD,2,true)
 	canvas.draw_arc(center,radius-4,0,TAU,64,Color(0.8,0.75,0.55,0.55),1,true)
 	canvas.draw_string(TITLE,Vector2(center.x-5,14),"N",HORIZONTAL_ALIGNMENT_LEFT,-1,12,INK)
-	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if is_instance_valid(enemy) and enemy.health>0:
 			var at:=center+Vector2(enemy.global_position.x,enemy.global_position.z)*radius/125
 			if at.distance_to(center)<radius-8: canvas.draw_circle(at,2.4,Color("da674e"))

@@ -1,10 +1,14 @@
 # Gameplay validation — 2026-11-03
 
+## Balanced primary controls — 2026-11-14
+
+Joystick/attack now intentionally share a 144-pixel base diameter, matching responsive limits, identical margins and reflected lower-corner centers. Smaller dodge/guard/jump controls cluster near attack; sprint remains above movement, potions remain bottom-center, target lock remains absent and editing stays in Settings. Eight focused checks pass, including explicit mirror/equal-size assertions, cutout/scale/handedness coverage and preserved combat/editor gestures. Six native game/editor captures and measured runtime coordinates are recorded in [CH1_BALANCED_HUD_REPORT.md](docs/CH1_BALANCED_HUD_REPORT.md). The heavy-attack check retains its known two-instance shutdown warning; native capture diagnostics are empty. Owner screenshot approval and physical-phone acceptance remain pending.
+
 ## Rigged starter hero replacement — 2026-11-14
 
 The owner rejected the previous hero; its body/outfit is now replaced by the prepared Quaternius Ranger, retaining the base face, 65 bones and all eleven selected motions. Eight targeted checks pass after the final sword-finger pose: hero_presentation_check, hero_animation_check, jump_check, heavy_attack_check, combat_check, gameplay_check, hud_customization_check and mobile_controls_check. Native front/three-quarter/side/back and action-pose screenshots, actual geometry/texture counts, warning details and short desktop frame samples are recorded in [CH1_HERO_UPGRADE_REPORT.md](docs/CH1_HERO_UPGRADE_REPORT.md). New art remains pending owner review. No sustained phone performance claim or next-phase authorization is implied.
 
-Latest HUD cleanup verification is recorded separately in `docs/CH1_HUD_CLEANUP_REPORT.md`. It covers the gameplay-only button allowlist, tap/hold target lock, hold/release/drag/menu cancellation, legacy-profile migration and the retained editor. Earlier runs below retain their original scope.
+Latest HUD cleanup verification is recorded in [CH1_TARGET_LOCK_REMOVAL_REPORT.md](docs/CH1_TARGET_LOCK_REMOVAL_REPORT.md): target-lock removal, inert Tab combat input, free facing/manual camera, ordinary sword damage, retired-control profile migration and the retained editor. Earlier target-lock runs below are historical evidence for the now-removed feature.
 
 ## Phase 2 HUD redesign — 2026-11-14
 
@@ -79,7 +83,7 @@ godot --headless --path . --script res://tests/layout_check.gd
 godot --headless --path . --script res://tests/save_check.gd
 godot --headless --path . --script res://tests/enemy_check.gd
 godot --headless --path . --script res://tests/boss_phase_check.gd
-godot --headless --path . --script res://tests/target_lock_check.gd
+godot --headless --path . --script res://tests/free_combat_check.gd
 godot --headless --path . --script res://tests/environment_check.gd
 godot --headless --path . --script res://tests/spirit_check.gd
 godot --headless --path . --script res://tests/hero_animation_check.gd

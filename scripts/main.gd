@@ -56,9 +56,9 @@ class IslandJoystick extends Control:
 
 	func _draw() -> void:
 		var center := size * 0.5
-		var radius := minf(size.x,size.y)*0.46
-		draw_circle(center,radius,Color(0.035,0.05,0.045,0.48))
-		draw_arc(center,radius,0,TAU,64,Color(0.77,0.73,0.54,0.82),1.5,true)
+		var radius := minf(size.x,size.y)*0.5-1.0
+		draw_circle(center,radius,Color(0.035,0.05,0.045,0.62))
+		draw_arc(center,radius,0,TAU,64,Color("ae9e78"),2,true)
 		draw_arc(center,radius*0.91,0,TAU,64,Color(0.77,0.73,0.54,0.30),1,true)
 		for i in range(4):
 			var direction:=Vector2.UP.rotated(i*PI/2)
@@ -90,7 +90,6 @@ func _setup_input() -> void:
 	_bind_keys(&"sprint", [KEY_SHIFT])
 	_bind_keys(&"dodge", [KEY_K])
 	_bind_keys(&"jump", [KEY_SPACE])
-	_bind_keys(&"target_lock", [KEY_TAB])
 	_bind_keys(&"spirit_burst", [KEY_L])
 	_bind_keys(&"guard", [KEY_F])
 
@@ -283,14 +282,6 @@ func _build_hud() -> void:
 	jump_button.disabled = true
 	jump_button.pressed.connect(Callable(player,"jump"))
 	root.add_child(jump_button)
-	var lock_button := _make_button("",Vector2(-108,-284),Vector2(-44,-220))
-	# Reuse the established cancellable tap/hold gesture without another gameplay icon.
-	lock_button.set_script(preload("res://scripts/attack_button.gd"))
-	lock_button.name = "TargetLockButton"
-	_set_action_icon(lock_button,"lock","Tap to lock or unlock; hold to switch target")
-	lock_button.tap_requested.connect(Callable(player,"toggle_target_lock"))
-	lock_button.heavy_requested.connect(Callable(player,"switch_target_lock"))
-	root.add_child(lock_button)
 	var guard_button := _make_button("",Vector2(-230,-224),Vector2(-158,-152))
 	guard_button.name="GuardButton"
 	_set_action_icon(guard_button,"guard","Hold to guard; timed press to parry")
@@ -303,7 +294,6 @@ func _build_hud() -> void:
 	combat_hud_timer.timeout.connect(func():
 		guard_button.meter = 1.0 if player.guarding else 0.0
 		guard_button.disabled = player.health<=0 or player.stamina<20.0
-		lock_button.self_modulate = Color(1.0,0.8,0.4) if is_instance_valid(player.locked_target) else Color.WHITE
 		jump_button.disabled = not player.can_jump()
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		sprint_button.meter = player.stamina/100.0

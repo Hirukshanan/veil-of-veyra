@@ -55,7 +55,9 @@ Final preservation check: 313 pre-phase tracked files compared; 13 planned files
 
 ## Phase 2 review state
 
-Latest HUD cleanup: the separate arrow/swap-looking target-cycle button is removed from gameplay and the editor control list. Tap target lock to lock/unlock; hold 0.4 seconds to cycle targets. Editing remains exclusively in Settings > Controls > Customize HUD. Existing custom layouts migrate without losing other control settings. See CH1_HUD_CLEANUP_REPORT.md; Phase 3 remains unstarted.
+Current layout review: [CH1_BALANCED_HUD_REPORT.md](CH1_BALANCED_HUD_REPORT.md). The owner rejected the unequal primary sizes and movement-side guard position. Defaults now intentionally match joystick/attack size and mirror their lower-corner anchors; sprint stays above the joystick and smaller dodge/guard/jump controls cluster near attack. Target lock remains absent under the owner's explicit correction. Settings-only editing and prior hero/gameplay systems remain intact. Screenshot approval is still pending; Phase 3 remains unstarted.
+
+Latest HUD cleanup: the owner requested complete removal of the target-lock feature. Its crosshair button, Tab combat binding, target selection/switching, automatic facing/camera steering and target marker are removed. The HUD editor omits both retired target controls and migrates old profiles while preserving remaining settings. Combat uses movement-facing sword attacks and manual camera look. See [CH1_TARGET_LOCK_REMOVAL_REPORT.md](CH1_TARGET_LOCK_REMOVAL_REPORT.md). Phase 3 remains unstarted.
 
 Phase 1 was committed by the owner as `4f9a6ed`. Phase 2 started from clean `main`, 319 tracked files. The agent created no branch, commit, push or deployment. Initial controls/outfit work was extended by the subsequent authorized HUD redesign: separate gameplay/editor scripts, four further original SVGs, saved layout profiles and a focused editor/guard regression. Campaign save version/quest IDs, phase-1 geometry, enemy stats and Dragon art remain intact.
 

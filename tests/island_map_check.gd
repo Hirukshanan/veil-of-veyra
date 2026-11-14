@@ -16,7 +16,7 @@ func _run():
 	assert(paused and scene.pause_menu_open)
 	assert(map.camps_cleared == [false, false, false])
 	assert(map.player_position == scene.player.global_position)
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() == scene.ENEMY_SCRIPT and enemy._home.distance_to(load("res://scripts/island_exploration.gd").CAMPS[0]) < 6.0:
 			enemy.take_damage(1000)
 	scene._show_island_map()

@@ -25,7 +25,7 @@ func run():
 	await process_frame
 	scene._resume()
 	scene.player.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 	scene.player.position=scene.herbs.LOCATIONS[0]
 	await process_frame
 	var potions:int=scene.potions
@@ -56,7 +56,7 @@ func run():
 	var attack=scene.find_child("AttackButton",true,false)
 	attack.tap_requested.connect(func(): light_taps+=1)
 	attack.heavy_requested.connect(func(): heavy_taps+=1)
-	assert(scene.find_child("HeavyAttackButton",true,false)==null and scene.find_child("TargetLockButton",true,false)!=null)
+	assert(scene.find_child("HeavyAttackButton",true,false)==null and scene.find_child("TargetLockButton",true,false)==null)
 	for layer in scene.get_children():
 		if layer is CanvasLayer and layer!=scene.overlay:
 			for button in layer.find_children("*","Button",true,false):

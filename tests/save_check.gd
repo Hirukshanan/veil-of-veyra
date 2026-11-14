@@ -76,7 +76,7 @@ func run():
 	current_scene = scene
 	await process_frame
 	scene._resume()
-	for enemy in get_nodes_in_group("lock_targets"): enemy.take_damage(1000)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.take_damage(1000)
 	await process_frame
 	scene.player.position=scene.lantern.position
 	scene.seal_fragments.restore([0,1,2])

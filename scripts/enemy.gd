@@ -42,7 +42,7 @@ static var _growl_stream: AudioStreamWAV
 
 
 func _ready() -> void:
-	add_to_group("lock_targets")
+	add_to_group("combat_enemies")
 	collision_layer = 2
 	collision_mask = 1
 	match kind:

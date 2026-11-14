@@ -29,33 +29,10 @@ func run():
 	var hero=scene.player
 	hero.set_physics_process(false)
 	hero.position=Vector3.ZERO
-	var targets=[]
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
-		enemy.position=Vector3(40,0,0)
-		targets.append(enemy)
-	targets[0].position=Vector3(-2,0,-4)
-	targets[1].position=Vector3(2,0,-5)
-	var lock=scene.find_child("TargetLockButton",true,false)
-	assert(scene.find_child("TargetSwitchButton",true,false)==null,"Gameplay must not contain the paired-arrow switch icon")
-	tap(lock)
-	assert(hero.locked_target==targets[0],"Touch must acquire nearest eligible target")
-	var lock_at: Vector2=lock.get_global_rect().get_center()
-	touch(lock_at,true,4)
-	await create_timer(0.45).timeout
-	assert(hero.locked_target==targets[1],"Holding target lock must cycle a distinct target")
-	await create_timer(0.45).timeout
-	assert(hero.locked_target==targets[1],"One hold must cycle only once")
-	touch(lock_at,false,4)
-	assert(hero.locked_target==targets[1],"Hold release must not toggle the lock off")
-	# Leaving the circular hit area cancels the hold without changing the target.
-	touch(lock_at,true,4)
-	drag(lock_at+Vector2(-90,0),Vector2(-90,0),4)
-	await create_timer(0.45).timeout
-	touch(lock_at+Vector2(-90,0),false,4)
-	assert(hero.locked_target==targets[1],"Dragging away must cancel target switching")
-	tap(lock)
-	assert(not is_instance_valid(hero.locked_target))
+	assert(scene.find_child("TargetLockButton",true,false)==null,"Target lock must not appear in gameplay")
+	assert(scene.find_child("TargetSwitchButton",true,false)==null,"Target switch must not appear in gameplay")
 	var joystick=get_first_node_in_group("movement_joysticks")
 	var joy: Vector2=joystick.get_global_rect().get_center()
 	touch(joy,true,0)
@@ -84,35 +61,6 @@ func run():
 	scene._resume()
 	drag(camera_at,Vector2(50,0),3)
 	assert(hero._camera_pivot.rotation.y==yaw and hero._camera_pointer==-1)
-	touch(lock.get_global_rect().get_center(),true,3)
-	scene._pause_game()
-	await create_timer(0.45).timeout
-	scene._resume()
-	touch(lock.get_global_rect().get_center(),false,3)
-	assert(not is_instance_valid(hero.locked_target),"An action held across a menu must not fire on return")
-	# Solid occluders exclude/release targets; bosses receive initial priority.
-	var wall:=StaticBody3D.new()
-	wall.collision_layer=4
-	var collision:=CollisionShape3D.new()
-	var box:=BoxShape3D.new()
-	box.size=Vector3(12,4,0.4)
-	collision.shape=box
-	wall.add_child(collision)
-	scene.add_child(wall)
-	wall.position=Vector3(0,1,-2)
-	await physics_frame
-	await physics_frame
-	hero.toggle_target_lock()
-	assert(not is_instance_valid(hero.locked_target),"Must not lock through solid wall")
-	wall.queue_free()
-	await physics_frame
-	await physics_frame
-	scene._spawn_boss()
-	var boss=scene.get_node("Tidewraith Dragon")
-	boss.set_physics_process(false)
-	boss.position=Vector3(0,0,-8)
-	hero.toggle_target_lock()
-	assert(hero.locked_target==boss,"Visible boss must have initial lock priority")
 	for resolution in [Vector2i(800,450),Vector2i(1280,720),Vector2i(1920,864)]:
 		root.size=resolution
 		for frame in range(4): await process_frame
@@ -121,6 +69,13 @@ func run():
 				scene.left_handed=handed
 				scene.hud_scale=scale_value
 				scene._apply_settings()
+				var movement_rect: Rect2=joystick.get_global_rect()
+				var attack_rect: Rect2=attack.get_global_rect()
+				assert(movement_rect.size.is_equal_approx(attack_rect.size),"Default joystick and attack must share the same primary size")
+				assert(is_equal_approx(movement_rect.get_center().y,attack_rect.get_center().y),"Primary controls must sit at the same height")
+				assert(is_equal_approx(movement_rect.get_center().x+attack_rect.get_center().x,resolution.x),"Primary controls must mirror across the viewport")
+				for key in ["DodgeButton","JumpButton","GuardButton","SprintButton","SpiritBurstButton","InteractButton"]:
+					assert(scene.mobile_hud.control(key).size.x<attack.size.x,"Secondary controls must remain smaller than attack")
 				var controls=[]
 				for button in scene.find_children("*","Button",true,false):
 					if scene.overlay.is_ancestor_of(button): continue
@@ -179,5 +134,5 @@ func run():
 	scene.queue_free()
 	await process_frame
 	paused=false
-	print("PASS: clean gameplay HUD, tap lock/hold cycle, one action per hold, release/drag/menu cancellation, boss priority, occlusion, three-pointer input and saved layouts")
+	print("PASS: clean gameplay HUD without target controls, three-pointer movement/camera/attack input, menu cancellation, safe-area bounds and saved layouts")
 	quit()

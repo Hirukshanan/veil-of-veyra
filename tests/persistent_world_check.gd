@@ -9,7 +9,7 @@ func open_world():
 	await process_frame
 	scene._resume()
 	scene.player.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
 func close_world():
 	scene.queue_free()
@@ -22,7 +22,7 @@ func run():
 	assert(scene.remaining_enemies == 5)
 	assert(scene.get_node_or_null("CampDemon5") == null)
 	var brutes := 0
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() == scene.ENEMY_SCRIPT and enemy.kind == scene.ENEMY_SCRIPT.Kind.BRUTE:
 			brutes += 1
 	assert(brutes == 1, "Exactly one large Dire Warg must remain")
@@ -69,7 +69,7 @@ func run():
 	assert(scene.player.health==scene.player.max_health)
 	assert(scene.player.position.distance_to(scene.player.rescue_position)<0.1)
 	assert(scene.potions==4 and scene.remaining_enemies==4)
-	for enemy2 in get_nodes_in_group("lock_targets"):
+	for enemy2 in get_nodes_in_group("combat_enemies"):
 		if enemy2.get_script()==scene.ENEMY_SCRIPT: enemy2.take_damage(1000)
 	await process_frame
 	assert(scene.remaining_enemies==0 and not scene.boss_spawned)

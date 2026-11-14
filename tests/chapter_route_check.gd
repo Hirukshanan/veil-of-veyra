@@ -18,7 +18,7 @@ func open_world() -> void:
 	scene._autosave_time = -10000
 	hero = scene.player
 	hero.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
 	await physics_frame
 

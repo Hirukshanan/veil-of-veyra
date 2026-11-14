@@ -50,7 +50,7 @@ func _run() -> void:
 			await process_frame
 			assert("3/3" in scene.relic_status.text)
 		var reward := 80 + (20 if chapter > 0 else 0)
-		for enemy in get_nodes_in_group("lock_targets"):
+		for enemy in get_nodes_in_group("combat_enemies"):
 			if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(10000)
 		scene.player.position = scene.lantern.position
 		scene._resume()

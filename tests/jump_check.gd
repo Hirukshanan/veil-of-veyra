@@ -28,7 +28,7 @@ func run():
 	await process_frame
 	scene._resume()
 	hero=scene.player
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 	await frames(12)
 	var button=scene.find_child("JumpButton",true,false)
 	assert(button!=null and button.icon!=null and button.text.is_empty())

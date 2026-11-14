@@ -6,7 +6,9 @@ The rejected placeholder body/clothing is replaced by a CC0 rigged Ranger starte
 
 ## Current gameplay
 
-- HUD cleanup: no separate paired-arrow/swap or layout-editing icon during gameplay. Target switching is preserved by holding the target-lock crosshair for 0.4 seconds. Editing/presets/save/reset remain inside Settings > Controls > Customize HUD; existing saved layouts migrate safely. See `docs/CH1_HUD_CLEANUP_REPORT.md`.
+- Balanced HUD follow-up: joystick and attack are intentionally equal 144-pixel primary controls with mirrored lower-corner anchors. Sprint remains above movement; smaller dodge/block/jump controls sit near attack, and quick items remain bottom-center. Target lock remains removed under the owner's latest correction. See [the current layout review](docs/CH1_BALANCED_HUD_REPORT.md). Final screenshot approval remains pending.
+
+- HUD cleanup: the target-lock feature and crosshair button are removed, including its Tab combat binding, target cycling, automatic facing/camera steering and marker. Editing/presets/save/reset remain inside Settings > Controls > Customize HUD; old target entries are retired without discarding other saved controls. See `docs/CH1_TARGET_LOCK_REMOVAL_REPORT.md`.
 
 - Phase 2 HUD redesign: compact gold/dark gameplay HUD with actual portrait/HP/stamina, quests, minimap, circular controls, functional frontal melee guard/parry and potion slots. Separate **Settings > Controls > Customize HUD** provides drag/resize/opacity, three presets and Save/Cancel/Reset. Large editor panels never appear during gameplay. Nineteen checks and native editor/capture runs pass; see `docs/CH1_HUD_REDESIGN_REPORT.md`. Screenshot approval, physical-phone acceptance and new Android packaging remain pending. Phase 3 has not started.
 
@@ -48,7 +50,7 @@ The rejected placeholder body/clothing is replaced by a CC0 rigged Ranger starte
 - First signed ARM64 Android debug APK exported and signature-verified. Owner reports smooth gameplay and persisted progress after reopening on Samsung A37; background/resume and measured performance remain pending.
 
 - Third-person movement, curved blade attacks, dodge, touch controls.
-- Tab/on-screen target lock selects the nearest living enemy within 14 metres, tracks facing/camera, marks the target, and releases on manual camera input, menus, death, removal or range exit.
+- Target lock, its Tab combat shortcut and its on-screen button are removed at the owner's request; combat uses movement-facing attacks and manual camera look.
 - Collision-aware camera with terrain/tree-trunk obstruction handling and saved 4–9 metre camera distance.
 - Three-hit sword combo, double-damage finisher, hit flashes, dodge cooldown display, and a 0.18-second input buffer near the end of attack recovery.
 - Spirit Burst: successful sword swings build charge; L/on-screen BURST spends 100 charge on a 3-metre area attack for triple blade damage, with a pulse effect and camp guide.

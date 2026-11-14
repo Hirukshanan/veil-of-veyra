@@ -11,7 +11,7 @@ func _run() -> void:
  scene._resume()
  var hero = scene.player
  hero.set_physics_process(false)
- for enemy in get_nodes_in_group("lock_targets"):
+ for enemy in get_nodes_in_group("combat_enemies"):
   enemy.set_physics_process(false)
  hero._attack_cooldown = 0.3
  hero.attack()

@@ -18,7 +18,7 @@ func open_world():
 	root.add_child(scene)
 	await process_frame
 	scene._resume()
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 	scene.get_node("IslandExploration").bind_waystone(0)
 	scene.set_process(false)
 func run():

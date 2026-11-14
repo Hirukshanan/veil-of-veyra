@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func remaining() -> int:
 	var count := 0
-	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() != preload("res://scripts/enemy.gd"):
 			continue
 		if not enemy.is_queued_for_deletion() and enemy.health > 0 and enemy._home.distance_to(CAMP) < 6.0:

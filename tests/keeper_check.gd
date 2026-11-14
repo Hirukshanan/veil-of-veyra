@@ -35,11 +35,11 @@ func _run() -> void:
 		assert("ACTIVE" in scene._journal_text())
 		var expected: int = keeper.remaining()
 		assert(expected > 0)
-		for enemy in get_nodes_in_group("lock_targets"):
+		for enemy in get_nodes_in_group("combat_enemies"):
 			if enemy.get_script() == scene.ENEMY_SCRIPT and enemy._home.distance_to(keeper.CAMP) < 6:
 				enemy.position = Vector3(0, 0, 10)
 		assert(keeper.remaining() == expected, "Bounty follows home camp, not current chase position")
-		for enemy in get_nodes_in_group("lock_targets"):
+		for enemy in get_nodes_in_group("combat_enemies"):
 			if enemy.get_script() == scene.ENEMY_SCRIPT and enemy._home.distance_to(keeper.CAMP) < 6:
 				enemy.take_damage(10000)
 		assert(keeper.remaining() == 0 and "RETURN" in keeper.journal_text())
@@ -50,7 +50,7 @@ func _run() -> void:
 
 		scene._toggle_pause()
 		assert(not paused)
-		for enemy in get_nodes_in_group("lock_targets"):
+		for enemy in get_nodes_in_group("combat_enemies"):
 			if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(10000)
 		scene.player.position = scene.lantern.position
 		scene._resume()

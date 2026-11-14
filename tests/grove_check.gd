@@ -9,7 +9,7 @@ func open_world():
 	await process_frame
 	scene._resume()
 	scene.player.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 func close_world():
 	scene.queue_free()
 	await process_frame

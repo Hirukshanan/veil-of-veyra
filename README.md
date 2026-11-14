@@ -10,7 +10,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 
 - **Island exploration:** a larger island with six scattered, walkable grassy hills, tall woodland areas, forest trails, ruins and hunting camps. A clear sandy coast surrounds the land.
 - **Connected trails:** walk north from Tideseal Ruins past Western Rise and through the western woodland to the lantern ruins. Continue north-east to Ancient Grove, then return through the eastern woodland to the forest camp. The map marks both Ancient Grove and the separate optional Moonleaf Grove. Ancient Grove is currently an exploration clearing; its later story encounter is not implemented.
-- **Sword combat:** three-hit combos, dodge, target lock, stamina-powered heavy attacks, and Spirit Burst.
+- **Sword combat:** three-hit combos, dodge, stamina-powered heavy attacks, and Spirit Burst.
 - **Starter warrior:** rigged cloth/leather Ranger outfit, shaped boots/bracers, hood and light shoulder protection replace the provisional body/clothing. Eleven animation clips drive the 65-bone rig. [Hero visual review and measured limits](docs/CH1_HERO_UPGRADE_REPORT.md); owner approval and phone profiling remain pending.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
 - **Lantern seal quest:** follow the south-west trail from the Beach waystone, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on MAP marks Tideseal Ruins.
@@ -45,9 +45,7 @@ godot --editor --path .
 | Heavy attack | H | Hold the sword icon for 0.4 seconds |
 | Dodge | K | Evasion/boot icon |
 | Guard / timed parry | Hold F | Hold shield icon; frontal ordinary melee only |
-| Jump | Space | Jumping figure icon above Sprint |
-| Target lock | Tab | Crosshair icon (tap again to unlock) |
-| Switch locked target | Touch control | Hold the target-lock crosshair for 0.4 seconds |
+| Jump | Space | Jumping figure near the attack button |
 | Spirit Burst | L | Starburst icon |
 | Collect herb / light lantern | E | Contextual hand / lantern icon |
 | Quest journal | Q | Scroll icon / Pause → Quest Journal |
@@ -134,4 +132,4 @@ Additional targeted checks cover combat, quests, saves, terrain, UI, and travel.
 
 See [release status](RELEASE_STATUS.md) for implemented systems and remaining work.
 
-Touch lock chooses a visible target within 14 metres, prioritizing a visible boss on initial acquisition. Hold the target-lock crosshair for 0.4 seconds to cycle eligible targets by bearing; releasing after the hold keeps the new target locked. No separate arrow/swap or HUD editing button appears during gameplay. Solid occlusion, range exit, death, menus and deliberate camera swipes release the lock. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Sprint sits above the movement stick; healing occupies a bottom-center quick slot. Customize HUD is a separate paused editor: large configuration panels never appear during gameplay. Changes apply only after Save; Cancel discards them. Finished equipment art and physical-phone acceptance remain open. See the [Phase 2 HUD redesign report](docs/CH1_HUD_REDESIGN_REPORT.md) for actual screenshots and verification.
+Combat uses movement-facing sword attacks and a manually controlled camera. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Joystick and main attack share a 144-pixel base diameter, equal bottom/side margins and mirrored lower-corner centers. Sprint sits above the joystick. Smaller dodge, guard and jump buttons cluster around attack, with optional burst and contextual interaction above. Healing occupies the bottom-center quick slots. Target lock is absent. Left-Handed mirrors the arrangement. Users can reposition/resize controls in Customize HUD; Reset restores the balanced default. Large configuration panels appear only in the separate paused editor. Changes apply only after Save; Cancel discards them. Physical-phone acceptance remains open. See the [balanced HUD review](docs/CH1_BALANCED_HUD_REPORT.md) for actual screenshots, sizes and verification.

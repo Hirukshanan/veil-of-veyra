@@ -130,7 +130,7 @@ func travel_block_reason(index: int) -> String:
 		return "Already here"
 	if player._attack_cooldown > 0.0 or player._dodge_time > 0.0 or player._hit_time > 0.0:
 		return "Finish your combat action"
-	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or int(enemy.get("health")) <= 0:
 			continue
 		if enemy.get_script() == preload("res://scripts/boss.gd"):
@@ -145,7 +145,6 @@ func travel_to(index: int) -> bool:
 	if not travel_block_reason(index).is_empty():
 		return false
 	player.cancel_swing()
-	player.clear_target_lock()
 	player.set_move_input(Vector2.ZERO)
 	player._burst_requested = false
 	player.velocity = Vector3.ZERO

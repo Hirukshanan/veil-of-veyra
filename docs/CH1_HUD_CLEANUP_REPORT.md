@@ -1,5 +1,7 @@
 # Phase 2 gameplay HUD cleanup
 
+> Superseded follow-up: the owner subsequently requested removal of the crosshair button and the entire target-lock feature. Tap/hold locking described below is historical. Current behavior and evidence: [CH1_TARGET_LOCK_REMOVAL_REPORT.md](CH1_TARGET_LOCK_REMOVAL_REPORT.md).
+
 Date: 2026-11-14. Baseline: existing `main`, `564098e`. No branch/worktree, commit, push or next-phase work.
 
 The separate paired-arrow button is removed from normal gameplay. It previously cycled combat targets; that functionality is now available by holding the target-lock crosshair for 0.4 seconds. A short tap still locks/unlocks. Holding cycles once; releasing after a hold does not unlock. Dragging outside the circle or opening a menu cancels the pending gesture. The existing cancellable attack tap/hold implementation is reused, without changing attack behavior.

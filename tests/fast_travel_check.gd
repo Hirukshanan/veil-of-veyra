@@ -16,10 +16,10 @@ func _run():
 	hero.position = world.CHECKPOINTS[1]
 	world._physics_process(0)
 	assert(world.discovered == [true, true, false])
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
 		enemy.position = Vector3(-30, 0, -30)
-	var enemy = get_nodes_in_group("lock_targets")[0]
+	var enemy = get_nodes_in_group("combat_enemies")[0]
 	hero.health = 70
 	hero.stamina = 55
 	hero.velocity = Vector3(2, 0, 3)

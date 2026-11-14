@@ -15,7 +15,7 @@ func _run():
 	await process_frame
 	scene._update_objective()
 	assert("Wolves" in scene.status_label.text and "m" in scene.status_label.text)
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.take_damage(1000)
 	scene._update_objective()
 	assert("Seal fragments" in scene.status_label.text)

@@ -11,7 +11,7 @@ func open_world():
 	await settle()
 	scene._resume()
 	scene.player.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"): enemy.set_physics_process(false)
+	for enemy in get_nodes_in_group("combat_enemies"): enemy.set_physics_process(false)
 func close_world():
 	scene.queue_free()
 	await process_frame
@@ -48,8 +48,8 @@ func run():
 	await open_world()
 	var hud=scene.mobile_hud
 	assert(scene.find_child("HUDCustomization",true,false)==null,"Customization must never be permanently visible")
-	assert(scene.find_child("TargetSwitchButton",true,false)==null,"No arrow/swap icon belongs in gameplay")
-	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","TargetLockButton","SpiritBurstButton","SprintButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
+	assert(scene.find_child("TargetSwitchButton",true,false)==null and scene.find_child("TargetLockButton",true,false)==null,"Removed target controls must not appear in gameplay")
+	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","SprintButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
 	for button in scene.find_children("*","Button",true,false):
 		if button.is_visible_in_tree():
 			assert(button.name in allowed_buttons,"Only gameplay actions/navigation may be visible: "+button.name)
@@ -65,10 +65,10 @@ func run():
 	# An old profile's retired button must not erase the rest of a custom layout.
 	var legacy:=ConfigFile.new()
 	legacy.set_value("hud","version",1)
-	legacy.set_value("hud","profile",{"preset":"Classic","controls":{"TargetSwitchButton":{"x":0.8,"y":0.7},"AttackButton":{"opacity":0.6}}})
+	legacy.set_value("hud","profile",{"preset":"Classic","controls":{"TargetSwitchButton":{"x":0.8,"y":0.7},"TargetLockButton":{"scale":1.2,"opacity":0.7},"AttackButton":{"opacity":0.6}}})
 	assert(legacy.save(hud.PATH)==OK)
 	hud.load_profile()
-	assert(hud.profile.preset=="Classic" and hud.profile.controls.AttackButton.opacity==0.6 and not hud.profile.controls.has("TargetSwitchButton"),"Retiring the switch icon must preserve other saved settings")
+	assert(hud.profile.preset=="Classic" and hud.profile.controls.AttackButton.opacity==0.6 and not hud.profile.controls.has("TargetSwitchButton") and not hud.profile.controls.has("TargetLockButton"),"Retiring target controls must preserve the preset and other saved settings")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(hud.PATH))
 	hud.profile={"preset":"Battle","controls":{}}
 	hud.refresh()
@@ -84,6 +84,7 @@ func run():
 	assert(not scene.overlay.visible and not scene.overlay.is_processing_input())
 	assert(not hud.chrome.get_parent().get_parent().visible,"Gameplay layer must be hidden during editing")
 	assert(editor.footer.size()==3 and editor.save_button.visible and editor.reset_button.visible)
+	assert("TargetLockButton" not in hud.MOVABLE and "TargetSwitchButton" not in hud.MOVABLE and editor.selection.item_count==hud.MOVABLE.size(),"Customization must list only remaining gameplay controls")
 	var rects: Dictionary=editor.preview_rects()
 	var start: Vector2=editor.preview.global_position+rects.AttackButton.get_center()
 	pointer(start,true)

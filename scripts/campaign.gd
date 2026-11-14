@@ -104,7 +104,7 @@ func _update_objective() -> void:
 		destination = lantern
 	else:
 		var nearest := INF
-		for candidate in get_tree().get_nodes_in_group("lock_targets"):
+		for candidate in get_tree().get_nodes_in_group("combat_enemies"):
 			if not is_instance_valid(candidate) or candidate.is_queued_for_deletion() or candidate.get("health") <= 0:
 				continue
 			var distance: float = player.global_position.distance_squared_to(candidate.global_position)
@@ -415,7 +415,6 @@ func _clear_menu(title: String, message: String, save_world := true) -> void:
 	pause_menu_open = false
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
-	player.call("clear_target_lock")
 	player.call("cancel_touch_camera")
 	player.call("end_guard")
 	player.set("_burst_requested", false)
@@ -490,7 +489,7 @@ func _show_burst_guide() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or tap the crosshair to face a visible enemy within 14 metres. A visible boss has initial priority; otherwise the nearest enemy is selected. Hold the crosshair for 0.4 seconds to cycle targets. Tap the crosshair again to release. Solid obstruction, camera swipes, menus, death or leaving range also release lock.\n\nEMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	_clear_menu("KNOW YOUR ENEMY", "EMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:
@@ -853,7 +852,7 @@ func _show_island_map() -> void:
 	map.player_heading = player.global_rotation.y
 	map.bound_waystone = exploration.checkpoint_index
 	map.discovered = exploration.discovered.duplicate()
-	for enemy in get_tree().get_nodes_in_group("lock_targets"):
+	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():
 			continue
 		for index in range(3):

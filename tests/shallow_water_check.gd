@@ -14,7 +14,7 @@ func open_world():
 	scene._resume()
 	hero = scene.player
 	hero.set_physics_process(false)
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
 	await physics_frame
 
@@ -37,7 +37,6 @@ func place(angle: float):
 	hero.set_move_input(Vector2.ZERO)
 	hero.position = Vector3(cos(angle), 0, sin(angle)) * (TERRAIN.coast_radius(angle, TERRAIN.SHALLOW_WATER_BASE) - 1.5)
 	hero.velocity = Vector3.ZERO
-	hero.clear_target_lock()
 	hero._camera_pivot.rotation = Vector3.ZERO
 	hero._dodge_time = 0.0
 	hero._dodge_cooldown = 0.0

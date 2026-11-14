@@ -23,7 +23,7 @@ func _run():
 	scene._resume()
 	hero.position = Vector3.ZERO
 	hero.rotation = Vector3.ZERO
-	for enemy in get_nodes_in_group("lock_targets"):
+	for enemy in get_nodes_in_group("combat_enemies"):
 		enemy.set_physics_process(false)
 		enemy.position = Vector3(20, 0, 20)
 	var targets: Array = []

@@ -20,7 +20,6 @@ var _heavy_warning: MeshInstance3D
 var rescue_position := Vector3(0, 1, 27)
 
 const ATTACK_BUFFER_WINDOW := 0.18
-const LOCK_RANGE := 14.0
 const SPIRIT_MAX := 100
 const BURST_RADIUS := 3.0
 
@@ -52,8 +51,6 @@ var guarding := false
 var _parry_window := 0.0
 var _sound: AudioStreamPlayer
 var _sounds: Dictionary = {}
-var locked_target: Node3D
-var _lock_marker: Label3D
 var spirit := 0
 var _burst_requested := false
 var _swing_id := 0
@@ -68,14 +65,6 @@ func _ready() -> void:
 	_build_attack_area()
 	_build_heavy_warning()
 	_build_sounds()
-	_lock_marker = Label3D.new()
-	_lock_marker.text = "◆"
-	_lock_marker.modulate = Color(1.0, 0.85, 0.3)
-	_lock_marker.font_size = 48
-	_lock_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	add_child(_lock_marker)
-	_lock_marker.top_level = true
-	_lock_marker.hide()
 	health_changed.emit(health, max_health)
 
 
@@ -117,15 +106,12 @@ func _physics_process(delta: float) -> void:
 		heavy_attack()
 	if Input.is_action_just_pressed(&"dodge"):
 		dodge()
-	if Input.is_action_just_pressed(&"target_lock"):
-		toggle_target_lock()
 	if Input.is_action_just_pressed(&"spirit_burst"):
 		spirit_burst()
 	if _burst_requested:
 		_burst_requested = false
 		if spirit >= SPIRIT_MAX and _attack_cooldown <= 0.0:
 			_perform_spirit_burst()
-	_update_target_lock(delta)
 
 	var direction := Vector3(input_vector.x, 0, input_vector.y).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	if direction.length_squared() > 1.0:
@@ -140,7 +126,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
-		if direction.length_squared() > 0.01 and not is_instance_valid(locked_target):
+		if direction.length_squared() > 0.01:
 			rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), delta * 12.0)
 
 	if not is_on_floor():
@@ -195,80 +181,12 @@ func cancel_touch_camera() -> void:
 
 
 func _rotate_camera(relative: Vector2) -> void:
-	clear_target_lock()
 	_camera_pivot.rotation.y -= relative.x * 0.005 * camera_sensitivity
 	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003 * camera_sensitivity * (-1.0 if invert_y else 1.0), -0.32, 0.5)
 
 
 func set_move_input(value: Vector2) -> void:
 	_touch_move = value
-
-
-func _can_lock(candidate: Node3D) -> bool:
-	if not is_instance_valid(candidate) or candidate.is_queued_for_deletion() or int(candidate.get("health")) <= 0 or global_position.distance_to(candidate.global_position) > LOCK_RANGE:
-		return false
-	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP, candidate.global_position + Vector3.UP, 1|4)
-	query.exclude = [get_rid()]
-	return get_world_3d().direct_space_state.intersect_ray(query).is_empty()
-
-
-func toggle_target_lock() -> void:
-	if health <= 0 or get_tree().paused:
-		return
-	if is_instance_valid(locked_target):
-		clear_target_lock()
-		return
-	var nearest := LOCK_RANGE + 0.01
-	var boss_selected := false
-	for candidate in get_tree().get_nodes_in_group("lock_targets"):
-		if _can_lock(candidate):
-			var distance := global_position.distance_to(candidate.global_position)
-			var boss: bool = candidate.is_in_group("boss_targets")
-			if (boss and not boss_selected) or (boss == boss_selected and distance < nearest):
-				nearest = distance
-				locked_target = candidate
-				boss_selected = boss
-	_update_target_lock(0.0)
-
-func switch_target_lock() -> void:
-	if health <= 0 or get_tree().paused:
-		return
-	if not is_instance_valid(locked_target):
-		toggle_target_lock()
-		return
-	var candidates: Array[Node3D] = []
-	for candidate in get_tree().get_nodes_in_group("lock_targets"):
-		if _can_lock(candidate): candidates.append(candidate)
-	candidates.sort_custom(func(a: Node3D, b: Node3D):
-		var pa := a.global_position - global_position
-		var pb := b.global_position - global_position
-		var aa := atan2(pa.x, -pa.z)
-		var ab := atan2(pb.x, -pb.z)
-		return a.get_instance_id() < b.get_instance_id() if is_equal_approx(aa,ab) else aa < ab)
-	if candidates.is_empty():
-		clear_target_lock()
-	else:
-		locked_target = candidates[(candidates.find(locked_target) + 1) % candidates.size()]
-		_update_target_lock(0.0)
-
-
-func clear_target_lock() -> void:
-	locked_target = null
-	if is_instance_valid(_lock_marker):
-		_lock_marker.hide()
-
-
-func _update_target_lock(delta: float) -> void:
-	if not _can_lock(locked_target):
-		clear_target_lock()
-		return
-	var offset := locked_target.global_position - global_position
-	if Vector2(offset.x, offset.z).length_squared() > 0.01:
-		var yaw := atan2(-offset.x, -offset.z)
-		rotation.y = yaw
-		_camera_pivot.rotation.y = lerp_angle(_camera_pivot.rotation.y, yaw, 1.0 - exp(-6.0 * delta))
-	_lock_marker.global_position = locked_target.global_position + Vector3(0, 3.7, 0)
-	_lock_marker.show()
 
 
 func attack() -> void:
@@ -405,7 +323,6 @@ func take_damage(amount: int, attacker: Node3D=null) -> void:
 	health_changed.emit(health, max_health)
 	if health == 0:
 		_burst_requested = false
-		clear_target_lock()
 		_touch_move = Vector2.ZERO
 		defeated.emit()
 
