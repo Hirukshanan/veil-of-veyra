@@ -48,6 +48,11 @@ func run():
 	await open_world()
 	var hud=scene.mobile_hud
 	assert(scene.find_child("HUDCustomization",true,false)==null,"Customization must never be permanently visible")
+	assert(scene.find_child("TargetSwitchButton",true,false)==null,"No arrow/swap icon belongs in gameplay")
+	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","TargetLockButton","SpiritBurstButton","SprintButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
+	for button in scene.find_children("*","Button",true,false):
+		if button.is_visible_in_tree():
+			assert(button.name in allowed_buttons,"Only gameplay actions/navigation may be visible: "+button.name)
 	assert(hud.chrome.visible and not scene.status_label.visible and not scene.health_label.visible)
 	assert("Recover" in hud.chrome.quest_content().message)
 	scene.boss_spawned=true
@@ -57,6 +62,16 @@ func run():
 	scene.completed=false
 	assert(hud.control("GuardButton")!=null and hud.control("MapButton")!=null)
 	assert(root.get_camera_3d()==scene.player._camera_arm.get_child(0),"Portrait and minimap must not steal the gameplay camera")
+	# An old profile's retired button must not erase the rest of a custom layout.
+	var legacy:=ConfigFile.new()
+	legacy.set_value("hud","version",1)
+	legacy.set_value("hud","profile",{"preset":"Classic","controls":{"TargetSwitchButton":{"x":0.8,"y":0.7},"AttackButton":{"opacity":0.6}}})
+	assert(legacy.save(hud.PATH)==OK)
+	hud.load_profile()
+	assert(hud.profile.preset=="Classic" and hud.profile.controls.AttackButton.opacity==0.6 and not hud.profile.controls.has("TargetSwitchButton"),"Retiring the switch icon must preserve other saved settings")
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(hud.PATH))
+	hud.profile={"preset":"Battle","controls":{}}
+	hud.refresh()
 	assert(hud.control("MovementJoystick").size.x<=144,"Movement joystick must be smaller than the old 190px control")
 	for resolution in [Vector2(800,450),Vector2(1280,720),Vector2(1600,720),Vector2(732,414)]:
 		for preset in ["Battle","Classic","Left-Handed"]:

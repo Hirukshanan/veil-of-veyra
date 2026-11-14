@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- HUD cleanup: no separate paired-arrow/swap or layout-editing icon during gameplay. Target switching is preserved by holding the target-lock crosshair for 0.4 seconds. Editing/presets/save/reset remain inside Settings > Controls > Customize HUD; existing saved layouts migrate safely. See `docs/CH1_HUD_CLEANUP_REPORT.md`.
+
 - Phase 2 HUD redesign: compact gold/dark gameplay HUD with actual portrait/HP/stamina, quests, minimap, circular controls, functional frontal melee guard/parry and potion slots. Separate **Settings > Controls > Customize HUD** provides drag/resize/opacity, three presets and Save/Cancel/Reset. Large editor panels never appear during gameplay. Nineteen checks and native editor/capture runs pass; see `docs/CH1_HUD_REDESIGN_REPORT.md`. Screenshot approval, physical-phone acceptance and new Android packaging remain pending. Phase 3 has not started.
 
 - Chapter I route pass: three connecting woodland/grove trails, a small central trunk/pillar detour, four solid wayfinding stones, clearer map landmarks and a separate Ancient Grove clearing. Existing terrain heights, sea, quest coordinates, rewards and version-4 saves are retained. Dragon perch/camera markers reserve a later shot without creating a cutscene or changing the current boss. Desktop route/save/collision evidence is in `docs/CH1_PHASE1_REPORT.md`; phone performance/acceptance and a new Android build remain pending. No new branch or commit was created by the implementation agent.

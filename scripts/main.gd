@@ -284,15 +284,13 @@ func _build_hud() -> void:
 	jump_button.pressed.connect(Callable(player,"jump"))
 	root.add_child(jump_button)
 	var lock_button := _make_button("",Vector2(-108,-284),Vector2(-44,-220))
+	# Reuse the established cancellable tap/hold gesture without another gameplay icon.
+	lock_button.set_script(preload("res://scripts/attack_button.gd"))
 	lock_button.name = "TargetLockButton"
-	_set_action_icon(lock_button,"lock","Lock or unlock target")
-	lock_button.pressed.connect(Callable(player,"toggle_target_lock"))
+	_set_action_icon(lock_button,"lock","Tap to lock or unlock; hold to switch target")
+	lock_button.tap_requested.connect(Callable(player,"toggle_target_lock"))
+	lock_button.heavy_requested.connect(Callable(player,"switch_target_lock"))
 	root.add_child(lock_button)
-	var switch_button := _make_button("",Vector2(-184,-284),Vector2(-120,-220))
-	switch_button.name = "TargetSwitchButton"
-	_set_action_icon(switch_button,"switch","Switch target")
-	switch_button.pressed.connect(Callable(player,"switch_target_lock"))
-	root.add_child(switch_button)
 	var guard_button := _make_button("",Vector2(-230,-224),Vector2(-158,-152))
 	guard_button.name="GuardButton"
 	_set_action_icon(guard_button,"guard","Hold to guard; timed press to parry")
@@ -306,7 +304,6 @@ func _build_hud() -> void:
 		guard_button.meter = 1.0 if player.guarding else 0.0
 		guard_button.disabled = player.health<=0 or player.stamina<20.0
 		lock_button.self_modulate = Color(1.0,0.8,0.4) if is_instance_valid(player.locked_target) else Color.WHITE
-		switch_button.disabled = not is_instance_valid(player.locked_target)
 		jump_button.disabled = not player.can_jump()
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		sprint_button.meter = player.stamina/100.0

@@ -1,5 +1,7 @@
 # Phase 2 HUD redesign — review pending
 
+> Follow-up: the separate paired-arrow target-cycle icon has been removed. Tap the target-lock crosshair to lock/unlock; hold it for 0.4 seconds to cycle. Layout editing remains exclusively in Settings > Controls > Customize HUD. The screenshots below record the earlier redesign; current cleanup captures are in [CH1_HUD_CLEANUP_REPORT.md](CH1_HUD_CLEANUP_REPORT.md).
+
 Date: 2026-11-14. Existing game, branch `main`, HEAD `4f9a6ed`. The owner requested this redesign after rejecting the earlier Phase 2 HUD. No next phase, new branch, worktree, commit, push or deployment was performed.
 
 ## Two distinct interfaces

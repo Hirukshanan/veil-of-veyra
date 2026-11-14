@@ -53,6 +53,8 @@ Final preservation check: 313 pre-phase tracked files compared; 13 planned files
 
 ## Phase 2 review state
 
+Latest HUD cleanup: the separate arrow/swap-looking target-cycle button is removed from gameplay and the editor control list. Tap target lock to lock/unlock; hold 0.4 seconds to cycle targets. Editing remains exclusively in Settings > Controls > Customize HUD. Existing custom layouts migrate without losing other control settings. See CH1_HUD_CLEANUP_REPORT.md; Phase 3 remains unstarted.
+
 Phase 1 was committed by the owner as `4f9a6ed`. Phase 2 started from clean `main`, 319 tracked files. The agent created no branch, commit, push or deployment. Initial controls/outfit work was extended by the subsequent authorized HUD redesign: separate gameplay/editor scripts, four further original SVGs, saved layout profiles and a focused editor/guard regression. Campaign save version/quest IDs, phase-1 geometry, enemy stats and Dragon art remain intact.
 
 The initial controls/outfit report is historical; the subsequent HUD redesign supersedes its visual layout and editor deferral. Nineteen current targeted checks, native editor validation and eight actual game captures pass with no diagnostics in this subset. Starter clothing remains provisional. No physical Android device is attached, no sustained phone performance is measured and no new APK is claimed. HUD drag/resize/opacity editing is now implemented under the owner's explicit request. Phase 3 has not started. See CH1_HUD_REDESIGN_REPORT.md.

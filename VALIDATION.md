@@ -1,5 +1,7 @@
 # Gameplay validation — 2026-11-03
 
+Latest HUD cleanup verification is recorded separately in `docs/CH1_HUD_CLEANUP_REPORT.md`. It covers the gameplay-only button allowlist, tap/hold target lock, hold/release/drag/menu cancellation, legacy-profile migration and the retained editor. Earlier runs below retain their original scope.
+
 ## Phase 2 HUD redesign — 2026-11-14
 
 19/19 targeted checks pass without diagnostics in this selected run. Native Windows Godot 4.7.2 GL Compatibility editor regression and eight-screenshot capture pass with empty stderr. Coverage includes separate layers, Settings > Controls navigation, touch drag/corner resize, scale/opacity/presets, save/cancel/reset, corrupt/failed-write recovery, safe layouts, guard/parry and retained combat/quest/camera/saves. Both cached 3D HUD viewports are asserted disabled after startup. Unique isolated APPDATA protects personal progress. Details/screenshots/metrics: `docs/CH1_HUD_REDESIGN_REPORT.md`. Phone acceptance and a new APK remain pending; Phase 3 awaits screenshot approval.

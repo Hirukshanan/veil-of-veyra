@@ -46,7 +46,7 @@ godot --editor --path .
 | Guard / timed parry | Hold F | Hold shield icon; frontal ordinary melee only |
 | Jump | Space | Jumping figure icon above Sprint |
 | Target lock | Tab | Crosshair icon (tap again to unlock) |
-| Switch locked target | Touch control | Paired-arrows icon |
+| Switch locked target | Touch control | Hold the target-lock crosshair for 0.4 seconds |
 | Spirit Burst | L | Starburst icon |
 | Collect herb / light lantern | E | Contextual hand / lantern icon |
 | Quest journal | Q | Scroll icon / Pause → Quest Journal |
@@ -133,4 +133,4 @@ Additional targeted checks cover combat, quests, saves, terrain, UI, and travel.
 
 See [release status](RELEASE_STATUS.md) for implemented systems and remaining work.
 
-Touch lock chooses a visible target within 14 metres, prioritizing a visible boss on initial acquisition. Paired arrows cycle eligible targets by bearing. Solid occlusion, range exit, death, menus and deliberate camera swipes release the lock. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Sprint sits above the movement stick; healing occupies a bottom-center quick slot. Customize HUD is a separate paused editor: large configuration panels never appear during gameplay. Changes apply only after Save; Cancel discards them. Finished equipment art and physical-phone acceptance remain open. See the [Phase 2 HUD redesign report](docs/CH1_HUD_REDESIGN_REPORT.md) for actual screenshots and verification.
+Touch lock chooses a visible target within 14 metres, prioritizing a visible boss on initial acquisition. Hold the target-lock crosshair for 0.4 seconds to cycle eligible targets by bearing; releasing after the hold keeps the new target locked. No separate arrow/swap or HUD editing button appears during gameplay. Solid occlusion, range exit, death, menus and deliberate camera swipes release the lock. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Sprint sits above the movement stick; healing occupies a bottom-center quick slot. Customize HUD is a separate paused editor: large configuration panels never appear during gameplay. Changes apply only after Save; Cancel discards them. Finished equipment art and physical-phone acceptance remain open. See the [Phase 2 HUD redesign report](docs/CH1_HUD_REDESIGN_REPORT.md) for actual screenshots and verification.

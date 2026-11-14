@@ -37,12 +37,23 @@ func run():
 	targets[0].position=Vector3(-2,0,-4)
 	targets[1].position=Vector3(2,0,-5)
 	var lock=scene.find_child("TargetLockButton",true,false)
-	var switch=scene.find_child("TargetSwitchButton",true,false)
+	assert(scene.find_child("TargetSwitchButton",true,false)==null,"Gameplay must not contain the paired-arrow switch icon")
 	tap(lock)
 	assert(hero.locked_target==targets[0],"Touch must acquire nearest eligible target")
-	await create_timer(0.08).timeout
-	tap(switch)
-	assert(hero.locked_target==targets[1],"Touch switch must cycle a distinct target")
+	var lock_at: Vector2=lock.get_global_rect().get_center()
+	touch(lock_at,true,4)
+	await create_timer(0.45).timeout
+	assert(hero.locked_target==targets[1],"Holding target lock must cycle a distinct target")
+	await create_timer(0.45).timeout
+	assert(hero.locked_target==targets[1],"One hold must cycle only once")
+	touch(lock_at,false,4)
+	assert(hero.locked_target==targets[1],"Hold release must not toggle the lock off")
+	# Leaving the circular hit area cancels the hold without changing the target.
+	touch(lock_at,true,4)
+	drag(lock_at+Vector2(-90,0),Vector2(-90,0),4)
+	await create_timer(0.45).timeout
+	touch(lock_at+Vector2(-90,0),false,4)
+	assert(hero.locked_target==targets[1],"Dragging away must cancel target switching")
 	tap(lock)
 	assert(not is_instance_valid(hero.locked_target))
 	var joystick=get_first_node_in_group("movement_joysticks")
@@ -75,6 +86,7 @@ func run():
 	assert(hero._camera_pivot.rotation.y==yaw and hero._camera_pointer==-1)
 	touch(lock.get_global_rect().get_center(),true,3)
 	scene._pause_game()
+	await create_timer(0.45).timeout
 	scene._resume()
 	touch(lock.get_global_rect().get_center(),false,3)
 	assert(not is_instance_valid(hero.locked_target),"An action held across a menu must not fire on return")
@@ -167,5 +179,5 @@ func run():
 	scene.queue_free()
 	await process_frame
 	paused=false
-	print("PASS: touch lock/switch, boss priority, occlusion, three-pointer move/look/attack, menu cancellation, scale/handedness layouts and settings persistence")
+	print("PASS: clean gameplay HUD, tap lock/hold cycle, one action per hold, release/drag/menu cancellation, boss priority, occlusion, three-pointer input and saved layouts")
 	quit()

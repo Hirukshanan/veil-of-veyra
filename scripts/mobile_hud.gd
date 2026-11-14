@@ -1,8 +1,8 @@
 extends Node
 
 const PATH := "user://hud_profile.cfg"
-const MOVABLE := ["MovementJoystick","SprintButton","AttackButton","DodgeButton","JumpButton","GuardButton","TargetLockButton","TargetSwitchButton","SpiritBurstButton","InteractButton","HealButton"]
-const SIZES := {"MovementJoystick":144.0,"SprintButton":54.0,"AttackButton":100.0,"DodgeButton":68.0,"JumpButton":68.0,"GuardButton":72.0,"TargetLockButton":60.0,"TargetSwitchButton":50.0,"SpiritBurstButton":62.0,"InteractButton":56.0,"HealButton":56.0}
+const MOVABLE := ["MovementJoystick","SprintButton","AttackButton","DodgeButton","JumpButton","GuardButton","TargetLockButton","SpiritBurstButton","InteractButton","HealButton"]
+const SIZES := {"MovementJoystick":144.0,"SprintButton":54.0,"AttackButton":100.0,"DodgeButton":68.0,"JumpButton":68.0,"GuardButton":72.0,"TargetLockButton":60.0,"SpiritBurstButton":62.0,"InteractButton":56.0,"HealButton":56.0}
 var hud_scale := 1.0
 var left_handed := false
 var profile: Dictionary = {"preset":"Battle","controls":{}}
@@ -53,7 +53,6 @@ func rectangles(bounds: Vector2, draft: Dictionary = {}, use_settings := true) -
 		"JumpButton":bounds+Vector2(-84,-214)*s,
 		"GuardButton":bounds+Vector2(-198,-188)*s,
 		"TargetLockButton":bounds+Vector2(-298,-128)*s,
-		"TargetSwitchButton":bounds+Vector2(-300,-214)*s,
 		"SpiritBurstButton":bounds+Vector2(-202,-286)*s,
 		"InteractButton":bounds+Vector2(-84,-308)*s,
 		"HealButton":Vector2(bounds.x*0.5-66*f,bounds.y-48*f)
@@ -61,7 +60,6 @@ func rectangles(bounds: Vector2, draft: Dictionary = {}, use_settings := true) -
 	var preset: String = str(data.get("preset","Battle"))
 	if preset=="Classic":
 		centers.TargetLockButton=bounds+Vector2(-300,-75)*s
-		centers.TargetSwitchButton=bounds+Vector2(-300,-160)*s
 	var mirror := preset=="Left-Handed" or (use_settings and left_handed)
 	var result := {}
 	for key in MOVABLE:
@@ -159,6 +157,10 @@ func load_profile() -> void:
 		var config:=ConfigFile.new()
 		if config.load(path)==OK and config.get_value("hud","version",0)==1:
 			var data: Variant=config.get_value("hud","profile",{})
+			# Retire the separate cycle icon without discarding existing custom layouts.
+			if data is Dictionary and data.get("controls") is Dictionary:
+				data=data.duplicate(true)
+				data.controls.erase("TargetSwitchButton")
 			if valid_data(data):
 				profile=data.duplicate(true)
 				return
