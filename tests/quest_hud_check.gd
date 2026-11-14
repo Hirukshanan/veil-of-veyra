@@ -26,7 +26,7 @@ func _run():
 				if other != button:
 					assert(not button.get_global_rect().intersects(other.get_global_rect()), "HUD buttons must not overlap")
 		var sprint = scene.find_child("SprintButton", true, false)
-		assert(sprint.get_global_rect().get_center().x > resolution.x * 0.5)
+		assert(sprint.get_global_rect().get_center().x < resolution.x * 0.5)
 	scene.find_child("QuestScrollButton", true, false).pressed.emit()
 	assert(scene.journal_open and paused)
 	scene._accept_scroll_quest()
@@ -36,5 +36,5 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: circular bounds/hit areas, separate controls at three resolutions, right-side sprint, scroll access and incomplete quest guard")
+	print("PASS: circular bounds/hit areas, separate controls at three resolutions, movement-side sprint, scroll access and incomplete quest guard")
 	quit()

@@ -44,6 +44,12 @@ var _hit_time := 0.0
 var combo_step := 0
 var _combo_window := 0.0
 var camera_sensitivity := 1.0
+var invert_y := false
+var left_handed_controls := false
+var _camera_pointer := -1
+var level := 1
+var guarding := false
+var _parry_window := 0.0
 var _sound: AudioStreamPlayer
 var _sounds: Dictionary = {}
 var locked_target: Node3D
@@ -63,9 +69,9 @@ func _ready() -> void:
 	_build_heavy_warning()
 	_build_sounds()
 	_lock_marker = Label3D.new()
-	_lock_marker.text = "▼ LOCKED"
+	_lock_marker.text = "◆"
 	_lock_marker.modulate = Color(1.0, 0.85, 0.3)
-	_lock_marker.font_size = 32
+	_lock_marker.font_size = 48
 	_lock_marker.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(_lock_marker)
 	_lock_marker.top_level = true
@@ -74,6 +80,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_parry_window=maxf(0,_parry_window-delta)
 	if health <= 0:
 		return
 	if position.y < -8:
@@ -158,21 +165,39 @@ func jump() -> void:
 	_visual.action("Jump_Start", 0.12)
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_action(&"guard") and not event.echo:
+		if event.pressed: start_guard()
+		else: end_guard()
+	if event is InputEventScreenTouch and not event.pressed and event.index == _camera_pointer:
+		_camera_pointer = -1
+	if event is InputEventScreenDrag and event.index == _camera_pointer:
+		if not get_tree().paused and health > 0:
+			_rotate_camera(event.relative)
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventKey and event.pressed and not event.echo and event.is_action_pressed(&"jump"):
 		jump()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if get_tree().paused or health <= 0:
+		return
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		_rotate_camera(event.relative)
-	elif event is InputEventScreenDrag:
-		_rotate_camera(event.relative)
+	elif event is InputEventScreenTouch and event.pressed and not event.canceled and _camera_pointer == -1:
+		var width := get_viewport().get_visible_rect().size.x
+		var in_camera_zone: bool = (event.position.x <= width * 0.58) if left_handed_controls else (event.position.x >= width * 0.42)
+		if in_camera_zone:
+			_camera_pointer = event.index
+
+func cancel_touch_camera() -> void:
+	_camera_pointer = -1
 
 
 func _rotate_camera(relative: Vector2) -> void:
 	clear_target_lock()
 	_camera_pivot.rotation.y -= relative.x * 0.005 * camera_sensitivity
-	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003 * camera_sensitivity, -0.32, 0.5)
+	_camera_pivot.rotation.x = clampf(_camera_pivot.rotation.x - relative.y * 0.003 * camera_sensitivity * (-1.0 if invert_y else 1.0), -0.32, 0.5)
 
 
 func set_move_input(value: Vector2) -> void:
@@ -180,7 +205,11 @@ func set_move_input(value: Vector2) -> void:
 
 
 func _can_lock(candidate: Node3D) -> bool:
-	return is_instance_valid(candidate) and not candidate.is_queued_for_deletion() and int(candidate.get("health")) > 0 and global_position.distance_to(candidate.global_position) <= LOCK_RANGE
+	if not is_instance_valid(candidate) or candidate.is_queued_for_deletion() or int(candidate.get("health")) <= 0 or global_position.distance_to(candidate.global_position) > LOCK_RANGE:
+		return false
+	var query := PhysicsRayQueryParameters3D.create(global_position + Vector3.UP, candidate.global_position + Vector3.UP, 1|4)
+	query.exclude = [get_rid()]
+	return get_world_3d().direct_space_state.intersect_ray(query).is_empty()
 
 
 func toggle_target_lock() -> void:
@@ -190,13 +219,37 @@ func toggle_target_lock() -> void:
 		clear_target_lock()
 		return
 	var nearest := LOCK_RANGE + 0.01
+	var boss_selected := false
 	for candidate in get_tree().get_nodes_in_group("lock_targets"):
 		if _can_lock(candidate):
 			var distance := global_position.distance_to(candidate.global_position)
-			if distance < nearest:
+			var boss: bool = candidate.is_in_group("boss_targets")
+			if (boss and not boss_selected) or (boss == boss_selected and distance < nearest):
 				nearest = distance
 				locked_target = candidate
+				boss_selected = boss
 	_update_target_lock(0.0)
+
+func switch_target_lock() -> void:
+	if health <= 0 or get_tree().paused:
+		return
+	if not is_instance_valid(locked_target):
+		toggle_target_lock()
+		return
+	var candidates: Array[Node3D] = []
+	for candidate in get_tree().get_nodes_in_group("lock_targets"):
+		if _can_lock(candidate): candidates.append(candidate)
+	candidates.sort_custom(func(a: Node3D, b: Node3D):
+		var pa := a.global_position - global_position
+		var pb := b.global_position - global_position
+		var aa := atan2(pa.x, -pa.z)
+		var ab := atan2(pb.x, -pb.z)
+		return a.get_instance_id() < b.get_instance_id() if is_equal_approx(aa,ab) else aa < ab)
+	if candidates.is_empty():
+		clear_target_lock()
+	else:
+		locked_target = candidates[(candidates.find(locked_target) + 1) % candidates.size()]
+		_update_target_lock(0.0)
 
 
 func clear_target_lock() -> void:
@@ -219,6 +272,7 @@ func _update_target_lock(delta: float) -> void:
 
 
 func attack() -> void:
+	end_guard()
 	if get_tree().paused or health <= 0:
 		return
 	if _attack_cooldown > 0.0:
@@ -252,6 +306,7 @@ func attack() -> void:
 
 
 func spirit_burst() -> void:
+	end_guard()
 	if get_tree().paused or health <= 0 or spirit < SPIRIT_MAX or _attack_cooldown > 0.0:
 		return
 	_burst_requested = true
@@ -297,6 +352,7 @@ func _perform_spirit_burst() -> void:
 
 
 func dodge() -> void:
+	end_guard()
 	if get_tree().paused or _dodge_cooldown > 0.0 or health <= 0:
 		return
 	var input_vector := _touch_move
@@ -315,9 +371,31 @@ func dodge() -> void:
 	_invulnerability_time = 0.35
 
 
-func take_damage(amount: int) -> void:
+func start_guard() -> void:
+	if get_tree().paused or health<=0 or stamina<20 or _attack_cooldown>0 or _dodge_time>0: return
+	if not guarding:
+		guarding=true
+		_parry_window=0.18
+		sprint_enabled=false
+
+func end_guard() -> void:
+	guarding=false
+	_parry_window=0.0
+
+func take_damage(amount: int, attacker: Node3D=null) -> void:
 	if _invulnerability_time > 0.0 or health <= 0:
 		return
+	if guarding and is_instance_valid(attacker) and stamina>=20:
+		var direction:=attacker.global_position-global_position
+		direction.y=0
+		if direction.normalized().dot(-global_basis.z)>=0.15:
+			stamina-=20
+			if _parry_window>0:
+				_parry_window=0
+				attacker.set("_hit_time",0.4)
+				play_sound("sword")
+				return
+			amount=maxi(1,ceili(amount*0.3))
 	cancel_swing()
 	health = maxi(0, health - amount)
 	play_sound("hurt")
@@ -330,6 +408,9 @@ func take_damage(amount: int) -> void:
 		clear_target_lock()
 		_touch_move = Vector2.ZERO
 		defeated.emit()
+
+func take_melee_damage(amount: int, attacker: Node3D) -> void:
+	take_damage(amount,attacker)
 
 
 func _build_sounds() -> void:
@@ -525,6 +606,7 @@ func cancel_swing() -> void:
 		_heavy_warning.hide()
 
 func toggle_sprint() -> void:
+	end_guard()
 	if get_tree().paused or health <= 0 or _attack_cooldown > 0.0 or _dodge_time > 0.0:
 		return
 	if sprint_enabled:
@@ -533,6 +615,10 @@ func toggle_sprint() -> void:
 		sprint_enabled = true
 
 func _sprint_speed(delta: float, input_strength: float) -> float:
+	if guarding:
+		stamina=maxf(0,stamina-6*delta)
+		if stamina<20: end_guard()
+		return MOVE_SPEED*0.45
 	if _heavy_time > 0.0:
 		return MOVE_SPEED
 	if sprint_enabled and input_strength > 0.1 and _attack_cooldown <= 0.0 and _dodge_time <= 0.0 and _hit_time <= 0.0:
@@ -544,6 +630,7 @@ func _sprint_speed(delta: float, input_strength: float) -> float:
 		stamina = minf(100.0, stamina + 18.0 * delta)
 	return MOVE_SPEED
 func heavy_attack() -> void:
+	end_guard()
 	if get_tree().paused or health <= 0 or stamina < HEAVY_COST or _attack_cooldown > 0.0 or _dodge_time > 0.0 or _hit_time > 0.0:
 		return
 	stamina -= HEAVY_COST

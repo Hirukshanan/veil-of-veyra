@@ -1,5 +1,14 @@
 extends Button
 
+func _ready() -> void:
+	add_to_group("gameplay_buttons")
+
+func cancel_touch() -> void:
+	# Reset BaseButton's captured press so a menu cannot leave a delayed release action.
+	var was_disabled := disabled
+	disabled = true
+	disabled = was_disabled
+
 func _has_point(point: Vector2) -> bool:
 	var radius := minf(size.x, size.y) * 0.5
 	return point.distance_squared_to(size * 0.5) <= radius * radius

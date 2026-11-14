@@ -9,6 +9,7 @@ var _started_msec := 0
 var _heavy_fired := false
 
 func _ready() -> void:
+	super._ready()
 	add_to_group("attack_gestures")
 
 func _gui_input(event: InputEvent) -> void:

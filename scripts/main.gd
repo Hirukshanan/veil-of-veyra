@@ -56,9 +56,18 @@ class IslandJoystick extends Control:
 
 	func _draw() -> void:
 		var center := size * 0.5
-		draw_circle(center, minf(size.x, size.y) * 0.44, Color(0.04, 0.12, 0.16, 0.46))
-		draw_circle(center, minf(size.x, size.y) * 0.34, Color(0.4, 0.78, 0.72, 0.23))
-		draw_circle(center + _value * minf(size.x, size.y) * 0.29, minf(size.x, size.y) * 0.17, Color(0.78, 0.93, 0.83, 0.8))
+		var radius := minf(size.x,size.y)*0.46
+		draw_circle(center,radius,Color(0.035,0.05,0.045,0.48))
+		draw_arc(center,radius,0,TAU,64,Color(0.77,0.73,0.54,0.82),1.5,true)
+		draw_arc(center,radius*0.91,0,TAU,64,Color(0.77,0.73,0.54,0.30),1,true)
+		for i in range(4):
+			var direction:=Vector2.UP.rotated(i*PI/2)
+			var tangent:=direction.orthogonal()
+			var tip:=center+direction*radius*0.81
+			draw_colored_polygon(PackedVector2Array([tip,tip-direction*9+tangent*4,tip-direction*9-tangent*4]),Color(0.87,0.83,0.65,0.5))
+		var thumb:=center+_value*radius*0.53
+		draw_circle(thumb,radius*0.32,Color(0.47,0.48,0.40,0.8))
+		draw_arc(thumb,radius*0.32,0,TAU,40,Color(0.89,0.84,0.65,0.8),1.5,true)
 
 
 func _ready() -> void:
@@ -83,6 +92,7 @@ func _setup_input() -> void:
 	_bind_keys(&"jump", [KEY_SPACE])
 	_bind_keys(&"target_lock", [KEY_TAB])
 	_bind_keys(&"spirit_burst", [KEY_L])
+	_bind_keys(&"guard", [KEY_F])
 
 
 func _bind_keys(action: StringName, keys: Array) -> void:
@@ -273,10 +283,30 @@ func _build_hud() -> void:
 	jump_button.disabled = true
 	jump_button.pressed.connect(Callable(player,"jump"))
 	root.add_child(jump_button)
+	var lock_button := _make_button("",Vector2(-108,-284),Vector2(-44,-220))
+	lock_button.name = "TargetLockButton"
+	_set_action_icon(lock_button,"lock","Lock or unlock target")
+	lock_button.pressed.connect(Callable(player,"toggle_target_lock"))
+	root.add_child(lock_button)
+	var switch_button := _make_button("",Vector2(-184,-284),Vector2(-120,-220))
+	switch_button.name = "TargetSwitchButton"
+	_set_action_icon(switch_button,"switch","Switch target")
+	switch_button.pressed.connect(Callable(player,"switch_target_lock"))
+	root.add_child(switch_button)
+	var guard_button := _make_button("",Vector2(-230,-224),Vector2(-158,-152))
+	guard_button.name="GuardButton"
+	_set_action_icon(guard_button,"guard","Hold to guard; timed press to parry")
+	guard_button.button_down.connect(Callable(player,"start_guard"))
+	guard_button.button_up.connect(Callable(player,"end_guard"))
+	root.add_child(guard_button)
 	var combat_hud_timer := Timer.new()
 	combat_hud_timer.wait_time = 0.05
 	combat_hud_timer.autostart = true
 	combat_hud_timer.timeout.connect(func():
+		guard_button.meter = 1.0 if player.guarding else 0.0
+		guard_button.disabled = player.health<=0 or player.stamina<20.0
+		lock_button.self_modulate = Color(1.0,0.8,0.4) if is_instance_valid(player.locked_target) else Color.WHITE
+		switch_button.disabled = not is_instance_valid(player.locked_target)
 		jump_button.disabled = not player.can_jump()
 		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
 		sprint_button.meter = player.stamina/100.0

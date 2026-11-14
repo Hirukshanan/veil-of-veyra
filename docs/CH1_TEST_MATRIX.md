@@ -1,5 +1,7 @@
 # Chapter I baseline test and device matrix
 
+Current HUD redesign (2026-11-14): 19/19 targeted checks plus native editor/capture runs pass without diagnostics in this subset. Separate interfaces, actual Settings navigation, touch editing/presets, failed-write/backup recovery, guard/parry, safe areas and retained combat/quest/save behavior are covered. Eight actual native screenshots reviewed. See [HUD redesign report](CH1_HUD_REDESIGN_REPORT.md). Phone comfort/cutouts/thermal acceptance remain pending; Phase 3 awaits screenshot approval. Earlier phase sections below are historical.
+
 Date: 2026-11-13 (Asia/Colombo). Existing checks run with Godot 4.7.2, per-check isolated `APPDATA` under `.validation/ch1_audit_2026-11-13/saves/`, and `VEYRA_TEST=1`. Personal campaign/settings files were not used. No new gameplay tests were added in Phase 0.
 
 ## Current evidence
@@ -94,3 +96,9 @@ Evidence is isolated in `.validation/ch1_phase1_2026-11-13/`. The new test uses 
 Grove floor and reserved Dragon camera/perch orientation/sightlines are checked; native retained-model framing is previewed only in validation. T11/T11A story boss/reveal remain absent; no Phase 5 progression feature was added. Save version, rewards and quest coordinates are retained.
 
 Two map sizes (1280x720 and 800x450), overview, woodland and new clearing were visually reviewed. Desktop before/after counters and capture-method limitations are in [Phase 1 report](CH1_PHASE1_REPORT.md). No connected handset, sustained thermal test or new APK. Packaging keeps the Phase 0 environment blocker. Hardware acceptance remains open.
+
+## Phase 2 follow-up — 2026-11-14
+
+Nineteen targeted checks cover input/targeting, settings, layouts, camera, animation/combat poses, attacks/dodge/jump/sprint/burst, existing quest flow and saves. New mobile_controls_check injects distinct joystick/camera/attack pointers, acquires/switches targets, rejects occluded targets, prefers a visible boss, cancels camera and held-button state through menus, and verifies scale/mirroring/cutout bounds and settings persistence. It also passes in a native minimized GL Compatibility window. Existing target-lock/interaction tests now expect the new touch button; combat_check anchors its teleported fixture to its local home so camp-leash behavior does not invalidate a contact-timing test.
+
+Native captures cover HUD at 1280x720/800x450, mirrored layout, settings and starter outfit idle/walk/attack/roll poses. These advance desktop T02/T03/T14 evidence. T01 and physical-phone portions of T03/T14/T15 remain unaccepted: no Android device is connected. Starter outfit remains provisional; T10 earned gear progression is not implemented. No new APK or phone FPS claim. Full files, warnings and results: CH1_PHASE2_REPORT.md.

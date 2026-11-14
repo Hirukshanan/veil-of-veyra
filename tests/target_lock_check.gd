@@ -48,7 +48,7 @@ func _run() -> void:
 	assert(target.health == 100 - hero.attack_damage, "Locked facing must produce a real sword overlap hit")
 	hero.toggle_target_lock()
 	assert(not is_instance_valid(hero.locked_target) and not hero._lock_marker.visible)
-	assert(scene.find_child("TargetLockButton", true, false) == null)
+	assert(scene.find_child("TargetLockButton", true, false) != null)
 	hero.toggle_target_lock()
 	assert(hero.locked_target == target)
 	hero._rotate_camera(Vector2(10, 0))
@@ -80,7 +80,7 @@ func _run() -> void:
 	hero._invulnerability_time = 0
 	hero.take_damage(1000)
 	assert(not is_instance_valid(hero.locked_target) and not hero._lock_marker.visible)
-	print("PASS: keyboard lock without a touch button, nearest living target, facing/camera, real sword hit, toggle/manual camera/range/free/menu/death release, no target and boss lock")
+	print("PASS: keyboard lock with touch affordance, living target, facing/camera, real hit, release guards and boss lock")
 	paused = false
 	await create_timer(0.4).timeout
 	scene.queue_free()

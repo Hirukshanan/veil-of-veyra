@@ -22,7 +22,7 @@ Date: 2026-11-13. Status derives from the local Phase 0 audit. Items are dedupli
 | C1-16 | Chapter I / 7 | Resolve asset ledger gaps, especially parchment and standalone wolf license evidence. | Document commercial-use provenance for all shipped art/audio/fonts; replace unclear artwork locally only with approval for the concrete change. |
 | C1-17 | Chapter I / 7 | New-player/save/resume/offline/phone QA and release-candidate build. | Bear + reveal + unlock full walkthrough; old saves; no critical blockers; documented device results. |
 | C1-18 | Chapter I / 7 | Release signing/AAB/store/privacy readiness near launch. | Separate release review; no key/password disclosure; no forced ads/pay-to-win/boss gates. Debug APK is insufficient. |
-| D-01 | Deferred / optional 2 or 6 | Basic drag/scale/opacity HUD editor. | Only after stable default controls; normalized safe-area bounds, overlap/reset and persistence. Do not sacrifice combat reliability. |
+| D-01 | Phase 2 / desktop implemented, review pending | Separate drag/resize/opacity HUD editor, explicitly requested by owner. | Battle/Classic/Left-Handed presets, normalized safe-area bounds, overlap/center rejection, Save/Cancel/Reset and backup recovery tested. Screenshot approval and phone comfort remain pending. |
 | D-02 | Deferred | Complex Dragon locomotion/attack overhaul. | Ground gait, weighted legs, neck/wing polish and final combat remain deferred. This never defers visible Chapter I presence. |
 | L-01 | Later chapter | Chapter II geography, quests and asset delivery. | Begin only after Chapter I review; preserve connected island and separate story unlock from asset readiness. |
 | L-02 | Later chapter | Increasing purposeful Dragon presence in every chapter; final confrontation. | Same main Dragon identity throughout; each future scene separately designed/authorized. |
@@ -35,3 +35,7 @@ Next authorized scope after review: **Phase 1 only**. Preserve `main`, original 
 ## Phase 1 implementation update
 
 The owner subsequently authorized Phase 1. C1-01 and C1-02 now have desktop implementations: connected routes, existing trunk/pillar avoidance, four solid waymarks, separate Ancient Grove floor, map landmarks and a clear, oriented Dragon camera/perch reservation. See `CH1_REGION_LAYOUT.md` and `CH1_PHASE1_REPORT.md` for exact evidence and phone/build limitations. This does not implement C1-11/C1-12 boss/reveal behavior. Phase 2 remains a proposal until owner review.
+
+## Phase 2 implementation update
+
+C1-03/C1-04 and D-01 now include the owner's concept-guided gold/dark gameplay HUD and separate Settings > Controls > Customize HUD editor. Actual screenshots and 19 current desktop checks are in CH1_HUD_REDESIGN_REPORT.md. C1-05 retains provisional starter clothing; final art and earned visual upgrades remain open. Physical-phone input, cutouts and sustained performance are unverified. Phase 3 must wait for explicit approval of the Phase 2 screenshots and explanation.

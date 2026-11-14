@@ -20,6 +20,8 @@ func _run() -> void:
 	hero.position = Vector3(0, 0, 4)
 	hero.rotation = Vector3.ZERO
 	enemy.position = Vector3(0, 0, 2.8)
+	# This fixture tests contact timing, not the distant camp's return-home leash.
+	enemy._home = enemy.position
 	enemy.health = 100
 	await physics_frame
 	await physics_frame

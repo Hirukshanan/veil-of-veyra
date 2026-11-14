@@ -56,7 +56,7 @@ func run():
 	var attack=scene.find_child("AttackButton",true,false)
 	attack.tap_requested.connect(func(): light_taps+=1)
 	attack.heavy_requested.connect(func(): heavy_taps+=1)
-	assert(scene.find_child("HeavyAttackButton",true,false)==null and scene.find_child("TargetLockButton",true,false)==null)
+	assert(scene.find_child("HeavyAttackButton",true,false)==null and scene.find_child("TargetLockButton",true,false)!=null)
 	for layer in scene.get_children():
 		if layer is CanvasLayer and layer!=scene.overlay:
 			for button in layer.find_children("*","Button",true,false):

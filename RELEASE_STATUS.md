@@ -2,6 +2,8 @@
 
 ## Current gameplay
 
+- Phase 2 HUD redesign: compact gold/dark gameplay HUD with actual portrait/HP/stamina, quests, minimap, circular controls, functional frontal melee guard/parry and potion slots. Separate **Settings > Controls > Customize HUD** provides drag/resize/opacity, three presets and Save/Cancel/Reset. Large editor panels never appear during gameplay. Nineteen checks and native editor/capture runs pass; see `docs/CH1_HUD_REDESIGN_REPORT.md`. Screenshot approval, physical-phone acceptance and new Android packaging remain pending. Phase 3 has not started.
+
 - Chapter I route pass: three connecting woodland/grove trails, a small central trunk/pillar detour, four solid wayfinding stones, clearer map landmarks and a separate Ancient Grove clearing. Existing terrain heights, sea, quest coordinates, rewards and version-4 saves are retained. Dragon perch/camera markers reserve a later shot without creating a cutscene or changing the current boss. Desktop route/save/collision evidence is in `docs/CH1_PHASE1_REPORT.md`; phone performance/acceptance and a new Android build remain pending. No new branch or commit was created by the implementation agent.
 
 - Grounded jump: icon-only round button above Sprint, with Space on keyboard and K retained for dodge. Movement continues in the air; takeoff/air/landing animations use the existing Quaternius library. Midair repeat and menu/death/committed-action guards are checked. Desktop input/layout/visual validation passed; phone acceptance remains pending.
@@ -148,3 +150,10 @@ These are planned changes, not features of the current build.
 - Removed the Shore Keeper character, ring, overhead marker and island-map marker. Western Watch is now a non-spatial quest state accessed entirely through the quest scroll.
 - Campaign demon base health is 12/18/24 (previously 5/8/11). Scout health is base minus one; brute health is base plus three. Standalone enemy default health is also 12.
 - Damage, sword upgrades and reward values remain unchanged.
+
+## Chapter I Phase 2 desktop implementation (2026-11-14)
+
+- Touch lock/switch with visible-target selection, initial boss priority and solid-obstruction release; deliberate camera swipe/menu/range/death release retained.
+- Owned camera pointer, mirrored open-camera zone, two-thumb layout, moved sprint/heal, saved scale/invert-Y/handedness and held-button cancellation through menus.
+- Provisional starter tunic/trousers/boots on the retained CC0 rig; no replacement model or earned-equipment migration.
+- Desktop checks and native captures are recorded in docs/CH1_PHASE2_REPORT.md. Physical phone touch/performance, final outfit acceptance and Android packaging remain open. No Phase 3 implementation, branch, commit or push by the agent.

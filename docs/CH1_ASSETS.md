@@ -21,3 +21,9 @@ Existing `campaign.gd::_show_art_credits` lists Dragon/CC BY/source/modification
 ## Phase 1 additions
 
 Four low-poly wayfinding stones, text labels and non-rendered geography markers are defined procedurally in `scripts/chapter_one_region.gd`. The stones share one project-generated cylinder mesh and reuse the existing Poly Haven rock material/CC0 textures. No new model, texture, font, audio, dependency, purchase or external asset acquisition was introduced. The original license gaps above remain unchanged. Dragon framing previews use the retained asset locally in ignored validation scripts; no new Dragon copy or story scene is shipped.
+
+## Phase 2 additions
+
+HUD redesign follow-up: `guard.svg`, `map.svg`, `camp.svg` and `potion.svg` are original vectors. Panels/bars/compass use native drawing and a small circular-mask shader. Portrait/minimap cache local renders of existing assets. The supplied concept is a local visual reference only, not a shipped raster. No reference, source or model was uploaded; no font pack or dependency was added. Existing license gaps remain open.
+
+`assets/ui/controls/lock.svg` and `switch.svg` are original project-native vector icons; no external artwork was downloaded or traced. `hero_visual.gd` generates simple cloth/leather starter pieces and fitted trousers derived locally from the existing Quaternius CC0 body, retaining its skin weights. Original torso/boot geometry uses flat project materials; no new textures or fonts are added. The source model, rig, animation clips and original license notices remain unchanged. This is provisional starter art; final equipment assets and earned visual upgrades remain open. Existing release-license gaps are unchanged.

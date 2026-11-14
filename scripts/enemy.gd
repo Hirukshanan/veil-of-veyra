@@ -144,7 +144,8 @@ func _physics_process(delta: float) -> void:
 			_attack_cooldown = recovery_duration
 			_strike_time = 0.2
 			if distance <= attack_range and absf(target.global_position.y - global_position.y) <= 2.0 and target.has_method("take_damage"):
-				target.call("take_damage", attack_damage)
+				if target.has_method("take_melee_damage"): target.call("take_melee_damage",attack_damage,self)
+				else: target.call("take_damage",attack_damage)
 	elif _hit_time > 0.0:
 		velocity.x = 0.0
 		velocity.z = 0.0

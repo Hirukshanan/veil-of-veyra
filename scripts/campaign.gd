@@ -26,6 +26,10 @@ var herbs: Node3D
 var seal_fragments: Node3D
 var started := false
 var camera_sensitivity := 1.0
+var hud_scale := 1.0
+var invert_y := false
+var left_handed := false
+var mobile_hud: Node
 var camera_distance := 6.3
 var sound_volume := 0.7
 var shadows_enabled := true
@@ -201,6 +205,9 @@ func _ready() -> void:
 	player.set("attack_damage", 1 + blade_level)
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
+	mobile_hud = preload("res://scripts/mobile_hud.gd").new()
+	add_child(mobile_hud)
+	_apply_settings()
 	find_child("ControlsHint", true, false).hide()
 	_build_lantern()
 	var exploration := preload("res://scripts/island_exploration.gd").new()
@@ -275,10 +282,20 @@ func _build_campaign_ui() -> void:
 	heal_button.offset_right = -88
 	heal_button.offset_top = 20
 	heal_button.offset_bottom = 80
-	_set_action_icon(heal_button, "heal", "Heal")
+	_set_action_icon(heal_button, "potion", "Heal")
 	heal_button.name = "HealButton"
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
+	var map_button := _make_button("",Vector2.ZERO,Vector2(44,44))
+	map_button.name="MapButton"
+	_set_action_icon(map_button,"map","Island map")
+	map_button.pressed.connect(_show_island_map)
+	controls.add_child(map_button)
+	var camp_button := _make_button("",Vector2.ZERO,Vector2(44,44))
+	camp_button.name="CampButton"
+	_set_action_icon(camp_button,"camp","Equipment and camp")
+	camp_button.pressed.connect(_show_camp)
+	controls.add_child(camp_button)
 	var quest_button := _make_button("", Vector2.ZERO, Vector2(48, 48))
 	quest_button.name = "QuestScrollButton"
 	quest_button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
@@ -399,10 +416,13 @@ func _clear_menu(title: String, message: String, save_world := true) -> void:
 	get_tree().paused = true
 	player.call("set_move_input", Vector2.ZERO)
 	player.call("clear_target_lock")
+	player.call("cancel_touch_camera")
+	player.call("end_guard")
 	player.set("_burst_requested", false)
 	player.call("cancel_swing")
 	get_tree().call_group("movement_joysticks", "reset")
 	get_tree().call_group("attack_gestures", "cancel_hold")
+	get_tree().call_group("gameplay_buttons", "cancel_touch")
 	overlay.show()
 	menu_scroll.scroll_vertical = 0
 	for child in menu_box.get_children():
@@ -470,7 +490,7 @@ func _show_burst_guide() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or LOCK to face the nearest living enemy within 14 metres. Press again to release. Dragging the camera or opening a menu also releases the lock.\n\nEMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	_clear_menu("KNOW YOUR ENEMY", "LOCK ON: press Tab or tap the crosshair to face a visible enemy within 14 metres. A visible boss has initial priority; otherwise the nearest enemy is selected. Tap paired arrows to cycle targets. Tap the crosshair again to release. Solid obstruction, camera swipes, menus, death or leaving range also release lock.\n\nEMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:
@@ -514,6 +534,7 @@ func _pause_game() -> void:
 
 func _show_settings(back: Callable) -> void:
 	_clear_menu("SETTINGS", "Adjust the camera, sound, and graphics. Changes apply immediately; use Save and back to keep them.")
+	_menu_button("Controls",func(): _show_controls(func(): _show_settings(back)))
 	_settings_slider("Camera sensitivity", 0.25, 2.0, 0.05, camera_sensitivity, func(value: float):
 		camera_sensitivity = value
 		_apply_settings())
@@ -524,6 +545,20 @@ func _show_settings(back: Callable) -> void:
 		camera_distance = value
 		_apply_settings())
 	var shadows := CheckButton.new()
+	_settings_slider("Control size",0.85,1.2,0.05,hud_scale,func(value: float):
+		hud_scale=value
+		_apply_settings())
+	for option in ["Invert vertical camera"]:
+		var toggle := CheckButton.new()
+		toggle.name = "InvertYToggle" if option == "Invert vertical camera" else "LeftHandedToggle"
+		toggle.text = option
+		toggle.custom_minimum_size.y=48
+		toggle.button_pressed = invert_y if option == "Invert vertical camera" else left_handed
+		toggle.toggled.connect(func(enabled: bool):
+			if option == "Invert vertical camera": invert_y=enabled
+			else: left_handed=enabled
+			_apply_settings())
+		menu_box.add_child(toggle)
 	shadows.name = "ShadowsToggle"
 	shadows.text = "Shadows (turn off for better performance)"
 	shadows.custom_minimum_size.y = 48
@@ -574,12 +609,23 @@ func _settings_slider(title: String, minimum: float, maximum: float, increment: 
 		changed.call(updated))
 	menu_box.add_child(slider)
 
+func _show_controls(back: Callable) -> void:
+	_clear_menu("CONTROLS", "Choose your layout, then fine-tune individual controls. Changes in Customize HUD are kept only when you save.")
+	_menu_button("Customize HUD",func(): mobile_hud.open_editor(func(): _show_controls(back)))
+	_menu_button("Back",back)
+
 func _apply_settings() -> void:
 	Engine.max_fps = frame_limit
 	for child in get_children():
 		if child is DirectionalLight3D:
 			child.shadow_enabled = shadows_enabled
 	player.set("camera_sensitivity", camera_sensitivity)
+	player.set("invert_y", invert_y)
+	player.set("left_handed_controls",left_handed or (is_instance_valid(mobile_hud) and mobile_hud.profile.preset=="Left-Handed"))
+	if is_instance_valid(mobile_hud):
+		mobile_hud.hud_scale=hud_scale
+		mobile_hud.left_handed=left_handed
+		mobile_hud.refresh()
 	player.call("set_camera_distance", camera_distance)
 	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(sound_volume, 0.0001)))
 	AudioServer.set_bus_mute(0, sound_volume == 0.0)
@@ -587,6 +633,9 @@ func _apply_settings() -> void:
 func _save_settings() -> Error:
 	var config := ConfigFile.new()
 	config.set_value("settings", "camera_sensitivity", camera_sensitivity)
+	config.set_value("settings","hud_scale",hud_scale)
+	config.set_value("settings","invert_y",invert_y)
+	config.set_value("settings","left_handed",left_handed)
 	config.set_value("settings", "camera_distance", camera_distance)
 	config.set_value("settings", "sound_volume", sound_volume)
 	config.set_value("settings", "shadows_enabled", shadows_enabled)
@@ -597,6 +646,12 @@ func _load_settings() -> void:
 	var config := ConfigFile.new()
 	config.load(SETTINGS_PATH)
 	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
+	hud_scale = _setting_number(config,"hud_scale",1.0,0.85,1.2)
+	var saved_invert: Variant = config.get_value("settings","invert_y",false)
+	invert_y = saved_invert if saved_invert is bool else false
+	var saved_hand: Variant = config.get_value("settings","left_handed",false)
+	left_handed = saved_hand if saved_hand is bool else false
+	if FileAccess.file_exists("user://hud_profile.cfg"): left_handed=false
 	camera_distance = _setting_number(config, "camera_distance", 6.3, 4.0, 9.0)
 	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
 	var saved_shadows: Variant = config.get_value("settings", "shadows_enabled", true)

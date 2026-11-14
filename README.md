@@ -17,7 +17,7 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
 - **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
 - **Camp menu:** dragon-and-lantern artwork, prominent Continue action, shard/equipment cards, upgrades, and quick access to quests, guides, settings and New journey.
-- **Mobile controls:** circular action buttons and right-side sprint; **settings:** camera adjustments, safe-area layouts, shadows, and a 30/60 FPS option.
+- **Mobile HUD:** gold/dark portrait, actual HP/stamina, compact quests, compass, minimap, circular actions, movement-side sprint and bottom-center potion slots. **Settings > Controls > Customize HUD** provides drag, resize, opacity, Battle/Classic/Left-Handed presets, Save and Reset. Camera, safe-area, shadow and 30/60 FPS settings remain available.
 
 ## Run locally
 
@@ -38,13 +38,15 @@ godot --editor --path .
 | Action | Keyboard / mouse | Touch |
 | --- | --- | --- |
 | Move | WASD / arrow keys | Left joystick |
-| Camera | Hold right mouse button and drag | Drag open screen space |
+| Camera | Hold right mouse button and drag | Swipe open right-side space; left side in left-handed mode |
 | Sprint | Shift | Running figure icon |
 | Sword combo | J | Tap the sword icon |
 | Heavy attack | H | Hold the sword icon for 0.4 seconds |
 | Dodge | K | Evasion/boot icon |
+| Guard / timed parry | Hold F | Hold shield icon; frontal ordinary melee only |
 | Jump | Space | Jumping figure icon above Sprint |
-| Target lock | Tab | Keyboard only; no HUD button |
+| Target lock | Tab | Crosshair icon (tap again to unlock) |
+| Switch locked target | Touch control | Paired-arrows icon |
 | Spirit Burst | L | Starburst icon |
 | Collect herb / light lantern | E | Contextual hand / lantern icon |
 | Quest journal | Q | Scroll icon / Pause → Quest Journal |
@@ -88,7 +90,7 @@ See [Android setup](ANDROID_SETUP.md) for portable setup instructions, verificat
 
 **The wolf source model is not included in Git.** Obtain it from the creator and follow the installation notes. Without it, the game uses procedural fallback creatures. Install the model before evaluating the intended visuals or exporting them.
 
-The three wolf variants share one model with different sizes and colors. Hero costume is provisional; terrain and mountains are procedural. The dragon uses an optimized, rigged [Charcoal Black Dark Dragon by Pigcraft](assets/characters/pigcraft/README.md), included under CC BY 4.0. Its hovering combat motions are custom and remain subject to device playtesting.
+The three wolf variants share one model with different sizes and colors. The starter tunic, fitted trousers and boots are provisional; terrain and mountains are procedural. The dragon uses an optimized, rigged [Charcoal Black Dark Dragon by Pigcraft](assets/characters/pigcraft/README.md), included under CC BY 4.0. Its hovering combat motions are custom and remain subject to device playtesting.
 
 Third-party assets retain their respective licenses. Repository access does not grant redistribution rights to those assets. Consult the linked notes before reuse.
 
@@ -130,3 +132,5 @@ Additional targeted checks cover combat, quests, saves, terrain, UI, and travel.
 - Finish release artwork, signing, packaging, and store requirements.
 
 See [release status](RELEASE_STATUS.md) for implemented systems and remaining work.
+
+Touch lock chooses a visible target within 14 metres, prioritizing a visible boss on initial acquisition. Paired arrows cycle eligible targets by bearing. Solid occlusion, range exit, death, menus and deliberate camera swipes release the lock. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Sprint sits above the movement stick; healing occupies a bottom-center quick slot. Customize HUD is a separate paused editor: large configuration panels never appear during gameplay. Changes apply only after Save; Cancel discards them. Finished equipment art and physical-phone acceptance remain open. See the [Phase 2 HUD redesign report](docs/CH1_HUD_REDESIGN_REPORT.md) for actual screenshots and verification.

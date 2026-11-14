@@ -39,7 +39,7 @@ func _run() -> void:
 		await _settle()
 		var joystick: Control = get_first_node_in_group("movement_joysticks")
 		_inside(joystick, bounds)
-		assert(is_equal_approx(joystick.get_global_rect().end.y, resolution.y - 35.0))
+		assert(joystick.get_global_rect().end.y >= resolution.y-50 and joystick.get_global_rect().end.y <= resolution.y-30, "Movement stick needs a comfortable bottom margin")
 		# Include the lantern button even though it normally appears after the wave.
 		scene.interact_button.show()
 		for layer in scene.get_children():

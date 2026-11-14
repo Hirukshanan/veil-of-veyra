@@ -1,5 +1,9 @@
 # Gameplay validation — 2026-11-03
 
+## Phase 2 HUD redesign — 2026-11-14
+
+19/19 targeted checks pass without diagnostics in this selected run. Native Windows Godot 4.7.2 GL Compatibility editor regression and eight-screenshot capture pass with empty stderr. Coverage includes separate layers, Settings > Controls navigation, touch drag/corner resize, scale/opacity/presets, save/cancel/reset, corrupt/failed-write recovery, safe layouts, guard/parry and retained combat/quest/camera/saves. Both cached 3D HUD viewports are asserted disabled after startup. Unique isolated APPDATA protects personal progress. Details/screenshots/metrics: `docs/CH1_HUD_REDESIGN_REPORT.md`. Phone acceptance and a new APK remain pending; Phase 3 awaits screenshot approval.
+
 Environment: Godot 4.7.2 on Windows. Headless physics checks and OpenGL rendering on Intel Iris Xe. Test saves isolated under `.validation`; player saves were not used.
 
 ## Passed
@@ -702,3 +706,10 @@ Debug version: 0.3.0-dev (code 13).
 - Forest count 54 -> 38 after intentional route/grove/vista exclusions. Both patches retain at least 12 tall trees; individual trunk collision, shared mesh budgets and distance culling remain. No existing rock or central trunk/pillar collision was disabled.
 - Controlled arrival counters: 534 -> 533 draw calls and 646,633 -> 591,428 primitives; median/p95 intervals 40.369/46.388 -> 34.567/39.700 ms. Both minimized-window methods include a roughly 17-second first interval, so this is not a clean sustained/phone FPS benchmark. See docs/CH1_PHASE1_REPORT.md for the dual-viewport sample and limitations.
 - No phone connected; physical touch, sustained performance and thermal acceptance remain pending. No APK exported: Phase 0's restricted-runner editor-config/SDK-resolution blocker remains. No new branch, commit or push was created. Phase 2 awaits owner review.
+
+## Chapter I Phase 2 controls (2026-11-14)
+
+- Isolated tests and native GL Compatibility captures live in .validation/ch1_phase2_2026-11-14. New mobile_controls_check verifies three-pointer movement/look/attack, touch target cycling, visibility/boss priority, camera and held-action cancellation across menus, mirrored camera zone, control-size/handedness/inset layouts and settings persistence.
+- Existing keyboard/interaction checks were updated to require the touch lock affordance. The old combat fixture now updates its teleported enemy home to avoid an unrelated return-home leash; enemy AI remains unchanged.
+- Original/CC0 starter outfit retains the existing skeletal controller and action timing. Fitted trouser geometry uses the source body's skin weights to avoid the leg clipping seen in early cylinder prototypes. Native idle/walk/attack/roll views were reviewed; final art approval remains pending.
+- See docs/CH1_PHASE2_REPORT.md for the final 19-check list, shutdown warnings, native run evidence, changed-file boundary and rollback. No connected phone, sustained mobile benchmark or new APK. Existing packaging configuration-access issue remains documented.

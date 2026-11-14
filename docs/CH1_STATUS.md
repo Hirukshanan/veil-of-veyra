@@ -8,7 +8,7 @@ Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied b
 
 - Work on the existing `main` branch. Do not create another branch or worktree.
 - Phase 0 covered inspection, isolated tests, baseline rendering/builds, and documentation only. Its report records that phase's unchanged gameplay baseline.
-- The owner authorized Phase 1 after reviewing the audit. Work is limited to existing-island routes, wayfinding, a separate grove clearing and future Dragon sightline anchors. Review is required before Phase 2.
+- The owner authorized Phase 2, then requested a concept-guided HUD redesign with distinct gameplay and customization screens. The desktop redesign is ready for screenshot review. Do not start Phase 3 until that review is approved; hardware acceptance remains pending.
 - Chat communication uses Thanglish; repository documents, source comments, and any future commit messages use English.
 - No commit, push, deployment, external source-code upload, or telemetry enrollment was performed.
 
@@ -17,12 +17,12 @@ Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied b
 | Phase | State | Evidence / next action |
 | --- | --- | --- |
 | 0: Repository audit | AUDITED | Owner authorized Phase 1. Audit: 28 checks passed, seven renders, Android editor-config export blocker and phone limits documented. |
-| 1: Geography/navigation | IN_PROGRESS — hardware acceptance pending | Desktop implementation verified: 20 targeted checks, full rendered 711-waypoint route, grove/vista/map captures. Owner review and physical-device performance acceptance remain open. See `CH1_PHASE1_REPORT.md`. |
-| 2: Hero/mobile controls | AUDITED | Rig, jump, sensitivity, safe-area layouts and keyboard lock exist. Touch lock/switch, control scale and visible equipment progression remain. |
+| 1: Geography/navigation | IN_PROGRESS — hardware acceptance pending | Desktop implementation reviewed; owner authorized Phase 2. Physical-device performance acceptance remains open. See `CH1_PHASE1_REPORT.md`. |
+| 2: Hero/mobile controls | IN_PROGRESS — HUD screenshot approval pending | Two-interface gold/dark HUD, functional guard/parry and saved drag/size/opacity editor implemented inside the existing game. See CH1_HUD_REDESIGN_REPORT.md. Phone playtest and final art acceptance pending. |
 | 3: Common demons | AUDITED | Five live wolf-variant spawns; retired duplicate ID 5 remains cleared. No active standalone fox, charge-boar or poison-serpent system. |
 | 4: Quest/progression | AUDITED | Three seal fragments, scroll-only quests, herbs, healing, numerical upgrades and v4 persistence exist. Inventory/crafting and visual gear improvements are incomplete. |
 | 5: Boss/reveal/unlock | AUDITED | Existing Tidewraith Dragon is a combat boss. Cursed Bear, non-combat dragon reveal and Chapter II story threshold are absent. Migration/reconciliation required. |
-| 6: Polish/profiling | AUDITED | Foliage batching/culling and placeholder audio exist. Sustained physical-device profiling and HUD editor remain unverified/absent. |
+| 6: Polish/profiling | AUDITED | Foliage batching/culling and placeholder audio exist. HUD editor moved into authorized Phase 2; sustained physical-device profiling remains open. |
 | 7: Release candidate | NOT_STARTED | Licensing gaps, phone QA, release signing/AAB and release checks remain. Existing debug APK is not a release candidate. |
 
 `AUDITED` means inspected, not implemented. Desktop checks do not establish phone playability. Phase 1 will retain a physical-device acceptance limitation until a phone is available.
@@ -50,3 +50,11 @@ Risk/rollback: new trails can expose narrow collisions and the reserved clearing
 Final desktop evidence: 20/20 checks pass with no warnings in this subset; full native route rerun passes and records 20.4 seconds at 4x simulation with enemies paused. Seven principal after screenshots include the new clearing, map at two sizes and validation-only Dragon framing. Forest count is 38, with both woodland patches retaining at least 12 tall trees. No phone is connected; sustained mobile performance remains unverified. Android packaging retains the previously documented editor-config access/SDK-resolution blocker; no APK is claimed. Phase 2 is not started and requires owner review.
 
 Final preservation check: 313 pre-phase tracked files compared; 13 planned files modified, 300 unchanged, no unexpected changes. Six new region/test/UID/document files are added. All Phase 1 changes remain uncommitted on `main` for review.
+
+## Phase 2 review state
+
+Phase 1 was committed by the owner as `4f9a6ed`. Phase 2 started from clean `main`, 319 tracked files. The agent created no branch, commit, push or deployment. Initial controls/outfit work was extended by the subsequent authorized HUD redesign: separate gameplay/editor scripts, four further original SVGs, saved layout profiles and a focused editor/guard regression. Campaign save version/quest IDs, phase-1 geometry, enemy stats and Dragon art remain intact.
+
+The initial controls/outfit report is historical; the subsequent HUD redesign supersedes its visual layout and editor deferral. Nineteen current targeted checks, native editor validation and eight actual game captures pass with no diagnostics in this subset. Starter clothing remains provisional. No physical Android device is attached, no sustained phone performance is measured and no new APK is claimed. HUD drag/resize/opacity editing is now implemented under the owner's explicit request. Phase 3 has not started. See CH1_HUD_REDESIGN_REPORT.md.
+
+Rollback is a scoped diff against `4f9a6ed` plus only this phase's new files. Preserve personal saves; no whole-tree reset/clean. Baseline hashes and isolated synthetic tests/captures remain in `.validation/ch1_phase2_2026-11-14/`.
