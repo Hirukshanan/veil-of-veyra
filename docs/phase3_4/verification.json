@@ -1,0 +1,170 @@
+{
+  "status": "Implemented for visual/audio review; exit-time diagnostics disclosed",
+  "functional_test_count": 15,
+  "tests": {
+    "boar_feedback_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: bounded spatial audio, authored grounded footsteps, distance gating, explicit normal/heavy contact, unchanged damage/stagger/stamina/spirit, short bounded effects and Master mute"
+    },
+    "boar_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: boar telegraph, committed dodgeable lane, single contact, invulnerability, wall/LOS collision, grounded collider, stagger, single defeat and death hold"
+    },
+    "boar_campaign_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: one optional boar, real dodge/knockback, backward-compatible flag, one-time reward, reload persistence and unchanged camp/retired-wolf IDs"
+    },
+    "heavy_attack_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: heavy touch input, stamina cost/gating, delayed 4x damage, forward arc, stagger, spirit, repeat guard, dodge/hit/menu cancellation, pause and death"
+    },
+    "combat_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout"
+    },
+    "enemy_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: Shore/Scout/Brute health, pursuit speed, warning radius/timing, damage, escape, interruption, hit feedback and single defeat"
+    },
+    "free_combat_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: no target buttons, binding, marker or selection API; Tab leaves facing/camera alone; free movement, manual camera and sword damage remain functional"
+    },
+    "campaign_smoke": {
+      "functional_result": "PASS",
+      "summary": "PASS: camp, resume, healing, pause, rewards, upgrades, and save reload"
+    },
+    "chapter_route_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: real shore/foothills/forest/ruins/grove round trip, Moonleaf return, 711 waypoints and unchanged-progress save/reopen"
+    },
+    "fast_travel_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: persistent discovery, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill"
+    },
+    "autosave_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: 180ms disk latency without movement stall (dispatch 0.55ms), immutable snapshots, serialized writes, errors/retry, corrupt-save protection, reset and scene exit"
+    },
+    "persistent_world_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: persistent island, pickups, cleared demons, waystones, health/potions, death resume, lantern resume, continued exploration and one-time rewards"
+    },
+    "jump_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: round nonoverlapping jump icon, keyboard/touch launch, start/air/landing motion, bounded height, moving jumps, no repeat/double jump, action guards and sea-wall collision at 15 FPS"
+    },
+    "hud_customization_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: separate gameplay/editor, settings path, touch drag, size/opacity, presets, save/cancel/reset/reopen, safe profiles, failed-write recovery and functional guard/parry"
+    },
+    "quest_hud_check": {
+      "functional_result": "PASS",
+      "summary": "PASS: circular bounds/hit areas, separate controls at three resolutions, movement-side sprint, scroll access and incomplete quest guard"
+    }
+  },
+  "changed_existing_files": [
+    "scripts/demon_boar.gd",
+    "scripts/player.gd",
+    "tests/boar_check.gd"
+  ],
+  "all_other_baseline_files_unchanged": true,
+  "stage_a_and_b_source_manifests_unchanged": true,
+  "runtime_glb_sha256": "4f7b9574a6b9bf745fba3ca15b9666741225243bbedb9ba88c74d00fbf275b96",
+  "sound_bytes": 504098,
+  "sound_count": 13,
+  "bounded_spatial_voices": 3,
+  "captures": {
+    "dodge": {
+      "hero_health": 100,
+      "boar_health": 24,
+      "shards": 0,
+      "boar_saved": false,
+      "master_muted": false,
+      "cue_counts": {
+        "warning": 2,
+        "scrape": 2,
+        "charge": 1,
+        "hoof_a": 3,
+        "hoof_b": 3,
+        "hoof_c": 2
+      },
+      "native_mix_peak": 0.1588134765625,
+      "native_mix_rms": 0.010949379356220635,
+      "source_avi_sha256": "4e56aab44b6b37baf34645510cb845c9eac6b7c244cc281f3e36422cb599de9b"
+    },
+    "hit": {
+      "hero_health": 82,
+      "boar_health": 24,
+      "shards": 0,
+      "boar_saved": false,
+      "master_muted": false,
+      "cue_counts": {
+        "warning": 1,
+        "scrape": 1,
+        "charge": 1,
+        "hoof_a": 4,
+        "hoof_b": 3,
+        "hoof_c": 3,
+        "charge_impact": 1
+      },
+      "native_mix_peak": 0.1751708984375,
+      "native_mix_rms": 0.011034077740960406,
+      "source_avi_sha256": "b05aebeb870062181f70d6af7470f79698c943e0d3e386dec8d197028c16ac43"
+    },
+    "defeat": {
+      "hero_health": 100,
+      "boar_health": 0,
+      "shards": 20,
+      "boar_saved": true,
+      "master_muted": false,
+      "cue_counts": {
+        "hoof_a": 1,
+        "hoof_b": 1,
+        "hit_heavy": 1,
+        "hurt": 1,
+        "hit_light": 1,
+        "death": 1,
+        "death_land": 1
+      },
+      "native_mix_peak": 0.396759033203125,
+      "native_mix_rms": 0.020864683747965757,
+      "source_avi_sha256": "087c5dd2c121857a34136200160929f26b966fe1fb22d1cba911301bc94f055c"
+    },
+    "muted": {
+      "hero_health": 82,
+      "boar_health": 24,
+      "shards": 0,
+      "boar_saved": false,
+      "master_muted": true,
+      "cue_counts": {
+        "warning": 1,
+        "scrape": 1,
+        "charge": 1,
+        "hoof_a": 4,
+        "hoof_b": 3,
+        "hoof_c": 3,
+        "charge_impact": 1
+      },
+      "native_mix_peak": 0.0,
+      "native_mix_rms": 0.0,
+      "source_avi_sha256": "8c84af26cdbf387fbb2354ad1b9db79c9828954a13711f25c94de2732c3d0392"
+    }
+  },
+  "diagnostics": {
+    "boar_check": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 2 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "heavy_attack_check": "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "combat_check": "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "campaign_smoke": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)",
+    "persistent_world_check": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)\nWARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)",
+    "capture_dodge": "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 2 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "capture_hit": "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "capture_muted": "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)"
+  },
+  "diagnostic_assessment": "Intermittent Godot 4.7.2 AudioStream/Playback resources-still-in-use warnings at process shutdown were observed, including in a tiny isolated playback/free/quit case. No functional assertion, parse/load failure or observed gameplay corruption. This is not a warning-free engine teardown claim. Also preserve any pre-existing HUD draw_rect warning; HUD was not edited.",
+  "not_tested": [
+    "Physical Android touch ergonomics",
+    "Phone frame rate/thermal/audio latency",
+    "Subjective final audio mix approval"
+  ]
+}

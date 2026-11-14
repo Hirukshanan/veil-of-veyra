@@ -43,6 +43,7 @@ var _warning_material: StandardMaterial3D
 var _health_label: Label3D
 var _materials: Array[StandardMaterial3D] = []
 var _clip := ""
+var _feedback: Node3D
 
 func _ready() -> void:
 	add_to_group("combat_enemies")
@@ -53,6 +54,9 @@ func _ready() -> void:
 	_patrol_goal = _home
 	_maximum_health = health
 	_build_body()
+	_feedback = preload("res://scripts/boar_feedback.gd").new()
+	_feedback.name = "CombatFeedback"
+	add_child(_feedback)
 	if target is PhysicsBody3D:
 		# Damage uses the tusk area; the charge must not slide around its victim.
 		add_collision_exception_with(target)
@@ -120,6 +124,7 @@ func _physics_process(delta: float) -> void:
 		material.emission_enabled = _hit_time > 0.0
 		material.emission = Color(0.20, 0.08, 0.025)
 	if state == State.DEAD:
+		_feedback.sync_pose(_clip, animator.current_animation_position, delta, false, true, _model.visible)
 		animator.advance(delta)
 		if _elapsed > 14.0:
 			queue_free()
@@ -211,6 +216,7 @@ func _physics_process(delta: float) -> void:
 	var speed := Vector2(velocity.x, velocity.z).length()
 	if state in [State.IDLE, State.PATROL, State.CHASE, State.FACE, State.RETURN]:
 		_play("run" if speed > 1.0 else ("walk" if speed > 0.05 else "idle"))
+	_feedback.sync_pose(_clip, animator.current_animation_position, delta, _flat(global_position - before).length() > 0.001, is_on_floor(), distance < 26.0)
 	animator.advance(delta)
 
 func _enter(next: State) -> void:
@@ -232,10 +238,12 @@ func _enter(next: State) -> void:
 			_warning.position.z = -lane_length * 0.5
 			_warning.show()
 			_play("charge_warning")
+			_feedback.cue("warning")
 		State.CHARGE:
 			_charge_travel = 0.0
 			_hit_victim = false
 			_play("charge_attack")
+			_feedback.cue("charge")
 		State.RECOVERY:
 			_recovery_speed = CHARGE_SPEED if previous == State.CHARGE else 0.0
 			_play("charge_recovery")
@@ -251,6 +259,8 @@ func _enter(next: State) -> void:
 			_contact_area.set_deferred("monitoring", false)
 			remove_from_group("combat_enemies")
 			_play("death")
+			_feedback.voices[1].stop()
+			_feedback.cue("death")
 			defeated.emit()
 
 func _walk(direction: Vector3, speed: float, delta: float) -> void:
@@ -314,23 +324,35 @@ func _contact() -> void:
 		if body != target or _flat(body.global_position - global_position).dot(_charge_direction) <= 0.0 or not _clear_line(body):
 			continue
 		_hit_victim = true
+		var before := int(body.get("health"))
 		if body.has_method("take_charge_damage"):
 			body.call("take_charge_damage", 18, _charge_direction)
 		else:
 			body.call("take_damage", 18)
+		if int(body.get("health")) < before:
+			_feedback.cue("charge_impact")
 
 func take_damage(amount: int) -> void:
+	_receive_damage(amount)
+
+func take_weapon_hit(amount: int, heavy: bool, origin: Vector3) -> void:
+	_receive_damage(amount, true, heavy, origin)
+
+func _receive_damage(amount: int, weapon := false, heavy := false, origin := Vector3.ZERO) -> void:
 	if health <= 0 or amount <= 0:
 		return
+	if weapon:_feedback.strike(origin, heavy)
 	preload("res://scripts/damage_number.gd").show_hit(self, mini(amount, health), 1.7)
 	health = maxi(0, health - amount)
 	_hit_time = 0.12
 	_update_label()
 	if health == 0:
 		_enter(State.DEAD)
-	elif state not in [State.WARNING, State.CHARGE, State.RECOVERY, State.HURT] and _flinch_cooldown <= 0.0:
-		_hurt_duration = HIT_SECONDS
-		_enter(State.HURT)
+	else:
+		_feedback.cue("hurt")
+		if state not in [State.WARNING, State.CHARGE, State.RECOVERY, State.HURT] and _flinch_cooldown <= 0.0:
+			_hurt_duration = HIT_SECONDS
+			_enter(State.HURT)
 
 func stagger(duration: float) -> void:
 	if health <= 0:

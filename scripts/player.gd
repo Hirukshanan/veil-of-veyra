@@ -222,7 +222,7 @@ func attack() -> void:
 	for body in _attack_area.get_overlapping_bodies():
 		if body.has_method("take_damage") and int(body.get("health")) > 0:
 			var before := int(body.get("health"))
-			body.call("take_damage", damage)
+			_deal_weapon_hit(body, damage, false)
 			connected = connected or int(body.get("health")) < before
 	if connected:
 		spirit = mini(SPIRIT_MAX, spirit + 25)
@@ -335,6 +335,12 @@ func take_damage(amount: int, attacker: Node3D=null) -> void:
 func take_melee_damage(amount: int, attacker: Node3D) -> void:
 	take_damage(amount,attacker)
 
+func _deal_weapon_hit(body: Node3D, amount: int, heavy: bool) -> void:
+	if body.has_method("take_weapon_hit"):
+		body.call("take_weapon_hit", amount, heavy, global_position)
+	else:
+		body.call("take_damage", amount)
+
 func take_charge_damage(amount: int, direction: Vector3) -> void:
 	var before := health
 	# Guard/parry remains for ordinary melee. A heavy body charge must be evaded.
@@ -346,13 +352,14 @@ func take_charge_damage(amount: int, direction: Vector3) -> void:
 func _build_sounds() -> void:
 	_sound = AudioStreamPlayer.new()
 	_sound.process_mode = Node.PROCESS_MODE_ALWAYS
+	_sound.finished.connect(func(): _sound.stream = null)
 	add_child(_sound)
-	# Original synthesized placeholder cues; replace with final sound design later.
-	for cue in ["sword", "dodge", "hurt"]:
+	# Preserve the existing dodge/hurt cues; sword movement uses the CC0 sample below.
+	for cue in ["dodge", "hurt"]:
 		var data := PackedByteArray()
 		var samples := 6615
 		data.resize(samples * 2)
-		var frequency := 660.0 if cue == "sword" else (330.0 if cue == "dodge" else 110.0)
+		var frequency := 330.0 if cue == "dodge" else 110.0
 		for index in range(samples):
 			var progress := float(index) / samples
 			var phase := TAU * frequency * (float(index) / 22050.0) * (1.0 - 0.4 * progress)
@@ -363,6 +370,7 @@ func _build_sounds() -> void:
 		stream.mix_rate = 22050
 		stream.data = data
 		_sounds[cue] = stream
+	_sounds["sword"] = preload("res://assets/audio/demon_boar/sword_swing.wav")
 
 
 func play_sound(cue: String) -> void:
@@ -599,7 +607,7 @@ func heavy_attack() -> void:
 		if flat.length() > 2.6 or absf(offset.y) > 1.8 or flat.normalized().dot(-global_basis.z) < 0.5:
 			continue
 		var before := int(body.get("health"))
-		body.call("take_damage", attack_damage * 4)
+		_deal_weapon_hit(body, attack_damage * 4, true)
 		if int(body.get("health")) < before:
 			connected = true
 			if int(body.get("health")) > 0 and body.has_method("stagger"):

@@ -5,6 +5,7 @@ var world: Node3D
 var boar
 var target: Dummy
 var defeats := 0
+var cues: Array[String] = []
 
 class Dummy extends CharacterBody3D:
 	var health := 100
@@ -36,6 +37,8 @@ func reset_case(point := Vector3(0, 0, -4.2)) -> void:
 	target.invulnerable = false
 	await physics_frame
 	await physics_frame
+	cues.clear()
+	boar._play("idle", 0.0)
 	boar._enter(BOAR.State.WARNING)
 	boar.set_physics_process(true)
 
@@ -68,6 +71,7 @@ func run() -> void:
 	boar.position.y = 0.03
 	world.add_child(boar)
 	boar.defeated.connect(func(): defeats += 1)
+	boar._feedback.cue_played.connect(func(cue: String, _channel: int): cues.append(cue))
 	await physics_frame
 	assert(boar.animator.has_animation("death") and boar.animator.has_animation("charge_warning"))
 	await reset_case(Vector3(0, 0, -2.0))
@@ -81,22 +85,26 @@ func run() -> void:
 	await reset_case()
 	await wait_game(1.4)
 	assert(boar.state == BOAR.State.WARNING and target.health == 100, "Full telegraph before damage")
+	assert(cues.count("warning") == 1 and cues.count("scrape") == 1 and not "charge" in cues, "Warning voice and authored scrape must precede charge: " + str(cues))
 	var committed: Vector3 = boar._charge_direction
 	target.position.x = 3.0
 	await wait_game(2.6)
 	assert(target.health == 100 and target.contacts == 0, "Sidestep must avoid the committed lane")
 	assert(boar._charge_direction.is_equal_approx(committed) and absf(boar.position.x) < 0.02, "No homing during charge")
 	assert(boar.state == BOAR.State.RECOVERY)
+	assert(cues.count("charge") == 1 and not "charge_impact" in cues, "A missed charge has movement sound but no successful impact")
 	assert(absf(boar.position.y) < 0.08, "Visible feet must settle at the floor, not below it")
 	await reset_case()
 	await wait_game(3.2)
 	assert(target.health == 82 and target.contacts == 1, "Valid tusk contact must hit once")
+	assert(cues.count("charge_impact") == 1, "Damage and impact cue must agree")
 	await wait_game(0.6)
 	assert(target.health == 82 and target.contacts == 1, "No repeated damage while overlapping")
 	await reset_case()
 	target.invulnerable = true
 	await wait_game(3.2)
 	assert(target.health == 100 and target.contacts <= 1, "An invulnerable target takes no charge damage")
+	assert(not "charge_impact" in cues, "Invulnerability must also suppress the successful impact cue")
 	await reset_case()
 	var wall := StaticBody3D.new()
 	wall.collision_layer = 4 | 8
@@ -111,6 +119,7 @@ func run() -> void:
 	world.add_child(wall)
 	await wait_game(2.8)
 	assert(target.health == 100 and target.contacts == 0, "No attack through a solid wall")
+	assert(not "charge_impact" in cues, "Blocked charge must not pretend to hit the player")
 	assert(boar.position.z > -1.9, "Swept body collision must stop before the wall")
 	boar.set_physics_process(false)
 	boar._enter(BOAR.State.IDLE)
@@ -131,8 +140,10 @@ func run() -> void:
 	boar.take_damage(1000)
 	boar.take_damage(1000)
 	assert(defeats == 1 and boar.state == BOAR.State.DEAD and not boar.is_in_group("combat_enemies"))
+	assert(cues.count("death") == 1 and not "death_land" in cues, "Death vocal starts once; landing waits for the animation")
 	boar.set_physics_process(true)
 	await wait_game(3.2)
+	assert(cues.count("death_land") == 1, "Body landing sound follows the authored fall, once")
 	var skeleton: Skeleton3D = boar._model.find_children("*", "Skeleton3D", true, false)[0]
 	var final_pose := skeleton.get_bone_global_pose(0)
 	await wait_game(0.5)

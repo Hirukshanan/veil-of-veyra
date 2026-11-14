@@ -1,0 +1,296 @@
+{
+  "license": "CC0-1.0",
+  "source_pages": {
+    "boar_0.ogg": "https://opengameart.org/content/boar-0",
+    "impact-sounds": "https://kenney.nl/assets/impact-sounds",
+    "rpg-audio": "https://kenney.nl/assets/rpg-audio"
+  },
+  "original_downloads": {
+    "boar_0.ogg": {
+      "url": "https://opengameart.org/sites/default/files/boar_0.ogg",
+      "bytes": 9540,
+      "sha256": "14b874678ef92e52168e1b96da4aee08e3c7e259d06337dd098e1eacaa25b370"
+    },
+    "kenney_impact-sounds.zip": {
+      "url": "https://kenney.nl/assets/impact-sounds",
+      "bytes": 800850,
+      "sha256": "029d734af1582474edf3a694d1b0cebc97c1c152f2f39fa34d4c2bafc5de77f8"
+    },
+    "kenney_rpg-audio.zip": {
+      "url": "https://kenney.nl/assets/rpg-audio",
+      "bytes": 964837,
+      "sha256": "6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b"
+    }
+  },
+  "assets": [
+    {
+      "file": "warning.wav",
+      "duration_s": 1.1513,
+      "decoded_peak": 0.6707,
+      "bytes": 55340,
+      "sources": [
+        {
+          "file": "boar_0.ogg",
+          "pitch": 0.76,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "boar_0.ogg",
+          "pitch": 0.67,
+          "gain": 0.55,
+          "offset_s": 0.38
+        }
+      ],
+      "intermediate_vorbis_sha256": "631accee010225597e6667049b26f8276ec490b77eb9c65055568a3fc20e8f2d",
+      "sha256": "0dedce2dc44c280f35c1caef117abe8bbb9e242135079a35a5b1939af8bc7560"
+    },
+    {
+      "file": "charge.wav",
+      "duration_s": 0.5635,
+      "decoded_peak": 0.6684,
+      "bytes": 27126,
+      "sources": [
+        {
+          "file": "boar_0.ogg",
+          "pitch": 0.9,
+          "gain": 1,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "c5627e70c6aeb847c94f624f7e20fa6f76d1d166e95df84c6095f92c71a2ac48",
+      "sha256": "9087851d3382bff598e265566701579194664a6fa1c0e2d650f3c54ebd830e17"
+    },
+    {
+      "file": "hurt.wav",
+      "duration_s": 0.4533,
+      "decoded_peak": 0.5327,
+      "bytes": 21838,
+      "sources": [
+        {
+          "file": "boar_0.ogg",
+          "pitch": 1.17,
+          "gain": 1,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "75e03f2d5ac2e5115ffde150e4d0f43971679ce8e140c2a28a29104764079c70",
+      "sha256": "365ef35ece6c538d9d1e522f6b2b18af0af7c02e512c3bc2f5a71ae04d457291"
+    },
+    {
+      "file": "death.wav",
+      "duration_s": 1.3696,
+      "decoded_peak": 0.5482,
+      "bytes": 65818,
+      "sources": [
+        {
+          "file": "boar_0.ogg",
+          "pitch": 0.65,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "boar_0.ogg",
+          "pitch": 0.55,
+          "gain": 0.35,
+          "offset_s": 0.43
+        }
+      ],
+      "intermediate_vorbis_sha256": "323f9f8d80796e1edc476f8e20aa5d1cab4882c9315c6fb6a00b1a1e3edf83b8",
+      "sha256": "e15c726cc47727094acaa00cc11d6ce08acfeebb853928b9d5c2d816f7eac911"
+    },
+    {
+      "file": "hoof_a.wav",
+      "duration_s": 0.8587,
+      "decoded_peak": 0.4481,
+      "bytes": 41294,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/footstep_grass_000.ogg",
+          "pitch": 0.84,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/footstep_concrete_000.ogg",
+          "pitch": 0.8,
+          "gain": 0.25,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "ee85f0bb6a7c7ec779b5f2dcc5eb1273a77b2580010420c0422266231b4ae781",
+      "sha256": "882f671bde20d0ceb6c6143dce72da1ebcec80a8ad1abbc13bf69eef45fa75b2"
+    },
+    {
+      "file": "hoof_b.wav",
+      "duration_s": 0.752,
+      "decoded_peak": 0.4584,
+      "bytes": 36174,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/footstep_grass_002.ogg",
+          "pitch": 0.86,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/footstep_concrete_002.ogg",
+          "pitch": 0.83,
+          "gain": 0.22,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "0fdd5bc2bcfd0a159a7601bda130dccbd1c83376b01e23131513e6b16fce12d7",
+      "sha256": "a34227e6d2062c8e84fe35ea20e5f9ed4bca68438dba98dc07f7c5d6e3b4ec5d"
+    },
+    {
+      "file": "hoof_c.wav",
+      "duration_s": 0.6474,
+      "decoded_peak": 0.4734,
+      "bytes": 31152,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/footstep_grass_004.ogg",
+          "pitch": 0.82,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/footstep_concrete_004.ogg",
+          "pitch": 0.81,
+          "gain": 0.22,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "313899519c282b53701a2f36538b178f981230961422fb472c178a06683a28b9",
+      "sha256": "512e7df5cf716f776d5dfc7876ec76d3e1d91825a1d30a7686844200de61f36c"
+    },
+    {
+      "file": "scrape.wav",
+      "duration_s": 1.008,
+      "decoded_peak": 0.3893,
+      "bytes": 48462,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/footstep_grass_001.ogg",
+          "pitch": 0.65,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/footstep_grass_003.ogg",
+          "pitch": 0.7,
+          "gain": 0.6,
+          "offset_s": 0.12
+        }
+      ],
+      "intermediate_vorbis_sha256": "a956bf33855f0e927d00b66192073474877cd1ba770857f279a3df9114f7a409",
+      "sha256": "601f4802ae2703924bb6518ac4d211a23c9fc4dadaab55af959532d378c596e6"
+    },
+    {
+      "file": "hit_light.wav",
+      "duration_s": 0.6133,
+      "decoded_peak": 0.5859,
+      "bytes": 29518,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/impactPunch_medium_000.ogg",
+          "pitch": 1,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "rpg-audio/Audio/knifeSlice.ogg",
+          "pitch": 1,
+          "gain": 0.3,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "749c6bf76371d6ec4ced480c1220156e752a938b71dc110c2120aac217f06966",
+      "sha256": "820670eec11eef56eed7753ec90b59aa58de4d6c8c5d4a70a1d69013ae970b6a"
+    },
+    {
+      "file": "hit_heavy.wav",
+      "duration_s": 0.6667,
+      "decoded_peak": 0.6525,
+      "bytes": 32078,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/impactPunch_heavy_001.ogg",
+          "pitch": 0.85,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "rpg-audio/Audio/knifeSlice2.ogg",
+          "pitch": 0.88,
+          "gain": 0.35,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "73987555e3321d337f00de88118c77db923ad674bc29704b4f1a83bb5bc02c30",
+      "sha256": "d6030a00caf7abfa6bb99f5668f2491e219300ce5f7e14b2c8ed06ff5d341e23"
+    },
+    {
+      "file": "charge_impact.wav",
+      "duration_s": 0.7165,
+      "decoded_peak": 0.6698,
+      "bytes": 34470,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/impactSoft_heavy_000.ogg",
+          "pitch": 0.82,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/impactPunch_heavy_000.ogg",
+          "pitch": 0.82,
+          "gain": 0.65,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "ee43c53caada01fce92d030481405c015a8d2fe971da9231c5962cb74a5cf272",
+      "sha256": "a8a36199b0cb4e191d5ae9d20c530525e5bdfa3603e127745e32f35ef2260ef3"
+    },
+    {
+      "file": "death_land.wav",
+      "duration_s": 0.9227,
+      "decoded_peak": 0.5962,
+      "bytes": 44366,
+      "sources": [
+        {
+          "file": "impact-sounds/Audio/impactSoft_heavy_002.ogg",
+          "pitch": 0.7,
+          "gain": 1,
+          "offset_s": 0
+        },
+        {
+          "file": "impact-sounds/Audio/footstep_grass_002.ogg",
+          "pitch": 0.7,
+          "gain": 0.6,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "c9ef8256f9fcc842529e8f25d909ca973f07c72f7785ab98031e856ea351a428",
+      "sha256": "7332b26679bb83c13da51e796b77446eb1618c321679e8e8114c6a7a260d90d7"
+    },
+    {
+      "file": "sword_swing.wav",
+      "duration_s": 0.758,
+      "decoded_peak": 0.563,
+      "bytes": 36462,
+      "sources": [
+        {
+          "file": "rpg-audio/Audio/knifeSlice.ogg",
+          "pitch": 0.78,
+          "gain": 1,
+          "offset_s": 0
+        }
+      ],
+      "intermediate_vorbis_sha256": "c8c01eaf566baad7df8e751e8a0c536d2308f0e93f79e709630cb4977d08a0a2",
+      "sha256": "60a0544d7f568c7f892cb1da9a8aba80806b01dc3369ab536bcf3066ca7f9fd9"
+    }
+  ],
+  "delivery_format": "Mono 24 kHz signed 16-bit PCM WAV, decoded from the recorded intermediate Vorbis derivatives"
+}

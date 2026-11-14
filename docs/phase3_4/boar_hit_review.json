@@ -1,0 +1,327 @@
+{
+  "audio_events": [
+    {
+      "channel": 0,
+      "clip": "charge_warning",
+      "cue": "warning",
+      "frame": 14,
+      "hero_health": 100,
+      "pose_time": 0.0,
+      "state": 4,
+      "state_time": 0.0
+    },
+    {
+      "channel": 1,
+      "clip": "charge_warning",
+      "cue": "scrape",
+      "frame": 33,
+      "hero_health": 100,
+      "pose_time": 0.633333333333334,
+      "state": 4,
+      "state_time": 0.633333333333334
+    },
+    {
+      "channel": 0,
+      "clip": "charge_attack",
+      "cue": "charge",
+      "frame": 69,
+      "hero_health": 100,
+      "pose_time": 0.0,
+      "state": 5,
+      "state_time": 0.0
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_a",
+      "frame": 76,
+      "hero_health": 100,
+      "pose_time": 0.25,
+      "state": 5,
+      "state_time": 0.25
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_b",
+      "frame": 84,
+      "hero_health": 100,
+      "pose_time": 0.5,
+      "state": 5,
+      "state_time": 0.5
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_c",
+      "frame": 91,
+      "hero_health": 100,
+      "pose_time": 0.25,
+      "state": 5,
+      "state_time": 0.750000000000001
+    },
+    {
+      "channel": 2,
+      "clip": "charge_attack",
+      "cue": "charge_impact",
+      "frame": 99,
+      "hero_health": 82,
+      "pose_time": 0.5,
+      "state": 5,
+      "state_time": 1.0
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_a",
+      "frame": 99,
+      "hero_health": 82,
+      "pose_time": 0.5,
+      "state": 5,
+      "state_time": 1.0
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_b",
+      "frame": 106,
+      "hero_health": 82,
+      "pose_time": 0.25,
+      "state": 5,
+      "state_time": 1.25
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_c",
+      "frame": 114,
+      "hero_health": 82,
+      "pose_time": 0.5,
+      "state": 5,
+      "state_time": 1.5
+    },
+    {
+      "channel": 1,
+      "clip": "charge_attack",
+      "cue": "hoof_a",
+      "frame": 121,
+      "hero_health": 82,
+      "pose_time": 0.25,
+      "state": 5,
+      "state_time": 1.75
+    },
+    {
+      "channel": 1,
+      "clip": "run",
+      "cue": "hoof_b",
+      "frame": 175,
+      "hero_health": 82,
+      "pose_time": 0.0,
+      "state": 2,
+      "state_time": 0.15
+    },
+    {
+      "channel": 1,
+      "clip": "walk",
+      "cue": "hoof_c",
+      "frame": 184,
+      "hero_health": 82,
+      "pose_time": 0.0,
+      "state": 3,
+      "state_time": 0.0166666666666667
+    },
+    {
+      "channel": 1,
+      "clip": "walk",
+      "cue": "hoof_a",
+      "frame": 192,
+      "hero_health": 82,
+      "pose_time": 0.283333333333333,
+      "state": 3,
+      "state_time": 0.3
+    }
+  ],
+  "boar_health": 24,
+  "boar_saved": false,
+  "boar_state": 3,
+  "case": "hit",
+  "dodged": false,
+  "heavy_used": false,
+  "hero_health": 82,
+  "master_muted": false,
+  "shards": 0,
+  "sword_used": false,
+  "trace": [
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 3,
+      "frame": 10,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 20,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 30,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 40,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 50,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 60,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.49494, 0.000119, -19.44825)",
+      "boar_state": 5,
+      "frame": 70,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.39378, 0.000116, -18.41316)",
+      "boar_state": 5,
+      "frame": 80,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.2926, 0.000116, -17.37807)",
+      "boar_state": 5,
+      "frame": 90,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.19145, 0.000116, -16.34297)",
+      "boar_state": 5,
+      "frame": 100,
+      "hero_health": 82,
+      "hero_position": "(26.49352, 0.000176, -14.43365)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.09029, 0.000116, -15.3079)",
+      "boar_state": 5,
+      "frame": 110,
+      "hero_health": 82,
+      "hero_position": "(26.42057, 0.000176, -13.6872)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.98914, 0.000116, -14.27286)",
+      "boar_state": 5,
+      "frame": 120,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.88815, 0.000116, -13.23952)",
+      "boar_state": 6,
+      "frame": 130,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.82577, 0.000108, -12.6012)",
+      "boar_state": 6,
+      "frame": 140,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 150,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 160,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 170,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.00223, 0.000125, -12.88375)",
+      "boar_state": 2,
+      "frame": 180,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.08337, 0.000098, -13.03694)",
+      "boar_state": 3,
+      "frame": 190,
+      "hero_health": 82,
+      "hero_position": "(26.41895, 0.000176, -13.67061)",
+      "shards": 0
+    }
+  ]
+}

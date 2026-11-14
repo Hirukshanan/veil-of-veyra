@@ -1,0 +1,248 @@
+{
+  "audio_events": [
+    {
+      "channel": 1,
+      "clip": "walk",
+      "cue": "hoof_a",
+      "frame": 9,
+      "hero_health": 100,
+      "pose_time": 0.283333333333333,
+      "state": 3,
+      "state_time": 0.3
+    },
+    {
+      "channel": 1,
+      "clip": "walk",
+      "cue": "hoof_b",
+      "frame": 18,
+      "hero_health": 100,
+      "pose_time": 0.583333333333333,
+      "state": 3,
+      "state_time": 0.6
+    },
+    {
+      "channel": 2,
+      "clip": "idle",
+      "cue": "hit_heavy",
+      "frame": 27,
+      "hero_health": 100,
+      "pose_time": 0.233333333333333,
+      "state": 3,
+      "state_time": 0.866666666666668
+    },
+    {
+      "channel": 0,
+      "clip": "idle",
+      "cue": "hurt",
+      "frame": 27,
+      "hero_health": 100,
+      "pose_time": 0.233333333333333,
+      "state": 3,
+      "state_time": 0.866666666666668
+    },
+    {
+      "channel": 2,
+      "clip": "hit_reaction",
+      "cue": "hit_light",
+      "frame": 46,
+      "hero_health": 100,
+      "pose_time": 0.633333333333334,
+      "state": 7,
+      "state_time": 0.633333333333334
+    },
+    {
+      "channel": 0,
+      "clip": "death",
+      "cue": "death",
+      "frame": 46,
+      "hero_health": 100,
+      "pose_time": 0.0,
+      "state": 9,
+      "state_time": 0.0
+    },
+    {
+      "channel": 2,
+      "clip": "death",
+      "cue": "death_land",
+      "frame": 83,
+      "hero_health": 100,
+      "pose_time": 1.23333333333333,
+      "state": 9,
+      "state_time": 1.25
+    }
+  ],
+  "boar_health": 0,
+  "boar_saved": true,
+  "boar_state": 9,
+  "case": "defeat",
+  "dodged": false,
+  "heavy_used": true,
+  "hero_health": 100,
+  "master_muted": false,
+  "shards": 20,
+  "sword_used": true,
+  "trace": [
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000115, -19.69499)",
+      "boar_state": 3,
+      "frame": 10,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -17.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 3,
+      "frame": 20,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -17.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 4,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 7,
+      "frame": 30,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -17.62133)",
+      "shards": 0
+    },
+    {
+      "boar_health": 4,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 7,
+      "frame": 40,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 0
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 50,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 60,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 70,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 80,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 90,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 100,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 110,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 120,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 130,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 140,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 150,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 160,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 170,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    },
+    {
+      "boar_health": 0,
+      "boar_position": "(26.5, 0.000115, -19.91164)",
+      "boar_state": 9,
+      "frame": 180,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -18.22797)",
+      "shards": 20
+    }
+  ]
+}
