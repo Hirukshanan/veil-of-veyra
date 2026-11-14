@@ -1,5 +1,7 @@
 # Chapter I asset provenance register and gaps
 
+2026-11-14 hero follow-up: a public CC0 Quaternius Ranger outfit was acquired and prepared locally. The original audit below is historical. Runtime body/outfit uses `assets/characters/aru/starter_warrior.scn`; source files, bundled licenses, modifications, hash and regeneration steps are recorded in [the asset README](../assets/characters/aru/README.md). Existing base assets provide the retained face/eyes/eyebrows and unchanged animation library. No private files were uploaded. The generated tunic/trousers below are superseded. Final art approval, visual upgrade progression and unrelated release-license gaps remain open.
+
 Date: 2026-11-13. Offline repository inventory; no assets were downloaded, uploaded, replaced or independently relicensed. License entries below report local evidence, not an independent legal determination or release clearance. See source URLs and attribution in the existing asset README files.
 
 | Asset / use | Local evidence | Recorded author / terms | Gaps and action |

@@ -1,5 +1,7 @@
 # Character asset provenance
 
+2026-11-14 update: runtime Aru uses the prepared [starter warrior](../aru/README.md). These original assets remain unchanged for the retained face/eyes/eyebrows and Universal Animation Library. `hero_visual.gd` selects eleven clips, including three jump clips, and retargets them to the new outfit's 65-bone skeleton. The temporary full-body presentation below is historical and was rejected by the owner.
+
 Author: Quaternius. Downloaded 2026-11-03 from the author's free Standard releases.
 
 - Universal Base Characters: https://quaternius.com/packs/universalbasecharacters.html

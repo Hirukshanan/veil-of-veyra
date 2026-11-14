@@ -463,11 +463,12 @@ func _build_character() -> void:
 func _build_weapon() -> void:
 	_weapon = Node3D.new()
 	_visual.hand.add_child(_weapon)
-	_weapon.position = Vector3(0, 0.08, 0.18)
+	_weapon.position = Vector3(0, 0.07, 0.13)
 	_weapon.rotation.x = PI / 2.0
 
 	var blade_instance := MeshInstance3D.new()
 	blade_instance.mesh = _make_curved_blade()
+	blade_instance.scale = Vector3(0.75, 0.83, 0.55)
 	_blade_material = StandardMaterial3D.new()
 	_blade_material.albedo_color = Color(0.59, 0.87, 0.78)
 	_blade_material.metallic = 0.55
@@ -479,7 +480,7 @@ func _build_weapon() -> void:
 
 	var guard := MeshInstance3D.new()
 	var guard_mesh := BoxMesh.new()
-	guard_mesh.size = Vector3(0.34, 0.07, 0.13)
+	guard_mesh.size = Vector3(0.23, 0.045, 0.065)
 	guard.mesh = guard_mesh
 	guard.position.y = -0.035
 	guard.material_override = _weapon_material(Color(0.73, 0.49, 0.19), 0.5, 0.35)
@@ -487,12 +488,12 @@ func _build_weapon() -> void:
 
 	var grip := MeshInstance3D.new()
 	var grip_mesh := CylinderMesh.new()
-	grip_mesh.top_radius = 0.055
-	grip_mesh.bottom_radius = 0.065
-	grip_mesh.height = 0.34
+	grip_mesh.top_radius = 0.028
+	grip_mesh.bottom_radius = 0.031
+	grip_mesh.height = 0.20
 	grip_mesh.radial_segments = 8
 	grip.mesh = grip_mesh
-	grip.position.y = -0.21
+	grip.position.y = -0.13
 	grip.material_override = _weapon_material(Color(0.19, 0.12, 0.1), 0.0, 0.82)
 	_weapon.add_child(grip)
 

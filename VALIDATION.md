@@ -1,5 +1,9 @@
 # Gameplay validation — 2026-11-03
 
+## Rigged starter hero replacement — 2026-11-14
+
+The owner rejected the previous hero; its body/outfit is now replaced by the prepared Quaternius Ranger, retaining the base face, 65 bones and all eleven selected motions. Eight targeted checks pass after the final sword-finger pose: hero_presentation_check, hero_animation_check, jump_check, heavy_attack_check, combat_check, gameplay_check, hud_customization_check and mobile_controls_check. Native front/three-quarter/side/back and action-pose screenshots, actual geometry/texture counts, warning details and short desktop frame samples are recorded in [CH1_HERO_UPGRADE_REPORT.md](docs/CH1_HERO_UPGRADE_REPORT.md). New art remains pending owner review. No sustained phone performance claim or next-phase authorization is implied.
+
 Latest HUD cleanup verification is recorded separately in `docs/CH1_HUD_CLEANUP_REPORT.md`. It covers the gameplay-only button allowlist, tap/hold target lock, hold/release/drag/menu cancellation, legacy-profile migration and the retained editor. Earlier runs below retain their original scope.
 
 ## Phase 2 HUD redesign — 2026-11-14

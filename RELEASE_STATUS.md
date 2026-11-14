@@ -1,5 +1,9 @@
 # Veil of Veyra — development status
 
+## Hero review follow-up — 2026-11-14
+
+The rejected placeholder body/clothing is replaced by a CC0 rigged Ranger starter outfit, with the original face and eleven-clip animation system retained. Eight targeted checks and native multi-angle captures are complete. See [hero upgrade report](docs/CH1_HERO_UPGRADE_REPORT.md) for provenance, screenshots, diagnostics and measured performance tradeoffs. Owner visual approval and sustained phone profiling remain pending. No Phase 3 work or release approval is implied.
+
 ## Current gameplay
 
 - HUD cleanup: no separate paired-arrow/swap or layout-editing icon during gameplay. Target switching is preserved by holding the target-lock crosshair for 0.4 seconds. Editing/presets/save/reset remain inside Settings > Controls > Customize HUD; existing saved layouts migrate safely. See `docs/CH1_HUD_CLEANUP_REPORT.md`.

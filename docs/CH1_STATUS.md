@@ -1,5 +1,7 @@
 # Chapter I status
 
+Latest visual follow-up (2026-11-14): the owner rejected the previous hero. A rigged CC0 Ranger outfit replaces its base-body/procedural clothing presentation; the existing face and animation systems are retained. [Hero upgrade evidence](CH1_HERO_UPGRADE_REPORT.md) is ready for review. This replacement is **not approved** merely because checks pass. Phase 3 remains unstarted; final hero/HUD approval and phone acceptance are pending.
+
 Audit date: 2026-11-13 (Asia/Colombo). Project: **Veil of Veyra**, existing Godot repository.
 
 Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied by the owner. This is a design specification to reconcile with the actual game, not evidence that its features already exist. Preserve the repository's Veyra name and established Aru/lantern content until a naming change is explicitly requested.
@@ -18,7 +20,7 @@ Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied b
 | --- | --- | --- |
 | 0: Repository audit | AUDITED | Owner authorized Phase 1. Audit: 28 checks passed, seven renders, Android editor-config export blocker and phone limits documented. |
 | 1: Geography/navigation | IN_PROGRESS — hardware acceptance pending | Desktop implementation reviewed; owner authorized Phase 2. Physical-device performance acceptance remains open. See `CH1_PHASE1_REPORT.md`. |
-| 2: Hero/mobile controls | IN_PROGRESS — HUD screenshot approval pending | Two-interface gold/dark HUD, functional guard/parry and saved drag/size/opacity editor implemented inside the existing game. See CH1_HUD_REDESIGN_REPORT.md. Phone playtest and final art acceptance pending. |
+| 2: Hero/mobile controls | IN_PROGRESS — hero/HUD screenshot approval pending | Two-interface gold/dark HUD, functional guard/parry and saved HUD editor implemented. Rejected hero body/outfit replaced with a rigged Ranger starter warrior; see CH1_HERO_UPGRADE_REPORT.md and CH1_HUD_REDESIGN_REPORT.md. Phone playtest and owner art acceptance pending. |
 | 3: Common demons | AUDITED | Five live wolf-variant spawns; retired duplicate ID 5 remains cleared. No active standalone fox, charge-boar or poison-serpent system. |
 | 4: Quest/progression | AUDITED | Three seal fragments, scroll-only quests, herbs, healing, numerical upgrades and v4 persistence exist. Inventory/crafting and visual gear improvements are incomplete. |
 | 5: Boss/reveal/unlock | AUDITED | Existing Tidewraith Dragon is a combat boss. Cursed Bear, non-combat dragon reveal and Chapter II story threshold are absent. Migration/reconciliation required. |

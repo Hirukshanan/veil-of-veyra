@@ -1,5 +1,7 @@
 # Veil of Veyra — Chapter I / Phase 2 Report
 
+> Hero follow-up, 2026-11-14: the provisional clothing described here was also rejected. It is replaced by the [rigged starter warrior](CH1_HERO_UPGRADE_REPORT.md), pending visual approval. Existing control behavior remains intact.
+
 > Historical controls/outfit implementation report. The owner rejected this HUD appearance and subsequently requested the two-interface redesign. Its HUD layout, editor deferral and next-phase proposal are superseded by [CH1_HUD_REDESIGN_REPORT.md](CH1_HUD_REDESIGN_REPORT.md). Phase 3 remains blocked on the owner's screenshot review.
 
 Date: 2026-11-14 (Asia/Colombo). Baseline: clean `main`, `4f9a6ed`. Owner authorized Phase 2 after reviewing Phase 1.
