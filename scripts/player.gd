@@ -55,6 +55,7 @@ var spirit := 0
 var _burst_requested := false
 var _swing_id := 0
 var _attack_buffer := 0.0
+var _charge_knockback := Vector3.ZERO
 
 
 func _ready() -> void:
@@ -71,6 +72,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_parry_window=maxf(0,_parry_window-delta)
 	if health <= 0:
+		_charge_knockback = Vector3.ZERO
 		return
 	if position.y < -8:
 		position = rescue_position
@@ -129,6 +131,9 @@ func _physics_process(delta: float) -> void:
 		if direction.length_squared() > 0.01:
 			rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), delta * 12.0)
 
+	velocity.x += _charge_knockback.x
+	velocity.z += _charge_knockback.z
+	_charge_knockback = _charge_knockback.move_toward(Vector3.ZERO, 10.0 * delta)
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 	elif not _jumping:
@@ -282,6 +287,7 @@ func dodge() -> void:
 		_dodge_direction = Vector3(0, 0, -1).rotated(Vector3.UP, _camera_pivot.global_rotation.y)
 	_dodge_direction = _dodge_direction.normalized()
 	_dodge_time = 0.2
+	_charge_knockback = Vector3.ZERO
 	cancel_swing()
 	_visual.action("Roll", 0.4)
 	play_sound("dodge")
@@ -328,6 +334,13 @@ func take_damage(amount: int, attacker: Node3D=null) -> void:
 
 func take_melee_damage(amount: int, attacker: Node3D) -> void:
 	take_damage(amount,attacker)
+
+func take_charge_damage(amount: int, direction: Vector3) -> void:
+	var before := health
+	# Guard/parry remains for ordinary melee. A heavy body charge must be evaded.
+	take_damage(amount)
+	if health < before and health > 0:
+		_charge_knockback = Vector3(direction.x, 0, direction.z).normalized() * 4.0
 
 
 func _build_sounds() -> void:

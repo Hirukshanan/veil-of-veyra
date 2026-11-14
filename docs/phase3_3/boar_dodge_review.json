@@ -1,0 +1,211 @@
+{
+  "boar_health": 24,
+  "boar_saved": false,
+  "boar_state": 4,
+  "case": "dodge",
+  "dodged": true,
+  "heavy_used": false,
+  "hero_health": 100,
+  "shards": 0,
+  "sword_used": false,
+  "trace": [
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 3,
+      "frame": 10,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 20,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 30,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 40,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 50,
+      "hero_health": 100,
+      "hero_position": "(26.5, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.5, 0.000156, -19.5)",
+      "boar_state": 4,
+      "frame": 60,
+      "hero_health": 100,
+      "hero_position": "(28.1, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.49494, 0.000119, -19.44825)",
+      "boar_state": 5,
+      "frame": 70,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.39378, 0.000116, -18.41316)",
+      "boar_state": 5,
+      "frame": 80,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.2926, 0.000116, -17.37807)",
+      "boar_state": 5,
+      "frame": 90,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.19145, 0.000116, -16.34297)",
+      "boar_state": 5,
+      "frame": 100,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.09029, 0.000116, -15.3079)",
+      "boar_state": 5,
+      "frame": 110,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.98914, 0.000116, -14.27286)",
+      "boar_state": 5,
+      "frame": 120,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.88815, 0.000116, -13.23952)",
+      "boar_state": 6,
+      "frame": 130,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.82577, 0.000108, -12.6012)",
+      "boar_state": 6,
+      "frame": 140,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 150,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 160,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(25.8197, 0.000166, -12.5391)",
+      "boar_state": 6,
+      "frame": 170,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.15671, 0.000116, -12.73537)",
+      "boar_state": 2,
+      "frame": 180,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.41884, 0.000135, -12.88803)",
+      "boar_state": 3,
+      "frame": 190,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.41884, 0.000135, -12.88803)",
+      "boar_state": 4,
+      "frame": 200,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.41884, 0.000135, -12.88803)",
+      "boar_state": 4,
+      "frame": 210,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    },
+    {
+      "boar_health": 24,
+      "boar_position": "(26.41884, 0.000135, -12.88803)",
+      "boar_state": 4,
+      "frame": 220,
+      "hero_health": 100,
+      "hero_position": "(29.18667, 0.000176, -14.5)",
+      "shards": 0
+    }
+  ]
+}

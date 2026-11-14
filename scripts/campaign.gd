@@ -4,6 +4,7 @@ const SAVE_PATH := "user://campaign.cfg"
 const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
+const BOAR_SCRIPT = preload("res://scripts/demon_boar.gd")
 const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach ruins, clear the demon camps, and light the northern lantern to confront the Tidewraith. Your island progress is saved as you explore."
 var world_data := CAMPAIGN_STORE.fresh_world()
 var _world_ready := false
@@ -105,6 +106,9 @@ func _update_objective() -> void:
 	else:
 		var nearest := INF
 		for candidate in get_tree().get_nodes_in_group("combat_enemies"):
+			# Optional wildlife does not replace a required camp objective.
+			if candidate.get_script() != ENEMY_SCRIPT:
+				continue
 			if not is_instance_valid(candidate) or candidate.is_queued_for_deletion() or candidate.get("health") <= 0:
 				continue
 			var distance: float = player.global_position.distance_squared_to(candidate.global_position)
@@ -214,6 +218,13 @@ func _ready() -> void:
 	exploration.name = "IslandExploration"
 	exploration.player = player
 	add_child(exploration)
+	if not world_data.get("boar_defeated", false):
+		var boar := BOAR_SCRIPT.new()
+		boar.name = "DemonBoar"
+		boar.position = BOAR_SCRIPT.SPAWN
+		boar.target = player
+		boar.defeated.connect(_defeat_boar)
+		add_child(boar)
 	relic_hunt = RELIC_HUNT_SCRIPT.new()
 	relic_hunt.set("player", player)
 	add_child(relic_hunt)
@@ -249,6 +260,13 @@ func _defeat_world_enemy(index: int) -> void:
 		return
 	world_data.cleared.append(index)
 	_on_enemy_defeated()
+	_save_progress()
+
+func _defeat_boar() -> void:
+	if world_data.get("boar_defeated", false):
+		return
+	world_data["boar_defeated"] = true
+	shards = mini(999999, shards + BOAR_SCRIPT.REWARD_SHARDS)
 	_save_progress()
 
 func _spawn_boss() -> void:
@@ -489,7 +507,7 @@ func _show_burst_guide() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "EMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	_clear_menu("KNOW YOUR ENEMY", "EMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nDEMON BOAR: an optional forest-trail encounter. Watch its red lane, then move sideways or dodge. The charge commits to that direction. Light hits still hurt it, but a heavy strike can stagger its preparation or charge. Guard cannot stop this heavy body attack. Strike during recovery. Defeating it awards 20 Tide Shards once; it is not required for the lantern.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:

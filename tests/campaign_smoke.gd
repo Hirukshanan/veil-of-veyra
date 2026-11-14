@@ -22,7 +22,8 @@ func _run() -> void:
 	assert(paused)
 	scene._resume()
 	scene.shards = 0
-	for enemy in get_nodes_in_group("combat_enemies"): enemy.take_damage(1000)
+	for enemy in get_nodes_in_group("combat_enemies"):
+		if enemy.get_script() == scene.ENEMY_SCRIPT: enemy.take_damage(1000)
 	await process_frame
 	scene.player.position = scene.lantern.position
 	scene.seal_fragments.restore([0,1,2])

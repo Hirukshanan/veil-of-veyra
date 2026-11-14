@@ -39,6 +39,9 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	for key in ["lantern", "accepted", "reported", "relic_reward", "bounty_reward", "grove_reward"]:
 		if not world[key] is bool:
 			return false
+	# Additive optional encounter flag: version-4 and earlier saves remain valid.
+	if not world.get("boar_defeated", false) is bool:
+		return false
 	if not world.position is Vector3 or not world.position.is_finite() or world.position.y < -8 or world.position.y > 50:
 		return false
 	var flat := Vector2(world.position.x, world.position.z)

@@ -1,0 +1,137 @@
+{
+  "result": "PASS",
+  "automated_tests": {
+    "boar_check": {
+      "result": "PASS",
+      "summary": "PASS: boar telegraph, committed dodgeable lane, single contact, invulnerability, wall/LOS collision, grounded collider, stagger, single defeat and death hold"
+    },
+    "boar_campaign_check": {
+      "result": "PASS",
+      "summary": "PASS: one optional boar, real dodge/knockback, backward-compatible flag, one-time reward, reload persistence and unchanged camp/retired-wolf IDs"
+    },
+    "enemy_check": {
+      "result": "PASS",
+      "summary": "PASS: Shore/Scout/Brute health, pursuit speed, warning radius/timing, damage, escape, interruption, hit feedback and single defeat"
+    },
+    "combat_check": {
+      "result": "PASS",
+      "summary": "PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout"
+    },
+    "free_combat_check": {
+      "result": "PASS",
+      "summary": "PASS: no target buttons, binding, marker or selection API; Tab leaves facing/camera alone; free movement, manual camera and sword damage remain functional"
+    },
+    "campaign_smoke": {
+      "result": "PASS",
+      "summary": "PASS: camp, resume, healing, pause, rewards, upgrades, and save reload"
+    },
+    "chapter_route_check": {
+      "result": "PASS",
+      "summary": "PASS: real shore/foothills/forest/ruins/grove round trip, Moonleaf return, 711 waypoints and unchanged-progress save/reopen"
+    },
+    "fast_travel_check": {
+      "result": "PASS",
+      "summary": "PASS: persistent discovery, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill"
+    },
+    "autosave_check": {
+      "result": "PASS",
+      "summary": "PASS: 180ms disk latency without movement stall (dispatch 0.47ms), immutable snapshots, serialized writes, errors/retry, corrupt-save protection, reset and scene exit"
+    },
+    "persistent_world_check": {
+      "result": "PASS",
+      "summary": "PASS: persistent island, pickups, cleared demons, waystones, health/potions, death resume, lantern resume, continued exploration and one-time rewards"
+    },
+    "heavy_attack_check": {
+      "result": "PASS",
+      "summary": "PASS: heavy touch input, stamina cost/gating, delayed 4x damage, forward arc, stagger, spirit, repeat guard, dodge/hit/menu cancellation, pause and death"
+    },
+    "jump_check": {
+      "result": "PASS",
+      "summary": "PASS: round nonoverlapping jump icon, keyboard/touch launch, start/air/landing motion, bounded height, moving jumps, no repeat/double jump, action guards and sea-wall collision at 15 FPS"
+    },
+    "hud_customization_check": {
+      "result": "PASS",
+      "summary": "PASS: separate gameplay/editor, settings path, touch drag, size/opacity, presets, save/cancel/reset/reopen, safe profiles, failed-write recovery and functional guard/parry"
+    },
+    "quest_hud_check": {
+      "result": "PASS",
+      "summary": "PASS: circular bounds/hit areas, separate controls at three resolutions, movement-side sprint, scroll access and incomplete quest guard"
+    }
+  },
+  "test_count": 14,
+  "changed_existing_files": [
+    "scripts/campaign.gd",
+    "scripts/campaign_store.gd",
+    "scripts/player.gd",
+    "tests/campaign_smoke.gd",
+    "tests/free_combat_check.gd",
+    ".gitattributes"
+  ],
+  "protected_pending_changes_unchanged": [
+    "export_presets.cfg",
+    "RELEASE_STATUS.md",
+    "VALIDATION.md"
+  ],
+  "hud_hero_legacy_enemy_dragon_unchanged": true,
+  "approved_stage_a_and_b_manifests_unchanged": true,
+  "runtime_glb_identical_to_approved_export": "4f7b9574a6b9bf745fba3ca15b9666741225243bbedb9ba88c74d00fbf275b96",
+  "gameplay_cases": {
+    "dodge": {
+      "boar_health": 24,
+      "boar_saved": false,
+      "boar_state": 4,
+      "case": "dodge",
+      "dodged": true,
+      "heavy_used": false,
+      "hero_health": 100,
+      "shards": 0,
+      "sword_used": false,
+      "encoded_video": {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1",
+        "duration": "7.500000",
+        "nb_frames": "225"
+      }
+    },
+    "hit": {
+      "boar_health": 24,
+      "boar_saved": false,
+      "boar_state": 3,
+      "case": "hit",
+      "dodged": false,
+      "heavy_used": false,
+      "hero_health": 82,
+      "shards": 0,
+      "sword_used": false,
+      "encoded_video": {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1",
+        "duration": "6.500000",
+        "nb_frames": "195"
+      }
+    },
+    "defeat": {
+      "boar_health": 0,
+      "boar_saved": true,
+      "boar_state": 9,
+      "case": "defeat",
+      "dodged": false,
+      "heavy_used": true,
+      "hero_health": 100,
+      "shards": 20,
+      "sword_used": true,
+      "encoded_video": {
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1",
+        "duration": "6.000000",
+        "nb_frames": "180"
+      }
+    }
+  }
+}

@@ -19,7 +19,8 @@ func run():
 	scene._resume()
 	var hero=scene.player
 	var enemies=get_nodes_in_group("combat_enemies")
-	assert(enemies.size()==5,"The shared registry must retain all five campaign enemies")
+	assert(enemies.filter(func(item):return item.get_script()==scene.ENEMY_SCRIPT).size()==5,"Retain all five required camp enemies")
+	assert(enemies.filter(func(item):return item.get_script()==scene.BOAR_SCRIPT).size()==1,"Register one optional boar without restoring the retired wolf")
 	for enemy in enemies:
 		enemy.set_physics_process(false)
 		enemy.position=Vector3(40,0,0)
