@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "maximum_matrix_differences": {
+    "warning_starts_at_idle": 5.960464477539063e-08,
+    "attack_loop_endpoint": 0.0,
+    "recovery_starts_at_attack_phase_zero": 4.172325134277344e-07,
+    "recovery_ends_at_idle": 1.1920928955078125e-07,
+    "hit_starts_at_idle": 5.960464477539063e-08,
+    "hit_ends_at_idle": 5.960464477539063e-08,
+    "death_final_hold": 0.0
+  },
+  "note": "Warning-to-charge uses a runtime crossfade; it is not an exact endpoint match. Recover from other charge phases with a short blend. AI transitions are not integrated here."
+}

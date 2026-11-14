@@ -1,0 +1,70 @@
+{
+  "clips": {
+    "idle": {
+      "maximum_deformation_matrix_error": 1.428648829460144e-06,
+      "imported_frame_range": [
+        0.0,
+        120.0
+      ],
+      "sampled_frames": 121
+    },
+    "walk": {
+      "maximum_deformation_matrix_error": 1.5664845705032349e-06,
+      "imported_frame_range": [
+        0.0,
+        36.0
+      ],
+      "sampled_frames": 37
+    },
+    "run": {
+      "maximum_deformation_matrix_error": 1.6354024410247803e-06,
+      "imported_frame_range": [
+        0.0,
+        18.0
+      ],
+      "sampled_frames": 19
+    },
+    "charge_warning": {
+      "maximum_deformation_matrix_error": 1.3110184227116406e-06,
+      "imported_frame_range": [
+        0.0,
+        54.0
+      ],
+      "sampled_frames": 55
+    },
+    "charge_attack": {
+      "maximum_deformation_matrix_error": 1.430511474609375e-06,
+      "imported_frame_range": [
+        0.0,
+        15.0
+      ],
+      "sampled_frames": 16
+    },
+    "charge_recovery": {
+      "maximum_deformation_matrix_error": 1.2516975402832031e-06,
+      "imported_frame_range": [
+        0.0,
+        42.0
+      ],
+      "sampled_frames": 43
+    },
+    "hit_reaction": {
+      "maximum_deformation_matrix_error": 1.4677643775939941e-06,
+      "imported_frame_range": [
+        0.0,
+        24.0
+      ],
+      "sampled_frames": 25
+    },
+    "death": {
+      "maximum_deformation_matrix_error": 1.6987323760986328e-06,
+      "imported_frame_range": [
+        0.0,
+        84.0
+      ],
+      "sampled_frames": 85
+    }
+  },
+  "maximum_allowed_matrix_error": 0.0001,
+  "result": "PASS"
+}

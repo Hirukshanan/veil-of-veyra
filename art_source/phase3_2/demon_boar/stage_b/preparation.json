@@ -1,0 +1,100 @@
+{
+  "source_glb_sha256": "950ca3587e4e0ab59dd727d75d21cec613ed146b6852f2de65e3ef2a82cc06cd",
+  "high_source_vertices": 1023627,
+  "high_source_triangles": 1917784,
+  "export_triangles": 120000,
+  "export_vertices": 59964,
+  "source_scale_to_meters": 3.065007950612665,
+  "provisional_body_length_m": 3.0,
+  "blender_forward": "+Y",
+  "godot_forward": "-Z",
+  "source_to_rig_matrix": [
+    [
+      0.0,
+      -3.0650079250335693,
+      0.0,
+      0.0003273781621828675
+    ],
+    [
+      3.0650079250335693,
+      0.0,
+      0.0,
+      -0.00023384155065286905
+    ],
+    [
+      0.0,
+      0.0,
+      3.0650079250335693,
+      0.7713029384613037
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "feet": {
+    "front.L": {
+      "source_sole": [
+        0.29010009765625,
+        0.10031509399414062,
+        -0.25164794921875
+      ],
+      "sole": [
+        -0.30713918805122375,
+        0.8889252543449402,
+        0.0
+      ],
+      "source_lower_leg_points": 34115,
+      "source_sole_points": 6198
+    },
+    "front.R": {
+      "source_sole": [
+        0.290283203125,
+        -0.100921630859375,
+        -0.251617431640625
+      ],
+      "sole": [
+        0.30965298414230347,
+        0.8894864916801453,
+        9.351968765258789e-05
+      ],
+      "source_lower_leg_points": 34393,
+      "source_sole_points": 6031
+    },
+    "rear.L": {
+      "source_sole": [
+        -0.175201416015625,
+        0.1193084716796875,
+        -0.2415771484375
+      ],
+      "sole": [
+        -0.3653540313243866,
+        -0.5372275710105896,
+        0.030867040157318115
+      ],
+      "source_lower_leg_points": 27102,
+      "source_sole_points": 7082
+    },
+    "rear.R": {
+      "source_sole": [
+        -0.174530029296875,
+        -0.11905288696289062,
+        -0.241607666015625
+      ],
+      "sole": [
+        0.3652254343032837,
+        -0.535169780254364,
+        0.030773520469665527
+      ],
+      "source_lower_leg_points": 25811,
+      "source_sole_points": 6942
+    }
+  },
+  "raw_glb_unchanged": true,
+  "appearance_design_changes": false,
+  "optimization_copy_only": true,
+  "source_uv_split_vertices_welded_on_derivative": 64771,
+  "derivative_weld_distance_m": 1e-05
+}

@@ -1,0 +1,119 @@
+{
+  "clips": {
+    "idle": {
+      "frames": 120,
+      "seconds": 4.0,
+      "speed_mps": 0.0,
+      "duty": 1.0,
+      "stride_m": 0.0,
+      "lift_m": 0.0,
+      "loop": true
+    },
+    "walk": {
+      "frames": 36,
+      "seconds": 1.2,
+      "speed_mps": 0.65,
+      "duty": 0.65,
+      "stride_m": 0.507,
+      "lift_m": 0.12,
+      "loop": true
+    },
+    "run": {
+      "frames": 18,
+      "seconds": 0.6,
+      "speed_mps": 2.6,
+      "duty": 0.42,
+      "stride_m": 0.6552,
+      "lift_m": 0.19,
+      "loop": true
+    },
+    "charge_warning": {
+      "frames": 54,
+      "seconds": 1.8,
+      "speed_mps": 0.0,
+      "loop": false
+    },
+    "charge_attack": {
+      "frames": 15,
+      "seconds": 0.5,
+      "speed_mps": 3.12,
+      "loop": true
+    },
+    "charge_recovery": {
+      "frames": 42,
+      "seconds": 1.4,
+      "speed_mps": 0.0,
+      "initial_speed_mps": 3.12,
+      "stop_seconds": 0.5,
+      "loop": false
+    },
+    "hit_reaction": {
+      "frames": 24,
+      "seconds": 0.8,
+      "speed_mps": 0.0,
+      "loop": false
+    },
+    "death": {
+      "frames": 84,
+      "seconds": 2.8,
+      "speed_mps": 0.0,
+      "loop": false,
+      "hold_final_pose": true
+    }
+  },
+  "measurements": {
+    "charge_warning": {
+      "maximum_ik_error_m": 4.615633176448506e-05,
+      "maximum_leg_length_relative_error": 7.443623535330346e-07,
+      "minimum_mesh_z_m": -0.00017288699746131897,
+      "maximum_support_sole_error_m": 7.755796104902402e-06,
+      "maximum_support_slip_m_per_frame": 2.0811547514381875e-06,
+      "maximum_floor_correction_change_m": 0.0,
+      "endpoint_matrix_difference": 0.3477371633052826
+    },
+    "charge_attack": {
+      "maximum_ik_error_m": 0.00010755348891470621,
+      "maximum_leg_length_relative_error": 7.325493809329231e-07,
+      "minimum_mesh_z_m": -0.0001726485788822174,
+      "maximum_support_sole_error_m": 0.0007071137661114335,
+      "maximum_support_slip_m_per_frame": 0.0018769448715849802,
+      "maximum_floor_correction_change_m": 0.0,
+      "endpoint_matrix_difference": 0.0
+    },
+    "charge_recovery": {
+      "maximum_ik_error_m": 7.193012617653863e-05,
+      "maximum_leg_length_relative_error": 7.605282430489524e-07,
+      "minimum_mesh_z_m": -0.0001726783812046051,
+      "maximum_support_sole_error_m": 3.7692723253712757e-07,
+      "maximum_support_slip_m_per_frame": 4.520263486288953e-07,
+      "maximum_floor_correction_change_m": 0.0,
+      "endpoint_matrix_difference": 0.8886674046516418
+    },
+    "hit_reaction": {
+      "maximum_ik_error_m": 5.213277245919675e-07,
+      "maximum_leg_length_relative_error": 7.959526093781477e-07,
+      "minimum_mesh_z_m": -0.00017297640442848206,
+      "maximum_support_sole_error_m": 5.108976779411023e-07,
+      "maximum_support_slip_m_per_frame": 5.136039206069259e-07,
+      "maximum_floor_correction_change_m": 0.0,
+      "endpoint_matrix_difference": 0.0
+    },
+    "death": {
+      "maximum_ik_error_m": 9.512167890529555e-05,
+      "maximum_leg_length_relative_error": 6.112298149840711e-07,
+      "minimum_mesh_z_m": 0.0029997527599334717,
+      "maximum_support_sole_error_m": 0.0,
+      "maximum_support_slip_m_per_frame": 0.0,
+      "maximum_floor_correction_change_m": 0.026269912719726562,
+      "endpoint_matrix_difference": 1.5890140533447266,
+      "final_hold_matrix_difference": 0.0,
+      "final_flank_clearance_m": 0.010050833225250244
+    }
+  },
+  "stage_a_deformation_difference": {
+    "idle": 0.0,
+    "walk": 0.0,
+    "run": 0.0
+  },
+  "notes": "Death displaces the skeleton internally but the actor object stays fixed. Recovery stance slip compensates the declared deceleration path. Warning scrape intentionally moves one supporting hoof."
+}

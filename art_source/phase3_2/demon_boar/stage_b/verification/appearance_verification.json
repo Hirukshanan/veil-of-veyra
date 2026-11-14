@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "maximum_high_geometry_coordinate_error_m": 1.0665826266631484e-07,
+  "high_polygon_connectivity_unchanged": true,
+  "high_uvs_unchanged": true,
+  "original_base_color_sha256": "2cdaa40c1d6c5933a1b4ea77f4651811764f9d0ffe6c45f0818b1c9a70979b8f",
+  "both_used_packed_base_colors_identical_to_original_jpeg": true
+}

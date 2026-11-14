@@ -1,0 +1,69 @@
+{
+  "clips": {
+    "charge_attack": {
+      "duration_seconds": 0.5,
+      "loop": true,
+      "maximum_deformation_matrix_error": 0.00000117719173431396,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 16
+    },
+    "charge_recovery": {
+      "duration_seconds": 1.39999997615814,
+      "loop": false,
+      "maximum_deformation_matrix_error": 0.00000134110450744629,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 43
+    },
+    "charge_warning": {
+      "duration_seconds": 1.79999995231628,
+      "loop": false,
+      "maximum_deformation_matrix_error": 0.00000146031379699707,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 55
+    },
+    "death": {
+      "duration_seconds": 2.79999995231628,
+      "loop": false,
+      "maximum_deformation_matrix_error": 0.00000147521495819092,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 85
+    },
+    "hit_reaction": {
+      "duration_seconds": 0.800000011920929,
+      "loop": false,
+      "maximum_deformation_matrix_error": 0.00000137090682983398,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 25
+    },
+    "idle": {
+      "duration_seconds": 4.0,
+      "loop": true,
+      "maximum_deformation_matrix_error": 0.00000163912773132324,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 121
+    },
+    "run": {
+      "duration_seconds": 0.600000023841858,
+      "loop": true,
+      "maximum_deformation_matrix_error": 0.00000149011611938477,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 19
+    },
+    "walk": {
+      "duration_seconds": 1.20000004768372,
+      "loop": true,
+      "maximum_deformation_matrix_error": 0.00000117253512144089,
+      "root_displacement_m": 0.0,
+      "sampled_frames": 37
+    }
+  },
+  "engine": "4.7.2-stable (official)",
+  "imported_uv_seam_duplicates": 28237,
+  "maximum_imported_seam_weight_difference": 0.0,
+  "maximum_weight_sum_error": 0.0000458215363323689,
+  "mesh_vertices": 88201,
+  "result": "PASS",
+  "skeleton_bones": 30,
+  "skin_joints": 30,
+  "triangles": 120000
+}

@@ -1,0 +1,37 @@
+{
+  "animations": [
+    "idle",
+    "walk",
+    "run",
+    "charge_warning",
+    "charge_attack",
+    "charge_recovery",
+    "hit_reaction",
+    "death"
+  ],
+  "skin_joints": 30,
+  "glb_bytes": 16176952,
+  "in_place": true,
+  "forward": "-Z in Godot",
+  "all_clips_start_at_zero": true,
+  "embedded_images": 2,
+  "settings": {
+    "filepath": "C:\\Users\\Dark\\Desktop\\Projects\\veil-of-veyra\\art_source\\phase3_2\\demon_boar\\stage_b\\demon_boar_stage_b.glb",
+    "export_format": "GLB",
+    "use_selection": true,
+    "export_animations": true,
+    "export_animation_mode": "NLA_TRACKS",
+    "export_force_sampling": true,
+    "export_frame_range": false,
+    "export_frame_step": 1,
+    "export_anim_slide_to_zero": true,
+    "export_def_bones": true,
+    "export_skins": true,
+    "export_all_influences": false,
+    "export_cameras": false,
+    "export_lights": false,
+    "export_extras": true,
+    "export_apply": true
+  },
+  "sha256": "4f7b9574a6b9bf745fba3ca15b9666741225243bbedb9ba88c74d00fbf275b96"
+}
