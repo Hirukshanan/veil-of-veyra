@@ -723,3 +723,14 @@ Debug version: 0.3.0-dev (code 13).
 - Existing keyboard/interaction checks were updated to require the touch lock affordance. The old combat fixture now updates its teleported enemy home to avoid an unrelated return-home leash; enemy AI remains unchanged.
 - Original/CC0 starter outfit retains the existing skeletal controller and action timing. Fitted trouser geometry uses the source body's skin weights to avoid the leg clipping seen in early cylinder prototypes. Native idle/walk/attack/roll views were reviewed; final art approval remains pending.
 - See docs/CH1_PHASE2_REPORT.md for the final 19-check list, shutdown warnings, native run evidence, changed-file boundary and rollback. No connected phone, sustained mobile benchmark or new APK. Existing packaging configuration-access issue remains documented.
+
+
+## Android debug 0.12.1-dev (2026-11-14)
+
+- Exported current project with Godot 4.7.2, Android Debug preset; version code 28.
+- Output: `builds/android/veyra-0.12.1-dev.apk`; copied to `veyra-debug.apk`.
+- Package `com.hirukshanan.veilofveyra.dev`; ARM64; minimum API 24; target API 36.
+- APK signature verification passed; signing identity matches 0.12.0-dev for an in-place update.
+- Archive integrity passed. Starter warrior scene, existing animation library and jump icon are included. Development tests/tools are excluded. Export stderr was empty.
+- Size: 101,042,919 bytes; SHA-256: `a5d0e762b8216dbfb71c06bd9839f19b8348e431bc60afaf409954302423d8a3`.
+- Packaging verification only. Phone installation, saved progress, redesigned/customized controls, hero appearance and sustained performance remain pending.

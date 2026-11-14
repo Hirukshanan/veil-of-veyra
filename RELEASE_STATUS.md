@@ -1,5 +1,10 @@
 # Veil of Veyra — development status
 
+## Latest Android package — 2026-11-14
+
+Android debug **0.12.1-dev / code 28** packages the current files, including the rigged starter warrior, redesigned/customizable HUD and target-lock removal. Output: `builds/android/veyra-0.12.1-dev.apk` (also `veyra-debug.apk`). Signature, manifest and archive integrity passed; the signing identity matches 0.12.0-dev for an in-place update. Physical-phone testing and outstanding visual approval remain pending. This packaging step does not authorize Phase 3.
+
+
 ## Hero review follow-up — 2026-11-14
 
 The rejected placeholder body/clothing is replaced by a CC0 rigged Ranger starter outfit, with the original face and eleven-clip animation system retained. Eight targeted checks and native multi-angle captures are complete. See [hero upgrade report](docs/CH1_HERO_UPGRADE_REPORT.md) for provenance, screenshots, diagnostics and measured performance tradeoffs. Owner visual approval and sustained phone profiling remain pending. No Phase 3 work or release approval is implied.
