@@ -39,8 +39,9 @@ func _run() -> void:
 	scene.notification(Node.NOTIFICATION_APPLICATION_FOCUS_IN)
 	assert(paused, "Returning focus must not silently resume combat")
 	scene._show_settings(scene._pause_game)
+	await process_frame
 	_escape()
-	assert(paused and not scene.pause_menu_open, "Escape must not bypass settings save/discard")
+	assert(paused and scene.pause_menu_open and not is_instance_valid(scene.settings_screen), "Escape discards the settings preview and returns to Pause without resuming gameplay")
 	scene._pause_game()
 	_escape()
 	assert(not paused)

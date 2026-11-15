@@ -1,0 +1,21 @@
+{
+  "name": "packaged_smoke",
+  "started_utc": "2026-11-15T16:04:57.290141+00:00",
+  "duration_s": 66.36,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\mobile_smoke54.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "EVIDENCE_ROOT\\packaged_smoke",
+    "720"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

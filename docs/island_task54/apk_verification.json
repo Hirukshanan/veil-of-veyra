@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "apk": "Veil_of_Vera_Task54_720p_Candidate.apk",
+  "bytes": 151000889,
+  "sha256": "50e5760bfb682de56c7111aea782c0f04c451a9a9d212a89b2bd1b1cbc7df7da",
+  "signature_verified": true,
+  "same_signing_identity_as_accepted_720p_APK": true,
+  "accepted_720p_scale_function_identical": true,
+  "profiler_bytecode_identical": true,
+  "bootstrap_change": "Fresh-install 30 FPS/shadows-off defaults; retain saved preferences; expand only the Task 5.4 test canvas to native landscape width. Accepted 720p scale function unchanged.",
+  "package": "com.hirukshanan.veilofveyra.islandtest",
+  "render_height_cap": 720,
+  "internet_permission": false,
+  "production_map_activated": false,
+  "android_execution": false,
+  "native_landscape_canvas": true
+}

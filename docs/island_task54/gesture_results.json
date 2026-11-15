@@ -1,0 +1,57 @@
+{
+  "cases": [
+    {
+      "case": "normal_walk_held_sprint_release",
+      "normal_speed": 5.2,
+      "passed": true,
+      "sprint_speed": 8.3,
+      "stamina_cost_per_s": 25
+    },
+    {
+      "case": "auto_release_continues_new_stick_touch_cancels",
+      "passed": true
+    },
+    {
+      "case": "stamina_attack_and_depletion_restrictions",
+      "passed": true
+    },
+    {
+      "case": "focus_loss_cancels_auto",
+      "passed": true
+    },
+    {
+      "case": "spread_closer_pinch_farther_smooth_bounds_and_persistence",
+      "max_distance": 9,
+      "min_distance": 4,
+      "passed": true
+    },
+    {
+      "attack_taps": 1,
+      "case": "four_pointer_joystick_pinch_and_sword",
+      "passed": true
+    },
+    {
+      "case": "pause_cancels_camera_and_stale_drags",
+      "passed": true
+    }
+  ],
+  "cave_camera_collision": [
+    {
+      "camera": "(76.0, 4.490091, -3.616019)",
+      "clear": true,
+      "distance_setting": 4.0
+    },
+    {
+      "camera": "(76.0, 5.05255, -4.80535)",
+      "clear": true,
+      "distance_setting": 6.3
+    },
+    {
+      "camera": "(76.0, 5.064574, -4.830775)",
+      "clear": true,
+      "distance_setting": 9.0
+    }
+  ],
+  "passed": true,
+  "platform": "automated real Godot touch dispatch; not physical Android"
+}

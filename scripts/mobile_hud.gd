@@ -1,9 +1,9 @@
 extends Node
 
 const PATH := "user://hud_profile.cfg"
-const MOVABLE := ["MovementJoystick","SprintButton","AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton"]
+const MOVABLE := ["MovementJoystick","AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton"]
 const PRIMARY := ["MovementJoystick","AttackButton"]
-const SIZES := {"MovementJoystick":144.0,"SprintButton":54.0,"AttackButton":144.0,"DodgeButton":68.0,"JumpButton":68.0,"GuardButton":76.0,"SpiritBurstButton":62.0,"InteractButton":56.0,"HealButton":56.0}
+const SIZES := {"MovementJoystick":176.0,"AttackButton":176.0,"DodgeButton":76.0,"JumpButton":76.0,"GuardButton":84.0,"SpiritBurstButton":72.0,"InteractButton":64.0,"HealButton":64.0}
 var hud_scale := 1.0
 var left_handed := false
 var profile: Dictionary = {"preset":"Battle","controls":{}}
@@ -46,33 +46,40 @@ func rectangles(bounds: Vector2, draft: Dictionary = {}, use_settings := true) -
 	var data: Dictionary = profile if draft.is_empty() else draft
 	var f := ui_factor(bounds)
 	var s := f * (hud_scale if use_settings else 1.0)
-	# Equal primary diameters and identical edge margins balance both thumbs.
-	var primary_radius := clampf(float(SIZES.MovementJoystick)*s,104.0,210.0)*0.5
-	var secondary_radius := clampf(float(SIZES.GuardButton)*s,48.0,150.0)*0.5
-	var sprint_radius := clampf(float(SIZES.SprintButton)*s,48.0,150.0)*0.5
-	var edge := clampf(36.0*s,32.0,48.0)
-	var gap := maxf(12.0*f,10.0)
-	var movement := Vector2(edge+primary_radius,bounds.y-edge-primary_radius)
-	var attack := Vector2(bounds.x-movement.x,movement.y)
-	var reach := primary_radius+secondary_radius+gap
-	var row := secondary_radius*2.0+gap
-	var centers := {
+	# Keep the approved boot/star centres; enlarge matched primaries individually.
+	var legacy_radius:=clampf(144.0*s,104.0,210.0)*.5
+	var legacy_guard:=clampf(76.0*s,48.0,150.0)*.5
+	var primary_radius:=clampf(176.0*s,118.0,224.0)*.5
+	var jump_radius:=clampf(76.0*s,48.0,150.0)*.5
+	var guard_radius:=clampf(84.0*s,48.0,150.0)*.5
+	var item_radius:=clampf(64.0*s,48.0,150.0)*.5
+	var edge:=clampf(36.0*s,32.0,48.0)
+	var gap:=maxf(12.0*f,10.0)
+	var old_movement:=Vector2(edge+legacy_radius,bounds.y-edge-legacy_radius)
+	var old_attack:=Vector2(bounds.x-old_movement.x,old_movement.y)
+	var movement:=old_movement-Vector2(8*s,8*s)
+	var attack:=Vector2(bounds.x-movement.x,movement.y)
+	var reach:=legacy_radius+legacy_guard+gap
+	var row:=legacy_guard*2+gap
+	var jump:=attack-Vector2(0,primary_radius+jump_radius+gap)
+	var guard:=old_attack-Vector2(reach,row)
+	guard.x=minf(guard.x,attack.x-primary_radius-guard_radius-gap*.5)
+	var centers:={
 		"MovementJoystick":movement,
-		"SprintButton":movement-Vector2(0,primary_radius+sprint_radius+gap),
 		"AttackButton":attack,
-		"DodgeButton":attack+Vector2(-reach,24.0*s),
-		"JumpButton":attack-Vector2(0,reach),
-		"GuardButton":attack-Vector2(reach,row),
-		"SpiritBurstButton":attack-Vector2(reach,row*2.0),
-		"InteractButton":attack-Vector2(0,reach+row),
-		"HealButton":Vector2(bounds.x*0.5-66*f,bounds.y-48*f)
+		"DodgeButton":old_attack+Vector2(-reach,24*s),
+		"JumpButton":jump,
+		"GuardButton":guard,
+		"SpiritBurstButton":old_attack-Vector2(reach,row*2),
+		"InteractButton":jump-Vector2(0,jump_radius+item_radius+gap),
+		"HealButton":Vector2(bounds.x*.5-66*f,bounds.y-48*f)
 	}
 	var preset: String = str(data.get("preset","Battle"))
 	var mirror := preset=="Left-Handed" or (use_settings and left_handed)
 	var result := {}
 	for key in MOVABLE:
 		var entry: Dictionary = data.get("controls",{}).get(key,{})
-		var diameter := clampf(float(SIZES[key])*s*float(entry.get("scale",1.0)),104.0 if key in PRIMARY else 48.0,210.0 if key in PRIMARY else 150.0)
+		var diameter := clampf(float(SIZES[key])*s*float(entry.get("scale",1.0)),118.0 if key in PRIMARY else 48.0,224.0 if key in PRIMARY else 150.0)
 		var center: Vector2 = centers[key]
 		if mirror: center.x=bounds.x-center.x
 		if entry.has("x") and entry.has("y"): center=Vector2(float(entry.x),float(entry.y))*bounds
@@ -127,6 +134,9 @@ static func style_button(button: Button) -> void:
 		button.add_theme_color_override("icon_normal_color",Color("f4edda"))
 		button.add_theme_color_override("icon_disabled_color",Color("8a8678"))
 		button.set_meta("premium_styled",true)
+	for state in ["normal","hover","pressed","disabled"]:
+		var style:StyleBoxFlat=button.get_theme_stylebox(state)
+		style.set_corner_radius_all(ceili(minf(button.size.x,button.size.y)*.5))
 	button.add_theme_constant_override("icon_max_width",int(minf(button.size.x,button.size.y)*0.57))
 
 func valid_data(value: Variant) -> bool:
@@ -170,6 +180,7 @@ func load_profile() -> void:
 				data=data.duplicate(true)
 				data.controls.erase("TargetSwitchButton")
 				data.controls.erase("TargetLockButton")
+				data.controls.erase("SprintButton")
 			if valid_data(data):
 				profile=data.duplicate(true)
 				return

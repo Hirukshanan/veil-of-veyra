@@ -1,0 +1,48 @@
+{
+  "local_counter_csv_verified": true,
+  "passed": true,
+  "phone_execution": false,
+  "platform": "Windows",
+  "profile_directory": "C:/Users/Dark/Desktop/Projects/veil-of-veyra/.validation/island_task54/profile_packaged_smoke_1794758697290118100/Godot/app_userdata/Veil of Vera Island Test/mobile_profile_1794758728",
+  "render_height": 720,
+  "resolution_and_hud_checks": [
+    {
+      "full_landscape_width": true,
+      "hud_rectangles_preserved": true,
+      "native_canvas_pixels": "(1920, 1080)",
+      "physical": "(1920, 1080)",
+      "scale": 0.666666686534882
+    },
+    {
+      "full_landscape_width": true,
+      "hud_rectangles_preserved": true,
+      "native_canvas_pixels": "(1280, 720)",
+      "physical": "(1280, 720)",
+      "scale": 1.0
+    },
+    {
+      "full_landscape_width": true,
+      "hud_rectangles_preserved": true,
+      "native_canvas_pixels": "(1600, 720)",
+      "physical": "(1600, 720)",
+      "scale": 1.0
+    },
+    {
+      "full_landscape_width": true,
+      "hud_rectangles_preserved": true,
+      "native_canvas_pixels": "(1600, 900)",
+      "physical": "(1600, 900)",
+      "scale": 0.800000011920929
+    },
+    {
+      "full_landscape_width": true,
+      "hud_rectangles_preserved": true,
+      "native_canvas_pixels": "(1920, 1080)",
+      "physical": "(1920, 1080)",
+      "scale": 0.666666686534882
+    }
+  ],
+  "saved_preferences_retained_on_boot": true,
+  "schema": 2,
+  "separate_test_package_preserved": true
+}

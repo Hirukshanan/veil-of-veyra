@@ -29,6 +29,11 @@ func _run() -> void:
 		for menu in [scene._show_camp, scene._show_keeper_request, scene._show_enemy_guide, scene._show_burst_guide, func(): scene._show_settings(scene._show_camp)]:
 			menu.call()
 			await _settle()
+			if is_instance_valid(scene.settings_screen):
+				_inside(scene.settings_screen,bounds)
+				for action in [scene.settings_screen.save_button,scene.settings_screen.cancel_button,scene.settings_screen.reset_button]:_inside(action,bounds)
+				_inside(scene.settings_screen.scroll,bounds)
+				continue
 			_inside(scene.menu_scroll, bounds)
 			assert(scene.menu_box.size.x <= scene.menu_scroll.size.x)
 			var last: Control = scene.menu_box.get_child(scene.menu_box.get_child_count() - 1)
@@ -39,7 +44,7 @@ func _run() -> void:
 		await _settle()
 		var joystick: Control = get_first_node_in_group("movement_joysticks")
 		_inside(joystick, bounds)
-		assert(joystick.get_global_rect().end.y >= bounds.end.y-50 and joystick.get_global_rect().end.y <= bounds.end.y-30, "Movement margin must survive safe-area scaling")
+		assert(joystick.get_global_rect().end.y >= bounds.end.y-50 and joystick.get_global_rect().end.y <= bounds.end.y-12, "Movement margin must survive safe-area scaling")
 		# Include the lantern button even though it normally appears after the wave.
 		scene.interact_button.show()
 		for layer in scene.get_children():

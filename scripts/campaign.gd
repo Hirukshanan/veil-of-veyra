@@ -32,6 +32,8 @@ var invert_y := false
 var left_handed := false
 var mobile_hud: Node
 var camera_distance := 6.3
+var camera_save_notice:=""
+var settings_screen:Control
 var sound_volume := 0.7
 var shadows_enabled := true
 var frame_limit := 60
@@ -203,6 +205,7 @@ func _ready() -> void:
 		world_data.cleared.append(5)
 	environment_chapter = 0
 	super._ready()
+	player.camera_zoom_finished.connect(_on_camera_zoom_finished)
 	_load_settings()
 	player.set("max_health", 100 + armor_level * 25)
 	player.set("health", 100 + armor_level * 25)
@@ -426,6 +429,7 @@ func _layout_menu() -> void:
 	menu_scroll.offset_bottom = -24
 
 func _clear_menu(title: String, message: String, save_world := true) -> void:
+	_close_settings()
 	if _world_ready and save_world:
 		_save_progress()
 	camp_menu.hide()
@@ -530,6 +534,7 @@ func _upgrade(blade: bool) -> void:
 	_show_camp()
 
 func _resume() -> void:
+	_close_settings()
 	journal_open = false
 	quest_parchment.hide()
 	_layout_menu()
@@ -552,87 +557,23 @@ func _pause_game() -> void:
 	_menu_button("Settings", func(): _show_settings(_pause_game))
 	_menu_button("Quit", _quit_world)
 
-func _show_settings(back: Callable) -> void:
-	_clear_menu("SETTINGS", "Adjust the camera, sound, and graphics. Changes apply immediately; use Save and back to keep them.")
-	_menu_button("Controls",func(): _show_controls(func(): _show_settings(back)))
-	_settings_slider("Camera sensitivity", 0.25, 2.0, 0.05, camera_sensitivity, func(value: float):
-		camera_sensitivity = value
-		_apply_settings())
-	_settings_slider("Sound volume", 0.0, 1.0, 0.05, sound_volume, func(value: float):
-		sound_volume = value
-		_apply_settings())
-	_settings_slider("Camera distance", 4.0, 9.0, 0.1, camera_distance, func(value: float):
-		camera_distance = value
-		_apply_settings())
-	var shadows := CheckButton.new()
-	_settings_slider("Control size",0.85,1.2,0.05,hud_scale,func(value: float):
-		hud_scale=value
-		_apply_settings())
-	for option in ["Invert vertical camera"]:
-		var toggle := CheckButton.new()
-		toggle.name = "InvertYToggle" if option == "Invert vertical camera" else "LeftHandedToggle"
-		toggle.text = option
-		toggle.custom_minimum_size.y=48
-		toggle.button_pressed = invert_y if option == "Invert vertical camera" else left_handed
-		toggle.toggled.connect(func(enabled: bool):
-			if option == "Invert vertical camera": invert_y=enabled
-			else: left_handed=enabled
-			_apply_settings())
-		menu_box.add_child(toggle)
-	shadows.name = "ShadowsToggle"
-	shadows.text = "Shadows (turn off for better performance)"
-	shadows.custom_minimum_size.y = 48
-	shadows.button_pressed = shadows_enabled
-	shadows.toggled.connect(func(enabled: bool):
-		shadows_enabled = enabled
-		_apply_settings())
-	menu_box.add_child(shadows)
-	var frame_label := Label.new()
-	frame_label.text = "Frame-rate limit (30 uses less rendering work)"
-	frame_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	menu_box.add_child(frame_label)
-	var frame_choice := OptionButton.new()
-	frame_choice.name = "FrameLimitChoice"
-	frame_choice.custom_minimum_size.y = 48
-	frame_choice.add_item("30 FPS", 30)
-	frame_choice.add_item("60 FPS", 60)
-	frame_choice.select(0 if frame_limit == 30 else 1)
-	frame_choice.item_selected.connect(func(index: int):
-		frame_limit = frame_choice.get_item_id(index)
-		_apply_settings())
-	menu_box.add_child(frame_choice)
-	_menu_button("Preview sound", func(): player.call("play_sound", "sword"))
-	var feedback := Label.new()
-	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	menu_box.add_child(feedback)
-	_menu_button("Save and back", func():
-		if _save_settings() == OK:
-			back.call()
-		else:
-			feedback.text = "Settings could not be saved. Try again or go back without saving.")
-	_menu_button("Back without saving", func():
-		_load_settings()
-		back.call())
+func _close_settings()->void:
+	if is_instance_valid(settings_screen):settings_screen.process_mode=Node.PROCESS_MODE_DISABLED;settings_screen.hide();settings_screen.queue_free()
+	settings_screen=null
 
-func _settings_slider(title: String, minimum: float, maximum: float, increment: float, value: float, changed: Callable) -> void:
-	var label := Label.new()
-	label.text = "%s: %.2f" % [title, value]
-	menu_box.add_child(label)
-	var slider := HSlider.new()
-	slider.min_value = minimum
-	slider.max_value = maximum
-	slider.step = increment
-	slider.value = value
-	slider.custom_minimum_size.y = 44
-	slider.value_changed.connect(func(updated: float):
-		label.text = "%s: %.2f" % [title, updated]
-		changed.call(updated))
-	menu_box.add_child(slider)
+func _show_settings(back:Callable,tab:String="Controls")->void:
+	_clear_menu("SETTINGS", "")
+	menu_scroll.hide()
+	settings_screen=preload("res://scripts/mobile_settings.gd").new()
+	settings_screen.name="MobileSettings";settings_screen.scene=self;settings_screen.back=back;settings_screen.current_tab=tab
+	menu_scroll.get_parent().add_child(settings_screen)
 
-func _show_controls(back: Callable) -> void:
-	_clear_menu("CONTROLS", "Choose your layout, then fine-tune individual controls. Changes in Customize HUD are kept only when you save.")
-	_menu_button("Customize HUD",func(): mobile_hud.open_editor(func(): _show_controls(back)))
-	_menu_button("Back",back)
+func _on_camera_zoom_finished(distance:float)->void:
+	camera_distance=distance
+	camera_save_notice="" if _save_settings()==OK else "Camera distance could not be saved. Try Save in Settings."
+
+func _show_controls(back:Callable)->void:
+	_show_settings(back,"Controls")
 
 func _apply_settings() -> void:
 	Engine.max_fps = frame_limit
@@ -660,11 +601,18 @@ func _save_settings() -> Error:
 	config.set_value("settings", "sound_volume", sound_volume)
 	config.set_value("settings", "shadows_enabled", shadows_enabled)
 	config.set_value("settings", "frame_limit", frame_limit)
-	return config.save(SETTINGS_PATH)
+	var error:Error=config.save(SETTINGS_PATH+".tmp")
+	if error!=OK:return error
+	if FileAccess.file_exists(SETTINGS_PATH):
+		error=DirAccess.rename_absolute(SETTINGS_PATH,SETTINGS_PATH+".bak")
+		if error!=OK:return error
+	error=DirAccess.rename_absolute(SETTINGS_PATH+".tmp",SETTINGS_PATH)
+	if error!=OK and FileAccess.file_exists(SETTINGS_PATH+".bak"):DirAccess.rename_absolute(SETTINGS_PATH+".bak",SETTINGS_PATH)
+	return error
 
 func _load_settings() -> void:
 	var config := ConfigFile.new()
-	config.load(SETTINGS_PATH)
+	if config.load(SETTINGS_PATH)!=OK:config.load(SETTINGS_PATH+".bak")
 	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
 	hud_scale = _setting_number(config,"hud_scale",1.0,0.85,1.2)
 	var saved_invert: Variant = config.get_value("settings","invert_y",false)

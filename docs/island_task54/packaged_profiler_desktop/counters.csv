@@ -1,0 +1,2 @@
+monotonic_us,x,y,z,draw_calls,primitives,static_bytes,video_bytes,texture_bytes,frame_limit,shadows,paused,window_w,window_h,render_scale,estimated_3d_w,estimated_3d_h,render_cpu_ms,gpu_ms,physics_ms,active_physics_objects,collision_pairs,process_ms
+52391013,0.0,3.79562282562256,27.0,221.0,313960.0,148504558.0,341337681.0,296984689.0,30,0,0,1920,1080,0.66666668653488,1280,720,119.685453251893,7.22512055457906,64.1700851063832,1.0,15.0,798.506943262413

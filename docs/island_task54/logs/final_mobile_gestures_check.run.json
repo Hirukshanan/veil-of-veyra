@@ -1,0 +1,17 @@
+{
+  "name": "final_mobile_gestures_check",
+  "started_utc": "2026-11-15T15:34:54.894404+00:00",
+  "duration_s": 11.805,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/mobile_gestures_check.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task54"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

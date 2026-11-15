@@ -1,0 +1,78 @@
+{
+  "platform": "Godot Windows; not Android",
+  "quality": "accepted 720p 3D cap, native window HUD, shadows off; actor physics held for matched visual comparison",
+  "views": [
+    {
+      "draw_calls": 204.0,
+      "frame_median_ms": 16.666,
+      "frame_p95_ms": 17.313,
+      "gpu_median_ms": 6.5479998588562,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "gameplay_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 149478081.0,
+      "submitted_primitives": 451485.0
+    },
+    {
+      "draw_calls": 230.0,
+      "frame_median_ms": 16.666,
+      "frame_p95_ms": 16.821,
+      "gpu_median_ms": 8.64599990844727,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 150047717.0,
+      "submitted_primitives": 453095.0
+    },
+    {
+      "draw_calls": 223.0,
+      "frame_median_ms": 16.664,
+      "frame_p95_ms": 17.224,
+      "gpu_median_ms": 6.54300022125244,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "gameplay_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 151891929.0,
+      "submitted_primitives": 475823.0
+    },
+    {
+      "draw_calls": 249.0,
+      "frame_median_ms": 16.665,
+      "frame_p95_ms": 16.761,
+      "gpu_median_ms": 8.83600044250488,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "settings_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 151960041.0,
+      "submitted_primitives": 477433.0
+    },
+    {
+      "draw_calls": 204.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 16.785,
+      "gpu_median_ms": 7.39900016784668,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "gameplay_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 147979817.0,
+      "submitted_primitives": 451485.0
+    },
+    {
+      "draw_calls": 230.0,
+      "frame_median_ms": 16.665,
+      "frame_p95_ms": 16.899,
+      "gpu_median_ms": 6.86499977111816,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 147981245.0,
+      "submitted_primitives": 453095.0
+    }
+  ]
+}

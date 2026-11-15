@@ -1,0 +1,150 @@
+{
+  "platform": "Godot Windows; not Android",
+  "quality": "accepted 720p 3D cap, native window HUD, shadows off; actor physics held for matched visual comparison",
+  "views": [
+    {
+      "draw_calls": 199.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 16.747,
+      "gpu_median_ms": 7.5460000038147,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "gameplay_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 150678220.0,
+      "submitted_primitives": 450821.0
+    },
+    {
+      "draw_calls": 231.0,
+      "frame_median_ms": 16.666,
+      "frame_p95_ms": 16.735,
+      "gpu_median_ms": 7.50400018692017,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 151493094.0,
+      "submitted_primitives": 455629.0
+    },
+    {
+      "draw_calls": 235.0,
+      "frame_median_ms": 16.666,
+      "frame_p95_ms": 16.702,
+      "gpu_median_ms": 7.46000003814697,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_camera_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 151498534.0,
+      "submitted_primitives": 455213.0
+    },
+    {
+      "draw_calls": 235.0,
+      "frame_median_ms": 16.664,
+      "frame_p95_ms": 17.05,
+      "gpu_median_ms": 8.81999969482422,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_graphics_sound_1280x720",
+      "physical_pixels": "(1280, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 151601096.0,
+      "submitted_primitives": 455197.0
+    },
+    {
+      "draw_calls": 218.0,
+      "frame_median_ms": 16.661,
+      "frame_p95_ms": 17.411,
+      "gpu_median_ms": 6.73299980163574,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "gameplay_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 152627318.0,
+      "submitted_primitives": 475159.0
+    },
+    {
+      "draw_calls": 250.0,
+      "frame_median_ms": 16.666,
+      "frame_p95_ms": 16.901,
+      "gpu_median_ms": 9.51900005340576,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "settings_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 153359330.0,
+      "submitted_primitives": 479967.0
+    },
+    {
+      "draw_calls": 254.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 16.856,
+      "gpu_median_ms": 8.27600002288818,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "settings_camera_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 153361586.0,
+      "submitted_primitives": 479551.0
+    },
+    {
+      "draw_calls": 254.0,
+      "frame_median_ms": 16.665,
+      "frame_p95_ms": 16.867,
+      "gpu_median_ms": 9.81099987030029,
+      "logical_viewport": "(1600.0, 720.0)",
+      "name": "settings_graphics_sound_1600x720",
+      "physical_pixels": "(1600, 720)",
+      "render_scale": 1.0,
+      "static_bytes": 153449764.0,
+      "submitted_primitives": 479535.0
+    },
+    {
+      "draw_calls": 199.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 16.749,
+      "gpu_median_ms": 7.07000017166138,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "gameplay_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 148918878.0,
+      "submitted_primitives": 450821.0
+    },
+    {
+      "draw_calls": 231.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 16.861,
+      "gpu_median_ms": 5.80100011825562,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 149658970.0,
+      "submitted_primitives": 455629.0
+    },
+    {
+      "draw_calls": 235.0,
+      "frame_median_ms": 16.667,
+      "frame_p95_ms": 17.037,
+      "gpu_median_ms": 6.67399978637695,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_camera_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 149663106.0,
+      "submitted_primitives": 455213.0
+    },
+    {
+      "draw_calls": 235.0,
+      "frame_median_ms": 16.668,
+      "frame_p95_ms": 16.888,
+      "gpu_median_ms": 5.57499980926514,
+      "logical_viewport": "(1280.0, 720.0)",
+      "name": "settings_graphics_sound_960x540",
+      "physical_pixels": "(960, 540)",
+      "render_scale": 1.0,
+      "static_bytes": 149750660.0,
+      "submitted_primitives": 455197.0
+    }
+  ]
+}

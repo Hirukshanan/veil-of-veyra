@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS:54 default landscape/scale/preset combinations; matched mirrored anchors, larger primaries, smaller secondary controls, exact boot/star centers and no rectangular touch overlap

@@ -29,6 +29,11 @@ func _run() -> void:
 				for button in scene.camp_menu.buttons.values():
 					_inside(button, bounds)
 				continue
+			if is_instance_valid(scene.settings_screen):
+				_inside(scene.settings_screen,bounds)
+				for action in [scene.settings_screen.save_button,scene.settings_screen.cancel_button,scene.settings_screen.reset_button]:_inside(action,bounds)
+				_inside(scene.settings_screen.scroll,bounds)
+				continue
 			_inside(scene.menu_scroll, bounds)
 			assert(scene.menu_box.size.x <= scene.menu_scroll.size.x)
 			var last: Control = scene.menu_box.get_child(scene.menu_box.get_child_count() - 1)
@@ -39,7 +44,7 @@ func _run() -> void:
 		await _settle()
 		var joystick: Control = get_first_node_in_group("movement_joysticks")
 		_inside(joystick, bounds)
-		assert(joystick.get_global_rect().end.y >= resolution.y-50 and joystick.get_global_rect().end.y <= resolution.y-30, "Movement stick needs a comfortable bottom margin")
+		assert(joystick.get_global_rect().end.y >= resolution.y-50 and joystick.get_global_rect().end.y <= resolution.y-12, "Movement stick needs a comfortable bottom margin")
 		# Include the lantern button even though it normally appears after the wave.
 		scene.interact_button.show()
 		for layer in scene.get_children():

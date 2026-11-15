@@ -1,0 +1,18 @@
+{
+  "checked_utc": "2026-11-15T16:06:33.244775+00:00",
+  "adb_exit_code": 0,
+  "authorized_physical_devices": 0,
+  "unauthorized_devices": 0,
+  "serials_redacted": true,
+  "owner_target": "Samsung A37, 8 GB RAM (owner supplied)",
+  "android_version": null,
+  "physical_test_completed": false,
+  "measurements": {
+    "fps": null,
+    "frame_time": null,
+    "cpu_gpu": null,
+    "memory": null,
+    "thermal": null,
+    "battery": null
+  }
+}

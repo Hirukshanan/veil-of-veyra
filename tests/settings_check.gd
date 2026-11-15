@@ -13,22 +13,20 @@ func _run() -> void:
 	scene._show_settings(scene._show_camp)
 	assert(paused)
 	assert(scene.frame_limit == 60 and Engine.max_fps == 60)
-	var frame_choice = scene.menu_box.get_node("FrameLimitChoice")
+	scene.settings_screen.select_tab("Graphics & Sound")
+	var frame_choice = scene.settings_screen.find_child("FrameLimitChoice",true,false)
 	frame_choice.select(0)
 	frame_choice.item_selected.emit(0)
 	assert(scene.frame_limit == 30 and Engine.max_fps == 30)
 	var sun: DirectionalLight3D = scene.find_children("*", "DirectionalLight3D", true, false)[0]
 	assert(sun.shadow_enabled and scene.shadows_enabled)
-	var toggle = scene.menu_box.get_node("ShadowsToggle")
+	var toggle = scene.settings_screen.find_child("ShadowsToggle",true,false)
 	toggle.button_pressed = false
 	assert(not sun.shadow_enabled and not scene.shadows_enabled)
-	var sliders: Array = []
-	for child in scene.menu_box.get_children():
-		if child is HSlider:
-			sliders.append(child)
-	sliders[0].value = 1.5
-	sliders[1].value = 0.0
-	sliders[2].value = 8.0
+	scene.settings_screen.sliders.sound_volume.value=0
+	scene.settings_screen.select_tab("Camera")
+	scene.settings_screen.sliders.camera_sensitivity.value=1.5
+	scene.settings_screen.sliders.camera_distance.value=8
 	assert(scene.player._camera_arm.spring_length == 8.0)
 	assert(scene.player.camera_sensitivity == 1.5)
 	assert(AudioServer.is_bus_mute(0))

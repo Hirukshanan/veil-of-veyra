@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+AUTO capture raw=(0.0, -2.05) hold=0.46560433333333 requested=true enabled=true
+PASS: actual Godot feedback captures from dispatched touch gestures; actors held, not a phone recording

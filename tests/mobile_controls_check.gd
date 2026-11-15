@@ -74,7 +74,7 @@ func run():
 				assert(movement_rect.size.is_equal_approx(attack_rect.size),"Default joystick and attack must share the same primary size")
 				assert(is_equal_approx(movement_rect.get_center().y,attack_rect.get_center().y),"Primary controls must sit at the same height")
 				assert(is_equal_approx(movement_rect.get_center().x+attack_rect.get_center().x,resolution.x),"Primary controls must mirror across the viewport")
-				for key in ["DodgeButton","JumpButton","GuardButton","SprintButton","SpiritBurstButton","InteractButton"]:
+				for key in ["DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton"]:
 					assert(scene.mobile_hud.control(key).size.x<attack.size.x,"Secondary controls must remain smaller than attack")
 				var controls=[]
 				for button in scene.find_children("*","Button",true,false):
@@ -104,7 +104,8 @@ func run():
 	scene._show_settings(scene._show_camp)
 	scene.invert_y=false
 	scene.left_handed=false
-	var invert=scene.menu_box.get_node("InvertYToggle")
+	scene.settings_screen.select_tab("Camera")
+	var invert=scene.settings_screen.find_child("InvertYToggle",true,false)
 	invert.button_pressed=false
 	invert.button_pressed=true
 	assert(scene.invert_y and not scene.left_handed,"Invert toggle must change only camera setting")

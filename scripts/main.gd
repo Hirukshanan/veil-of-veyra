@@ -16,59 +16,7 @@ var boss_spawned := false
 var game_finished := false
 
 
-class IslandJoystick extends Control:
-	signal value_changed(value: Vector2)
-
-	var _touch_index := -1
-	var _value := Vector2.ZERO
-
-	func _ready() -> void:
-		add_to_group("movement_joysticks")
-		mouse_filter = Control.MOUSE_FILTER_STOP
-		queue_redraw()
-
-	func reset() -> void:
-		_touch_index = -1
-		_set_value(Vector2.ZERO)
-
-	func _gui_input(event: InputEvent) -> void:
-		if event is InputEventScreenTouch:
-			if event.pressed and _touch_index == -1:
-				_touch_index = event.index
-				_update_value(event.position)
-				accept_event()
-			elif not event.pressed and event.index == _touch_index:
-				_touch_index = -1
-				_set_value(Vector2.ZERO)
-				accept_event()
-		elif event is InputEventScreenDrag and event.index == _touch_index:
-			_update_value(event.position)
-			accept_event()
-
-	func _update_value(point: Vector2) -> void:
-		var radius := minf(size.x, size.y) * 0.34
-		_set_value(((point - size * 0.5) / radius).limit_length(1.0))
-
-	func _set_value(value: Vector2) -> void:
-		_value = value
-		value_changed.emit(value)
-		queue_redraw()
-
-	func _draw() -> void:
-		var center := size * 0.5
-		var radius := minf(size.x,size.y)*0.5-1.0
-		draw_circle(center,radius,Color(0.035,0.05,0.045,0.62))
-		draw_arc(center,radius,0,TAU,64,Color("ae9e78"),2,true)
-		draw_arc(center,radius*0.91,0,TAU,64,Color(0.77,0.73,0.54,0.30),1,true)
-		for i in range(4):
-			var direction:=Vector2.UP.rotated(i*PI/2)
-			var tangent:=direction.orthogonal()
-			var tip:=center+direction*radius*0.81
-			draw_colored_polygon(PackedVector2Array([tip,tip-direction*9+tangent*4,tip-direction*9-tangent*4]),Color(0.87,0.83,0.65,0.5))
-		var thumb:=center+_value*radius*0.53
-		draw_circle(thumb,radius*0.32,Color(0.47,0.48,0.40,0.8))
-		draw_arc(thumb,radius*0.32,0,TAU,40,Color(0.89,0.84,0.65,0.8),1.5,true)
-
+const IslandJoystick=preload("res://scripts/mobile_joystick.gd")
 
 func _ready() -> void:
 	_setup_input()
@@ -244,6 +192,12 @@ func _build_hud() -> void:
 	root.add_child(boss_health_bar)
 
 	var joystick := IslandJoystick.new()
+	joystick.player=player
+	joystick.sprint_requested.connect(func(active:bool):
+		if not is_instance_valid(player):return
+		if active and not player.sprint_enabled:player.toggle_sprint()
+		elif not active:player.sprint_enabled=false
+	)
 	joystick.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	joystick.offset_left = 24
 	joystick.offset_right = 214
@@ -270,11 +224,6 @@ func _build_hud() -> void:
 	burst_button.disabled = true
 	burst_button.pressed.connect(Callable(player,"spirit_burst"))
 	root.add_child(burst_button)
-	var sprint_button := _make_button("",Vector2(-292,-100),Vector2(-212,-20))
-	sprint_button.name = "SprintButton"
-	_set_action_icon(sprint_button,"sprint","Sprint")
-	sprint_button.pressed.connect(Callable(player,"toggle_sprint"))
-	root.add_child(sprint_button)
 	var jump_button := _make_button("",Vector2(-292,-188),Vector2(-212,-108))
 	jump_button.name = "JumpButton"
 	_set_action_icon(jump_button,"jump","Jump")
@@ -295,9 +244,6 @@ func _build_hud() -> void:
 		guard_button.meter = 1.0 if player.guarding else 0.0
 		guard_button.disabled = player.health<=0 or player.stamina<20.0
 		jump_button.disabled = not player.can_jump()
-		sprint_button.disabled = not player.sprint_enabled and player.stamina < 20.0
-		sprint_button.meter = player.stamina/100.0
-		sprint_button.self_modulate = Color(1.0,0.8,0.4) if player.sprint_enabled else Color.WHITE
 		dodge_button.meter = clampf(float(player.get("_dodge_cooldown")),0.0,1.0)
 		burst_button.meter = float(player.spirit)/100.0
 		burst_button.disabled = player.spirit < 100 or float(player.get("_attack_cooldown")) > 0.0

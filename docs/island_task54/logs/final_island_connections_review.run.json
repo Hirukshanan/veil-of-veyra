@@ -1,0 +1,15 @@
+{
+  "name": "final_island_connections_review",
+  "started_utc": "2026-11-15T15:39:10.372221+00:00",
+  "duration_s": 41.465,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_connections_review.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

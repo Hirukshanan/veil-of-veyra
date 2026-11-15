@@ -17,8 +17,8 @@ func close_world():
 	await process_frame
 	paused=false
 func press(caption: String):
-	for child in scene.menu_box.get_children():
-		if child is Button and child.text==caption:
+	for child in scene.find_children("*","Button",true,false):
+		if child is Button and child.text==caption and child.is_visible_in_tree():
 			child.pressed.emit()
 			return
 	assert(false,"Missing navigation action: "+caption)
@@ -49,7 +49,7 @@ func run():
 	var hud=scene.mobile_hud
 	assert(scene.find_child("HUDCustomization",true,false)==null,"Customization must never be permanently visible")
 	assert(scene.find_child("TargetSwitchButton",true,false)==null and scene.find_child("TargetLockButton",true,false)==null,"Removed target controls must not appear in gameplay")
-	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","SprintButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
+	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
 	for button in scene.find_children("*","Button",true,false):
 		if button.is_visible_in_tree():
 			assert(button.name in allowed_buttons,"Only gameplay actions/navigation may be visible: "+button.name)
@@ -72,7 +72,7 @@ func run():
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(hud.PATH))
 	hud.profile={"preset":"Battle","controls":{}}
 	hud.refresh()
-	assert(hud.control("MovementJoystick").size.x<=144,"Movement joystick must be smaller than the old 190px control")
+	assert(hud.control("MovementJoystick").size.x==176 and hud.control("AttackButton").size.x==176,"Task 5.4 matched primaries must use the increased default diameter")
 	for resolution in [Vector2(800,450),Vector2(1280,720),Vector2(1600,720),Vector2(732,414)]:
 		for preset in ["Battle","Classic","Left-Handed"]:
 			var data: Dictionary={"preset":preset,"controls":{}}
@@ -88,7 +88,7 @@ func run():
 	var rects: Dictionary=editor.preview_rects()
 	var start: Vector2=editor.preview.global_position+rects.AttackButton.get_center()
 	pointer(start,true)
-	var at: Vector2=editor.preview.global_position+editor._preview_transform()*(Vector2(0.94,0.86)*Vector2(1280,720))
+	var at: Vector2=editor.preview.global_position+editor._preview_transform()*(Vector2(0.94,0.835)*Vector2(1280,720))
 	drag(at)
 	pointer(at,false)
 	assert(editor.draft.controls.has("AttackButton"),"Dragging must store an actual control position")

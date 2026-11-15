@@ -1,0 +1,20 @@
+{
+  "name": "gesture_feedback",
+  "started_utc": "2026-11-15T15:58:42.235176+00:00",
+  "duration_s": 47.203,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task54_feedback.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task54\\feedback"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

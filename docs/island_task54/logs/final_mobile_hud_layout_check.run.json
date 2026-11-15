@@ -1,0 +1,17 @@
+{
+  "name": "final_mobile_hud_layout_check",
+  "started_utc": "2026-11-15T15:35:19.805344+00:00",
+  "duration_s": 0.511,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/mobile_hud_layout_check.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task54"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

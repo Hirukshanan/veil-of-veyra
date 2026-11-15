@@ -11,7 +11,8 @@ func _run():
 	hero.toggle_sprint()
 	assert(not hero.sprint_enabled)
 	scene._resume()
-	scene.find_child("SprintButton", true, false).pressed.emit()
+	assert(scene.find_child("SprintButton",true,false)==null)
+	get_first_node_in_group("movement_joysticks").sprint_requested.emit(true)
 	assert(hero.sprint_enabled)
 	assert(hero._sprint_speed(1.0, 1.0) == hero.SPRINT_SPEED and hero.stamina == 75.0)
 	assert(hero._sprint_speed(3.0, 1.0) == hero.MOVE_SPEED and hero.stamina == 0.0 and not hero.sprint_enabled)
@@ -37,5 +38,6 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
+	await create_timer(.25,true,false,true).timeout
 	print("PASS: sprint speed, depletion, restart threshold, recovery, attack/dodge/menu cancellation and paused stamina")
 	quit()

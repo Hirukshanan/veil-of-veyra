@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 signal health_changed(value: int, maximum: int)
 signal defeated
+signal camera_zoom_finished(distance:float)
 
 const MOVE_SPEED := 5.2
 const SPRINT_SPEED := 8.3
@@ -46,6 +47,12 @@ var camera_sensitivity := 1.0
 var invert_y := false
 var left_handed_controls := false
 var _camera_pointer := -1
+var _camera_touches:Dictionary={}
+var _pinch_span:=0.0
+var _pinching:=false
+var _pinch_changed:=false
+var _look_rearm:=false
+var _camera_distance_target:=6.3
 var level := 1
 var guarding := false
 var _parry_window := 0.0
@@ -159,13 +166,19 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_action(&"guard") and not event.echo:
 		if event.pressed: start_guard()
 		else: end_guard()
-	if event is InputEventScreenTouch and not event.pressed and event.index == _camera_pointer:
-		_camera_pointer = -1
-	if event is InputEventScreenDrag and event.index == _camera_pointer:
-		if not get_tree().paused and health > 0:
-			_rotate_camera(event.relative)
-		get_viewport().set_input_as_handled()
-		return
+	if event is InputEventScreenTouch and (not event.pressed or event.canceled) and _camera_touches.has(event.index):
+		_camera_touches.erase(event.index)
+		if _pinching:
+			_finish_pinch();_look_rearm=true
+		_camera_pointer=-1
+		if _camera_touches.is_empty():_look_rearm=false
+		get_viewport().set_input_as_handled();return
+	if event is InputEventScreenDrag and _camera_touches.has(event.index):
+		_camera_touches[event.index]=event.position
+		if not get_tree().paused and health>0:
+			if _pinching and _camera_touches.size()==2:_update_pinch()
+			elif event.index==_camera_pointer and not _look_rearm:_rotate_camera(event.relative)
+		get_viewport().set_input_as_handled();return
 	if event is InputEventKey and event.pressed and not event.echo and event.is_action_pressed(&"jump"):
 		jump()
 		get_viewport().set_input_as_handled()
@@ -175,14 +188,38 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		_rotate_camera(event.relative)
-	elif event is InputEventScreenTouch and event.pressed and not event.canceled and _camera_pointer == -1:
+	elif event is InputEventScreenTouch and event.pressed and not event.canceled and _camera_touches.size()<2:
 		var width := get_viewport().get_visible_rect().size.x
 		var in_camera_zone: bool = (event.position.x <= width * 0.58) if left_handed_controls else (event.position.x >= width * 0.42)
-		if in_camera_zone:
-			_camera_pointer = event.index
+		# Only unhandled presses can become view gestures: GUI owns combat/stick touches.
+		_camera_touches[event.index]=event.position
+		if _camera_touches.size()==2:
+			var positions:Array=_camera_touches.values()
+			_pinch_span=positions[0].distance_to(positions[1]);_pinching=true;_pinch_changed=false;_camera_pointer=-1
+		elif in_camera_zone and not _look_rearm:_camera_pointer=event.index
+		get_viewport().set_input_as_handled()
 
 func cancel_touch_camera() -> void:
-	_camera_pointer = -1
+	_finish_pinch();_camera_touches.clear();_camera_pointer=-1;_look_rearm=false
+
+func _update_pinch()->void:
+	var positions:Array=_camera_touches.values()
+	var span:float=positions[0].distance_to(positions[1])
+	if _pinch_span>24 and span>24:
+		var desired:float=clampf(_camera_distance_target*_pinch_span/span,4,9)
+		if absf(desired-_camera_distance_target)>.001:_pinch_changed=true
+		_camera_distance_target=desired
+	_pinch_span=span
+
+func _finish_pinch()->void:
+	if _pinching and _pinch_changed:camera_zoom_finished.emit(_camera_distance_target)
+	_pinching=false;_pinch_changed=false;_pinch_span=0
+
+func _process(delta:float)->void:
+	if is_instance_valid(_camera_arm) and not get_tree().paused:
+		var difference:float=_camera_distance_target-_camera_arm.spring_length
+		if absf(difference)>.001:_camera_arm.spring_length=lerpf(_camera_arm.spring_length,_camera_distance_target,1-exp(-12*delta))
+		elif difference!=0:_camera_arm.spring_length=_camera_distance_target
 
 
 func _rotate_camera(relative: Vector2) -> void:
@@ -517,7 +554,8 @@ func _build_camera() -> void:
 
 
 func set_camera_distance(value: float) -> void:
-	_camera_arm.spring_length = clampf(value, 4.0, 9.0)
+	_camera_distance_target=clampf(value,4,9)
+	_camera_arm.spring_length=_camera_distance_target
 
 
 func _build_attack_area() -> void:

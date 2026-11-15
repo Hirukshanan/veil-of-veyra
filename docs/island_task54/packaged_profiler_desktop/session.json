@@ -1,0 +1,31 @@
+{
+  "bootstrap_to_placement_ready_ms": 26272.446,
+  "engine_uptime_at_recording_start_ms": 48590,
+  "estimated_3d_buffer_pixels": [
+    1280,
+    720
+  ],
+  "experiment": {
+    "experiment": "accepted_cap720",
+    "phone_improvement_verified": false,
+    "render_height": 720.0,
+    "single_changed_variable": "Task 5.4 mobile controls/settings; accepted 720p rendering preserved",
+    "task": "5.4"
+  },
+  "model": "Aspire A515-56",
+  "note": "Local engine callback intervals. Positive GPU/render-CPU values are backend timings; zero means unavailable. Buffer pixels are calculated from measured window pixels, not captured GPU attachment dimensions. Startup excludes earlier preload/engine initialization. Five-second file flush has observer overhead.",
+  "physical_window_pixels": [
+    1920,
+    1080
+  ],
+  "platform": "Windows",
+  "renderer": "gl_compatibility",
+  "root_viewport_pixels": [
+    1920,
+    1080
+  ],
+  "scaling_3d": 0.666666686534882,
+  "schema": 2,
+  "started_utc": "2026-11-15T16:05:45",
+  "viewport": "(1280.0, 720.0)"
+}

@@ -1,0 +1,26 @@
+{
+  "runtime_and_tests": [
+    "scripts/campaign.gd",
+    "scripts/main.gd",
+    "scripts/mobile_hud.gd",
+    "scripts/player.gd",
+    "tests/hud_customization_check.gd",
+    "tests/layout_check.gd",
+    "tests/mobile_controls_check.gd",
+    "tests/pause_check.gd",
+    "tests/quest_hud_check.gd",
+    "tests/safe_area_check.gd",
+    "tests/settings_check.gd",
+    "tests/sprint_check.gd",
+    "tools/build_island_android.py",
+    "tools/mobile_bootstrap.gd.template",
+    "scripts/mobile_joystick.gd",
+    "scripts/mobile_settings.gd",
+    "tests/mobile_gestures_check.gd",
+    "tests/mobile_hud_layout_check.gd",
+    "tests/mobile_settings_touch_check.gd"
+  ],
+  "baseline_and_reproduction": "art_source/island/task54",
+  "evidence": "docs/island_task54",
+  "no_commit_or_staging_performed": true
+}

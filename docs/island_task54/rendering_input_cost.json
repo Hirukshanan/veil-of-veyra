@@ -1,0 +1,261 @@
+{
+  "platform": "Windows / Intel Iris Xe / OpenGL Compatibility; NOT Android",
+  "render_method": "Matched actor-held scene/camera; shadows off; accepted physical-height 720p 3D cap, native-resolution canvas; 40 warmup +90 observed frames per view. Desktop frame cap 60. Samples are not sustained-gameplay or phone measurements. GPU timer is unavailable if null.",
+  "comparisons": [
+    {
+      "view": "gameplay_1280x720",
+      "before": {
+        "draw_calls": 204.0,
+        "frame_median_ms": 16.666,
+        "frame_p95_ms": 17.313,
+        "gpu_median_ms": 6.5479998588562,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "gameplay_1280x720",
+        "physical_pixels": "(1280, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 149478081.0,
+        "submitted_primitives": 451485.0
+      },
+      "after": {
+        "draw_calls": 199.0,
+        "frame_median_ms": 16.667,
+        "frame_p95_ms": 16.747,
+        "gpu_median_ms": 7.5460000038147,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "gameplay_1280x720",
+        "physical_pixels": "(1280, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 150678220.0,
+        "submitted_primitives": 450821.0
+      },
+      "draw_call_delta": -5.0,
+      "submitted_primitive_delta": -664.0,
+      "static_memory_delta_bytes": 1200139.0
+    },
+    {
+      "view": "settings_1280x720",
+      "before": {
+        "draw_calls": 230.0,
+        "frame_median_ms": 16.666,
+        "frame_p95_ms": 16.821,
+        "gpu_median_ms": 8.64599990844727,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "settings_1280x720",
+        "physical_pixels": "(1280, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 150047717.0,
+        "submitted_primitives": 453095.0
+      },
+      "after": {
+        "draw_calls": 231.0,
+        "frame_median_ms": 16.666,
+        "frame_p95_ms": 16.735,
+        "gpu_median_ms": 7.50400018692017,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "settings_1280x720",
+        "physical_pixels": "(1280, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 151493094.0,
+        "submitted_primitives": 455629.0
+      },
+      "draw_call_delta": 1.0,
+      "submitted_primitive_delta": 2534.0,
+      "static_memory_delta_bytes": 1445377.0
+    },
+    {
+      "view": "gameplay_1600x720",
+      "before": {
+        "draw_calls": 223.0,
+        "frame_median_ms": 16.664,
+        "frame_p95_ms": 17.224,
+        "gpu_median_ms": 6.54300022125244,
+        "logical_viewport": "(1600.0, 720.0)",
+        "name": "gameplay_1600x720",
+        "physical_pixels": "(1600, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 151891929.0,
+        "submitted_primitives": 475823.0
+      },
+      "after": {
+        "draw_calls": 218.0,
+        "frame_median_ms": 16.661,
+        "frame_p95_ms": 17.411,
+        "gpu_median_ms": 6.73299980163574,
+        "logical_viewport": "(1600.0, 720.0)",
+        "name": "gameplay_1600x720",
+        "physical_pixels": "(1600, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 152627318.0,
+        "submitted_primitives": 475159.0
+      },
+      "draw_call_delta": -5.0,
+      "submitted_primitive_delta": -664.0,
+      "static_memory_delta_bytes": 735389.0
+    },
+    {
+      "view": "settings_1600x720",
+      "before": {
+        "draw_calls": 249.0,
+        "frame_median_ms": 16.665,
+        "frame_p95_ms": 16.761,
+        "gpu_median_ms": 8.83600044250488,
+        "logical_viewport": "(1600.0, 720.0)",
+        "name": "settings_1600x720",
+        "physical_pixels": "(1600, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 151960041.0,
+        "submitted_primitives": 477433.0
+      },
+      "after": {
+        "draw_calls": 250.0,
+        "frame_median_ms": 16.666,
+        "frame_p95_ms": 16.901,
+        "gpu_median_ms": 9.51900005340576,
+        "logical_viewport": "(1600.0, 720.0)",
+        "name": "settings_1600x720",
+        "physical_pixels": "(1600, 720)",
+        "render_scale": 1.0,
+        "static_bytes": 153359330.0,
+        "submitted_primitives": 479967.0
+      },
+      "draw_call_delta": 1.0,
+      "submitted_primitive_delta": 2534.0,
+      "static_memory_delta_bytes": 1399289.0
+    },
+    {
+      "view": "gameplay_960x540",
+      "before": {
+        "draw_calls": 204.0,
+        "frame_median_ms": 16.667,
+        "frame_p95_ms": 16.785,
+        "gpu_median_ms": 7.39900016784668,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "gameplay_960x540",
+        "physical_pixels": "(960, 540)",
+        "render_scale": 1.0,
+        "static_bytes": 147979817.0,
+        "submitted_primitives": 451485.0
+      },
+      "after": {
+        "draw_calls": 199.0,
+        "frame_median_ms": 16.667,
+        "frame_p95_ms": 16.749,
+        "gpu_median_ms": 7.07000017166138,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "gameplay_960x540",
+        "physical_pixels": "(960, 540)",
+        "render_scale": 1.0,
+        "static_bytes": 148918878.0,
+        "submitted_primitives": 450821.0
+      },
+      "draw_call_delta": -5.0,
+      "submitted_primitive_delta": -664.0,
+      "static_memory_delta_bytes": 939061.0
+    },
+    {
+      "view": "settings_960x540",
+      "before": {
+        "draw_calls": 230.0,
+        "frame_median_ms": 16.665,
+        "frame_p95_ms": 16.899,
+        "gpu_median_ms": 6.86499977111816,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "settings_960x540",
+        "physical_pixels": "(960, 540)",
+        "render_scale": 1.0,
+        "static_bytes": 147981245.0,
+        "submitted_primitives": 453095.0
+      },
+      "after": {
+        "draw_calls": 231.0,
+        "frame_median_ms": 16.667,
+        "frame_p95_ms": 16.861,
+        "gpu_median_ms": 5.80100011825562,
+        "logical_viewport": "(1280.0, 720.0)",
+        "name": "settings_960x540",
+        "physical_pixels": "(960, 540)",
+        "render_scale": 1.0,
+        "static_bytes": 149658970.0,
+        "submitted_primitives": 455629.0
+      },
+      "draw_call_delta": 1.0,
+      "submitted_primitive_delta": 2534.0,
+      "static_memory_delta_bytes": 1677725.0
+    }
+  ],
+  "input_before": {
+    "method": "Synthetic burst through actual Viewport.push_input. Five trials of5000 drag events after100 warmup events. Actors held; measures dispatch CPU microseconds/event, not touch-to-photon latency, Android input cost or gameplay FPS.",
+    "platform": "Windows",
+    "rows": [
+      {
+        "five_trial_us_per_event": [
+          3.0454,
+          3.1862,
+          3.2384,
+          3.2436,
+          3.289
+        ],
+        "median_cpu_us_per_event": 3.2384,
+        "mode": "camera_drag"
+      },
+      {
+        "five_trial_us_per_event": [
+          4.5706,
+          4.756,
+          4.8712,
+          4.875,
+          5.1708
+        ],
+        "median_cpu_us_per_event": 4.8712,
+        "mode": "joystick_drag"
+      }
+    ]
+  },
+  "input_after": {
+    "method": "Synthetic burst through actual Viewport.push_input. Five trials of5000 drag events after100 warmup events. Actors held; measures dispatch CPU microseconds/event, not touch-to-photon latency, Android input cost or gameplay FPS.",
+    "platform": "Windows",
+    "rows": [
+      {
+        "five_trial_us_per_event": [
+          3.7032,
+          3.7738,
+          3.7802,
+          3.9632,
+          4.4452
+        ],
+        "median_cpu_us_per_event": 3.7802,
+        "mode": "camera_drag"
+      },
+      {
+        "five_trial_us_per_event": [
+          3.9338,
+          4.1164,
+          4.2228,
+          4.2728,
+          4.3904
+        ],
+        "median_cpu_us_per_event": 4.2228,
+        "mode": "joystick_drag"
+      },
+      {
+        "five_trial_us_per_event": [
+          3.636,
+          3.7172,
+          3.942,
+          4.221,
+          4.7262
+        ],
+        "median_cpu_us_per_event": 3.942,
+        "mode": "pinch_drag"
+      }
+    ]
+  },
+  "android_measurements": null,
+  "caveats": [
+    "Static allocator bytes are not total process RSS, Android PSS or GPU texture memory.",
+    "Draw-call/primitive counters include UI submissions. No world mesh/material/texture was added.",
+    "Input burst timings exclude physical touch hardware and touch-to-photon latency.",
+    "Active sprint redraw and pinch zoom alter visible content; the rendering comparison uses the same idle camera.",
+    "Prior island traversal/frame-spike and sustained thermal risks require the combined A37 playtest."
+  ]
+}

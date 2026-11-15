@@ -1,0 +1,17 @@
+{
+  "name": "final_boar_repeated_cycle_check",
+  "started_utc": "2026-11-15T15:35:52.651269+00:00",
+  "duration_s": 32.638,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/boar_repeated_cycle_check.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task54"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
