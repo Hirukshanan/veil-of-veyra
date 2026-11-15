@@ -1,0 +1,22 @@
+{
+  "name": "exported_bundle_desktop_smoke",
+  "started_utc": "2026-11-15T10:14:16.595284+00:00",
+  "duration_s": 47.562,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke.gd",
+    "--resolution",
+    "1280x720",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

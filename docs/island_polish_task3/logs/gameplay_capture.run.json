@@ -1,0 +1,24 @@
+{
+  "name": "gameplay_capture",
+  "started_utc": "2026-11-15T08:53:36.375808+00:00",
+  "duration_s": 50.766,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task3_gameplay.gd",
+    "--resolution",
+    "1280x720",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--fixed-fps",
+    "30",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_polish_task3\\gameplay"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

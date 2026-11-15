@@ -1,0 +1,10 @@
+{
+  "owner_selected_device": "Samsung A37",
+  "owner_reported_ram_gb": 8,
+  "actual_device_model_verified": false,
+  "android_version": null,
+  "connected_during_task": false,
+  "target_fps": 30,
+  "higher_quality": "Optional later comparison using existing settings, after baseline",
+  "status": "Hardware target selected by owner; physical device execution and Android version verification pending"
+}

@@ -1,0 +1,25 @@
+{
+  "baseline_file_count": 326,
+  "existing_files_changed": [
+    "scripts/island_landscape.gd",
+    "assets/environment/new_island/EasternCaves.glb",
+    "assets/environment/new_island/region.gdshader",
+    "assets/environment/new_island/river.gdshader",
+    "assets/environment/new_island/RiverGrassland.glb",
+    "assets/environment/new_island/SouthernBeach.glb",
+    "assets/environment/new_island/WaterfallMountains.glb"
+  ],
+  "unexpected_changes": [],
+  "unchanged_file_count": 319,
+  "all_five_embedded_source_albedo_bytes_unchanged": {
+    "WaterfallMountains": true,
+    "WesternForest": true,
+    "RiverGrassland": true,
+    "EasternCaves": true,
+    "SouthernBeach": true
+  },
+  "forest_glb_unchanged": true,
+  "original_sea_shader_unchanged": true,
+  "main_scene_project_settings_campaign_and_controller_unchanged": true,
+  "rollback_checkpoint": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Island_PrePolishTask1_20261115_090717\\candidate_terrain_before.zip"
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "file": "assets/environment/new_island/task3/rock_albedo.png",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "source_png_bytes": 1176108,
+    "imported_variants": [
+      {
+        "file": "rock_albedo.png-1c129a65834159ebc35ec56d5abe7cca.ctex",
+        "bytes": 742944
+      },
+      {
+        "file": "rock_albedo.png-1c129a65834159ebc35ec56d5abe7cca.etc2.ctex",
+        "bytes": 699116
+      },
+      {
+        "file": "rock_albedo.png-1c129a65834159ebc35ec56d5abe7cca.s3tc.ctex",
+        "bytes": 699116
+      }
+    ],
+    "vram_compression": true,
+    "mipmaps": true
+  },
+  {
+    "file": "assets/environment/new_island/task3/rock_normal.png",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "source_png_bytes": 1911646,
+    "imported_variants": [
+      {
+        "file": "rock_normal.png-8dbdf139e038413f8bfc5b529adb6bb7.ctex",
+        "bytes": 1548698
+      },
+      {
+        "file": "rock_normal.png-8dbdf139e038413f8bfc5b529adb6bb7.etc2.ctex",
+        "bytes": 1398180
+      },
+      {
+        "file": "rock_normal.png-8dbdf139e038413f8bfc5b529adb6bb7.s3tc.ctex",
+        "bytes": 1398180
+      }
+    ],
+    "vram_compression": true,
+    "mipmaps": true
+  }
+]

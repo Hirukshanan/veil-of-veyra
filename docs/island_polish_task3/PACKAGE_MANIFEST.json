@@ -1,0 +1,550 @@
+{
+  "after/01_mountain_overview.png": {
+    "bytes": 918467,
+    "sha256": "4cca73df9cc39dcb24a8deaa532eb6beedfc25c57b46491405f276f86aa6609d"
+  },
+  "after/02_mountain_texture.png": {
+    "bytes": 973854,
+    "sha256": "b890f1cfce813aeb060c170c6529a2e9f213dd5ccb825a2817e7dade7395f99a"
+  },
+  "after/03_mountain_base.png": {
+    "bytes": 1223631,
+    "sha256": "d0be5bb559382f6390bd364aa3a45454d5448534a50d7358fca333798eeda4a9"
+  },
+  "after/04_cave_entrance.png": {
+    "bytes": 1108138,
+    "sha256": "e287ffcaaad31e0d457626ce2c2c8dcb0e4a0eee2fba2f5d65cebb4673ebb825"
+  },
+  "after/05_cave_interior.png": {
+    "bytes": 1010871,
+    "sha256": "5e16522bd77ee4d5fb522fdced1f278a8d299e4c55f913f817f9982c84a4640b"
+  },
+  "after/06_waterfall_distance.png": {
+    "bytes": 945019,
+    "sha256": "ee4ef444cc91ca4698a079123eed4189dc94e23228c35dbfbf4af073fed10e02"
+  },
+  "after/07_waterfall_river.png": {
+    "bytes": 1123073,
+    "sha256": "c92a27341f577150b0dfe028d3ebe388d3824d1a806dc287f8832ae16ca2c345"
+  },
+  "after_metrics.json": {
+    "bytes": 2171,
+    "sha256": "fc9877b8c215d98ba84ba6db2f9e83f8ef6ddfd8d5dfe88ef7b7876d080d7d3b"
+  },
+  "ASSET_SOURCES.md": {
+    "bytes": 1282,
+    "sha256": "eb9bcacc19580428963a900497b4815be4da1734537216332a12cc7fd13e1f53"
+  },
+  "before/01_mountain_overview.png": {
+    "bytes": 980074,
+    "sha256": "7fbcd148d0d11fd795b8f044d06b0753831f189a4bf5fadda8f9a49702027836"
+  },
+  "before/02_mountain_texture.png": {
+    "bytes": 1112910,
+    "sha256": "af3920f7a6c208c1aa6df5b085931f091edb62f919a7a2138dbd4b386c418e56"
+  },
+  "before/03_mountain_base.png": {
+    "bytes": 1318986,
+    "sha256": "4f171de0980c40fb56a6c37887560656ea827380a140398400f831d8e731012c"
+  },
+  "before/04_cave_entrance.png": {
+    "bytes": 1164415,
+    "sha256": "7c8c4b378cc93290b98a90b61314ae705e1d809ae2da4414df6337541b5ff38a"
+  },
+  "before/05_cave_interior.png": {
+    "bytes": 1207568,
+    "sha256": "5e2eb035993482a1c8dcd840691ebacf6ba7f5e0cf90066d878913a2a49278da"
+  },
+  "before/06_waterfall_distance.png": {
+    "bytes": 1079144,
+    "sha256": "9180de8cf85ce0cf3edd8e650f036149f77f3f9d0f99134f5b2e606938c385fa"
+  },
+  "before/07_waterfall_river.png": {
+    "bytes": 1230568,
+    "sha256": "d0c65e39e48c517eff67258e01310caacaf8cd02c21f1bc0350c4100dfa436ef"
+  },
+  "before_metrics.json": {
+    "bytes": 2173,
+    "sha256": "ba46d47c88677ec646eda96114c002d74a4f1ff49a439c65caf876d683dc8e49"
+  },
+  "candidate_patch/art_source/island/polish_task3/bake_rock.py": {
+    "bytes": 2013,
+    "sha256": "86c391696724c4c6a6e7492581fe9a9f059f4b65e45289ae8b6ea8ad46179d98"
+  },
+  "candidate_patch/art_source/island/polish_task3/capture_cave_gameplay.gd": {
+    "bytes": 2511,
+    "sha256": "003620f949d7f843e4e68ecef61d5090bf21143fa3c6fa0b6d9817969f519103"
+  },
+  "candidate_patch/art_source/island/polish_task3/capture_review.gd": {
+    "bytes": 3208,
+    "sha256": "acbe67481287d27e6977080fde3443ff4e3c5e94b1c499adbc5187baac396d39"
+  },
+  "candidate_patch/art_source/island/polish_task3/README.md": {
+    "bytes": 1000,
+    "sha256": "8959519ce754dfd6121350b623a766a88ec4143babdc7a66e09d6270154946c5"
+  },
+  "candidate_patch/assets/environment/new_island/task3/README.md": {
+    "bytes": 1282,
+    "sha256": "eb9bcacc19580428963a900497b4815be4da1734537216332a12cc7fd13e1f53"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock.gdshader": {
+    "bytes": 1757,
+    "sha256": "2e591b6a673bcc07349a81de98b7f9998b59395e0a05b65c365f5a0da1b6c976"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock.gdshader.uid": {
+    "bytes": 20,
+    "sha256": "9683347cec864c766a9103f30808f7e437432d9a34f1f9c998d00660fa7a00b1"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock_albedo.png": {
+    "bytes": 1176108,
+    "sha256": "0fcec144df20b36863b2673271822c9c0de50bb8dd8e42c83d25f301ccdb118d"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock_albedo.png.import": {
+    "bytes": 1211,
+    "sha256": "2c397becf6333c1f6ec967c1b624ee3d81948fac93cd031df3934cf14f516d10"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock_normal.png": {
+    "bytes": 1911646,
+    "sha256": "c84474e56c9ba88618cc213bd633acd64687adc14fa902784d78b2cf6c9e6c09"
+  },
+  "candidate_patch/assets/environment/new_island/task3/rock_normal.png.import": {
+    "bytes": 1211,
+    "sha256": "3fada844a3789e2c23234632b20e4a26ec1fa6946989484184bb1129dc07038f"
+  },
+  "candidate_patch/assets/environment/new_island/task3/texture_source.json": {
+    "bytes": 326,
+    "sha256": "7e8bbd980f099a1b0e49d71cf372889f998deeb13432010f52440a176b44fade"
+  },
+  "candidate_patch/assets/environment/new_island/task3/waterfall.gdshader": {
+    "bytes": 1259,
+    "sha256": "f137eedf30f5079e8ca5c0e9223867058a8b3dd37669e4d4abf60f6537ca2365"
+  },
+  "candidate_patch/assets/environment/new_island/task3/waterfall.gdshader.uid": {
+    "bytes": 19,
+    "sha256": "aa335b14f5797360f42fab891917b1dce01cda05be7ea4aebef0928ed0d5fa0f"
+  },
+  "candidate_patch/scripts/island_landscape.gd": {
+    "bytes": 13365,
+    "sha256": "dd6dc7a569e2b69d2680128ed1eeeff7dcd95211fba97e7ec35588f20c9b4b0d"
+  },
+  "candidate_patch/scripts/island_rock_water_polish.gd": {
+    "bytes": 7152,
+    "sha256": "5ddb87f05d744952d145298f0f68eccc59f7e1e1a248a560b240eeaf90f88cea"
+  },
+  "candidate_patch/scripts/island_rock_water_polish.gd.uid": {
+    "bytes": 19,
+    "sha256": "c2168ae651f3afb78f93f29a77b19211fe8e815a80bb54013ef0ba78864c33cd"
+  },
+  "candidate_patch/tests/island_rock_water_check.gd": {
+    "bytes": 2361,
+    "sha256": "2b40c021c730cfa856368af13d02bb21c24649926fd2ecdd8e24a02522aee042"
+  },
+  "candidate_patch/tests/island_rock_water_check.gd.uid": {
+    "bytes": 20,
+    "sha256": "3393eece092b29fe4e7b89d03e26a4fd3232b99ec4afe69c48d8b104132c6577"
+  },
+  "cave_gameplay.mp4": {
+    "bytes": 4512837,
+    "sha256": "27e06bcb9dae8952352410bf0444d0fee2b357f25af2859782f659ec3dbe5b7e"
+  },
+  "CHANGED_FILES.json": {
+    "bytes": 3817,
+    "sha256": "5115778feb54db971f1ab8fc8af8a66b6245cac23c4416e66e9a164f621974b3"
+  },
+  "connection_walk.json": {
+    "bytes": 145825,
+    "sha256": "3dd4c6b72d5bfaa3e13629f4cca663f9420e63ae29285f1297cc613fbb17024d"
+  },
+  "forest_check.json": {
+    "bytes": 690,
+    "sha256": "e7e2590d1253bc68444deca416d6b9ba3ee95f76686244d7251ce1ece1e05de8"
+  },
+  "gallery.html": {
+    "bytes": 4587,
+    "sha256": "5db5df4963fda2826e4831ba8d43cc077e7644dbc4e07d1a18a8f35028cdadc3"
+  },
+  "gameplay/gameplay_000.png": {
+    "bytes": 1370697,
+    "sha256": "e2d49149d5b4ec7e7f35a42776d0db7f35263f21c2d6dd3cfcbaa31b89760953"
+  },
+  "gameplay/gameplay_090.png": {
+    "bytes": 1041894,
+    "sha256": "ddaa6a9deb6c1eb2ef686fb150064e53955d0b045dc226ed80e2e085138fe209"
+  },
+  "gameplay/gameplay_180.png": {
+    "bytes": 1010741,
+    "sha256": "f62c863ca9fa1154782117ed3f4e5aa5666b1071ba002cee94e23e6fc2cab31a"
+  },
+  "gameplay/gameplay_270.png": {
+    "bytes": 1010228,
+    "sha256": "0400fe8ddc5a30e9732a3b3fc2c7c19b8ca9685414b2fe862599e738b090bf10"
+  },
+  "gameplay/gameplay_359.png": {
+    "bytes": 1009684,
+    "sha256": "984580af40975b046a8c69aa9fb5ad1ef45d206f575d88309203343202810901"
+  },
+  "gameplay_log.json": {
+    "bytes": 4531,
+    "sha256": "8104b6c15823aa62b675b1307e785e3af5bdd7b2dd10dbbdebacd351aba19b77"
+  },
+  "geometry_check.json": {
+    "bytes": 736,
+    "sha256": "7d99a1eb0a0be278c29e30cf704125f18bd3975de6e02742a0d3eaffde78f1c3"
+  },
+  "logs/after_capture.run.json": {
+    "bytes": 564,
+    "sha256": "d349bf43893c860754f0684e658502fd74af1cf75ed5ab41ebed62780639abc5"
+  },
+  "logs/after_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/after_capture.stdout.log": {
+    "bytes": 700,
+    "sha256": "69d6516a6e85aab561f1f597fbeb9d2a9233798284b9b6f8b39d2ac6d56baccd"
+  },
+  "logs/autosave_check.run.json": {
+    "bytes": 345,
+    "sha256": "7f6e18a6d096e81546faead06e8d03f99504705dc3146b3425a8c96862456419"
+  },
+  "logs/autosave_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/autosave_check.stdout.log": {
+    "bytes": 243,
+    "sha256": "352728f92fb838bba3d36fbf723bb2875b9a78dbef56cb6cf27598208e1de0b0"
+  },
+  "logs/before_capture.run.json": {
+    "bytes": 566,
+    "sha256": "e5f96af073ec2b07728025ad11a675a7ab76d3e5c03b3874733de06fac4e0834"
+  },
+  "logs/before_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/before_capture.stdout.log": {
+    "bytes": 700,
+    "sha256": "a8838501bb3a71979f9adadadef5cb0300fbfdf76b470e1ccc3b0c1605d4ea79"
+  },
+  "logs/boar_campaign_check.run.json": {
+    "bytes": 355,
+    "sha256": "3f5533edc3a309f75768a18cde785b9fa39680c73a9fb2b1f95883ed28c19244"
+  },
+  "logs/boar_campaign_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/boar_campaign_check.stdout.log": {
+    "bytes": 221,
+    "sha256": "0122faff7ada0472a82d8e9e3b6afc826a8fb59594a1f828ac9d236b1788a045"
+  },
+  "logs/boar_check.run.json": {
+    "bytes": 337,
+    "sha256": "266965732987c4d4862a6c92fb658af0aa8bba0a117c928a74e263ced3e6ade8"
+  },
+  "logs/boar_check.stderr.log": {
+    "bytes": 249,
+    "sha256": "38de8241e3b14dfa28f79d02324cef7c65fc0248e579a71e1625aba7062de49a"
+  },
+  "logs/boar_check.stdout.log": {
+    "bytes": 234,
+    "sha256": "c71868c4ab8fae0bca20d272796d30273610fc96556381865473519996c280b6"
+  },
+  "logs/boar_feedback_check.run.json": {
+    "bytes": 355,
+    "sha256": "1aa3b36d541fdda3549e92607c0213c32503f43deaa36bdd5a1128562972560e"
+  },
+  "logs/boar_feedback_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/boar_feedback_check.stdout.log": {
+    "bytes": 261,
+    "sha256": "96e6ffcdd42693e1c2c6bb40134b480fa843da65257878313ae9a1ddcb61d7e9"
+  },
+  "logs/campaign_smoke.run.json": {
+    "bytes": 345,
+    "sha256": "ae1189afed5b939aeb61cc8625133404784b1de0fbcc9a707d6d11dec04b4eec"
+  },
+  "logs/campaign_smoke.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/campaign_smoke.stdout.log": {
+    "bytes": 147,
+    "sha256": "ebac7d33064092275dab0ad4ae5a3f5eecb724541f8c52f5e77e76d454072d22"
+  },
+  "logs/combat_check.run.json": {
+    "bytes": 341,
+    "sha256": "6d0602569eaf200fc8f7ff65bb620a725b332786aeac733f0ff309b3e0c3ac31"
+  },
+  "logs/combat_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/combat_check.stdout.log": {
+    "bytes": 171,
+    "sha256": "327aea977ac0aed22843ac95463c93abde5ee9df5bfa86cc19240eb4eceba77c"
+  },
+  "logs/diagnostics/capture_exit_failure.run.json": {
+    "bytes": 573,
+    "sha256": "591b69519bc7f0d3584b504c46b4a4e7468a8def4bf665ab4c644d53bad9e14f"
+  },
+  "logs/diagnostics/capture_exit_failure.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/diagnostics/capture_exit_failure.stdout.log": {
+    "bytes": 700,
+    "sha256": "69d6516a6e85aab561f1f597fbeb9d2a9233798284b9b6f8b39d2ac6d56baccd"
+  },
+  "logs/enemy_check.run.json": {
+    "bytes": 339,
+    "sha256": "d46c001b6c3b5c55a8587277103752a0b692bc85ea252ab01395d02dbe8133ed"
+  },
+  "logs/enemy_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/enemy_check.stdout.log": {
+    "bytes": 207,
+    "sha256": "fb5e8c2b2125d39c5ad2ad4af3e2eac0f8a33098db8b21eda299c9122f38cb3c"
+  },
+  "logs/fast_travel_check.run.json": {
+    "bytes": 351,
+    "sha256": "05019375af5e098c93bb2c4665e1a00289dd91270f82b01a045e5bc72460d2b1"
+  },
+  "logs/fast_travel_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/fast_travel_check.stdout.log": {
+    "bytes": 223,
+    "sha256": "5210b1a2345a9bfdbf8b09fddfd07cd6b34468a21f18a461718fe2158eac7b35"
+  },
+  "logs/floor_probe.run.json": {
+    "bytes": 375,
+    "sha256": "f2297e00a3dc28fcff9b3d05b77f2932e03839de2305ab8db8220f10e964aa34"
+  },
+  "logs/floor_probe.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/floor_probe.stdout.log": {
+    "bytes": 301,
+    "sha256": "79f2d654fde2c7c1b619eb2fbdba269cd21bad91a32062c990b5ad3a8381cddb"
+  },
+  "logs/gameplay_capture.run.json": {
+    "bytes": 603,
+    "sha256": "dee6f38e97e9d789490c4f08cd7ce6476c90869ebf3be90b50c3e579caff8f20"
+  },
+  "logs/gameplay_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/gameplay_capture.stdout.log": {
+    "bytes": 285,
+    "sha256": "33557fc5537e6b4392cc2a15a1fd2ade2aae9987226a6ac04d6e51984debeab8"
+  },
+  "logs/heavy_attack_check.run.json": {
+    "bytes": 354,
+    "sha256": "cf940fcf13c405cb274e19e880bcdce881f678df4ccfaedb1cfd0888b8374251"
+  },
+  "logs/heavy_attack_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/heavy_attack_check.stdout.log": {
+    "bytes": 230,
+    "sha256": "a0196de01dbe00e914c99258d9e96480d29f07dd54389c404249709544e5ad53"
+  },
+  "logs/hud_customization_check.run.json": {
+    "bytes": 364,
+    "sha256": "5fcb1635f6015f4cb1db7c660a921eaa17117748665e2198fafd8282aacd4649"
+  },
+  "logs/hud_customization_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/hud_customization_check.stdout.log": {
+    "bytes": 248,
+    "sha256": "4bdc3f80094b764a3bf894b8ccac40bb15cb90e33eb3cbf1499cfa2b1b426839"
+  },
+  "logs/import_final.run.json": {
+    "bytes": 322,
+    "sha256": "bc6f52ba1c6ff065e884651763aaa56804335cff1fa2b76ffcd8c60ecf77fd8a"
+  },
+  "logs/import_final.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/import_final.stdout.log": {
+    "bytes": 2701,
+    "sha256": "05eb8618b94158b730242a7efd324928df42408e9b4e31316288fecbdb8a2170"
+  },
+  "logs/island_campaign_check.run.json": {
+    "bytes": 360,
+    "sha256": "80a3d24d7708150ce2936b44bda510c9b310a41ab7b8b4ba291a1daa24f76f1b"
+  },
+  "logs/island_campaign_check.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/island_campaign_check.stdout.log": {
+    "bytes": 246,
+    "sha256": "b22fc5c69e3e1b4f4406ebb66b43e568c9f84e0fe5897f7b0836f296566de31f"
+  },
+  "logs/island_check.run.json": {
+    "bytes": 341,
+    "sha256": "18f7b433354252576275e84ff552b38d600cc2ac8d68d99c8a0513c9805deedc"
+  },
+  "logs/island_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "382367699dd0cd3e933e4c9fd5446d8e177adf0af5c90371164cc4396b076adb"
+  },
+  "logs/island_collision_check.run.json": {
+    "bytes": 362,
+    "sha256": "b310ff6aa5faeb7b27667a4110ba9cd0be6925daa285c618601a2d4962445173"
+  },
+  "logs/island_collision_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_collision_check.stdout.log": {
+    "bytes": 203,
+    "sha256": "58b97ace8ccc8d85261f7f027986a3ffd57ad357d4b34ff2c124c26449bd7e84"
+  },
+  "logs/island_connections_review.run.json": {
+    "bytes": 368,
+    "sha256": "8d1a820c7fc11874c3972128f172788bd953eb61f41136991b2ff631239b8bb9"
+  },
+  "logs/island_connections_review.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_connections_review.stdout.log": {
+    "bytes": 943,
+    "sha256": "ee22099c15603af1eed5d4b2b960fce5df8aebc8eca3e88c16c2a3e1fe6bb273"
+  },
+  "logs/island_forest_refinement_check.run.json": {
+    "bytes": 490,
+    "sha256": "05be1344056b28a54f81796fdba1c5e89ca7439ee8188eef179fff6ccd40530e"
+  },
+  "logs/island_forest_refinement_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_forest_refinement_check.stdout.log": {
+    "bytes": 325,
+    "sha256": "5a7de9d4f20927b78d12b8624a8bacddc77a77a43f90e2bdaa86ac2471de4ba3"
+  },
+  "logs/island_rock_water_check.run.json": {
+    "bytes": 363,
+    "sha256": "a89caa155c431f274d054aa2ac4dddd20d98416d891cfc6febb9798ce1ba3529"
+  },
+  "logs/island_rock_water_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_rock_water_check.stdout.log": {
+    "bytes": 222,
+    "sha256": "f30016515c4c2b65a7fd1acea1349fc4f8872eee2d2a35fbbb07331c0d63e567"
+  },
+  "logs/island_terrain_polish_check.run.json": {
+    "bytes": 371,
+    "sha256": "3ddb1b61e82f733d5c85d38e65a5a0a5f05728cfb2bcc501c3935f7325a97d42"
+  },
+  "logs/island_terrain_polish_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_terrain_polish_check.stdout.log": {
+    "bytes": 235,
+    "sha256": "3b7d957dabfbc113f3e8640072178bf329c1d80344b2ca493d07f019ebaec541"
+  },
+  "logs/island_vegetation_check.run.json": {
+    "bytes": 364,
+    "sha256": "d91728bbf66702e2029f5e46a7adf46bc58006eba6a7eecc42ed98410f545f2a"
+  },
+  "logs/island_vegetation_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_vegetation_check.stdout.log": {
+    "bytes": 220,
+    "sha256": "19339e38b94a89bf91d8c3ee480fb6cc4c5aa24be1cc968730a55774ea69db30"
+  },
+  "logs/persistent_world_check.run.json": {
+    "bytes": 362,
+    "sha256": "e17873f8b84f045a92fdcef214afbef19d50190f166be8007e4cae9e7c982844"
+  },
+  "logs/persistent_world_check.stderr.log": {
+    "bytes": 470,
+    "sha256": "5ce634a274781e7929590ba2603fb430ec9cb1576de18f3754f5d16c50344fe3"
+  },
+  "logs/persistent_world_check.stdout.log": {
+    "bytes": 226,
+    "sha256": "289c4103e3dd745e37db4311a5aced03cc8a541a9bbf4bdd3896b15b3bf9c838"
+  },
+  "logs/quest_hud_check.run.json": {
+    "bytes": 347,
+    "sha256": "d920adcac08379b15ee3cd3a458443ba23a2a12f4571901e52ffff48a9c96070"
+  },
+  "logs/quest_hud_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/quest_hud_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "02b97cab5f74d4e30ded6239b6c6937c56c1be4822d646db4d5016823ad853f1"
+  },
+  "logs/video_encode.stderr.log": {
+    "bytes": 5018,
+    "sha256": "17d3f0cb644700189d241e966a3dad4dbf0290b5c6b0022d3046f6791b465ae4"
+  },
+  "logs/video_encode.stdout.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "package_validation.json": {
+    "bytes": 705,
+    "sha256": "a5307e36ca0fc2bca95fb390753cb46a635dbd49a5b74c1b1a0335fc24474937"
+  },
+  "preservation.json": {
+    "bytes": 828,
+    "sha256": "900d0458908f58955d27429647a2450a2e6c2f8d3f6ec33f0ab420895cc6c1db"
+  },
+  "rendering_comparison.json": {
+    "bytes": 5026,
+    "sha256": "89edd69fe7a779011d3022ea0ddfee87524d50b347ddc9a043e63aaf8c22ae59"
+  },
+  "REPORT.md": {
+    "bytes": 8721,
+    "sha256": "d6db7f44bb84c9b362b205007d992b8dca20cbd06100fd5428a248a957e35ae8"
+  },
+  "source_inspection.json": {
+    "bytes": 4919,
+    "sha256": "e919209fa6b761104cd5e909e797473829344127661aeab3be8e2867849ca610"
+  },
+  "test_results.json": {
+    "bytes": 9167,
+    "sha256": "b935d17030be7794cd81f25c2bc506a022a231bef57b8b673c43401cbf5b4bbf"
+  },
+  "texture_usage.json": {
+    "bytes": 1242,
+    "sha256": "6be65a87516f0c46801c6613db5547eeb0a8ed98107bd971338024bdedef526b"
+  },
+  "vegetation_check.json": {
+    "bytes": 882,
+    "sha256": "6f82d791301887143692c78ada4efe08cfd04abe8693273a20dd9e621c39afc3"
+  },
+  "video_verification.json": {
+    "bytes": 480,
+    "sha256": "30ec4829b0f6b97043af889f0ed234cd4898e0ad3eb303e480ac8c40223616c5"
+  }
+}

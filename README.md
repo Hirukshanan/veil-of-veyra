@@ -20,6 +20,10 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Camp menu:** dragon-and-lantern artwork, prominent Continue action, shard/equipment cards, upgrades, and quick access to quests, guides, settings and New journey.
 - **Mobile HUD:** gold/dark portrait, actual HP/stamina, compact quests, compass, minimap, circular actions, movement-side sprint and bottom-center potion slots. **Settings > Controls > Customize HUD** provides drag, resize, opacity, Battle/Classic/Left-Handed presets, Save and Reset. Camera, safe-area, shadow and 30/60 FPS settings remain available.
 
+## New island review candidate
+
+The owner-supplied Tripo3D island has a separately tested connected-map candidate at `scenes/island_candidate.tscn`. Open that scene and run the current scene (F6) for review; normal F5/main gameplay keeps the existing approved map until visual approval. See [inspection](docs/ISLAND_INSPECTION.md) and [actual gameplay, tests and remaining art limitations](docs/ISLAND_INTEGRATION_REVIEW.md). The original GLB, editable Blender source and rollback checkpoint are preserved. The production main scene remains unchanged. A separate Android candidate test APK and local profiling kit are documented in [Task 5](docs/island_task5/REPORT.md); physical Samsung A37 / 8 GB performance remains unverified. See [versioned island content and review artifacts](docs/ISLAND_GIT_CONTENTS.md) for checkout and validation notes.
+
 ## Run locally
 
 1. Install the standard **Godot 4.7.2** editor; .NET is not required.

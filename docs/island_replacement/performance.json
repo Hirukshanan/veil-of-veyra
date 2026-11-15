@@ -1,0 +1,42 @@
+{
+  "renderer": "GL Compatibility",
+  "resolution": "(1280, 720)",
+  "scope": "Uncapped native desktop environment review, no Movie Maker; enemies held static for repeatability. Not Android or full-combat FPS acceptance.",
+  "static_memory_bytes": 104505712.0,
+  "texture_memory_bytes": 274781599.0,
+  "video_memory_bytes": 328648663.0,
+  "views": [
+    {
+      "average_fps": 65.9541058354544,
+      "draw_calls": 369.0,
+      "median_frame_ms": 14.846,
+      "p95_frame_ms": 19.469,
+      "position": "(0.0, 3.87155, 27.0)",
+      "primitives": 780080.0
+    },
+    {
+      "average_fps": 63.1890901929479,
+      "draw_calls": 211.0,
+      "median_frame_ms": 15.652,
+      "p95_frame_ms": 19.068,
+      "position": "(-64.0, 1.910605, 12.0)",
+      "primitives": 473760.0
+    },
+    {
+      "average_fps": 91.1865189850332,
+      "draw_calls": 156.0,
+      "median_frame_ms": 10.654,
+      "p95_frame_ms": 14.875,
+      "position": "(26.0, 1.546602, -48.0)",
+      "primitives": 308296.0
+    },
+    {
+      "average_fps": 90.0127142958943,
+      "draw_calls": 237.0,
+      "median_frame_ms": 11.088,
+      "p95_frame_ms": 13.217,
+      "position": "(68.0, 1.088801, -38.0)",
+      "primitives": 350970.0
+    }
+  ]
+}

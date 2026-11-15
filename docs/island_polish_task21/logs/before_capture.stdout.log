@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+NATIVE_VIEW 01_forest_interior calls 151.0 primitives 282682.0
+NATIVE_VIEW 02_forest_edge calls 149.0 primitives 211423.0
+NATIVE_VIEW 03_bark_detail calls 33.0 primitives 222935.0
+NATIVE_VIEW 04_canopy_branches calls 27.0 primitives 197580.0
+NATIVE_VIEW 05_approach_grassland calls 164.0 primitives 255030.0
+NATIVE_VIEW 06_grass_close calls 43.0 primitives 210522.0
+NATIVE_VIEW 07_forest_top_down calls 155.0 primitives 242074.0
+PASS: seven matched native forest/grass inspection views and rendering counters saved

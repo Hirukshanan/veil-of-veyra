@@ -1,0 +1,38 @@
+[
+  {
+    "path": "tools/build_island_android.py",
+    "status": "added",
+    "bytes": 6369,
+    "sha256": "b4049af1f119492a0c5a13e46678f376e699b7ef562b269da11c2ba5efeffbf0"
+  },
+  {
+    "path": "tools/profile_island_android.py",
+    "status": "added",
+    "bytes": 8714,
+    "sha256": "b0feeeaede802a5b736eb732264c3c15484c97236347e0d0a9604ee3fd19b1fb"
+  },
+  {
+    "path": "tools/mobile_bootstrap.gd.template",
+    "status": "added",
+    "bytes": 457,
+    "sha256": "0e1ef8c40a8de5b4fc8903e539b24a953b9b8da0ee5d2aa30b3cc84dd3b2586b"
+  },
+  {
+    "path": "tools/mobile_probe.gd.template",
+    "status": "added",
+    "bytes": 2427,
+    "sha256": "4a41d9b977b7fb9e64a5ea11ec3954fc717e68b2e8fb607dce5d58ed3cf97091"
+  },
+  {
+    "path": "tests/boar_check.gd",
+    "status": "modified",
+    "bytes": 6799,
+    "sha256": "e30f1fae4696266f332115a5c991ee41316787711f509c13605908d9bf27daa8"
+  },
+  {
+    "path": "tests/combat_check.gd",
+    "status": "modified",
+    "bytes": 2897,
+    "sha256": "a7b13ade54bb480a4ada62f51892f021da55c9b657ef7250c9d0d4bc895c3656"
+  }
+]

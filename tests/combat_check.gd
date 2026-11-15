@@ -79,4 +79,7 @@ func _run() -> void:
 	print("PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout")
 	paused = false
 	await create_timer(0.4).timeout
+	scene.queue_free()
+	await process_frame
+	await create_timer(0.2, false).timeout
 	quit()

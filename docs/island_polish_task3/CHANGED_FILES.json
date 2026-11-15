@@ -1,0 +1,116 @@
+[
+  {
+    "path": "scripts/island_landscape.gd",
+    "status": "modified",
+    "bytes": 13365,
+    "sha256": "dd6dc7a569e2b69d2680128ed1eeeff7dcd95211fba97e7ec35588f20c9b4b0d"
+  },
+  {
+    "path": "scripts/island_rock_water_polish.gd",
+    "status": "added",
+    "bytes": 7152,
+    "sha256": "5ddb87f05d744952d145298f0f68eccc59f7e1e1a248a560b240eeaf90f88cea"
+  },
+  {
+    "path": "tests/island_rock_water_check.gd",
+    "status": "added",
+    "bytes": 2361,
+    "sha256": "2b40c021c730cfa856368af13d02bb21c24649926fd2ecdd8e24a02522aee042"
+  },
+  {
+    "path": "assets/environment/new_island/task3/README.md",
+    "status": "added",
+    "bytes": 1282,
+    "sha256": "eb9bcacc19580428963a900497b4815be4da1734537216332a12cc7fd13e1f53"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock.gdshader",
+    "status": "added",
+    "bytes": 1757,
+    "sha256": "2e591b6a673bcc07349a81de98b7f9998b59395e0a05b65c365f5a0da1b6c976"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock.gdshader.uid",
+    "status": "added",
+    "bytes": 20,
+    "sha256": "9683347cec864c766a9103f30808f7e437432d9a34f1f9c998d00660fa7a00b1"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock_albedo.png",
+    "status": "added",
+    "bytes": 1176108,
+    "sha256": "0fcec144df20b36863b2673271822c9c0de50bb8dd8e42c83d25f301ccdb118d"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock_albedo.png.import",
+    "status": "added",
+    "bytes": 1211,
+    "sha256": "2c397becf6333c1f6ec967c1b624ee3d81948fac93cd031df3934cf14f516d10"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock_normal.png",
+    "status": "added",
+    "bytes": 1911646,
+    "sha256": "c84474e56c9ba88618cc213bd633acd64687adc14fa902784d78b2cf6c9e6c09"
+  },
+  {
+    "path": "assets/environment/new_island/task3/rock_normal.png.import",
+    "status": "added",
+    "bytes": 1211,
+    "sha256": "3fada844a3789e2c23234632b20e4a26ec1fa6946989484184bb1129dc07038f"
+  },
+  {
+    "path": "assets/environment/new_island/task3/texture_source.json",
+    "status": "added",
+    "bytes": 326,
+    "sha256": "7e8bbd980f099a1b0e49d71cf372889f998deeb13432010f52440a176b44fade"
+  },
+  {
+    "path": "assets/environment/new_island/task3/waterfall.gdshader",
+    "status": "added",
+    "bytes": 1259,
+    "sha256": "f137eedf30f5079e8ca5c0e9223867058a8b3dd37669e4d4abf60f6537ca2365"
+  },
+  {
+    "path": "assets/environment/new_island/task3/waterfall.gdshader.uid",
+    "status": "added",
+    "bytes": 19,
+    "sha256": "aa335b14f5797360f42fab891917b1dce01cda05be7ea4aebef0928ed0d5fa0f"
+  },
+  {
+    "path": "art_source/island/polish_task3/bake_rock.py",
+    "status": "added",
+    "bytes": 2013,
+    "sha256": "86c391696724c4c6a6e7492581fe9a9f059f4b65e45289ae8b6ea8ad46179d98"
+  },
+  {
+    "path": "art_source/island/polish_task3/capture_cave_gameplay.gd",
+    "status": "added",
+    "bytes": 2511,
+    "sha256": "003620f949d7f843e4e68ecef61d5090bf21143fa3c6fa0b6d9817969f519103"
+  },
+  {
+    "path": "art_source/island/polish_task3/capture_review.gd",
+    "status": "added",
+    "bytes": 3208,
+    "sha256": "acbe67481287d27e6977080fde3443ff4e3c5e94b1c499adbc5187baac396d39"
+  },
+  {
+    "path": "art_source/island/polish_task3/README.md",
+    "status": "added",
+    "bytes": 1000,
+    "sha256": "8959519ce754dfd6121350b623a766a88ec4143babdc7a66e09d6270154946c5"
+  },
+  {
+    "path": "scripts/island_rock_water_polish.gd.uid",
+    "status": "added",
+    "bytes": 19,
+    "sha256": "c2168ae651f3afb78f93f29a77b19211fe8e815a80bb54013ef0ba78864c33cd"
+  },
+  {
+    "path": "tests/island_rock_water_check.gd.uid",
+    "status": "added",
+    "bytes": 20,
+    "sha256": "3393eece092b29fe4e7b89d03e26a4fd3232b99ec4afe69c48d8b104132c6577"
+  }
+]

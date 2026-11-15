@@ -1,0 +1,170 @@
+{
+  "memory": {
+    "static": 142216467.0,
+    "texture": 274126277.0,
+    "video": 331653245.0
+  },
+  "quality": {
+    "main_views_shadows": false,
+    "msaa": false,
+    "optional_shadow_views": [
+      11,
+      12
+    ],
+    "renderer": "GL Compatibility",
+    "resolution": [
+      1280,
+      720
+    ],
+    "sample_frames": 90,
+    "scope": "Desktop Intel Iris Xe using low mobile-quality settings; not Android performance",
+    "screen_space_aa": false,
+    "warmup_frames": 30
+  },
+  "views": [
+    {
+      "camera_position": "(0.0, 180.0, 0.0)",
+      "camera_rotation": "(-1.570796, 0.0, 0.0)",
+      "draw_calls": 251.0,
+      "median_interval_fps": 117.398450340456,
+      "median_ms": 8.518,
+      "name": "01_island_overview",
+      "overview": true,
+      "p95_ms": 13.349,
+      "primitives": 379583.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(-64.0, 4.230246, 12.0)",
+      "camera_rotation": "(-0.037093, 0.231091, 0.0)",
+      "draw_calls": 50.0,
+      "median_interval_fps": 128.799587841319,
+      "median_ms": 7.764,
+      "name": "02_forest_interior",
+      "overview": false,
+      "p95_ms": 10.462,
+      "primitives": 279484.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(-27.0, 3.415839, 12.0)",
+      "camera_rotation": "(0.002634, 1.075245, 0.0)",
+      "draw_calls": 55.0,
+      "median_interval_fps": 123.472033584393,
+      "median_ms": 8.099,
+      "name": "03_forest_approach",
+      "overview": false,
+      "p95_ms": 10.7,
+      "primitives": 252378.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(3.0, 4.942343, 33.0)",
+      "camera_rotation": "(0.027631, 0.204642, 0.0)",
+      "draw_calls": 120.0,
+      "median_interval_fps": 134.517083669626,
+      "median_ms": 7.434,
+      "name": "04_grassy_hills",
+      "overview": false,
+      "p95_ms": 10.928,
+      "primitives": 418149.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(34.0, 22.0, -24.0)",
+      "camera_rotation": "(-0.280171, 0.657889, 0.0)",
+      "draw_calls": 33.0,
+      "median_interval_fps": 201.775625504439,
+      "median_ms": 4.956,
+      "name": "05_mountain_landscape",
+      "overview": false,
+      "p95_ms": 7.731,
+      "primitives": 171495.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(19.0, 9.0, -43.0)",
+      "camera_rotation": "(-0.126704, 0.64987, 0.0)",
+      "draw_calls": 7.0,
+      "median_interval_fps": 182.083029861617,
+      "median_ms": 5.492,
+      "name": "06_river_waterfall",
+      "overview": false,
+      "p95_ms": 9.237,
+      "primitives": 119138.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(76.0, 3.8, -19.0)",
+      "camera_rotation": "(-0.053283, 3.141593, 0.0)",
+      "draw_calls": 51.0,
+      "median_interval_fps": 166.27868307283,
+      "median_ms": 6.014,
+      "name": "07_cave_exterior",
+      "overview": false,
+      "p95_ms": 9.017,
+      "primitives": 143694.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(-28.0, 4.524756, 77.0)",
+      "camera_rotation": "(-0.018316, -2.034444, 0.0)",
+      "draw_calls": 4.0,
+      "median_interval_fps": 234.41162681669,
+      "median_ms": 4.266,
+      "name": "08_sandy_shoreline",
+      "overview": false,
+      "p95_ms": 6.36,
+      "primitives": 114279.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(-28.0, 5.896263, 20.0)",
+      "camera_rotation": "(-0.618935, 0.876058, 0.0)",
+      "draw_calls": 51.0,
+      "median_interval_fps": 230.149597238205,
+      "median_ms": 4.345,
+      "name": "09_forest_landmark",
+      "overview": false,
+      "p95_ms": 6.292,
+      "primitives": 231912.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(7.0, 8.175201, 26.0)",
+      "camera_rotation": "(-0.786483, -2.356194, 0.0)",
+      "draw_calls": 23.0,
+      "median_interval_fps": 234.027615258601,
+      "median_ms": 4.273,
+      "name": "10_river_landmark",
+      "overview": false,
+      "p95_ms": 9.008,
+      "primitives": 170746.0,
+      "shadows": false
+    },
+    {
+      "camera_position": "(3.0, 4.942343, 33.0)",
+      "camera_rotation": "(0.027631, 0.204642, 0.0)",
+      "draw_calls": 141.0,
+      "median_interval_fps": 60.0024000960038,
+      "median_ms": 16.666,
+      "name": "11_optional_shadow_hills",
+      "overview": false,
+      "p95_ms": 17.165,
+      "primitives": 531303.0,
+      "shadows": true
+    },
+    {
+      "camera_position": "(-64.0, 4.230246, 12.0)",
+      "camera_rotation": "(-0.037093, 0.231091, 0.0)",
+      "draw_calls": 52.0,
+      "median_interval_fps": 60.020406938359,
+      "median_ms": 16.661,
+      "name": "12_optional_shadow_forest",
+      "overview": false,
+      "p95_ms": 17.144,
+      "primitives": 360768.0,
+      "shadows": true
+    }
+  ]
+}

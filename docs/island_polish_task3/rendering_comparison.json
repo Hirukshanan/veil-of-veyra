@@ -1,0 +1,173 @@
+{
+  "quality": {
+    "msaa": false,
+    "renderer": "GL Compatibility",
+    "resolution": [
+      1280,
+      720
+    ],
+    "scope": "matched low mobile-quality configuration on desktop Intel Iris Xe; not Android performance",
+    "screen_space_aa": false,
+    "shadows": false
+  },
+  "views": [
+    {
+      "view": "Mountain overview",
+      "before": {
+        "camera_position": "(34.0, 22.0, -24.0)",
+        "camera_rotation": "(-0.280171, 0.657889, 0.0)",
+        "draw_calls": 29.0,
+        "median_ms": 3.321,
+        "name": "01_mountain_overview",
+        "p95_ms": 4.508,
+        "primitives": 170060.0
+      },
+      "after": {
+        "camera_position": "(34.0, 22.0, -24.0)",
+        "camera_rotation": "(-0.280171, 0.657889, 0.0)",
+        "draw_calls": 31.0,
+        "median_ms": 3.531,
+        "name": "01_mountain_overview",
+        "p95_ms": 4.754,
+        "primitives": 171443.0
+      }
+    },
+    {
+      "view": "Mountain texture close-up",
+      "before": {
+        "camera_position": "(9.0, 8.0, -57.0)",
+        "camera_rotation": "(-0.099669, 0.643501, 0.0)",
+        "draw_calls": 5.0,
+        "median_ms": 2.848,
+        "name": "02_mountain_texture",
+        "p95_ms": 3.809,
+        "primitives": 117755.0
+      },
+      "after": {
+        "camera_position": "(9.0, 8.0, -57.0)",
+        "camera_rotation": "(-0.099669, 0.643501, 0.0)",
+        "draw_calls": 7.0,
+        "median_ms": 2.84,
+        "name": "02_mountain_texture",
+        "p95_ms": 3.804,
+        "primitives": 119138.0
+      }
+    },
+    {
+      "view": "Mountain-to-terrain connection",
+      "before": {
+        "camera_position": "(3.0, 3.5, -31.0)",
+        "camera_rotation": "(-0.120679, 0.244979, 0.0)",
+        "draw_calls": 12.0,
+        "median_ms": 3.529,
+        "name": "03_mountain_base",
+        "p95_ms": 5.006,
+        "primitives": 161951.0
+      },
+      "after": {
+        "camera_position": "(3.0, 3.5, -31.0)",
+        "camera_rotation": "(-0.120679, 0.244979, 0.0)",
+        "draw_calls": 14.0,
+        "median_ms": 3.504,
+        "name": "03_mountain_base",
+        "p95_ms": 5.204,
+        "primitives": 163334.0
+      }
+    },
+    {
+      "view": "Cave entrance",
+      "before": {
+        "camera_position": "(76.0, 3.8, -19.0)",
+        "camera_rotation": "(-0.053283, 3.141593, 0.0)",
+        "draw_calls": 49.0,
+        "median_ms": 3.222,
+        "name": "04_cave_entrance",
+        "p95_ms": 4.094,
+        "primitives": 143202.0
+      },
+      "after": {
+        "camera_position": "(76.0, 3.8, -19.0)",
+        "camera_rotation": "(-0.053283, 3.141593, 0.0)",
+        "draw_calls": 51.0,
+        "median_ms": 3.213,
+        "name": "04_cave_entrance",
+        "p95_ms": 4.281,
+        "primitives": 143694.0
+      }
+    },
+    {
+      "view": "Cave interior",
+      "before": {
+        "camera_position": "(76.0, 2.9, -2.0)",
+        "camera_rotation": "(0.01, 3.141593, 0.0)",
+        "draw_calls": 40.0,
+        "median_ms": 3.876,
+        "name": "05_cave_interior",
+        "p95_ms": 5.464,
+        "primitives": 148560.0
+      },
+      "after": {
+        "camera_position": "(76.0, 2.9, -2.0)",
+        "camera_rotation": "(0.01, 3.141593, 0.0)",
+        "draw_calls": 42.0,
+        "median_ms": 3.957,
+        "name": "05_cave_interior",
+        "p95_ms": 6.648,
+        "primitives": 149052.0
+      }
+    },
+    {
+      "view": "Waterfall from distance",
+      "before": {
+        "camera_position": "(19.0, 9.0, -43.0)",
+        "camera_rotation": "(-0.126704, 0.64987, 0.0)",
+        "draw_calls": 5.0,
+        "median_ms": 2.909,
+        "name": "06_waterfall_distance",
+        "p95_ms": 5.121,
+        "primitives": 117755.0
+      },
+      "after": {
+        "camera_position": "(19.0, 9.0, -43.0)",
+        "camera_rotation": "(-0.126704, 0.64987, 0.0)",
+        "draw_calls": 7.0,
+        "median_ms": 3.471,
+        "name": "06_waterfall_distance",
+        "p95_ms": 5.75,
+        "primitives": 119138.0
+      }
+    },
+    {
+      "view": "Waterfall/river connection",
+      "before": {
+        "camera_position": "(7.0, 5.0, -60.0)",
+        "camera_rotation": "(-0.237941, 0.682317, 0.0)",
+        "draw_calls": 5.0,
+        "median_ms": 2.938,
+        "name": "07_waterfall_river",
+        "p95_ms": 4.146,
+        "primitives": 117755.0
+      },
+      "after": {
+        "camera_position": "(7.0, 5.0, -60.0)",
+        "camera_rotation": "(-0.237941, 0.682317, 0.0)",
+        "draw_calls": 7.0,
+        "median_ms": 3.506,
+        "name": "07_waterfall_river",
+        "p95_ms": 4.524,
+        "primitives": 119138.0
+      }
+    }
+  ],
+  "before_memory": {
+    "static": 137059819.0,
+    "texture": 276223417.0,
+    "video": 331853713.0
+  },
+  "after_memory": {
+    "static": 142320192.0,
+    "texture": 272728177.0,
+    "video": 330240865.0
+  },
+  "android": "Pending: adb found no connected devices"
+}

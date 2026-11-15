@@ -1,0 +1,11 @@
+{
+  "purpose": "Verify the archived vegetation baseline is loaded from versioned source rather than ignored validation cache",
+  "functional_assertions_passed": true,
+  "exit_code": 0,
+  "baseline_source": "art_source/island/polish_task21/baseline_vegetation.gd",
+  "native_shutdown_diagnostics": [
+    "ERROR: Texture with GL ID of 58: leaked 349524 bytes.",
+    "ERROR: Texture with GL ID of 59: leaked 349524 bytes."
+  ],
+  "note": "Native GL cleanup reported leaked texture allocations at process shutdown. This is recorded, not treated as proof of an Android runtime leak or a clean shutdown. Previous Task 5 regression history remains unchanged."
+}

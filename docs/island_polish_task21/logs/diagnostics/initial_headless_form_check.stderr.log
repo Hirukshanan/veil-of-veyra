@@ -1,0 +1,4 @@
+SCRIPT ERROR: Assertion failed.
+   at: run (res://tests/island_forest_refinement_check.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/island_forest_refinement_check.gd:25)

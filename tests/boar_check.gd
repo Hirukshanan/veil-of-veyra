@@ -150,5 +150,8 @@ func run() -> void:
 	assert(skeleton.get_bone_global_pose(0).is_equal_approx(final_pose), "Death must hold its final pose")
 	world.queue_free()
 	await process_frame
+	# Let the audio mixer release stopped playback before terminating the fixture.
+	Engine.time_scale = 1.0
+	await create_timer(0.2, false).timeout
 	print("PASS: boar telegraph, committed dodgeable lane, single contact, invulnerability, wall/LOS collision, grounded collider, stagger, single defeat and death hold")
 	quit()

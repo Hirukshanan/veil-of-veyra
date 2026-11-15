@@ -1,0 +1,15 @@
+{
+  "baseline_files": 562,
+  "changed_existing_files": [
+    "tests/boar_check.gd",
+    "tests/combat_check.gd"
+  ],
+  "runtime_scripts_scenes_assets_project_export_and_approved_art_unchanged": true,
+  "test_changes": "Only teardown: free the test scene and give stopped audio playback time to release before the fixture exits. Gameplay assertions preserved.",
+  "source_main": "res://scenes/main.tscn",
+  "candidate_not_activated": true,
+  "source_android_package": "com.hirukshanan.veilofveyra.dev",
+  "test_android_package": "com.hirukshanan.veilofveyra.islandtest",
+  "separate_test_save_sandbox": true,
+  "no_hero_hud_quest_enemy_combat_save_or_dragon_changes": true
+}

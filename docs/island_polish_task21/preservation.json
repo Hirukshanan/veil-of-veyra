@@ -1,0 +1,16 @@
+{
+  "baseline_files": 485,
+  "changed_existing_files": [
+    "scripts/candidate_vegetation.gd",
+    "tests/island_vegetation_check.gd"
+  ],
+  "unchanged_baseline_files": 483,
+  "all_47_static_shapes_and_approved_geometry_match": true,
+  "terrain_and_river_source_assets_unchanged": true,
+  "hero_hud_enemies_quests_saves_dragon_sea_cave_mountains_waterfall_unchanged": true,
+  "original_map_still_active": true,
+  "rollback_checkpoint": {
+    "backup": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Island_Task21_Before_20261115_120141\\vegetation_before.zip",
+    "files": 485
+  }
+}

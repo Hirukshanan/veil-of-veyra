@@ -1,0 +1,226 @@
+{
+  "status": "Candidate implemented and tested; not activated, awaiting explicit visual approval",
+  "main_scene_unchanged": true,
+  "functional_test_count": 15,
+  "functional_tests": {
+    "island_check": "PASS: five regions, old world absent, safe spawn, capsule-clear connected quest/region routes and actual player traversal without falls",
+    "island_campaign_check": "PASS: legacy equipment/quest/health preservation, safe relocation, real cave entry/relic, cave save reload, one-time boar reward and unchanged lantern/dragon progression",
+    "island_collision_check": "PASS: actual moving-player tree collision, cave spring-arm camera clearance and coastal wading boundary without health penalty",
+    "boar_feedback_check": "PASS: bounded spatial audio, authored grounded footsteps, distance gating, explicit normal/heavy contact, unchanged damage/stagger/stamina/spirit, short bounded effects and Master mute",
+    "boar_check": "PASS: boar telegraph, committed dodgeable lane, single contact, invulnerability, wall/LOS collision, grounded collider, stagger, single defeat and death hold",
+    "boar_campaign_check": "PASS: one optional boar, real dodge/knockback, backward-compatible flag, one-time reward, reload persistence and unchanged camp/retired-wolf IDs",
+    "heavy_attack_check": "PASS: heavy touch input, stamina cost/gating, delayed 4x damage, forward arc, stagger, spirit, repeat guard, dodge/hit/menu cancellation, pause and death",
+    "combat_check": "PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout",
+    "enemy_check": "PASS: Shore/Scout/Brute health, pursuit speed, warning radius/timing, damage, escape, interruption, hit feedback and single defeat",
+    "campaign_smoke": "PASS: camp, resume, healing, pause, rewards, upgrades, and save reload",
+    "autosave_check": "PASS: 180ms disk latency without movement stall (dispatch 0.25ms), immutable snapshots, serialized writes, errors/retry, corrupt-save protection, reset and scene exit",
+    "persistent_world_check": "PASS: persistent island, pickups, cleared demons, waystones, health/potions, death resume, lantern resume, continued exploration and one-time rewards",
+    "fast_travel_check": "PASS: persistent discovery, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill",
+    "hud_customization_check": "PASS: separate gameplay/editor, settings path, touch drag, size/opacity, presets, save/cancel/reset/reopen, safe profiles, failed-write recovery and functional guard/parry",
+    "quest_hud_check": "PASS: circular bounds/hit areas, separate controls at three resolutions, movement-side sprint, scroll access and incomplete quest guard"
+  },
+  "protected_original_files": [
+    "project.godot",
+    "scenes/main.tscn",
+    "scripts/player.gd",
+    "scripts/hero_visual.gd",
+    "scripts/mobile_hud.gd",
+    "scripts/premium_hud.gd",
+    "scripts/hud_editor.gd",
+    "scripts/demon_boar.gd",
+    "scripts/boar_feedback.gd",
+    "scripts/enemy.gd",
+    "scripts/boss.gd",
+    "scripts/dragon_visual.gd",
+    "scripts/campaign_store.gd",
+    "export_presets.cfg",
+    "RELEASE_STATUS.md",
+    "VALIDATION.md",
+    "assets/characters/demon_boar/demon_boar.glb"
+  ],
+  "all_protected_hashes_match": true,
+  "original_glb_sha256": "e9553774acb68227f1779d2d73fbe17510a210db057dfaa37f13a113b2ddfa1e",
+  "original_triangles": 65581,
+  "prepared_region_triangles": 61626,
+  "regions": [
+    {
+      "source_index": 0,
+      "region": "WaterfallMountains",
+      "center_xz": [
+        0,
+        -68
+      ],
+      "width_m": 66,
+      "horizontal_source_to_m": 368.17977528089887,
+      "vertical_source_to_m": 190,
+      "vertical_offset_m": 7.0,
+      "dimensions_m": [
+        66.0,
+        65.74157333374023,
+        18.818511962890625
+      ],
+      "triangles": 14130,
+      "texture_derivative": 2048,
+      "edge_taper_m": 7,
+      "removed_forest_sheet_faces": 0,
+      "river_channel_modified": false
+    },
+    {
+      "source_index": 1,
+      "region": "WesternForest",
+      "center_xz": [
+        -64,
+        -8
+      ],
+      "width_m": 54,
+      "horizontal_source_to_m": 372.8540272875731,
+      "vertical_source_to_m": 220,
+      "vertical_offset_m": 9.0,
+      "dimensions_m": [
+        50.27635192871094,
+        64.7157974243164,
+        23.8178768157959
+      ],
+      "triangles": 7681,
+      "texture_derivative": 2048,
+      "edge_taper_m": 0,
+      "removed_forest_sheet_faces": 2967,
+      "river_channel_modified": false
+    },
+    {
+      "source_index": 2,
+      "region": "RiverGrassland",
+      "center_xz": [
+        5,
+        2
+      ],
+      "width_m": 64,
+      "horizontal_source_to_m": 357.038008086827,
+      "vertical_source_to_m": 70,
+      "vertical_offset_m": 2.8,
+      "dimensions_m": [
+        64.0,
+        63.561439514160156,
+        9.132036447525024
+      ],
+      "triangles": 13428,
+      "texture_derivative": 2048,
+      "edge_taper_m": 7,
+      "removed_forest_sheet_faces": 0,
+      "river_channel_modified": true
+    },
+    {
+      "source_index": 3,
+      "region": "EasternCaves",
+      "center_xz": [
+        68,
+        -10
+      ],
+      "width_m": 48,
+      "horizontal_source_to_m": 302.2994426292524,
+      "vertical_source_to_m": 115,
+      "vertical_offset_m": 5.8,
+      "dimensions_m": [
+        48.0,
+        50.16567325592041,
+        10.49825918674469
+      ],
+      "triangles": 12462,
+      "texture_derivative": 2048,
+      "edge_taper_m": 7,
+      "removed_forest_sheet_faces": 0,
+      "river_channel_modified": false
+    },
+    {
+      "source_index": 4,
+      "region": "SouthernBeach",
+      "center_xz": [
+        0,
+        66
+      ],
+      "width_m": 86,
+      "horizontal_source_to_m": 500.80824595699306,
+      "vertical_source_to_m": 50,
+      "vertical_offset_m": 2.1,
+      "dimensions_m": [
+        86.0,
+        89.77501106262207,
+        6.662141561508179
+      ],
+      "triangles": 13925,
+      "texture_derivative": 2048,
+      "edge_taper_m": 7,
+      "removed_forest_sheet_faces": 0,
+      "river_channel_modified": true
+    }
+  ],
+  "route_cell_count": 7381,
+  "reachable_cell_count": 7199,
+  "physical_traversal_passed": true,
+  "cave_clear_roof_samples": 79,
+  "desktop_performance": {
+    "renderer": "GL Compatibility",
+    "resolution": "(1280, 720)",
+    "scope": "Uncapped native desktop environment review, no Movie Maker; enemies held static for repeatability. Not Android or full-combat FPS acceptance.",
+    "static_memory_bytes": 104505712.0,
+    "texture_memory_bytes": 274781599.0,
+    "video_memory_bytes": 328648663.0,
+    "views": [
+      {
+        "average_fps": 65.9541058354544,
+        "draw_calls": 369.0,
+        "median_frame_ms": 14.846,
+        "p95_frame_ms": 19.469,
+        "position": "(0.0, 3.87155, 27.0)",
+        "primitives": 780080.0
+      },
+      {
+        "average_fps": 63.1890901929479,
+        "draw_calls": 211.0,
+        "median_frame_ms": 15.652,
+        "p95_frame_ms": 19.068,
+        "position": "(-64.0, 1.910605, 12.0)",
+        "primitives": 473760.0
+      },
+      {
+        "average_fps": 91.1865189850332,
+        "draw_calls": 156.0,
+        "median_frame_ms": 10.654,
+        "p95_frame_ms": 14.875,
+        "position": "(26.0, 1.546602, -48.0)",
+        "primitives": 308296.0
+      },
+      {
+        "average_fps": 90.0127142958943,
+        "draw_calls": 237.0,
+        "median_frame_ms": 11.088,
+        "p95_frame_ms": 13.217,
+        "position": "(68.0, 1.088801, -38.0)",
+        "primitives": 350970.0
+      }
+    ]
+  },
+  "diagnostics": {
+    "island_campaign_check": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)",
+    "boar_feedback_check": "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 3 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "campaign_smoke": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)",
+    "persistent_world_check": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)\nWARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)"
+  },
+  "pre_change_checkpoint": {
+    "backup": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Veil_of_Vera_PreIsland_20261115_024603",
+    "file_count": 406,
+    "verified": true
+  },
+  "remaining_limits": [
+    "Visual approval pending: source foliage shape/fragments, regional material differences and visibly authored stream banks",
+    "No physical Android frame rate/thermal/latency test; desktop environment-only samples are not device acceptance",
+    "Existing direct-pursuit wolf navigation is preserved; no new navigation-mesh AI overhaul",
+    "The pre-existing game has wolf variants, not a separate fox controller, and ends its implemented progression at the Tidewraith; Cursed Bear/Chapter II story encounter remains unimplemented",
+    "Water uses lightweight shader motion, not fluid simulation; original baked waterfall features remain partly static"
+  ],
+  "initial_benchmark_shutdown": {
+    "exit_code": 3221225477,
+    "stage": "After measurement JSON and PASS line were written; no script error. Retained diagnostic, not a gameplay-pass substitute.",
+    "rerun_cleanup": "Added an empty render-frame drain and 0.3 s cleanup delay in the benchmark fixture only."
+  }
+}

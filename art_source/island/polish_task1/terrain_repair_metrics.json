@@ -1,0 +1,18 @@
+{
+  "spacing_m": 1.25,
+  "columns": 193,
+  "anchors": 29,
+  "max_anchor_error": 2.2628906249710923e-05,
+  "cell_counts": {
+    "0": 22673,
+    "1": 1739,
+    "3": 2330,
+    "4": 232,
+    "5": 2402,
+    "255": 7488
+  },
+  "unchanged_regions": [
+    "WesternForest"
+  ],
+  "region_centers_unchanged": true
+}

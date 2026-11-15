@@ -1,0 +1,19 @@
+{
+  "baseline_files": 524,
+  "changed_existing_files": [
+    "scripts/island_landscape.gd"
+  ],
+  "all_other_baseline_files_identical": true,
+  "landscape_change": "Only a visual module hook after all original collision construction",
+  "existing_47_collisions_identical": true,
+  "terrain_river_sea_grotto_vertex_and_index_fingerprints_identical": true,
+  "regional_glbs_and_surface_resource_unchanged": true,
+  "forest_grass_byte_unchanged": true,
+  "hero_hud_enemies_combat_quests_saves_dragon_production_unchanged": true,
+  "main_scene": "res://scenes/main.tscn",
+  "candidate_scene": "res://scenes/island_candidate.tscn",
+  "rollback_checkpoint": {
+    "backup": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Island_Task3_Before_20261115_140320\\candidate_before_task3.zip",
+    "baseline_files": 524
+  }
+}

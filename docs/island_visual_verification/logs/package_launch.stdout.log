@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: independently extracted project launches candidate, five meshes/textures load, actual campaign hero/HUD/enemies initialize and review saves are isolated

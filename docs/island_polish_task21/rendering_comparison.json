@@ -1,0 +1,186 @@
+{
+  "quality": {
+    "aa": false,
+    "msaa": false,
+    "renderer": "GL Compatibility",
+    "resolution": [
+      1280,
+      720
+    ],
+    "scope": "matched mobile-quality settings on desktop Intel Iris Xe; not Android measurement; actors held for review",
+    "shadows": false
+  },
+  "views": [
+    {
+      "label": "Forest interior",
+      "before": {
+        "camera_position": "(-64.0, 4.130246, 12.0)",
+        "camera_rotation": "(-0.038621, 0.124355, 0.0)",
+        "draw_calls": 151.0,
+        "median_ms": 5.802,
+        "name": "01_forest_interior",
+        "p95_ms": 6.862,
+        "primitives": 282682.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-64.0, 4.130246, 12.0)",
+        "camera_rotation": "(-0.038621, 0.124355, 0.0)",
+        "draw_calls": 163.0,
+        "median_ms": 8.198,
+        "name": "01_forest_interior",
+        "p95_ms": 11.335,
+        "primitives": 325681.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Forest edge",
+      "before": {
+        "camera_position": "(-35.0, 2.565305, 13.0)",
+        "camera_rotation": "(0.029036, 1.06663, 0.0)",
+        "draw_calls": 149.0,
+        "median_ms": 8.076,
+        "name": "02_forest_edge",
+        "p95_ms": 10.156,
+        "primitives": 211423.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-35.0, 2.565305, 13.0)",
+        "camera_rotation": "(0.029036, 1.06663, 0.0)",
+        "draw_calls": 169.0,
+        "median_ms": 8.027,
+        "name": "02_forest_edge",
+        "p95_ms": 11.596,
+        "primitives": 268614.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Bark close-up",
+      "before": {
+        "camera_position": "(-61.36072, 3.397338, 7.774345)",
+        "camera_rotation": "(0.127344, 0.694738, 0.0)",
+        "draw_calls": 33.0,
+        "median_ms": 4.952,
+        "name": "03_bark_detail",
+        "p95_ms": 5.929,
+        "primitives": 222935.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-61.36072, 3.397338, 7.774345)",
+        "camera_rotation": "(0.127344, 0.694738, 0.0)",
+        "draw_calls": 39.0,
+        "median_ms": 6.104,
+        "name": "03_bark_detail",
+        "p95_ms": 8.147,
+        "primitives": 239630.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Canopy / branch close-up",
+      "before": {
+        "camera_position": "(-54.86072, 10.69734, 11.97435)",
+        "camera_rotation": "(0.099669, 0.927295, 0.0)",
+        "draw_calls": 27.0,
+        "median_ms": 8.416,
+        "name": "04_canopy_branches",
+        "p95_ms": 10.627,
+        "primitives": 197580.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-54.86072, 10.69734, 11.97435)",
+        "camera_rotation": "(0.099669, 0.927295, 0.0)",
+        "draw_calls": 34.0,
+        "median_ms": 7.716,
+        "name": "04_canopy_branches",
+        "p95_ms": 10.747,
+        "primitives": 203148.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Approach from grassland",
+      "before": {
+        "camera_position": "(-15.0, 7.463983, 12.0)",
+        "camera_rotation": "(-0.076138, 1.183272, 0.0)",
+        "draw_calls": 164.0,
+        "median_ms": 5.77,
+        "name": "05_approach_grassland",
+        "p95_ms": 7.085,
+        "primitives": 255030.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-15.0, 7.463983, 12.0)",
+        "camera_rotation": "(-0.076138, 1.183272, 0.0)",
+        "draw_calls": 184.0,
+        "median_ms": 5.719,
+        "name": "05_approach_grassland",
+        "p95_ms": 8.057,
+        "primitives": 332457.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Close-range grass",
+      "before": {
+        "camera_position": "(-37.25521, 0.874625, 11.45918)",
+        "camera_rotation": "(-0.256183, 0.682318, 0.0)",
+        "draw_calls": 43.0,
+        "median_ms": 4.209,
+        "name": "06_grass_close",
+        "p95_ms": 5.045,
+        "primitives": 210522.0,
+        "review_overview_culling_override": false
+      },
+      "after": {
+        "camera_position": "(-37.25521, 0.874625, 11.45918)",
+        "camera_rotation": "(-0.256183, 0.682318, 0.0)",
+        "draw_calls": 57.0,
+        "median_ms": 5.014,
+        "name": "06_grass_close",
+        "p95_ms": 6.69,
+        "primitives": 250067.0,
+        "review_overview_culling_override": false
+      }
+    },
+    {
+      "label": "Top-down forest coverage",
+      "before": {
+        "camera_position": "(-64.0, 115.0, -8.0)",
+        "camera_rotation": "(-1.570796, 0.0, 0.0)",
+        "draw_calls": 155.0,
+        "median_ms": 4.916,
+        "name": "07_forest_top_down",
+        "p95_ms": 5.823,
+        "primitives": 242074.0,
+        "review_overview_culling_override": true
+      },
+      "after": {
+        "camera_position": "(-64.0, 115.0, -8.0)",
+        "camera_rotation": "(-1.570796, 0.0, 0.0)",
+        "draw_calls": 157.0,
+        "median_ms": 5.504,
+        "name": "07_forest_top_down",
+        "p95_ms": 8.169,
+        "primitives": 220237.0,
+        "review_overview_culling_override": true
+      }
+    }
+  ],
+  "before_memory": {
+    "static": 134843644.0,
+    "texture": 274825289.0,
+    "video": 332514385.0
+  },
+  "after_memory": {
+    "static": 136726505.0,
+    "texture": 276223417.0,
+    "video": 333972769.0
+  }
+}

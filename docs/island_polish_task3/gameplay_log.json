@@ -1,0 +1,203 @@
+{
+  "actual_player_controller": true,
+  "actual_spring_arm_camera": true,
+  "duration_seconds": 12,
+  "encoded_fps": 30,
+  "ended_inside_cave": true,
+  "frames": 360,
+  "health_preserved": true,
+  "height_range": [
+    1.40556991100311,
+    1.73361587524414
+  ],
+  "initial_fixture_position": "(76,1.58,-10)",
+  "movement": "Unmodified hero walking input; no teleports after initial placement",
+  "performance_note": "Fixed-step offline capture; playback FPS is not live or Android performance",
+  "poses": [
+    {
+      "frame": 0,
+      "health": 100,
+      "hero_position": "(76.0, 1.543333, -9.739999)"
+    },
+    {
+      "frame": 10,
+      "health": 100,
+      "hero_position": "(76.00001, 1.427854, -8.007922)"
+    },
+    {
+      "frame": 20,
+      "health": 100,
+      "hero_position": "(76.00002, 1.461988, -6.275251)"
+    },
+    {
+      "frame": 30,
+      "health": 100,
+      "hero_position": "(76.00002, 1.500142, -4.556384)"
+    },
+    {
+      "frame": 40,
+      "health": 100,
+      "hero_position": "(76.00002, 1.530827, -2.823656)"
+    },
+    {
+      "frame": 50,
+      "health": 100,
+      "hero_position": "(76.00002, 1.565968, -1.091041)"
+    },
+    {
+      "frame": 60,
+      "health": 100,
+      "hero_position": "(76.00005, 1.601217, 0.641576)"
+    },
+    {
+      "frame": 70,
+      "health": 100,
+      "hero_position": "(76.00008, 1.636332, 2.37419)"
+    },
+    {
+      "frame": 80,
+      "health": 100,
+      "hero_position": "(76.00011, 1.671614, 4.106822)"
+    },
+    {
+      "frame": 90,
+      "health": 100,
+      "hero_position": "(76.00022, 1.706249, 5.839473)"
+    },
+    {
+      "frame": 100,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 110,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 120,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 130,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 140,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 150,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 160,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 170,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 180,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 190,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 200,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 210,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 220,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 230,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 240,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 250,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 260,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 270,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 280,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 290,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 300,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 310,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 320,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 330,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 340,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    },
+    {
+      "frame": 350,
+      "health": 100,
+      "hero_position": "(76.00043, 1.733616, 7.225602)"
+    }
+  ],
+  "relic_collected": true,
+  "resolution": [
+    1280,
+    720
+  ]
+}

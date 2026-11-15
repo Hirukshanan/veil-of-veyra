@@ -1,0 +1,11 @@
+{
+  "native_pngs_verified": 20,
+  "dimensions": [
+    1280,
+    720
+  ],
+  "gallery_links_valid": true,
+  "candidate_test_records_passed": 5,
+  "actual_walk_legs": 10,
+  "source_script_syntax": true
+}

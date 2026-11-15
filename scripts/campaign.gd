@@ -214,7 +214,7 @@ func _ready() -> void:
 	_apply_settings()
 	find_child("ControlsHint", true, false).hide()
 	_build_lantern()
-	var exploration := preload("res://scripts/island_exploration.gd").new()
+	var exploration := _create_exploration()
 	exploration.name = "IslandExploration"
 	exploration.player = player
 	add_child(exploration)
@@ -238,6 +238,9 @@ func _ready() -> void:
 	relic_hunt.progress_changed.connect(_world_changed)
 	exploration.progress_changed.connect(_world_changed)
 	_show_camp()
+
+func _create_exploration() -> Node3D:
+	return preload("res://scripts/island_exploration.gd").new()
 
 func _build_enemies() -> void:
 	remaining_enemies = 0

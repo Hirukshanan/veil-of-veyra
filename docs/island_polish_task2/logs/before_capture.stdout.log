@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+NATIVE_VIEW 01_forest_interior calls 126.0 primitives 259936.0
+NATIVE_VIEW 02_forest_edge calls 124.0 primitives 214952.0
+NATIVE_VIEW 03_open_grasslands calls 168.0 primitives 441318.0
+NATIVE_VIEW 04_hillside calls 143.0 primitives 309470.0
+NATIVE_VIEW 05_riverbank calls 169.0 primitives 431702.0
+NATIVE_VIEW 06_sandy_shoreline calls 116.0 primitives 142255.0
+NATIVE_VIEW 07_top_down calls 238.0 primitives 471870.0
+PASS: seven native Task 2 review screenshots and mobile-quality rendering cost captured

@@ -1,0 +1,257 @@
+[
+  {
+    "name": "island_check",
+    "started_utc": "2026-11-15T04:06:36.353307+00:00",
+    "duration_s": 7.328,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/island_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "island_campaign_check",
+    "started_utc": "2026-11-15T04:06:43.679848+00:00",
+    "duration_s": 9.157,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/island_campaign_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "island_collision_check",
+    "started_utc": "2026-11-15T04:06:52.834660+00:00",
+    "duration_s": 9.281,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/island_collision_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "island_connections_review",
+    "started_utc": "2026-11-15T04:07:02.130309+00:00",
+    "duration_s": 56.734,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/island_connections_review.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "island_terrain_polish_check",
+    "started_utc": "2026-11-15T04:06:30.570889+00:00",
+    "duration_s": 5.781,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/island_terrain_polish_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "boar_feedback_check",
+    "started_utc": "2026-11-15T03:55:36.504222+00:00",
+    "duration_s": 4.531,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/boar_feedback_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "boar_check",
+    "started_utc": "2026-11-15T03:55:41.034642+00:00",
+    "duration_s": 7.813,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/boar_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "boar_campaign_check",
+    "started_utc": "2026-11-15T03:55:48.839870+00:00",
+    "duration_s": 4.781,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/boar_campaign_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "heavy_attack_check",
+    "started_utc": "2026-11-15T03:55:53.619659+00:00",
+    "duration_s": 7.797,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/heavy_attack_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "combat_check",
+    "started_utc": "2026-11-15T03:56:01.415101+00:00",
+    "duration_s": 5.797,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/combat_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "enemy_check",
+    "started_utc": "2026-11-15T03:56:07.210039+00:00",
+    "duration_s": 0.765,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/enemy_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "campaign_smoke",
+    "started_utc": "2026-11-15T03:56:07.976781+00:00",
+    "duration_s": 3.532,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/campaign_smoke.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "autosave_check",
+    "started_utc": "2026-11-15T03:56:11.516828+00:00",
+    "duration_s": 5.781,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/autosave_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "persistent_world_check",
+    "started_utc": "2026-11-15T03:56:17.300336+00:00",
+    "duration_s": 8.797,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/persistent_world_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "fast_travel_check",
+    "started_utc": "2026-11-15T03:56:26.093909+00:00",
+    "duration_s": 5.031,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/fast_travel_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "hud_customization_check",
+    "started_utc": "2026-11-15T03:56:31.122516+00:00",
+    "duration_s": 7.031,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/hud_customization_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  },
+  {
+    "name": "quest_hud_check",
+    "started_utc": "2026-11-15T03:56:38.162675+00:00",
+    "duration_s": 3.765,
+    "exit_code": 0,
+    "script_error": false,
+    "arguments": [
+      "--headless",
+      "--path",
+      "PROJECT_ROOT",
+      "--script",
+      "res://tests/quest_hud_check.gd"
+    ],
+    "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+  }
+]

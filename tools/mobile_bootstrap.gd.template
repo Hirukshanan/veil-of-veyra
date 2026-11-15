@@ -1,0 +1,7 @@
+extends Node
+func _ready():
+	var game=preload("res://scenes/island_candidate.tscn").instantiate();add_child(game)
+	while not game.placement_ready:await get_tree().physics_frame
+	# Reproducible test defaults, runtime only; existing settings UI remains available.
+	game.frame_limit=30;game.shadows_enabled=false;game._apply_settings()
+	var probe=preload("res://mobile_test/probe.gd").new();probe.name="MobilePerformanceProbe";probe.game=game;add_child(probe)

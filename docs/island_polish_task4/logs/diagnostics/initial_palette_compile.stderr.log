@@ -1,0 +1,10 @@
+SHADER ERROR: Redefinition of 'footprint'.
+   at: (null) (res://assets/environment/new_island/task4/region.gdshader:38)
+   GDScript backtrace (most recent call first):
+       [0] populate (res://scripts/island_atmosphere.gd:33)
+       [1] _ready (res://scripts/island_candidate.gd:32)
+ERROR: Shader compilation failed.
+   at: set_code (drivers/gles3/storage/material_storage.cpp:3119)
+   GDScript backtrace (most recent call first):
+       [0] populate (res://scripts/island_atmosphere.gd:33)
+       [1] _ready (res://scripts/island_candidate.gd:32)

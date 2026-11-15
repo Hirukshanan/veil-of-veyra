@@ -1,0 +1,15 @@
+{
+  "name": "build_forms",
+  "started_utc": "2026-11-15T06:45:32.988476+00:00",
+  "duration_s": 0.766,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/build_task21.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

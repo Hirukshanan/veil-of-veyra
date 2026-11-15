@@ -1,0 +1,19 @@
+{
+  "native_screenshots": 22,
+  "reported_tests_passed": 15,
+  "additional_walk_test_passed": true,
+  "walk_legs": 10,
+  "production_files_unchanged": 323,
+  "prepared_region_triangles": 61626,
+  "runtime_albedo_payload_mib": 13.333396911621094,
+  "memory_mib": {
+    "engine_static_bytes": 100.16740989685059,
+    "texture_bytes": 262.0521535873413,
+    "video_bytes": 300.747633934021
+  },
+  "diagnostic_runs": [
+    "island_campaign_check",
+    "campaign_smoke",
+    "persistent_world_check"
+  ]
+}

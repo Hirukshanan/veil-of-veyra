@@ -1,0 +1,17 @@
+{
+  "green": "static approximate canopy ground shade from approved tree anchors; not dynamic occlusion",
+  "original_vegetation_placement_unchanged": true,
+  "red": "soft footpath hints along existing verified routes; stops before beach",
+  "resolution": [
+    512,
+    512
+  ],
+  "route_names": [
+    "WaterfallMountains",
+    "WesternForest",
+    "RiverGrassland",
+    "SouthernBeach"
+  ],
+  "tree_anchors": 72,
+  "world_extent_m": 256
+}

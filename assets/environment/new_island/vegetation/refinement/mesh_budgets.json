@@ -1,0 +1,17 @@
+{
+  "0": {
+    "canopy_triangles": 238,
+    "grass_triangles": 36,
+    "trunk_triangles": 1049
+  },
+  "1": {
+    "canopy_triangles": 136,
+    "grass_triangles": 9,
+    "trunk_triangles": 427
+  },
+  "2": {
+    "canopy_triangles": 68,
+    "grass_triangles": 3,
+    "trunk_triangles": 119
+  }
+}

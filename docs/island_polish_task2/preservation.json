@@ -1,0 +1,30 @@
+{
+  "baseline_files": 460,
+  "existing_files_changed": [
+    "scripts/island_landscape.gd",
+    "assets/environment/new_island/land.gdshader",
+    "assets/environment/new_island/region.gdshader"
+  ],
+  "unchanged_baseline_files": 457,
+  "terrain_water_collision_functions_identical": [
+    "_ready",
+    "height_at",
+    "_build_ground",
+    "_build_water",
+    "_build_grotto",
+    "_river_center",
+    "_river_width",
+    "_river_surface_height",
+    "_add_wet_triangle",
+    "ground_hit",
+    "ground_point",
+    "safe_point",
+    "supported_saved_point"
+  ],
+  "all_five_region_glbs_and_surface_resource_unchanged": true,
+  "all_character_enemy_dragon_quest_save_hud_and_main_scene_files_unchanged": true,
+  "rollback": {
+    "backup": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Island_Task2_Before_20261115_105926\\candidate_before_vegetation.zip",
+    "baseline_files": 460
+  }
+}

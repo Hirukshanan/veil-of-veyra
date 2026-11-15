@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: three tree forms share morph-enabled instanced meshes; denser twig crowns and smooth grass LODs built { "0": { "trunk_triangles": 1049, "canopy_triangles": 238, "grass_triangles": 36 }, "1": { "trunk_triangles": 427, "canopy_triangles": 136, "grass_triangles": 9 }, "2": { "trunk_triangles": 119, "canopy_triangles": 68, "grass_triangles": 3 } }

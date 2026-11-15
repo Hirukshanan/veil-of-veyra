@@ -1,0 +1,87 @@
+{
+  "memory": {
+    "static": 125301907.0,
+    "texture": 274825289.0,
+    "video": 321787895.0
+  },
+  "quality": {
+    "actors": "held static for repeatable environment comparison",
+    "grass_distance": "runtime mobile vegetation limits",
+    "msaa": false,
+    "renderer": "GL Compatibility",
+    "resolution": "1280x720",
+    "scale_3d": 1,
+    "screen_space_aa": false,
+    "shadows": false,
+    "timings": "desktop CPU/GPU, not Android performance"
+  },
+  "resolution": [
+    1280,
+    720
+  ],
+  "views": [
+    {
+      "draw_calls_mean": 126.0,
+      "median_frame_ms": 7.67,
+      "name": "01_forest_interior",
+      "p95_frame_ms": 11.034,
+      "position": "(-64.0, 4.130246, 12.0)",
+      "rendered_primitives_mean": 259936.0,
+      "rotation": "(-0.038621, 0.124355, 0.0)"
+    },
+    {
+      "draw_calls_mean": 124.0,
+      "median_frame_ms": 9.023,
+      "name": "02_forest_edge",
+      "p95_frame_ms": 14.208,
+      "position": "(-35.0, 2.565305, 13.0)",
+      "rendered_primitives_mean": 214952.0,
+      "rotation": "(0.029036, 1.06663, 0.0)"
+    },
+    {
+      "draw_calls_mean": 168.0,
+      "median_frame_ms": 7.094,
+      "name": "03_open_grasslands",
+      "p95_frame_ms": 8.808,
+      "position": "(4.0, 5.656659, 24.0)",
+      "rendered_primitives_mean": 441318.0,
+      "rotation": "(-0.016495, 0.0, 0.0)"
+    },
+    {
+      "draw_calls_mean": 143.0,
+      "median_frame_ms": 5.593,
+      "name": "04_hillside",
+      "p95_frame_ms": 7.101,
+      "position": "(-22.0, 5.399045, 38.0)",
+      "rendered_primitives_mean": 309470.0,
+      "rotation": "(-0.089826, 0.605545, 0.0)"
+    },
+    {
+      "draw_calls_mean": 169.0,
+      "median_frame_ms": 7.671,
+      "name": "05_riverbank",
+      "p95_frame_ms": 11.241,
+      "position": "(33.0, 4.363423, 16.0)",
+      "rendered_primitives_mean": 431702.0,
+      "rotation": "(-0.127135, 0.486899, 0.0)"
+    },
+    {
+      "draw_calls_mean": 116.0,
+      "median_frame_ms": 4.872,
+      "name": "06_sandy_shoreline",
+      "p95_frame_ms": 6.767,
+      "position": "(0.0, 4.151303, 91.0)",
+      "rendered_primitives_mean": 142255.0,
+      "rotation": "(-0.171722, -3.141593, 0.0)"
+    },
+    {
+      "draw_calls_mean": 238.0,
+      "median_frame_ms": 6.571,
+      "name": "07_top_down",
+      "p95_frame_ms": 8.901,
+      "position": "(0.0, 240.0, 0.0)",
+      "rendered_primitives_mean": 471870.0,
+      "rotation": "(-1.570796, 0.0, 0.0)"
+    }
+  ]
+}

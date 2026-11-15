@@ -6,3 +6,9 @@ art_source/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
 art_source/**/*.png filter=lfs diff=lfs merge=lfs -text
 art_source/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 assets/characters/demon_boar/*.glb filter=lfs diff=lfs merge=lfs -text
+
+# Connected-island binaries and original verification media.
+assets/environment/new_island/**/*.glb filter=lfs diff=lfs merge=lfs -text
+assets/environment/new_island/**/*.res filter=lfs diff=lfs merge=lfs -text
+docs/island*/**/*.png filter=lfs diff=lfs merge=lfs -text
+docs/island*/**/*.mp4 filter=lfs diff=lfs merge=lfs -text

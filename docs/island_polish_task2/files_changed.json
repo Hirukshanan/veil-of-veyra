@@ -1,0 +1,35 @@
+{
+  "changed_existing": [
+    "scripts/island_landscape.gd",
+    "assets/environment/new_island/land.gdshader",
+    "assets/environment/new_island/region.gdshader"
+  ],
+  "added_source_runtime_and_tests": [
+    "art_source/island/polish_task2/README.md",
+    "art_source/island/polish_task2/collision_baseline.json",
+    "art_source/island/polish_task2/prepare_vegetation.gd",
+    "assets/environment/new_island/vegetation/README.md",
+    "assets/environment/new_island/vegetation/canopy_lod0.res",
+    "assets/environment/new_island/vegetation/canopy_lod1.res",
+    "assets/environment/new_island/vegetation/canopy_lod2.res",
+    "assets/environment/new_island/vegetation/fern.res",
+    "assets/environment/new_island/vegetation/forest_roots.json",
+    "assets/environment/new_island/vegetation/grass.gdshader",
+    "assets/environment/new_island/vegetation/grass.gdshader.uid",
+    "assets/environment/new_island/vegetation/grass_lod0.res",
+    "assets/environment/new_island/vegetation/grass_lod1.res",
+    "assets/environment/new_island/vegetation/grass_lod2.res",
+    "assets/environment/new_island/vegetation/leaves.gdshader",
+    "assets/environment/new_island/vegetation/leaves.gdshader.uid",
+    "assets/environment/new_island/vegetation/trunk_lod0.res",
+    "assets/environment/new_island/vegetation/trunk_lod1.res",
+    "assets/environment/new_island/vegetation/trunk_lod2.res",
+    "scripts/candidate_vegetation.gd",
+    "scripts/candidate_vegetation.gd.uid",
+    "tests/island_estuary_capture.gd.uid",
+    "tests/island_polish_capture.gd.uid",
+    "tests/island_vegetation_check.gd",
+    "tests/island_vegetation_review.gd"
+  ],
+  "review_evidence": "docs/island_polish_task2"
+}

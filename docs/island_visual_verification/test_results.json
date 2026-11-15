@@ -1,0 +1,145 @@
+{
+  "reported_fifteen": [
+    {
+      "test": "island_check",
+      "scope": "candidate",
+      "exit_code": 0,
+      "duration_s": 8.813,
+      "pass_line": "PASS: five regions, old world absent, safe spawn, capsule-clear connected quest/region routes and actual player traversal without falls",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "island_campaign_check",
+      "scope": "candidate",
+      "exit_code": 0,
+      "duration_s": 7.328,
+      "pass_line": "PASS: legacy equipment/quest/health preservation, safe relocation, real cave entry/relic, cave save reload, one-time boar reward and unchanged lantern/dragon progression",
+      "stderr_has_diagnostics": true
+    },
+    {
+      "test": "island_collision_check",
+      "scope": "candidate",
+      "exit_code": 0,
+      "duration_s": 6.563,
+      "pass_line": "PASS: actual moving-player tree collision, cave spring-arm camera clearance and coastal wading boundary without health penalty",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "boar_feedback_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 5.031,
+      "pass_line": "PASS: bounded spatial audio, authored grounded footsteps, distance gating, explicit normal/heavy contact, unchanged damage/stagger/stamina/spirit, short bounded effects and Master mute",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "boar_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 7.797,
+      "pass_line": "PASS: boar telegraph, committed dodgeable lane, single contact, invulnerability, wall/LOS collision, grounded collider, stagger, single defeat and death hold",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "boar_campaign_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 5.031,
+      "pass_line": "PASS: one optional boar, real dodge/knockback, backward-compatible flag, one-time reward, reload persistence and unchanged camp/retired-wolf IDs",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "heavy_attack_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 8.047,
+      "pass_line": "PASS: heavy touch input, stamina cost/gating, delayed 4x damage, forward arc, stagger, spirit, repeat guard, dodge/hit/menu cancellation, pause and death",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "combat_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 6.031,
+      "pass_line": "PASS: attack warning, range escape, delayed damage, hit interruption, combo damage and timeout",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "enemy_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 0.766,
+      "pass_line": "PASS: Shore/Scout/Brute health, pursuit speed, warning radius/timing, damage, escape, interruption, hit feedback and single defeat",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "campaign_smoke",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 3.781,
+      "pass_line": "PASS: camp, resume, healing, pause, rewards, upgrades, and save reload",
+      "stderr_has_diagnostics": true
+    },
+    {
+      "test": "autosave_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 6.047,
+      "pass_line": "PASS: 180ms disk latency without movement stall (dispatch 0.38ms), immutable snapshots, serialized writes, errors/retry, corrupt-save protection, reset and scene exit",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "persistent_world_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 9.297,
+      "pass_line": "PASS: persistent island, pickups, cleared demons, waystones, health/potions, death resume, lantern resume, continued exploration and one-time rewards",
+      "stderr_has_diagnostics": true
+    },
+    {
+      "test": "fast_travel_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 5.281,
+      "pass_line": "PASS: persistent discovery, invalid/locked destinations, combat/source/destination/boss gates, touch travel, rescue binding and no resource refill",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "hud_customization_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 7.297,
+      "pass_line": "PASS: separate gameplay/editor, settings path, touch drag, size/opacity, presets, save/cancel/reset/reopen, safe profiles, failed-write recovery and functional guard/parry",
+      "stderr_has_diagnostics": false
+    },
+    {
+      "test": "quest_hud_check",
+      "scope": "existing main scene / isolated combat regression",
+      "exit_code": 0,
+      "duration_s": 4.031,
+      "pass_line": "PASS: circular bounds/hit areas, separate controls at three resolutions, movement-side sprint, scroll access and incomplete quest guard",
+      "stderr_has_diagnostics": false
+    }
+  ],
+  "additional_connection_test": {
+    "test": "island_connections_review",
+    "scope": "candidate",
+    "exit_code": 0,
+    "duration_s": 69.016,
+    "pass_line": "PASS: actual existing hero walked outward and back across all five regional approaches, without teleports between legs, damage, fall or rescue",
+    "stderr_has_diagnostics": false
+  },
+  "capture_run": {
+    "test": "visual_capture",
+    "scope": "candidate",
+    "exit_code": 0,
+    "duration_s": 43.672,
+    "pass_line": "PASS: 22 native screenshots, seam/riverbank close-ups, runtime dimensions and memory metrics captured",
+    "stderr_has_diagnostics": false
+  },
+  "diagnostics": {
+    "island_campaign_check": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)\nWARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\nERROR: 1 resources still in use at exit (run with --verbose for details).\n   at: clear (core/io/resource.cpp:822)",
+    "campaign_smoke": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)",
+    "persistent_world_check": "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)\nWARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\".\n   at: draw_rect (scene/main/canvas_item.cpp:925)\n   GDScript backtrace (most recent call first):\n       [0] _draw (res://scripts/premium_hud.gd:193)"
+  }
+}

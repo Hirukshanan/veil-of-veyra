@@ -82,7 +82,7 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player) or player.health <= 0:
 		return
 	for index in range(CHECKPOINTS.size()):
-		if player.global_position.distance_to(CHECKPOINTS[index]) < 2.0:
+		if player.global_position.distance_to(checkpoint_position(index)) < 2.0:
 			bind_waystone(index)
 	# Emergency rescue for genuine falls through geometry.
 	# Normal sea entry is blocked by the shallow-water boundary wall;
@@ -109,13 +109,16 @@ static func direction_hint(origin: Vector3, destination: Vector3, camera_basis: 
 
 func rescue_name() -> String:
 	return ["Beach", "Forest", "Ruins"][checkpoint_index] if checkpoint_index >= 0 else "Beach"
+
+func checkpoint_position(index: int) -> Vector3:
+	return CHECKPOINTS[index]
 func bind_waystone(index: int) -> void:
 	var changed := checkpoint_index != index or not discovered[index]
 	checkpoint_index = index
 	discovered[index] = true
 	for label_index in range(_waystone_labels.size()):
 		_waystone_labels[label_index].text = "WAYSTONE • BOUND" if label_index == index else ("WAYSTONE • DISCOVERED" if discovered[label_index] else "WAYSTONE • approach to discover")
-	player.rescue_position = CHECKPOINTS[index] + Vector3.UP
+	player.rescue_position = checkpoint_position(index) + Vector3.UP
 	if changed:
 		progress_changed.emit()
 
@@ -126,7 +129,7 @@ func travel_block_reason(index: int) -> String:
 		return "Discover this waystone first"
 	if not is_instance_valid(player) or player.health <= 0:
 		return "Hunter is defeated"
-	if player.global_position.distance_to(CHECKPOINTS[index]) < 3.0:
+	if player.global_position.distance_to(checkpoint_position(index)) < 3.0:
 		return "Already here"
 	if player._attack_cooldown > 0.0 or player._dodge_time > 0.0 or player._hit_time > 0.0:
 		return "Finish your combat action"
@@ -137,7 +140,7 @@ func travel_block_reason(index: int) -> String:
 			return "Defeat the dragon before travelling"
 		if enemy.global_position.distance_to(player.global_position) < 14.0:
 			return "Enemies are too close"
-		if enemy.global_position.distance_to(CHECKPOINTS[index]) < 14.0:
+		if enemy.global_position.distance_to(checkpoint_position(index)) < 14.0:
 			return "Destination is unsafe"
 	return ""
 
@@ -148,7 +151,7 @@ func travel_to(index: int) -> bool:
 	player.set_move_input(Vector2.ZERO)
 	player._burst_requested = false
 	player.velocity = Vector3.ZERO
-	player.global_position = CHECKPOINTS[index] + Vector3.UP * 0.1
+	player.global_position = checkpoint_position(index) + Vector3.UP * 0.1
 	player._camera_pivot.global_position = player.global_position + Vector3(0, 1.2, 0)
 	bind_waystone(index)
 	return true

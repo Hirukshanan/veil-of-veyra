@@ -1,0 +1,9 @@
+{
+  "checked_utc": "2026-11-15T09:37:30.323467+00:00",
+  "adb_exit_code": 0,
+  "connected_device_count": 0,
+  "authorized_device_count": 0,
+  "device_identifiers_recorded": false,
+  "android_test_status": "pending: no connected authorized device",
+  "android_fps_frame_memory_thermal": "not measured"
+}

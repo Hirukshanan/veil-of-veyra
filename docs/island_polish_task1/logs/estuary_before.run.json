@@ -1,0 +1,22 @@
+{
+  "name": "estuary_before",
+  "started_utc": "2026-11-15T04:06:18.000429+00:00",
+  "duration_s": 25.422,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\capture_estuary.gd",
+    "--resolution",
+    "1280x720",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "EVIDENCE_ROOT\\22_estuary_before.png"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

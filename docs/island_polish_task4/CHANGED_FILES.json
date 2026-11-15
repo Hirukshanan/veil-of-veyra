@@ -1,0 +1,110 @@
+[
+  {
+    "path": "scripts/island_candidate.gd",
+    "status": "modified",
+    "bytes": 3090,
+    "sha256": "1e47e7f1ecad5e43844d73ec24a231f0bded96b09e13e47e3d55fcc580c1badc"
+  },
+  {
+    "path": "scripts/island_atmosphere.gd",
+    "status": "added",
+    "bytes": 4333,
+    "sha256": "8bd4de4bb9fdbe91672f90ef02c8c9818c59daa1e11ebcab152c51e3f35488ed"
+  },
+  {
+    "path": "tests/island_atmosphere_check.gd",
+    "status": "added",
+    "bytes": 2996,
+    "sha256": "2b968d2347d0a8022ec49b98c25f459aeb26db26664f4b52a24b0c960adf5d31"
+  },
+  {
+    "path": "assets/environment/new_island/task4/journey_mask.png",
+    "status": "added",
+    "bytes": 17956,
+    "sha256": "7817392e87232a38adbc2034ef59e642ca90bf4f4e3e3fb621db9718a2d683a0"
+  },
+  {
+    "path": "assets/environment/new_island/task4/journey_mask.png.import",
+    "status": "added",
+    "bytes": 975,
+    "sha256": "06bff93f3cd29fa695cc843307883e4d10f939408f1e79b987a9fe578b196d35"
+  },
+  {
+    "path": "assets/environment/new_island/task4/land.gdshader",
+    "status": "added",
+    "bytes": 1858,
+    "sha256": "fbd5933f2b0b88eb4fecbdf5d42bbd6576b4ebf16cc74ae5ec52c691e2e02489"
+  },
+  {
+    "path": "assets/environment/new_island/task4/land.gdshader.uid",
+    "status": "added",
+    "bytes": 19,
+    "sha256": "1b8cc5af11990ddbc192097c85c9d9e862321c82cfce7ac67cd6d98f9c3e3810"
+  },
+  {
+    "path": "assets/environment/new_island/task4/mask_source.json",
+    "status": "added",
+    "bytes": 439,
+    "sha256": "e2ff63be623405785e4bb5a3174ebb61acea6767123b656568954fba6389ba7a"
+  },
+  {
+    "path": "assets/environment/new_island/task4/README.md",
+    "status": "added",
+    "bytes": 1642,
+    "sha256": "ca5f6f7d4456fae6295b6bc6eefba41a41409aab6d29e2a544e3e04e3b183ca5"
+  },
+  {
+    "path": "assets/environment/new_island/task4/region.gdshader",
+    "status": "added",
+    "bytes": 2545,
+    "sha256": "8d89a6eae4bc18d04fdf51ed4ef276cbe8491ca00e7fc44549d4048f933f8f56"
+  },
+  {
+    "path": "assets/environment/new_island/task4/region.gdshader.uid",
+    "status": "added",
+    "bytes": 20,
+    "sha256": "590dffbbc6bd33e40d2feaf84ec8f16ce99adb411bee7535b343a6b2d6f0952d"
+  },
+  {
+    "path": "art_source/island/polish_task4/approved_task3_candidate.gd",
+    "status": "added",
+    "bytes": 2860,
+    "sha256": "01e22c022be92ee7fb55b680b8f12b1925b8f7b9b6b9b4f1816a243ffb2cb34c"
+  },
+  {
+    "path": "art_source/island/polish_task4/bake_journey_mask.gd",
+    "status": "added",
+    "bytes": 2665,
+    "sha256": "9a8355d1225797b02009b1b6e35878d4e9e7791747b9f1024523daf105373e39"
+  },
+  {
+    "path": "art_source/island/polish_task4/capture_exploration.gd",
+    "status": "added",
+    "bytes": 3129,
+    "sha256": "fd10ba0e6d94d77b285aa55f41061f26858d990c7923f42c0db074147d4037f2"
+  },
+  {
+    "path": "art_source/island/polish_task4/capture_review.gd",
+    "status": "added",
+    "bytes": 5000,
+    "sha256": "f6939b6f642955db8e777a0bcfbab9fc03dbf519ea7fe43d0c61dbd46f0df283"
+  },
+  {
+    "path": "art_source/island/polish_task4/README.md",
+    "status": "added",
+    "bytes": 1734,
+    "sha256": "24524c78835a7d99626854cb3d616cf4bab5ffa597a16e60bcfc079e7a4bf417"
+  },
+  {
+    "path": "scripts/island_atmosphere.gd.uid",
+    "status": "added",
+    "bytes": 20,
+    "sha256": "3407be467160ca8a0e30f154a1ea67f2ba905a3979b018e71c09256c3968a8fb"
+  },
+  {
+    "path": "tests/island_atmosphere_check.gd.uid",
+    "status": "added",
+    "bytes": 20,
+    "sha256": "03c2d73fe346e925d4fe7ce78f6676956ff74bd394e2c59e356e9c550553378e"
+  }
+]

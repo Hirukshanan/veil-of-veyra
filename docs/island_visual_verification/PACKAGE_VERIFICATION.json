@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "fresh_extraction_import_exit_code": 0,
+  "candidate_launch_exit_code": 0,
+  "initial_parallel_import_exit_code": 3221225477,
+  "review_copy_only_serial_import_setting": "editor/import/use_multiple_threads=false",
+  "original_project_setting_unchanged": true,
+  "isolated_review_user_directory": true,
+  "tested_archive_sha256": "a083e5b60ea93df27dcfffc3a417118e65eca004789929b420fcb5f567435bf4",
+  "scope": "Fresh extracted full source project; no preexisting .godot cache. Final archive adds evidence only; delivered runtime sources must match this verified extraction."
+}

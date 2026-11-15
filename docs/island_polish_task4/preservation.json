@@ -1,0 +1,18 @@
+{
+  "baseline_files": 545,
+  "changed_existing_files": [
+    "scripts/island_candidate.gd"
+  ],
+  "all_other_baseline_files_identical": true,
+  "candidate_change": "Four-line atmosphere module hook after approved vegetation construction; gameplay functions unchanged",
+  "all_47_collisions_and_approved_mesh_fingerprints_exact": true,
+  "original_landscape_region_surface_sea_task3_and_task21_files_unchanged": true,
+  "hero_hud_enemies_combat_quests_saves_dragon_source_unchanged": true,
+  "main_scene": "res://scenes/main.tscn",
+  "candidate_scene": "res://scenes/island_candidate.tscn",
+  "production_not_activated": true,
+  "rollback_checkpoint": {
+    "backup": "C:\\Users\\Dark\\Documents\\Codex\\Backups\\Island_Task4_Before_20261115_145132\\candidate_before_task4.zip",
+    "baseline_files": 545
+  }
+}

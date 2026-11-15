@@ -1,0 +1,15 @@
+{
+  "name": "combat_check",
+  "started_utc": "2026-11-15T08:01:40.772377+00:00",
+  "duration_s": 6.781,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/combat_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

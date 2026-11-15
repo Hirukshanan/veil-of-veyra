@@ -1,5 +1,6 @@
 shader_type spatial;
 uniform float waterline_base = 114.5;
+uniform vec3 coast_amplitudes = vec3(1.5,0.8,0.5);
 render_mode cull_disabled;
 varying vec3 world_position;
 void vertex() {
@@ -9,7 +10,7 @@ void fragment() {
 	vec2 p = world_position.xz;
 	float angle = atan(p.y, p.x);
 	// Same radial contour as island_terrain.gd; water intersects at waterline_base.
-	float contour = length(p) - (1.5 * sin(angle * 3.0) + 0.8 * sin(angle * 5.0) + 0.5 * sin(angle * 7.0));
+	float contour = length(p) - (coast_amplitudes.x * sin(angle * 3.0) + coast_amplitudes.y * sin(angle * 5.0) + coast_amplitudes.z * sin(angle * 7.0));
 	float shore_distance = contour - waterline_base;
 	float wave_a = dot(p, vec2(0.18, 0.11)) + TIME * 0.65;
 	float wave_b = dot(p, vec2(-0.08, 0.23)) - TIME * 0.43;

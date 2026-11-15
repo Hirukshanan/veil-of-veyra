@@ -1,0 +1,9 @@
+{
+  "note": "Final APK was rebuilt after packaging the build templates. Generated export resources differ, so the final bundle is functionally rechecked rather than assuming byte identity. Byte-for-byte APK reproducibility is not claimed.",
+  "differing_entries": [
+    "assets/.godot/exported/133200997/export-391ce0f23084d0d6950f891d4aed96ea-main.scn",
+    "assets/.godot/exported/133200997/export-92bf60021d521f1760632b0901992259-island_candidate.scn",
+    "assets/.godot/exported/133200997/export-3ad5c15c4f3250da0cc7c1af1770d85f-main.scn",
+    "assets/assets.sparsepck"
+  ]
+}

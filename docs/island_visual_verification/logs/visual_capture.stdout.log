@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+CAPTURED_NATIVE_VIEW 01_gameplay
+CAPTURED_NATIVE_VIEW 02_forest
+CAPTURED_NATIVE_VIEW 03_grassy_hills
+CAPTURED_NATIVE_VIEW 04_mountains_cliffs
+CAPTURED_NATIVE_VIEW 05_cave_entrance
+CAPTURED_NATIVE_VIEW 06_cave_interior
+CAPTURED_NATIVE_VIEW 07_river
+CAPTURED_NATIVE_VIEW 08_waterfall
+CAPTURED_NATIVE_VIEW 09_beach_sea
+CAPTURED_NATIVE_VIEW 10_connection_west
+CAPTURED_NATIVE_VIEW 11_connection_north
+CAPTURED_NATIVE_VIEW 12_connection_east
+CAPTURED_NATIVE_VIEW 13_connection_south
+CAPTURED_NATIVE_VIEW 14_seam_west
+CAPTURED_NATIVE_VIEW 15_seam_north
+CAPTURED_NATIVE_VIEW 16_seam_east
+CAPTURED_NATIVE_VIEW 17_seam_south
+CAPTURED_NATIVE_VIEW 18_riverbank_upper
+CAPTURED_NATIVE_VIEW 19_riverbank_middle
+CAPTURED_NATIVE_VIEW 20_riverbank_outlet
+CAPTURED_NATIVE_VIEW 21_waterfall_detail
+CAPTURED_NATIVE_VIEW 00_top_down
+PASS: 22 native screenshots, seam/riverbank close-ups, runtime dimensions and memory metrics captured

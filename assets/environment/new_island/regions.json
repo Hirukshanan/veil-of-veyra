@@ -1,0 +1,112 @@
+[
+  {
+    "source_index": 0,
+    "region": "WaterfallMountains",
+    "center_xz": [
+      0,
+      -68
+    ],
+    "width_m": 66,
+    "horizontal_source_to_m": 368.17977528089887,
+    "vertical_source_to_m": 190,
+    "vertical_offset_m": 7.0,
+    "dimensions_m": [
+      66.0,
+      65.74157333374023,
+      18.818511962890625
+    ],
+    "triangles": 14130,
+    "texture_derivative": 2048,
+    "edge_taper_m": 7,
+    "removed_forest_sheet_faces": 0,
+    "river_channel_modified": false
+  },
+  {
+    "source_index": 1,
+    "region": "WesternForest",
+    "center_xz": [
+      -64,
+      -8
+    ],
+    "width_m": 54,
+    "horizontal_source_to_m": 372.8540272875731,
+    "vertical_source_to_m": 220,
+    "vertical_offset_m": 9.0,
+    "dimensions_m": [
+      50.27635192871094,
+      64.7157974243164,
+      23.8178768157959
+    ],
+    "triangles": 7681,
+    "texture_derivative": 2048,
+    "edge_taper_m": 0,
+    "removed_forest_sheet_faces": 2967,
+    "river_channel_modified": false
+  },
+  {
+    "source_index": 2,
+    "region": "RiverGrassland",
+    "center_xz": [
+      5,
+      2
+    ],
+    "width_m": 64,
+    "horizontal_source_to_m": 357.038008086827,
+    "vertical_source_to_m": 70,
+    "vertical_offset_m": 2.8,
+    "dimensions_m": [
+      64.0,
+      63.561439514160156,
+      9.132036447525024
+    ],
+    "triangles": 13428,
+    "texture_derivative": 2048,
+    "edge_taper_m": 7,
+    "removed_forest_sheet_faces": 0,
+    "river_channel_modified": true
+  },
+  {
+    "source_index": 3,
+    "region": "EasternCaves",
+    "center_xz": [
+      68,
+      -10
+    ],
+    "width_m": 48,
+    "horizontal_source_to_m": 302.2994426292524,
+    "vertical_source_to_m": 115,
+    "vertical_offset_m": 5.8,
+    "dimensions_m": [
+      48.0,
+      50.16567325592041,
+      10.49825918674469
+    ],
+    "triangles": 12462,
+    "texture_derivative": 2048,
+    "edge_taper_m": 7,
+    "removed_forest_sheet_faces": 0,
+    "river_channel_modified": false
+  },
+  {
+    "source_index": 4,
+    "region": "SouthernBeach",
+    "center_xz": [
+      0,
+      66
+    ],
+    "width_m": 86,
+    "horizontal_source_to_m": 500.80824595699306,
+    "vertical_source_to_m": 50,
+    "vertical_offset_m": 2.1,
+    "dimensions_m": [
+      86.0,
+      89.77501106262207,
+      6.662141561508179
+    ],
+    "triangles": 13925,
+    "texture_derivative": 2048,
+    "edge_taper_m": 7,
+    "removed_forest_sheet_faces": 0,
+    "river_channel_modified": true
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "campaign_smoke",
+  "started_utc": "2026-11-15T09:40:46.012460+00:00",
+  "duration_s": 6.796,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/campaign_smoke.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

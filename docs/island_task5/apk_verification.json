@@ -1,0 +1,99 @@
+{
+  "checked_utc": "2026-11-15T10:15:06.687566+00:00",
+  "signature_verified": true,
+  "debuggable": true,
+  "package": "com.hirukshanan.veilofveyra.islandtest",
+  "min_sdk": 24,
+  "target_sdk": 36,
+  "abi": [
+    "arm64-v8a"
+  ],
+  "internet_permission": false,
+  "candidate_bootstrap_main_verified": true,
+  "required_runtime_metadata_included": true,
+  "no_source_docs_tests_keys_or_blends_in_apk": true,
+  "final_payload_matches_functionally_smoked_bundle": true,
+  "zip_crc_passed": true,
+  "apk_bytes": 150975539,
+  "apk_sha256": "9671e5736136eb1bd5501f0947868c956c60580007825e74bc254d9f01f4f164",
+  "packaged_texture_file_count": 74,
+  "packaged_ctex_bytes": 109529934,
+  "largest_entries": [
+    {
+      "entry": "lib/arm64-v8a/libgodot_android.so",
+      "uncompressed_bytes": 76181608,
+      "zip_bytes": 25465279
+    },
+    {
+      "entry": "assets/.godot/imported/demon_boar_base_color.jpg-8f88ea4d1c8ccb1331f5c827c5518a8f.ctex",
+      "uncompressed_bytes": 18319908,
+      "zip_bytes": 18319908
+    },
+    {
+      "entry": "assets/.godot/imported/demon_boar_normal_2048.png-c7d2e6729b672f2bae76015b50617f08.ctex",
+      "uncompressed_bytes": 7372268,
+      "zip_bytes": 7372268
+    },
+    {
+      "entry": "assets/.godot/imported/Dire_Wolf_Lite_DireWolf_Normal.png-ca275bffdddd4db7c7ac76269e39e037.ctex",
+      "uncompressed_bytes": 5732884,
+      "zip_bytes": 5732884
+    },
+    {
+      "entry": "classes.dex",
+      "uncompressed_bytes": 5711532,
+      "zip_bytes": 1960045
+    },
+    {
+      "entry": "assets/.godot/imported/T_Hair_1_Normal.png-1cc5887d71cef3a7a781aa6a6c446c4f.etc2.ctex",
+      "uncompressed_bytes": 5592484,
+      "zip_bytes": 5592484
+    },
+    {
+      "entry": "assets/.godot/imported/T_Superhero_Male_Normal.png-2fc97aaeadc6df050cd2cc30923c5c1e.etc2.ctex",
+      "uncompressed_bytes": 5592484,
+      "zip_bytes": 5592484
+    },
+    {
+      "entry": "assets/.godot/imported/Dire_Wolf_Lite_DireWolf_BaseColor.png-cb15a4fdb7bf8c2351279c70548b27f9.ctex",
+      "uncompressed_bytes": 4273966,
+      "zip_bytes": 4273966
+    },
+    {
+      "entry": "assets/.godot/imported/demon_boar.glb-aed7097ae775db7023f4fc4a44ec6c59.scn",
+      "uncompressed_bytes": 3324981,
+      "zip_bytes": 3324981
+    },
+    {
+      "entry": "assets/.godot/imported/charcoal_dragon_Image_0.jpg-2f003e65585af912e588885a10a14353.ctex",
+      "uncompressed_bytes": 3324854,
+      "zip_bytes": 3324854
+    },
+    {
+      "entry": "assets/.godot/imported/charcoal_dragon_Image_1.png-63bb9ecbeba0e155701bee8a134f7081.ctex",
+      "uncompressed_bytes": 2876408,
+      "zip_bytes": 2876408
+    },
+    {
+      "entry": "assets/.godot/imported/T_Hair_1_BaseColor.png-0f4309aabbe45321c5c697c7f561a513.etc2.ctex",
+      "uncompressed_bytes": 2796268,
+      "zip_bytes": 2796268
+    },
+    {
+      "entry": "assets/.godot/imported/T_Superhero_Male_Dark.png-af704e71172c796cdcc64d3c2693e350.etc2.ctex",
+      "uncompressed_bytes": 2796268,
+      "zip_bytes": 2796268
+    },
+    {
+      "entry": "assets/.godot/imported/T_Superhero_Male_Roughness.png-671459f43edfc7d43aebf4d7ea3e5e9d.etc2.ctex",
+      "uncompressed_bytes": 2796268,
+      "zip_bytes": 2796268
+    },
+    {
+      "entry": "assets/.godot/imported/EasternCaves_easterncaves_albedo.jpg-b2edc6c7821f9870e57278962550da85.etc2.ctex",
+      "uncompressed_bytes": 2796268,
+      "zip_bytes": 2796268
+    }
+  ],
+  "phone_execution": false
+}

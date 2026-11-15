@@ -1,0 +1,12 @@
+{
+  "native_pngs": 14,
+  "matched_pairs": 7,
+  "png_bytes_preserved": true,
+  "fresh_extraction_crc_ok": true,
+  "browser_loaded_images": 14,
+  "browser_broken_images": 0,
+  "all_relative_gallery_links_valid": true,
+  "browser": "Chrome headless, local extracted file URL, external hostname resolution blocked",
+  "no_image_resizing_or_reencoding": true,
+  "checked_utc": "2026-11-15T06:06:20.600224+00:00"
+}

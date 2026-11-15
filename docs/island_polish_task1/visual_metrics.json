@@ -1,0 +1,342 @@
+{
+  "connecting_ground_aabb_xyz_m": [
+    240.0,
+    13.3875942230225,
+    240.0
+  ],
+  "connecting_ground_triangles": 72586,
+  "emerged_land_sampling": {
+    "approx_projected_area_m2": 35792,
+    "approx_size_xz_m": [
+      222.0,
+      222.0
+    ],
+    "definition": "Top static support at least 5 cm above sea; includes steep scenery, not a claim all cells are walkable",
+    "max_xz": [
+      108.0,
+      108.0
+    ],
+    "min_xz": [
+      -112.0,
+      -112.0
+    ],
+    "spacing_m": 2
+  },
+  "gameplay_source_unchanged": true,
+  "memory": {
+    "engine_static_bytes": 125415650.0,
+    "scope": "Godot scene-wide monitors including hero, enemies, HUD/minimap and reused assets; not OS working set or phone memory",
+    "texture_bytes": 274781599.0,
+    "video_bytes": 313223157.0
+  },
+  "regions": [
+    {
+      "aabb_max": [
+        33.75,
+        12.8316802978516,
+        -35.0
+      ],
+      "aabb_min": [
+        -33.75,
+        -5.98683166503906,
+        -101.25
+      ],
+      "base_triangles": 18270,
+      "region": "WaterfallMountains",
+      "render_vertices": 12079,
+      "size_xyz_m": [
+        67.5,
+        18.8185119628906,
+        66.25
+      ],
+      "textures": [
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg",
+          "width": 2048
+        },
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg",
+          "width": 2048
+        }
+      ]
+    },
+    {
+      "aabb_max": [
+        -40.7236480712891,
+        13.1168279647827,
+        24.3578987121582
+      ],
+      "aabb_min": [
+        -91.0,
+        -10.7010488510132,
+        -40.3578987121582
+      ],
+      "base_triangles": 7681,
+      "region": "WesternForest",
+      "render_vertices": 5534,
+      "size_xyz_m": [
+        50.2763519287109,
+        23.8178768157959,
+        64.7157974243164
+      ],
+      "textures": [
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/WesternForest_westernforest_albedo.jpg",
+          "width": 2048
+        }
+      ]
+    },
+    {
+      "aabb_max": [
+        37.5,
+        6.96979188919067,
+        35.0
+      ],
+      "aabb_min": [
+        -27.5,
+        -1.54999983310699,
+        -30.0
+      ],
+      "base_triangles": 19930,
+      "region": "RiverGrassland",
+      "render_vertices": 10444,
+      "size_xyz_m": [
+        65.0,
+        8.51979160308838,
+        65.0
+      ],
+      "textures": [
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg",
+          "width": 2048
+        }
+      ]
+    },
+    {
+      "aabb_max": [
+        92.0,
+        8.25278472900391,
+        15.082836151123
+      ],
+      "aabb_min": [
+        43.75,
+        -1.63569688796997,
+        -35.082836151123
+      ],
+      "base_triangles": 10449,
+      "region": "EasternCaves",
+      "render_vertices": 6500,
+      "size_xyz_m": [
+        48.25,
+        9.88848114013672,
+        50.1656723022461
+      ],
+      "textures": [
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg",
+          "width": 2048
+        },
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg",
+          "width": 2048
+        }
+      ]
+    },
+    {
+      "aabb_max": [
+        43.75,
+        4.30684852600098,
+        111.25
+      ],
+      "aabb_min": [
+        -42.5,
+        -2.32694292068481,
+        37.5
+      ],
+      "base_triangles": 14794,
+      "region": "SouthernBeach",
+      "render_vertices": 7938,
+      "size_xyz_m": [
+        86.25,
+        6.63379144668579,
+        73.75
+      ],
+      "textures": [
+        {
+          "height": 2048,
+          "image_format_enum": 17,
+          "image_payload_bytes": 2796216,
+          "is_compressed": true,
+          "mipmaps": 11,
+          "resource": "res://assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg",
+          "width": 2048
+        }
+      ]
+    }
+  ],
+  "sea": {
+    "height_y_m": -1.45,
+    "size_xz_m": [
+      2000,
+      2000
+    ]
+  },
+  "views": [
+    {
+      "camera_position": "(-32.0, 3.17935, 13.0)",
+      "camera_rotation": "(-0.475177, -1.030377, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "14_seam_west",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(3.0, 3.159205, -31.0)",
+      "camera_rotation": "(-0.380506, 0.643501, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "15_seam_north",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(41.0, 4.926602, -14.0)",
+      "camera_rotation": "(-0.587292, -0.982794, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "16_seam_east",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(-2.0, 4.125586, 31.0)",
+      "camera_rotation": "(-0.339837, 2.356194, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "17_seam_south",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(9.0, 1.442702, -49.0)",
+      "camera_rotation": "(-0.440511, -0.785398, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "18_riverbank_upper",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(32.8, 3.716861, 9.0)",
+      "camera_rotation": "(-0.401247, 0.785398, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "19_riverbank_middle",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(19.0, 0.763853, 101.0)",
+      "camera_rotation": "(-0.380506, -0.927295, 0.0)",
+      "hero_position": "(0.0, 3.871534, 27.0)",
+      "kind": "exact pre-polish camera pose; native render",
+      "name": "20_riverbank_outlet",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(-27.30477, 4.150113, 12.0)",
+      "camera_rotation": "(-0.441751, 1.570796, 0.0)",
+      "hero_position": "(-33.0, 0.25672, 12.0)",
+      "kind": "actual third-person campaign; controlled review placement",
+      "name": "10_connection_west",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(35.30477, 6.558332, -13.0)",
+      "camera_rotation": "(-0.441751, -1.570796, 0.0)",
+      "hero_position": "(41.0, 2.664938, -13.0)",
+      "kind": "actual third-person campaign; controlled review placement",
+      "name": "12_connection_east",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(-10.0, 6.508495, 28.30477)",
+      "camera_rotation": "(-0.441751, -3.141593, 0.0)",
+      "hero_position": "(-10.0, 2.615103, 34.0)",
+      "kind": "actual third-person campaign; controlled review placement",
+      "name": "13_connection_south",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    },
+    {
+      "camera_position": "(0.0, 240.0, 0.0)",
+      "camera_rotation": "(-1.570796, 0.0, 0.0)",
+      "hero_position": "(-10.0, 2.615103, 34.0)",
+      "kind": "native exact overhead; review-only culling disabled",
+      "name": "00_top_down",
+      "native_resolution": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "wading_boundary_aabb_xyz_m": [
+    235.121826171875,
+    7.0,
+    234.0
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "pause/resume boundary intervals excluded",
+    "long genuine hitch retained",
+    "nearest-rank quantiles",
+    "synthetic/desktop rejected as Android"
+  ],
+  "phone_results": false
+}

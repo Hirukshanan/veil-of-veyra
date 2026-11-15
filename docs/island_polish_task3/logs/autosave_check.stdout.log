@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: 180ms disk latency without movement stall (dispatch 0.56ms), immutable snapshots, serialized writes, errors/retry, corrupt-save protection, reset and scene exit

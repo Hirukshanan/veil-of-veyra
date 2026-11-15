@@ -1,0 +1,18 @@
+{
+  "exact_previous_absolute_poses": [
+    "14_seam_west",
+    "15_seam_north",
+    "16_seam_east",
+    "17_seam_south",
+    "18_riverbank_upper",
+    "19_riverbank_middle",
+    "20_riverbank_outlet"
+  ],
+  "resolution": [
+    1280,
+    720
+  ],
+  "original_seven_before_images": "Copied byte-for-byte from docs/island_visual_verification; actual prior Godot captures",
+  "additional_estuary_pair": "Both rendered during this task; old review terrain was hash-verified against pre-task checkpoint; fixed camera (13,7,103), target (23,-1.45,113)",
+  "no_image_generation_or_post_processing": true
+}

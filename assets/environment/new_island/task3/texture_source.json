@@ -1,0 +1,14 @@
+{
+  "author": "Original project procedural material",
+  "generator": "art_source/island/polish_task3/bake_rock.py",
+  "resolution": [
+    1024,
+    1024
+  ],
+  "seed": 39071,
+  "maps": [
+    "rock_albedo.png",
+    "rock_normal.png"
+  ],
+  "license": "Original project work; no downloaded or AI-generated images"
+}

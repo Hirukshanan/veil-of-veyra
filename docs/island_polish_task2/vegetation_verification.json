@@ -1,0 +1,33 @@
+{
+  "approved_ground_water_grotto_geometry_identical": {
+    "ConnectedTerrain": "05f9e7030ed870406be922d5938a05c8588a43fe798169bf8ac3bf1865da78ef",
+    "FlowingRiver": "5d1e5f4f979d0caadb7d068b0406f12593962f5aa0496f97ecba4e9b3dda6dfd",
+    "PlayableGrotto": "2f589a0903fc2ba8086fbfa58e7d651e9f78056f23c24c3c6df8ce015193a967",
+    "Sea": "e7c6eb4a364fdbd1dcf7b044251a4cbb23f0a21e77a9697c272debe5c0044161"
+  },
+  "collision_shape_count": 47,
+  "distance_density_and_culling_passed": true,
+  "grass_chunks": 56,
+  "grass_clumps": 12228,
+  "lod_triangle_counts": {
+    "canopy": [
+      720,
+      324,
+      216
+    ],
+    "grass": [
+      25,
+      9,
+      3
+    ],
+    "trunk": [
+      872,
+      291,
+      291
+    ]
+  },
+  "no_new_vegetation_colliders": true,
+  "original_static_collisions_identical": true,
+  "quest_clearings_and_shoreline_clear": true,
+  "tree_instances": 72
+}

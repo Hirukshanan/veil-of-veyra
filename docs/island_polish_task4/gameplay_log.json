@@ -1,0 +1,307 @@
+{
+  "actual_player_controller": true,
+  "actual_spring_arm_camera": true,
+  "distance_walked_m": 55.7953965216875,
+  "duration_seconds": 16,
+  "encoded_fps": 30,
+  "frames": 480,
+  "health_preserved": true,
+  "initial_fixture_position": "(-24,ground,28)",
+  "legs_completed": 2,
+  "movement": "Unmodified player walking input; continuous grassland to forest approach and north along woodland trail; no teleports after initial placement",
+  "performance_note": "Fixed-step offline capture; playback FPS is not live or Android performance",
+  "poses": [
+    {
+      "frame": 0,
+      "health": 100,
+      "hero_position": "(-24.26, 2.325476, 28.0)",
+      "leg": 0
+    },
+    {
+      "frame": 10,
+      "health": 100,
+      "hero_position": "(-26.00197, 1.641402, 28.00011)",
+      "leg": 0
+    },
+    {
+      "frame": 20,
+      "health": 100,
+      "hero_position": "(-27.73807, 1.155269, 28.00011)",
+      "leg": 0
+    },
+    {
+      "frame": 30,
+      "health": 100,
+      "hero_position": "(-29.47342, 0.813472, 28.00011)",
+      "leg": 0
+    },
+    {
+      "frame": 40,
+      "health": 100,
+      "hero_position": "(-31.20828, 0.544917, 28.00011)",
+      "leg": 0
+    },
+    {
+      "frame": 50,
+      "health": 100,
+      "hero_position": "(-32.9418, 0.517255, 27.99975)",
+      "leg": 0
+    },
+    {
+      "frame": 60,
+      "health": 100,
+      "hero_position": "(-34.67473, 0.542577, 27.99843)",
+      "leg": 0
+    },
+    {
+      "frame": 70,
+      "health": 100,
+      "hero_position": "(-36.40695, 0.585677, 27.99703)",
+      "leg": 0
+    },
+    {
+      "frame": 80,
+      "health": 100,
+      "hero_position": "(-38.13839, 0.642111, 27.99604)",
+      "leg": 0
+    },
+    {
+      "frame": 90,
+      "health": 100,
+      "hero_position": "(-39.86838, 0.717685, 27.99552)",
+      "leg": 0
+    },
+    {
+      "frame": 100,
+      "health": 100,
+      "hero_position": "(-41.5972, 0.805475, 27.99513)",
+      "leg": 0
+    },
+    {
+      "frame": 110,
+      "health": 100,
+      "hero_position": "(-43.32499, 0.903528, 27.99493)",
+      "leg": 0
+    },
+    {
+      "frame": 120,
+      "health": 100,
+      "hero_position": "(-45.0519, 1.009308, 27.99485)",
+      "leg": 0
+    },
+    {
+      "frame": 130,
+      "health": 100,
+      "hero_position": "(-46.77813, 1.120835, 27.99488)",
+      "leg": 0
+    },
+    {
+      "frame": 140,
+      "health": 100,
+      "hero_position": "(-48.50385, 1.235981, 27.99502)",
+      "leg": 0
+    },
+    {
+      "frame": 150,
+      "health": 100,
+      "hero_position": "(-50.22948, 1.351941, 27.99527)",
+      "leg": 0
+    },
+    {
+      "frame": 160,
+      "health": 100,
+      "hero_position": "(-51.95525, 1.466659, 27.99557)",
+      "leg": 0
+    },
+    {
+      "frame": 170,
+      "health": 100,
+      "hero_position": "(-53.68147, 1.578187, 27.99592)",
+      "leg": 0
+    },
+    {
+      "frame": 180,
+      "health": 100,
+      "hero_position": "(-55.40845, 1.683293, 27.99634)",
+      "leg": 0
+    },
+    {
+      "frame": 190,
+      "health": 100,
+      "hero_position": "(-57.13625, 1.781274, 27.99682)",
+      "leg": 0
+    },
+    {
+      "frame": 200,
+      "health": 100,
+      "hero_position": "(-58.86501, 1.869999, 27.99737)",
+      "leg": 0
+    },
+    {
+      "frame": 210,
+      "health": 100,
+      "hero_position": "(-60.59483, 1.947123, 27.998)",
+      "leg": 0
+    },
+    {
+      "frame": 220,
+      "health": 100,
+      "hero_position": "(-62.32568, 2.012914, 27.9988)",
+      "leg": 0
+    },
+    {
+      "frame": 230,
+      "health": 100,
+      "hero_position": "(-63.71719, 2.053123, 27.65306)",
+      "leg": 1
+    },
+    {
+      "frame": 240,
+      "health": 100,
+      "hero_position": "(-63.74847, 2.036472, 25.91994)",
+      "leg": 1
+    },
+    {
+      "frame": 250,
+      "health": 100,
+      "hero_position": "(-63.77979, 2.016551, 24.18679)",
+      "leg": 1
+    },
+    {
+      "frame": 260,
+      "health": 100,
+      "hero_position": "(-63.81111, 1.995019, 22.45362)",
+      "leg": 1
+    },
+    {
+      "frame": 270,
+      "health": 100,
+      "hero_position": "(-63.84243, 1.972118, 20.7204)",
+      "leg": 1
+    },
+    {
+      "frame": 280,
+      "health": 100,
+      "hero_position": "(-63.87374, 1.947411, 18.98714)",
+      "leg": 1
+    },
+    {
+      "frame": 290,
+      "health": 100,
+      "hero_position": "(-63.90507, 1.920409, 17.25384)",
+      "leg": 1
+    },
+    {
+      "frame": 300,
+      "health": 100,
+      "hero_position": "(-63.93639, 1.892382, 15.52055)",
+      "leg": 1
+    },
+    {
+      "frame": 310,
+      "health": 100,
+      "hero_position": "(-63.9677, 1.862598, 13.78726)",
+      "leg": 1
+    },
+    {
+      "frame": 320,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 330,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 340,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 350,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 360,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 370,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 380,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 390,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 400,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 410,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 420,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 430,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 440,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 450,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 460,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    },
+    {
+      "frame": 470,
+      "health": 100,
+      "hero_position": "(-63.99589, 1.83462, 12.22731)",
+      "leg": 2
+    }
+  ],
+  "resolution": [
+    1280,
+    720
+  ]
+}

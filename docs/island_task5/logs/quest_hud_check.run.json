@@ -1,0 +1,15 @@
+{
+  "name": "quest_hud_check",
+  "started_utc": "2026-11-15T10:07:36.223527+00:00",
+  "duration_s": 7.032,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/quest_hud_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

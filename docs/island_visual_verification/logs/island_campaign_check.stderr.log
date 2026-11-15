@@ -1,0 +1,8 @@
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:193)
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

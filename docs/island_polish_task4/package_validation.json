@@ -1,0 +1,27 @@
+{
+  "native_png_files": 29,
+  "matched_before_after_pairs": 12,
+  "original_png_bytes_preserved": true,
+  "browser_loaded_images": 29,
+  "browser_missing_images": 0,
+  "gallery_links_valid_after_fresh_extraction": true,
+  "zip_crc_passed": true,
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720,
+        "avg_frame_rate": "30/1",
+        "duration": "16.000000",
+        "nb_frames": "480"
+      }
+    ]
+  },
+  "video_file_present": true,
+  "native_render_logs_error_free": true,
+  "browser": "Chrome local file URL with external hostname resolution blocked",
+  "checked_utc": "2026-11-15T09:42:35.182188+00:00"
+}

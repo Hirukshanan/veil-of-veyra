@@ -1,0 +1,602 @@
+{
+  "after/01_island_overview.png": {
+    "bytes": 570948,
+    "sha256": "ec167743de529cbacf0eb3fd1c68823e7eb8f7de19640fa9a285446ec4f2c9cb"
+  },
+  "after/02_forest_interior.png": {
+    "bytes": 1764891,
+    "sha256": "f51c46fef04fe277d508acab8a8cd9c92baf33cc06dca82ba4bd94c9a4a31fa5"
+  },
+  "after/03_forest_approach.png": {
+    "bytes": 1516073,
+    "sha256": "6f9d9c9a66c592f9b25b25f566196ce5297672d42d118d38b14aea1f93ffc5a4"
+  },
+  "after/04_grassy_hills.png": {
+    "bytes": 1108841,
+    "sha256": "66e741cfd8b5428e3107c1029727e1a15d1061b2232f80b211ff54cdf2ddd7a4"
+  },
+  "after/05_mountain_landscape.png": {
+    "bytes": 915838,
+    "sha256": "995fe19db6c72fb85c286f4524d6ddae4b329dc42002c68725c784f4f5891bd3"
+  },
+  "after/06_river_waterfall.png": {
+    "bytes": 945185,
+    "sha256": "1654dd303c90829684c929ffb551e172426bf42ac59ea0a69e5abac3997a4eb4"
+  },
+  "after/07_cave_exterior.png": {
+    "bytes": 1113296,
+    "sha256": "63e19f8411c35c44cba283cd725f03ff626b6f140e0bc8f57ca7604b227e2f1d"
+  },
+  "after/08_sandy_shoreline.png": {
+    "bytes": 900976,
+    "sha256": "56cb6eae4712bb4d9e1dc6080b9cd4c3d9c135523aadad6b8c79059b793b58a9"
+  },
+  "after/09_forest_landmark.png": {
+    "bytes": 1727651,
+    "sha256": "49c26dda95cc5f19bbffd21c2bbebc95fd720868a9f1ed30d04cdba2b44b758a"
+  },
+  "after/10_river_landmark.png": {
+    "bytes": 1541912,
+    "sha256": "4f5ab86e7dc708c99a816a4d3b4e12f27f2b26276286eb87f01ecf3a3936c98c"
+  },
+  "after/11_optional_shadow_hills.png": {
+    "bytes": 1240784,
+    "sha256": "95a95e56238a3bf43b44ac0180612d7e9653eafa608a7c49a0f62bf14625a7c7"
+  },
+  "after/12_optional_shadow_forest.png": {
+    "bytes": 1945043,
+    "sha256": "46b81f9876291e769665173847a72ee42d6b274b91a43514c05d2248c89e8637"
+  },
+  "after_metrics.json": {
+    "bytes": 4757,
+    "sha256": "f40a52dc507201f1a4f28272e1adc379a7bbb630891ce53424065c9d8579a087"
+  },
+  "ASSET_SOURCES.md": {
+    "bytes": 1642,
+    "sha256": "ca5f6f7d4456fae6295b6bc6eefba41a41409aab6d29e2a544e3e04e3b183ca5"
+  },
+  "atmosphere_check.json": {
+    "bytes": 768,
+    "sha256": "6696207b7f72b925df02673374f59061b6f016589ff0a637d727333e1f46447f"
+  },
+  "baseline_hashes.json": {
+    "bytes": 63672,
+    "sha256": "62c59f73574ec7555754cc94a4a0eeea8402a36057dafddc3bfb052f1f496c44"
+  },
+  "before/01_island_overview.png": {
+    "bytes": 668338,
+    "sha256": "32c47e0341cdb0a22815f1a708338e822936731a722577da42b8fc887611cd19"
+  },
+  "before/02_forest_interior.png": {
+    "bytes": 1772429,
+    "sha256": "baf60472da732eb82892c8dc6bf8639b04075a4679203448a659f28fa807670d"
+  },
+  "before/03_forest_approach.png": {
+    "bytes": 1533109,
+    "sha256": "158f450187b844b509aab3d4beea0ab817768a4c7e36c51602153e9859028c04"
+  },
+  "before/04_grassy_hills.png": {
+    "bytes": 1116613,
+    "sha256": "7a04076141c361f69f8c6c277cb7ae2e1791c920c44284fedbc415da825234e3"
+  },
+  "before/05_mountain_landscape.png": {
+    "bytes": 923387,
+    "sha256": "c8413c34c6fc1e2be719b26a8b8cf48132fbb0ce4b9e81a2f4b5022701db0a4b"
+  },
+  "before/06_river_waterfall.png": {
+    "bytes": 939783,
+    "sha256": "509fc9e268019d5d140753d811d625e9699fbcf791a67a748ecb748438ead817"
+  },
+  "before/07_cave_exterior.png": {
+    "bytes": 1105398,
+    "sha256": "d64db85273263712f6ff69dcd600e03427a6b169efa16c71f40a6c8eb138a450"
+  },
+  "before/08_sandy_shoreline.png": {
+    "bytes": 871467,
+    "sha256": "56c3275a063c6abcebab07d39ca139f953ac02d7101b0b5ca726d9a03fabf5e6"
+  },
+  "before/09_forest_landmark.png": {
+    "bytes": 1723762,
+    "sha256": "1dcb623d59a61506a4878ddf859ad83e09311b3091152ef665436f58e9afb3c2"
+  },
+  "before/10_river_landmark.png": {
+    "bytes": 1565680,
+    "sha256": "cec6c4f0cb29878e0cad4ecff1e54f434848b1d3147608beab29148c316c6f92"
+  },
+  "before/11_optional_shadow_hills.png": {
+    "bytes": 1220328,
+    "sha256": "260f886b7a207ce18c24d0562f56fe99569984d61cfe71849e9569751aba18f2"
+  },
+  "before/12_optional_shadow_forest.png": {
+    "bytes": 1937538,
+    "sha256": "e01567e05d89ef5114f3cf18c1d3d4457432b7644d3a5d26a4e03d89b9d99942"
+  },
+  "before_metrics.json": {
+    "bytes": 4763,
+    "sha256": "74f2fecb6d2feacc990fff091e08e6546b0478da5bbdb0db3dbe1477b1978d00"
+  },
+  "candidate_patch/art_source/island/polish_task4/approved_task3_candidate.gd": {
+    "bytes": 2860,
+    "sha256": "01e22c022be92ee7fb55b680b8f12b1925b8f7b9b6b9b4f1816a243ffb2cb34c"
+  },
+  "candidate_patch/art_source/island/polish_task4/bake_journey_mask.gd": {
+    "bytes": 2665,
+    "sha256": "9a8355d1225797b02009b1b6e35878d4e9e7791747b9f1024523daf105373e39"
+  },
+  "candidate_patch/art_source/island/polish_task4/capture_exploration.gd": {
+    "bytes": 3129,
+    "sha256": "fd10ba0e6d94d77b285aa55f41061f26858d990c7923f42c0db074147d4037f2"
+  },
+  "candidate_patch/art_source/island/polish_task4/capture_review.gd": {
+    "bytes": 5000,
+    "sha256": "f6939b6f642955db8e777a0bcfbab9fc03dbf519ea7fe43d0c61dbd46f0df283"
+  },
+  "candidate_patch/art_source/island/polish_task4/README.md": {
+    "bytes": 1734,
+    "sha256": "24524c78835a7d99626854cb3d616cf4bab5ffa597a16e60bcfc079e7a4bf417"
+  },
+  "candidate_patch/assets/environment/new_island/task4/journey_mask.png": {
+    "bytes": 17956,
+    "sha256": "7817392e87232a38adbc2034ef59e642ca90bf4f4e3e3fb621db9718a2d683a0"
+  },
+  "candidate_patch/assets/environment/new_island/task4/journey_mask.png.import": {
+    "bytes": 975,
+    "sha256": "06bff93f3cd29fa695cc843307883e4d10f939408f1e79b987a9fe578b196d35"
+  },
+  "candidate_patch/assets/environment/new_island/task4/land.gdshader": {
+    "bytes": 1858,
+    "sha256": "fbd5933f2b0b88eb4fecbdf5d42bbd6576b4ebf16cc74ae5ec52c691e2e02489"
+  },
+  "candidate_patch/assets/environment/new_island/task4/land.gdshader.uid": {
+    "bytes": 19,
+    "sha256": "1b8cc5af11990ddbc192097c85c9d9e862321c82cfce7ac67cd6d98f9c3e3810"
+  },
+  "candidate_patch/assets/environment/new_island/task4/mask_source.json": {
+    "bytes": 439,
+    "sha256": "e2ff63be623405785e4bb5a3174ebb61acea6767123b656568954fba6389ba7a"
+  },
+  "candidate_patch/assets/environment/new_island/task4/README.md": {
+    "bytes": 1642,
+    "sha256": "ca5f6f7d4456fae6295b6bc6eefba41a41409aab6d29e2a544e3e04e3b183ca5"
+  },
+  "candidate_patch/assets/environment/new_island/task4/region.gdshader": {
+    "bytes": 2545,
+    "sha256": "8d89a6eae4bc18d04fdf51ed4ef276cbe8491ca00e7fc44549d4048f933f8f56"
+  },
+  "candidate_patch/assets/environment/new_island/task4/region.gdshader.uid": {
+    "bytes": 20,
+    "sha256": "590dffbbc6bd33e40d2feaf84ec8f16ce99adb411bee7535b343a6b2d6f0952d"
+  },
+  "candidate_patch/scripts/island_atmosphere.gd": {
+    "bytes": 4333,
+    "sha256": "8bd4de4bb9fdbe91672f90ef02c8c9818c59daa1e11ebcab152c51e3f35488ed"
+  },
+  "candidate_patch/scripts/island_atmosphere.gd.uid": {
+    "bytes": 20,
+    "sha256": "3407be467160ca8a0e30f154a1ea67f2ba905a3979b018e71c09256c3968a8fb"
+  },
+  "candidate_patch/scripts/island_candidate.gd": {
+    "bytes": 3090,
+    "sha256": "1e47e7f1ecad5e43844d73ec24a231f0bded96b09e13e47e3d55fcc580c1badc"
+  },
+  "candidate_patch/tests/island_atmosphere_check.gd": {
+    "bytes": 2996,
+    "sha256": "2b968d2347d0a8022ec49b98c25f459aeb26db26664f4b52a24b0c960adf5d31"
+  },
+  "candidate_patch/tests/island_atmosphere_check.gd.uid": {
+    "bytes": 20,
+    "sha256": "03c2d73fe346e925d4fe7ce78f6676956ff74bd394e2c59e356e9c550553378e"
+  },
+  "CHANGED_FILES.json": {
+    "bytes": 3590,
+    "sha256": "8d7c669329b84385c836f409652951da1f2b87995debc3327a1aa202320d3705"
+  },
+  "connection_walk.json": {
+    "bytes": 145856,
+    "sha256": "264618cd9ffd6beb4491391b72356e40218deb96e4e4ff432fc9a13cf3c4fa55"
+  },
+  "device_check.json": {
+    "bytes": 310,
+    "sha256": "6609e4c539a3f22dea65dba9bcb7aedbd25fe4adbb6a2f5cf885be49766b69ef"
+  },
+  "exploration_gameplay.mp4": {
+    "bytes": 47539312,
+    "sha256": "d2cf71aec4aa1fbadc086c1c5a354373480c11df6d4bce70817cefc78eaed46d"
+  },
+  "forest_check.json": {
+    "bytes": 690,
+    "sha256": "e7e2590d1253bc68444deca416d6b9ba3ee95f76686244d7251ce1ece1e05de8"
+  },
+  "gallery.html": {
+    "bytes": 6675,
+    "sha256": "1af70695d72f8bda54b520ff52ef1a749d6369ad6318a4f69aeb39a3a3d845a1"
+  },
+  "gameplay/gameplay_000.png": {
+    "bytes": 1500766,
+    "sha256": "af8aed5b6e92c76dca702c658366a6b33b48697b253e97b23ff96c0f9d0021ed"
+  },
+  "gameplay/gameplay_120.png": {
+    "bytes": 1591810,
+    "sha256": "511e6274fefdae96f4052c1ee486028fbc613c82ed9972b352abe14c496977a3"
+  },
+  "gameplay/gameplay_240.png": {
+    "bytes": 1753280,
+    "sha256": "04124a4cec9329bee925c8d6188e08fadc819ecc5e161e0becbffae5c70bcd6e"
+  },
+  "gameplay/gameplay_360.png": {
+    "bytes": 1770844,
+    "sha256": "e35541603f37577ce9a8f1e4bad4fad7113d34b87b1ccbf33d6bd8f8ae160934"
+  },
+  "gameplay/gameplay_479.png": {
+    "bytes": 1771716,
+    "sha256": "a10949e2d7b15ed34c60decd16deb0778c450d7363a8e7fd4a9133b33ec3a6eb"
+  },
+  "gameplay_log.json": {
+    "bytes": 6651,
+    "sha256": "1570f01a1d33a2923044f13cf13099f30e04496940ad9b7374b00fc6ee502a1e"
+  },
+  "geometry_check.json": {
+    "bytes": 736,
+    "sha256": "7d99a1eb0a0be278c29e30cf704125f18bd3975de6e02742a0d3eaffde78f1c3"
+  },
+  "logs/after_capture.run.json": {
+    "bytes": 564,
+    "sha256": "aeda63af291f40b2ec41e5b391412d3cc5a64635f69d355865ac1227d121c2a0"
+  },
+  "logs/after_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/after_capture.stdout.log": {
+    "bytes": 1041,
+    "sha256": "606d7d3b18b319fc82d84cda7642a62170ca529132a87d78b4aa71dc0ff20788"
+  },
+  "logs/autosave_check.run.json": {
+    "bytes": 346,
+    "sha256": "2da41babfafd3c52a48748447009b539644f9404522be254d5777ac85739b724"
+  },
+  "logs/autosave_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/autosave_check.stdout.log": {
+    "bytes": 243,
+    "sha256": "2a0a885f0fe825c55c4eaa383851baf4e333b44c89b4551d4586f933cd8e09ed"
+  },
+  "logs/bake_journey_mask.run.json": {
+    "bytes": 380,
+    "sha256": "b202ebea2f8ab705b6cb1c8c375e51b6a2fe0bf85eb4d6ffb4f1b0133994ee2e"
+  },
+  "logs/bake_journey_mask.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/bake_journey_mask.stdout.log": {
+    "bytes": 183,
+    "sha256": "613fd9dae06d61f673efa756d3acc358be76c022049e553ac80d2199dd60bf8e"
+  },
+  "logs/before_capture.run.json": {
+    "bytes": 585,
+    "sha256": "33c52f3d01fed68e91d8386e27352152c6dcd1565091e8d255f3d42cb56033c1"
+  },
+  "logs/before_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/before_capture.stdout.log": {
+    "bytes": 1041,
+    "sha256": "b46a65f219e63a5ea11970493a9382a86c591eba638d02d36593e1f199a75a9c"
+  },
+  "logs/boar_campaign_check.run.json": {
+    "bytes": 355,
+    "sha256": "bd302aa8cc03a258d6c5eebdc092a207191a809823d9885e4b682f36994b0c78"
+  },
+  "logs/boar_campaign_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/boar_campaign_check.stdout.log": {
+    "bytes": 221,
+    "sha256": "0122faff7ada0472a82d8e9e3b6afc826a8fb59594a1f828ac9d236b1788a045"
+  },
+  "logs/boar_check.run.json": {
+    "bytes": 337,
+    "sha256": "2e15a47eefd16d6d421c8163bf9b39509a4c0edea83bcf14f38957292d66c366"
+  },
+  "logs/boar_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/boar_check.stdout.log": {
+    "bytes": 234,
+    "sha256": "c71868c4ab8fae0bca20d272796d30273610fc96556381865473519996c280b6"
+  },
+  "logs/boar_feedback_check.run.json": {
+    "bytes": 355,
+    "sha256": "66d6fd12a8ab0e737f81abab9394f71fb13a30f8ec86514f44a1c8fc9a7eec22"
+  },
+  "logs/boar_feedback_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/boar_feedback_check.stdout.log": {
+    "bytes": 261,
+    "sha256": "96e6ffcdd42693e1c2c6bb40134b480fa843da65257878313ae9a1ddcb61d7e9"
+  },
+  "logs/campaign_smoke.run.json": {
+    "bytes": 345,
+    "sha256": "bc8587dca524e6bfb050caf601c03e475f5de52b9881b0fc780eef873a363ba2"
+  },
+  "logs/campaign_smoke.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/campaign_smoke.stdout.log": {
+    "bytes": 147,
+    "sha256": "ebac7d33064092275dab0ad4ae5a3f5eecb724541f8c52f5e77e76d454072d22"
+  },
+  "logs/combat_check.run.json": {
+    "bytes": 341,
+    "sha256": "2b8a7d61f4df7f1823538500a307a1a44ec204ad7aad186f8b76b5e7c4119647"
+  },
+  "logs/combat_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/combat_check.stdout.log": {
+    "bytes": 171,
+    "sha256": "327aea977ac0aed22843ac95463c93abde5ee9df5bfa86cc19240eb4eceba77c"
+  },
+  "logs/diagnostics/initial_palette_compile.run.json": {
+    "bytes": 564,
+    "sha256": "8d0391deda15a7391710215eb6f2c4f588b4bbf0e6cd2b4e1f784972b5d9abcb"
+  },
+  "logs/diagnostics/initial_palette_compile.stderr.log": {
+    "bytes": 560,
+    "sha256": "e0da01af710e2f3ccf74ab211933691b6546ee9a8c8f8cfa77c1fcee275dd1e0"
+  },
+  "logs/diagnostics/initial_palette_compile.stdout.log": {
+    "bytes": 1451,
+    "sha256": "35f0ecfee40926c56c60717b789c222d983ebce84a72ef62e14976f800cab6dd"
+  },
+  "logs/enemy_check.run.json": {
+    "bytes": 339,
+    "sha256": "820a435d2cc6f835358df422b1703061dcfc1b1a3f0133af69b26c47c5210f08"
+  },
+  "logs/enemy_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/enemy_check.stdout.log": {
+    "bytes": 207,
+    "sha256": "fb5e8c2b2125d39c5ad2ad4af3e2eac0f8a33098db8b21eda299c9122f38cb3c"
+  },
+  "logs/fast_travel_check.run.json": {
+    "bytes": 351,
+    "sha256": "038fdb3b0ea7a8c56ec7e826d827da8c94ad561eb255e6eb9bc170ffadddb8fd"
+  },
+  "logs/fast_travel_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/fast_travel_check.stdout.log": {
+    "bytes": 223,
+    "sha256": "5210b1a2345a9bfdbf8b09fddfd07cd6b34468a21f18a461718fe2158eac7b35"
+  },
+  "logs/gameplay_capture.run.json": {
+    "bytes": 603,
+    "sha256": "6dc41cc5fdd83d0769aa5138ddfd4ddf35c9e37a84cba9ab3cc4b4a3c33c55e3"
+  },
+  "logs/gameplay_capture.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/gameplay_capture.stdout.log": {
+    "bytes": 295,
+    "sha256": "107bc278ba9c087ecef7117eeed237a95458805732256705b5cb047294236be9"
+  },
+  "logs/heavy_attack_check.run.json": {
+    "bytes": 354,
+    "sha256": "f1de63a04ab24a21881ae7fbe626c68f9f274e1bcb1cc17001e03d25394f359f"
+  },
+  "logs/heavy_attack_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/heavy_attack_check.stdout.log": {
+    "bytes": 230,
+    "sha256": "a0196de01dbe00e914c99258d9e96480d29f07dd54389c404249709544e5ad53"
+  },
+  "logs/hud_customization_check.run.json": {
+    "bytes": 363,
+    "sha256": "fe2242ee68b7dcd3a43b95b7c1c50644a87549489439bceb407f8cd9e7bb9507"
+  },
+  "logs/hud_customization_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/hud_customization_check.stdout.log": {
+    "bytes": 248,
+    "sha256": "4bdc3f80094b764a3bf894b8ccac40bb15cb90e33eb3cbf1499cfa2b1b426839"
+  },
+  "logs/import_final.run.json": {
+    "bytes": 322,
+    "sha256": "31e7939a9022f35a1280333d6cd7682ac12642231891a638dd9040164a614e65"
+  },
+  "logs/import_final.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/import_final.stdout.log": {
+    "bytes": 1991,
+    "sha256": "e9f178bfdef7ddc6877b199866eafeb7923d5c20302a6304da5cd751458b01a6"
+  },
+  "logs/island_atmosphere_check.run.json": {
+    "bytes": 363,
+    "sha256": "978e55683c4d1b64f5f81b7630af27269db2af8db5e101d2c88bf9f2688c569a"
+  },
+  "logs/island_atmosphere_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_atmosphere_check.stdout.log": {
+    "bytes": 218,
+    "sha256": "36cdf1380672f77ed18374c46992f20711bd5d695a8469775bcafc4294d86412"
+  },
+  "logs/island_campaign_check.run.json": {
+    "bytes": 360,
+    "sha256": "c199f0851e2c5579abf3594a3e874f0e7bf1033a71e76f91581e76a8f3fcdd34"
+  },
+  "logs/island_campaign_check.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/island_campaign_check.stdout.log": {
+    "bytes": 246,
+    "sha256": "b22fc5c69e3e1b4f4406ebb66b43e568c9f84e0fe5897f7b0836f296566de31f"
+  },
+  "logs/island_check.run.json": {
+    "bytes": 341,
+    "sha256": "b079e5e8d9318bbfb100fa119705adb80d83990ee431be19f3566bc9dc63ecb5"
+  },
+  "logs/island_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "382367699dd0cd3e933e4c9fd5446d8e177adf0af5c90371164cc4396b076adb"
+  },
+  "logs/island_collision_check.run.json": {
+    "bytes": 362,
+    "sha256": "4b105b14bb273f046c617088fb202118b8ab41b9003292fc551903826261513b"
+  },
+  "logs/island_collision_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_collision_check.stdout.log": {
+    "bytes": 203,
+    "sha256": "58b97ace8ccc8d85261f7f027986a3ffd57ad357d4b34ff2c124c26449bd7e84"
+  },
+  "logs/island_connections_review.run.json": {
+    "bytes": 368,
+    "sha256": "6407eb05eae2a599e49a8804eaa3a5caade6f9e0ccfa7915d733d05ec82a4bd9"
+  },
+  "logs/island_connections_review.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_connections_review.stdout.log": {
+    "bytes": 943,
+    "sha256": "b12488402e8421a91249d6bd7a03ba6a5d47025b0333499124538645b91e9474"
+  },
+  "logs/island_forest_refinement_check.run.json": {
+    "bytes": 490,
+    "sha256": "a2d4565d0f762be0253ee47b412eb46414622448d6bed7297d594f2c5b9a0576"
+  },
+  "logs/island_forest_refinement_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_forest_refinement_check.stdout.log": {
+    "bytes": 325,
+    "sha256": "5a7de9d4f20927b78d12b8624a8bacddc77a77a43f90e2bdaa86ac2471de4ba3"
+  },
+  "logs/island_rock_water_check.run.json": {
+    "bytes": 363,
+    "sha256": "1c867c3c3a08936e88fc3e6776f917fa11f0633f85648536b5310fc5bc808777"
+  },
+  "logs/island_rock_water_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_rock_water_check.stdout.log": {
+    "bytes": 222,
+    "sha256": "f30016515c4c2b65a7fd1acea1349fc4f8872eee2d2a35fbbb07331c0d63e567"
+  },
+  "logs/island_terrain_polish_check.run.json": {
+    "bytes": 371,
+    "sha256": "141462181e1651bbf736d9d71e209e8cbeb97f5e117c5add81a981a8f788a8d4"
+  },
+  "logs/island_terrain_polish_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_terrain_polish_check.stdout.log": {
+    "bytes": 235,
+    "sha256": "3b7d957dabfbc113f3e8640072178bf329c1d80344b2ca493d07f019ebaec541"
+  },
+  "logs/island_vegetation_check.run.json": {
+    "bytes": 364,
+    "sha256": "ff91632af4bc4600c903fcd9cbcce509212f7a4e7a74b8731c97b2f067be9553"
+  },
+  "logs/island_vegetation_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/island_vegetation_check.stdout.log": {
+    "bytes": 220,
+    "sha256": "19339e38b94a89bf91d8c3ee480fb6cc4c5aa24be1cc968730a55774ea69db30"
+  },
+  "logs/persistent_world_check.run.json": {
+    "bytes": 362,
+    "sha256": "9d21ec25e26786d077aa19180124c4d1e5039d376907f0999d31141135abd43a"
+  },
+  "logs/persistent_world_check.stderr.log": {
+    "bytes": 470,
+    "sha256": "5ce634a274781e7929590ba2603fb430ec9cb1576de18f3754f5d16c50344fe3"
+  },
+  "logs/persistent_world_check.stdout.log": {
+    "bytes": 226,
+    "sha256": "289c4103e3dd745e37db4311a5aced03cc8a541a9bbf4bdd3896b15b3bf9c838"
+  },
+  "logs/quest_hud_check.run.json": {
+    "bytes": 347,
+    "sha256": "a9ee1a43315ab33c6a7363d47140ae3ace06faa1ec8d9a848c5d5480d67b7edb"
+  },
+  "logs/quest_hud_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/quest_hud_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "02b97cab5f74d4e30ded6239b6c6937c56c1be4822d646db4d5016823ad853f1"
+  },
+  "logs/video_encode.stderr.log": {
+    "bytes": 8877,
+    "sha256": "110609c075803b7d99c76c85172c9eca189b7d7fe1f63026eaa0e99337240150"
+  },
+  "logs/video_encode.stdout.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "package_validation.json": {
+    "bytes": 748,
+    "sha256": "22f827e6a63de2e95550f0ecb957b0f2435491164618db775c0be9ad31329d25"
+  },
+  "preservation.json": {
+    "bytes": 826,
+    "sha256": "efc832afe94b4cd07a5a3f7eb0dde2a259ecfc6da612857056a969527eb5e4bd"
+  },
+  "rendering_comparison.json": {
+    "bytes": 11036,
+    "sha256": "1dea28908ff37c0beebd9d9b37e1c6dee1de5b364ee8d17acade286f8468d87c"
+  },
+  "REPORT.md": {
+    "bytes": 10684,
+    "sha256": "14f39a820450d05be30d3c2006f6010d44e03aa1508acbc5c9734ea1a5dd28d0"
+  },
+  "test_results.json": {
+    "bytes": 10140,
+    "sha256": "b12eb999730eb4922758b7c0497a76a03e49df5ecf5bc8fef847e0f062c05c72"
+  },
+  "vegetation_check.json": {
+    "bytes": 882,
+    "sha256": "6f82d791301887143692c78ada4efe08cfd04abe8693273a20dd9e621c39afc3"
+  },
+  "video_verification.json": {
+    "bytes": 480,
+    "sha256": "fcf63c35f8b3bd3865be4c332f9bfe20d4dfa5d2978740a3f7db1339ceefb73f"
+  }
+}

@@ -1,0 +1,26 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+INFO Draco mesh compression is available, use library at C:\Users\Dark\Documents\Codex\2026-11-13\c\work\phase3_tools\blender\blender-4.2.9-windows-x64\4.2\python\lib\site-packages\extern_draco.dll
+12:06:48 | INFO: Starting glTF 2.0 export
+12:06:48 | INFO: Extracting primitive: Joined_Branch_Skeleton.005
+12:06:48 | INFO: Primitives created: 1
+12:06:48 | INFO: Finished glTF 2.0 export in 0.004001140594482422 s
+
+ORGANIC_TRUNK_LOD 0 polygons 1019
+12:06:48 | INFO: Starting glTF 2.0 export
+12:06:48 | INFO: Extracting primitive: Joined_Branch_Skeleton.006
+12:06:48 | INFO: Primitives created: 1
+12:06:48 | INFO: Finished glTF 2.0 export in 0.0046885013580322266 s
+
+ORGANIC_TRUNK_LOD 1 polygons 422
+12:06:48 | INFO: Starting glTF 2.0 export
+12:06:48 | INFO: Extracting primitive: Joined_Branch_Skeleton.007
+12:06:48 | INFO: Primitives created: 1
+12:06:48 | INFO: Finished glTF 2.0 export in 0.004001617431640625 s
+
+ORGANIC_TRUNK_LOD 2 polygons 119
+Blender 4.2.9 LTS (hash a10f621e649a built 2025-04-15 03:32:43)
+Info: Total files 0 | Changed 0 | Failed 0
+Info: Saved "forest_forms.blend"
+PASS: original joined trunk forks, 3 editable forms and 3 mobile source LODs saved
+
+Blender quit

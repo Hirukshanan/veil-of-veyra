@@ -1,0 +1,11 @@
+region,direction,walked_distance_m,physics_ticks,blocked,health
+WaterfallMountains,outward,89.5958930924535,263,False,100
+WaterfallMountains,return,88.6728250086308,256,False,100
+WesternForest,outward,185.266474425793,533,False,100
+WesternForest,return,185.142265856266,534,False,100
+RiverGrassland,outward,11.1169255077839,32,False,100
+RiverGrassland,return,11.0720848143101,32,False,100
+EasternCaves,outward,336.737421929836,970,False,100
+EasternCaves,return,336.33103582263,971,False,100
+SouthernBeach,outward,54.0686689317226,155,False,100
+SouthernBeach,return,53.6278566420078,156,False,100

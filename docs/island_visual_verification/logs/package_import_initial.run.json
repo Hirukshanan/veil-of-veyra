@@ -1,0 +1,16 @@
+{
+  "name": "package_import",
+  "started_utc": "2026-11-15T03:00:08.457688+00:00",
+  "duration_s": 12.547,
+  "exit_code": 3221225477,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--editor",
+    "--path",
+    "PROJECT_ROOT",
+    "--import",
+    "--quit"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

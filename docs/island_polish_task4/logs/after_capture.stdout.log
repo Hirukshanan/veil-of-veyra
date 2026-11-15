@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+NATIVE_VIEW 01_island_overview calls 251.0 primitives 379583.0
+NATIVE_VIEW 02_forest_interior calls 50.0 primitives 279484.0
+NATIVE_VIEW 03_forest_approach calls 55.0 primitives 252378.0
+NATIVE_VIEW 04_grassy_hills calls 120.0 primitives 418149.0
+NATIVE_VIEW 05_mountain_landscape calls 33.0 primitives 171495.0
+NATIVE_VIEW 06_river_waterfall calls 7.0 primitives 119138.0
+NATIVE_VIEW 07_cave_exterior calls 51.0 primitives 143694.0
+NATIVE_VIEW 08_sandy_shoreline calls 4.0 primitives 114279.0
+NATIVE_VIEW 09_forest_landmark calls 51.0 primitives 231912.0
+NATIVE_VIEW 10_river_landmark calls 23.0 primitives 170746.0
+NATIVE_VIEW 11_optional_shadow_hills calls 141.0 primitives 531303.0
+NATIVE_VIEW 12_optional_shadow_forest calls 52.0 primitives 360768.0
+PASS: twelve matched native Task 4 views, low quality and optional shadow counters saved
