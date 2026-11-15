@@ -1,0 +1,15 @@
+{
+  "name": "persistent_world_check",
+  "started_utc": "2026-11-15T11:17:57.706256+00:00",
+  "duration_s": 9.609,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/persistent_world_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

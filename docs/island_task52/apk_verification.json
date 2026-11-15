@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "apk": "Veil_of_Vera_Task52_720p_Candidate.apk",
+  "bytes": 150979898,
+  "sha256": "24d3bcd13417f28f00a3cf476da72ea94bf138cf18339df0dea3eb5ee11f1dbc",
+  "signature_verified": true,
+  "same_signing_identity_as_accepted_720p_APK": true,
+  "accepted_bootstrap_and_probe_bytecode_identical": true,
+  "package": "com.hirukshanan.veilofveyra.islandtest",
+  "render_height_cap": 720,
+  "internet_permission": false,
+  "production_map_activated": false,
+  "android_execution": false
+}

@@ -1,0 +1,178 @@
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RG11 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RG11 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RG11 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/island_landscape.gd:20)
+       [1] _build_island (res://scripts/island_candidate.gd:15)
+       [2] _ready (res://scripts/main.gd:75)
+       [3] _ready (res://scripts/campaign.gd:205)
+       [4] _ready (res://scripts/island_candidate.gd:24)
+       [5] _ready (res://mobile_test/bootstrap.gd:14)
+       [6] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/island_landscape.gd:20)
+       [1] _build_island (res://scripts/island_candidate.gd:15)
+       [2] _ready (res://scripts/main.gd:75)
+       [3] _ready (res://scripts/campaign.gd:205)
+       [4] _ready (res://scripts/island_candidate.gd:24)
+       [5] _ready (res://mobile_test/bootstrap.gd:14)
+       [6] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/island_landscape.gd:20)
+       [1] _build_island (res://scripts/island_candidate.gd:15)
+       [2] _ready (res://scripts/main.gd:75)
+       [3] _ready (res://scripts/campaign.gd:205)
+       [4] _ready (res://scripts/island_candidate.gd:24)
+       [5] _ready (res://mobile_test/bootstrap.gd:14)
+       [6] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/island_landscape.gd:20)
+       [1] _build_island (res://scripts/island_candidate.gd:15)
+       [2] _ready (res://scripts/main.gd:75)
+       [3] _ready (res://scripts/campaign.gd:205)
+       [4] _ready (res://scripts/island_candidate.gd:24)
+       [5] _ready (res://mobile_test/bootstrap.gd:14)
+       [6] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/island_landscape.gd:20)
+       [1] _build_island (res://scripts/island_candidate.gd:15)
+       [2] _ready (res://scripts/main.gd:75)
+       [3] _ready (res://scripts/campaign.gd:205)
+       [4] _ready (res://scripts/island_candidate.gd:24)
+       [5] _ready (res://mobile_test/bootstrap.gd:14)
+       [6] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:6)
+       [1] _build_grotto (res://scripts/island_landscape.gd:123)
+       [2] _ready (res://scripts/island_landscape.gd:53)
+       [3] _build_island (res://scripts/island_candidate.gd:15)
+       [4] _ready (res://scripts/main.gd:75)
+       [5] _ready (res://scripts/campaign.gd:205)
+       [6] _ready (res://scripts/island_candidate.gd:24)
+       [7] _ready (res://mobile_test/bootstrap.gd:14)
+       [8] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:8)
+       [1] _build_grotto (res://scripts/island_landscape.gd:123)
+       [2] _ready (res://scripts/island_landscape.gd:53)
+       [3] _build_island (res://scripts/island_candidate.gd:15)
+       [4] _ready (res://scripts/main.gd:75)
+       [5] _ready (res://scripts/campaign.gd:205)
+       [6] _ready (res://scripts/island_candidate.gd:24)
+       [7] _ready (res://mobile_test/bootstrap.gd:14)
+       [8] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:10)
+       [1] _build_grotto (res://scripts/island_landscape.gd:123)
+       [2] _ready (res://scripts/island_landscape.gd:53)
+       [3] _build_island (res://scripts/island_candidate.gd:15)
+       [4] _ready (res://scripts/main.gd:75)
+       [5] _ready (res://scripts/campaign.gd:205)
+       [6] _ready (res://scripts/island_candidate.gd:24)
+       [7] _ready (res://mobile_test/bootstrap.gd:14)
+       [8] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:6)
+       [1] _piece (res://scripts/chapter_environment.gd:29)
+       [2] _column (res://scripts/chapter_environment.gd:39)
+       [3] _ready (res://scripts/beach_seals.gd:24)
+       [4] _ready (res://scripts/campaign.gd:234)
+       [5] _ready (res://scripts/island_candidate.gd:24)
+       [6] _ready (res://mobile_test/bootstrap.gd:14)
+       [7] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:8)
+       [1] _piece (res://scripts/chapter_environment.gd:29)
+       [2] _column (res://scripts/chapter_environment.gd:39)
+       [3] _ready (res://scripts/beach_seals.gd:24)
+       [4] _ready (res://scripts/campaign.gd:234)
+       [5] _ready (res://scripts/island_candidate.gd:24)
+       [6] _ready (res://mobile_test/bootstrap.gd:14)
+       [7] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGB8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] surface (res://scripts/environment_materials.gd:10)
+       [1] _piece (res://scripts/chapter_environment.gd:29)
+       [2] _column (res://scripts/chapter_environment.gd:39)
+       [3] _ready (res://scripts/beach_seals.gd:24)
+       [4] _ready (res://scripts/campaign.gd:234)
+       [5] _ready (res://scripts/island_candidate.gd:24)
+       [6] _ready (res://mobile_test/bootstrap.gd:14)
+       [7] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke52.gd:7)
+WARNING: Image format ETC2_RGBA8 not supported by hardware, converting to RGBA8.
+   at: _get_gl_image_and_format (drivers/gles3/storage/texture_storage.cpp:987)
+   GDScript backtrace (most recent call first):
+       [0] _build_trees (res://scripts/candidate_vegetation.gd:57)
+       [1] populate (res://scripts/candidate_vegetation.gd:22)
+       [2] populate_ground_detail (res://scripts/island_landscape.gd:68)
+       [3] _ready (res://scripts/island_candidate.gd:28)

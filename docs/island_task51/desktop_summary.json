@@ -1,0 +1,48 @@
+{
+  "platform": "Windows Intel Iris Xe",
+  "android_results": false,
+  "aggregation": "Mean of two per-trial medians in native/cap/cap/native order; not pooled-frame statistics",
+  "window_pixels": "(1920, 1080)",
+  "rows": [
+    {
+      "zone": "forest",
+      "native_frame_ms": 16.971,
+      "cap_frame_ms": 14.32,
+      "native_gpu_ms": 14.28200006484985,
+      "cap_gpu_ms": 11.09050035476685,
+      "native_render_cpu_ms": 4.226999943733215,
+      "cap_render_cpu_ms": 6.11249990081787,
+      "native_primitives": 289102.0,
+      "cap_primitives": 289102.0,
+      "native_draw_calls": 154.0,
+      "cap_draw_calls": 154.0
+    },
+    {
+      "zone": "hills",
+      "native_frame_ms": 8.663,
+      "cap_frame_ms": 8.952000000000002,
+      "native_gpu_ms": 5.8610000610351545,
+      "cap_gpu_ms": 5.943000078201295,
+      "native_render_cpu_ms": 4.606499979019165,
+      "cap_render_cpu_ms": 5.44800011253357,
+      "native_primitives": 320105.0,
+      "cap_primitives": 320105.0,
+      "native_draw_calls": 221.0,
+      "cap_draw_calls": 221.0
+    },
+    {
+      "zone": "mountain",
+      "native_frame_ms": 7.3100000000000005,
+      "cap_frame_ms": 8.0,
+      "native_gpu_ms": 4.2425000667571995,
+      "cap_gpu_ms": 4.63550019264221,
+      "native_render_cpu_ms": 4.33949996185303,
+      "cap_render_cpu_ms": 4.95399984359741,
+      "native_primitives": 181113.0,
+      "cap_primitives": 181113.0,
+      "native_draw_calls": 137.0,
+      "cap_draw_calls": 137.0
+    }
+  ],
+  "note": "Some views regress after scaling. No Android or universal improvement claimed."
+}

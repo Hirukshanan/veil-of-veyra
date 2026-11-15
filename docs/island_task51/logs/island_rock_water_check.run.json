@@ -1,0 +1,15 @@
+{
+  "name": "island_rock_water_check",
+  "started_utc": "2026-11-15T11:14:59.473762+00:00",
+  "duration_s": 7.782,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_rock_water_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "capture_after",
+  "started_utc": "2026-11-15T12:41:28.740623+00:00",
+  "duration_s": 76.743,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task52_review.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task52\\after"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

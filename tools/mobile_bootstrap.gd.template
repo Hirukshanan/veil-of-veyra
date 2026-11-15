@@ -1,7 +1,19 @@
 extends Node
+var performance_config:Dictionary
+func _apply_render_scale():
+	# Root 2D/HUD keeps its native size; only the 3D buffer is undersampled.
+	var physical_height:int=DisplayServer.window_get_size().y
+	var limit:int=int(performance_config.get("render_height",0))
+	get_viewport().scaling_3d_mode=Viewport.SCALING_3D_MODE_BILINEAR
+	get_viewport().scaling_3d_scale=clampf(float(limit)/maxi(1,physical_height),.25,1.0) if limit>0 else 1.0
 func _ready():
+	var config=FileAccess.get_file_as_string("res://mobile_test/performance_config.json")
+	performance_config=JSON.parse_string(config)
+	_apply_render_scale();get_viewport().size_changed.connect(_apply_render_scale)
+	var start:=Time.get_ticks_usec()
 	var game=preload("res://scenes/island_candidate.tscn").instantiate();add_child(game)
 	while not game.placement_ready:await get_tree().physics_frame
-	# Reproducible test defaults, runtime only; existing settings UI remains available.
 	game.frame_limit=30;game.shadows_enabled=false;game._apply_settings()
-	var probe=preload("res://mobile_test/probe.gd").new();probe.name="MobilePerformanceProbe";probe.game=game;add_child(probe)
+	var probe=preload("res://mobile_test/probe.gd").new();probe.name="MobilePerformanceProbe";probe.game=game
+	probe.performance_config=performance_config;probe.placement_ready_ms=(Time.get_ticks_usec()-start)/1000.0
+	add_child(probe)

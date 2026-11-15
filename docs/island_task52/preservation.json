@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "production_main_unchanged": true,
+  "all_existing_assets_byte_identical": true,
+  "hero_HUD_enemy_combat_quest_inventory_save_dragon_sources_byte_identical": true,
+  "approved_720p_bootstrap_and_profiler_byte_identical": true,
+  "vegetation_visual_code_unchanged_except_collision_hook": true,
+  "enemy_and_quest_placements_exact": true,
+  "placements_checked": 26,
+  "original_sea_and_playable_vault_mesh_hashes_exact": true,
+  "runtime_files_changed": [
+    "scripts/candidate_vegetation.gd",
+    "scripts/island_landscape.gd",
+    "scripts/island_rock_water_polish.gd",
+    "scripts/island_surface_data.gd"
+  ],
+  "new_runtime_file": "scripts/island_accessibility.gd",
+  "old_map_sources_retained": true,
+  "candidate_only": true,
+  "final_APK_matches_all_current_runtime_source_hashes": true
+}

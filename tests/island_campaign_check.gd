@@ -76,5 +76,7 @@ func run():
 	scene.queue_free()
 	paused=false
 	await process_frame
+	# Allow fixture audio voices to release before process shutdown.
+	await create_timer(.25,true,false,true).timeout
 	print("PASS: legacy equipment/quest/health preservation, safe relocation, real cave entry/relic, cave save reload, one-time boar reward and unchanged lantern/dragon progression")
 	quit()

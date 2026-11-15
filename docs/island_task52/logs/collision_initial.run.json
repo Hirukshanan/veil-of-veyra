@@ -1,0 +1,17 @@
+{
+  "name": "collision_initial",
+  "started_utc": "2026-11-15T12:38:05.587020+00:00",
+  "duration_s": 5.541,
+  "exit_code": 1,
+  "script_error": true,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_collision.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task52\\after"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

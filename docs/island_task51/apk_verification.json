@@ -1,0 +1,52 @@
+{
+  "checked_utc": "2026-11-15T11:17:22.088556+00:00",
+  "variants": [
+    {
+      "variant": "native",
+      "render_height": 0,
+      "apk": "Veil_of_Vera_Task51_Native_Baseline.apk",
+      "bytes": 150975627,
+      "sha256": "315d5bba1fa2497d6282db457be1674283d3ff37ad89c4dfe24722bb23ae5efe",
+      "signature_verified": true,
+      "package": "com.hirukshanan.veilofveyra.islandtest",
+      "internet_permission": false,
+      "config": {
+        "task": "5.1",
+        "experiment": "native_baseline",
+        "render_height": 0,
+        "single_changed_variable": "3D rendering resolution only",
+        "phone_improvement_verified": false
+      },
+      "phone_execution": false
+    },
+    {
+      "variant": "cap720",
+      "render_height": 720,
+      "apk": "Veil_of_Vera_Task51_720p_Trial.apk",
+      "bytes": 150975627,
+      "sha256": "509722b0ddc8e7c8715e3b49f733a3dec60280271f36a7b60c1e68c515f5814e",
+      "signature_verified": true,
+      "package": "com.hirukshanan.veilofveyra.islandtest",
+      "internet_permission": false,
+      "config": {
+        "task": "5.1",
+        "experiment": "cap720_trial",
+        "render_height": 720,
+        "single_changed_variable": "3D rendering resolution only",
+        "phone_improvement_verified": false
+      },
+      "phone_execution": false
+    }
+  ],
+  "same_signing_identity_both_variants_and_prior_test_apk": true,
+  "existing_test_saves_preserved_by_in_place_update": true,
+  "identical_probe_and_bootstrap_bytecode": true,
+  "payload_differences": [
+    "assets/.godot/exported/133200997/export-391ce0f23084d0d6950f891d4aed96ea-main.scn",
+    "assets/mobile_test/performance_config.json",
+    "assets/.godot/exported/133200997/export-92bf60021d521f1760632b0901992259-island_candidate.scn",
+    "assets/.godot/exported/133200997/export-3ad5c15c4f3250da0cc7c1af1770d85f-main.scn",
+    "assets/assets.sparsepck"
+  ],
+  "note": "Generated binary scene/sparse-pack metadata may vary. Approved runtime scripts, art and gameplay are identical; experiment JSON changes only requested 3D render height. No Android execution claimed."
+}

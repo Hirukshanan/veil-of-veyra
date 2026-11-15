@@ -1,0 +1,17 @@
+{
+  "baseline_files": 547,
+  "changed_existing_files": [
+    "tools/build_island_android.py",
+    "tools/mobile_bootstrap.gd.template",
+    "tools/mobile_probe.gd.template",
+    "tools/profile_island_android.py"
+  ],
+  "all_runtime_scripts_scenes_assets_tests_unchanged": true,
+  "project_and_production_export_unchanged": true,
+  "production_main": "res://scenes/main.tscn",
+  "candidate_main_not_activated": true,
+  "same_test_package_signing_identity": true,
+  "no_world_scale_river_collision_controls_hud_save_quest_enemy_or_dragon_changes": true,
+  "retained_gameplay_optimizations": null,
+  "performance_trial": "test-build-only 3D render-height cap, pending Android results"
+}

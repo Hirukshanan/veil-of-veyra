@@ -1,0 +1,17 @@
+{
+  "name": "river_before",
+  "started_utc": "2026-11-15T12:32:09.715377+00:00",
+  "duration_s": 60.495,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_river.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task52\\before"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

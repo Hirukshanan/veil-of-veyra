@@ -1,0 +1,22 @@
+{
+  "name": "controlled_investigation",
+  "started_utc": "2026-11-15T11:04:28.329897+00:00",
+  "duration_s": 76.172,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/investigate_task51.gd",
+    "--resolution",
+    "2400x1080",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task51\\investigation"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

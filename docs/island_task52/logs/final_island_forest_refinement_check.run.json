@@ -1,0 +1,20 @@
+{
+  "name": "final_island_forest_refinement_check",
+  "started_utc": "2026-11-15T13:02:18.962738+00:00",
+  "duration_s": 31.133,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_forest_refinement_check.gd",
+    "--resolution",
+    "1280x720",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

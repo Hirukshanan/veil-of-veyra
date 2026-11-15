@@ -1,0 +1,31 @@
+{
+  "local_counter_csv_verified": true,
+  "passed": true,
+  "phone_execution": false,
+  "platform": "Windows",
+  "profile_directory": "C:/Users/Dark/Desktop/Projects/veil-of-veyra/.validation/island_task51/profile_smoke_cap720_1794741278201389500/Godot/app_userdata/Veil of Vera Island Test/mobile_profile_1794741312",
+  "render_height": 720,
+  "resolution_and_hud_checks": [
+    {
+      "hud_rectangles_preserved": true,
+      "physical": "(1920, 1080)",
+      "scale": 0.666666686534882
+    },
+    {
+      "hud_rectangles_preserved": true,
+      "physical": "(1280, 720)",
+      "scale": 1.0
+    },
+    {
+      "hud_rectangles_preserved": true,
+      "physical": "(1600, 900)",
+      "scale": 0.800000011920929
+    },
+    {
+      "hud_rectangles_preserved": true,
+      "physical": "(1920, 1080)",
+      "scale": 0.666666686534882
+    }
+  ],
+  "schema": 2
+}

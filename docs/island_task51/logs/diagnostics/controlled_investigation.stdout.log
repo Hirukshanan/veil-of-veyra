@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+MEASURE forest native_a median_ms=15.357 gpu_ms=12.8940000534058 cpu_render_ms=4.30100011062622
+MEASURE forest cap720_a median_ms=10.4 gpu_ms=8.36800003051758 cpu_render_ms=5.17500020217896
+MEASURE forest cap720_b median_ms=10.606 gpu_ms=8.5 cpu_render_ms=5.47699991989136
+MEASURE forest native_b median_ms=15.802 gpu_ms=13.6300001144409 cpu_render_ms=6.44199984359741
+MEASURE forest no_vegetation_diagnostic median_ms=6.254 gpu_ms=2.38199996948242 cpu_render_ms=3.34600007247925
+MEASURE forest no_ai_diagnostic median_ms=14.899 gpu_ms=12.5570001602173 cpu_render_ms=3.99099990272522
+MEASURE hills native_a median_ms=8.499 gpu_ms=5.98400020599365 cpu_render_ms=5.07100006103516
+MEASURE hills cap720_a median_ms=8.166 gpu_ms=4.44000005722046 cpu_render_ms=5.74300000762939
+MEASURE hills cap720_b median_ms=8.223 gpu_ms=4.65700006484985 cpu_render_ms=5.68100001907349
+MEASURE hills native_b median_ms=8.405 gpu_ms=5.78299999237061 cpu_render_ms=5.05500010299683
+MEASURE hills no_vegetation_diagnostic median_ms=7.462 gpu_ms=3.65199995040894 cpu_render_ms=4.4929998626709
+MEASURE hills no_ai_diagnostic median_ms=8.802 gpu_ms=6.59700012207031 cpu_render_ms=4.39500003814697
+MEASURE mountain native_a median_ms=7.091 gpu_ms=4.01599979400635 cpu_render_ms=3.39499996185303
+MEASURE mountain cap720_a median_ms=7.514 gpu_ms=3.51799988746643 cpu_render_ms=4.37299992752075
+MEASURE mountain cap720_b median_ms=7.213 gpu_ms=3.52099990844727 cpu_render_ms=4.14800002288818
+MEASURE mountain native_b median_ms=6.598 gpu_ms=3.95099997520447 cpu_render_ms=3.40700003242493
+MEASURE mountain no_vegetation_diagnostic median_ms=7.831 gpu_ms=3.34999990463257 cpu_render_ms=3.63800005435944
+MEASURE mountain no_ai_diagnostic median_ms=6.551 gpu_ms=3.99300003051758 cpu_render_ms=3.01700009536743
+PASS: controlled desktop Task 5.1 investigation complete; not Android performance

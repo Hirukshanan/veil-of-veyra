@@ -1,0 +1,23 @@
+{
+  "name": "smoke_cap720",
+  "started_utc": "2026-11-15T11:14:38.201389+00:00",
+  "duration_s": 60.875,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task51_cap720_apk_resources",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/mobile_smoke51.gd",
+    "--resolution",
+    "1920x1080",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task51\\smoke_cap720",
+    "720"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

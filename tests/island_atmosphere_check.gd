@@ -5,7 +5,7 @@ func run():
 	while not scene.placement_ready:await physics_frame
 	var original:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://art_source/island/polish_task2/collision_baseline.json"))
 	var current:Dictionary=fingerprint(scene.landscape)
-	assert(original==current and current.collision_shapes.size()==47)
+	assert_environment_preservation(original,current)
 	var atmosphere:Node3D=scene.get_node("IslandAtmosphere")
 	assert(atmosphere.find_children("*","CollisionObject3D",true,false).is_empty())
 	assert(atmosphere.landmark_positions.size()==2 and atmosphere.added_triangles<=200)
@@ -34,5 +34,5 @@ func run():
 	for y in range(376,512):
 		for x in range(512):assert(image.get_pixel(x,y).r==0,"No new footpath paint on southern beach")
 	var file:=FileAccess.open("res://.validation/island_polish_task4/atmosphere_check.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"original_47_collisions_and_approved_meshes_exact":true,"fingerprints":current.geometry,"new_colliders":0,"landmarks":2,"added_visual_triangles":atmosphere.added_triangles,"landmark_height_offset_m":.018,"one_sun_one_environment":true,"shadow_preference_preserved":true,"optional_shadow_range_m":26,"single_shadow_split":true,"no_volumetric_fog_or_glow":true,"new_paths_do_not_reach_southern_sand":true},"  "))
-	print("PASS: Task 4 lighting budget, shadow preference, flush landmarks, shoreline path exclusion; original 47 collisions and protected meshes exact");quit()
+	file.store_string(JSON.stringify({"task52_physical_corrections_only":true,"fingerprints":current.geometry,"new_colliders":0,"landmarks":2,"added_visual_triangles":atmosphere.added_triangles,"landmark_height_offset_m":.018,"one_sun_one_environment":true,"shadow_preference_preserved":true,"optional_shadow_range_m":26,"single_shadow_split":true,"no_volumetric_fog_or_glow":true,"new_paths_do_not_reach_southern_sand":true},"  "))
+	print("PASS: Task 4 lighting budget, shadow preference, flush landmarks, shoreline path exclusion; Task 5.2 physical corrections, protected water/cave meshes exact");quit()

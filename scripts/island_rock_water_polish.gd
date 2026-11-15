@@ -77,7 +77,11 @@ func _build_entrance()->void:
 		for side in range(24):
 			var a:=_arch(side,ring);var b:=_arch(side+1,ring);var c:=_arch(side,ring+1);var d:=_arch(side+1,ring+1)
 			_triangle(s,a,b,c);_triangle(s,c,b,d)
-	_visual("FittedCaveRockMantle",s,rock_material(false,false,true))
+	var mantle:=_visual("FittedCaveRockMantle",s,rock_material(false,false,true))
+	# The previously visual-only entrance mantle is solid scenery, outside the vault.
+	mantle.create_trimesh_collision()
+	var body:StaticBody3D=mantle.get_child(0);body.collision_layer=1|4|8;body.collision_mask=0
+	body.get_child(0).shape.backface_collision=true
 
 func _fall_point(u:float,t:float)->Vector3:
 	var center:float=0.12+sin(t*3.2)*.15
@@ -85,7 +89,9 @@ func _fall_point(u:float,t:float)->Vector3:
 	var side:float=u*2.0-1.0
 	var y:float=lerpf(5.35,1.64,t)
 	var z:float=lerpf(-70.55,-67.72,t)+sin(t*PI)*.29
-	return Vector3(center+side*width,y+sin(u*19+t*6)*.10*sin(t*PI)+sin(u*23.0)*.075*(1.0-t),z+sin(u*18+t*11)*.075+side*side*.12)
+	var point:=Vector3(center+side*width,y+sin(u*19+t*6)*.10*sin(t*PI)+sin(u*23.0)*.075*(1.0-t),z+sin(u*18+t*11)*.075+side*side*.12)
+	point.y=preload("res://assets/environment/new_island/terrain_surface.res").feature_height(point)
+	return point
 
 func _build_cave_finish(landscape:Node3D)->void:
 	var s:=SurfaceTool.new();s.begin(Mesh.PRIMITIVE_TRIANGLES)

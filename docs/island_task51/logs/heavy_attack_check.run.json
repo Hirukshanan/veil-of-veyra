@@ -1,0 +1,15 @@
+{
+  "name": "heavy_attack_check",
+  "started_utc": "2026-11-15T11:17:32.183868+00:00",
+  "duration_s": 8.297,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/heavy_attack_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,13 @@
+{
+  "checked_utc": "2026-11-15T11:26:47.060937+00:00",
+  "physical_devices": 0,
+  "authorized_physical_devices": 0,
+  "device_identifiers_recorded": false,
+  "android_test_status": "pending: connect exactly one authorized physical phone",
+  "device_model": null,
+  "android_version": null,
+  "actual_fps": null,
+  "frame_times": null,
+  "thermal": null,
+  "battery": null
+}

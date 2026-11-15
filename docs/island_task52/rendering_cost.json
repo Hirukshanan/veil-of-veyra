@@ -1,0 +1,275 @@
+{
+  "platform": "Windows / Intel Iris Xe / GL Compatibility",
+  "android_results": false,
+  "method": {
+    "physical_window": "(1920, 1080)",
+    "sampling": "60 warmup, 120 frames; real HUD/animated visuals; actor physics held for matched render comparison",
+    "scale_3d": 0.666666686534882,
+    "shadows": false
+  },
+  "comparisons": [
+    {
+      "view": "01_mountain_scale",
+      "before": {
+        "camera": "(17.0, 9.0, -31.0)",
+        "draw_calls": 123.0,
+        "frame_median_ms": 8.554,
+        "frame_p95_ms": 11.815,
+        "gpu_median_ms": 3.51699995994568,
+        "hero": "(-2.0, 2.97983, -55.0)",
+        "name": "01_mountain_scale",
+        "static_bytes": 143893517.0,
+        "submitted_primitives": 177460.0,
+        "target": "(0.0, 10.0, -65.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(17.0, 9.0, -31.0)",
+        "draw_calls": 123.0,
+        "frame_median_ms": 8.366,
+        "frame_p95_ms": 11.58,
+        "gpu_median_ms": 3.92000007629395,
+        "hero": "(-2.0, 3.083082, -55.0)",
+        "name": "01_mountain_scale",
+        "static_bytes": 142027445.0,
+        "submitted_primitives": 176853.0,
+        "target": "(0.0, 10.0, -65.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "02_hills_scale",
+      "before": {
+        "camera": "(-1.0, 5.0, 37.0)",
+        "draw_calls": 239.0,
+        "frame_median_ms": 11.593,
+        "frame_p95_ms": 15.444,
+        "gpu_median_ms": 6.60099983215332,
+        "hero": "(-5.0, 4.320402, 25.0)",
+        "name": "02_hills_scale",
+        "static_bytes": 143901973.0,
+        "submitted_primitives": 467724.0,
+        "target": "(-10.0, 4.0, 3.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(-1.0, 5.0, 37.0)",
+        "draw_calls": 239.0,
+        "frame_median_ms": 12.324,
+        "frame_p95_ms": 17.08,
+        "gpu_median_ms": 7.11199998855591,
+        "hero": "(-5.0, 4.320402, 25.0)",
+        "name": "02_hills_scale",
+        "static_bytes": 142035901.0,
+        "submitted_primitives": 460436.0,
+        "target": "(-10.0, 4.0, 3.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "03_waterfall_scale",
+      "before": {
+        "camera": "(9.0, 5.0, -57.0)",
+        "draw_calls": 119.0,
+        "frame_median_ms": 8.58,
+        "frame_p95_ms": 11.657,
+        "gpu_median_ms": 4.32000017166138,
+        "hero": "(2.0, 0.877543, -65.0)",
+        "name": "03_waterfall_scale",
+        "static_bytes": 143901745.0,
+        "submitted_primitives": 147114.0,
+        "target": "(0.0, 4.0, -69.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(9.0, 5.0, -57.0)",
+        "draw_calls": 119.0,
+        "frame_median_ms": 8.284,
+        "frame_p95_ms": 11.803,
+        "gpu_median_ms": 4.38899993896484,
+        "hero": "(2.0, 1.241919, -65.0)",
+        "name": "03_waterfall_scale",
+        "static_bytes": 142035673.0,
+        "submitted_primitives": 146192.0,
+        "target": "(0.0, 4.0, -69.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "04_cave_scale",
+      "before": {
+        "camera": "(77.0, 3.7, -17.0)",
+        "draw_calls": 169.0,
+        "frame_median_ms": 8.201,
+        "frame_p95_ms": 11.434,
+        "gpu_median_ms": 4.09200000762939,
+        "hero": "(76.0, 1.507856, -8.0)",
+        "name": "04_cave_scale",
+        "static_bytes": 143907641.0,
+        "submitted_primitives": 181311.0,
+        "target": "(76.0, 3.0, -3.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(77.0, 3.7, -17.0)",
+        "draw_calls": 169.0,
+        "frame_median_ms": 11.26,
+        "frame_p95_ms": 14.223,
+        "gpu_median_ms": 4.55900001525879,
+        "hero": "(76.0, 1.507856, -8.0)",
+        "name": "04_cave_scale",
+        "static_bytes": 142041569.0,
+        "submitted_primitives": 181775.0,
+        "target": "(76.0, 3.0, -3.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "05_upper_river",
+      "before": {
+        "camera": "(20.0, 8.0, -44.0)",
+        "draw_calls": 283.0,
+        "frame_median_ms": 11.033,
+        "frame_p95_ms": 15.031,
+        "gpu_median_ms": 8.58100032806396,
+        "hero": "(20.0, -0.015001, -35.0)",
+        "name": "05_upper_river",
+        "static_bytes": 143907945.0,
+        "submitted_primitives": 459875.0,
+        "target": "(19.0, 0.0, -29.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(20.0, 8.0, -44.0)",
+        "draw_calls": 283.0,
+        "frame_median_ms": 12.243,
+        "frame_p95_ms": 14.709,
+        "gpu_median_ms": 7.98699998855591,
+        "hero": "(20.0, -0.019197, -35.0)",
+        "name": "05_upper_river",
+        "static_bytes": 142041873.0,
+        "submitted_primitives": 455440.0,
+        "target": "(19.0, 0.0, -29.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "06_middle_river",
+      "before": {
+        "camera": "(18.0, 5.0, 20.0)",
+        "draw_calls": 184.0,
+        "frame_median_ms": 9.663,
+        "frame_p95_ms": 13.054,
+        "gpu_median_ms": 6.94999980926514,
+        "hero": "(24.0, -1.394274, 9.0)",
+        "name": "06_middle_river",
+        "static_bytes": 143911013.0,
+        "submitted_primitives": 389443.0,
+        "target": "(24.0, 0.0, 4.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(18.0, 5.0, 20.0)",
+        "draw_calls": 184.0,
+        "frame_median_ms": 10.367,
+        "frame_p95_ms": 13.717,
+        "gpu_median_ms": 6.48799991607666,
+        "hero": "(24.0, -1.394274, 9.0)",
+        "name": "06_middle_river",
+        "static_bytes": 142044941.0,
+        "submitted_primitives": 383304.0,
+        "target": "(24.0, 0.0, 4.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "07_lower_river",
+      "before": {
+        "camera": "(21.0, 4.0, 80.0)",
+        "draw_calls": 265.0,
+        "frame_median_ms": 11.006,
+        "frame_p95_ms": 14.527,
+        "gpu_median_ms": 6.125,
+        "hero": "(24.0, -0.316935, 71.0)",
+        "name": "07_lower_river",
+        "static_bytes": 143910553.0,
+        "submitted_primitives": 388881.0,
+        "target": "(25.0, -0.2, 65.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(21.0, 4.0, 80.0)",
+        "draw_calls": 265.0,
+        "frame_median_ms": 12.216,
+        "frame_p95_ms": 16.833,
+        "gpu_median_ms": 6.04699993133545,
+        "hero": "(24.0, -0.316935, 71.0)",
+        "name": "07_lower_river",
+        "static_bytes": 142044481.0,
+        "submitted_primitives": 387812.0,
+        "target": "(25.0, -0.2, 65.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "08_forest_collision",
+      "before": {
+        "camera": "(-65.0, 4.0, 17.0)",
+        "draw_calls": 172.0,
+        "frame_median_ms": 15.288,
+        "frame_p95_ms": 22.398,
+        "gpu_median_ms": 12.2130002975464,
+        "hero": "(-65.0, 1.926039, 12.0)",
+        "name": "08_forest_collision",
+        "static_bytes": 143923185.0,
+        "submitted_primitives": 364597.0,
+        "target": "(-65.0, 3.0, 5.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(-65.0, 4.0, 17.0)",
+        "draw_calls": 172.0,
+        "frame_median_ms": 16.339,
+        "frame_p95_ms": 22.559,
+        "gpu_median_ms": 12.3149995803833,
+        "hero": "(-65.0, 1.926039, 12.0)",
+        "name": "08_forest_collision",
+        "static_bytes": 142056385.0,
+        "submitted_primitives": 359022.0,
+        "target": "(-65.0, 3.0, 5.0)",
+        "video_bytes": 349144949.0
+      }
+    },
+    {
+      "view": "09_island_overview",
+      "before": {
+        "camera": "(0.0, 220.0, 0.0)",
+        "draw_calls": 259.0,
+        "frame_median_ms": 9.239,
+        "frame_p95_ms": 12.343,
+        "gpu_median_ms": 6.11600017547607,
+        "hero": "(0.0, 3.871523, 27.0)",
+        "name": "09_island_overview",
+        "static_bytes": 143922501.0,
+        "submitted_primitives": 349349.0,
+        "target": "(0.0, 0.0, 0.0)",
+        "video_bytes": 349852749.0
+      },
+      "after": {
+        "camera": "(0.0, 220.0, 0.0)",
+        "draw_calls": 259.0,
+        "frame_median_ms": 13.944,
+        "frame_p95_ms": 19.979,
+        "gpu_median_ms": 6.54699993133545,
+        "hero": "(0.0, 3.871523, 27.0)",
+        "name": "09_island_overview",
+        "static_bytes": 142056461.0,
+        "submitted_primitives": 348358.0,
+        "target": "(0.0, 0.0, 0.0)",
+        "video_bytes": 349144949.0
+      }
+    }
+  ],
+  "note": "Matched cameras and low-quality settings, physical 1920x1080 output, 3D capped at 1280x720. 60 warmup +120 frames each. Actors held for render isolation. Single before/after samples, not sustained Android or thermal measurements. Visible animated water/foliage varies between frames. Vertex reshaping may change generated LOD submissions.",
+  "final_distance_LODs_retained": true
+}

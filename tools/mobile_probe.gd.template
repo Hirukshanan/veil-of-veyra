@@ -1,12 +1,16 @@
 extends Node
-# Test build only. Engine frame intervals are not GPU or display-present timings.
+# Build-only observer. No controls, movement, art or gameplay settings are edited here.
 var game:Node
+var performance_config:Dictionary={}
+var placement_ready_ms:=0.0
 var last_us:=0
 var frames:Array[String]=[]
 var elapsed:=0.0
 var samples:FileAccess
 var counters:FileAccess
 var session:String
+var frame_count:=0
+var timing:Dictionary
 func _ready():
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	session="mobile_profile_"+str(int(Time.get_unix_time_from_system()))
@@ -14,19 +18,31 @@ func _ready():
 	samples=FileAccess.open("user://"+session+"/frames.csv",FileAccess.WRITE)
 	counters=FileAccess.open("user://"+session+"/counters.csv",FileAccess.WRITE)
 	samples.store_line("monotonic_us,interval_us,active_gameplay")
-	counters.store_line("monotonic_us,x,y,z,draw_calls,primitives,static_bytes,video_bytes,texture_bytes,frame_limit,shadows,paused")
+	counters.store_line("monotonic_us,x,y,z,draw_calls,primitives,static_bytes,video_bytes,texture_bytes,frame_limit,shadows,paused,window_w,window_h,render_scale,estimated_3d_w,estimated_3d_h,render_cpu_ms,gpu_ms,physics_ms,active_physics_objects,collision_pairs,process_ms")
+	RenderingServer.viewport_set_measure_render_time(get_viewport().get_viewport_rid(),true)
+	_clear_timing();_metadata();last_us=Time.get_ticks_usec()
+func _clear_timing():
+	timing={"render_cpu_ms":0.0,"gpu_ms":0.0,"physics_ms":0.0,"process_ms":0.0};frame_count=0
+func _metadata():
+	var vp:Viewport=get_viewport();var native:Vector2i=DisplayServer.window_get_size()
 	var f:=FileAccess.open("user://"+session+"/session.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"schema":1,"started_utc":Time.get_datetime_string_from_system(true),"platform":OS.get_name(),"renderer":RenderingServer.get_current_rendering_method(),"model":OS.get_model_name(),"viewport":str(get_viewport().get_visible_rect().size),"note":"Local test-build engine intervals; foreground gameplay filter required. No GPU time, thermal or battery measurement in this file. Periodic CSV flush can add small observer overhead."},"  "))
-	last_us=Time.get_ticks_usec()
+	f.store_string(JSON.stringify({"schema":2,"started_utc":Time.get_datetime_string_from_system(true),"platform":OS.get_name(),"renderer":RenderingServer.get_current_rendering_method(),"model":OS.get_model_name(),"viewport":str(vp.get_visible_rect().size),"physical_window_pixels":[native.x,native.y],"root_viewport_pixels":[get_tree().root.size.x,get_tree().root.size.y],"scaling_3d":vp.scaling_3d_scale,"estimated_3d_buffer_pixels":[roundi(native.x*vp.scaling_3d_scale),roundi(native.y*vp.scaling_3d_scale)],"experiment":performance_config,"bootstrap_to_placement_ready_ms":placement_ready_ms,"engine_uptime_at_recording_start_ms":Time.get_ticks_msec(),"note":"Local engine callback intervals. Positive GPU/render-CPU values are backend timings; zero means unavailable. Buffer pixels are calculated from measured window pixels, not captured GPU attachment dimensions. Startup excludes earlier preload/engine initialization. Five-second file flush has observer overhead."},"  "))
 func _process(delta):
 	var now:=Time.get_ticks_usec();var active:bool=game.started and not get_tree().paused and not game.game_finished
 	frames.append(str(now)+","+str(now-last_us)+","+str(int(active)));last_us=now;elapsed+=delta
+	var rid:RID=get_viewport().get_viewport_rid()
+	timing.render_cpu_ms+=RenderingServer.viewport_get_measured_render_time_cpu(rid)+RenderingServer.get_frame_setup_time_cpu()
+	timing.gpu_ms+=RenderingServer.viewport_get_measured_render_time_gpu(rid)
+	timing.physics_ms+=Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)*1000
+	timing.process_ms+=Performance.get_monitor(Performance.TIME_PROCESS)*1000;frame_count+=1
 	if elapsed<5:return
-	elapsed=0
-	samples.store_string("\n".join(frames)+"\n");frames.clear();samples.flush()
-	var p:Vector3=game.player.global_position
-	counters.store_line("%d,%.3f,%.3f,%.3f,%d,%d,%d,%d,%d,%d,%d,%d"%[now,p.x,p.y,p.z,Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME),Performance.get_monitor(Performance.MEMORY_STATIC),Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED),Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED),game.frame_limit,int(game.shadows_enabled),int(get_tree().paused)])
-	counters.flush()
+	elapsed=0;_flush()
+	var p:Vector3=game.player.global_position;var native:Vector2i=DisplayServer.window_get_size();var scale:float=get_viewport().scaling_3d_scale
+	var row:Array=[now,p.x,p.y,p.z,Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME),Performance.get_monitor(Performance.MEMORY_STATIC),Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED),Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED),game.frame_limit,int(game.shadows_enabled),int(get_tree().paused),native.x,native.y,scale,roundi(native.x*scale),roundi(native.y*scale),timing.render_cpu_ms/maxi(frame_count,1),timing.gpu_ms/maxi(frame_count,1),timing.physics_ms/maxi(frame_count,1),Performance.get_monitor(Performance.PHYSICS_3D_ACTIVE_OBJECTS),Performance.get_monitor(Performance.PHYSICS_3D_COLLISION_PAIRS),timing.process_ms/maxi(frame_count,1)]
+	var cells:=PackedStringArray()
+	for value in row:cells.append(str(value))
+	counters.store_line(",".join(cells));counters.flush();_clear_timing()
+func _flush():
+	if samples!=null and not frames.is_empty():samples.store_string("\n".join(frames)+"\n");frames.clear();samples.flush()
 func _notification(what):
-	if what==NOTIFICATION_APPLICATION_PAUSED or what==NOTIFICATION_WM_CLOSE_REQUEST:
-		if samples!=null and not frames.is_empty():samples.store_string("\n".join(frames)+"\n");frames.clear();samples.flush()
+	if what==NOTIFICATION_APPLICATION_PAUSED or what==NOTIFICATION_WM_CLOSE_REQUEST:_flush()

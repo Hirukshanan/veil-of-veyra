@@ -35,10 +35,15 @@ func _ready() -> void:
 			material.set_shader_parameter("soil",preload("res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg"))
 			material.set_shader_parameter("trail_mask",TERRAIN.trail_mask())
 			mesh.material_override = material
+			# Update the existing render mesh before building its matching physics shape.
+			preload("res://scripts/island_accessibility.gd").fit_region(mesh,region_name,SURFACE)
 			mesh.create_trimesh_collision()
 			var body: StaticBody3D = mesh.get_child(0)
 			body.collision_layer = 1 | 4 | 8 | 16
-			if region_name=="WesternForest":body.collision_layer = 1 | 4 | 8
+			if region_name=="WesternForest":
+				# This hidden fused prototype no longer matches the approved instanced trees.
+				body.free()
+				continue
 			body.collision_mask = 0
 			var collision_shape: ConcavePolygonShape3D = body.get_child(0).shape
 			collision_shape.backface_collision = true
@@ -46,7 +51,9 @@ func _ready() -> void:
 			mesh.visibility_range_end = 380.0
 	_build_water()
 	_build_grotto()
-	add_child(TERRAIN.shallow_water_wall())
+	var coast_wall:=TERRAIN.shallow_water_wall()
+	coast_wall.collision_layer=1|4|8
+	add_child(coast_wall)
 	var polish := preload("res://scripts/island_rock_water_polish.gd").new()
 	polish.name = "RockWaterPolish"
 	add_child(polish)
@@ -76,7 +83,7 @@ func _populate_forest() -> Array[Transform3D]:
 		var basis:=Basis(Vector3.UP,rng.randf()*TAU).scaled(Vector3(size,size*2.2,size))
 		transforms.append(Transform3D(basis,point))
 		var body:=StaticBody3D.new()
-		body.collision_layer=4|8
+		body.collision_layer=1|4|8
 		body.collision_mask=0
 		var collision:=CollisionShape3D.new()
 		var shape:=CylinderShape3D.new()

@@ -1,0 +1,4 @@
+SCRIPT ERROR: Assertion failed: All candidate solids must be detected by the existing wolf mask
+   at: run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_collision.gd:25)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_collision.gd:25)

@@ -27,15 +27,28 @@ func preserved_point(point: Vector3) -> Vector3:
 	return Vector3(INF,INF,INF)
 
 func sample(point:Vector2) -> float:
-	var h:float=coarse_sample(point)
+	var h:float=feature_height(Vector3(point.x,coarse_sample(point),point.y))
+	# Match the existing long boar capsule without moving its approved spawn.
+	h=lerpf(h,2.659828,1-smoothstep(1.7,3.0,point.distance_to(Vector2(33.5,-19.5))))
 	var z:float=point.y
 	if z < -68 or z > 118:return h
 	var d:float=absf(point.x-river_center(z))
 	var w:float=river_width(z)
+	# Broaden the upper gorge's inaccessible banks into continuous real slopes.
+	# The downstream channel and estuary keep their approved Task 1 profile.
+	if z < -30 and z > -68 and d > w:
+		var side:float=signf(point.x-river_center(z))
+		var outer:=Vector2(river_center(z)+side*(w+24),z)
+		var top:float=feature_height(Vector3(outer.x,coarse_sample(outer),z))
+		var bank:float=lerpf(river_level(z),maxf(river_level(z),top),smoothstep(w,w+24,d))
+		var blend:float=smoothstep(-68,-64,z)*(1-smoothstep(-34,-30,z))*(1-smoothstep(w+22,w+24,d))
+		h=lerpf(h,bank,blend)
+		if d>w+.5:return h
 	if d>w+2:return h
 	var level:float=river_level(z)
-	var depth:float=1.45-.55*smoothstep(88,114,z)
+	var depth:float=lerpf(.75,1.45,smoothstep(-34,-26,z))-.55*smoothstep(88,114,z)
 	var target:float=level-depth*(1-smoothstep(0,w,d)) if d<=w else level+.75*(1-smoothstep(100,112,z))*smoothstep(w,w+8,d)
+	if z > -64 and z < -34 and d>w:return h
 	return lerpf(h,target,1-smoothstep(w+.5,w+2,d))
 
 func river_center(z:float) -> float:
@@ -54,3 +67,12 @@ func cuts(x:float,z:float) -> int:
 
 func vertex_at(x:float,z:float) -> Vector3:
 	return Vector3(x,sample(Vector2(x,z)),z)
+
+# Selective metre-scale correction, never a whole-island transform.
+func feature_height(p:Vector3)->float:
+	var core:float=(1-smoothstep(17,24,absf(p.x)))*smoothstep(-97,-89,p.z)*(1-smoothstep(-53,-42,p.z))
+	# Preserve the low river corridor and all existing gameplay anchors.
+	if p.z > -68:core*=smoothstep(river_width(p.z)+12,river_width(p.z)+17,absf(p.x-river_center(p.z)))
+	var mountain:float=maxf(0,p.y-2.0)*1.1*core
+	var hill:float=3.2*(1-smoothstep(0,15,Vector2(p.x+14,p.z+8).length()))
+	return p.y+mountain+hill

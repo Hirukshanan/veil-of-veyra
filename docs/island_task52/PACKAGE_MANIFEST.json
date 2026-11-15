@@ -1,0 +1,734 @@
+{
+  "after/01_mountain_scale.png": {
+    "bytes": 1922610,
+    "sha256": "7e6219db5e6425899abf4670a108f87b2a38354a9375b7893e7058db9a6b03b2"
+  },
+  "after/02_hills_scale.png": {
+    "bytes": 2506892,
+    "sha256": "1e2bf1c461e7ede209175c335d7cc8135ac6822ae435c225fca188f6147f5fa0"
+  },
+  "after/03_waterfall_scale.png": {
+    "bytes": 2199338,
+    "sha256": "6c6445ff64f1bf3e32170e4be1338c2dc6a3026ed86d3e43f685140b4c9585c4"
+  },
+  "after/04_cave_scale.png": {
+    "bytes": 2222318,
+    "sha256": "6ac188beb7a35c6c85388955b3eced44d6d4f9541a87fc713f9bdd3bb7e7e461"
+  },
+  "after/05_upper_river.png": {
+    "bytes": 2401618,
+    "sha256": "899259f4a5660ea46cce72518eb31661ec35ef1c127481501754da16fd079957"
+  },
+  "after/06_middle_river.png": {
+    "bytes": 2337864,
+    "sha256": "15b7c0962ada70243a675161f7d54f443d45c1fca946c67983f5742557e25ee7"
+  },
+  "after/07_lower_river.png": {
+    "bytes": 2015778,
+    "sha256": "c8dc340aa1c09ca4eaee6e780071e305a8beec20ae7c40afb5e6543b5c80d5f3"
+  },
+  "after/08_forest_collision.png": {
+    "bytes": 3412110,
+    "sha256": "3a91a1d127d1aec5bed27cc74a4c26ef301f98c9471c0c0132c48d8c062b0755"
+  },
+  "after/09_island_overview.png": {
+    "bytes": 1068771,
+    "sha256": "0761544532cededd8c366f212cee0f3e0579f88fc92a8edfce649facfed35a8f"
+  },
+  "after_measurements.json": {
+    "bytes": 23696,
+    "sha256": "40df1c73180c9cd7282c7bb936595855fe91e7de1df40c54ce3931a31ec188dc"
+  },
+  "apk_verification.json": {
+    "bytes": 511,
+    "sha256": "4b5100b9b953b3a6d8c264a36bb78bf47dd786743254c00efe1a2cc6ac176a90"
+  },
+  "baseline_sources/scripts/candidate_vegetation.gd": {
+    "bytes": 9843,
+    "sha256": "38136d169e532ac8efae2a82d388a89bbafcccbc8b2716eb5aada4095febfc60"
+  },
+  "baseline_sources/scripts/island_landscape.gd": {
+    "bytes": 13365,
+    "sha256": "dd6dc7a569e2b69d2680128ed1eeeff7dcd95211fba97e7ec35588f20c9b4b0d"
+  },
+  "baseline_sources/scripts/island_rock_water_polish.gd": {
+    "bytes": 7152,
+    "sha256": "5ddb87f05d744952d145298f0f68eccc59f7e1e1a248a560b240eeaf90f88cea"
+  },
+  "baseline_sources/scripts/island_surface_data.gd": {
+    "bytes": 2189,
+    "sha256": "922099b74a51d1da2e537212cfcf78865b36cf99ebb5725752ea71a0d4adda64"
+  },
+  "baseline_sources/tests/boar_feedback_check.gd": {
+    "bytes": 3323,
+    "sha256": "cea867914bc326edd391e70a291076c455ebb2011e87087716b24018a14d57ea"
+  },
+  "baseline_sources/tests/island_atmosphere_check.gd": {
+    "bytes": 2996,
+    "sha256": "2b968d2347d0a8022ec49b98c25f459aeb26db26664f4b52a24b0c960adf5d31"
+  },
+  "baseline_sources/tests/island_campaign_check.gd": {
+    "bytes": 3451,
+    "sha256": "067ffd3ec1917c5357f4a2714099a12ac0ec38bebf31fc9186722b5e98036e2a"
+  },
+  "baseline_sources/tests/island_forest_refinement_check.gd": {
+    "bytes": 4211,
+    "sha256": "a17968d563f81ce075d387149276155f58d0809ca768952da5b2159cadb76bb1"
+  },
+  "baseline_sources/tests/island_rock_water_check.gd": {
+    "bytes": 2361,
+    "sha256": "2b40c021c730cfa856368af13d02bb21c24649926fd2ecdd8e24a02522aee042"
+  },
+  "baseline_sources/tests/island_vegetation_check.gd": {
+    "bytes": 5059,
+    "sha256": "a85208e31c81c04fdf2250f4ed748563913b5449867399a4a98dc0899c369637"
+  },
+  "before/01_mountain_scale.png": {
+    "bytes": 1801920,
+    "sha256": "4e502e690cc5ceb41c70dbc1ad6d643a36516f48285d3746f821ec6ee92c7427"
+  },
+  "before/02_hills_scale.png": {
+    "bytes": 2489710,
+    "sha256": "18dc9138c9708836a63989b8daf62c551f1eadf3b32b03e7b9e89401896dc573"
+  },
+  "before/03_waterfall_scale.png": {
+    "bytes": 2085723,
+    "sha256": "683c3afaf3f4a275d2cec5f3ef44943afcecb8b3f3a0e5021b0dba59b8547369"
+  },
+  "before/04_cave_scale.png": {
+    "bytes": 2221502,
+    "sha256": "f6a100015c5e3495e73dbf65aae77bbfd076764ead78873d0c5520c26514a06b"
+  },
+  "before/05_upper_river.png": {
+    "bytes": 2424229,
+    "sha256": "780991136094b197ea02af8d2e8284c06795e3d5087212d03ee4eddbec4a515f"
+  },
+  "before/06_middle_river.png": {
+    "bytes": 2317318,
+    "sha256": "2a0cc20865a7205cc9ca0f8ef6e7e7c0d61e596c8cf2c2247e49eff47fa32505"
+  },
+  "before/07_lower_river.png": {
+    "bytes": 1996270,
+    "sha256": "3cb5cc3210f6d9d88cd8975ea362357e6084b28a9905e5b3140759ab7e3b2b04"
+  },
+  "before/08_forest_collision.png": {
+    "bytes": 3409968,
+    "sha256": "cefd61ffb212920c515929cc9ed386d8cae542c122cef4c6cbe7eb056df5d213"
+  },
+  "before/09_island_overview.png": {
+    "bytes": 1060070,
+    "sha256": "cad0247c4f61130ed9e484768f7ea7f62901c4dfebb1ced75b2b176e076eb5d0"
+  },
+  "before_measurements.json": {
+    "bytes": 17023,
+    "sha256": "4ad74ac38287bee18c51f11e361dda5958772c985e0c03e9d5e7e253496b59e9"
+  },
+  "before_river_movement.json": {
+    "bytes": 9087,
+    "sha256": "5f3257152c7ba66eab871d64e81d06f769fb0c2e5a70ef3dd334b23cd2741212"
+  },
+  "build_manifest.json": {
+    "bytes": 49210,
+    "sha256": "1c13e33763c45350d937b6a4e64b704ebe72679c29f68388423481f3ad467da7"
+  },
+  "changed_files.json": {
+    "bytes": 1033,
+    "sha256": "964043bc9f61be9be8d1a67ffa807562a681f80b8488cdf15502eea7327f77b6"
+  },
+  "collision_tests.json": {
+    "bytes": 6424,
+    "sha256": "d5ebc9c62188402b2ad47625f2b73ee98f856b64d598888deeb10e0f154cab0f"
+  },
+  "connection_routes.json": {
+    "bytes": 34095,
+    "sha256": "9029c4bb2ce0f1db5670a4dab67f79354259d43bd1af484cbc1dd02091045c7b"
+  },
+  "connection_walk.json": {
+    "bytes": 101332,
+    "sha256": "66582d6326aa0591e6deb929105e940a57a5c278f7528a6ed949e213a15e7a01"
+  },
+  "device_check.json": {
+    "bytes": 385,
+    "sha256": "90dd006b5f9a28199c096bbabd1c4eede6a78bb7eda760fedbb01f57ee2bd7b3"
+  },
+  "gallery.html": {
+    "bytes": 5840,
+    "sha256": "9ede5dd73292a31cd9306ea7c1bd318c4b581ba09110b0ba5caa3d7e9ac38b9c"
+  },
+  "geometry_check.json": {
+    "bytes": 508,
+    "sha256": "2cbd01f468c5f1171d97f2700119c39a6d02c136798d2453eafea7ff48a42ef1"
+  },
+  "logs/boar_feedback_retry.run.json": {
+    "bytes": 373,
+    "sha256": "cd9750191886a86c34a259af3423c05ab2c84b540857e9f15a89201f8896b9e6"
+  },
+  "logs/boar_feedback_retry.stderr.log": {
+    "bytes": 216,
+    "sha256": "115d6dfbc4280aae404c863a3a366d5734b98d33a9e2141dbf0e91026a65c8b4"
+  },
+  "logs/boar_feedback_retry.stdout.log": {
+    "bytes": 39332,
+    "sha256": "cf20c1ddc7d93c23670bf78f43ea8669d451201068792e622ffa33ba35cd384d"
+  },
+  "logs/build/export.run.json": {
+    "bytes": 68,
+    "sha256": "8924e850ed4ff5bada805afd3dd41ad5722e2b6cdf464882a02eda3c5da8aefa"
+  },
+  "logs/build/export.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/build/export.stdout.log": {
+    "bytes": 6239,
+    "sha256": "3d819556c98081580efaa169ddbc0da4cc02dca8d0757b47a253d403115fc308"
+  },
+  "logs/build/import.run.json": {
+    "bytes": 68,
+    "sha256": "29c769c96ef824f66d5f35785e2168ab4d31d7564f122ba8726106ec1a6b980b"
+  },
+  "logs/build/import.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/build/import.stdout.log": {
+    "bytes": 12298,
+    "sha256": "fd284c2ea18146ccd74b6755f5e75db2b09d79c227e801c82eb18bea408ff2d7"
+  },
+  "logs/capture_after.run.json": {
+    "bytes": 529,
+    "sha256": "812f788caeeb0066481c4c8ee1bb5e5926a39cae87a1609d14cc62a6b33f7b80"
+  },
+  "logs/capture_after.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/capture_after.stdout.log": {
+    "bytes": 479,
+    "sha256": "fd1fd1bcb79281ae3b2fa12005e481a5a015e883a33262aaf8492c7b1b3b50b6"
+  },
+  "logs/capture_before.run.json": {
+    "bytes": 531,
+    "sha256": "81f1b3b2dc627b65d87235f4b5ec130007cd827a3d3be95461c7c110857879fa"
+  },
+  "logs/capture_before.stderr.log": {
+    "bytes": 3488,
+    "sha256": "f8ac0fd8e70fdf9fc50a30467485258f99a0d8e166d82ef5b946c83d7ae4013f"
+  },
+  "logs/capture_before.stdout.log": {
+    "bytes": 1185,
+    "sha256": "413f3727ea13a58c8d888dc70a82def62922a4fab13b471dc296a54306dda62e"
+  },
+  "logs/collision_initial.run.json": {
+    "bytes": 452,
+    "sha256": "c42f088c97d561ba8a37f4ab0e2d57215044ef3cf452fcba37320cd29cf0b54d"
+  },
+  "logs/collision_initial.stderr.log": {
+    "bytes": 320,
+    "sha256": "82a3a428cb26eb43391976e9a6d3c26a592c5796b8577565bfcdca06dcb93c2d"
+  },
+  "logs/collision_initial.stdout.log": {
+    "bytes": 75,
+    "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+  },
+  "logs/collision_spawn_diagnostic.run.json": {
+    "bytes": 462,
+    "sha256": "b8becc5decee3a00fb483c15c9ced9ff3581f4baf87916654ce29e0a9bee8192"
+  },
+  "logs/collision_spawn_diagnostic.stderr.log": {
+    "bytes": 309,
+    "sha256": "5766a1552b8dd3bfa56c97877727e8b1bd164843ffb875d9d70b63288702b11b"
+  },
+  "logs/collision_spawn_diagnostic.stdout.log": {
+    "bytes": 75,
+    "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+  },
+  "logs/collision_updated.run.json": {
+    "bytes": 452,
+    "sha256": "4130a06d71dac8f01d2343a5ead5eb496e5a24a6a0b58f99466c7d89aedef970"
+  },
+  "logs/collision_updated.stderr.log": {
+    "bytes": 309,
+    "sha256": "60e30a6a73fd8910fc86a93a5cb3a4b9a98e8c4eea09acfeddeb07d2dd1357e8"
+  },
+  "logs/collision_updated.stdout.log": {
+    "bytes": 75,
+    "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+  },
+  "logs/final_autosave_check.run.json": {
+    "bytes": 351,
+    "sha256": "bde09e0472cacadef92bb1768d96f16512acf3b064bfdb865da58fd9a4f285c0"
+  },
+  "logs/final_autosave_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_autosave_check.stdout.log": {
+    "bytes": 243,
+    "sha256": "61d4b2b67d4139d659fede60b953da5b545055799bef1d3128e723c143fa5400"
+  },
+  "logs/final_boar_campaign_check.run.json": {
+    "bytes": 361,
+    "sha256": "87551d970b865018ff6ef1ec3019a52b0d1e0d4ca6cfdb542cbe07db3d1b5cce"
+  },
+  "logs/final_boar_campaign_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_boar_campaign_check.stdout.log": {
+    "bytes": 221,
+    "sha256": "0122faff7ada0472a82d8e9e3b6afc826a8fb59594a1f828ac9d236b1788a045"
+  },
+  "logs/final_boar_check.run.json": {
+    "bytes": 342,
+    "sha256": "79595c42b6738972a2893be196054564f31fa8b6a1af327b4fafc5009ad1c98d"
+  },
+  "logs/final_boar_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_boar_check.stdout.log": {
+    "bytes": 234,
+    "sha256": "c71868c4ab8fae0bca20d272796d30273610fc96556381865473519996c280b6"
+  },
+  "logs/final_boar_feedback_check.run.json": {
+    "bytes": 361,
+    "sha256": "10b211a7d83e2656073d5ac1b17a6c24cd7b7f28d2c97902ef39d864496f5c3b"
+  },
+  "logs/final_boar_feedback_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_boar_feedback_check.stdout.log": {
+    "bytes": 261,
+    "sha256": "96e6ffcdd42693e1c2c6bb40134b480fa843da65257878313ae9a1ddcb61d7e9"
+  },
+  "logs/final_campaign_smoke.run.json": {
+    "bytes": 351,
+    "sha256": "d817b22b39318ca831a82ad640cffae56185c3d01b881ef0edd8580b87a6881a"
+  },
+  "logs/final_campaign_smoke.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/final_campaign_smoke.stdout.log": {
+    "bytes": 147,
+    "sha256": "ebac7d33064092275dab0ad4ae5a3f5eecb724541f8c52f5e77e76d454072d22"
+  },
+  "logs/final_capture_after.run.json": {
+    "bytes": 521,
+    "sha256": "4788f1a3c01d02ef7582557c5190dc31514fac2f1e48aea4270010618a76011f"
+  },
+  "logs/final_capture_after.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_capture_after.stdout.log": {
+    "bytes": 479,
+    "sha256": "fd1fd1bcb79281ae3b2fa12005e481a5a015e883a33262aaf8492c7b1b3b50b6"
+  },
+  "logs/final_capture_before.run.json": {
+    "bytes": 533,
+    "sha256": "f18fbd485b4a2122f467baae7d0349a621c92b25104b0b28e74526fdfa51c148"
+  },
+  "logs/final_capture_before.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_capture_before.stdout.log": {
+    "bytes": 479,
+    "sha256": "fd1fd1bcb79281ae3b2fa12005e481a5a015e883a33262aaf8492c7b1b3b50b6"
+  },
+  "logs/final_combat_check.run.json": {
+    "bytes": 346,
+    "sha256": "d99a2ab972cf64e7e7fedbed3d59e55771a82bc8c2e5fc37aa531098ab3dcf6a"
+  },
+  "logs/final_combat_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_combat_check.stdout.log": {
+    "bytes": 171,
+    "sha256": "327aea977ac0aed22843ac95463c93abde5ee9df5bfa86cc19240eb4eceba77c"
+  },
+  "logs/final_enemy_check.run.json": {
+    "bytes": 345,
+    "sha256": "9ce4473eae75b808f0875708601a463745127906f0c500a2bdcd6166537e7948"
+  },
+  "logs/final_enemy_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_enemy_check.stdout.log": {
+    "bytes": 207,
+    "sha256": "fb5e8c2b2125d39c5ad2ad4af3e2eac0f8a33098db8b21eda299c9122f38cb3c"
+  },
+  "logs/final_fast_travel_check.run.json": {
+    "bytes": 356,
+    "sha256": "0fe5b4bdffda9952dcc043a951a9652ba83f418942c7873e6b31cc95c86f8d0c"
+  },
+  "logs/final_fast_travel_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_fast_travel_check.stdout.log": {
+    "bytes": 223,
+    "sha256": "5210b1a2345a9bfdbf8b09fddfd07cd6b34468a21f18a461718fe2158eac7b35"
+  },
+  "logs/final_heavy_attack_check.run.json": {
+    "bytes": 360,
+    "sha256": "db1e437ddcdad263d646b745d9019661e55ed3a73ca8013794561314bfbd3894"
+  },
+  "logs/final_heavy_attack_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_heavy_attack_check.stdout.log": {
+    "bytes": 230,
+    "sha256": "a0196de01dbe00e914c99258d9e96480d29f07dd54389c404249709544e5ad53"
+  },
+  "logs/final_hud_customization_check.run.json": {
+    "bytes": 369,
+    "sha256": "8539fcde03b5d9d8895b59152d4b861c9ef836794eb07435ac44af5a2bb836da"
+  },
+  "logs/final_hud_customization_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_hud_customization_check.stdout.log": {
+    "bytes": 248,
+    "sha256": "4bdc3f80094b764a3bf894b8ccac40bb15cb90e33eb3cbf1499cfa2b1b426839"
+  },
+  "logs/final_island_atmosphere_check.run.json": {
+    "bytes": 369,
+    "sha256": "7098801adcc788aafff435e5ebb223ba44975b3597625e6067350e7785557bba"
+  },
+  "logs/final_island_atmosphere_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_atmosphere_check.stdout.log": {
+    "bytes": 233,
+    "sha256": "23280474a135db52e8b6252eb6dda81a16e157a4e5451380a320976073035c68"
+  },
+  "logs/final_island_campaign_check.run.json": {
+    "bytes": 365,
+    "sha256": "faa498cd2f736425f9d5e46a6d31f8df1821945f524779c9a63ff54124bff0f8"
+  },
+  "logs/final_island_campaign_check.stderr.log": {
+    "bytes": 235,
+    "sha256": "9699709c118ec1354c66eb3995e45e5400767124838eb82065ee6e099cbc78aa"
+  },
+  "logs/final_island_campaign_check.stdout.log": {
+    "bytes": 246,
+    "sha256": "b22fc5c69e3e1b4f4406ebb66b43e568c9f84e0fe5897f7b0836f296566de31f"
+  },
+  "logs/final_island_check.run.json": {
+    "bytes": 347,
+    "sha256": "c0ad7dabbda20e2510bd6dcad32be2d35f736e71a574e2c4f1ba3ce07dcff02d"
+  },
+  "logs/final_island_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "382367699dd0cd3e933e4c9fd5446d8e177adf0af5c90371164cc4396b076adb"
+  },
+  "logs/final_island_collision_check.run.json": {
+    "bytes": 367,
+    "sha256": "a882bb449255d8965dc614844b25a4c8fd421fa06283adcecb2eaa942e4791e9"
+  },
+  "logs/final_island_collision_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_collision_check.stdout.log": {
+    "bytes": 203,
+    "sha256": "58b97ace8ccc8d85261f7f027986a3ffd57ad357d4b34ff2c124c26449bd7e84"
+  },
+  "logs/final_island_connections_review.run.json": {
+    "bytes": 374,
+    "sha256": "dcf030b500fabf87160ad46c276ff75cc80955427f20bc20fe700f50d67b9c85"
+  },
+  "logs/final_island_connections_review.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_connections_review.stdout.log": {
+    "bytes": 943,
+    "sha256": "fd15a558a1de599692d0a0dfc650e01618864255eb88f20b5142c9e74272c6a8"
+  },
+  "logs/final_island_forest_refinement_check.run.json": {
+    "bytes": 496,
+    "sha256": "c68dafe61a4c262281929113cdd920a74d66e18a064d312627c46279faad617c"
+  },
+  "logs/final_island_forest_refinement_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_forest_refinement_check.stdout.log": {
+    "bytes": 336,
+    "sha256": "5131c06f11a792ccfec8aa7aa593fd6d3a14737bf997a321b45bc9a9964e274b"
+  },
+  "logs/final_island_rock_water_check.run.json": {
+    "bytes": 369,
+    "sha256": "856bcbc05ff33bbc83eda326465fa44982106f3f3342e63656f8b8343e5fb6c3"
+  },
+  "logs/final_island_rock_water_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_rock_water_check.stdout.log": {
+    "bytes": 226,
+    "sha256": "479e303cc1a51b4d4e709e8369e1d4b7aba5d8e62b2e09c429ae8dc89fe257e9"
+  },
+  "logs/final_island_terrain_polish_check.run.json": {
+    "bytes": 377,
+    "sha256": "4ca39fa2d545fdecdbd094246a044b5cb5a4cb01c1ce1032f30aecaaa196cafb"
+  },
+  "logs/final_island_terrain_polish_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_terrain_polish_check.stdout.log": {
+    "bytes": 235,
+    "sha256": "3b7d957dabfbc113f3e8640072178bf329c1d80344b2ca493d07f019ebaec541"
+  },
+  "logs/final_island_vegetation_check.run.json": {
+    "bytes": 369,
+    "sha256": "29736c0b758982d21321f0d93851937ee6fc90c2ac5e7181b72aaaa831a1864f"
+  },
+  "logs/final_island_vegetation_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_island_vegetation_check.stdout.log": {
+    "bytes": 227,
+    "sha256": "4c4f87628f3df01351f83f4ab42b0fe02ddd89219780b9b7cb70e1cf7498683d"
+  },
+  "logs/final_persistent_world_check.run.json": {
+    "bytes": 368,
+    "sha256": "bb0563be6092e7a08b82e66db94e67b04623c8ff94e915db12fdbb025d5e05d3"
+  },
+  "logs/final_persistent_world_check.stderr.log": {
+    "bytes": 470,
+    "sha256": "5ce634a274781e7929590ba2603fb430ec9cb1576de18f3754f5d16c50344fe3"
+  },
+  "logs/final_persistent_world_check.stdout.log": {
+    "bytes": 226,
+    "sha256": "289c4103e3dd745e37db4311a5aced03cc8a541a9bbf4bdd3896b15b3bf9c838"
+  },
+  "logs/final_quest_hud_check.run.json": {
+    "bytes": 353,
+    "sha256": "776f18141aa84aa037fe94d53df14a43cac5a472570dfd6b451cb9622e88eae7"
+  },
+  "logs/final_quest_hud_check.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_quest_hud_check.stdout.log": {
+    "bytes": 212,
+    "sha256": "02b97cab5f74d4e30ded6239b6c6937c56c1be4822d646db4d5016823ad853f1"
+  },
+  "logs/final_task52_collision.run.json": {
+    "bytes": 466,
+    "sha256": "3550312a398da0c3080d118a2b3960e9ae4cdb1c6aabfb2857741153105fe852"
+  },
+  "logs/final_task52_collision.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_task52_collision.stdout.log": {
+    "bytes": 186,
+    "sha256": "c880b54e5ad80796a042d3c680dc86067798c8514ad2f5617a4b737e967b42e8"
+  },
+  "logs/final_task52_river.run.json": {
+    "bytes": 459,
+    "sha256": "aa10c6c42c2191a4092f642c6cbb4ce236ee25e3d3a33f62ff115cfbf68d22b5"
+  },
+  "logs/final_task52_river.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/final_task52_river.stdout.log": {
+    "bytes": 1152,
+    "sha256": "843d8ab13201655487dc896d75ff64e15517c406c33ec68f086d3e526d97e123"
+  },
+  "logs/packaged_smoke.run.json": {
+    "bytes": 600,
+    "sha256": "130644ad330a46c635267c45a26514f15140d708593c47c478a690a19da0af9f"
+  },
+  "logs/packaged_smoke.stderr.log": {
+    "bytes": 11866,
+    "sha256": "9458d82e1c2302d58a972a3ec6d840f6e1a0cf40dd1119efcd199db2257049d1"
+  },
+  "logs/packaged_smoke.stdout.log": {
+    "bytes": 327,
+    "sha256": "82822910e650b54df5f419e9e6c94c0a8399b8bc28b5d934141c9c216aed422c"
+  },
+  "logs/packaged_smoke_final.run.json": {
+    "bytes": 612,
+    "sha256": "191428b5e62c088c3c466b4f66a2a0d35a58dcb8d9d43c59726c7a803b5a685c"
+  },
+  "logs/packaged_smoke_final.stderr.log": {
+    "bytes": 11866,
+    "sha256": "9458d82e1c2302d58a972a3ec6d840f6e1a0cf40dd1119efcd199db2257049d1"
+  },
+  "logs/packaged_smoke_final.stdout.log": {
+    "bytes": 327,
+    "sha256": "82822910e650b54df5f419e9e6c94c0a8399b8bc28b5d934141c9c216aed422c"
+  },
+  "logs/river_after_initial.run.json": {
+    "bytes": 460,
+    "sha256": "861071711da0743832e131e86201523061131a4592f574f06507e48abe423774"
+  },
+  "logs/river_after_initial.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/river_after_initial.stdout.log": {
+    "bytes": 1158,
+    "sha256": "c25b86cf3c4e664dadae7e33edcdbec61c60634a15cfe2aa66742b51ec2f8b8e"
+  },
+  "logs/river_after_shallow.run.json": {
+    "bytes": 460,
+    "sha256": "55387c1e4e29066491e773ff6d6a7782955e0d8713c9b4e9f48877a462d70691"
+  },
+  "logs/river_after_shallow.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/river_after_shallow.stdout.log": {
+    "bytes": 1153,
+    "sha256": "e2937481e07ad67c67c235ecaf75a0c54c87359967bc7b7639a71cb368b79a38"
+  },
+  "logs/river_after_wide.run.json": {
+    "bytes": 449,
+    "sha256": "7664b407f1197015043c185091cb17c6f38139176e8b8d36571bfb2565cd1cf2"
+  },
+  "logs/river_after_wide.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/river_after_wide.stdout.log": {
+    "bytes": 1152,
+    "sha256": "843d8ab13201655487dc896d75ff64e15517c406c33ec68f086d3e526d97e123"
+  },
+  "logs/river_before.run.json": {
+    "bytes": 446,
+    "sha256": "d28c940fceebdcd49c29eb6c5da0a3fff20e353d1f7e1638ce1a008f029c30f0"
+  },
+  "logs/river_before.stderr.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logs/river_before.stdout.log": {
+    "bytes": 1160,
+    "sha256": "2d79aa25143de21e980b38eff4e3a4f31b8e47d907004e5a79138aab189d6bec"
+  },
+  "package_validation.json": {
+    "bytes": 397,
+    "sha256": "c70374de48b07a7445a3cbc97a0985f000da5f81873f78060bf368ed9e0a1b97"
+  },
+  "packaged_bootstrap_check.json": {
+    "bytes": 867,
+    "sha256": "a094d9a09b65f699bcf146daf9f73daa37ab8e6af2c91487efa8283d46c4eef8"
+  },
+  "preservation.json": {
+    "bytes": 839,
+    "sha256": "ddbecd13220e968a888adf51630fddf9e98feb10742efcf82f4776b2c6c58ec4"
+  },
+  "rendering_cost.json": {
+    "bytes": 9251,
+    "sha256": "46465b89200608c344e575c94cdb6832012af35ebb8e3a6f65ea87d0c2eb49bb"
+  },
+  "REPORT.md": {
+    "bytes": 15282,
+    "sha256": "0448472e3f82700b9e03d7d1c7f8fba59adea1db3343709afe38109ec58ed0e4"
+  },
+  "river_movement.json": {
+    "bytes": 9063,
+    "sha256": "fbd43ae668deaa4f73bbc7fb2b29c27ac3551bf8d37c211ce4565318fc8db544"
+  },
+  "source_patch/art_source/island/task52/capture_scale.gd": {
+    "bytes": 5878,
+    "sha256": "023317ee21f75e32a8b9b62e0dea79202b1b37c790c7cf8102e929c1c31f568f"
+  },
+  "source_patch/scripts/candidate_vegetation.gd": {
+    "bytes": 10034,
+    "sha256": "3c88deac9ea798f41824b52c367b5eb0b322691c718b20368e20d170855c617e"
+  },
+  "source_patch/scripts/island_accessibility.gd": {
+    "bytes": 2714,
+    "sha256": "58aee4b76cefa57334906d797b6bb79fefa19c58f360f67e373986b23b7d3111"
+  },
+  "source_patch/scripts/island_landscape.gd": {
+    "bytes": 13683,
+    "sha256": "ae918029e934790378cd64ceb2877c515ec3206b04c88ca836490dd9540f4fa9"
+  },
+  "source_patch/scripts/island_rock_water_polish.gd": {
+    "bytes": 7545,
+    "sha256": "7643dc12ee30c63c626fba1a08a21258056fa79c937a7614470750f9a36c7f7f"
+  },
+  "source_patch/scripts/island_surface_data.gd": {
+    "bytes": 3584,
+    "sha256": "de03e41b89722969d075c82a65bc5c31b3b0f7b91baae35c59b3cd5edfd53c00"
+  },
+  "source_patch/tests/boar_feedback_check.gd": {
+    "bytes": 3455,
+    "sha256": "15e00bb07ec6cd5853a2b35f12e4fa0a8e0834a85ac9e1fba8cbe16a50bc06e8"
+  },
+  "source_patch/tests/island_accessibility_collision_check.gd": {
+    "bytes": 8134,
+    "sha256": "d3e094d5c0076d92921dbe147d0878172e52c55365d5e7187679568c920c6656"
+  },
+  "source_patch/tests/island_atmosphere_check.gd": {
+    "bytes": 3017,
+    "sha256": "370c69167e2f650dbe257e19fbcafbe109cbc6fcba3e415c196673b6e895dfdf"
+  },
+  "source_patch/tests/island_campaign_check.gd": {
+    "bytes": 3566,
+    "sha256": "59d7b3c89b04e382887e39480c0dd952d3fce113e98a5e8961ba0bfb049c3bb5"
+  },
+  "source_patch/tests/island_forest_refinement_check.gd": {
+    "bytes": 4164,
+    "sha256": "664652ca304fc27ace09df7a6e3510289920f7849820e199020326ca3ba5a37f"
+  },
+  "source_patch/tests/island_river_escape_check.gd": {
+    "bytes": 2493,
+    "sha256": "a35341a25aa9a1e6e1caf5d3268077a89c35114527313a906177d2ac3a2e4e6d"
+  },
+  "source_patch/tests/island_rock_water_check.gd": {
+    "bytes": 2328,
+    "sha256": "b8209efbf2489ed145e02bc02ff2a885b1957699da418eb00eec9d345f5c1e6d"
+  },
+  "source_patch/tests/island_vegetation_check.gd": {
+    "bytes": 5325,
+    "sha256": "e5b723b2c9aecd93a161b29905edf658248aeb3d52257309f4119d4fabfed981"
+  },
+  "source_patch/tools/build_island_android.py": {
+    "bytes": 7459,
+    "sha256": "83c9e56513e78c814c2314a386e9c79f1f28afad59bcd2909d7550f3c4b89d8c"
+  },
+  "source_patch/tools/mobile_bootstrap.gd.template": {
+    "bytes": 1156,
+    "sha256": "6f5816f01669741f95a73cd3af6ea0d235afd68c9128552e56d2c2b246ea96f0"
+  },
+  "source_patch/tools/mobile_probe.gd.template": {
+    "bytes": 4476,
+    "sha256": "6f88cd06708d151799f0bc48283cd91bebc93f5bba3134d6900461e4ec821c0f"
+  },
+  "source_patch/tools/profile_island_android.py": {
+    "bytes": 10077,
+    "sha256": "ed4a01e003038620bd9d09785478c5cf86c494bbc71fb74cc7bd232cb222d240"
+  },
+  "test_results.json": {
+    "bytes": 11651,
+    "sha256": "ef464edaba5490b81fe21be7ba7220150955e5e5e0fa8d461574f252c3df8f40"
+  },
+  "APK/Veil_of_Vera_Task52_720p_Candidate.apk": {
+    "bytes": 150979898,
+    "sha256": "24d3bcd13417f28f00a3cf476da72ea94bf138cf18339df0dea3eb5ee11f1dbc"
+  }
+}

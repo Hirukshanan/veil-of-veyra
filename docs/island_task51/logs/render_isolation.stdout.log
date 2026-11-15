@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+MEASURE forest native_a median_ms=16.759 gpu_ms=13.7869997024536 cpu_render_ms=4.21699988174438
+MEASURE forest cap720_a median_ms=14.413 gpu_ms=11.2250003814697 cpu_render_ms=5.63000000762939
+MEASURE forest cap720_b median_ms=14.227 gpu_ms=10.956000328064 cpu_render_ms=6.59499979400635
+MEASURE forest native_b median_ms=17.183 gpu_ms=14.7770004272461 cpu_render_ms=4.23700000572205
+MEASURE forest no_vegetation_diagnostic median_ms=6.865 gpu_ms=2.57200002670288 cpu_render_ms=3.82999998092651
+MEASURE forest ai_active_diagnostic median_ms=17.451 gpu_ms=15.4020004272461 cpu_render_ms=5.25100017166138
+MEASURE hills native_a median_ms=8.445 gpu_ms=5.60900020599365 cpu_render_ms=4.99499997711182
+MEASURE hills cap720_a median_ms=8.71 gpu_ms=5.21500015258789 cpu_render_ms=5.81100009918213
+MEASURE hills cap720_b median_ms=9.194 gpu_ms=6.6710000038147 cpu_render_ms=5.08500012588501
+MEASURE hills native_b median_ms=8.881 gpu_ms=6.11299991607666 cpu_render_ms=4.21799998092651
+MEASURE hills no_vegetation_diagnostic median_ms=8.504 gpu_ms=4.10099983215332 cpu_render_ms=4.82300017929077
+MEASURE hills ai_active_diagnostic median_ms=8.759 gpu_ms=6.35699987411499 cpu_render_ms=4.89700023269653
+MEASURE mountain native_a median_ms=7.5 gpu_ms=4.53000020980835 cpu_render_ms=4.53999995040894
+MEASURE mountain cap720_a median_ms=7.63 gpu_ms=4.99700021743774 cpu_render_ms=4.33299990081787
+MEASURE mountain cap720_b median_ms=8.37 gpu_ms=4.27400016784668 cpu_render_ms=5.57499978637695
+MEASURE mountain native_b median_ms=7.12 gpu_ms=3.95499992370605 cpu_render_ms=4.13899997329712
+MEASURE mountain no_vegetation_diagnostic median_ms=6.688 gpu_ms=3.34200000762939 cpu_render_ms=3.56200011253357
+MEASURE mountain ai_active_diagnostic median_ms=9.597 gpu_ms=3.65499997138977 cpu_render_ms=3.67700008773804
+PASS: controlled desktop Task 5.1 investigation complete; not Android performance

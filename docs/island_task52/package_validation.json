@@ -1,0 +1,11 @@
+{
+  "apk_included": true,
+  "apk_sha256": "24d3bcd13417f28f00a3cf476da72ea94bf138cf18339df0dea3eb5ee11f1dbc",
+  "zip_crc_passed": true,
+  "gallery_images": 18,
+  "missing_images": 0,
+  "fresh_offline_extraction_gallery_passed": true,
+  "original_png_quality_preserved": true,
+  "android_results": "pending physical Samsung A37 test",
+  "checked_utc": "2026-11-15T13:07:43.946629+00:00"
+}

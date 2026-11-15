@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+MEASURE forest native_a median_ms=13.896 gpu_ms=11.7379999160767 cpu_render_ms=4.43600010681152
+MEASURE forest cap720_a median_ms=13.347 gpu_ms=10.8290004730225 cpu_render_ms=6.52599982833862
+MEASURE forest cap720_b median_ms=12.954 gpu_ms=10.8640003204346 cpu_render_ms=6.62399983978271
+MEASURE forest native_b median_ms=14.808 gpu_ms=12.5550003051758 cpu_render_ms=6.17999990081787
+MEASURE forest no_vegetation_diagnostic median_ms=6.985 gpu_ms=2.57800006866455 cpu_render_ms=3.54000003051758
+MEASURE forest no_ai_diagnostic median_ms=15.141 gpu_ms=12.8020000457764 cpu_render_ms=6.09599976348877
+MEASURE hills native_a median_ms=10.301 gpu_ms=6.68699979782104 cpu_render_ms=6.18099979400635
+MEASURE hills cap720_a median_ms=9.997 gpu_ms=5.96199989318848 cpu_render_ms=6.8869998588562
+MEASURE hills cap720_b median_ms=10.532 gpu_ms=6.37599992752075 cpu_render_ms=7.39099998092651
+MEASURE hills native_b median_ms=8.337 gpu_ms=6.38100004196167 cpu_render_ms=4.89200016403198
+MEASURE hills no_vegetation_diagnostic median_ms=7.995 gpu_ms=3.74399995803833 cpu_render_ms=5.04499987030029
+MEASURE hills no_ai_diagnostic median_ms=8.572 gpu_ms=5.99100017547607 cpu_render_ms=4.33300005912781
+MEASURE mountain native_a median_ms=7.405 gpu_ms=3.9909999370575 cpu_render_ms=3.52399997711182
+MEASURE mountain cap720_a median_ms=8.938 gpu_ms=4.58799982070923 cpu_render_ms=4.8729999332428
+MEASURE mountain cap720_b median_ms=10.601 gpu_ms=4.91599988937378 cpu_render_ms=5.567
+MEASURE mountain native_b median_ms=7.48 gpu_ms=4.13399982452393 cpu_render_ms=3.76800008964539
+MEASURE mountain no_vegetation_diagnostic median_ms=7.342 gpu_ms=3.46700000762939 cpu_render_ms=3.1999999294281
+MEASURE mountain no_ai_diagnostic median_ms=7.158 gpu_ms=4.4210000038147 cpu_render_ms=4.09399988937378
+PASS: controlled desktop Task 5.1 investigation complete; not Android performance

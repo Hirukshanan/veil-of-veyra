@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "pause/resume boundary intervals excluded",
+    "long genuine hitch retained",
+    "nearest-rank quantiles",
+    "synthetic/desktop rejected as Android",
+    "schema 2 CPU timing and unavailable zero GPU handling"
+  ],
+  "phone_results": false
+}

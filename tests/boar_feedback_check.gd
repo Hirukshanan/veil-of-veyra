@@ -71,5 +71,7 @@ func run() -> void:
 	AudioServer.set_bus_mute(0, false)
 	scene.queue_free()
 	await process_frame
+	# Let the audio mixer release the fixture voices before the test process exits.
+	await create_timer(.25,true,false,true).timeout
 	print("PASS: bounded spatial audio, authored grounded footsteps, distance gating, explicit normal/heavy contact, unchanged damage/stagger/stamina/spirit, short bounded effects and Master mute")
 	quit()

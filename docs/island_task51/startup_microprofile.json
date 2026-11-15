@@ -1,0 +1,43 @@
+{
+  "android_measurement": false,
+  "platform": "Windows",
+  "rows": [
+    {
+      "faces_identical": true,
+      "mesh": "WaterfallMountains",
+      "normal_and_lod_ms": 44.213,
+      "region": "WaterfallMountains",
+      "region_load_ms": 15.177,
+      "triangles": 9572
+    },
+    {
+      "faces_identical": true,
+      "mesh": "WaterfallMountains_GradedTerrain",
+      "normal_and_lod_ms": 23.768,
+      "region": "WaterfallMountains",
+      "region_load_ms": 15.177,
+      "triangles": 8698
+    },
+    {
+      "faces_identical": true,
+      "mesh": "EasternCaves",
+      "normal_and_lod_ms": 48.325,
+      "region": "EasternCaves",
+      "region_load_ms": 7.201,
+      "triangles": 9985
+    },
+    {
+      "faces_identical": true,
+      "mesh": "EasternCaves_GradedTerrain",
+      "normal_and_lod_ms": 1.535,
+      "region": "EasternCaves",
+      "region_load_ms": 7.201,
+      "triangles": 464
+    },
+    {
+      "normal_and_lod_ms": 0.476,
+      "region": "grotto"
+    }
+  ],
+  "scope": "Existing normal/LOD functions invoked once on original source meshes; desktop CPU microprofile, not complete app startup or a sustained frame benchmark"
+}

@@ -59,6 +59,16 @@ def summarize(folder,warmup,synthetic=False):
  if counters.exists():
   rows=list(csv.DictReader(counters.open()))
   result['engine_counter_maxima']={key:max((float(r[key]) for r in rows),default=None) for key in ['static_bytes','video_bytes','texture_bytes','draw_calls','primitives']}
+ result['experiment']=metadata.get('experiment',{})
+ result['initial_resolution']={k:metadata.get(k) for k in ['physical_window_pixels','root_viewport_pixels','scaling_3d','estimated_3d_buffer_pixels','bootstrap_to_placement_ready_ms']}
+ if counters.exists():
+  valid=[r for r in rows if r.get('paused')=='0' and float(r['monotonic_us'])>=first_active+warmup*1000000]
+  result['backend_timing_samples']={}
+  for key in ['render_cpu_ms','gpu_ms','physics_ms','process_ms','csv_flush_ms']:
+   values=[float(r[key]) for r in valid if key in r and float(r[key])>0]
+   result['backend_timing_samples'][key]={'mean_ms':statistics.mean(values),'max_ms':max(values),'five_second_samples':len(values)} if values else None
+  result['gpu_time']=result['backend_timing_samples']['gpu_ms']
+  result['gpu_time_note']='Backend timer if positive; null means unavailable. Aggregates five-second averages, not per-frame GPU p95 or display-present timing.'
  return result
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['check','collect','pull','analyze','self-test']);p.add_argument('--adb',type=Path,default=Path('adb'));p.add_argument('--output',type=Path,required=True);p.add_argument('--minutes',type=float,default=30);p.add_argument('--interval',type=float,default=30);p.add_argument('--session',type=Path);p.add_argument('--warmup',type=float,default=300);a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
@@ -68,10 +78,12 @@ def main():
    d=Path(temp);(d/'session.json').write_text(json.dumps({'platform':'Synthetic'}))
    (d/'frames.csv').write_text('monotonic_us,interval_us,active_gameplay\n0,1,0\n1,900000,1\n33334,33333,1\n66667,33333,1\n166668,100001,1\n900000,700000,0\n900001,733332,1\n933334,33333,1\n')
    row=summarize(d,0,True);assert row['foreground_intervals']==4 and row['p50_ms']==33.333 and row['p99_ms']==100.001 and row['over_100ms']==1
+   (d/'counters.csv').write_text('monotonic_us,draw_calls,primitives,static_bytes,video_bytes,texture_bytes,paused,render_cpu_ms,gpu_ms,physics_ms,process_ms,csv_flush_ms\n933334,10,200,1000,2000,1000,0,2,0,1,4,0.2\n')
+   upgraded=summarize(d,0,True);assert upgraded['gpu_time'] is None and upgraded['backend_timing_samples']['render_cpu_ms']['mean_ms']==2
    try:summarize(d,0)
    except ValueError:pass
    else:raise AssertionError('Synthetic data must never be accepted as Android data')
-   row={'passed':True,'checks':['pause/resume boundary intervals excluded','long genuine hitch retained','nearest-rank quantiles','synthetic/desktop rejected as Android'],'phone_results':False}
+   row={'passed':True,'checks':['pause/resume boundary intervals excluded','long genuine hitch retained','nearest-rank quantiles','synthetic/desktop rejected as Android','schema 2 CPU timing and unavailable zero GPU handling'],'phone_results':False}
   (a.output/'profiler_self_test.json').write_text(json.dumps(row,indent=2));print(json.dumps(row));return
  if a.action=='analyze':
   assert a.session is not None,'Pass the extracted local session folder'

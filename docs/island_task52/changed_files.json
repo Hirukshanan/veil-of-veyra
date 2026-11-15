@@ -1,0 +1,23 @@
+{
+  "task52_files": [
+    "art_source/island/task52/capture_scale.gd",
+    "scripts/candidate_vegetation.gd",
+    "scripts/island_accessibility.gd",
+    "scripts/island_landscape.gd",
+    "scripts/island_rock_water_polish.gd",
+    "scripts/island_surface_data.gd",
+    "tests/boar_feedback_check.gd",
+    "tests/island_accessibility_collision_check.gd",
+    "tests/island_atmosphere_check.gd",
+    "tests/island_forest_refinement_check.gd",
+    "tests/island_river_escape_check.gd",
+    "tests/island_rock_water_check.gd",
+    "tests/island_vegetation_check.gd",
+    "tools/build_island_android.py",
+    "tools/mobile_bootstrap.gd.template",
+    "tools/mobile_probe.gd.template",
+    "tools/profile_island_android.py",
+    "tests/island_campaign_check.gd"
+  ],
+  "note": "Task 5.1 uncommitted tools/docs were preserved. The APK builder adds Task 5.2 labeling only. No new asset, shader, texture or license introduced. Source patch requires the existing project; the complete runnable candidate is in the APK."
+}

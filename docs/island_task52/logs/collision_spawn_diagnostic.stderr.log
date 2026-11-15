@@ -1,0 +1,4 @@
+SCRIPT ERROR: Assertion failed: Preserved enemy spawn must not overlap solid terrain
+   at: run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_collision.gd:95)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task52_collision.gd:95)

@@ -1,0 +1,20 @@
+{
+  "name": "final_capture_after",
+  "started_utc": "2026-11-15T12:59:16.211810+00:00",
+  "duration_s": 74.824,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "PROJECT_ROOT\\art_source\\island\\task52\\capture_scale.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task52\\after"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

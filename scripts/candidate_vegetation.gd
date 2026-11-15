@@ -38,6 +38,8 @@ func _build_trees(supplementary:Array[Transform3D])->void:
 		# Preserve the exact existing trunk supports and use varied canopy proportions.
 		var basis:Basis=original.basis.scaled(Vector3(rng.randf_range(.9,1.12),rng.randf_range(.94,1.12),rng.randf_range(.9,1.15)))
 		transforms.append(Transform3D(basis,original.origin))
+	# Physics only: supply missing colliders for the original 35 instanced roots.
+	preload("res://scripts/island_accessibility.gd").tree_collisions(landscape,transforms.slice(0,roots.size()))
 	var cells:Dictionary={}
 	for index in range(transforms.size()):
 		var transform:Transform3D=transforms[index]

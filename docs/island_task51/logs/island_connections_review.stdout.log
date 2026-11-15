@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REGION_WALK_PASS WaterfallMountains return=false distance_m=64.28 ticks=189
+REGION_WALK_PASS WaterfallMountains return=true distance_m=63.82 ticks=185
+REGION_WALK_PASS WesternForest return=false distance_m=79.71 ticks=228
+REGION_WALK_PASS WesternForest return=true distance_m=79.33 ticks=230
+REGION_WALK_PASS RiverGrassland return=false distance_m=11.81 ticks=34
+REGION_WALK_PASS RiverGrassland return=true distance_m=11.07 ticks=32
+REGION_WALK_PASS EasternCaves return=false distance_m=314.7 ticks=905
+REGION_WALK_PASS EasternCaves return=true distance_m=313.75 ticks=907
+REGION_WALK_PASS SouthernBeach return=false distance_m=53.86 ticks=155
+REGION_WALK_PASS SouthernBeach return=true distance_m=53.61 ticks=155
+PASS: actual existing hero walked outward and back across all five regional approaches, without teleports between legs, damage, fall or rescue

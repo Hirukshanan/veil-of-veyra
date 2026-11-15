@@ -1,0 +1,15 @@
+{
+  "name": "startup_microprofile",
+  "started_utc": "2026-11-15T11:14:51.238296+00:00",
+  "duration_s": 1.016,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/startup_task51.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
