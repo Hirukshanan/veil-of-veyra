@@ -1,0 +1,20 @@
+{
+  "files": [
+    "scripts/demon_boar.gd",
+    "scripts/enemy.gd",
+    "scripts/island_candidate.gd",
+    "scripts/island_enemy_navigation.gd",
+    "tests/boar_repeated_cycle_check.gd",
+    "tests/island_enemy_navigation_check.gd",
+    "tests/island_forest_refinement_check.gd",
+    "tools/build_island_android.py",
+    "art_source/island/task53/task53_profile.gd",
+    "art_source/island/task53/task53_views.gd",
+    "art_source/island/task53/task53_record.gd",
+    "art_source/island/task53/task53_investigate.gd"
+  ],
+  "new_assets": [],
+  "asset_licenses": "No new external or AI assets. Existing owner island/boar, licensed wolf and existing environment assets are unchanged. Existing credits/licenses remain authoritative.",
+  "test_change": "Forest comparison restores original pre-relocation enemy exclusion positions only while rebuilding the archived baseline; final actors are restored immediately. Deferred native teardown releases fixture meshes before renderer exit.",
+  "runtime_scope": "Boar clearance/FACE recovery is shared by the existing boar. Spawn relocation and the optional shared navigation graph are candidate-only; original enemy movement defaults are retained when navigation is absent."
+}

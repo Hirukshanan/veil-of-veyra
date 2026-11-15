@@ -1,0 +1,156 @@
+{
+  "boar_clear_full_length_lanes": 12,
+  "cases": [
+    {
+      "actor": "CampDemon0",
+      "case": "spawn_local_path",
+      "points": 4
+    },
+    {
+      "actor": "CampDemon1",
+      "case": "spawn_local_path",
+      "points": 3
+    },
+    {
+      "actor": "CampDemon2",
+      "case": "spawn_local_path",
+      "points": 3
+    },
+    {
+      "actor": "CampDemon3",
+      "case": "spawn_local_path",
+      "points": 3
+    },
+    {
+      "actor": "CampDemon4",
+      "case": "spawn_local_path",
+      "points": 3
+    },
+    {
+      "case": "real_wolf_tree_detour",
+      "center": "(-65.14781, 4.736704, 13.97421)",
+      "contacts": 0,
+      "end": "(-66.62419, 1.938414, 15.81031)",
+      "min_trunk_distance_m": 1.98120498657227,
+      "path": [
+        "(-62.14248, 1.898481, 14.04735)",
+        "(-64.04307, 1.901571, 15.89569)"
+      ]
+    },
+    {
+      "case": "real_boar_tree_detour",
+      "center": "(-65.14781, 4.736704, 13.97421)",
+      "end": "(-66.70082, 1.930267, 15.26512)"
+    },
+    {
+      "actor": "CampDemon0",
+      "case": "five_region_body_support",
+      "end": "(-56.0, 1.57432, 12.0)",
+      "start": "(-56.0, 1.653044, 12.0)"
+    },
+    {
+      "actor": "DemonBoar",
+      "case": "five_region_body_support",
+      "end": "(-56.0, 1.604606, 12.0)",
+      "start": "(-56.0, 1.653044, 12.0)"
+    },
+    {
+      "actor": "CampDemon0",
+      "case": "five_region_body_support",
+      "end": "(-36.0, 1.642138, -28.0)",
+      "start": "(-36.0, 1.720862, -28.0)"
+    },
+    {
+      "actor": "DemonBoar",
+      "case": "five_region_body_support",
+      "end": "(-36.0, 1.675862, -28.0)",
+      "start": "(-36.0, 1.720862, -28.0)"
+    },
+    {
+      "actor": "CampDemon0",
+      "case": "five_region_body_support",
+      "end": "(0.0, 0.92076, -37.0)",
+      "start": "(0.0, 1.000265, -37.0)"
+    },
+    {
+      "actor": "DemonBoar",
+      "case": "five_region_body_support",
+      "end": "(0.0, 0.950578, -37.0)",
+      "start": "(0.0, 1.000265, -37.0)"
+    },
+    {
+      "actor": "CampDemon0",
+      "case": "five_region_body_support",
+      "end": "(76.0, 1.587388, 0.0)",
+      "start": "(76.0, 1.58, 0.0)"
+    },
+    {
+      "actor": "DemonBoar",
+      "case": "five_region_body_support",
+      "end": "(76.0, 1.589979, 0.0)",
+      "start": "(76.0, 1.58, 0.0)"
+    },
+    {
+      "actor": "CampDemon0",
+      "case": "five_region_body_support",
+      "end": "(-20.0, 2.434442, 82.0)",
+      "start": "(-20.0, 2.507502, 82.0)"
+    },
+    {
+      "actor": "DemonBoar",
+      "case": "five_region_body_support",
+      "end": "(-20.0, 2.465314, 82.0)",
+      "start": "(-20.0, 2.507502, 82.0)"
+    }
+  ],
+  "nav_build_ms": 178.785,
+  "nav_points": 1900,
+  "new_enemy_count": 0,
+  "passed": true,
+  "path_requests": 2,
+  "retired_ID_5_absent": true,
+  "spawn_checks": [
+    {
+      "display_name": "EMBER WOLF",
+      "health": 18,
+      "id": "CampDemon0",
+      "position": "(-72.0, 1.774241, 4.0)",
+      "shape_clear": true
+    },
+    {
+      "display_name": "ASH STALKER",
+      "health": 17,
+      "id": "CampDemon1",
+      "position": "(-52.0, 1.417502, 4.0)",
+      "shape_clear": true
+    },
+    {
+      "display_name": "DIRE WARG",
+      "health": 21,
+      "id": "CampDemon2",
+      "position": "(-40.0, 1.770815, -28.0)",
+      "shape_clear": true
+    },
+    {
+      "display_name": "EMBER WOLF",
+      "health": 18,
+      "id": "CampDemon3",
+      "position": "(-64.0, 1.248644, -24.0)",
+      "shape_clear": true
+    },
+    {
+      "display_name": "ASH STALKER",
+      "health": 17,
+      "id": "CampDemon4",
+      "position": "(-68.0, 2.211786, 28.0)",
+      "shape_clear": true
+    },
+    {
+      "display_name": "DEMON BOAR",
+      "health": 24,
+      "id": "DemonBoar",
+      "position": "(-36.0, 0.394178, 12.0)",
+      "shape_clear": true
+    }
+  ]
+}

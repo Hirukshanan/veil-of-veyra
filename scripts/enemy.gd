@@ -5,6 +5,7 @@ signal defeated
 const GRAVITY := 22.0
 enum Kind { SHORE, SCOUT, BRUTE }
 
+var navigation: Node
 var target: Node3D
 var health := 12
 var kind := Kind.SHORE
@@ -125,7 +126,7 @@ func _physics_process(delta: float) -> void:
 		var home_offset := destination - position
 		home_offset.y = 0.0
 		var moving := home_offset.length() > 0.5 and (_returning or _patrol_wait == 0.0)
-		var home_direction := home_offset.normalized() if moving else Vector3.ZERO
+		var home_direction:Vector3=navigation.direction(self,destination) if moving and is_instance_valid(navigation) else (home_offset.normalized() if moving else Vector3.ZERO)
 		var speed := move_speed if _returning else patrol_speed
 		velocity.x = home_direction.x * speed
 		velocity.z = home_direction.z * speed
@@ -150,8 +151,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0.0
 		velocity.z = 0.0
 	elif distance > attack_range - 0.25:
-		velocity.x = direction.x * move_speed
-		velocity.z = direction.z * move_speed
+		var movement:Vector3=navigation.direction(self,target.global_position) if is_instance_valid(navigation) else direction
+		velocity.x = movement.x * move_speed
+		velocity.z = movement.z * move_speed
 		rotation.y = atan2(-direction.x, -direction.z)
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, 12.0 * delta)

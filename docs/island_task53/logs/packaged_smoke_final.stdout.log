@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+PASS: final exported Task 5.3 candidate, resize-aware 3D scaling, unchanged HUD geometry and schema-2 recorder (desktop functional test only)

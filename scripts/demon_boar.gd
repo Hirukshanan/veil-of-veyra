@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal defeated
+signal state_changed(previous: int, current: int)
 
 const MODEL = preload("res://assets/characters/demon_boar/demon_boar.glb")
 const SPAWN := Vector3(26.5, 0.05, -19.5)
@@ -13,6 +14,8 @@ const HIT_SECONDS := 0.8
 const WORLD_MASK := 1 | 4 | 8
 enum State { IDLE, PATROL, CHASE, FACE, WARNING, CHARGE, RECOVERY, HURT, RETURN, DEAD }
 
+var navigation: Node
+var _reposition_time := 0.0
 var target: Node3D
 var health := 24
 var state := State.IDLE
@@ -118,6 +121,7 @@ func _build_body() -> void:
 func _physics_process(delta: float) -> void:
 	_elapsed += delta
 	_attack_delay = maxf(0.0, _attack_delay - delta)
+	_reposition_time = maxf(0.0, _reposition_time - delta)
 	_hit_time = maxf(0.0, _hit_time - delta)
 	_flinch_cooldown = maxf(0.0, _flinch_cooldown - delta)
 	for material in _materials:
@@ -146,7 +150,7 @@ func _physics_process(delta: float) -> void:
 		_sense_time = 0.2
 		_line_clear = valid_target and distance < 22.0 and _clear_line(target)
 		var wanted := offset.normalized() if valid_target else Vector3.ZERO
-		_steering = _steer(wanted) if state == State.CHASE else Vector3.ZERO
+		_steering = _navigate(target.global_position) if state == State.CHASE and valid_target else (_steer(-wanted) if state == State.FACE else Vector3.ZERO)
 	if state not in [State.IDLE, State.PATROL, State.RETURN] and (not valid_target or distance > 23.0 or _flat(global_position - _home).length() > 18.0):
 		_enter(State.RETURN)
 	var direction := offset.normalized() if distance > 0.01 and valid_target else Vector3.ZERO
@@ -166,15 +170,18 @@ func _physics_process(delta: float) -> void:
 				if home_offset.length() < 0.35 or _elapsed > 5.0:
 					_enter(State.IDLE)
 				else:
-					_walk(_steer(home_offset.normalized()), 0.65, delta)
+					_walk(_navigate(_patrol_goal if state == State.PATROL else _home), 0.65, delta)
 		State.CHASE:
-			if distance < 6.4 and _line_clear and _attack_delay <= 0.0:
+			if distance < 6.4 and _line_clear and _attack_delay <= 0.0 and _reposition_time <= 0.0:
 				_enter(State.FACE)
 			else:
 				_walk(_steering, 2.6, delta)
 		State.FACE:
-			if distance < 2.6 and _elapsed < 0.65:
-				_walk(_steer(-direction), 0.65, delta)
+			if not _line_clear or _elapsed > 3.0:
+				_reposition_time = .8
+				_enter(State.CHASE)
+			elif distance < 2.6 and _elapsed < 0.65:
+				_walk(_steering, 0.65, delta)
 			else:
 				_turn(direction, delta)
 				if _elapsed >= 0.25 and _line_clear and (-global_basis.z).dot(direction) > 0.995:
@@ -202,7 +209,7 @@ func _physics_process(delta: float) -> void:
 			if home_offset.length() < 0.4:
 				_enter(State.IDLE)
 			else:
-				_walk(_steer(home_offset.normalized()), 0.65, delta)
+				_walk(_navigate(_patrol_goal if state == State.PATROL else _home), 0.65, delta)
 	velocity.y = velocity.y - 22.0 * delta if not is_on_floor() else -0.1
 	var before := global_position
 	move_and_slide()
@@ -231,6 +238,7 @@ func _enter(next: State) -> void:
 			_charge_limit = maxf(0.0, (CHARGE_DISTANCE + 0.78) * _cast(_charge_direction * (CHARGE_DISTANCE + 0.78)) - 0.78)
 			if _charge_limit < 1.2:
 				_attack_delay = 1.0
+				_reposition_time = 1.0
 				_enter(State.CHASE)
 				return
 			var lane_length := _charge_limit + 1.45
@@ -262,6 +270,11 @@ func _enter(next: State) -> void:
 			_feedback.voices[1].stop()
 			_feedback.cue("death")
 			defeated.emit()
+	state_changed.emit(previous, state)
+
+func _navigate(goal: Vector3) -> Vector3:
+	if is_instance_valid(navigation):return navigation.direction(self, goal)
+	return _steer(_flat(goal-global_position).normalized())
 
 func _walk(direction: Vector3, speed: float, delta: float) -> void:
 	velocity.x = direction.x * speed
@@ -285,16 +298,32 @@ func _excluded() -> Array[RID]:
 	return result
 
 func _cast(motion: Vector3) -> float:
-	var query := PhysicsShapeQueryParameters3D.new()
-	query.shape = _body_collision.shape
-	query.transform = _body_collision.global_transform
-	# Clearance casts start just above the floor; actual motion keeps full collision.
-	query.transform.origin.y += 0.04
-	query.margin = 0.01
-	query.motion = motion
-	query.collision_mask = WORLD_MASK
-	query.exclude = _excluded()
-	return get_world_3d().direct_space_state.cast_motion(query)[0]
+	# A horizontal sweep from ankle height mistakes uphill support for a wall.
+	# Follow the sampled floor under the long capsule, while retaining full-height
+	# body sweeps and the real controller collision for every physical movement.
+	var space:=get_world_3d().direct_space_state
+	var steps:=maxi(1,ceili(motion.length()/.6))
+	var from:=_body_collision.global_transform
+	for step in range(steps):
+		var point:Vector3=global_position+motion*float(step+1)/steps
+		var support:float=-INF
+		for along in [-.85,0.,.85]:
+			var probe:Vector3=point-global_basis.z*along
+			var ray:=PhysicsRayQueryParameters3D.create(probe+Vector3.UP*2.2,probe-Vector3.UP*3.0,WORLD_MASK,_excluded())
+			var hit:Dictionary=space.intersect_ray(ray)
+			if hit.is_empty() or hit.normal.y<.75:return float(step)/steps
+			support=maxf(support,hit.position.y)
+		var next:=from;next.origin=point+Vector3.UP*(support-point.y+.54)
+		if absf(next.origin.y-from.origin.y)>.65:return float(step)/steps
+		# Start above floor contact, including the highest support under either end.
+		if step==0:from.origin.y=maxf(from.origin.y+.04,next.origin.y)
+		var query:=PhysicsShapeQueryParameters3D.new()
+		query.shape=_body_collision.shape;query.transform=from;query.margin=.01
+		query.motion=next.origin-from.origin;query.collision_mask=WORLD_MASK;query.exclude=_excluded()
+		var fraction:float=space.cast_motion(query)[0]
+		if fraction<.98:return (step+fraction)/steps
+		from=next
+	return 1.0
 
 func _steer(direction: Vector3) -> Vector3:
 	if direction == Vector3.ZERO:

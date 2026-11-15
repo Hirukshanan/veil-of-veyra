@@ -1,0 +1,5 @@
+SCRIPT ERROR: Assertion failed: Five uninterrupted cycles must complete without forcing AI transitions or relocating either actor
+   at: run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_cycle_check.gd:60)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_cycle_check.gd:60)
+       [1] tick (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_cycle_check.gd:22)

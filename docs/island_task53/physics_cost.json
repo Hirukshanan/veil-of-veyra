@@ -1,0 +1,87 @@
+{
+  "before_Task52": {
+    "nav_build_ms": 0,
+    "nav_nodes": 0,
+    "physics_rate": 60,
+    "placement_ready_ms": 5277.328,
+    "platform": "Windows",
+    "renderer": "headless physics-only observation; not Android and not a rendering FPS test",
+    "rows": [
+      {
+        "active_physics_objects_mean": 5.06,
+        "case": "far_patrol",
+        "collision_pairs_mean": 21.0,
+        "physics_median_ms": 6.027,
+        "physics_p95_ms": 7.849,
+        "static_memory_bytes": 381881555.0
+      },
+      {
+        "active_physics_objects_mean": 6.0,
+        "case": "boar_combat",
+        "collision_pairs_mean": 21.985,
+        "physics_median_ms": 4.268,
+        "physics_p95_ms": 11.257,
+        "static_memory_bytes": 381898559.0
+      }
+    ],
+    "sample_physics_ticks": 600,
+    "warmup_physics_ticks": 120
+  },
+  "intermediate_before_bounded_FACE_sensing": {
+    "nav_build_ms": 93.441,
+    "nav_nodes": 1900,
+    "physics_rate": 60,
+    "placement_ready_ms": 5552.426,
+    "platform": "Windows",
+    "renderer": "headless physics-only observation; not Android and not a rendering FPS test",
+    "rows": [
+      {
+        "active_physics_objects_mean": 5.06,
+        "case": "far_patrol",
+        "collision_pairs_mean": 15.0,
+        "physics_median_ms": 2.36,
+        "physics_p95_ms": 5.881,
+        "static_memory_bytes": 383536331.0
+      },
+      {
+        "active_physics_objects_mean": 6.0,
+        "case": "boar_combat",
+        "collision_pairs_mean": 15.1466666666667,
+        "physics_median_ms": 4.173,
+        "physics_p95_ms": 20.698,
+        "static_memory_bytes": 383559771.0
+      }
+    ],
+    "sample_physics_ticks": 600,
+    "warmup_physics_ticks": 120
+  },
+  "final_Task53": {
+    "nav_build_ms": 77.871,
+    "nav_nodes": 1900,
+    "physics_rate": 60,
+    "placement_ready_ms": 5169.211,
+    "platform": "Windows",
+    "renderer": "headless physics-only observation; not Android and not a rendering FPS test",
+    "rows": [
+      {
+        "active_physics_objects_mean": 5.06,
+        "case": "far_patrol",
+        "collision_pairs_mean": 15.0,
+        "physics_median_ms": 2.754,
+        "physics_p95_ms": 27.108,
+        "static_memory_bytes": 383539063.0
+      },
+      {
+        "active_physics_objects_mean": 6.0,
+        "case": "boar_combat",
+        "collision_pairs_mean": 15.155,
+        "physics_median_ms": 3.931,
+        "physics_p95_ms": 5.29,
+        "static_memory_bytes": 383562503.0
+      }
+    ],
+    "sample_physics_ticks": 600,
+    "warmup_physics_ticks": 120
+  },
+  "interpretation": "Single Windows headless observations, not Android FPS, RAM or thermals. Each scenario has 120 warmup +600 sampled physics ticks at60Hz. Different encounter positions are intentional. The final observation ran without concurrent build/capture/test work. Compare end-to-end candidate costs, not a statistically isolated attribution. Far-patrol p95 worsened in the final sample; this remains a performance risk pending device retest."
+}

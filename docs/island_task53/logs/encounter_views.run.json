@@ -1,0 +1,20 @@
+{
+  "name": "encounter_views",
+  "started_utc": "2026-11-15T14:06:32.291698+00:00",
+  "duration_s": 47.948,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task53_views.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task53\\views"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

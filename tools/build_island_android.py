@@ -12,8 +12,8 @@ def run(cmd,logs,label,env,timeout=1200):
  if p.returncode:raise RuntimeError(label+' failed; inspect sanitized local logs')
  return p.stdout.decode('utf-8',errors='replace')
 def main():
- parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--task',choices=['5.1','5.2'],default='5.1');parser.add_argument('--render-height',type=int,choices=[0,720],default=0,help='0=native baseline; 720=3D-only capped-resolution trial');parser.add_argument('--repo',type=Path,default=Path(__file__).resolve().parents[1]);parser.add_argument('--godot',type=Path,required=True);parser.add_argument('--sdk',type=Path,required=True);parser.add_argument('--java',type=Path,required=True);parser.add_argument('--templates',type=Path,required=True);parser.add_argument('--staging',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
- assert args.task!='5.2' or args.render_height==720,'Task 5.2 must preserve the accepted 720p cap'
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--task',choices=['5.1','5.2','5.3'],default='5.1');parser.add_argument('--render-height',type=int,choices=[0,720],default=0,help='0=native baseline; 720=3D-only capped-resolution trial');parser.add_argument('--repo',type=Path,default=Path(__file__).resolve().parents[1]);parser.add_argument('--godot',type=Path,required=True);parser.add_argument('--sdk',type=Path,required=True);parser.add_argument('--java',type=Path,required=True);parser.add_argument('--templates',type=Path,required=True);parser.add_argument('--staging',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
+ assert args.task not in ['5.2','5.3'] or args.render_height==720,'Task 5.2/5.3 must preserve the accepted 720p cap'
  R=args.repo.resolve();stage=args.staging.resolve();out=args.output.resolve()
  assert not stage.exists(),'Use a new staging directory; no recursive deletion is performed'
  assert not stage.is_relative_to(R) and not R.is_relative_to(stage),'Stage outside the source repository'
@@ -33,7 +33,7 @@ def main():
  source=Path(__file__).parent
  # Script lives under tools/ in the repository; deployed copies live in mobile_test/ only in staging.
  (stage/'mobile_test').mkdir()
- (stage/'mobile_test/performance_config.json').write_text(json.dumps({'task':args.task,'experiment':('accepted_cap720' if args.task=='5.2' else 'cap720_trial') if args.render_height else 'native_baseline','render_height':args.render_height,'single_changed_variable':'Task 5.2 geometry/collisions; accepted 720p rendering preserved' if args.task=='5.2' else '3D rendering resolution only','phone_improvement_verified':False},indent=2))
+ (stage/'mobile_test/performance_config.json').write_text(json.dumps({'task':args.task,'experiment':('accepted_cap720' if args.task in ['5.2','5.3'] else 'cap720_trial') if args.render_height else 'native_baseline','render_height':args.render_height,'single_changed_variable':('Task 5.3 encounters/navigation and repeating boar combat; accepted 720p preserved' if args.task=='5.3' else 'Task 5.2 geometry/collisions; accepted 720p rendering preserved') if args.task in ['5.2','5.3'] else '3D rendering resolution only','phone_improvement_verified':False},indent=2))
  for src,dst in [('mobile_bootstrap.gd','bootstrap.gd'),('mobile_probe.gd','probe.gd')]:shutil.copy2(source/(src+".template"),stage/'mobile_test'/dst)
  (stage/'mobile_test/main.tscn').write_text('[gd_scene load_steps=2 format=3]\n\n[ext_resource type="Script" path="res://mobile_test/bootstrap.gd" id="1"]\n\n[node name="IslandAndroidTest" type="Node"]\nscript = ExtResource("1")\n')
  preset=(R/'export_presets.cfg').read_text().replace('name="Android Debug"','name="Island Android Test"').replace('export_path="builds/android/veyra-debug.apk"','export_path=""').replace('package/unique_name="com.hirukshanan.veilofveyra.dev"','package/unique_name="com.hirukshanan.veilofveyra.islandtest"').replace('package/name="Veil of Veyra Dev"','package/name="Veil of Vera Island Test"')
@@ -48,7 +48,7 @@ def main():
  (godot_profile/'editor_settings-4.7.tres').write_text(settings)
  env=os.environ.copy();env['APPDATA']=str(profile);env['JAVA_HOME']=str(args.java);env['ANDROID_HOME']=str(args.sdk);env['PATH']=str(args.java/'bin')+os.pathsep+env.get('PATH','')
  run([args.godot,'--headless','--editor','--path',stage,'--import'],logs,'import',env)
- apk=out/('Veil_of_Vera_Task52_720p_Candidate.apk' if args.task=='5.2' else ('Veil_of_Vera_Task51_Native_Baseline.apk' if args.render_height==0 else 'Veil_of_Vera_Task51_720p_Trial.apk'))
+ apk=out/('Veil_of_Vera_Task53_720p_Candidate.apk' if args.task=='5.3' else ('Veil_of_Vera_Task52_720p_Candidate.apk' if args.task=='5.2' else ('Veil_of_Vera_Task51_Native_Baseline.apk' if args.render_height==0 else 'Veil_of_Vera_Task51_720p_Trial.apk')))
  run([args.godot,'--headless','--path',stage,'--export-debug','Island Android Test',apk],logs,'export',env)
  assert apk.exists() and apk.stat().st_size>1000000
  assert all(digest(R/n)==h for n,h in originals.items()),'Source changed during build'

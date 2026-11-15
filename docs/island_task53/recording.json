@@ -1,0 +1,193 @@
+{
+  "charges": 5,
+  "completed_cycles": 5,
+  "controlled_player": "actual unchanged player, health100 with test-only invulnerability and physics held; no normal gameplay rules changed",
+  "duration_s": 30.6000000000007,
+  "events": [
+    {
+      "boar": "(-36.0, 0.394178, 12.0)",
+      "frame": 0,
+      "from": "IDLE",
+      "seconds": 0.0,
+      "to": "CHASE"
+    },
+    {
+      "boar": "(-36.0, 0.388067, 12.0)",
+      "frame": 0,
+      "from": "CHASE",
+      "seconds": 0.0,
+      "to": "FACE"
+    },
+    {
+      "boar": "(-36.0, 0.315641, 12.0)",
+      "frame": 8,
+      "from": "FACE",
+      "seconds": 0.266666666666667,
+      "to": "WARNING"
+    },
+    {
+      "boar": "(-36.0, 0.315641, 12.0)",
+      "frame": 63,
+      "from": "WARNING",
+      "seconds": 2.1,
+      "to": "CHARGE"
+    },
+    {
+      "boar": "(-35.98956, 0.368389, 5.710246)",
+      "frame": 123,
+      "from": "CHARGE",
+      "seconds": 4.1,
+      "to": "RECOVERY"
+    },
+    {
+      "boar": "(-35.98702, 0.379976, 4.957191)",
+      "frame": 165,
+      "from": "RECOVERY",
+      "seconds": 5.49999999999999,
+      "to": "CHASE"
+    },
+    {
+      "boar": "(-35.98854, 0.361582, 5.737846)",
+      "frame": 178,
+      "from": "CHASE",
+      "seconds": 5.93333333333332,
+      "to": "FACE"
+    },
+    {
+      "boar": "(-35.98127, 0.366669, 5.326961)",
+      "frame": 211,
+      "from": "FACE",
+      "seconds": 7.03333333333332,
+      "to": "WARNING"
+    },
+    {
+      "boar": "(-35.98127, 0.368034, 5.326961)",
+      "frame": 265,
+      "from": "WARNING",
+      "seconds": 8.83333333333331,
+      "to": "CHARGE"
+    },
+    {
+      "boar": "(-36.62055, 0.353954, 11.53436)",
+      "frame": 325,
+      "from": "CHARGE",
+      "seconds": 10.8333333333333,
+      "to": "RECOVERY"
+    },
+    {
+      "boar": "(-36.69645, 0.358763, 12.28418)",
+      "frame": 367,
+      "from": "RECOVERY",
+      "seconds": 12.2333333333333,
+      "to": "CHASE"
+    },
+    {
+      "boar": "(-36.56732, 0.366587, 11.47062)",
+      "frame": 380,
+      "from": "CHASE",
+      "seconds": 12.6666666666666,
+      "to": "FACE"
+    },
+    {
+      "boar": "(-36.56732, 0.355409, 11.47062)",
+      "frame": 388,
+      "from": "FACE",
+      "seconds": 12.9333333333333,
+      "to": "WARNING"
+    },
+    {
+      "boar": "(-36.56732, 0.355409, 11.47062)",
+      "frame": 442,
+      "from": "WARNING",
+      "seconds": 14.7333333333333,
+      "to": "CHARGE"
+    },
+    {
+      "boar": "(-35.35735, 0.329534, 5.348422)",
+      "frame": 502,
+      "from": "CHARGE",
+      "seconds": 16.7333333333333,
+      "to": "RECOVERY"
+    },
+    {
+      "boar": "(-35.20977, 0.332803, 4.609289)",
+      "frame": 544,
+      "from": "RECOVERY",
+      "seconds": 18.1333333333334,
+      "to": "CHASE"
+    },
+    {
+      "boar": "(-35.43649, 0.3386, 5.535383)",
+      "frame": 557,
+      "from": "CHASE",
+      "seconds": 18.5666666666667,
+      "to": "FACE"
+    },
+    {
+      "boar": "(-35.36764, 0.333125, 5.273511)",
+      "frame": 583,
+      "from": "FACE",
+      "seconds": 19.4333333333335,
+      "to": "WARNING"
+    },
+    {
+      "boar": "(-35.36764, 0.333125, 5.273511)",
+      "frame": 638,
+      "from": "WARNING",
+      "seconds": 21.2666666666669,
+      "to": "CHARGE"
+    },
+    {
+      "boar": "(-37.44608, 0.412414, 11.20851)",
+      "frame": 698,
+      "from": "CHARGE",
+      "seconds": 23.266666666667,
+      "to": "RECOVERY"
+    },
+    {
+      "boar": "(-37.69372, 0.426476, 11.91945)",
+      "frame": 740,
+      "from": "RECOVERY",
+      "seconds": 24.6666666666671,
+      "to": "CHASE"
+    },
+    {
+      "boar": "(-37.2954, 0.412938, 10.95744)",
+      "frame": 753,
+      "from": "CHASE",
+      "seconds": 25.1000000000004,
+      "to": "FACE"
+    },
+    {
+      "boar": "(-37.2954, 0.407483, 10.95744)",
+      "frame": 761,
+      "from": "FACE",
+      "seconds": 25.3666666666671,
+      "to": "WARNING"
+    },
+    {
+      "boar": "(-37.2954, 0.407483, 10.95744)",
+      "frame": 815,
+      "from": "WARNING",
+      "seconds": 27.1666666666672,
+      "to": "CHARGE"
+    },
+    {
+      "boar": "(-34.79704, 0.305654, 5.237876)",
+      "frame": 875,
+      "from": "CHARGE",
+      "seconds": 29.1666666666673,
+      "to": "RECOVERY"
+    },
+    {
+      "boar": "(-34.49361, 0.298713, 4.54716)",
+      "frame": 917,
+      "from": "RECOVERY",
+      "seconds": 30.5666666666673,
+      "to": "CHASE"
+    }
+  ],
+  "fixed_capture_fps": 30,
+  "frames": 918,
+  "platform": "Godot Windows gameplay; not Android benchmark"
+}

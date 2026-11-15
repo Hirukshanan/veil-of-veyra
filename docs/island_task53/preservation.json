@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "production_main_unchanged": true,
+  "all_preexisting_assets_and_scene_files_byte_identical": true,
+  "terrain_water_forest_grass_hero_HUD_quest_inventory_save_dragon_sources_unchanged": true,
+  "only_existing_encounters_relocated": true,
+  "stable_spawn_IDs_and_retired_ID5_preserved": true,
+  "health_damage_speed_detection_leash_loot_rewards_unchanged": true,
+  "source_files_changed": [
+    "scripts/demon_boar.gd",
+    "scripts/enemy.gd",
+    "scripts/island_candidate.gd",
+    "tools/build_island_android.py"
+  ],
+  "new_runtime_file": "scripts/island_enemy_navigation.gd",
+  "static_collision_shapes": 82,
+  "original_map_and_art_sources_retained": true,
+  "accepted_720p_bootstrap_and_profiler_bytecode_identical": true,
+  "final_APK_matches_all_current_runtime_source_hashes": true,
+  "no_target_lock_or_Task54_changes": true
+}

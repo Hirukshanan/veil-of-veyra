@@ -1,0 +1,17 @@
+{
+  "name": "physics_after_final",
+  "started_utc": "2026-11-15T14:09:27.731956+00:00",
+  "duration_s": 30.374,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_profile.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task53\\physics_after_final"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

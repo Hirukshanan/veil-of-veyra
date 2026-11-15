@@ -1,0 +1,17 @@
+{
+  "name": "boar_cycles_initial",
+  "started_utc": "2026-11-15T13:52:03.833158+00:00",
+  "duration_s": 36.695,
+  "exit_code": 1,
+  "script_error": true,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_cycle_check.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task53"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,4 @@
+SCRIPT ERROR: Assertion failed: Existing wolf chase must route around the tree rather than stay pinned at its trunk
+   at: run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_navigation_check.gd:67)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/task53_navigation_check.gd:67)

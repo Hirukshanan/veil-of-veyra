@@ -14,7 +14,16 @@ func run():
 	assert_environment_preservation(expected,fingerprint(scene.landscape))
 	var vegetation:Node=scene.landscape.get_node("CandidateVegetation")
 	assert(vegetation.form_counts==PackedInt32Array([24,24,24]),"Three authored forms must each have 24 retained tree anchors")
-	var old=load("res://art_source/island/polish_task21/baseline_vegetation.gd").new();scene.landscape.add_child(old);old.hide();old.landscape=scene.landscape;old.clear_points=vegetation.clear_points.duplicate();old._build_groundcover()
+	var old=load("res://art_source/island/polish_task21/baseline_vegetation.gd").new();scene.landscape.add_child(old);old.hide();old.landscape=scene.landscape;old.clear_points=vegetation.clear_points.duplicate()
+	# Vegetation was generated before the Task 5.3 encounter relocation. Rebuild the
+	# archived comparison with the same original enemy exclusions, then restore actors.
+	var current_positions:Dictionary={}
+	for actor in get_nodes_in_group("combat_enemies"):
+		current_positions[actor]=actor.position
+		for placement in scene.placement_log:
+			if str(actor.name)==placement.node:actor.position=placement.after;break
+	old._build_groundcover()
+	for actor in current_positions:actor.position=current_positions[actor]
 	assert(old.grass_positions==vegetation.grass_positions,"Refinement must retain accepted grass placement and exclusions")
 	var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(vegetation.grass_positions.to_byte_array());var grass_hash:=hash.finish().hex_encode();old.queue_free()
 	var actual_forms:Dictionary={};var near_batches:=0
@@ -46,4 +55,12 @@ func run():
 	var file:=FileAccess.open(OUTPUT+"refinement_check.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"task52_collision_shapes":82,"water_and_cave_fingerprints_identical":true,"forms":{"Broad Fork":24,"Tall Column":24,"Leaning Crown":24},"near_instanced_batches":near_batches,"no_individual_tree_draws_added":true,"accepted_grass_positions_identical":true,"grass_position_sha256":grass_hash,"form_bounds":bounds,"complementary_lod_weights_passed":true},"  "))
 	print("PASS: Task 5.2 collision corrections; water/cave exact; 3 distinct GPU-instanced forms; grass placements retained; complementary LOD coverage verified")
-	scene.queue_free();await process_frame;quit()
+	scene.queue_free();await process_frame
+	# Release local mesh references before the renderer shuts down.
+	call_deferred("_finish_native_check")
+
+func _finish_native_check():
+	await process_frame
+	await RenderingServer.frame_post_draw
+	await create_timer(.25,true,false,true).timeout
+	quit()

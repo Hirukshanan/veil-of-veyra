@@ -1,0 +1,16 @@
+{
+  "ground_triangles": 72586,
+  "max_collision_support_error_m": 0.0117896284810994,
+  "max_patch_height_error_m": 0.00000095367431640625,
+  "max_placement_change_m": 0.0000420808792114258,
+  "max_shore_height_error_m": 0.000160969793796539,
+  "outlet_end_y_m": -1.49,
+  "outlet_end_z_m": 118.75,
+  "patch_vertices_checked": 23272,
+  "preserved_placement_count": 26,
+  "repaired_patches": 4,
+  "river_triangles": 27796,
+  "sea_y_m": -1.45,
+  "seam_collision_samples": 324,
+  "shore_vertices_checked": 3531
+}

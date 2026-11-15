@@ -1,0 +1,17 @@
+{
+  "name": "final_island_river_escape_check",
+  "started_utc": "2026-11-15T14:00:21.030755+00:00",
+  "duration_s": 36.206,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_river_escape_check.gd",
+    "--",
+    "PROJECT_ROOT\\.validation\\island_task53"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
