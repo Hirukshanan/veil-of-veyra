@@ -86,5 +86,7 @@ func _run():
 	assert(hero.stamina == 100)
 	scene.queue_free()
 	await process_frame
+	# Audio mixer playback references are retired asynchronously after stop/free.
+	await create_timer(0.3, true, false, true).timeout
 	print("PASS: heavy touch input, stamina cost/gating, delayed 4x damage, forward arc, stagger, spirit, repeat guard, dodge/hit/menu cancellation, pause and death")
 	quit()

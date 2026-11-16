@@ -1,0 +1,14 @@
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+Blender 4.2.9 LTS (hash a10f621e649a built 2025-04-15 03:32:43)
+Read blend: "C:\Users\Dark\Desktop\Projects\veil-of-veyra\art_source\island\task541\Cave.blend"
+Info: Total files 0 | Changed 0 | Failed 0
+Info: Saved "Cave_Exterior.blend"
+INFO Draco mesh compression is available, use library at C:\Users\Dark\Documents\Codex\2026-11-13\c\work\phase3_tools\blender\blender-4.2.9-windows-x64\4.2\python\lib\site-packages\extern_draco.dll
+00:40:14 | INFO: Starting glTF 2.0 export
+00:40:14 | INFO: Extracting primitive: Refined exterior with preserved chamber surfaces
+00:40:15 | INFO: Primitives created: 1
+00:40:15 | INFO: Finished glTF 2.0 export in 0.02190852165222168 s
+
+{"interior_vertices_unchanged": 1848, "outer_vertices_adjusted": 1848, "vertices_before": 4101, "vertices_after": 4332, "polygons_before": 4007, "polygons_after": 4238, "triangles_before": 8162, "triangles": 8624, "interior_positions_exact": true, "new_textures": 0, "minimum_cross_section_roof_clearance_m": 1.7999992370605469}
+
+Blender quit

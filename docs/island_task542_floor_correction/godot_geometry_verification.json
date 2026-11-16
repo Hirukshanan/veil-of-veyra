@@ -1,0 +1,10 @@
+{
+  "changed_render_vertices": 1848,
+  "indices_exact": true,
+  "normals_exact": true,
+  "only_changed_attribute": "Interior vertex color white to black; alpha retained",
+  "ordered_faces_exact": true,
+  "passed": true,
+  "positions_exact": true,
+  "triangles": 8624
+}

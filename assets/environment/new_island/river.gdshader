@@ -22,7 +22,7 @@ void fragment(){
     river=mix(river,vec3(0.15,0.38,0.34),COLOR.r*0.14);
     float outlet=smoothstep(85.0,106.0,p.z);
     ALBEDO=mix(river,ocean,outlet);
-    NORMAL=normalize(vec3(cos(wave_a)*0.018,cos(wave_b)*0.018,1.0));
+    NORMAL=normalize((VIEW_MATRIX*vec4(cos(wave_a)*0.018,1.0,cos(wave_b)*0.018,0.0)).xyz);
     ROUGHNESS=mix(0.65,mix(0.65,0.95,foam),outlet);
     SPECULAR=0.3;
 }

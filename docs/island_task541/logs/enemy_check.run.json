@@ -1,0 +1,17 @@
+{
+  "name": "enemy_check",
+  "started_utc": "2026-11-15T17:09:07.227840+00:00",
+  "duration_s": 0.759,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--headless",
+    "--script",
+    "res://tests/enemy_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

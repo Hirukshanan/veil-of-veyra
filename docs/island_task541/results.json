@@ -1,0 +1,145 @@
+{
+  "after": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "autosave_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "boar_campaign_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "boar_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "boar_feedback_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "boar_repeated_cycle_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "campaign_smoke": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "combat_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "enemy_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "fast_travel_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "heavy_attack_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  "hud_customization_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "island_accessibility_collision_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "island_campaign_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "island_collision_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "island_enemy_navigation_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "island_river_escape_check": {
+    "exit": 1,
+    "script_error": true,
+    "engine_errors": [],
+    "superseded_by": "river_final.log"
+  },
+  "layout_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "mobile_controls_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "mobile_gestures_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "mobile_hud_layout_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "mobile_settings_touch_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "pause_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "persistent_world_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "quest_hud_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "safe_area_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "settings_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  },
+  "sprint_check": {
+    "exit": 0,
+    "script_error": false,
+    "engine_errors": []
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "cave_relic_collected": true,
+  "encoded_fps": 15,
+  "frames": 253,
+  "hero_controller_unmodified": true,
+  "note": "Fixed-step offline recording with actual hero physics and spring arm, enemy physics held. Playback rate is not a performance measurement.",
+  "passed": true,
+  "reserved_dragon_hall_gameplay_tested": false,
+  "returned_outside": true,
+  "teleports_after_initial_placement": 0,
+  "waypoints": [
+    {
+      "health": 100,
+      "position": "(75.99995, 1.442808, 4.56486)",
+      "waypoint": 0
+    },
+    {
+      "health": 100,
+      "position": "(75.09197, 1.617392, 9.497904)",
+      "waypoint": 1
+    },
+    {
+      "health": 100,
+      "position": "(71.28121, 2.045269, 14.61879)",
+      "waypoint": 2
+    },
+    {
+      "health": 100,
+      "position": "(68.3215, 2.137662, 18.57128)",
+      "waypoint": 3
+    },
+    {
+      "health": 100,
+      "position": "(66.17535, 2.364872, 24.51211)",
+      "waypoint": 4
+    },
+    {
+      "health": 100,
+      "position": "(67.86447, 2.150908, 19.40945)",
+      "waypoint": 5
+    },
+    {
+      "health": 100,
+      "position": "(70.72753, 2.075126, 15.38319)",
+      "waypoint": 6
+    },
+    {
+      "health": 100,
+      "position": "(74.66212, 1.698271, 10.42572)",
+      "waypoint": 7
+    },
+    {
+      "health": 100,
+      "position": "(75.88683, 1.430744, 5.459265)",
+      "waypoint": 8
+    },
+    {
+      "health": 100,
+      "position": "(75.99734, 1.278663, -16.46512)",
+      "waypoint": 9
+    }
+  ]
+}

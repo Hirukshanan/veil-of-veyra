@@ -1,0 +1,35 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/enemy_check.gd remapped: res://tests/enemy_check.gd
+Completed load for: 'res://tests/enemy_check.gd' remapped 'res://tests/enemy_check.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_BaseColor.png-cb15a4fdb7bf8c2351279c70548b27f9.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_BaseColor.png-cb15a4fdb7bf8c2351279c70548b27f9.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_MetalRough.jpg-c634f6099ffc67533a299cf446256838.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_MetalRough.jpg-c634f6099ffc67533a299cf446256838.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_Normal.png-ca275bffdddd4db7c7ac76269e39e037.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_Normal.png-ca275bffdddd4db7c7ac76269e39e037.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png' at thread -1
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+PASS: Shore/Scout/Brute health, pursuit speed, warning radius/timing, damage, escape, interruption, hit feedback and single defeat
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

@@ -1,0 +1,16 @@
+{
+  "name": "audio_before_01",
+  "started_utc": "2026-11-15T17:27:56.625110+00:00",
+  "duration_s": 10.057,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/heavy_attack_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

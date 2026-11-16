@@ -1,0 +1,29 @@
+{
+  "root_cause": "The heavy-attack test called SceneTree.quit immediately after queue_free and one frame. The audio server had pending mixer playback references to sword_swing.wav. The existing player exit callback already stops playback. A real-time 0.3 s teardown wait retires those references before engine shutdown.",
+  "before_repeats": [
+    {
+      "run": 0,
+      "retained_sword_stream": false,
+      "playback_reference_leaked": false
+    },
+    {
+      "run": 1,
+      "retained_sword_stream": true,
+      "playback_reference_leaked": true
+    },
+    {
+      "run": 2,
+      "retained_sword_stream": true,
+      "playback_reference_leaked": true
+    },
+    {
+      "run": 3,
+      "retained_sword_stream": false,
+      "playback_reference_leaked": false
+    }
+  ],
+  "fix_location": "tests/heavy_attack_check.gd teardown only",
+  "combat_changes": false,
+  "after_repeats": 5,
+  "after_script_shader_engine_errors": 0
+}

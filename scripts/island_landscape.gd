@@ -22,6 +22,9 @@ func _ready() -> void:
 		add_child(region)
 		regions.append(region)
 		for mesh in region.find_children("*", "MeshInstance3D", true, false):
+			if (region_name == "EasternCaves") or (region_name == "WaterfallMountains" and str(mesh.name).contains("GradedTerrain")):
+				mesh.free()
+				continue
 			var bounds: AABB = mesh.mesh.get_aabb()
 			var source: StandardMaterial3D = mesh.get_active_material(0)
 			var material := ShaderMaterial.new()
@@ -96,41 +99,18 @@ func _populate_forest() -> Array[Transform3D]:
 	return transforms
 
 func _build_grotto() -> void:
-	var surface := SurfaceTool.new()
-	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-	# A 15 m grotto: 5 m wide, 3.8 m clear height, closed at the far end.
-	for section in range(8):
-		for side in range(12):
-			var vertices: Array[Vector3] = []
-			for pair in [Vector2i(section,side),Vector2i(section+1,side),Vector2i(section,side+1),Vector2i(section+1,side),Vector2i(section+1,side+1),Vector2i(section,side+1)]:
-				var angle: float = pair.y*PI/12.0
-				var rough: float = sin(pair.x*2.3+pair.y*3.1)*0.10
-				vertices.append(Vector3(76+cos(angle)*(2.6+rough),1.5+sin(angle)*(3.8+rough),-6+pair.x*2.0))
-			for vertex in vertices:
-				surface.set_uv(Vector2(vertex.x*0.4,vertex.z*0.4+vertex.y*0.3))
-				surface.add_vertex(vertex)
-	for vertex in [Vector3(73.4,1.5,-6),Vector3(78.6,1.5,-6),Vector3(73.4,1.5,10),Vector3(78.6,1.5,-6),Vector3(78.6,1.5,10),Vector3(73.4,1.5,10)]:
-		surface.set_uv(Vector2(vertex.x,vertex.z)*0.3)
-		surface.add_vertex(vertex)
-	for side in range(12):
-		for vertex in [Vector3(76,1.5,10),Vector3(76+cos(side*PI/12)*2.6,1.5+sin(side*PI/12)*3.8,10),Vector3(76+cos((side+1)*PI/12)*2.6,1.5+sin((side+1)*PI/12)*3.8,10)]:
-			surface.set_uv(Vector2(vertex.x,vertex.y)*0.3)
-			surface.add_vertex(vertex)
-	surface.generate_normals()
 	var grotto := MeshInstance3D.new()
 	grotto.name = "PlayableGrotto"
-	grotto.mesh = surface.commit()
-	var material: StandardMaterial3D = preload("res://scripts/environment_materials.gd").surface("rocky_terrain_02",0.6)
-	material.cull_mode = BaseMaterial3D.CULL_DISABLED
-	material.albedo_color = Color(0.62,0.66,0.62)
-	grotto.material_override = material
+	var imported = preload("res://assets/environment/new_island/task542/cave_exterior.glb").instantiate()
+	var refined_mesh: MeshInstance3D = imported.find_children("*", "MeshInstance3D", true, false)[0]
+	grotto.mesh = refined_mesh.mesh
+	imported.free()
 	add_child(grotto)
 	grotto.create_trimesh_collision()
 	var body: StaticBody3D = grotto.get_child(0)
 	body.collision_layer = 1 | 4 | 8 | 16
 	body.collision_mask = 0
-	var shape: ConcavePolygonShape3D = body.get_child(0).shape
-	shape.backface_collision = true
+	body.get_child(0).shape.backface_collision = true
 	var fill := OmniLight3D.new()
 	fill.position = Vector3(76,3.1,2)
 	fill.omni_range = 9
@@ -140,6 +120,8 @@ func _build_grotto() -> void:
 	add_child(fill)
 
 func supported_saved_point(point: Vector3) -> Vector3:
+	# The old eastern prop enclosed this legacy position inside solid rock.
+	if point.distance_to(Vector3(68,0,0))<0.05:return Vector3(76,1.60,0)
 	var query := PhysicsRayQueryParameters3D.create(point+Vector3.UP*0.8,point-Vector3.UP*2.0,16)
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if not hit.is_empty() and hit.normal.y>0.82:
@@ -159,7 +141,7 @@ func _build_ground() -> void:
 	for z in range(SURFACE.columns-1):
 		for x in range(SURFACE.columns-1):
 			# One owner per cell: regional patches share these exact edge vertices.
-			if SURFACE.cells[z*(SURFACE.columns-1)+x]!=0:continue
+			if SURFACE.cells[z*(SURFACE.columns-1)+x] not in [0,1,4]:continue
 			var px:float=SURFACE.origin.x+x*SURFACE.spacing
 			var pz:float=SURFACE.origin.y+z*SURFACE.spacing
 			var step:float=SURFACE.spacing
@@ -182,6 +164,7 @@ func _build_ground() -> void:
 	ground.mesh = mesh
 	var material := ShaderMaterial.new()
 	material.shader = preload("res://assets/environment/new_island/land.gdshader")
+	material.set_shader_parameter("cliff_rock", preload("res://assets/environment/new_island/task3/rock_albedo.png"))
 	material.set_shader_parameter("grass",preload("res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg"))
 	material.set_shader_parameter("sand",preload("res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg"))
 	material.set_shader_parameter("soil",preload("res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg"))
@@ -211,7 +194,7 @@ func _build_water() -> void:
 	water.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for z in range(SURFACE.columns-1):
 		var pz:float=SURFACE.origin.y+z*SURFACE.spacing
-		if pz < -68 or pz > 118:continue
+		if pz < -70 or pz > 118:continue
 		for x in range(SURFACE.columns-1):
 			var px:float=SURFACE.origin.x+x*SURFACE.spacing
 			if absf(px-_river_center(pz))>_river_width(pz)+3:continue

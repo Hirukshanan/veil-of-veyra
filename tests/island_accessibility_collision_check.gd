@@ -23,12 +23,12 @@ func run():
 	for c in landscape.find_children("*","CollisionShape3D",true,false):
 		shape_count+=1
 		assert(not c.disabled and (c.get_parent().collision_layer&1)!=0,"All candidate solids must be detected by the existing wolf mask")
-	assert(shape_count==82)
+	assert(shape_count==79, "Eastern apron and headwater cells share the continuous ground body; cave and all 35 tree proxies remain solid")
 	var test_trunk:CollisionShape3D=trunks.get_child(0)
 	var p:Vector3=test_trunk.position;p.y-=test_trunk.shape.height*.5
 	await hero_walk("original_tree_trunk",landscape.ground_point(p+Vector3.RIGHT*2.4)+Vector3.UP*.08,Vector2(-1,0),90)
 	await hero_walk("cave_wall",Vector3(76,1.58,0),Vector2.RIGHT,100)
-	assert(hero.position.x<78.5 and hero.position.x>77,"Hero must stop at the visible cave wall")
+	assert(hero.position.x<82 and hero.position.x>79,"Hero must stop at the visible cave wall")
 	# A new isolated fixture enemy uses the real unmodified wolf chase controller.
 	hero.position=landscape.ground_point(p-Vector3.RIGHT*3)+Vector3.UP*.08;hero.set_physics_process(false)
 	var wolf=load("res://scripts/enemy.gd").new();wolf.position=landscape.ground_point(p+Vector3.RIGHT*2.4)+Vector3.UP*.08;wolf.target=hero;scene.add_child(wolf)
@@ -46,7 +46,8 @@ func run():
 	var walls:Array=[]
 	for region_name in ["WaterfallMountains","EasternCaves"]:
 		var found:=0
-		for mesh in landscape.get_node(region_name).find_children("*","MeshInstance3D",true,false):
+		var solids=landscape.get_node(region_name).find_children("*","MeshInstance3D",true,false) if region_name=="WaterfallMountains" else [landscape.get_node("PlayableGrotto")]
+		for mesh in solids:
 			if str(mesh.name).contains("GradedTerrain"):continue
 			var faces:PackedVector3Array=mesh.mesh.get_faces()
 			for index in range(0,faces.size(),3):
@@ -104,7 +105,7 @@ func run():
 			assert(clear,"Spring arm must keep the camera outside corrected rock/bank/cave collision")
 	FileAccess.open(output+"/collision_tests.json",FileAccess.WRITE).store_string(JSON.stringify({"static_shapes":shape_count,"new_original_root_proxies":35,"all_solids_on_existing_enemy_mask":true,"cases":rows,"spawn_checks":spawn_rows,"camera_checks":camera_checks},"  "))
 	assert(spawn_rows.all(func(row):return row.overlaps==0),"Preserved enemy spawn must not overlap solid terrain")
-	print("PASS: actual hero/wolf movement, wolf/boar body sweeps, 82 layer-compatible shapes, unchanged spawn clearance")
+	print("PASS: actual hero/wolf movement, wolf/boar body sweeps, %d layer-compatible shapes, unchanged spawn clearance" % shape_count)
 	scene.queue_free();await process_frame;await create_timer(.25,true,false,true).timeout;quit()
 func hero_walk(label:String,start:Vector3,input:Vector2,frames:int):
 	var hero=scene.player;hero.position=start;hero.velocity=Vector3.ZERO;var contacts:=0

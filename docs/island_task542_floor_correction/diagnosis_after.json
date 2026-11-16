@@ -1,0 +1,132 @@
+[
+  {
+    "below_height": 1.3199999332428,
+    "below_surface": "/root/Main/NewIslandLandscape/ConnectedTerrain",
+    "corners": [
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(75.99916, 1.468142, 3.598846)",
+        "vertex": 2831
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(77.0697, 1.426771, 4.798922)",
+        "vertex": 2835
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(75.99916, 1.436144, 4.798922)",
+        "vertex": 2836
+      }
+    ],
+    "face": 2725,
+    "hit": "(76.0, 1.457395, 4.0)",
+    "point": "(76.0, 1.5, 4.0)",
+    "surface_material": "res://assets/environment/new_island/task542/rock_transition.gdshader",
+    "visible_support": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  },
+  {
+    "below_height": 1.3199999332428,
+    "below_surface": "/root/Main/NewIslandLandscape/ConnectedTerrain",
+    "corners": [
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(73.08748, 1.741256, 11.24986)",
+        "vertex": 792
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(72.99976, 1.895752, 12.49952)",
+        "vertex": 4183
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(72.07447, 1.866016, 12.49952)",
+        "vertex": 4182
+      }
+    ],
+    "face": 7314,
+    "hit": "(73.0, 1.832919, 12.0)",
+    "point": "(73.0, 1.8, 12.0)",
+    "surface_material": "res://assets/environment/new_island/task542/rock_transition.gdshader",
+    "visible_support": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  },
+  {
+    "below_height": 1.3199999332428,
+    "below_surface": "/root/Main/NewIslandLandscape/ConnectedTerrain",
+    "corners": [
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(70.99922, 2.066085, 14.99882)",
+        "vertex": 4191
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(71.94997, 2.033763, 14.99882)",
+        "vertex": 4194
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(71.08316, 2.059298, 16.33305)",
+        "vertex": 1147
+      }
+    ],
+    "face": 7348,
+    "hit": "(71.0, 2.066069, 15.0)",
+    "point": "(71.0, 2.0, 15.0)",
+    "surface_material": "res://assets/environment/new_island/task542/rock_transition.gdshader",
+    "visible_support": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  },
+  {
+    "below_height": 1.3199999332428,
+    "below_surface": "/root/Main/NewIslandLandscape/ConnectedTerrain",
+    "corners": [
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(65.99927, 2.330472, 23.99865)",
+        "vertex": 1362
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(67.95831, 2.437456, 25.33287)",
+        "vertex": 2433
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(65.99927, 2.409013, 25.33287)",
+        "vertex": 2429
+      }
+    ],
+    "face": 1113,
+    "hit": "(66.0, 2.389423, 25.0)",
+    "point": "(66.0, 2.35, 25.0)",
+    "surface_material": "res://assets/environment/new_island/task542/rock_transition.gdshader",
+    "visible_support": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  },
+  {
+    "below_height": 1.3199999332428,
+    "below_surface": "/root/Main/NewIslandLandscape/ConnectedTerrain",
+    "corners": [
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(61.49923, 3.072568, 44.3999)",
+        "vertex": 2884
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(64.59955, 3.062548, 44.3999)",
+        "vertex": 2731
+      },
+      {
+        "color": "(0.0, 0.0, 0.0, 1.0)",
+        "position": "(64.39959, 3.029904, 45.59998)",
+        "vertex": 2888
+      }
+    ],
+    "face": 2978,
+    "hit": "(64.0, 3.047826, 45.0)",
+    "point": "(64.0, 3.0, 45.0)",
+    "surface_material": "res://assets/environment/new_island/task542/rock_transition.gdshader",
+    "visible_support": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  }
+]

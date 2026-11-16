@@ -1,0 +1,18 @@
+{
+  "existing_files_changed_in_task542": [
+    "scripts/island_landscape.gd",
+    "scripts/island_rock_water_polish.gd",
+    "scripts/island_surface_data.gd",
+    "assets/environment/new_island/land.gdshader",
+    "assets/environment/new_island/task4/land.gdshader",
+    "tests/heavy_attack_check.gd",
+    "tests/island_accessibility_collision_check.gd",
+    "tests/island_campaign_check.gd"
+  ],
+  "new_folders": [
+    "assets/environment/new_island/task542",
+    "art_source/island/task542",
+    "docs/island_task542"
+  ],
+  "earlier_task541_changes_retained": true
+}

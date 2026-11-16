@@ -1,0 +1,27 @@
+{
+  "zip_crc": true,
+  "manifest_hashes_verified": 754,
+  "fresh_offline_gallery_passed": true,
+  "images": 12,
+  "missing_images": 0,
+  "original_png_bytes_preserved": true,
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "format": {
+      "duration": "16.866667"
+    }
+  },
+  "fresh_project_import_passed": true,
+  "fresh_project_floor_material_test_passed": true,
+  "production_main_preserved": true,
+  "android_physical_testing": false,
+  "checked_utc": "2026-11-15T19:15:59.054330+00:00"
+}

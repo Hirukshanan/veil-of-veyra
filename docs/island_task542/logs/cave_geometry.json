@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "reserved_hall_gameplay_tested": false,
+  "static_shapes": 79,
+  "waypoints": [
+    {
+      "ceiling": "(76.0, 6.838763, -5.0)",
+      "floor": "(76.0, 1.488375, -5.0)",
+      "hero_headroom_clear": true,
+      "point": "(76.0, 1.5, -5.0)"
+    },
+    {
+      "ceiling": "(76.0, 6.153795, 5.0)",
+      "floor": "(76.0, 1.433511, 5.0)",
+      "hero_headroom_clear": true,
+      "point": "(76.0, 1.5, 5.0)"
+    },
+    {
+      "ceiling": "(75.0, 5.745152, 10.0)",
+      "floor": "(75.0, 1.651271, 10.0)",
+      "hero_headroom_clear": true,
+      "point": "(75.0, 1.65, 10.0)"
+    },
+    {
+      "ceiling": "(71.0, 6.396232, 15.0)",
+      "floor": "(71.0, 2.066069, 15.0)",
+      "hero_headroom_clear": true,
+      "point": "(71.0, 2.0, 15.0)"
+    },
+    {
+      "ceiling": "(68.0, 8.084171, 19.0)",
+      "floor": "(68.0, 2.145619, 19.0)",
+      "hero_headroom_clear": true,
+      "point": "(68.0, 2.2, 19.0)"
+    },
+    {
+      "ceiling": "(66.0, 10.40834, 25.0)",
+      "floor": "(66.0, 2.389423, 25.0)",
+      "hero_headroom_clear": true,
+      "point": "(66.0, 2.35, 25.0)"
+    }
+  ]
+}

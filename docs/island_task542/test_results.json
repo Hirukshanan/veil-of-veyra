@@ -1,0 +1,661 @@
+{
+  "desktop_regression_programs": 27,
+  "passed": 27,
+  "failed": [],
+  "runs": [
+    {
+      "name": "island_river_escape_check",
+      "started_utc": "2026-11-15T17:49:33.287833+00:00",
+      "duration_s": 38.93,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_river_escape_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "island_accessibility_collision_check",
+      "started_utc": "2026-11-15T18:14:24.967051+00:00",
+      "duration_s": 32.638,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_accessibility_collision_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "island_collision_check",
+      "started_utc": "2026-11-15T17:37:03.693217+00:00",
+      "duration_s": 14.075,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_collision_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "island_campaign_check",
+      "started_utc": "2026-11-15T18:14:09.628908+00:00",
+      "duration_s": 15.337,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_campaign_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "island_enemy_navigation_check",
+      "started_utc": "2026-11-15T17:37:38.621642+00:00",
+      "duration_s": 13.304,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_enemy_navigation_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "boar_repeated_cycle_check",
+      "started_utc": "2026-11-15T17:37:51.926989+00:00",
+      "duration_s": 34.14,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_repeated_cycle_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "boar_check",
+      "started_utc": "2026-11-15T17:38:26.068145+00:00",
+      "duration_s": 8.291,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "boar_feedback_check",
+      "started_utc": "2026-11-15T17:38:34.359658+00:00",
+      "duration_s": 6.031,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_feedback_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "boar_campaign_check",
+      "started_utc": "2026-11-15T17:38:40.391747+00:00",
+      "duration_s": 6.563,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_campaign_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "enemy_check",
+      "started_utc": "2026-11-15T17:38:46.955300+00:00",
+      "duration_s": 1.018,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/enemy_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "combat_check",
+      "started_utc": "2026-11-15T17:38:47.974197+00:00",
+      "duration_s": 6.784,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/combat_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "heavy_attack_check",
+      "started_utc": "2026-11-15T17:38:54.758870+00:00",
+      "duration_s": 9.292,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/heavy_attack_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "campaign_smoke",
+      "started_utc": "2026-11-15T17:39:04.052062+00:00",
+      "duration_s": 4.532,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/campaign_smoke.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "autosave_check",
+      "started_utc": "2026-11-15T17:39:08.585960+00:00",
+      "duration_s": 6.785,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/autosave_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "persistent_world_check",
+      "started_utc": "2026-11-15T17:39:15.371853+00:00",
+      "duration_s": 10.802,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/persistent_world_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "fast_travel_check",
+      "started_utc": "2026-11-15T17:39:26.175695+00:00",
+      "duration_s": 6.032,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/fast_travel_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_controls_check",
+      "started_utc": "2026-11-15T17:39:32.208609+00:00",
+      "duration_s": 6.532,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_controls_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_gestures_check",
+      "started_utc": "2026-11-15T17:39:38.741168+00:00",
+      "duration_s": 12.559,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_gestures_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_hud_layout_check",
+      "started_utc": "2026-11-15T17:39:51.301538+00:00",
+      "duration_s": 0.515,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_hud_layout_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "hud_customization_check",
+      "started_utc": "2026-11-15T17:39:51.818083+00:00",
+      "duration_s": 8.037,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/hud_customization_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_settings_touch_check",
+      "started_utc": "2026-11-15T17:39:59.856194+00:00",
+      "duration_s": 14.563,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_settings_touch_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "settings_check",
+      "started_utc": "2026-11-15T17:40:14.421099+00:00",
+      "duration_s": 6.067,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/settings_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "pause_check",
+      "started_utc": "2026-11-15T17:40:20.488573+00:00",
+      "duration_s": 4.273,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/pause_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "sprint_check",
+      "started_utc": "2026-11-15T17:40:24.762002+00:00",
+      "duration_s": 4.275,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/sprint_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "quest_hud_check",
+      "started_utc": "2026-11-15T17:40:29.037697+00:00",
+      "duration_s": 4.526,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/quest_hud_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "safe_area_check",
+      "started_utc": "2026-11-15T17:40:33.564145+00:00",
+      "duration_s": 7.037,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/safe_area_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    },
+    {
+      "name": "layout_check",
+      "started_utc": "2026-11-15T17:40:40.602345+00:00",
+      "duration_s": 6.784,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/layout_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true
+    }
+  ],
+  "cave_geometry": {
+    "passed": true,
+    "reserved_hall_gameplay_tested": false,
+    "static_shapes": 79,
+    "waypoints": [
+      {
+        "ceiling": "(76.0, 6.838763, -5.0)",
+        "floor": "(76.0, 1.488375, -5.0)",
+        "hero_headroom_clear": true,
+        "point": "(76.0, 1.5, -5.0)"
+      },
+      {
+        "ceiling": "(76.0, 6.153795, 5.0)",
+        "floor": "(76.0, 1.433511, 5.0)",
+        "hero_headroom_clear": true,
+        "point": "(76.0, 1.5, 5.0)"
+      },
+      {
+        "ceiling": "(75.0, 5.745152, 10.0)",
+        "floor": "(75.0, 1.651271, 10.0)",
+        "hero_headroom_clear": true,
+        "point": "(75.0, 1.65, 10.0)"
+      },
+      {
+        "ceiling": "(71.0, 6.396232, 15.0)",
+        "floor": "(71.0, 2.066069, 15.0)",
+        "hero_headroom_clear": true,
+        "point": "(71.0, 2.0, 15.0)"
+      },
+      {
+        "ceiling": "(68.0, 8.084171, 19.0)",
+        "floor": "(68.0, 2.145619, 19.0)",
+        "hero_headroom_clear": true,
+        "point": "(68.0, 2.2, 19.0)"
+      },
+      {
+        "ceiling": "(66.0, 10.40834, 25.0)",
+        "floor": "(66.0, 2.389423, 25.0)",
+        "hero_headroom_clear": true,
+        "point": "(66.0, 2.35, 25.0)"
+      }
+    ]
+  },
+  "walkthrough": {
+    "cave_relic_collected": true,
+    "encoded_fps": 15,
+    "frames": 253,
+    "hero_controller_unmodified": true,
+    "note": "Fixed-step offline recording with actual hero physics and spring arm, enemy physics held. Playback rate is not a performance measurement.",
+    "passed": true,
+    "reserved_dragon_hall_gameplay_tested": false,
+    "returned_outside": true,
+    "teleports_after_initial_placement": 0,
+    "waypoints": [
+      {
+        "health": 100,
+        "position": "(75.99995, 1.442808, 4.56486)",
+        "waypoint": 0
+      },
+      {
+        "health": 100,
+        "position": "(75.09197, 1.617392, 9.497904)",
+        "waypoint": 1
+      },
+      {
+        "health": 100,
+        "position": "(71.28121, 2.045269, 14.61879)",
+        "waypoint": 2
+      },
+      {
+        "health": 100,
+        "position": "(68.3215, 2.137662, 18.57128)",
+        "waypoint": 3
+      },
+      {
+        "health": 100,
+        "position": "(66.17535, 2.364872, 24.51211)",
+        "waypoint": 4
+      },
+      {
+        "health": 100,
+        "position": "(67.86447, 2.150908, 19.40945)",
+        "waypoint": 5
+      },
+      {
+        "health": 100,
+        "position": "(70.72753, 2.075126, 15.38319)",
+        "waypoint": 6
+      },
+      {
+        "health": 100,
+        "position": "(74.66212, 1.698271, 10.42572)",
+        "waypoint": 7
+      },
+      {
+        "health": 100,
+        "position": "(75.88683, 1.430744, 5.459265)",
+        "waypoint": 8
+      },
+      {
+        "health": 100,
+        "position": "(75.99734, 1.278663, -16.46512)",
+        "waypoint": 9
+      }
+    ]
+  },
+  "river_escape": {
+    "passed": 26,
+    "total": 26,
+    "exit_code": 0,
+    "stdout": "logs/island_river_escape_check.stdout.log",
+    "stderr": "logs/island_river_escape_check.stderr.log"
+  },
+  "audio_shutdown_clean_repeats": 5
+}

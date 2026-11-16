@@ -1,0 +1,15 @@
+{
+  "name": "settings_check",
+  "started_utc": "2026-11-15T17:10:41.759939+00:00",
+  "duration_s": 6.283,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/settings_check.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

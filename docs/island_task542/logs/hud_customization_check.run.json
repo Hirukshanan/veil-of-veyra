@@ -1,0 +1,18 @@
+{
+  "name": "hud_customization_check",
+  "started_utc": "2026-11-15T17:39:51.818083+00:00",
+  "duration_s": 8.037,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/hud_customization_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

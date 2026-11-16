@@ -1,0 +1,17 @@
+{
+  "name": "cave_geometry",
+  "started_utc": "2026-11-15T18:15:58.496949+00:00",
+  "duration_s": 13.046,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task542\\cave_geometry_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

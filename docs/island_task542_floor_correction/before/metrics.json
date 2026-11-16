@@ -1,0 +1,75 @@
+{
+  "quality": "Windows Godot GL Compatibility, 1600x720 native canvas and 720-high 3D, shadows off, 30 FPS cap; 40 warmup and 90 measured frames; actors held; not Android measurements",
+  "views": [
+    {
+      "draw_calls": 125.0,
+      "eye": "(76.0, 3.0, 7.0)",
+      "gpu_ms": 5.71099996566772,
+      "median_frame_ms": 33.337,
+      "name": "09_passage_preserved",
+      "p95_frame_ms": 33.465,
+      "render_cpu_ms": 2.1949999332428,
+      "static_bytes": 142485029.0,
+      "submitted_primitives": 343823.0,
+      "target": "(70.0, 3.0, 16.0)",
+      "texture_bytes": 275903943.0,
+      "video_bytes": 315418453.0
+    },
+    {
+      "draw_calls": 71.0,
+      "eye": "(70.0, 3.4, 17.0)",
+      "gpu_ms": 3.78900003433228,
+      "median_frame_ms": 33.338,
+      "name": "10_inner_chamber",
+      "p95_frame_ms": 33.569,
+      "render_cpu_ms": 1.48500001430511,
+      "static_bytes": 142489305.0,
+      "submitted_primitives": 168556.0,
+      "target": "(66.0, 4.0, 25.0)",
+      "texture_bytes": 275903943.0,
+      "video_bytes": 315418453.0
+    },
+    {
+      "draw_calls": 10.0,
+      "eye": "(66.0, 4.0, 32.0)",
+      "gpu_ms": 3.55599999427795,
+      "median_frame_ms": 33.326,
+      "name": "11_reserved_hall",
+      "p95_frame_ms": 33.542,
+      "render_cpu_ms": 0.867999970912933,
+      "static_bytes": 142488465.0,
+      "submitted_primitives": 123241.0,
+      "target": "(64.0, 5.0, 44.0)",
+      "texture_bytes": 275903943.0,
+      "video_bytes": 315418453.0
+    },
+    {
+      "draw_calls": 183.0,
+      "eye": "(76.0, 3.4, -25.0)",
+      "gpu_ms": 4.28200006484985,
+      "median_frame_ms": 33.331,
+      "name": "01_exterior_preservation",
+      "p95_frame_ms": 33.446,
+      "render_cpu_ms": 1.87000000476837,
+      "static_bytes": 142502999.0,
+      "submitted_primitives": 190589.0,
+      "target": "(76.0, 3.5, -6.0)",
+      "texture_bytes": 275903943.0,
+      "video_bytes": 315733709.0
+    },
+    {
+      "draw_calls": 130.0,
+      "eye": "(12.0, 8.0, -65.0)",
+      "gpu_ms": 5.58300018310547,
+      "median_frame_ms": 33.335,
+      "name": "05_waterfall_preservation",
+      "p95_frame_ms": 33.516,
+      "render_cpu_ms": 1.57500004768372,
+      "static_bytes": 142502699.0,
+      "submitted_primitives": 166096.0,
+      "target": "(0.0, 2.0, -67.0)",
+      "texture_bytes": 275903943.0,
+      "video_bytes": 315733709.0
+    }
+  ]
+}

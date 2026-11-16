@@ -1,0 +1,110 @@
+{
+  "memory": {
+    "static": 143152068.0,
+    "texture": 274104433.0,
+    "video": 330923601.0
+  },
+  "quality": {
+    "msaa": false,
+    "renderer": "GL Compatibility",
+    "resolution": [
+      1280,
+      720
+    ],
+    "scope": "matched low mobile-quality configuration on desktop Intel Iris Xe; not Android performance",
+    "screen_space_aa": false,
+    "shadows": false
+  },
+  "views": [
+    {
+      "camera_position": "(75.0, 5.0, 24.0)",
+      "camera_rotation": "(-0.094845, -0.047583, 0.0)",
+      "draw_calls": 19.0,
+      "median_ms": 3.188,
+      "name": "01_south_cave",
+      "p95_ms": 4.113,
+      "primitives": 131451.0
+    },
+    {
+      "camera_position": "(12.0, 8.0, -65.0)",
+      "camera_rotation": "(-0.45819, 1.405648, 0.0)",
+      "draw_calls": 26.0,
+      "median_ms": 3.835,
+      "name": "02_west_waterfall",
+      "p95_ms": 5.323,
+      "primitives": 149325.0
+    },
+    {
+      "camera_position": "(4.0, 5.0, -55.0)",
+      "camera_rotation": "(-0.260051, -1.637365, 0.0)",
+      "draw_calls": 19.0,
+      "median_ms": 3.6,
+      "name": "03_east_bank",
+      "p95_ms": 5.91,
+      "primitives": 142106.0
+    },
+    {
+      "camera_position": "(76.0, 3.8, -19.0)",
+      "camera_rotation": "(-0.053283, 3.141593, 0.0)",
+      "draw_calls": 51.0,
+      "median_ms": 3.028,
+      "name": "04_cave_entrance",
+      "p95_ms": 3.814,
+      "primitives": 144560.0
+    },
+    {
+      "camera_position": "(76.0, 2.9, -2.0)",
+      "camera_rotation": "(0.01, 3.141593, 0.0)",
+      "draw_calls": 42.0,
+      "median_ms": 3.955,
+      "name": "05_cave_interior",
+      "p95_ms": 4.88,
+      "primitives": 149552.0
+    },
+    {
+      "camera_position": "(19.0, 9.0, -43.0)",
+      "camera_rotation": "(-0.126704, 0.64987, 0.0)",
+      "draw_calls": 7.0,
+      "median_ms": 3.278,
+      "name": "06_waterfall_distance",
+      "p95_ms": 5.036,
+      "primitives": 118216.0
+    },
+    {
+      "camera_position": "(7.0, 5.0, -60.0)",
+      "camera_rotation": "(-0.237941, 0.682317, 0.0)",
+      "draw_calls": 7.0,
+      "median_ms": 3.247,
+      "name": "07_waterfall_river",
+      "p95_ms": 4.586,
+      "primitives": 118216.0
+    },
+    {
+      "camera_position": "(76.0, 3.0, 7.0)",
+      "camera_rotation": "(0.0, 2.55359, 0.0)",
+      "draw_calls": 89.0,
+      "median_ms": 3.552,
+      "name": "08_bend",
+      "p95_ms": 4.943,
+      "primitives": 166199.0
+    },
+    {
+      "camera_position": "(70.0, 3.0, 17.0)",
+      "camera_rotation": "(0.111341, 2.677945, 0.0)",
+      "draw_calls": 67.0,
+      "median_ms": 4.265,
+      "name": "09_chamber",
+      "p95_ms": 5.504,
+      "primitives": 181907.0
+    },
+    {
+      "camera_position": "(66.0, 4.0, 32.0)",
+      "camera_rotation": "(0.082015, 2.976444, 0.0)",
+      "draw_calls": 19.0,
+      "median_ms": 4.196,
+      "name": "10_dragon",
+      "p95_ms": 5.891,
+      "primitives": 154193.0
+    }
+  ]
+}

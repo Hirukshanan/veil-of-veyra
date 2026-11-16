@@ -1,0 +1,2338 @@
+{
+  "passed": true,
+  "baseline_runtime_files": 575,
+  "changed_existing_runtime_files": [
+    "assets/environment/new_island/task542/cave_exterior.glb"
+  ],
+  "geometry": {
+    "changed_render_vertices": 1848,
+    "indices_exact": true,
+    "normals_exact": true,
+    "only_changed_attribute": "Interior vertex color white to black; alpha retained",
+    "ordered_faces_exact": true,
+    "passed": true,
+    "positions_exact": true,
+    "triangles": 8624
+  },
+  "mask": {
+    "interior_vertex_mask_before": 1,
+    "interior_vertex_mask_after": 0,
+    "interior_vertices_corrected": 1848,
+    "all_positions_exact": true,
+    "all_faces_exact": true,
+    "other_vertex_colors_exact": true,
+    "vertices": 4332,
+    "triangles": 8624,
+    "new_geometry": 0,
+    "new_lights": 0,
+    "new_textures": 0
+  },
+  "rebuild_from_generator_byte_identical_to_fixed_glb": true,
+  "rebuild_glb_sha256": "006b77d4428506e13f49d680d0624329b2100604142a65ac612be56300fcb83c",
+  "interior_positions_indices_normals_and_collision_faces_exact": true,
+  "exterior_colors_exact": true,
+  "existing_lighting_material_shaders_terrain_and_waterfall_sources_identical": true,
+  "player_HUD_sprint_pinch_enemies_combat_quests_saves_and_720p_bootstrap_identical": true,
+  "hashes": {
+    "scripts/attack_button.gd": {
+      "before": "c0289282b8292e1bb45f2fc279c0598be17d703db00b3ddf2a08419cd64e47dc",
+      "after": "c0289282b8292e1bb45f2fc279c0598be17d703db00b3ddf2a08419cd64e47dc"
+    },
+    "scripts/attack_button.gd.uid": {
+      "before": "105a2698d9332d2f074b0efdc47c033451d3aae892b35d7d666e8e39b1f3117a",
+      "after": "105a2698d9332d2f074b0efdc47c033451d3aae892b35d7d666e8e39b1f3117a"
+    },
+    "scripts/beach_seals.gd": {
+      "before": "4874184fbe7ea1061b8eb2cfec2fe9115f607834bf7619a2f0a95059f03cc87d",
+      "after": "4874184fbe7ea1061b8eb2cfec2fe9115f607834bf7619a2f0a95059f03cc87d"
+    },
+    "scripts/beach_seals.gd.uid": {
+      "before": "6318bce02028c6807d9243d0724d55e3b87617dc119ba6a39d7725a990bb6269",
+      "after": "6318bce02028c6807d9243d0724d55e3b87617dc119ba6a39d7725a990bb6269"
+    },
+    "scripts/boar_feedback.gd": {
+      "before": "7e25a071e0c5185d30b4cc640b418d907ecf1f2cbcefb00ae924e923a6172be1",
+      "after": "7e25a071e0c5185d30b4cc640b418d907ecf1f2cbcefb00ae924e923a6172be1"
+    },
+    "scripts/boar_feedback.gd.uid": {
+      "before": "53e4870913da775d0ea88d8b504c1e4325e88d97e0088a2c8e75feaf93efef1f",
+      "after": "53e4870913da775d0ea88d8b504c1e4325e88d97e0088a2c8e75feaf93efef1f"
+    },
+    "scripts/boss.gd": {
+      "before": "4908f0be7a608f28ae4cec90299c9562861fde21515cd70bdbeb299ea4918ec6",
+      "after": "4908f0be7a608f28ae4cec90299c9562861fde21515cd70bdbeb299ea4918ec6"
+    },
+    "scripts/boss.gd.uid": {
+      "before": "dc723c0c9a91dab3723e23213852e7d74e5ffce71faeebc1f4ca14ce30fbc732",
+      "after": "dc723c0c9a91dab3723e23213852e7d74e5ffce71faeebc1f4ca14ce30fbc732"
+    },
+    "scripts/campaign.gd": {
+      "before": "2ed7a471ff1927b9d2b057b531f0b98080d7b6beb0a6752ddb78a09b387fd88d",
+      "after": "2ed7a471ff1927b9d2b057b531f0b98080d7b6beb0a6752ddb78a09b387fd88d"
+    },
+    "scripts/campaign.gd.uid": {
+      "before": "43fc1257459cc6e46513982452e03581a9e9e9b7693b4fe5d40d1146616b0d92",
+      "after": "43fc1257459cc6e46513982452e03581a9e9e9b7693b4fe5d40d1146616b0d92"
+    },
+    "scripts/campaign_store.gd": {
+      "before": "cc39cd5b65013232c8d86a1e3d8073d10cdf52f4ee3c7cb968b66402211e3227",
+      "after": "cc39cd5b65013232c8d86a1e3d8073d10cdf52f4ee3c7cb968b66402211e3227"
+    },
+    "scripts/campaign_store.gd.uid": {
+      "before": "cb0873321461ef7c700758808a4c5b2784c3dae381cdb220fc4659576d8441d1",
+      "after": "cb0873321461ef7c700758808a4c5b2784c3dae381cdb220fc4659576d8441d1"
+    },
+    "scripts/camp_menu.gd": {
+      "before": "052e36fa984aa5538ca4aff99386225c8467ddb7374e9c0502fbfb163c734c01",
+      "after": "052e36fa984aa5538ca4aff99386225c8467ddb7374e9c0502fbfb163c734c01"
+    },
+    "scripts/camp_menu.gd.uid": {
+      "before": "a1ae120b6f6cb0924eaf3b922bc79c6ee851ae99ba0b30d108f13d8617f1cfa0",
+      "after": "a1ae120b6f6cb0924eaf3b922bc79c6ee851ae99ba0b30d108f13d8617f1cfa0"
+    },
+    "scripts/candidate_vegetation.gd": {
+      "before": "3c88deac9ea798f41824b52c367b5eb0b322691c718b20368e20d170855c617e",
+      "after": "3c88deac9ea798f41824b52c367b5eb0b322691c718b20368e20d170855c617e"
+    },
+    "scripts/candidate_vegetation.gd.uid": {
+      "before": "67065da9d56b36162f423b6b105982fa481b57485aeb68ecb2f847e5fc0eef98",
+      "after": "67065da9d56b36162f423b6b105982fa481b57485aeb68ecb2f847e5fc0eef98"
+    },
+    "scripts/chapter_environment.gd": {
+      "before": "6c7f77f5124d1ccf9227cdd8ade538d9f6eebe1d5a573befc7fcc401be8143bb",
+      "after": "6c7f77f5124d1ccf9227cdd8ade538d9f6eebe1d5a573befc7fcc401be8143bb"
+    },
+    "scripts/chapter_environment.gd.uid": {
+      "before": "890f4e0c249731ab0f36d99f1b5d8bcae47fee332ce66450e1157f7c10ffd988",
+      "after": "890f4e0c249731ab0f36d99f1b5d8bcae47fee332ce66450e1157f7c10ffd988"
+    },
+    "scripts/chapter_one_region.gd": {
+      "before": "a1eb24d3b325dec2cd2ed0806fb61f85d6aaed8df164f485b333a5d2f1c972e5",
+      "after": "a1eb24d3b325dec2cd2ed0806fb61f85d6aaed8df164f485b333a5d2f1c972e5"
+    },
+    "scripts/chapter_one_region.gd.uid": {
+      "before": "b05fedbb23b5f7161627045ff262abd438cb2a6e026f1a971fda5c076ef45d53",
+      "after": "b05fedbb23b5f7161627045ff262abd438cb2a6e026f1a971fda5c076ef45d53"
+    },
+    "scripts/creature_visual.gd": {
+      "before": "2ff68f94bdff5b6df4c2faadd9fece88c04c14dae46d95a21c9c9d4180898d5e",
+      "after": "2ff68f94bdff5b6df4c2faadd9fece88c04c14dae46d95a21c9c9d4180898d5e"
+    },
+    "scripts/creature_visual.gd.uid": {
+      "before": "5b409c44069a4b11dd2c7d8e880472427a4b3a3c9ac656f3186fc80a0cfe0b57",
+      "after": "5b409c44069a4b11dd2c7d8e880472427a4b3a3c9ac656f3186fc80a0cfe0b57"
+    },
+    "scripts/damage_number.gd": {
+      "before": "b53c69426f96736457a6f3291614e33eecf402bb394385abc6772aa91d1f1ec5",
+      "after": "b53c69426f96736457a6f3291614e33eecf402bb394385abc6772aa91d1f1ec5"
+    },
+    "scripts/damage_number.gd.uid": {
+      "before": "4872ba443c29de13a31e6b910789cbfc9853162ed89ce10ee1bf04ec8795828e",
+      "after": "4872ba443c29de13a31e6b910789cbfc9853162ed89ce10ee1bf04ec8795828e"
+    },
+    "scripts/demon_boar.gd": {
+      "before": "10e83db7b9e36c1880426b8d304275d36573f56dbd4cc7176d918a2729b56882",
+      "after": "10e83db7b9e36c1880426b8d304275d36573f56dbd4cc7176d918a2729b56882"
+    },
+    "scripts/demon_boar.gd.uid": {
+      "before": "0d19a4dbf06d264d54f0287a2ca8e5b1f9ad25754936df6ae24bbb915f03d245",
+      "after": "0d19a4dbf06d264d54f0287a2ca8e5b1f9ad25754936df6ae24bbb915f03d245"
+    },
+    "scripts/dragon_fire.gd": {
+      "before": "6ce277bb9c6c6c8d2db5ca645f95e1c1c4a29e86af49dc8bc625c53917816530",
+      "after": "6ce277bb9c6c6c8d2db5ca645f95e1c1c4a29e86af49dc8bc625c53917816530"
+    },
+    "scripts/dragon_fire.gd.uid": {
+      "before": "0c15c1b4da0a611fcf5193ee347d3c9df719b67b6248087df45e0afee5c4799f",
+      "after": "0c15c1b4da0a611fcf5193ee347d3c9df719b67b6248087df45e0afee5c4799f"
+    },
+    "scripts/dragon_visual.gd": {
+      "before": "30edf8902a4c6f1abdf2eb429275257a2f0a38c7e7ad3dba954106e11a3c67ba",
+      "after": "30edf8902a4c6f1abdf2eb429275257a2f0a38c7e7ad3dba954106e11a3c67ba"
+    },
+    "scripts/dragon_visual.gd.uid": {
+      "before": "541991228a5f5301808d22cd6c3a8983507b678332c053aece2e2b8e28c2ae2c",
+      "after": "541991228a5f5301808d22cd6c3a8983507b678332c053aece2e2b8e28c2ae2c"
+    },
+    "scripts/enemy.gd": {
+      "before": "7e79a01599f32f83fc2cacab4e2c88f47d352f802ab7558ddd646b0a0c31e837",
+      "after": "7e79a01599f32f83fc2cacab4e2c88f47d352f802ab7558ddd646b0a0c31e837"
+    },
+    "scripts/enemy.gd.uid": {
+      "before": "e53e40b820af44a8146a96790cea5e045f808953cb2b203842838e9abe8b6677",
+      "after": "e53e40b820af44a8146a96790cea5e045f808953cb2b203842838e9abe8b6677"
+    },
+    "scripts/environment_materials.gd": {
+      "before": "2188accf158b2c0cf876751ba262812a2302b66707faf9c3ff0f7bb2e3890e48",
+      "after": "2188accf158b2c0cf876751ba262812a2302b66707faf9c3ff0f7bb2e3890e48"
+    },
+    "scripts/environment_materials.gd.uid": {
+      "before": "a48cf796cd9c183f19cb7d0798d3b04ec216f5786fd775bfcbccf0f9817b826f",
+      "after": "a48cf796cd9c183f19cb7d0798d3b04ec216f5786fd775bfcbccf0f9817b826f"
+    },
+    "scripts/herbal_plants.gd": {
+      "before": "4869559701de33fa0e4bfd516cead1be58096aef0a1630ccc9af8641e30e2356",
+      "after": "4869559701de33fa0e4bfd516cead1be58096aef0a1630ccc9af8641e30e2356"
+    },
+    "scripts/herbal_plants.gd.uid": {
+      "before": "19387a5102cf2b5110047ba2e44bd731eebdd1313addd84bbc6c417a9ef31508",
+      "after": "19387a5102cf2b5110047ba2e44bd731eebdd1313addd84bbc6c417a9ef31508"
+    },
+    "scripts/hero_visual.gd": {
+      "before": "6f0f381b0e23836a3f0fbd3a9802eab9c89e9c384ff880240fd1a01094ab8724",
+      "after": "6f0f381b0e23836a3f0fbd3a9802eab9c89e9c384ff880240fd1a01094ab8724"
+    },
+    "scripts/hero_visual.gd.uid": {
+      "before": "60aba0091d5de85c883fb97146514075dc8bdf0f105a0fffc24dd31c0fca4615",
+      "after": "60aba0091d5de85c883fb97146514075dc8bdf0f105a0fffc24dd31c0fca4615"
+    },
+    "scripts/hud_editor.gd": {
+      "before": "8f346fdfc325a40625942e149ef76cdae6880c3ad0879fc3e3c7b84a76d4fba6",
+      "after": "8f346fdfc325a40625942e149ef76cdae6880c3ad0879fc3e3c7b84a76d4fba6"
+    },
+    "scripts/hud_editor.gd.uid": {
+      "before": "ae2692a8e7badddb2d75b73041d27644b85434c99448eef0b47cbda28a20d824",
+      "after": "ae2692a8e7badddb2d75b73041d27644b85434c99448eef0b47cbda28a20d824"
+    },
+    "scripts/island_accessibility.gd": {
+      "before": "58aee4b76cefa57334906d797b6bb79fefa19c58f360f67e373986b23b7d3111",
+      "after": "58aee4b76cefa57334906d797b6bb79fefa19c58f360f67e373986b23b7d3111"
+    },
+    "scripts/island_accessibility.gd.uid": {
+      "before": "6070c1cc07215dd7e59d16de1824c9096206c233e46bd553449ab1c81ab0bd10",
+      "after": "6070c1cc07215dd7e59d16de1824c9096206c233e46bd553449ab1c81ab0bd10"
+    },
+    "scripts/island_atmosphere.gd": {
+      "before": "8bd4de4bb9fdbe91672f90ef02c8c9818c59daa1e11ebcab152c51e3f35488ed",
+      "after": "8bd4de4bb9fdbe91672f90ef02c8c9818c59daa1e11ebcab152c51e3f35488ed"
+    },
+    "scripts/island_atmosphere.gd.uid": {
+      "before": "3407be467160ca8a0e30f154a1ea67f2ba905a3979b018e71c09256c3968a8fb",
+      "after": "3407be467160ca8a0e30f154a1ea67f2ba905a3979b018e71c09256c3968a8fb"
+    },
+    "scripts/island_candidate.gd": {
+      "before": "009aba16842ff27fba49ca98b55e0b53e00bdef032e24fa76bd45dc274749dfa",
+      "after": "009aba16842ff27fba49ca98b55e0b53e00bdef032e24fa76bd45dc274749dfa"
+    },
+    "scripts/island_candidate.gd.uid": {
+      "before": "47c7df717ab346a8f3d1ef0f22b1b54dd4c74f396dfb0b41c3bd0a6814435e7b",
+      "after": "47c7df717ab346a8f3d1ef0f22b1b54dd4c74f396dfb0b41c3bd0a6814435e7b"
+    },
+    "scripts/island_candidate_exploration.gd": {
+      "before": "6794d49c895348d6102b76088daaf914f691220b0a7db261433213eb2934f7c3",
+      "after": "6794d49c895348d6102b76088daaf914f691220b0a7db261433213eb2934f7c3"
+    },
+    "scripts/island_candidate_exploration.gd.uid": {
+      "before": "31ff404534bb25e042f620a18a9c16ebeb1f2c2260b94fe599f0585b15582c51",
+      "after": "31ff404534bb25e042f620a18a9c16ebeb1f2c2260b94fe599f0585b15582c51"
+    },
+    "scripts/island_enemy_navigation.gd": {
+      "before": "202009b1bfa86e9d7e80d3e5ed2c1dc9b34d9ee98241cb41e7063c6bb1e19648",
+      "after": "202009b1bfa86e9d7e80d3e5ed2c1dc9b34d9ee98241cb41e7063c6bb1e19648"
+    },
+    "scripts/island_enemy_navigation.gd.uid": {
+      "before": "6fa4441e82384e1df8058cb0ed7cd584a109305b7ca23b0ac872bc7411160684",
+      "after": "6fa4441e82384e1df8058cb0ed7cd584a109305b7ca23b0ac872bc7411160684"
+    },
+    "scripts/island_exploration.gd": {
+      "before": "4341879c99107fbbd90a600baec6a79ef81cf0a45ae8de03f34d67841cf2bb88",
+      "after": "4341879c99107fbbd90a600baec6a79ef81cf0a45ae8de03f34d67841cf2bb88"
+    },
+    "scripts/island_exploration.gd.uid": {
+      "before": "bcd03432bda82a026c000fe72fbcaa385d689fa937c9e9621b629cb77f3054a9",
+      "after": "bcd03432bda82a026c000fe72fbcaa385d689fa937c9e9621b629cb77f3054a9"
+    },
+    "scripts/island_forest.gd": {
+      "before": "02382c15f177e3be527979edbbb5db68238e1041c46dce1923ee0f880f5fe5a5",
+      "after": "02382c15f177e3be527979edbbb5db68238e1041c46dce1923ee0f880f5fe5a5"
+    },
+    "scripts/island_forest.gd.uid": {
+      "before": "d7ba63db4955403cfeee5f6e1f589544cf38f228888fae4f3529c4a9e41351e6",
+      "after": "d7ba63db4955403cfeee5f6e1f589544cf38f228888fae4f3529c4a9e41351e6"
+    },
+    "scripts/island_grass.gd": {
+      "before": "8aa8a1f5c45038cd1b12d238342a27af435b0c6bb83b56f0548db7451e748680",
+      "after": "8aa8a1f5c45038cd1b12d238342a27af435b0c6bb83b56f0548db7451e748680"
+    },
+    "scripts/island_grass.gd.uid": {
+      "before": "ea98761d9a5307c42e186660566b80363d9ae6bd644468afe4605f55f01085e1",
+      "after": "ea98761d9a5307c42e186660566b80363d9ae6bd644468afe4605f55f01085e1"
+    },
+    "scripts/island_landscape.gd": {
+      "before": "bc57be84ba3e007d71b27df6d3c208bb3dae072591f8a733e6b2e4156738d339",
+      "after": "bc57be84ba3e007d71b27df6d3c208bb3dae072591f8a733e6b2e4156738d339"
+    },
+    "scripts/island_landscape.gd.uid": {
+      "before": "641449f788d6f3ef29a1341b05ac6b22cfdd055d37b6d622715bc12cec2ef55f",
+      "after": "641449f788d6f3ef29a1341b05ac6b22cfdd055d37b6d622715bc12cec2ef55f"
+    },
+    "scripts/island_map.gd": {
+      "before": "f8c4e1d6189c308e743edbb217161ce64acd083218768a04ba9434fd127b7944",
+      "after": "f8c4e1d6189c308e743edbb217161ce64acd083218768a04ba9434fd127b7944"
+    },
+    "scripts/island_map.gd.uid": {
+      "before": "e3d22a0e04763e1b981ccdc736518b76a7e73113be5b33a0eb15dfe0cd15e931",
+      "after": "e3d22a0e04763e1b981ccdc736518b76a7e73113be5b33a0eb15dfe0cd15e931"
+    },
+    "scripts/island_rock_water_polish.gd": {
+      "before": "1565e9f46d0812329f78ad31a181e7637f6bbc1c6df381c24124c0dd503babdd",
+      "after": "1565e9f46d0812329f78ad31a181e7637f6bbc1c6df381c24124c0dd503babdd"
+    },
+    "scripts/island_rock_water_polish.gd.uid": {
+      "before": "c2168ae651f3afb78f93f29a77b19211fe8e815a80bb54013ef0ba78864c33cd",
+      "after": "c2168ae651f3afb78f93f29a77b19211fe8e815a80bb54013ef0ba78864c33cd"
+    },
+    "scripts/island_surface_data.gd": {
+      "before": "9cf74d7c5925d4ca5e59a2763ad55cd37692c14667aa84e9d3faa2599dde0a39",
+      "after": "9cf74d7c5925d4ca5e59a2763ad55cd37692c14667aa84e9d3faa2599dde0a39"
+    },
+    "scripts/island_surface_data.gd.uid": {
+      "before": "ff982c0ee0940d10b1056ad0881621b7f5cf66d138be48bb872e3f4e93ebe39e",
+      "after": "ff982c0ee0940d10b1056ad0881621b7f5cf66d138be48bb872e3f4e93ebe39e"
+    },
+    "scripts/island_terrain.gd": {
+      "before": "0cd639ecf75c70d3987464c882dd3e56d68141aceecafc64ccaf3a9016a6db87",
+      "after": "0cd639ecf75c70d3987464c882dd3e56d68141aceecafc64ccaf3a9016a6db87"
+    },
+    "scripts/island_terrain.gd.uid": {
+      "before": "fa26e66b529a9e2f145946e6e260c81ebe17609d481c8c3240d03a69f775512f",
+      "after": "fa26e66b529a9e2f145946e6e260c81ebe17609d481c8c3240d03a69f775512f"
+    },
+    "scripts/main.gd": {
+      "before": "770a6827b572db8b041cece8631c53dbc7832de27757980392e23d85593d4b85",
+      "after": "770a6827b572db8b041cece8631c53dbc7832de27757980392e23d85593d4b85"
+    },
+    "scripts/main.gd.uid": {
+      "before": "ff9a861e7d09cbc390add06725e05cbce92a4fb00f4b179282f4c2503f57ffac",
+      "after": "ff9a861e7d09cbc390add06725e05cbce92a4fb00f4b179282f4c2503f57ffac"
+    },
+    "scripts/mobile_hud.gd": {
+      "before": "f9e43a3364fd8c89193c963110bdd270c671644e765e9985c9e3c34f8d200027",
+      "after": "f9e43a3364fd8c89193c963110bdd270c671644e765e9985c9e3c34f8d200027"
+    },
+    "scripts/mobile_hud.gd.uid": {
+      "before": "446c31a80350e5db0c3900311da2970bc401ba04d42486c80abcb2b7197e3e87",
+      "after": "446c31a80350e5db0c3900311da2970bc401ba04d42486c80abcb2b7197e3e87"
+    },
+    "scripts/mobile_joystick.gd": {
+      "before": "749f73340e28d0ffaa9372accb5b4c5fbc5a31fb8df8fe45a91d45d7137c4db3",
+      "after": "749f73340e28d0ffaa9372accb5b4c5fbc5a31fb8df8fe45a91d45d7137c4db3"
+    },
+    "scripts/mobile_joystick.gd.uid": {
+      "before": "393dcf0b39f04e586d3071e991a27601c88e54ba95a9839d0a4eaa034d800333",
+      "after": "393dcf0b39f04e586d3071e991a27601c88e54ba95a9839d0a4eaa034d800333"
+    },
+    "scripts/mobile_settings.gd": {
+      "before": "9dfb9bc04aa40d632205a679fc240f712f47c4460676ef3a3d5533a9034aefad",
+      "after": "9dfb9bc04aa40d632205a679fc240f712f47c4460676ef3a3d5533a9034aefad"
+    },
+    "scripts/mobile_settings.gd.uid": {
+      "before": "243250b034175c69721023be8b0c5046e181ff2581bbd66db07fd5b029167696",
+      "after": "243250b034175c69721023be8b0c5046e181ff2581bbd66db07fd5b029167696"
+    },
+    "scripts/moonleaf_grove.gd": {
+      "before": "bdce84a8f8439749fd6eb8ad286a3d5f8e5b24a9df22a4bb2911e99a0ad78ac9",
+      "after": "bdce84a8f8439749fd6eb8ad286a3d5f8e5b24a9df22a4bb2911e99a0ad78ac9"
+    },
+    "scripts/moonleaf_grove.gd.uid": {
+      "before": "c2ba349ee93484a38d90e2ecfbbe22294b60fbdc3170162018aa47a013a17fd1",
+      "after": "c2ba349ee93484a38d90e2ecfbbe22294b60fbdc3170162018aa47a013a17fd1"
+    },
+    "scripts/mountain_rim.gd": {
+      "before": "8467f33d91bf02f368bc0b98593f09793e45ac46ffb1bb1037b868310414993d",
+      "after": "8467f33d91bf02f368bc0b98593f09793e45ac46ffb1bb1037b868310414993d"
+    },
+    "scripts/mountain_rim.gd.uid": {
+      "before": "0527425fe1685b8a7533a5c54b0f41c2c8ea30b9b1ca60106303895bc537dbb9",
+      "after": "0527425fe1685b8a7533a5c54b0f41c2c8ea30b9b1ca60106303895bc537dbb9"
+    },
+    "scripts/player.gd": {
+      "before": "17043d67280c0b4076f8c09d67e5eac3a95865ab87c20b9fcb02699db9abf8b5",
+      "after": "17043d67280c0b4076f8c09d67e5eac3a95865ab87c20b9fcb02699db9abf8b5"
+    },
+    "scripts/player.gd.uid": {
+      "before": "bddc42d285d0000586280b361cd2c7a6da44c82d1c7204316a3fc5f213c12306",
+      "after": "bddc42d285d0000586280b361cd2c7a6da44c82d1c7204316a3fc5f213c12306"
+    },
+    "scripts/premium_hud.gd": {
+      "before": "1928cf52d06c922ff6c6383951c03847f2f6dade17ee887cff63a1457f2ada5a",
+      "after": "1928cf52d06c922ff6c6383951c03847f2f6dade17ee887cff63a1457f2ada5a"
+    },
+    "scripts/premium_hud.gd.uid": {
+      "before": "c8a41dc269da9dacd5dce9b3756e749a37f2e1600b763ad7575a8ea52f049c53",
+      "after": "c8a41dc269da9dacd5dce9b3756e749a37f2e1600b763ad7575a8ea52f049c53"
+    },
+    "scripts/relic_hunt.gd": {
+      "before": "9a4908a71228d4412be863cdda763a457ddf8e8e7060d4646e7d6c836c4529c4",
+      "after": "9a4908a71228d4412be863cdda763a457ddf8e8e7060d4646e7d6c836c4529c4"
+    },
+    "scripts/relic_hunt.gd.uid": {
+      "before": "a0ac150c8593cacadd9358096972584a9a1631389c5f7521bdc92790ec2c859d",
+      "after": "a0ac150c8593cacadd9358096972584a9a1631389c5f7521bdc92790ec2c859d"
+    },
+    "scripts/round_button.gd": {
+      "before": "6e3a708a6181b16c7475950bc2f10bd9b1aa70be5c6b038c55f858d656111c66",
+      "after": "6e3a708a6181b16c7475950bc2f10bd9b1aa70be5c6b038c55f858d656111c66"
+    },
+    "scripts/round_button.gd.uid": {
+      "before": "8227c2338cf6ad23e659385196f4dd444ce02466565740b42d6940330c5c3dd0",
+      "after": "8227c2338cf6ad23e659385196f4dd444ce02466565740b42d6940330c5c3dd0"
+    },
+    "scripts/safe_area.gd": {
+      "before": "f8e71bad8787ffcdfd0838ab1bf5121a8efc36ab84240575807a8d0cc2774b96",
+      "after": "f8e71bad8787ffcdfd0838ab1bf5121a8efc36ab84240575807a8d0cc2774b96"
+    },
+    "scripts/safe_area.gd.uid": {
+      "before": "0ec1257495a4ccfd030d760733f1010770b541b1a82d4018bdbc6dfde4ef89da",
+      "after": "0ec1257495a4ccfd030d760733f1010770b541b1a82d4018bdbc6dfde4ef89da"
+    },
+    "scripts/shore_keeper.gd": {
+      "before": "5a3a30f1615a39d8a839dad087416ac1cb0de3b6133578192372a0d8dbf79acd",
+      "after": "5a3a30f1615a39d8a839dad087416ac1cb0de3b6133578192372a0d8dbf79acd"
+    },
+    "scripts/shore_keeper.gd.uid": {
+      "before": "ebceca913a91596658feb65a67980de0f663f83328c6bec53aa4350b3172f41b",
+      "after": "ebceca913a91596658feb65a67980de0f663f83328c6bec53aa4350b3172f41b"
+    },
+    "scripts/tree_canopy.gd": {
+      "before": "c8bfb2aed7796ad6667e1ca56241e4a50f1dce612103df9937283d6849ace6a7",
+      "after": "c8bfb2aed7796ad6667e1ca56241e4a50f1dce612103df9937283d6849ace6a7"
+    },
+    "scripts/tree_canopy.gd.uid": {
+      "before": "908cf95cd8ae0ba20e0a2e7329f3a5b84f3d4eeadcf888b371188eeef61ef7cb",
+      "after": "908cf95cd8ae0ba20e0a2e7329f3a5b84f3d4eeadcf888b371188eeef61ef7cb"
+    },
+    "scripts/wolf_visual.gd": {
+      "before": "b8cc43df12907faa0e423baf5846ffa879090a0f15e640319966b54d9cb29367",
+      "after": "b8cc43df12907faa0e423baf5846ffa879090a0f15e640319966b54d9cb29367"
+    },
+    "scripts/wolf_visual.gd.uid": {
+      "before": "24a6713544064ae466997908c4f4bd21343d8b19d3f6c6c6641c073c8ba9d9b8",
+      "after": "24a6713544064ae466997908c4f4bd21343d8b19d3f6c6c6641c073c8ba9d9b8"
+    },
+    "scenes/island_candidate.tscn": {
+      "before": "a85ad74fb8932c3a2cf7cd20f60dbd0e5efd8cf949f723632ea3758dc710c317",
+      "after": "a85ad74fb8932c3a2cf7cd20f60dbd0e5efd8cf949f723632ea3758dc710c317"
+    },
+    "scenes/main.tscn": {
+      "before": "e4b2685c525314654537b6c3f8a9ef0a31d76c3728387c58f4b7cfb473609ea3",
+      "after": "e4b2685c525314654537b6c3f8a9ef0a31d76c3728387c58f4b7cfb473609ea3"
+    },
+    "assets/environment/coastal_water.gdshader": {
+      "before": "8fc278d875e8f7f7899873430ac54a78c334862e309ee47e3dd95c2365cfc70a",
+      "after": "8fc278d875e8f7f7899873430ac54a78c334862e309ee47e3dd95c2365cfc70a"
+    },
+    "assets/environment/coastal_water.gdshader.uid": {
+      "before": "bb938ba171f25d2c52a02c49a5864c0b83e93f7c35e5ffced900e9b2f4bdc9ed",
+      "after": "bb938ba171f25d2c52a02c49a5864c0b83e93f7c35e5ffced900e9b2f4bdc9ed"
+    },
+    "assets/environment/fern_02_mobile.scn": {
+      "before": "422ce7f21e71d37914d001e9f726ff17eedede6ab748c90875b75f3c5a532f74",
+      "after": "422ce7f21e71d37914d001e9f726ff17eedede6ab748c90875b75f3c5a532f74"
+    },
+    "assets/environment/forest_tree_mobile.res": {
+      "before": "12edf3cff6ae3efdbebcd41542b056619e205033615666c2bd28584d184e2e02",
+      "after": "12edf3cff6ae3efdbebcd41542b056619e205033615666c2bd28584d184e2e02"
+    },
+    "assets/environment/island_ground.gdshader": {
+      "before": "3563a6d2f0baaed4e809877438e10f4b077c0105bf47f253e825af891c0c0240",
+      "after": "3563a6d2f0baaed4e809877438e10f4b077c0105bf47f253e825af891c0c0240"
+    },
+    "assets/environment/island_ground.gdshader.uid": {
+      "before": "40f49bea620bcfceb43814b1b1e9904554fe34487580cd1cdec0f39fd8c3cba4",
+      "after": "40f49bea620bcfceb43814b1b1e9904554fe34487580cd1cdec0f39fd8c3cba4"
+    },
+    "assets/environment/island_tree_01_mobile.scn": {
+      "before": "fa2998326c2024e808377b86192539ad5e8cbe33f186ce5017c26a222e54c3d8",
+      "after": "fa2998326c2024e808377b86192539ad5e8cbe33f186ce5017c26a222e54c3d8"
+    },
+    "assets/environment/mountain_rock.gdshader": {
+      "before": "129e7b8321dd1683113ea82dd69898d41f9ce52110bb66dc167ac6014a678dd0",
+      "after": "129e7b8321dd1683113ea82dd69898d41f9ce52110bb66dc167ac6014a678dd0"
+    },
+    "assets/environment/mountain_rock.gdshader.uid": {
+      "before": "ec402ed147e9cbb3962fd3f9ca979f2d29b88646410c0095772ef81dfa68d27a",
+      "after": "ec402ed147e9cbb3962fd3f9ca979f2d29b88646410c0095772ef81dfa68d27a"
+    },
+    "assets/environment/README.md": {
+      "before": "289b5d896fccb402d68803cf72c0239d7e0b5488578b3eaf82d826c39b828379",
+      "after": "289b5d896fccb402d68803cf72c0239d7e0b5488578b3eaf82d826c39b828379"
+    },
+    "assets/environment/tree_leaves.gdshader": {
+      "before": "56a4f2eebafc82126d02481ebdc35fcead897524cf3ef1d3bbd77e5ff5756186",
+      "after": "56a4f2eebafc82126d02481ebdc35fcead897524cf3ef1d3bbd77e5ff5756186"
+    },
+    "assets/environment/tree_leaves.gdshader.uid": {
+      "before": "6996a5ee6eeb06e13c963bdd091deab2f7acca84db47c55391a864ac5edf501f",
+      "after": "6996a5ee6eeb06e13c963bdd091deab2f7acca84db47c55391a864ac5edf501f"
+    },
+    "assets/ui/quest_parchment.jpg": {
+      "before": "59deb842a2db3a97102c53e9cc39822fc1c47c17192bedb2e68b026f539e8a83",
+      "after": "59deb842a2db3a97102c53e9cc39822fc1c47c17192bedb2e68b026f539e8a83"
+    },
+    "assets/ui/quest_parchment.jpg.import": {
+      "before": "9ea1691e9400bb0360b29e01b578a2979ad21c9119218df7124c487e887c38b7",
+      "after": "9ea1691e9400bb0360b29e01b578a2979ad21c9119218df7124c487e887c38b7"
+    },
+    "assets/ui/quest_scroll.svg": {
+      "before": "8bbb0239f8d528d0f22d23858ccc02b569efd460697bb41081cd0037bf3c587c",
+      "after": "8bbb0239f8d528d0f22d23858ccc02b569efd460697bb41081cd0037bf3c587c"
+    },
+    "assets/ui/quest_scroll.svg.import": {
+      "before": "228fed9f9db3b106561c721f1b8e902f33bfe0345c6fa01f4861ef88393b467a",
+      "after": "228fed9f9db3b106561c721f1b8e902f33bfe0345c6fa01f4861ef88393b467a"
+    },
+    "assets/ui/README.md": {
+      "before": "f4f48f4c06ae3568261fb2f182cc2ba30577b313d56bb1947f1c1c59a60e9ed6",
+      "after": "f4f48f4c06ae3568261fb2f182cc2ba30577b313d56bb1947f1c1c59a60e9ed6"
+    },
+    "assets/ui/brand/dragon_lantern.png": {
+      "before": "0e8f5e47fa2c62bdb46ab718721bdcb50b84e2ae505d1ff745e3a02d3649dd3b",
+      "after": "0e8f5e47fa2c62bdb46ab718721bdcb50b84e2ae505d1ff745e3a02d3649dd3b"
+    },
+    "assets/ui/brand/dragon_lantern.png.import": {
+      "before": "de2c320f658799238d2a3642437046c3f4f249543c3e1ddd4fafd3415d2244bb",
+      "after": "de2c320f658799238d2a3642437046c3f4f249543c3e1ddd4fafd3415d2244bb"
+    },
+    "assets/ui/brand/launcher.png": {
+      "before": "4794c50c3845899bc366fbc9b06d3a3524ad68b0c8883b3817de1792b227ee44",
+      "after": "4794c50c3845899bc366fbc9b06d3a3524ad68b0c8883b3817de1792b227ee44"
+    },
+    "assets/ui/brand/launcher.png.import": {
+      "before": "a10954520d5e73820c07c5e83cbbd4f56e7a6648ca1bb8bf4a5cba5e263dcc7c",
+      "after": "a10954520d5e73820c07c5e83cbbd4f56e7a6648ca1bb8bf4a5cba5e263dcc7c"
+    },
+    "assets/ui/brand/launcher_background.png": {
+      "before": "a84cc536e218c97115c107bb6e75caae1c3914713baaf192ebf018a79a280425",
+      "after": "a84cc536e218c97115c107bb6e75caae1c3914713baaf192ebf018a79a280425"
+    },
+    "assets/ui/brand/launcher_background.png.import": {
+      "before": "33c459dfe7c6476729c7ae576a4d07b08e891ff725ce7222cfcace695d8e70a4",
+      "after": "33c459dfe7c6476729c7ae576a4d07b08e891ff725ce7222cfcace695d8e70a4"
+    },
+    "assets/ui/brand/launcher_foreground.png": {
+      "before": "9845f5954d1ef7e006e043162d11c2b984970fde793db33614d4bd12848aab18",
+      "after": "9845f5954d1ef7e006e043162d11c2b984970fde793db33614d4bd12848aab18"
+    },
+    "assets/ui/brand/launcher_foreground.png.import": {
+      "before": "e67cbf9f7191fc74aa18866098fbf729d252f022dc262ba672619d45eec96767",
+      "after": "e67cbf9f7191fc74aa18866098fbf729d252f022dc262ba672619d45eec96767"
+    },
+    "assets/ui/controls/attack.svg": {
+      "before": "15a2274378c160aa098f602842edb526eddd91f386f8dc2e91e761f85949fb9b",
+      "after": "15a2274378c160aa098f602842edb526eddd91f386f8dc2e91e761f85949fb9b"
+    },
+    "assets/ui/controls/attack.svg.import": {
+      "before": "0a105d7336b20c9724b6362c01a85cb5ffbd76bc75af959cf15eb832549e9723",
+      "after": "0a105d7336b20c9724b6362c01a85cb5ffbd76bc75af959cf15eb832549e9723"
+    },
+    "assets/ui/controls/burst.svg": {
+      "before": "c5bc567dd329623270f5e20b7b9b867cd754eb2cb3bd8036fd9caaf4b5d0ed7c",
+      "after": "c5bc567dd329623270f5e20b7b9b867cd754eb2cb3bd8036fd9caaf4b5d0ed7c"
+    },
+    "assets/ui/controls/burst.svg.import": {
+      "before": "d3c56a60f08e9e5c5743107acbd363db7d7cc4cd9743c67d1adeb96a47217edf",
+      "after": "d3c56a60f08e9e5c5743107acbd363db7d7cc4cd9743c67d1adeb96a47217edf"
+    },
+    "assets/ui/controls/camp.svg": {
+      "before": "5ae02664ec5c22346f4a814dbce5a7475d928c19c4a795c8de60cc087aedb520",
+      "after": "5ae02664ec5c22346f4a814dbce5a7475d928c19c4a795c8de60cc087aedb520"
+    },
+    "assets/ui/controls/camp.svg.import": {
+      "before": "1a42271544bc0ae8701ef11adaff8ec8a265403d27b42a4c4135fff1554c2587",
+      "after": "1a42271544bc0ae8701ef11adaff8ec8a265403d27b42a4c4135fff1554c2587"
+    },
+    "assets/ui/controls/collect.svg": {
+      "before": "45aec30b46911c49af8975ccc0e9cbf75f32dc07f197b836a01d6f3ef4fc8c7a",
+      "after": "45aec30b46911c49af8975ccc0e9cbf75f32dc07f197b836a01d6f3ef4fc8c7a"
+    },
+    "assets/ui/controls/collect.svg.import": {
+      "before": "7638f8b434c2528f012dcf6cc7ce726b6ed6708a7bcba6581dd7f4b326254965",
+      "after": "7638f8b434c2528f012dcf6cc7ce726b6ed6708a7bcba6581dd7f4b326254965"
+    },
+    "assets/ui/controls/dodge.svg": {
+      "before": "d6cf2ecf121c2a3ce1f098ff564c235da03219798436256cf830260a697de3ac",
+      "after": "d6cf2ecf121c2a3ce1f098ff564c235da03219798436256cf830260a697de3ac"
+    },
+    "assets/ui/controls/dodge.svg.import": {
+      "before": "17c5291a60a4f4cebd964c0fde19c0e44537d58e9636e67f19dc074324d33395",
+      "after": "17c5291a60a4f4cebd964c0fde19c0e44537d58e9636e67f19dc074324d33395"
+    },
+    "assets/ui/controls/guard.svg": {
+      "before": "da85a4ad1fe3db4610846c6cf150d4b0bc0a2151bd6532a166fa792f9ec6f777",
+      "after": "da85a4ad1fe3db4610846c6cf150d4b0bc0a2151bd6532a166fa792f9ec6f777"
+    },
+    "assets/ui/controls/guard.svg.import": {
+      "before": "22d3f23b7ce46f8b421d200885bde3c5b81a3aca98131baab3fae0e86fd5d4e1",
+      "after": "22d3f23b7ce46f8b421d200885bde3c5b81a3aca98131baab3fae0e86fd5d4e1"
+    },
+    "assets/ui/controls/heal.svg": {
+      "before": "25733b73d37b6a22655b93b870a778c081df002c295763f966c4816a7aacb453",
+      "after": "25733b73d37b6a22655b93b870a778c081df002c295763f966c4816a7aacb453"
+    },
+    "assets/ui/controls/heal.svg.import": {
+      "before": "c3df6263bc3f03cc141ec4ac711128dfd38285a0df8d33fdf2720199a6add033",
+      "after": "c3df6263bc3f03cc141ec4ac711128dfd38285a0df8d33fdf2720199a6add033"
+    },
+    "assets/ui/controls/jump.svg": {
+      "before": "32506feebdab9542a552687d6c5b54adc22723ca8791e2a769c0c70f53933c20",
+      "after": "32506feebdab9542a552687d6c5b54adc22723ca8791e2a769c0c70f53933c20"
+    },
+    "assets/ui/controls/jump.svg.import": {
+      "before": "18639ab1377eed75d03ac3a096be4bb327ebc97a3f6ca6f07ec42cfe04b8d7f0",
+      "after": "18639ab1377eed75d03ac3a096be4bb327ebc97a3f6ca6f07ec42cfe04b8d7f0"
+    },
+    "assets/ui/controls/lantern.svg": {
+      "before": "ea51d548408118fd1b68c8397def7b0ff068e2b3fd22738902b69cc24a7f8488",
+      "after": "ea51d548408118fd1b68c8397def7b0ff068e2b3fd22738902b69cc24a7f8488"
+    },
+    "assets/ui/controls/lantern.svg.import": {
+      "before": "46dc7e88d813ca97885833609865826b8ab96e829b53b47f26c6734a1e39a877",
+      "after": "46dc7e88d813ca97885833609865826b8ab96e829b53b47f26c6734a1e39a877"
+    },
+    "assets/ui/controls/map.svg": {
+      "before": "8f0f2d3e50994dd86740f91c801ba939347d0132d1f2942e75f3d50b7418e00c",
+      "after": "8f0f2d3e50994dd86740f91c801ba939347d0132d1f2942e75f3d50b7418e00c"
+    },
+    "assets/ui/controls/map.svg.import": {
+      "before": "68eda0b79eabb23a09cbabcc152a92f9be43e0cebb8765c037132bb655552665",
+      "after": "68eda0b79eabb23a09cbabcc152a92f9be43e0cebb8765c037132bb655552665"
+    },
+    "assets/ui/controls/pause.svg": {
+      "before": "d7f77101c10a9e3bf6ca6d307229d9969ce6a520bdcd383780f140cd10151c39",
+      "after": "d7f77101c10a9e3bf6ca6d307229d9969ce6a520bdcd383780f140cd10151c39"
+    },
+    "assets/ui/controls/pause.svg.import": {
+      "before": "54912e940f43336ec5989a8884f631799dfc56a2e6f6b7abf829774b8341853f",
+      "after": "54912e940f43336ec5989a8884f631799dfc56a2e6f6b7abf829774b8341853f"
+    },
+    "assets/ui/controls/potion.svg": {
+      "before": "3d91f94c33f9c88986272d05ff28e092982b0afba108238389e2263182086262",
+      "after": "3d91f94c33f9c88986272d05ff28e092982b0afba108238389e2263182086262"
+    },
+    "assets/ui/controls/potion.svg.import": {
+      "before": "1aa6c168216dd77e424b15fec2a5ff25210cd1f0eb4d271735b64aa296749643",
+      "after": "1aa6c168216dd77e424b15fec2a5ff25210cd1f0eb4d271735b64aa296749643"
+    },
+    "assets/ui/controls/sprint.svg": {
+      "before": "85bf9de7b3a56440ff6a6889a72214190e3225e57b1c1f534e52a00577a71fd4",
+      "after": "85bf9de7b3a56440ff6a6889a72214190e3225e57b1c1f534e52a00577a71fd4"
+    },
+    "assets/ui/controls/sprint.svg.import": {
+      "before": "28fda3931589ce55de89f1b9fd1a584a5a794df1cbd575c9a5a025f0327eb66f",
+      "after": "28fda3931589ce55de89f1b9fd1a584a5a794df1cbd575c9a5a025f0327eb66f"
+    },
+    "assets/ui/fonts/Cinzel-OFL.txt": {
+      "before": "f2b3029aba64c378bf0963b62945eee15e564fe4330b934c8f2eb058282b5e83",
+      "after": "f2b3029aba64c378bf0963b62945eee15e564fe4330b934c8f2eb058282b5e83"
+    },
+    "assets/ui/fonts/Cinzel.ttf": {
+      "before": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+      "after": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34"
+    },
+    "assets/ui/fonts/Cinzel.ttf.import": {
+      "before": "bffec0758c0eb31464885e3f99153a597f27c3ceb335fcf87e02deb57af143f6",
+      "after": "bffec0758c0eb31464885e3f99153a597f27c3ceb335fcf87e02deb57af143f6"
+    },
+    "assets/ui/fonts/CrimsonText-OFL.txt": {
+      "before": "50fd67cddc097377a5c871e8452b778bc5aedfa3480a705cb27c5e3a078218df",
+      "after": "50fd67cddc097377a5c871e8452b778bc5aedfa3480a705cb27c5e3a078218df"
+    },
+    "assets/ui/fonts/CrimsonText-Regular.ttf": {
+      "before": "48e6c5d5ad1d01599d374ecb817e15890d1feb3b8a3a88e527d44c90389e1f06",
+      "after": "48e6c5d5ad1d01599d374ecb817e15890d1feb3b8a3a88e527d44c90389e1f06"
+    },
+    "assets/ui/fonts/CrimsonText-Regular.ttf.import": {
+      "before": "8140415edba8bef413c9e24fed39688d5695d32c9bbf297d04d236d9271964b6",
+      "after": "8140415edba8bef413c9e24fed39688d5695d32c9bbf297d04d236d9271964b6"
+    },
+    "assets/environment/new_island/EasternCaves.glb": {
+      "before": "a99a00ad5d7ec0b42f6735c17b8b95886d0b3407cbd2facac7b45a5d0c1c3137",
+      "after": "a99a00ad5d7ec0b42f6735c17b8b95886d0b3407cbd2facac7b45a5d0c1c3137"
+    },
+    "assets/environment/new_island/EasternCaves.glb.import": {
+      "before": "48fa9987b1dca54ca58a44e89d7650e7aaf1209f16a8dcfcbc3d78de8b3fe55a",
+      "after": "48fa9987b1dca54ca58a44e89d7650e7aaf1209f16a8dcfcbc3d78de8b3fe55a"
+    },
+    "assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg": {
+      "before": "ba155f2ad205b7dc89f1c2a30b969b90a43952fd86684951fa9bd49a4fafd852",
+      "after": "ba155f2ad205b7dc89f1c2a30b969b90a43952fd86684951fa9bd49a4fafd852"
+    },
+    "assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg.import": {
+      "before": "9ab86fa159f3e3cddb6e40fe94fa00f66e5830c1f05a08394915dfede5c1a9a7",
+      "after": "9ab86fa159f3e3cddb6e40fe94fa00f66e5830c1f05a08394915dfede5c1a9a7"
+    },
+    "assets/environment/new_island/land.gdshader": {
+      "before": "4ac30a6c5b88f1728250fc78d8799aefb56590a168e315f86b5f9b9c4d675eb3",
+      "after": "4ac30a6c5b88f1728250fc78d8799aefb56590a168e315f86b5f9b9c4d675eb3"
+    },
+    "assets/environment/new_island/land.gdshader.uid": {
+      "before": "d9924aeb6d8cdfec68673cd4a6ecfe3bfb599bc7c8f60bc047bc7aa168cb9e46",
+      "after": "d9924aeb6d8cdfec68673cd4a6ecfe3bfb599bc7c8f60bc047bc7aa168cb9e46"
+    },
+    "assets/environment/new_island/README.md": {
+      "before": "a415a8d01df411bd0900f9c93e5dee3957cacaa9c2c64fa362f4b70d9f835171",
+      "after": "a415a8d01df411bd0900f9c93e5dee3957cacaa9c2c64fa362f4b70d9f835171"
+    },
+    "assets/environment/new_island/region.gdshader": {
+      "before": "1910cc20a34258211544b3b7fc1ddd7b21b84e2736d7caaa8434f041a678762b",
+      "after": "1910cc20a34258211544b3b7fc1ddd7b21b84e2736d7caaa8434f041a678762b"
+    },
+    "assets/environment/new_island/region.gdshader.uid": {
+      "before": "7dc48c3cdd3e1a202fa6445a4ecdee517731ddee78c10523982b5a8469c2089f",
+      "after": "7dc48c3cdd3e1a202fa6445a4ecdee517731ddee78c10523982b5a8469c2089f"
+    },
+    "assets/environment/new_island/regions.json": {
+      "before": "dc17ac85f119f81c247ead94b6a93995995fbd9a3706301321c48deb2f853baf",
+      "after": "dc17ac85f119f81c247ead94b6a93995995fbd9a3706301321c48deb2f853baf"
+    },
+    "assets/environment/new_island/river.gdshader": {
+      "before": "a494c02e1e2a99f6a10bd90f2a9ed5af19d73d54918c823c9d26598ca4395c86",
+      "after": "a494c02e1e2a99f6a10bd90f2a9ed5af19d73d54918c823c9d26598ca4395c86"
+    },
+    "assets/environment/new_island/river.gdshader.uid": {
+      "before": "a98cf6d844a7b605b8889e06b020c63916f1e05f1caf4838fef6a8e70575db23",
+      "after": "a98cf6d844a7b605b8889e06b020c63916f1e05f1caf4838fef6a8e70575db23"
+    },
+    "assets/environment/new_island/RiverGrassland.glb": {
+      "before": "e707edeac44a06ec206fceb88717259c7e043ab566b4d15380a672442c7f16a1",
+      "after": "e707edeac44a06ec206fceb88717259c7e043ab566b4d15380a672442c7f16a1"
+    },
+    "assets/environment/new_island/RiverGrassland.glb.import": {
+      "before": "b4208f8482580b22baffdce45cec61980d5b7c5723bf855fdc9d246cd26cf61b",
+      "after": "b4208f8482580b22baffdce45cec61980d5b7c5723bf855fdc9d246cd26cf61b"
+    },
+    "assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg": {
+      "before": "588369cd449351817259fb914d3c72e3588b22b0ebb331f1e7c8a33cc502b983",
+      "after": "588369cd449351817259fb914d3c72e3588b22b0ebb331f1e7c8a33cc502b983"
+    },
+    "assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg.import": {
+      "before": "306dcae52ec7c881f3e20e9b6bda9240fea505ef1e9f3b95a9a5e55ec2f6e1a0",
+      "after": "306dcae52ec7c881f3e20e9b6bda9240fea505ef1e9f3b95a9a5e55ec2f6e1a0"
+    },
+    "assets/environment/new_island/SouthernBeach.glb": {
+      "before": "bbf4be819ed89cbe11ace41ce959ebc796f73269d22f61ad986956c1090d2e2c",
+      "after": "bbf4be819ed89cbe11ace41ce959ebc796f73269d22f61ad986956c1090d2e2c"
+    },
+    "assets/environment/new_island/SouthernBeach.glb.import": {
+      "before": "45fb5d3c1100aa63012ea7d9b6f9d821498eb664fed395c56cd1e1dfad19147d",
+      "after": "45fb5d3c1100aa63012ea7d9b6f9d821498eb664fed395c56cd1e1dfad19147d"
+    },
+    "assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg": {
+      "before": "aa3153e36d4ad1c0eeb2ce2fcfd9a535ff100343341bf516d4a847664cb413ea",
+      "after": "aa3153e36d4ad1c0eeb2ce2fcfd9a535ff100343341bf516d4a847664cb413ea"
+    },
+    "assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg.import": {
+      "before": "4e29feae52f09c76035e83a0ebdf2212503c2f04eca684614e5ee68deabcf90e",
+      "after": "4e29feae52f09c76035e83a0ebdf2212503c2f04eca684614e5ee68deabcf90e"
+    },
+    "assets/environment/new_island/terrain_surface.res": {
+      "before": "e069a75dc98426530bdd968dc506146291a47ac93f0973eb77e655aef64ca38c",
+      "after": "e069a75dc98426530bdd968dc506146291a47ac93f0973eb77e655aef64ca38c"
+    },
+    "assets/environment/new_island/WaterfallMountains.glb": {
+      "before": "99b3156e14ff8cb66d15ebdb31f8eb99c60ca52fcf62a252a72a3ae01849d71f",
+      "after": "99b3156e14ff8cb66d15ebdb31f8eb99c60ca52fcf62a252a72a3ae01849d71f"
+    },
+    "assets/environment/new_island/WaterfallMountains.glb.import": {
+      "before": "40d6708efe0b6d1d24a9e2fd7326e123fa883fc73f6acfe6f27439ff7931eff1",
+      "after": "40d6708efe0b6d1d24a9e2fd7326e123fa883fc73f6acfe6f27439ff7931eff1"
+    },
+    "assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg": {
+      "before": "3707dc9928bc5148180b9429dab289241414a456ab0214db8b4a856b9be9aa9b",
+      "after": "3707dc9928bc5148180b9429dab289241414a456ab0214db8b4a856b9be9aa9b"
+    },
+    "assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg.import": {
+      "before": "e2710e46c3706cdda7abfebe33dbeb54c4c1e8eabd1f2441619941696df246e3",
+      "after": "e2710e46c3706cdda7abfebe33dbeb54c4c1e8eabd1f2441619941696df246e3"
+    },
+    "assets/environment/new_island/WesternForest.glb": {
+      "before": "67536e5a97f642e93e00d42153f36f230a9e8d117e1a53c7d7143eef86c3018e",
+      "after": "67536e5a97f642e93e00d42153f36f230a9e8d117e1a53c7d7143eef86c3018e"
+    },
+    "assets/environment/new_island/WesternForest.glb.import": {
+      "before": "d1ee2473dc88d70b8b380b8575d8424142d6c37bb0d597e3ad2a46c933f7c9ba",
+      "after": "d1ee2473dc88d70b8b380b8575d8424142d6c37bb0d597e3ad2a46c933f7c9ba"
+    },
+    "assets/environment/new_island/WesternForest_westernforest_albedo.jpg": {
+      "before": "06eef05ab1995e2673e8adca9fed8ac53032f185d74a855e512e22ae8804e1b8",
+      "after": "06eef05ab1995e2673e8adca9fed8ac53032f185d74a855e512e22ae8804e1b8"
+    },
+    "assets/environment/new_island/WesternForest_westernforest_albedo.jpg.import": {
+      "before": "be546dae5007362641320954e37103d49b3c3d7ccc22dd3391edb27b30d35c1d",
+      "after": "be546dae5007362641320954e37103d49b3c3d7ccc22dd3391edb27b30d35c1d"
+    },
+    "assets/environment/polyhaven/coast_sand_01_Diffuse.jpg": {
+      "before": "58af2e40100f7f405703a86d593af64379f822c4786850def23ecfc921450d54",
+      "after": "58af2e40100f7f405703a86d593af64379f822c4786850def23ecfc921450d54"
+    },
+    "assets/environment/polyhaven/coast_sand_01_Diffuse.jpg.import": {
+      "before": "25c97cfae88f4d3952eea6fdefd66ba3c9bc0fdb54472b7dcffc49b2291810af",
+      "after": "25c97cfae88f4d3952eea6fdefd66ba3c9bc0fdb54472b7dcffc49b2291810af"
+    },
+    "assets/environment/polyhaven/coast_sand_01_nor_gl.jpg": {
+      "before": "fe4d045aec99e71e80f682fcf0ad958d2dff1fe614b73178b304d1bac047b54a",
+      "after": "fe4d045aec99e71e80f682fcf0ad958d2dff1fe614b73178b304d1bac047b54a"
+    },
+    "assets/environment/polyhaven/coast_sand_01_nor_gl.jpg.import": {
+      "before": "cca69c8d85579d0ab7d2124a49625ea0521c890e8369033f9b297b76a07e5bbd",
+      "after": "cca69c8d85579d0ab7d2124a49625ea0521c890e8369033f9b297b76a07e5bbd"
+    },
+    "assets/environment/polyhaven/coast_sand_01_Rough.jpg": {
+      "before": "cbc3e0bf2214e04318a643c9dc81f50f33cc5f7b935a20016c5d9efd9a6d1696",
+      "after": "cbc3e0bf2214e04318a643c9dc81f50f33cc5f7b935a20016c5d9efd9a6d1696"
+    },
+    "assets/environment/polyhaven/coast_sand_01_Rough.jpg.import": {
+      "before": "dd777f528ee5b3cbfe678f10818ccb80246f6e0c200ecc71d607e4128e05f8da",
+      "after": "dd777f528ee5b3cbfe678f10818ccb80246f6e0c200ecc71d607e4128e05f8da"
+    },
+    "assets/environment/polyhaven/forest_ground_04_Diffuse.jpg": {
+      "before": "50a4dda30875020c64385261aa7e00e2155b592302fa6794165f58fae73cbd2c",
+      "after": "50a4dda30875020c64385261aa7e00e2155b592302fa6794165f58fae73cbd2c"
+    },
+    "assets/environment/polyhaven/forest_ground_04_Diffuse.jpg.import": {
+      "before": "1f29e750d855c74d7fb1cdb7af99458869201eaa480bc0eeed9aa7af1fd8dcac",
+      "after": "1f29e750d855c74d7fb1cdb7af99458869201eaa480bc0eeed9aa7af1fd8dcac"
+    },
+    "assets/environment/polyhaven/forest_ground_04_nor_gl.jpg": {
+      "before": "9c3a0200e02ce40edffbbf9f5f623ef08ea9b1b7812b556182ec978f88887151",
+      "after": "9c3a0200e02ce40edffbbf9f5f623ef08ea9b1b7812b556182ec978f88887151"
+    },
+    "assets/environment/polyhaven/forest_ground_04_nor_gl.jpg.import": {
+      "before": "ca3ef652d470cc329c03ca0356d04c1a53d6329a7f6ec2ceeb8c7694655baa15",
+      "after": "ca3ef652d470cc329c03ca0356d04c1a53d6329a7f6ec2ceeb8c7694655baa15"
+    },
+    "assets/environment/polyhaven/forest_ground_04_Rough.jpg": {
+      "before": "89d4d50395eb92824a64132c4bc8a5a09009071e0b325ab66dc3104c7a3090ed",
+      "after": "89d4d50395eb92824a64132c4bc8a5a09009071e0b325ab66dc3104c7a3090ed"
+    },
+    "assets/environment/polyhaven/forest_ground_04_Rough.jpg.import": {
+      "before": "da0d7dee60d710ce89f425275eb80a5c08b59608130723760d818a8cb845cadf",
+      "after": "da0d7dee60d710ce89f425275eb80a5c08b59608130723760d818a8cb845cadf"
+    },
+    "assets/environment/polyhaven/leafy_grass_Diffuse.jpg": {
+      "before": "cfa40bc9d9417d1852db8753a8d5917f110c40101179f63543c382e39bc05e4a",
+      "after": "cfa40bc9d9417d1852db8753a8d5917f110c40101179f63543c382e39bc05e4a"
+    },
+    "assets/environment/polyhaven/leafy_grass_Diffuse.jpg.import": {
+      "before": "cbc4ea208674c87b979cc9b22e4f6fbfc81d449a8afa0d45cc74b3bca5056bf5",
+      "after": "cbc4ea208674c87b979cc9b22e4f6fbfc81d449a8afa0d45cc74b3bca5056bf5"
+    },
+    "assets/environment/polyhaven/leafy_grass_nor_gl.jpg": {
+      "before": "832328216adc0a7e1f70a31d5ee48c9ab7f2152d83816122736cf42ac4b2ebd6",
+      "after": "832328216adc0a7e1f70a31d5ee48c9ab7f2152d83816122736cf42ac4b2ebd6"
+    },
+    "assets/environment/polyhaven/leafy_grass_nor_gl.jpg.import": {
+      "before": "8d141458239d792ff3b44d134cf515683467f3c051b71ef728df1c3c5bec187f",
+      "after": "8d141458239d792ff3b44d134cf515683467f3c051b71ef728df1c3c5bec187f"
+    },
+    "assets/environment/polyhaven/leafy_grass_Rough.jpg": {
+      "before": "0c2a1d91aacb8e54a496051b59854e51e456fe858abeade778e308359ef16463",
+      "after": "0c2a1d91aacb8e54a496051b59854e51e456fe858abeade778e308359ef16463"
+    },
+    "assets/environment/polyhaven/leafy_grass_Rough.jpg.import": {
+      "before": "04eeecfc6a43396571364f3310104025d6482992eff8a6d3e7f14f1f9922456d",
+      "after": "04eeecfc6a43396571364f3310104025d6482992eff8a6d3e7f14f1f9922456d"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg": {
+      "before": "d570c10b1d5302f4fde9e0e94f4cbab0d5e112fc3fe2b3b91c38a98bd3ddaf4b",
+      "after": "d570c10b1d5302f4fde9e0e94f4cbab0d5e112fc3fe2b3b91c38a98bd3ddaf4b"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg.import": {
+      "before": "a91e6f3296f27aa74c66ad20c91a4c5a066ff595b7a29409d52e3cfe71708468",
+      "after": "a91e6f3296f27aa74c66ad20c91a4c5a066ff595b7a29409d52e3cfe71708468"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg": {
+      "before": "f4f9d9671c660f4e509e96d5da3091887dfd557e1353e313fa2d1dc789499ffd",
+      "after": "f4f9d9671c660f4e509e96d5da3091887dfd557e1353e313fa2d1dc789499ffd"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg.import": {
+      "before": "d4f468136c7c4d3e60d24a1becec2f45a207717353c450537181a0ca789f11af",
+      "after": "d4f468136c7c4d3e60d24a1becec2f45a207717353c450537181a0ca789f11af"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_Rough.jpg": {
+      "before": "8652ee05de206888eb77f84df7c8080f6ffef27afadb7917127726570b66c45d",
+      "after": "8652ee05de206888eb77f84df7c8080f6ffef27afadb7917127726570b66c45d"
+    },
+    "assets/environment/polyhaven/rocky_terrain_02_Rough.jpg.import": {
+      "before": "3e105aae9092c6101b4b80b40b14222445f81bbc9dd975191e9bdd89ed3fcf11",
+      "after": "3e105aae9092c6101b4b80b40b14222445f81bbc9dd975191e9bdd89ed3fcf11"
+    },
+    "assets/environment/polyhaven/fern_02/fern_02.bin": {
+      "before": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c",
+      "after": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c"
+    },
+    "assets/environment/polyhaven/fern_02/fern_02.gltf": {
+      "before": "33974295ee19670af4877705fc7d91f33f42d6302f0d44a625e072271223031f",
+      "after": "33974295ee19670af4877705fc7d91f33f42d6302f0d44a625e072271223031f"
+    },
+    "assets/environment/polyhaven/fern_02/fern_02.gltf.import": {
+      "before": "6455b60b7dca8ca8dc224b836b42fda87b90abdde8177a855c34285b0685ebe3",
+      "after": "6455b60b7dca8ca8dc224b836b42fda87b90abdde8177a855c34285b0685ebe3"
+    },
+    "assets/environment/polyhaven/island_tree_01/island_tree_01.bin": {
+      "before": "1faa817b46e24ed6fc90d3ec72188a0dc5ac75e82c89b3dd3c5fdaecf7cc005c",
+      "after": "1faa817b46e24ed6fc90d3ec72188a0dc5ac75e82c89b3dd3c5fdaecf7cc005c"
+    },
+    "assets/environment/polyhaven/island_tree_01/island_tree_01.gltf": {
+      "before": "78e905a40670bfabb2760601d4d9a6c17193a50d68e6271c66893eb7bd75906d",
+      "after": "78e905a40670bfabb2760601d4d9a6c17193a50d68e6271c66893eb7bd75906d"
+    },
+    "assets/environment/polyhaven/island_tree_01/island_tree_01.gltf.import": {
+      "before": "1687c695841e434764b92c070da4ca9fb2640699746ec4a1229d6319f5692538",
+      "after": "1687c695841e434764b92c070da4ca9fb2640699746ec4a1229d6319f5692538"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg": {
+      "before": "bf972dff0fbc71f146b4c02103fc3596477a49a9eff46b87b13c89b7b90d18ca",
+      "after": "bf972dff0fbc71f146b4c02103fc3596477a49a9eff46b87b13c89b7b90d18ca"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg.import": {
+      "before": "3f98f3e04960a51a4e0a1f59082fc865485f263c9817ec2a5ead7b54f14a304c",
+      "after": "3f98f3e04960a51a4e0a1f59082fc865485f263c9817ec2a5ead7b54f14a304c"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg": {
+      "before": "9e3f82263247ce4f619692cea4c4f6fe9936ff465a86623481849062642c7d05",
+      "after": "9e3f82263247ce4f619692cea4c4f6fe9936ff465a86623481849062642c7d05"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg.import": {
+      "before": "72df00909afe8239486cd4de464ebd61a10de8a696e2a12c1fbcaf8af6ca29aa",
+      "after": "72df00909afe8239486cd4de464ebd61a10de8a696e2a12c1fbcaf8af6ca29aa"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg": {
+      "before": "bee5ec22196e9e31ad0c95a5a9b4636571cc0124d5bb27a92f1e307d289cc60d",
+      "after": "bee5ec22196e9e31ad0c95a5a9b4636571cc0124d5bb27a92f1e307d289cc60d"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg.import": {
+      "before": "dc71afff549e6495949ff86459805e1fc240bfc0ef653bc42a575b791f7c1249",
+      "after": "dc71afff549e6495949ff86459805e1fc240bfc0ef653bc42a575b791f7c1249"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg": {
+      "before": "2d67393ba76a0f49cf965fa0c99d8c16268e71e87b1203d35539bfdb971a514e",
+      "after": "2d67393ba76a0f49cf965fa0c99d8c16268e71e87b1203d35539bfdb971a514e"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg.import": {
+      "before": "dc1a3ee535c2122eca4a01514f8ed7861bf4182750f77b84027a9e2de7097c52",
+      "after": "dc1a3ee535c2122eca4a01514f8ed7861bf4182750f77b84027a9e2de7097c52"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg": {
+      "before": "51bff9a3a6ed7d89ff4c73f01708b7267ed8d7a82b0cb12343741894f708218f",
+      "after": "51bff9a3a6ed7d89ff4c73f01708b7267ed8d7a82b0cb12343741894f708218f"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg.import": {
+      "before": "75338e6e74a2de072ca3382e0689c7dbba38560f6bc57df035b24e23af4650c3",
+      "after": "75338e6e74a2de072ca3382e0689c7dbba38560f6bc57df035b24e23af4650c3"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_arm_1k.jpg": {
+      "before": "90da3a072dbcb052715b1313b9dbc69a4aa8a09a31a4b3868411a2bb51d72037",
+      "after": "90da3a072dbcb052715b1313b9dbc69a4aa8a09a31a4b3868411a2bb51d72037"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_arm_1k.jpg.import": {
+      "before": "3ca4c9ca3e38b31f75f63b1a158103c021aa71a3db80c8e7c770b33bfd70fa78",
+      "after": "3ca4c9ca3e38b31f75f63b1a158103c021aa71a3db80c8e7c770b33bfd70fa78"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg": {
+      "before": "f56d762a1507754752abf164cc12acbc1e87ce87fa609ac44b98a1b0037c89d8",
+      "after": "f56d762a1507754752abf164cc12acbc1e87ce87fa609ac44b98a1b0037c89d8"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg.import": {
+      "before": "4ba22e9795686593411b6a9c160831e8554623040583c4406af9775b2a32b2aa",
+      "after": "4ba22e9795686593411b6a9c160831e8554623040583c4406af9775b2a32b2aa"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_nor_gl_1k.jpg": {
+      "before": "07ba461c0c95da4e49a42981766bdb6191d4c3c4d815796c082266dcc3cecdb8",
+      "after": "07ba461c0c95da4e49a42981766bdb6191d4c3c4d815796c082266dcc3cecdb8"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_nor_gl_1k.jpg.import": {
+      "before": "9930d487baf1be96172bfa183255fb583b0cf1af57006dd10349ae96b77cf3e2",
+      "after": "9930d487baf1be96172bfa183255fb583b0cf1af57006dd10349ae96b77cf3e2"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg": {
+      "before": "ca22e428e1b1ebac47b2fc67ec355700c8779d6628d2fc6c3ebae9002988f63e",
+      "after": "ca22e428e1b1ebac47b2fc67ec355700c8779d6628d2fc6c3ebae9002988f63e"
+    },
+    "assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg.import": {
+      "before": "70184468cd84d5ebdfceb6b206ade73e81bea9c1ae92b339530dc670a6e78987",
+      "after": "70184468cd84d5ebdfceb6b206ade73e81bea9c1ae92b339530dc670a6e78987"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg": {
+      "before": "ebfb5d76ce9cbdaec20bcd22dce9b755f0b1b8650ef29ca13555e3e6961025d7",
+      "after": "ebfb5d76ce9cbdaec20bcd22dce9b755f0b1b8650ef29ca13555e3e6961025d7"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg.import": {
+      "before": "c4ab768621721876bca663fcc7d0dab4e5b188eaf0a12ddf9b5a0596aa68e7d2",
+      "after": "c4ab768621721876bca663fcc7d0dab4e5b188eaf0a12ddf9b5a0596aa68e7d2"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg": {
+      "before": "a828a6e7b4c01c826911e2eac4b3afc7457dab7b3b392a31c681ed88b7d50029",
+      "after": "a828a6e7b4c01c826911e2eac4b3afc7457dab7b3b392a31c681ed88b7d50029"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg.import": {
+      "before": "f3e4cfd8a3e54e8bcec201bdff295459d7a5861c3a1d68e9f39fbd9fc9e853dd",
+      "after": "f3e4cfd8a3e54e8bcec201bdff295459d7a5861c3a1d68e9f39fbd9fc9e853dd"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg": {
+      "before": "45bce132c6e96a0864bc89ab5da51361ab3f4afa83a6669ae499ab5ca811f621",
+      "after": "45bce132c6e96a0864bc89ab5da51361ab3f4afa83a6669ae499ab5ca811f621"
+    },
+    "assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg.import": {
+      "before": "ab3538f064445e4019c712b6cc5cbc697a7976ff4942d8b3de7f43c740e9b9cf",
+      "after": "ab3538f064445e4019c712b6cc5cbc697a7976ff4942d8b3de7f43c740e9b9cf"
+    },
+    "assets/environment/new_island/task3/README.md": {
+      "before": "eb9bcacc19580428963a900497b4815be4da1734537216332a12cc7fd13e1f53",
+      "after": "eb9bcacc19580428963a900497b4815be4da1734537216332a12cc7fd13e1f53"
+    },
+    "assets/environment/new_island/task3/rock.gdshader": {
+      "before": "2e591b6a673bcc07349a81de98b7f9998b59395e0a05b65c365f5a0da1b6c976",
+      "after": "2e591b6a673bcc07349a81de98b7f9998b59395e0a05b65c365f5a0da1b6c976"
+    },
+    "assets/environment/new_island/task3/rock.gdshader.uid": {
+      "before": "9683347cec864c766a9103f30808f7e437432d9a34f1f9c998d00660fa7a00b1",
+      "after": "9683347cec864c766a9103f30808f7e437432d9a34f1f9c998d00660fa7a00b1"
+    },
+    "assets/environment/new_island/task3/rock_albedo.png": {
+      "before": "0fcec144df20b36863b2673271822c9c0de50bb8dd8e42c83d25f301ccdb118d",
+      "after": "0fcec144df20b36863b2673271822c9c0de50bb8dd8e42c83d25f301ccdb118d"
+    },
+    "assets/environment/new_island/task3/rock_albedo.png.import": {
+      "before": "2c397becf6333c1f6ec967c1b624ee3d81948fac93cd031df3934cf14f516d10",
+      "after": "2c397becf6333c1f6ec967c1b624ee3d81948fac93cd031df3934cf14f516d10"
+    },
+    "assets/environment/new_island/task3/rock_normal.png": {
+      "before": "c84474e56c9ba88618cc213bd633acd64687adc14fa902784d78b2cf6c9e6c09",
+      "after": "c84474e56c9ba88618cc213bd633acd64687adc14fa902784d78b2cf6c9e6c09"
+    },
+    "assets/environment/new_island/task3/rock_normal.png.import": {
+      "before": "3fada844a3789e2c23234632b20e4a26ec1fa6946989484184bb1129dc07038f",
+      "after": "3fada844a3789e2c23234632b20e4a26ec1fa6946989484184bb1129dc07038f"
+    },
+    "assets/environment/new_island/task3/texture_source.json": {
+      "before": "7e8bbd980f099a1b0e49d71cf372889f998deeb13432010f52440a176b44fade",
+      "after": "7e8bbd980f099a1b0e49d71cf372889f998deeb13432010f52440a176b44fade"
+    },
+    "assets/environment/new_island/task3/waterfall.gdshader": {
+      "before": "f137eedf30f5079e8ca5c0e9223867058a8b3dd37669e4d4abf60f6537ca2365",
+      "after": "f137eedf30f5079e8ca5c0e9223867058a8b3dd37669e4d4abf60f6537ca2365"
+    },
+    "assets/environment/new_island/task3/waterfall.gdshader.uid": {
+      "before": "aa335b14f5797360f42fab891917b1dce01cda05be7ea4aebef0928ed0d5fa0f",
+      "after": "aa335b14f5797360f42fab891917b1dce01cda05be7ea4aebef0928ed0d5fa0f"
+    },
+    "assets/environment/new_island/task4/journey_mask.png": {
+      "before": "7817392e87232a38adbc2034ef59e642ca90bf4f4e3e3fb621db9718a2d683a0",
+      "after": "7817392e87232a38adbc2034ef59e642ca90bf4f4e3e3fb621db9718a2d683a0"
+    },
+    "assets/environment/new_island/task4/journey_mask.png.import": {
+      "before": "06bff93f3cd29fa695cc843307883e4d10f939408f1e79b987a9fe578b196d35",
+      "after": "06bff93f3cd29fa695cc843307883e4d10f939408f1e79b987a9fe578b196d35"
+    },
+    "assets/environment/new_island/task4/land.gdshader": {
+      "before": "6334dcb1277ad80b4eebb32ae270181f8941f5faf9c13ea04558cbb0586c749a",
+      "after": "6334dcb1277ad80b4eebb32ae270181f8941f5faf9c13ea04558cbb0586c749a"
+    },
+    "assets/environment/new_island/task4/land.gdshader.uid": {
+      "before": "1b8cc5af11990ddbc192097c85c9d9e862321c82cfce7ac67cd6d98f9c3e3810",
+      "after": "1b8cc5af11990ddbc192097c85c9d9e862321c82cfce7ac67cd6d98f9c3e3810"
+    },
+    "assets/environment/new_island/task4/mask_source.json": {
+      "before": "e2ff63be623405785e4bb5a3174ebb61acea6767123b656568954fba6389ba7a",
+      "after": "e2ff63be623405785e4bb5a3174ebb61acea6767123b656568954fba6389ba7a"
+    },
+    "assets/environment/new_island/task4/README.md": {
+      "before": "ca5f6f7d4456fae6295b6bc6eefba41a41409aab6d29e2a544e3e04e3b183ca5",
+      "after": "ca5f6f7d4456fae6295b6bc6eefba41a41409aab6d29e2a544e3e04e3b183ca5"
+    },
+    "assets/environment/new_island/task4/region.gdshader": {
+      "before": "8d89a6eae4bc18d04fdf51ed4ef276cbe8491ca00e7fc44549d4048f933f8f56",
+      "after": "8d89a6eae4bc18d04fdf51ed4ef276cbe8491ca00e7fc44549d4048f933f8f56"
+    },
+    "assets/environment/new_island/task4/region.gdshader.uid": {
+      "before": "590dffbbc6bd33e40d2feaf84ec8f16ce99adb411bee7535b343a6b2d6f0952d",
+      "after": "590dffbbc6bd33e40d2feaf84ec8f16ce99adb411bee7535b343a6b2d6f0952d"
+    },
+    "assets/environment/new_island/task541/cave.obj": {
+      "before": "953bf150265abc04abab7e5d2783f5d7a40c7067f465d9a2e7721f1e999334e9",
+      "after": "953bf150265abc04abab7e5d2783f5d7a40c7067f465d9a2e7721f1e999334e9"
+    },
+    "assets/environment/new_island/task541/cave.obj.import": {
+      "before": "d7eb0bc1d508922a850c7f9dc4654b44e9a982f8b5db723e65f3d91a111fbe5a",
+      "after": "d7eb0bc1d508922a850c7f9dc4654b44e9a982f8b5db723e65f3d91a111fbe5a"
+    },
+    "assets/environment/new_island/task542/cave_exterior.glb": {
+      "before": "5e1f3b401383cd55348e45ddb8e64ebc1672ef40de4657ffb31db8ed1a289cb1",
+      "after": "006b77d4428506e13f49d680d0624329b2100604142a65ac612be56300fcb83c"
+    },
+    "assets/environment/new_island/task542/cave_exterior.glb.import": {
+      "before": "ac7b24d927ef4647e2910b3b48dbd1ed9bcc62b521f9b620bf3e51dbb5d4b2f4",
+      "after": "ac7b24d927ef4647e2910b3b48dbd1ed9bcc62b521f9b620bf3e51dbb5d4b2f4"
+    },
+    "assets/environment/new_island/task542/rock_transition.gdshader": {
+      "before": "23ac88fc505b07c5e4644f38932264e637c535036cf93fbe825058647c847716",
+      "after": "23ac88fc505b07c5e4644f38932264e637c535036cf93fbe825058647c847716"
+    },
+    "assets/environment/new_island/task542/rock_transition.gdshader.uid": {
+      "before": "0c61ab25be09c85fdc92ad15b84992c458e7f21a715bd53d06a6298dde5c1d94",
+      "after": "0c61ab25be09c85fdc92ad15b84992c458e7f21a715bd53d06a6298dde5c1d94"
+    },
+    "assets/environment/new_island/vegetation/canopy_lod0.res": {
+      "before": "520f4f49504e3b9322e421f21be49ac943bc60b301a075a882be069be328a6a4",
+      "after": "520f4f49504e3b9322e421f21be49ac943bc60b301a075a882be069be328a6a4"
+    },
+    "assets/environment/new_island/vegetation/canopy_lod1.res": {
+      "before": "198e8ae6236512835064e9c51de8092d3d733d9cd92c39b1c521bee0a5ee66c1",
+      "after": "198e8ae6236512835064e9c51de8092d3d733d9cd92c39b1c521bee0a5ee66c1"
+    },
+    "assets/environment/new_island/vegetation/canopy_lod2.res": {
+      "before": "bfbf9c1a56f24f892b92b8a56abd5b8a42d2ae9ea9486bf8428cd5bd86eeb9aa",
+      "after": "bfbf9c1a56f24f892b92b8a56abd5b8a42d2ae9ea9486bf8428cd5bd86eeb9aa"
+    },
+    "assets/environment/new_island/vegetation/fern.res": {
+      "before": "c63962c6b0a9571c5a47a7440cbc32916dbffe8be6c8dbf3129f451e6f918cd7",
+      "after": "c63962c6b0a9571c5a47a7440cbc32916dbffe8be6c8dbf3129f451e6f918cd7"
+    },
+    "assets/environment/new_island/vegetation/forest_roots.json": {
+      "before": "0ea23e34a7b5c579ca17af027dcf27af399cf6c5275121f0282af5b813bf040e",
+      "after": "0ea23e34a7b5c579ca17af027dcf27af399cf6c5275121f0282af5b813bf040e"
+    },
+    "assets/environment/new_island/vegetation/grass.gdshader": {
+      "before": "8c3eefb3fa80c98dee9a83322a535dc07520910efb92ea4d994f936bf8f465ab",
+      "after": "8c3eefb3fa80c98dee9a83322a535dc07520910efb92ea4d994f936bf8f465ab"
+    },
+    "assets/environment/new_island/vegetation/grass.gdshader.uid": {
+      "before": "dfd94cc2042710e6276b1b502550d6bed231d05791f729a4543fb5923ff14ed4",
+      "after": "dfd94cc2042710e6276b1b502550d6bed231d05791f729a4543fb5923ff14ed4"
+    },
+    "assets/environment/new_island/vegetation/grass_lod0.res": {
+      "before": "7907cc761257c444f6289aa014ee24d6c825e17dd0bb2bb2b97b3329a69d29b7",
+      "after": "7907cc761257c444f6289aa014ee24d6c825e17dd0bb2bb2b97b3329a69d29b7"
+    },
+    "assets/environment/new_island/vegetation/grass_lod1.res": {
+      "before": "dc32f1a1ff149ef6c27adf48c9af4609a1cefdd31e4ee4e3873ff24ffff3d3ce",
+      "after": "dc32f1a1ff149ef6c27adf48c9af4609a1cefdd31e4ee4e3873ff24ffff3d3ce"
+    },
+    "assets/environment/new_island/vegetation/grass_lod2.res": {
+      "before": "6ffe03cea68d4b331b00f7b1cc636864ed9e22416d224508942fc80ec2325da2",
+      "after": "6ffe03cea68d4b331b00f7b1cc636864ed9e22416d224508942fc80ec2325da2"
+    },
+    "assets/environment/new_island/vegetation/leaves.gdshader": {
+      "before": "0f279ecf0dbd1bbd7d3d78d0411dcf57b8eb10d53652f8341f55d9f86dfe5c87",
+      "after": "0f279ecf0dbd1bbd7d3d78d0411dcf57b8eb10d53652f8341f55d9f86dfe5c87"
+    },
+    "assets/environment/new_island/vegetation/leaves.gdshader.uid": {
+      "before": "f79c85497431951462e001a2434e877479ce860110aa8ea59a96969674f248eb",
+      "after": "f79c85497431951462e001a2434e877479ce860110aa8ea59a96969674f248eb"
+    },
+    "assets/environment/new_island/vegetation/README.md": {
+      "before": "289589ead881eb4e9e42988f9626c672b7e3dea85f78aa9cc1250d8d7dae0566",
+      "after": "289589ead881eb4e9e42988f9626c672b7e3dea85f78aa9cc1250d8d7dae0566"
+    },
+    "assets/environment/new_island/vegetation/trunk_lod0.res": {
+      "before": "c9adbb5567a0e41303ccb1e5122cab28bb18f73d02fb4035c5c7c2238aaa1749",
+      "after": "c9adbb5567a0e41303ccb1e5122cab28bb18f73d02fb4035c5c7c2238aaa1749"
+    },
+    "assets/environment/new_island/vegetation/trunk_lod1.res": {
+      "before": "cf364003274fd2dfa44e88b8de46f2c24dbcffe4a10609d7b6a62adbef97c27b",
+      "after": "cf364003274fd2dfa44e88b8de46f2c24dbcffe4a10609d7b6a62adbef97c27b"
+    },
+    "assets/environment/new_island/vegetation/trunk_lod2.res": {
+      "before": "37cf53e918ab7ff5d487697c75bfe28f9fe9223b9957f8c8d37058c980b9359d",
+      "after": "37cf53e918ab7ff5d487697c75bfe28f9fe9223b9957f8c8d37058c980b9359d"
+    },
+    "assets/environment/new_island/vegetation/refinement/bark.gdshader": {
+      "before": "6965959f2c43ffaf1c214e86431e5f4c2fc87f4749009294972868d9afdf7373",
+      "after": "6965959f2c43ffaf1c214e86431e5f4c2fc87f4749009294972868d9afdf7373"
+    },
+    "assets/environment/new_island/vegetation/refinement/bark.gdshader.uid": {
+      "before": "cb5e90f3744717b791e367eff77bb230b629d46a1ac62c6d030ae14dd1d966f5",
+      "after": "cb5e90f3744717b791e367eff77bb230b629d46a1ac62c6d030ae14dd1d966f5"
+    },
+    "assets/environment/new_island/vegetation/refinement/branch_tips.json": {
+      "before": "f41d15500f543b0a4bc3cc63dc30358454648cd31b768966b9e97d55fc6f4dd3",
+      "after": "f41d15500f543b0a4bc3cc63dc30358454648cd31b768966b9e97d55fc6f4dd3"
+    },
+    "assets/environment/new_island/vegetation/refinement/canopy_lod0.res": {
+      "before": "12bfe981851d961e84a8e2e91d38e2d4058cd4fe4dac00cb1eb46ef394b43993",
+      "after": "12bfe981851d961e84a8e2e91d38e2d4058cd4fe4dac00cb1eb46ef394b43993"
+    },
+    "assets/environment/new_island/vegetation/refinement/canopy_lod1.res": {
+      "before": "fa194af574195fcf0b5a018ade205a35bc67b92f46ae46c93b4d9f1cc848a6a2",
+      "after": "fa194af574195fcf0b5a018ade205a35bc67b92f46ae46c93b4d9f1cc848a6a2"
+    },
+    "assets/environment/new_island/vegetation/refinement/canopy_lod2.res": {
+      "before": "e7e6aebad9f53c8c685eabb6ed54c7727f63c6975b6e3f0b7dee4de8c78b95d1",
+      "after": "e7e6aebad9f53c8c685eabb6ed54c7727f63c6975b6e3f0b7dee4de8c78b95d1"
+    },
+    "assets/environment/new_island/vegetation/refinement/foliage.gdshader": {
+      "before": "bb4dededa6c75e0a62f25312b14abf80b8f7d3a0536f87688930770393ce4a0f",
+      "after": "bb4dededa6c75e0a62f25312b14abf80b8f7d3a0536f87688930770393ce4a0f"
+    },
+    "assets/environment/new_island/vegetation/refinement/foliage.gdshader.uid": {
+      "before": "34cd66ef7668de451033c3d3d592c92dee2d3ca9a6025f265ffc30421b5dfbd6",
+      "after": "34cd66ef7668de451033c3d3d592c92dee2d3ca9a6025f265ffc30421b5dfbd6"
+    },
+    "assets/environment/new_island/vegetation/refinement/grass.gdshader": {
+      "before": "d3c7998efb54b5d3fbefed455087680111bf89c0544e18c3fa98450d53a9c21b",
+      "after": "d3c7998efb54b5d3fbefed455087680111bf89c0544e18c3fa98450d53a9c21b"
+    },
+    "assets/environment/new_island/vegetation/refinement/grass.gdshader.uid": {
+      "before": "24fdfe6ae5c1b3c057b584aec8badb6e724b81ce55fd7e42c2ba1e87f5705526",
+      "after": "24fdfe6ae5c1b3c057b584aec8badb6e724b81ce55fd7e42c2ba1e87f5705526"
+    },
+    "assets/environment/new_island/vegetation/refinement/grass_lod0.res": {
+      "before": "df8b1b0f740b1bd2a5229536bc7375468d5da8f999dbf71cb805809d443ce303",
+      "after": "df8b1b0f740b1bd2a5229536bc7375468d5da8f999dbf71cb805809d443ce303"
+    },
+    "assets/environment/new_island/vegetation/refinement/grass_lod1.res": {
+      "before": "ebdbbbf10fc10d8a8ad00bb08d09c7a60e1fc95029903f30d0e58692df1dee38",
+      "after": "ebdbbbf10fc10d8a8ad00bb08d09c7a60e1fc95029903f30d0e58692df1dee38"
+    },
+    "assets/environment/new_island/vegetation/refinement/grass_lod2.res": {
+      "before": "9a27734271aa8fb1aabf78a0a7d657a76ec9a0cecba52ada0ebc9cccce0f4eec",
+      "after": "9a27734271aa8fb1aabf78a0a7d657a76ec9a0cecba52ada0ebc9cccce0f4eec"
+    },
+    "assets/environment/new_island/vegetation/refinement/mesh_budgets.json": {
+      "before": "41833375cd7b6a393771a8fb61d7be8b5e3d5fa6e60ee6d763114af75a7cd041",
+      "after": "41833375cd7b6a393771a8fb61d7be8b5e3d5fa6e60ee6d763114af75a7cd041"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod0.glb": {
+      "before": "6c2dc14fa7477e501d767b12cf84f72bd375ddaca4ad279ef51561304a80d415",
+      "after": "6c2dc14fa7477e501d767b12cf84f72bd375ddaca4ad279ef51561304a80d415"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod0.glb.import": {
+      "before": "d512c3471cbcd6c4173bb62375f01c3e8d62b96ab6971bd4071f82b627cfc696",
+      "after": "d512c3471cbcd6c4173bb62375f01c3e8d62b96ab6971bd4071f82b627cfc696"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod1.glb": {
+      "before": "9f79a8eb3664d4f40c38dadcc25942a35494627f7b5974319dd749c6b9e0229b",
+      "after": "9f79a8eb3664d4f40c38dadcc25942a35494627f7b5974319dd749c6b9e0229b"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod1.glb.import": {
+      "before": "fc3076aa42f1cfbbb1d8a09440cf4a92fbbc05a73bdc752771e107f41688c4c5",
+      "after": "fc3076aa42f1cfbbb1d8a09440cf4a92fbbc05a73bdc752771e107f41688c4c5"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod2.glb": {
+      "before": "d524b587e526df64a05f03bfee93efd37f5deb4b2a8fedf7c94036da66a4a032",
+      "after": "d524b587e526df64a05f03bfee93efd37f5deb4b2a8fedf7c94036da66a4a032"
+    },
+    "assets/environment/new_island/vegetation/refinement/organic_trunk_lod2.glb.import": {
+      "before": "de3dcc3027cda333e2051a0eab3f274932d79e85ec13f8926a21ef448ce2e4a4",
+      "after": "de3dcc3027cda333e2051a0eab3f274932d79e85ec13f8926a21ef448ce2e4a4"
+    },
+    "assets/environment/new_island/vegetation/refinement/README.md": {
+      "before": "82e318f477a64dc4b24f178f3ad2598e47feabdcb8bf199bc3c8639fe0d39b0b",
+      "after": "82e318f477a64dc4b24f178f3ad2598e47feabdcb8bf199bc3c8639fe0d39b0b"
+    },
+    "assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc": {
+      "before": "aab476342e4303389d885d545ec499406f30c02d46d1ed1d0793787723d751ab",
+      "after": "aab476342e4303389d885d545ec499406f30c02d46d1ed1d0793787723d751ab"
+    },
+    "assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc.uid": {
+      "before": "35c3e1924c7dc760ff765d26304a27ba2c38a2d87a67f7f496d2f8e4750c2b60",
+      "after": "35c3e1924c7dc760ff765d26304a27ba2c38a2d87a67f7f496d2f8e4750c2b60"
+    },
+    "assets/environment/new_island/vegetation/refinement/trunk_lod0.res": {
+      "before": "dceddb2e099b486cbbd85a6bb5c6393f60b7cf5dee77aa16c136166a2460b4ef",
+      "after": "dceddb2e099b486cbbd85a6bb5c6393f60b7cf5dee77aa16c136166a2460b4ef"
+    },
+    "assets/environment/new_island/vegetation/refinement/trunk_lod1.res": {
+      "before": "3188ae6313a5e6ed6b5010c4d12377f484e12fa7387c32cc4d6b340296ccc617",
+      "after": "3188ae6313a5e6ed6b5010c4d12377f484e12fa7387c32cc4d6b340296ccc617"
+    },
+    "assets/environment/new_island/vegetation/refinement/trunk_lod2.res": {
+      "before": "f478ef2b08fc9e2040010525ea3a47f5d24073c40a47d590036e1f4e6f76acd0",
+      "after": "f478ef2b08fc9e2040010525ea3a47f5d24073c40a47d590036e1f4e6f76acd0"
+    },
+    "assets/environment/new_island/vegetation/refinement/twig_clusters.png": {
+      "before": "dd9f8e6e576cb65a0cd270da0bdfde870f1e72f551c29e541efb48fc9feae840",
+      "after": "dd9f8e6e576cb65a0cd270da0bdfde870f1e72f551c29e541efb48fc9feae840"
+    },
+    "assets/environment/new_island/vegetation/refinement/twig_clusters.png.import": {
+      "before": "73c2fec69be4f18ea7e38d9c827c4be703f98f3fe8a02df9d0a146f1a1231df1",
+      "after": "73c2fec69be4f18ea7e38d9c827c4be703f98f3fe8a02df9d0a146f1a1231df1"
+    },
+    "assets/characters/aru/arms_color_1024.png": {
+      "before": "ff7280a756ecfab5de25b11be807db54ec1d05e110bf5c3873597b57f0c3c4bc",
+      "after": "ff7280a756ecfab5de25b11be807db54ec1d05e110bf5c3873597b57f0c3c4bc"
+    },
+    "assets/characters/aru/arms_color_1024.png.import": {
+      "before": "b0a5b71dfd46227c96698eeaa6b7c04d539d1abbb08e8ba27e98747d800ec37d",
+      "after": "b0a5b71dfd46227c96698eeaa6b7c04d539d1abbb08e8ba27e98747d800ec37d"
+    },
+    "assets/characters/aru/BASE_CHARACTER_LICENSE.txt": {
+      "before": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+      "after": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+    },
+    "assets/characters/aru/brow_color_512.png": {
+      "before": "1f6a2f0a611aaf6e8cff00ce29192117bab2ab5a46f18e19cddd5f1e0dbeac3c",
+      "after": "1f6a2f0a611aaf6e8cff00ce29192117bab2ab5a46f18e19cddd5f1e0dbeac3c"
+    },
+    "assets/characters/aru/brow_color_512.png.import": {
+      "before": "4d359b107ab2afbce56dac9017c02fd48f3ecd5bac44a4ae1a6896644db05361",
+      "after": "4d359b107ab2afbce56dac9017c02fd48f3ecd5bac44a4ae1a6896644db05361"
+    },
+    "assets/characters/aru/face_color_1024.png": {
+      "before": "355581585d31e18944e7bd5a6284d7dc2f340c4cc7723ed6141f810e14caef45",
+      "after": "355581585d31e18944e7bd5a6284d7dc2f340c4cc7723ed6141f810e14caef45"
+    },
+    "assets/characters/aru/face_color_1024.png.import": {
+      "before": "2a99eecee52e1ddaeb107702d52f7c95c3970f355ae8623f719bacb22ee36f65",
+      "after": "2a99eecee52e1ddaeb107702d52f7c95c3970f355ae8623f719bacb22ee36f65"
+    },
+    "assets/characters/aru/face_normal_512.png": {
+      "before": "1ada9c50a908c5c2f7feefaf8bc59864b3b6287a0c4f44d1e198de4ee29b889a",
+      "after": "1ada9c50a908c5c2f7feefaf8bc59864b3b6287a0c4f44d1e198de4ee29b889a"
+    },
+    "assets/characters/aru/face_normal_512.png.import": {
+      "before": "91d3d6498daeace146d3c8e6e3a1079750ac41a6c7088ee0f055b40a8451a703",
+      "after": "91d3d6498daeace146d3c8e6e3a1079750ac41a6c7088ee0f055b40a8451a703"
+    },
+    "assets/characters/aru/OUTFIT_LICENSE.txt": {
+      "before": "2202cc2f608c4210790b112e5f121bc2e7f8dced7b5b1c7f4be6203461bdebbb",
+      "after": "2202cc2f608c4210790b112e5f121bc2e7f8dced7b5b1c7f4be6203461bdebbb"
+    },
+    "assets/characters/aru/ranger_color_1024.png": {
+      "before": "21928f924e0ebdbd29694ff5f89128c26d68e4f4f77b1a2b5de7c51e2a237c75",
+      "after": "21928f924e0ebdbd29694ff5f89128c26d68e4f4f77b1a2b5de7c51e2a237c75"
+    },
+    "assets/characters/aru/ranger_color_1024.png.import": {
+      "before": "36f51c9aac8a7672d44d35ff066bf1be45dd183ed5face6195533117461f2399",
+      "after": "36f51c9aac8a7672d44d35ff066bf1be45dd183ed5face6195533117461f2399"
+    },
+    "assets/characters/aru/ranger_normal_1024.png": {
+      "before": "f694431b3a4145fd41f26e7a4fae4d9a599145fcbf86097aac1988f66035e691",
+      "after": "f694431b3a4145fd41f26e7a4fae4d9a599145fcbf86097aac1988f66035e691"
+    },
+    "assets/characters/aru/ranger_normal_1024.png.import": {
+      "before": "43627f6973717055c03986980ed688e641f56c142be7f1c99812c4fb99629aab",
+      "after": "43627f6973717055c03986980ed688e641f56c142be7f1c99812c4fb99629aab"
+    },
+    "assets/characters/aru/ranger_orm_1024.png": {
+      "before": "3c3fa3b2fcaa0ce5171f93b97755cba827d02a2e1ad493ac4dc3da65e0827f66",
+      "after": "3c3fa3b2fcaa0ce5171f93b97755cba827d02a2e1ad493ac4dc3da65e0827f66"
+    },
+    "assets/characters/aru/ranger_orm_1024.png.import": {
+      "before": "44eaeb663935b7c2b00b2aa0cd89ced9b5565be154269f0af3ef5c95d10636be",
+      "after": "44eaeb663935b7c2b00b2aa0cd89ced9b5565be154269f0af3ef5c95d10636be"
+    },
+    "assets/characters/aru/README.md": {
+      "before": "dfb77494de79d75016a6fb6d1c0f5f30ed999a904d80f37df3f8fb814c972141",
+      "after": "dfb77494de79d75016a6fb6d1c0f5f30ed999a904d80f37df3f8fb814c972141"
+    },
+    "assets/characters/aru/starter_warrior.scn": {
+      "before": "bfe90d350eb094cd5a242fad7f1c3ae21e83395253edcc91b3632d5d13f68b25",
+      "after": "bfe90d350eb094cd5a242fad7f1c3ae21e83395253edcc91b3632d5d13f68b25"
+    },
+    "assets/characters/aru/starter_warrior_mesh.res": {
+      "before": "9e537ffb158ba9aa24544ddb4e4cbbabc68de7ebb99fb4fda1ea8881e5e803d2",
+      "after": "9e537ffb158ba9aa24544ddb4e4cbbabc68de7ebb99fb4fda1ea8881e5e803d2"
+    },
+    "assets/characters/demon_boar/demon_boar.glb": {
+      "before": "4f7b9574a6b9bf745fba3ca15b9666741225243bbedb9ba88c74d00fbf275b96",
+      "after": "4f7b9574a6b9bf745fba3ca15b9666741225243bbedb9ba88c74d00fbf275b96"
+    },
+    "assets/characters/demon_boar/demon_boar.glb.import": {
+      "before": "67467ee483d665411e9fb869f3721e92311398d9dff85d1f21b48343c5188f04",
+      "after": "67467ee483d665411e9fb869f3721e92311398d9dff85d1f21b48343c5188f04"
+    },
+    "assets/characters/demon_boar/demon_boar_base_color.jpg": {
+      "before": "2cdaa40c1d6c5933a1b4ea77f4651811764f9d0ffe6c45f0818b1c9a70979b8f",
+      "after": "2cdaa40c1d6c5933a1b4ea77f4651811764f9d0ffe6c45f0818b1c9a70979b8f"
+    },
+    "assets/characters/demon_boar/demon_boar_base_color.jpg.import": {
+      "before": "b074bc4f1c1e099742bf59c4f9e9cb0548438e43b2aebb6908b2af12539d52bd",
+      "after": "b074bc4f1c1e099742bf59c4f9e9cb0548438e43b2aebb6908b2af12539d52bd"
+    },
+    "assets/characters/demon_boar/demon_boar_normal_2048.png": {
+      "before": "d86c82e490f17491120bba7e349a6248053c1a4d14e3e739988c0bfcdfeecade",
+      "after": "d86c82e490f17491120bba7e349a6248053c1a4d14e3e739988c0bfcdfeecade"
+    },
+    "assets/characters/demon_boar/demon_boar_normal_2048.png.import": {
+      "before": "ce915a71906176ef59700e93b052dbfa6ca1b7e5643b2e213f2c9f2bd508dfef",
+      "after": "ce915a71906176ef59700e93b052dbfa6ca1b7e5643b2e213f2c9f2bd508dfef"
+    },
+    "assets/characters/demon_boar/README.md": {
+      "before": "1206a9ee6979ee39c60a9a2d94f90aa0fb5f5620a930e18c1e8a9adb4ee39321",
+      "after": "1206a9ee6979ee39c60a9a2d94f90aa0fb5f5620a930e18c1e8a9adb4ee39321"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite.glb": {
+      "before": "96c6b647321b0202b10102469d4d186a9e30eea68b28f25cc12ad4fc74eae314",
+      "after": "96c6b647321b0202b10102469d4d186a9e30eea68b28f25cc12ad4fc74eae314"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite.glb.import": {
+      "before": "15c58b5b6e28e8d055b201a99ae4c57243ba6947572bb1e22dfbac1f068e2d31",
+      "after": "15c58b5b6e28e8d055b201a99ae4c57243ba6947572bb1e22dfbac1f068e2d31"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png": {
+      "before": "2392e232af3c0662fa460665ee93a4b213ea8a86c6a4a8d3d51a823a011b4d70",
+      "after": "2392e232af3c0662fa460665ee93a4b213ea8a86c6a4a8d3d51a823a011b4d70"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png.import": {
+      "before": "dc7266c5a3ac5e0ade457d6049c7182a79b64b17a20ab30606a86f37ac28a446",
+      "after": "dc7266c5a3ac5e0ade457d6049c7182a79b64b17a20ab30606a86f37ac28a446"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg": {
+      "before": "59807e821fb7d5c5a11a99fba71a0a0f712a2a105645584e87831ddc40b730fa",
+      "after": "59807e821fb7d5c5a11a99fba71a0a0f712a2a105645584e87831ddc40b730fa"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg.import": {
+      "before": "e0156e2ebdd1faf05375505b256241d076ad477b88bb750a74e40bf92f076b43",
+      "after": "e0156e2ebdd1faf05375505b256241d076ad477b88bb750a74e40bf92f076b43"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png": {
+      "before": "33d87a1e4b446fb9c1b78c69a23e930ff54bcd06988115aec5c2aa4b2663a8d7",
+      "after": "33d87a1e4b446fb9c1b78c69a23e930ff54bcd06988115aec5c2aa4b2663a8d7"
+    },
+    "assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png.import": {
+      "before": "6975963f2d116cede68af41330a58d08b5c0d9acbda39f4a9e083dc8c589d9a3",
+      "after": "6975963f2d116cede68af41330a58d08b5c0d9acbda39f4a9e083dc8c589d9a3"
+    },
+    "assets/characters/literock/README.md": {
+      "before": "71070a12a85a74245742bdccd2a2d8d0a291d8e622d8ba9da76994a240b61721",
+      "after": "71070a12a85a74245742bdccd2a2d8d0a291d8e622d8ba9da76994a240b61721"
+    },
+    "assets/characters/pigcraft/charcoal_dragon.glb": {
+      "before": "055ac46dc9a21bcd3ec0820b82e766baadb635284353171542dfa349f67dd92f",
+      "after": "055ac46dc9a21bcd3ec0820b82e766baadb635284353171542dfa349f67dd92f"
+    },
+    "assets/characters/pigcraft/charcoal_dragon.glb.import": {
+      "before": "d42c8df7c07ad26e7749c10887da10c919448d91622dd4ddd989022bb82ba4bf",
+      "after": "d42c8df7c07ad26e7749c10887da10c919448d91622dd4ddd989022bb82ba4bf"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_0.jpg": {
+      "before": "716d814d7713e8c316357496a76001d46d6889fe80e871635c232c96b4ff8c58",
+      "after": "716d814d7713e8c316357496a76001d46d6889fe80e871635c232c96b4ff8c58"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_0.jpg.import": {
+      "before": "dfd66d62c13dae75fe99881b0fc64508c1b177afcb64946c4f77e80081a75665",
+      "after": "dfd66d62c13dae75fe99881b0fc64508c1b177afcb64946c4f77e80081a75665"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_1.png": {
+      "before": "dc2d8dceb823e50c5907b87d1e1d568886672572b8d419f409c2d41a26ae257f",
+      "after": "dc2d8dceb823e50c5907b87d1e1d568886672572b8d419f409c2d41a26ae257f"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_1.png.import": {
+      "before": "67078d07120658f961a8fee0049c8136bbddff6cf5ee0b4ed15276e2700318b8",
+      "after": "67078d07120658f961a8fee0049c8136bbddff6cf5ee0b4ed15276e2700318b8"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_2.png": {
+      "before": "2ed704093899f22d1401f15442034e0bd6b88b0ed107d576fd376006b3d1fee0",
+      "after": "2ed704093899f22d1401f15442034e0bd6b88b0ed107d576fd376006b3d1fee0"
+    },
+    "assets/characters/pigcraft/charcoal_dragon_Image_2.png.import": {
+      "before": "1c29c9a6851b4c193dccb66fcfc899ea97a62067b3bdc54bdd04e9b9f036a38d",
+      "after": "1c29c9a6851b4c193dccb66fcfc899ea97a62067b3bdc54bdd04e9b9f036a38d"
+    },
+    "assets/characters/pigcraft/README.md": {
+      "before": "9d52d5c163d6d3b2c75792d8f9e9f50597cf8b295f4cb93bb71be5f73f6373c8",
+      "after": "9d52d5c163d6d3b2c75792d8f9e9f50597cf8b295f4cb93bb71be5f73f6373c8"
+    },
+    "assets/characters/quaternius/ANIMATION_LICENSE.txt": {
+      "before": "6d01f55c6e4c49a2c9963e147e561945ae2c83958c8ca667d90a6bffdbfac061",
+      "after": "6d01f55c6e4c49a2c9963e147e561945ae2c83958c8ca667d90a6bffdbfac061"
+    },
+    "assets/characters/quaternius/LICENSE.txt": {
+      "before": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+      "after": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e"
+    },
+    "assets/characters/quaternius/README.md": {
+      "before": "7dacdb0948abe209c6d12f35ec4e3661b58d6230eed6c35da958ab6d7ef0a76b",
+      "after": "7dacdb0948abe209c6d12f35ec4e3661b58d6230eed6c35da958ab6d7ef0a76b"
+    },
+    "assets/characters/quaternius/Superhero_Male_FullBody.bin": {
+      "before": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f",
+      "after": "459003f9745853ae562a85506a2b94dd56515c1f37728f9fa3d2ce1a3e4cd92f"
+    },
+    "assets/characters/quaternius/Superhero_Male_FullBody.gltf": {
+      "before": "1972254d3de2144027da2f94d18c60c2e6ab24e4ff9b8e0fd900b0d50890021e",
+      "after": "1972254d3de2144027da2f94d18c60c2e6ab24e4ff9b8e0fd900b0d50890021e"
+    },
+    "assets/characters/quaternius/Superhero_Male_FullBody.gltf.import": {
+      "before": "2b32fcdca8c843654516b68d7cb633f3c21f4c74664bab83984eb4a2bed4c828",
+      "after": "2b32fcdca8c843654516b68d7cb633f3c21f4c74664bab83984eb4a2bed4c828"
+    },
+    "assets/characters/quaternius/T_Eye_Brown.png": {
+      "before": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025",
+      "after": "d08e3356a83211bc6ca21fe3a8e39f4b5c1a3b8f85457fc2c0fb57be09935025"
+    },
+    "assets/characters/quaternius/T_Eye_Brown.png.import": {
+      "before": "671700df3b5f02f7efd7a5a21df478f2b4871fc86970d6af6df4d78a47cb2ecd",
+      "after": "671700df3b5f02f7efd7a5a21df478f2b4871fc86970d6af6df4d78a47cb2ecd"
+    },
+    "assets/characters/quaternius/T_Eye_Normal.png": {
+      "before": "9ed61f7726a54fe346a78b9e5a18905d8e2b88f86235d97f53cd207a26f3f8c7",
+      "after": "9ed61f7726a54fe346a78b9e5a18905d8e2b88f86235d97f53cd207a26f3f8c7"
+    },
+    "assets/characters/quaternius/T_Eye_Normal.png.import": {
+      "before": "1f2c58f2deae8c8707e41a47202d0b5fcf03ca4621e833785131731fa2626d75",
+      "after": "1f2c58f2deae8c8707e41a47202d0b5fcf03ca4621e833785131731fa2626d75"
+    },
+    "assets/characters/quaternius/T_Hair_1_BaseColor.png": {
+      "before": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e",
+      "after": "bc7aa863bd22ab0a995cd838cceb4d3a5186ee54ee2fb0108fad85d20c057e6e"
+    },
+    "assets/characters/quaternius/T_Hair_1_BaseColor.png.import": {
+      "before": "250df208729ee8b5d41e29a2e14eb490536b29cce2064e3f13c200582f5a4799",
+      "after": "250df208729ee8b5d41e29a2e14eb490536b29cce2064e3f13c200582f5a4799"
+    },
+    "assets/characters/quaternius/T_Hair_1_Normal.png": {
+      "before": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb",
+      "after": "57fd0ad8c96a4d01b38769637e066cecaa285b456f6e48ce00863754a457affb"
+    },
+    "assets/characters/quaternius/T_Hair_1_Normal.png.import": {
+      "before": "83f8860fb910a3a0422a2f4fede35a2aa5f8f8a8eeadac3b92e9b4c260a72427",
+      "after": "83f8860fb910a3a0422a2f4fede35a2aa5f8f8a8eeadac3b92e9b4c260a72427"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Dark.png": {
+      "before": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45",
+      "after": "df680cbc1967a61e85998bfafb8f7bc0a36dd604bb3266486c4b06b1a184bb45"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Dark.png.import": {
+      "before": "813f80efd42195011064d668b8cc14993e2cfeb9a34af0e8b27ae4c84ea92a09",
+      "after": "813f80efd42195011064d668b8cc14993e2cfeb9a34af0e8b27ae4c84ea92a09"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Normal.png": {
+      "before": "9b25cf9200216eb754b79cf4c63b5380c419780788322f3c57cdd2b3e02679a6",
+      "after": "9b25cf9200216eb754b79cf4c63b5380c419780788322f3c57cdd2b3e02679a6"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Normal.png.import": {
+      "before": "34ae659c4a7e7cbbc7d371c318c695e3a599de9edb8a712372ffae79dc75e353",
+      "after": "34ae659c4a7e7cbbc7d371c318c695e3a599de9edb8a712372ffae79dc75e353"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Roughness.png": {
+      "before": "c70dabf48574cda55644d556beae1ee7cf1bdcf68a50d259d20f2f2358f27991",
+      "after": "c70dabf48574cda55644d556beae1ee7cf1bdcf68a50d259d20f2f2358f27991"
+    },
+    "assets/characters/quaternius/T_Superhero_Male_Roughness.png.import": {
+      "before": "454d7ec015c2c88d4cd8b63116b7162632a80d791b8201451c0bddc1c61270fb",
+      "after": "454d7ec015c2c88d4cd8b63116b7162632a80d791b8201451c0bddc1c61270fb"
+    },
+    "assets/characters/quaternius/UAL1_Standard.glb": {
+      "before": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997",
+      "after": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997"
+    },
+    "assets/characters/quaternius/UAL1_Standard.glb.import": {
+      "before": "cd2a6a582bcb8a4628a6203969347c2283c1efd162d229994d1584812a6895e5",
+      "after": "cd2a6a582bcb8a4628a6203969347c2283c1efd162d229994d1584812a6895e5"
+    },
+    "assets/audio/demon_boar/audio_manifest.json": {
+      "before": "bf9cb0ce1dd791c29edd1c83ecf7c5f8a05b8fa6ed71f950dffb82724e1bd5ef",
+      "after": "bf9cb0ce1dd791c29edd1c83ecf7c5f8a05b8fa6ed71f950dffb82724e1bd5ef"
+    },
+    "assets/audio/demon_boar/charge.wav": {
+      "before": "9087851d3382bff598e265566701579194664a6fa1c0e2d650f3c54ebd830e17",
+      "after": "9087851d3382bff598e265566701579194664a6fa1c0e2d650f3c54ebd830e17"
+    },
+    "assets/audio/demon_boar/charge.wav.import": {
+      "before": "a1b927735d20b280214f803ac113db1fd275e4f33a2ab43b72967c98e04b0e62",
+      "after": "a1b927735d20b280214f803ac113db1fd275e4f33a2ab43b72967c98e04b0e62"
+    },
+    "assets/audio/demon_boar/charge_impact.wav": {
+      "before": "a8a36199b0cb4e191d5ae9d20c530525e5bdfa3603e127745e32f35ef2260ef3",
+      "after": "a8a36199b0cb4e191d5ae9d20c530525e5bdfa3603e127745e32f35ef2260ef3"
+    },
+    "assets/audio/demon_boar/charge_impact.wav.import": {
+      "before": "9c18e4d38a5f147c1a44888dad11e264b72e3540fcf85c8a3152694a2f929245",
+      "after": "9c18e4d38a5f147c1a44888dad11e264b72e3540fcf85c8a3152694a2f929245"
+    },
+    "assets/audio/demon_boar/death.wav": {
+      "before": "e15c726cc47727094acaa00cc11d6ce08acfeebb853928b9d5c2d816f7eac911",
+      "after": "e15c726cc47727094acaa00cc11d6ce08acfeebb853928b9d5c2d816f7eac911"
+    },
+    "assets/audio/demon_boar/death.wav.import": {
+      "before": "71ac775109b4c1f14ce534cdedab0f020a9a17756d829e3dcd30a4e4a2b96b96",
+      "after": "71ac775109b4c1f14ce534cdedab0f020a9a17756d829e3dcd30a4e4a2b96b96"
+    },
+    "assets/audio/demon_boar/death_land.wav": {
+      "before": "7332b26679bb83c13da51e796b77446eb1618c321679e8e8114c6a7a260d90d7",
+      "after": "7332b26679bb83c13da51e796b77446eb1618c321679e8e8114c6a7a260d90d7"
+    },
+    "assets/audio/demon_boar/death_land.wav.import": {
+      "before": "0750d76f86704a547f47111fcce70d2258cd596acae0a379fdf14b7466bf6d9c",
+      "after": "0750d76f86704a547f47111fcce70d2258cd596acae0a379fdf14b7466bf6d9c"
+    },
+    "assets/audio/demon_boar/hit_heavy.wav": {
+      "before": "d6030a00caf7abfa6bb99f5668f2491e219300ce5f7e14b2c8ed06ff5d341e23",
+      "after": "d6030a00caf7abfa6bb99f5668f2491e219300ce5f7e14b2c8ed06ff5d341e23"
+    },
+    "assets/audio/demon_boar/hit_heavy.wav.import": {
+      "before": "195ae53800b74e40f50f104c8c1531125bc125805197fb12f3b2804d378f4c71",
+      "after": "195ae53800b74e40f50f104c8c1531125bc125805197fb12f3b2804d378f4c71"
+    },
+    "assets/audio/demon_boar/hit_light.wav": {
+      "before": "820670eec11eef56eed7753ec90b59aa58de4d6c8c5d4a70a1d69013ae970b6a",
+      "after": "820670eec11eef56eed7753ec90b59aa58de4d6c8c5d4a70a1d69013ae970b6a"
+    },
+    "assets/audio/demon_boar/hit_light.wav.import": {
+      "before": "9df13fdaa208b51f1c4a4f6b22d6a38576711fc922bd9909cd92db06e18d5c2f",
+      "after": "9df13fdaa208b51f1c4a4f6b22d6a38576711fc922bd9909cd92db06e18d5c2f"
+    },
+    "assets/audio/demon_boar/hoof_a.wav": {
+      "before": "882f671bde20d0ceb6c6143dce72da1ebcec80a8ad1abbc13bf69eef45fa75b2",
+      "after": "882f671bde20d0ceb6c6143dce72da1ebcec80a8ad1abbc13bf69eef45fa75b2"
+    },
+    "assets/audio/demon_boar/hoof_a.wav.import": {
+      "before": "a0994b4431efb5ad2a5f8183347725aab48281131b3a0f10e071e6308a5d7eb3",
+      "after": "a0994b4431efb5ad2a5f8183347725aab48281131b3a0f10e071e6308a5d7eb3"
+    },
+    "assets/audio/demon_boar/hoof_b.wav": {
+      "before": "a34227e6d2062c8e84fe35ea20e5f9ed4bca68438dba98dc07f7c5d6e3b4ec5d",
+      "after": "a34227e6d2062c8e84fe35ea20e5f9ed4bca68438dba98dc07f7c5d6e3b4ec5d"
+    },
+    "assets/audio/demon_boar/hoof_b.wav.import": {
+      "before": "9a2382007ace953c492511b4123dcf7b0e3e0bb8bfb1268c8ed9b361d7a05acf",
+      "after": "9a2382007ace953c492511b4123dcf7b0e3e0bb8bfb1268c8ed9b361d7a05acf"
+    },
+    "assets/audio/demon_boar/hoof_c.wav": {
+      "before": "512e7df5cf716f776d5dfc7876ec76d3e1d91825a1d30a7686844200de61f36c",
+      "after": "512e7df5cf716f776d5dfc7876ec76d3e1d91825a1d30a7686844200de61f36c"
+    },
+    "assets/audio/demon_boar/hoof_c.wav.import": {
+      "before": "a619a7aeb4a44daff44b9f207d67a5943f2e9a445236ca068619ac9468e9375b",
+      "after": "a619a7aeb4a44daff44b9f207d67a5943f2e9a445236ca068619ac9468e9375b"
+    },
+    "assets/audio/demon_boar/hurt.wav": {
+      "before": "365ef35ece6c538d9d1e522f6b2b18af0af7c02e512c3bc2f5a71ae04d457291",
+      "after": "365ef35ece6c538d9d1e522f6b2b18af0af7c02e512c3bc2f5a71ae04d457291"
+    },
+    "assets/audio/demon_boar/hurt.wav.import": {
+      "before": "cc22000860ceaddc5b54c6023b6a71b07a5c1d5b998822ff4112866052012eea",
+      "after": "cc22000860ceaddc5b54c6023b6a71b07a5c1d5b998822ff4112866052012eea"
+    },
+    "assets/audio/demon_boar/KENNEY_IMPACT_SOUNDS_LICENSE.txt": {
+      "before": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+      "after": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+    },
+    "assets/audio/demon_boar/KENNEY_RPG_AUDIO_LICENSE.txt": {
+      "before": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "after": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    "assets/audio/demon_boar/README.md": {
+      "before": "c23f969161d3db30c3091641f1e4bc2f81e447012be3501f987bfb58321e936b",
+      "after": "c23f969161d3db30c3091641f1e4bc2f81e447012be3501f987bfb58321e936b"
+    },
+    "assets/audio/demon_boar/scrape.wav": {
+      "before": "601f4802ae2703924bb6518ac4d211a23c9fc4dadaab55af959532d378c596e6",
+      "after": "601f4802ae2703924bb6518ac4d211a23c9fc4dadaab55af959532d378c596e6"
+    },
+    "assets/audio/demon_boar/scrape.wav.import": {
+      "before": "6de82498d896a59aa91e2ad337c4638480f4b3916ba4575ed427b6ae2e9550bd",
+      "after": "6de82498d896a59aa91e2ad337c4638480f4b3916ba4575ed427b6ae2e9550bd"
+    },
+    "assets/audio/demon_boar/sword_swing.wav": {
+      "before": "60a0544d7f568c7f892cb1da9a8aba80806b01dc3369ab536bcf3066ca7f9fd9",
+      "after": "60a0544d7f568c7f892cb1da9a8aba80806b01dc3369ab536bcf3066ca7f9fd9"
+    },
+    "assets/audio/demon_boar/sword_swing.wav.import": {
+      "before": "8d087bb953a5d5c7dd41dce2d91679683d72243e1df9bef551da0cf720dab210",
+      "after": "8d087bb953a5d5c7dd41dce2d91679683d72243e1df9bef551da0cf720dab210"
+    },
+    "assets/audio/demon_boar/warning.wav": {
+      "before": "0dedce2dc44c280f35c1caef117abe8bbb9e242135079a35a5b1939af8bc7560",
+      "after": "0dedce2dc44c280f35c1caef117abe8bbb9e242135079a35a5b1939af8bc7560"
+    },
+    "assets/audio/demon_boar/warning.wav.import": {
+      "before": "d3f2e6d5e9550ee6c70e9cdf8e39b1d805bbe57dd2ac810c9763fc6d666216a7",
+      "after": "d3f2e6d5e9550ee6c70e9cdf8e39b1d805bbe57dd2ac810c9763fc6d666216a7"
+    },
+    "tests/attack_buffer_check.gd": {
+      "before": "1763ae576e223a7ae3e39a23e913f2fd3bf4aec98038ee185313e90c38f73ad1",
+      "after": "1763ae576e223a7ae3e39a23e913f2fd3bf4aec98038ee185313e90c38f73ad1"
+    },
+    "tests/attack_buffer_check.gd.uid": {
+      "before": "d542f267778207e25c9d609d2f08deb5384325685a2e97bde7bcf143532243c5",
+      "after": "d542f267778207e25c9d609d2f08deb5384325685a2e97bde7bcf143532243c5"
+    },
+    "tests/autosave_check.gd": {
+      "before": "5aacf9eb36515d1b2f74b76738119d9c547757f974d01cf783b81eddafebc471",
+      "after": "5aacf9eb36515d1b2f74b76738119d9c547757f974d01cf783b81eddafebc471"
+    },
+    "tests/autosave_check.gd.uid": {
+      "before": "0b9cb9330b3f9f4ccd48517c0df5f509fadd8e8472982df0a5598d7b8b27c929",
+      "after": "0b9cb9330b3f9f4ccd48517c0df5f509fadd8e8472982df0a5598d7b8b27c929"
+    },
+    "tests/beach_seals_check.gd": {
+      "before": "f3668ee60c736f46930d3655861f8044ab4de4f9d3c14f9c2252a1d1085202af",
+      "after": "f3668ee60c736f46930d3655861f8044ab4de4f9d3c14f9c2252a1d1085202af"
+    },
+    "tests/beach_seals_check.gd.uid": {
+      "before": "29ab8324b3c299b49206b18e5f707c098e3ddae667b7e739cef3e312baa67a94",
+      "after": "29ab8324b3c299b49206b18e5f707c098e3ddae667b7e739cef3e312baa67a94"
+    },
+    "tests/boar_audio_review.gd": {
+      "before": "d7248fa7a9e2800e28dc7990562680100beb3885b91a12d6bae33fdccaf8989f",
+      "after": "d7248fa7a9e2800e28dc7990562680100beb3885b91a12d6bae33fdccaf8989f"
+    },
+    "tests/boar_audio_review.gd.uid": {
+      "before": "be71473ae97daba609dcee7e7bbc68d0a09c448cf11ac967ddc3e599a7c56cb7",
+      "after": "be71473ae97daba609dcee7e7bbc68d0a09c448cf11ac967ddc3e599a7c56cb7"
+    },
+    "tests/boar_campaign_check.gd": {
+      "before": "1b559c0fa5fb3d45ccf1ac317a8e137b8e702fcfaa1deaf332d1ab46ebb1b4f8",
+      "after": "1b559c0fa5fb3d45ccf1ac317a8e137b8e702fcfaa1deaf332d1ab46ebb1b4f8"
+    },
+    "tests/boar_campaign_check.gd.uid": {
+      "before": "6ed164f1d972790c3d8a0997341154a7d5ceea22197c9e202cace2ce87d8bd4e",
+      "after": "6ed164f1d972790c3d8a0997341154a7d5ceea22197c9e202cace2ce87d8bd4e"
+    },
+    "tests/boar_check.gd": {
+      "before": "e30f1fae4696266f332115a5c991ee41316787711f509c13605908d9bf27daa8",
+      "after": "e30f1fae4696266f332115a5c991ee41316787711f509c13605908d9bf27daa8"
+    },
+    "tests/boar_check.gd.uid": {
+      "before": "2fa494cb65b0a66c7699255f91e210b24931ff7d8b511adb6f6f6e0487b19e22",
+      "after": "2fa494cb65b0a66c7699255f91e210b24931ff7d8b511adb6f6f6e0487b19e22"
+    },
+    "tests/boar_feedback_check.gd": {
+      "before": "15e00bb07ec6cd5853a2b35f12e4fa0a8e0834a85ac9e1fba8cbe16a50bc06e8",
+      "after": "15e00bb07ec6cd5853a2b35f12e4fa0a8e0834a85ac9e1fba8cbe16a50bc06e8"
+    },
+    "tests/boar_feedback_check.gd.uid": {
+      "before": "b7033384ddd2ae20178b5925473fdc45ed81875db523af9185acdace2021640d",
+      "after": "b7033384ddd2ae20178b5925473fdc45ed81875db523af9185acdace2021640d"
+    },
+    "tests/boar_gameplay_review.gd": {
+      "before": "f1a6373709a3bbf5c86f1dfcf2756034adeb09ab31602194a21fb4e3d8377aac",
+      "after": "f1a6373709a3bbf5c86f1dfcf2756034adeb09ab31602194a21fb4e3d8377aac"
+    },
+    "tests/boar_gameplay_review.gd.uid": {
+      "before": "7b681f0af275747f6513b925f28218c272ba0fa53c799041452f6d991ac28663",
+      "after": "7b681f0af275747f6513b925f28218c272ba0fa53c799041452f6d991ac28663"
+    },
+    "tests/boar_repeated_cycle_check.gd": {
+      "before": "4e52f2e7892f3ea586e7ee7e9bbd8ecd361e6835b700f74d913f3cd299935430",
+      "after": "4e52f2e7892f3ea586e7ee7e9bbd8ecd361e6835b700f74d913f3cd299935430"
+    },
+    "tests/boar_repeated_cycle_check.gd.uid": {
+      "before": "8cb27ffd82b2c0c7a8bf7f5c35624eaa1b394d4d7d6b1462d1e80b0df763fc1e",
+      "after": "8cb27ffd82b2c0c7a8bf7f5c35624eaa1b394d4d7d6b1462d1e80b0df763fc1e"
+    },
+    "tests/boss_phase_check.gd": {
+      "before": "dc494eb64ae05bdcdb308d1a013d9f0ae0b0bbab6f38dd70f1866500deedbcda",
+      "after": "dc494eb64ae05bdcdb308d1a013d9f0ae0b0bbab6f38dd70f1866500deedbcda"
+    },
+    "tests/boss_phase_check.gd.uid": {
+      "before": "bd8cc1708a0162483a1617338a355a38fb21b6fd38f831dc3333f28e68aa3446",
+      "after": "bd8cc1708a0162483a1617338a355a38fb21b6fd38f831dc3333f28e68aa3446"
+    },
+    "tests/camera_check.gd": {
+      "before": "64c05310d1a3784f6b5e3b3ddb9a962412288e42b757fa6a82c0d2252253adef",
+      "after": "64c05310d1a3784f6b5e3b3ddb9a962412288e42b757fa6a82c0d2252253adef"
+    },
+    "tests/camera_check.gd.uid": {
+      "before": "c5336c8ee2ddc1f8f74a05635a7ef74cc16d90f042351f90d1b31a08720e0b86",
+      "after": "c5336c8ee2ddc1f8f74a05635a7ef74cc16d90f042351f90d1b31a08720e0b86"
+    },
+    "tests/campaign_smoke.gd": {
+      "before": "bf9f7be8ed12b1b9e442fbef98ed21570b77c0f7606ab04e6c89254fd66088f0",
+      "after": "bf9f7be8ed12b1b9e442fbef98ed21570b77c0f7606ab04e6c89254fd66088f0"
+    },
+    "tests/campaign_smoke.gd.uid": {
+      "before": "0e42a9680a1c0f2674688af8880d83967485f67b3f1e1ce51379355d99025251",
+      "after": "0e42a9680a1c0f2674688af8880d83967485f67b3f1e1ce51379355d99025251"
+    },
+    "tests/camp_menu_check.gd": {
+      "before": "d1680302abe12a7d7646edc64c92641d465b127b6b9d05df9c989c995e4105f1",
+      "after": "d1680302abe12a7d7646edc64c92641d465b127b6b9d05df9c989c995e4105f1"
+    },
+    "tests/camp_menu_check.gd.uid": {
+      "before": "9d0df42fd7eb0b27edca17918285f70db66ec081097a9ae741ecde63bb78545b",
+      "after": "9d0df42fd7eb0b27edca17918285f70db66ec081097a9ae741ecde63bb78545b"
+    },
+    "tests/chapter_route_check.gd": {
+      "before": "003f104eb08010476ff34b1ecf6802ff4195dd0f2b81ba4195fd9a00ef0fd48d",
+      "after": "003f104eb08010476ff34b1ecf6802ff4195dd0f2b81ba4195fd9a00ef0fd48d"
+    },
+    "tests/chapter_route_check.gd.uid": {
+      "before": "7f8d00db1b6fa980b5ceffe2f50bacf9336726152c4b92c429c3d8649adaa38a",
+      "after": "7f8d00db1b6fa980b5ceffe2f50bacf9336726152c4b92c429c3d8649adaa38a"
+    },
+    "tests/combat_check.gd": {
+      "before": "a7b13ade54bb480a4ada62f51892f021da55c9b657ef7250c9d0d4bc895c3656",
+      "after": "a7b13ade54bb480a4ada62f51892f021da55c9b657ef7250c9d0d4bc895c3656"
+    },
+    "tests/combat_check.gd.uid": {
+      "before": "ab18682f5d1aae1dc682399488a83b110b5b04cfc1aa5f7c312aec1d2d28b196",
+      "after": "ab18682f5d1aae1dc682399488a83b110b5b04cfc1aa5f7c312aec1d2d28b196"
+    },
+    "tests/combat_pose_check.gd": {
+      "before": "368ee5c2f66cde6e72bc7b2ca62a5b698b7afe6eab2ed873a580ff832f8d88c2",
+      "after": "368ee5c2f66cde6e72bc7b2ca62a5b698b7afe6eab2ed873a580ff832f8d88c2"
+    },
+    "tests/combat_pose_check.gd.uid": {
+      "before": "70f4f90520db0c8f9f22c5a022d90857d532c93f36cb325c86a84d09ee0dd6ea",
+      "after": "70f4f90520db0c8f9f22c5a022d90857d532c93f36cb325c86a84d09ee0dd6ea"
+    },
+    "tests/damage_feedback_check.gd": {
+      "before": "1ac59d685beb9868d54fe814ead26cf2864ba0aa250db4e32c6220c6a6387e96",
+      "after": "1ac59d685beb9868d54fe814ead26cf2864ba0aa250db4e32c6220c6a6387e96"
+    },
+    "tests/damage_feedback_check.gd.uid": {
+      "before": "9d1efd42093d777f610bf1f04f3b462b204a564db1c17532793efb3d3a7e580f",
+      "after": "9d1efd42093d777f610bf1f04f3b462b204a564db1c17532793efb3d3a7e580f"
+    },
+    "tests/dragon_check.gd": {
+      "before": "0f88e19bc14a2a08ea0f669298129cb6a84a2e4898e2c6699737e6a95a7bf203",
+      "after": "0f88e19bc14a2a08ea0f669298129cb6a84a2e4898e2c6699737e6a95a7bf203"
+    },
+    "tests/dragon_check.gd.uid": {
+      "before": "0328ba97340f972d159fd9fbd09131812ace837a9f233c9b7d6f229a2c346d01",
+      "after": "0328ba97340f972d159fd9fbd09131812ace837a9f233c9b7d6f229a2c346d01"
+    },
+    "tests/enemy_check.gd": {
+      "before": "41b1a9bedfb78c1f9b4ed98cf77bc7f312faf382cc470a102057e4994ed8e313",
+      "after": "41b1a9bedfb78c1f9b4ed98cf77bc7f312faf382cc470a102057e4994ed8e313"
+    },
+    "tests/enemy_check.gd.uid": {
+      "before": "15fac301d32693155f6555f571da46e88e11c02d47a8d65c03621c05d7046fe8",
+      "after": "15fac301d32693155f6555f571da46e88e11c02d47a8d65c03621c05d7046fe8"
+    },
+    "tests/environment_check.gd": {
+      "before": "0c6a4b9baba68b8bb41567774b5c03c4fc93adfd154ba9b27c91778041a68495",
+      "after": "0c6a4b9baba68b8bb41567774b5c03c4fc93adfd154ba9b27c91778041a68495"
+    },
+    "tests/environment_check.gd.uid": {
+      "before": "129790c413f3213b17b6c24917df57676b171a19fc5a777672f2053ab680466e",
+      "after": "129790c413f3213b17b6c24917df57676b171a19fc5a777672f2053ab680466e"
+    },
+    "tests/exploration_check.gd": {
+      "before": "a926ae312758a47a67ede2ea0de947d0f2b6af5a6568bd71b18e5d5562ad13cc",
+      "after": "a926ae312758a47a67ede2ea0de947d0f2b6af5a6568bd71b18e5d5562ad13cc"
+    },
+    "tests/exploration_check.gd.uid": {
+      "before": "96dee19ed4ef460271121f04d351ad9c304101225d5b127576e9edeaa111531f",
+      "after": "96dee19ed4ef460271121f04d351ad9c304101225d5b127576e9edeaa111531f"
+    },
+    "tests/fast_travel_check.gd": {
+      "before": "f1cc9d8ff8ae9d35e42ac90665296acdc10863b83191894cf5e2167c0735f200",
+      "after": "f1cc9d8ff8ae9d35e42ac90665296acdc10863b83191894cf5e2167c0735f200"
+    },
+    "tests/fast_travel_check.gd.uid": {
+      "before": "f1ce38ea7d19083b7d20102bef041f280179c0e6f50701fcaf198c514217ca26",
+      "after": "f1ce38ea7d19083b7d20102bef041f280179c0e6f50701fcaf198c514217ca26"
+    },
+    "tests/free_combat_check.gd": {
+      "before": "a380184d7a19e01581f1140656447b024d5ecc5ea0df90ed909405bc2afa6130",
+      "after": "a380184d7a19e01581f1140656447b024d5ecc5ea0df90ed909405bc2afa6130"
+    },
+    "tests/free_combat_check.gd.uid": {
+      "before": "6239d89069b37ae6942d84e734511e6d1346ce63c093f940aa18c51216679cb9",
+      "after": "6239d89069b37ae6942d84e734511e6d1346ce63c093f940aa18c51216679cb9"
+    },
+    "tests/gameplay_check.gd": {
+      "before": "a88cc0664f25ad3db75e22d060bfd77ef9a28029e2ef3a05c687b6403bd90bda",
+      "after": "a88cc0664f25ad3db75e22d060bfd77ef9a28029e2ef3a05c687b6403bd90bda"
+    },
+    "tests/gameplay_check.gd.uid": {
+      "before": "47aaccc96111047b622efc9957ce4b53778ef79f37e93cf4d9356be722b74a12",
+      "after": "47aaccc96111047b622efc9957ce4b53778ef79f37e93cf4d9356be722b74a12"
+    },
+    "tests/grove_check.gd": {
+      "before": "1bbcb44561de199708d46950953b7a2a408d20c27dd72cbe8eaa14c529ba1d21",
+      "after": "1bbcb44561de199708d46950953b7a2a408d20c27dd72cbe8eaa14c529ba1d21"
+    },
+    "tests/grove_check.gd.uid": {
+      "before": "549f7cb6040144e5c16984a8eabbcfa1973f55c6a1ee9e8358f3bd00a53f011f",
+      "after": "549f7cb6040144e5c16984a8eabbcfa1973f55c6a1ee9e8358f3bd00a53f011f"
+    },
+    "tests/heavy_attack_check.gd": {
+      "before": "2d64e369a0a68e6c3b5fb6a75e8e30aed47dc1079f9d24987c0c5af5f1422139",
+      "after": "2d64e369a0a68e6c3b5fb6a75e8e30aed47dc1079f9d24987c0c5af5f1422139"
+    },
+    "tests/heavy_attack_check.gd.uid": {
+      "before": "81e1d0e9a8920f656303ba58ec031646ccf610dca8d26370f924793f92bc8bf3",
+      "after": "81e1d0e9a8920f656303ba58ec031646ccf610dca8d26370f924793f92bc8bf3"
+    },
+    "tests/herbal_check.gd": {
+      "before": "aef21db614eb00ea320490fbd923e53b150fdd1fa6b0251e5f7c8410a8256d7c",
+      "after": "aef21db614eb00ea320490fbd923e53b150fdd1fa6b0251e5f7c8410a8256d7c"
+    },
+    "tests/herbal_check.gd.uid": {
+      "before": "04a9e2f18f82fce7a9c4a45a0e3f2c5ee2d989cc2e85e923e3b0cae627d1819c",
+      "after": "04a9e2f18f82fce7a9c4a45a0e3f2c5ee2d989cc2e85e923e3b0cae627d1819c"
+    },
+    "tests/hero_animation_check.gd": {
+      "before": "0ad1f7246b80e5170bea3f2f65460c361ad714453a2545ab7bb9f8340d53c333",
+      "after": "0ad1f7246b80e5170bea3f2f65460c361ad714453a2545ab7bb9f8340d53c333"
+    },
+    "tests/hero_animation_check.gd.uid": {
+      "before": "cc6b163c99a10276a336b821b670fe7891a3962eb00733247da8ae3cfe68dea6",
+      "after": "cc6b163c99a10276a336b821b670fe7891a3962eb00733247da8ae3cfe68dea6"
+    },
+    "tests/hero_presentation_check.gd": {
+      "before": "3237994611febf3d1e5fb3552223af0ee54dbd62f44bf279b34c13b9aa70900c",
+      "after": "3237994611febf3d1e5fb3552223af0ee54dbd62f44bf279b34c13b9aa70900c"
+    },
+    "tests/hero_presentation_check.gd.uid": {
+      "before": "2af4ecf6ba80178c1032d1dc6d10aff563613566ee085e48fbaa4b29220cc68f",
+      "after": "2af4ecf6ba80178c1032d1dc6d10aff563613566ee085e48fbaa4b29220cc68f"
+    },
+    "tests/hud_customization_check.gd": {
+      "before": "eccf72ab673b19a3c1eebe537123cc702fbe08151dad6aed7ccae127adcf7ac1",
+      "after": "eccf72ab673b19a3c1eebe537123cc702fbe08151dad6aed7ccae127adcf7ac1"
+    },
+    "tests/hud_customization_check.gd.uid": {
+      "before": "88ee22fa4426ce745152a140dd724c46b493c39b64876296e494cdb989cb5408",
+      "after": "88ee22fa4426ce745152a140dd724c46b493c39b64876296e494cdb989cb5408"
+    },
+    "tests/interaction_controls_check.gd": {
+      "before": "66880ca927e1a98c5abf6b24051be02f27e90962c6ca70f6bc1e7e468576bb6d",
+      "after": "66880ca927e1a98c5abf6b24051be02f27e90962c6ca70f6bc1e7e468576bb6d"
+    },
+    "tests/interaction_controls_check.gd.uid": {
+      "before": "8d29655785815da1a20dc52e3821b2f838309bda4227a66103fb024ff17df0be",
+      "after": "8d29655785815da1a20dc52e3821b2f838309bda4227a66103fb024ff17df0be"
+    },
+    "tests/island_accessibility_collision_check.gd": {
+      "before": "a0f61d1242ca6350c6a9abd33ea9d22b83447b23dd8b1bd4d55ba49df467f151",
+      "after": "a0f61d1242ca6350c6a9abd33ea9d22b83447b23dd8b1bd4d55ba49df467f151"
+    },
+    "tests/island_accessibility_collision_check.gd.uid": {
+      "before": "9c99148dd35077d5350fa0ce4ac746a07ccfa65ba1e844cb8b23ff3347835c7c",
+      "after": "9c99148dd35077d5350fa0ce4ac746a07ccfa65ba1e844cb8b23ff3347835c7c"
+    },
+    "tests/island_atmosphere_check.gd": {
+      "before": "370c69167e2f650dbe257e19fbcafbe109cbc6fcba3e415c196673b6e895dfdf",
+      "after": "370c69167e2f650dbe257e19fbcafbe109cbc6fcba3e415c196673b6e895dfdf"
+    },
+    "tests/island_atmosphere_check.gd.uid": {
+      "before": "03c2d73fe346e925d4fe7ce78f6676956ff74bd394e2c59e356e9c550553378e",
+      "after": "03c2d73fe346e925d4fe7ce78f6676956ff74bd394e2c59e356e9c550553378e"
+    },
+    "tests/island_campaign_check.gd": {
+      "before": "3ccbeb8f4103e814d2b82005e098c64a1b9437ad1aa32e75c67e45f55d29de04",
+      "after": "3ccbeb8f4103e814d2b82005e098c64a1b9437ad1aa32e75c67e45f55d29de04"
+    },
+    "tests/island_campaign_check.gd.uid": {
+      "before": "f4ccdcbc3caa38fa1929f343e149cc0bebe378a75ff2f28df5fad4e71f4cf05b",
+      "after": "f4ccdcbc3caa38fa1929f343e149cc0bebe378a75ff2f28df5fad4e71f4cf05b"
+    },
+    "tests/island_cave_probe.gd": {
+      "before": "089843c1ea06d75828171a8cd96a0e89d506390be415218be0771f0b98cf73e5",
+      "after": "089843c1ea06d75828171a8cd96a0e89d506390be415218be0771f0b98cf73e5"
+    },
+    "tests/island_cave_probe.gd.uid": {
+      "before": "9585982f1b65a3eb5de6082db7b4bc707bb846f108787fb22054ca35a7188d5d",
+      "after": "9585982f1b65a3eb5de6082db7b4bc707bb846f108787fb22054ca35a7188d5d"
+    },
+    "tests/island_check.gd": {
+      "before": "da3b54239ae45943fe5b762def534525a096e5a0d10067ed4bcec4f5bb8ff5eb",
+      "after": "da3b54239ae45943fe5b762def534525a096e5a0d10067ed4bcec4f5bb8ff5eb"
+    },
+    "tests/island_check.gd.uid": {
+      "before": "5f757a5c3ff2c5b48fff26c403d34fcb6802d3c6755bc23e4e98fcdd4b12399e",
+      "after": "5f757a5c3ff2c5b48fff26c403d34fcb6802d3c6755bc23e4e98fcdd4b12399e"
+    },
+    "tests/island_collision_check.gd": {
+      "before": "938f26954bce325bd2f05053b3995626fbe6074cad95fcedd27e103f77a4e6da",
+      "after": "938f26954bce325bd2f05053b3995626fbe6074cad95fcedd27e103f77a4e6da"
+    },
+    "tests/island_collision_check.gd.uid": {
+      "before": "0ad723e4642c98405e701eb7e0c3f3283e7e069599ed7460bbcdde449bb8a602",
+      "after": "0ad723e4642c98405e701eb7e0c3f3283e7e069599ed7460bbcdde449bb8a602"
+    },
+    "tests/island_connections_review.gd": {
+      "before": "c0b820a5b020fe24bb3298b59816b27cf3170786391518053707340b24761b22",
+      "after": "c0b820a5b020fe24bb3298b59816b27cf3170786391518053707340b24761b22"
+    },
+    "tests/island_connections_review.gd.uid": {
+      "before": "3ff718e84a283117ea3a710856728adc3ceb947d12776080edd18a02cac11173",
+      "after": "3ff718e84a283117ea3a710856728adc3ceb947d12776080edd18a02cac11173"
+    },
+    "tests/island_enemy_navigation_check.gd": {
+      "before": "5e6a04a80a500792c745ddc9a80e7ba275f545cce385873a7f1b2bd181e69f68",
+      "after": "5e6a04a80a500792c745ddc9a80e7ba275f545cce385873a7f1b2bd181e69f68"
+    },
+    "tests/island_enemy_navigation_check.gd.uid": {
+      "before": "62c8afe7624594902169a42574f287ca24c654087f00eb5c88871897eaa5e2c2",
+      "after": "62c8afe7624594902169a42574f287ca24c654087f00eb5c88871897eaa5e2c2"
+    },
+    "tests/island_estuary_capture.gd": {
+      "before": "a6f6b05af10c23a790513b30111e5d3f9a3548c4e25eb107e937763a65a05c02",
+      "after": "a6f6b05af10c23a790513b30111e5d3f9a3548c4e25eb107e937763a65a05c02"
+    },
+    "tests/island_estuary_capture.gd.uid": {
+      "before": "402fed7301bd09de37f73078d1d9500f04266d375a9e83e9702ce955f9afca40",
+      "after": "402fed7301bd09de37f73078d1d9500f04266d375a9e83e9702ce955f9afca40"
+    },
+    "tests/island_forest_motion_review.gd": {
+      "before": "134e7c3c493e41da5cc5c28dfee58581f7a93d8a4ebc84647791e4ae7316c746",
+      "after": "134e7c3c493e41da5cc5c28dfee58581f7a93d8a4ebc84647791e4ae7316c746"
+    },
+    "tests/island_forest_motion_review.gd.uid": {
+      "before": "db459507bc5590736b8deeb54cf59137b2f0770a353c4670830769f2b84a23dc",
+      "after": "db459507bc5590736b8deeb54cf59137b2f0770a353c4670830769f2b84a23dc"
+    },
+    "tests/island_forest_refinement_check.gd": {
+      "before": "da0e52feca15a177f7f3379c53645d285806c4232d2669a117814bfb32656c79",
+      "after": "da0e52feca15a177f7f3379c53645d285806c4232d2669a117814bfb32656c79"
+    },
+    "tests/island_forest_refinement_check.gd.uid": {
+      "before": "f55f27e37808f0dcde4900ed48c7376bab7182e4375cfd4551614145f3b898fe",
+      "after": "f55f27e37808f0dcde4900ed48c7376bab7182e4375cfd4551614145f3b898fe"
+    },
+    "tests/island_forest_refinement_review.gd": {
+      "before": "fbb1d59841f114744236d2a53ba0be6f17a48832edf2a19f5af271da161071a3",
+      "after": "fbb1d59841f114744236d2a53ba0be6f17a48832edf2a19f5af271da161071a3"
+    },
+    "tests/island_forest_refinement_review.gd.uid": {
+      "before": "b44395d0d73d6ab1d9c6c1d79679780dc9ef1e8953eaa3b16a6e845f4ea9c774",
+      "after": "b44395d0d73d6ab1d9c6c1d79679780dc9ef1e8953eaa3b16a6e845f4ea9c774"
+    },
+    "tests/island_map_check.gd": {
+      "before": "fe4f137fbecb5ef98e5cf17371ae0adbb82494079267ff979d37565687873571",
+      "after": "fe4f137fbecb5ef98e5cf17371ae0adbb82494079267ff979d37565687873571"
+    },
+    "tests/island_map_check.gd.uid": {
+      "before": "22932b612703d9417fbcc31090439e69799fa0dea2f4c00222fc8cdaa71ef1f0",
+      "after": "22932b612703d9417fbcc31090439e69799fa0dea2f4c00222fc8cdaa71ef1f0"
+    },
+    "tests/island_package_check.gd": {
+      "before": "22b5d4a01c9220440f9dd6f347ed079086396f08002aa237805924e453c8772c",
+      "after": "22b5d4a01c9220440f9dd6f347ed079086396f08002aa237805924e453c8772c"
+    },
+    "tests/island_package_check.gd.uid": {
+      "before": "8e1fcfac7d7c6a3d8065e6555f8109860f3552abd888fd1e3c7bc628b4cb59ed",
+      "after": "8e1fcfac7d7c6a3d8065e6555f8109860f3552abd888fd1e3c7bc628b4cb59ed"
+    },
+    "tests/island_performance_review.gd": {
+      "before": "78d085d8148ae4bd5146371978055811521e73e079ec00adf8fa5b002d3bbc47",
+      "after": "78d085d8148ae4bd5146371978055811521e73e079ec00adf8fa5b002d3bbc47"
+    },
+    "tests/island_performance_review.gd.uid": {
+      "before": "63f578cf4960330978085bd29a1a2ff96f596c46d3bd7c390e721f50f9861b7b",
+      "after": "63f578cf4960330978085bd29a1a2ff96f596c46d3bd7c390e721f50f9861b7b"
+    },
+    "tests/island_polish_capture.gd": {
+      "before": "c9e44bbbb215731a39958c0272a3d92c3cc5b2d0632a32b4db77fa5e62f64a14",
+      "after": "c9e44bbbb215731a39958c0272a3d92c3cc5b2d0632a32b4db77fa5e62f64a14"
+    },
+    "tests/island_polish_capture.gd.uid": {
+      "before": "c1c53d9a7711a2decb71277ef98081d786a24b9a36e6deecb48cb2dea51bbe3a",
+      "after": "c1c53d9a7711a2decb71277ef98081d786a24b9a36e6deecb48cb2dea51bbe3a"
+    },
+    "tests/island_regions_check.gd": {
+      "before": "cb64283d8bb96342cbf5a97b0abfe5e2ae0f0fe3b5432f5c52e2c8407b2b8058",
+      "after": "cb64283d8bb96342cbf5a97b0abfe5e2ae0f0fe3b5432f5c52e2c8407b2b8058"
+    },
+    "tests/island_regions_check.gd.uid": {
+      "before": "ea64da6aa6fadb339b34662b8fd0b03bf24c28c4ef8b37c66a7636533af3a1c2",
+      "after": "ea64da6aa6fadb339b34662b8fd0b03bf24c28c4ef8b37c66a7636533af3a1c2"
+    },
+    "tests/island_review.gd": {
+      "before": "018ca9c693ea9e2c8f134159536a338e4c78287603963ff90af9a6f42b4ae2bc",
+      "after": "018ca9c693ea9e2c8f134159536a338e4c78287603963ff90af9a6f42b4ae2bc"
+    },
+    "tests/island_review.gd.uid": {
+      "before": "09f3c0fbe70db5c02d52034ab7c52bb1567e6f87c0867a6dd4db2425729cbf07",
+      "after": "09f3c0fbe70db5c02d52034ab7c52bb1567e6f87c0867a6dd4db2425729cbf07"
+    },
+    "tests/island_river_escape_check.gd": {
+      "before": "a35341a25aa9a1e6e1caf5d3268077a89c35114527313a906177d2ac3a2e4e6d",
+      "after": "a35341a25aa9a1e6e1caf5d3268077a89c35114527313a906177d2ac3a2e4e6d"
+    },
+    "tests/island_river_escape_check.gd.uid": {
+      "before": "6b5a050d8aa2e710bb97528c825ec6608c05f3ec4dedbb5a00904160fdbb64e9",
+      "after": "6b5a050d8aa2e710bb97528c825ec6608c05f3ec4dedbb5a00904160fdbb64e9"
+    },
+    "tests/island_rock_water_check.gd": {
+      "before": "b8209efbf2489ed145e02bc02ff2a885b1957699da418eb00eec9d345f5c1e6d",
+      "after": "b8209efbf2489ed145e02bc02ff2a885b1957699da418eb00eec9d345f5c1e6d"
+    },
+    "tests/island_rock_water_check.gd.uid": {
+      "before": "3393eece092b29fe4e7b89d03e26a4fd3232b99ec4afe69c48d8b104132c6577",
+      "after": "3393eece092b29fe4e7b89d03e26a4fd3232b99ec4afe69c48d8b104132c6577"
+    },
+    "tests/island_terrain_polish_check.gd": {
+      "before": "deee3055f9bad53c32e77cd4ae6cae1d3b692822c6c248f2b31fe1d846c6985b",
+      "after": "deee3055f9bad53c32e77cd4ae6cae1d3b692822c6c248f2b31fe1d846c6985b"
+    },
+    "tests/island_terrain_polish_check.gd.uid": {
+      "before": "dcf1f08f518611fef320a7786ea6c99a5c1e5354ebfe93106051f8a8642602fe",
+      "after": "dcf1f08f518611fef320a7786ea6c99a5c1e5354ebfe93106051f8a8642602fe"
+    },
+    "tests/island_vegetation_check.gd": {
+      "before": "e5b723b2c9aecd93a161b29905edf658248aeb3d52257309f4119d4fabfed981",
+      "after": "e5b723b2c9aecd93a161b29905edf658248aeb3d52257309f4119d4fabfed981"
+    },
+    "tests/island_vegetation_check.gd.uid": {
+      "before": "1ca3903362c3488f5b2cffba1d3fbc6e04ccfeea6372ad3397159d520946f4e2",
+      "after": "1ca3903362c3488f5b2cffba1d3fbc6e04ccfeea6372ad3397159d520946f4e2"
+    },
+    "tests/island_vegetation_review.gd": {
+      "before": "0656b6b8e6c3cba545dba1f24068890101a018b996ce75e5b90aa746edb74598",
+      "after": "0656b6b8e6c3cba545dba1f24068890101a018b996ce75e5b90aa746edb74598"
+    },
+    "tests/island_vegetation_review.gd.uid": {
+      "before": "5d048c129148167ae42748b2c567665bf2f79bef2a1b45c34562bfb725af53ad",
+      "after": "5d048c129148167ae42748b2c567665bf2f79bef2a1b45c34562bfb725af53ad"
+    },
+    "tests/island_visual_capture.gd": {
+      "before": "d2502bf86a9be3a1b89a34f8af9a07705b17092c20347422e60fd49e696c58e5",
+      "after": "d2502bf86a9be3a1b89a34f8af9a07705b17092c20347422e60fd49e696c58e5"
+    },
+    "tests/island_visual_capture.gd.uid": {
+      "before": "6527d88d3f28650b8826b474a2a67c3100d38bdfd91595564f6edea460361f9f",
+      "after": "6527d88d3f28650b8826b474a2a67c3100d38bdfd91595564f6edea460361f9f"
+    },
+    "tests/journal_check.gd": {
+      "before": "ea253ea0c202636ddd3e35d08af9bdfec84e69ded362b598437f53fbc2fa90cd",
+      "after": "ea253ea0c202636ddd3e35d08af9bdfec84e69ded362b598437f53fbc2fa90cd"
+    },
+    "tests/journal_check.gd.uid": {
+      "before": "15b3b9761a1d7d15deec1c2a145863b42a4af3f03cad989030b99edd03da54b2",
+      "after": "15b3b9761a1d7d15deec1c2a145863b42a4af3f03cad989030b99edd03da54b2"
+    },
+    "tests/jump_check.gd": {
+      "before": "161c0833ebb3a9e4dae243aa9362fe0e2f27246927a6c633d91cd53c9e4072f9",
+      "after": "161c0833ebb3a9e4dae243aa9362fe0e2f27246927a6c633d91cd53c9e4072f9"
+    },
+    "tests/jump_check.gd.uid": {
+      "before": "26e219f3aeb8fd7711cb9bfa05cf61be78d284d646ce3cfbd7940a1e9ff737ee",
+      "after": "26e219f3aeb8fd7711cb9bfa05cf61be78d284d646ce3cfbd7940a1e9ff737ee"
+    },
+    "tests/keeper_check.gd": {
+      "before": "be3fe02cceafe2f5a50bc8bf972f7518b453c35a980efb0643e5f44a9fd1805b",
+      "after": "be3fe02cceafe2f5a50bc8bf972f7518b453c35a980efb0643e5f44a9fd1805b"
+    },
+    "tests/keeper_check.gd.uid": {
+      "before": "6e2ce58cc0ae4376aa2dc767e7a77678af0dc2a64982750da01fa682832f6688",
+      "after": "6e2ce58cc0ae4376aa2dc767e7a77678af0dc2a64982750da01fa682832f6688"
+    },
+    "tests/layout_check.gd": {
+      "before": "835ac1579578bd859d21afa33e7d6ff23e2475c142d5a58434c54052c2af79cc",
+      "after": "835ac1579578bd859d21afa33e7d6ff23e2475c142d5a58434c54052c2af79cc"
+    },
+    "tests/layout_check.gd.uid": {
+      "before": "5392100f81e6c30e7dd72a976b5bc88654af4590d903f4903a00a3a54af2bff7",
+      "after": "5392100f81e6c30e7dd72a976b5bc88654af4590d903f4903a00a3a54af2bff7"
+    },
+    "tests/mobile_controls_check.gd": {
+      "before": "a7e18716733cbb62b948eb827602699e2e832f871970c43df3caba3ca80eef54",
+      "after": "a7e18716733cbb62b948eb827602699e2e832f871970c43df3caba3ca80eef54"
+    },
+    "tests/mobile_controls_check.gd.uid": {
+      "before": "b9351904c83a3bcc19de5d7181add5a129791cdbefdda44ebf9495e039c56e06",
+      "after": "b9351904c83a3bcc19de5d7181add5a129791cdbefdda44ebf9495e039c56e06"
+    },
+    "tests/mobile_gestures_check.gd": {
+      "before": "a30774ed4aa548dc6863d1ec48c692410a4b5c0be049bb05bea9fdbf30c59e8b",
+      "after": "a30774ed4aa548dc6863d1ec48c692410a4b5c0be049bb05bea9fdbf30c59e8b"
+    },
+    "tests/mobile_gestures_check.gd.uid": {
+      "before": "c011ec1548ff552b03923583e24392d32fc79e1a6e4f1d98a81f82f8b1762a85",
+      "after": "c011ec1548ff552b03923583e24392d32fc79e1a6e4f1d98a81f82f8b1762a85"
+    },
+    "tests/mobile_hud_layout_check.gd": {
+      "before": "0a58b4c753fe0bddbaa924f1eae24f0ab55390ca59deb97d519fd4d9834ca6ab",
+      "after": "0a58b4c753fe0bddbaa924f1eae24f0ab55390ca59deb97d519fd4d9834ca6ab"
+    },
+    "tests/mobile_hud_layout_check.gd.uid": {
+      "before": "8c68bcc416c49bdb3811e0b45c0e29778de5c9b8405bd755d3778dd1207c089a",
+      "after": "8c68bcc416c49bdb3811e0b45c0e29778de5c9b8405bd755d3778dd1207c089a"
+    },
+    "tests/mobile_settings_touch_check.gd": {
+      "before": "2ef7604b6c86e6a44b145bc7b6be3ce82c8f67919af4617979a4e4d24d6457ab",
+      "after": "2ef7604b6c86e6a44b145bc7b6be3ce82c8f67919af4617979a4e4d24d6457ab"
+    },
+    "tests/mobile_settings_touch_check.gd.uid": {
+      "before": "574cadc7a25e3cc882b5c96fa8340e3740738e2ff3daa00a72f1fc166fa9b80d",
+      "after": "574cadc7a25e3cc882b5c96fa8340e3740738e2ff3daa00a72f1fc166fa9b80d"
+    },
+    "tests/mountain_demons_check.gd": {
+      "before": "ac9c2c3894202a20e439a53b49c3ce46857efb2d9d02b377d77ecb164442fffb",
+      "after": "ac9c2c3894202a20e439a53b49c3ce46857efb2d9d02b377d77ecb164442fffb"
+    },
+    "tests/mountain_demons_check.gd.uid": {
+      "before": "d42de432eb1a162a9b94e7865083b94368bd7c4ce3ecfdef0a9e1e660e673443",
+      "after": "d42de432eb1a162a9b94e7865083b94368bd7c4ce3ecfdef0a9e1e660e673443"
+    },
+    "tests/navigation_check.gd": {
+      "before": "919d9a6f20e80fc14e24c715d8c6278c347f1d8a46ffb8c9d4c9af6155cc162f",
+      "after": "919d9a6f20e80fc14e24c715d8c6278c347f1d8a46ffb8c9d4c9af6155cc162f"
+    },
+    "tests/navigation_check.gd.uid": {
+      "before": "0bcc4ba762ab59f485150ac724c3305b1ca72d1f0b0598f128b91645a731135f",
+      "after": "0bcc4ba762ab59f485150ac724c3305b1ca72d1f0b0598f128b91645a731135f"
+    },
+    "tests/patrol_check.gd": {
+      "before": "9ad62fd5113499df1bd2dec890e7d2144086e69975e9e363586073a1205e7fe7",
+      "after": "9ad62fd5113499df1bd2dec890e7d2144086e69975e9e363586073a1205e7fe7"
+    },
+    "tests/patrol_check.gd.uid": {
+      "before": "e41ec9f47860db3b2780a8804eb0aa938d4c1e68cf58e3bbfc10636395024e1f",
+      "after": "e41ec9f47860db3b2780a8804eb0aa938d4c1e68cf58e3bbfc10636395024e1f"
+    },
+    "tests/pause_check.gd": {
+      "before": "bb3a4e048650cddad567e7f00b712c894391ba6c041f4aed316d2da0640a4dfd",
+      "after": "bb3a4e048650cddad567e7f00b712c894391ba6c041f4aed316d2da0640a4dfd"
+    },
+    "tests/pause_check.gd.uid": {
+      "before": "bd14e8f66d95ff1b16ca10baff8d786ae09c6095a4c5295f7a5feacbb2ab2367",
+      "after": "bd14e8f66d95ff1b16ca10baff8d786ae09c6095a4c5295f7a5feacbb2ab2367"
+    },
+    "tests/persistent_world_check.gd": {
+      "before": "475d559b59caf7e2e70389dfaa826c46a62fb3470148b1e2c0f5ac619d5e520a",
+      "after": "475d559b59caf7e2e70389dfaa826c46a62fb3470148b1e2c0f5ac619d5e520a"
+    },
+    "tests/persistent_world_check.gd.uid": {
+      "before": "29ba1ed514a8fd654c4313df544b4fe6401713d9fdc0843859c0036a4b499f7a",
+      "after": "29ba1ed514a8fd654c4313df544b4fe6401713d9fdc0843859c0036a4b499f7a"
+    },
+    "tests/prop_collision_check.gd": {
+      "before": "741f4c6b2ce6c9155932aa164a32ed8d89c0b9a618ada55d06e8d9272e59216d",
+      "after": "741f4c6b2ce6c9155932aa164a32ed8d89c0b9a618ada55d06e8d9272e59216d"
+    },
+    "tests/prop_collision_check.gd.uid": {
+      "before": "b7e9c15a9308e1bd411fd2b4c218a6b305d36e66231f0efc2cb207fc5988ad86",
+      "after": "b7e9c15a9308e1bd411fd2b4c218a6b305d36e66231f0efc2cb207fc5988ad86"
+    },
+    "tests/quest_hud_check.gd": {
+      "before": "dda8c9402f72bd591196c464e1b30fe28e60679cb9da7ec97ffb96601f060598",
+      "after": "dda8c9402f72bd591196c464e1b30fe28e60679cb9da7ec97ffb96601f060598"
+    },
+    "tests/quest_hud_check.gd.uid": {
+      "before": "efa224554a82d00a896586db9e617c1a8123a760ec0064700f38c5d0bb66280b",
+      "after": "efa224554a82d00a896586db9e617c1a8123a760ec0064700f38c5d0bb66280b"
+    },
+    "tests/relic_check.gd": {
+      "before": "87d263a8a66b9d1e30d0fa1f8c87d32dbd5bd8fe6a72b6ad18ccd5b0fab4efe6",
+      "after": "87d263a8a66b9d1e30d0fa1f8c87d32dbd5bd8fe6a72b6ad18ccd5b0fab4efe6"
+    },
+    "tests/relic_check.gd.uid": {
+      "before": "6893ba180020679e198e39eaf070b0ea749d85741234acfa12d0f25baea7da35",
+      "after": "6893ba180020679e198e39eaf070b0ea749d85741234acfa12d0f25baea7da35"
+    },
+    "tests/safe_area_check.gd": {
+      "before": "4902a5c5d80bd33a7d8e190bfee3ce67192cee2ec15211b48baf12a87da22b98",
+      "after": "4902a5c5d80bd33a7d8e190bfee3ce67192cee2ec15211b48baf12a87da22b98"
+    },
+    "tests/safe_area_check.gd.uid": {
+      "before": "997ae36857f722d0fcb9c5ac390b2d1f2bb5a9f96591b8104dd488268500a5ee",
+      "after": "997ae36857f722d0fcb9c5ac390b2d1f2bb5a9f96591b8104dd488268500a5ee"
+    },
+    "tests/save_check.gd": {
+      "before": "e7c6ecd0a66625a253d95370cfa85f0686272c049425c6f7702663a790c6467d",
+      "after": "e7c6ecd0a66625a253d95370cfa85f0686272c049425c6f7702663a790c6467d"
+    },
+    "tests/save_check.gd.uid": {
+      "before": "615e4afa8452f6fc1db3f5c79f2a1c4a868b8cd2f6839afe05c984dd1225423b",
+      "after": "615e4afa8452f6fc1db3f5c79f2a1c4a868b8cd2f6839afe05c984dd1225423b"
+    },
+    "tests/settings_check.gd": {
+      "before": "dc289a1aa142faab60441adc23413a1c09c36e60beda4775cd7aab6eaec7ef46",
+      "after": "dc289a1aa142faab60441adc23413a1c09c36e60beda4775cd7aab6eaec7ef46"
+    },
+    "tests/settings_check.gd.uid": {
+      "before": "cb891248ec422933ca2d58b6522139c676b17d008a8eace608709ff486222ef6",
+      "after": "cb891248ec422933ca2d58b6522139c676b17d008a8eace608709ff486222ef6"
+    },
+    "tests/shallow_water_check.gd": {
+      "before": "4c0552cdc760f82d298ca331ff5df8546617c03f58f7071332a868f44b3de88c",
+      "after": "4c0552cdc760f82d298ca331ff5df8546617c03f58f7071332a868f44b3de88c"
+    },
+    "tests/shallow_water_check.gd.uid": {
+      "before": "388abe32bfba9560890ccf578ac25f670ae70aa248d5ba898e320bdae269735f",
+      "after": "388abe32bfba9560890ccf578ac25f670ae70aa248d5ba898e320bdae269735f"
+    },
+    "tests/spirit_check.gd": {
+      "before": "d24879d975bcc4bb219ac6e1fdd07fc5d3b0a3914c509db03d3b7e2b5c317af4",
+      "after": "d24879d975bcc4bb219ac6e1fdd07fc5d3b0a3914c509db03d3b7e2b5c317af4"
+    },
+    "tests/spirit_check.gd.uid": {
+      "before": "912492ebd564f65e1ea48c0dc841289e80226e12ffce9657af5f74ae107c2f8a",
+      "after": "912492ebd564f65e1ea48c0dc841289e80226e12ffce9657af5f74ae107c2f8a"
+    },
+    "tests/sprint_check.gd": {
+      "before": "f8e13ea731bc1e44417cba65e8fc33be3918f15d0ecd548d46fa578b40e98ded",
+      "after": "f8e13ea731bc1e44417cba65e8fc33be3918f15d0ecd548d46fa578b40e98ded"
+    },
+    "tests/sprint_check.gd.uid": {
+      "before": "808cdf1a08f76f62c5aa51c3c904b6a3f0564d66c24114f9797c0f3111c8b73a",
+      "after": "808cdf1a08f76f62c5aa51c3c904b6a3f0564d66c24114f9797c0f3111c8b73a"
+    },
+    "tests/terrain_material_check.gd": {
+      "before": "551546e0eb791e997f67a6e810b989f60fc025bbf15618c923d0e88e8d435167",
+      "after": "551546e0eb791e997f67a6e810b989f60fc025bbf15618c923d0e88e8d435167"
+    },
+    "tests/terrain_material_check.gd.uid": {
+      "before": "00efd15386753c41146af2ca040b9f9360831716d041e6169719940154fa2d06",
+      "after": "00efd15386753c41146af2ca040b9f9360831716d041e6169719940154fa2d06"
+    },
+    "tests/wolf_feedback_check.gd": {
+      "before": "71dff4d9f7842c9e56033bf40043465aac4ea477703974f00eaf2ede52b5e87a",
+      "after": "71dff4d9f7842c9e56033bf40043465aac4ea477703974f00eaf2ede52b5e87a"
+    },
+    "tests/wolf_feedback_check.gd.uid": {
+      "before": "19d620677ca8f2dec7aac30567bf8be5fef7594c45706d95a9a04c411b0c91af",
+      "after": "19d620677ca8f2dec7aac30567bf8be5fef7594c45706d95a9a04c411b0c91af"
+    },
+    "tools/build_island_android.py": {
+      "before": "83e8263a31d309cb14933c62343f13a8741fa92ebf47a79a694ffeda5a7f2fc7",
+      "after": "83e8263a31d309cb14933c62343f13a8741fa92ebf47a79a694ffeda5a7f2fc7"
+    },
+    "tools/check_android.ps1": {
+      "before": "20ed594d10df5c67236aaf25881235d48f609861067bac1df4e58efc62484b0b",
+      "after": "20ed594d10df5c67236aaf25881235d48f609861067bac1df4e58efc62484b0b"
+    },
+    "tools/mobile_bootstrap.gd.template": {
+      "before": "20f0e8bc7fb63dda04421b31165a2409be1aa04891177da11812479a87da7719",
+      "after": "20f0e8bc7fb63dda04421b31165a2409be1aa04891177da11812479a87da7719"
+    },
+    "tools/mobile_probe.gd.template": {
+      "before": "6f88cd06708d151799f0bc48283cd91bebc93f5bba3134d6900461e4ec821c0f",
+      "after": "6f88cd06708d151799f0bc48283cd91bebc93f5bba3134d6900461e4ec821c0f"
+    },
+    "tools/prepare_aru.gd": {
+      "before": "6141027744bfaf1d1fc9d89e3c019ef2dabb8b08d0f8e7bbd16a92e2a15722cd",
+      "after": "6141027744bfaf1d1fc9d89e3c019ef2dabb8b08d0f8e7bbd16a92e2a15722cd"
+    },
+    "tools/prepare_aru.gd.uid": {
+      "before": "100c091de00c4c2977e8387e61c17f290b30eb6abb7524c97393f1e12afbc760",
+      "after": "100c091de00c4c2977e8387e61c17f290b30eb6abb7524c97393f1e12afbc760"
+    },
+    "tools/prepare_charcoal.py": {
+      "before": "8c42eed3eb5c715adc9fe6fbf71163640faee16aaa33626c73ae582635ee3c21",
+      "after": "8c42eed3eb5c715adc9fe6fbf71163640faee16aaa33626c73ae582635ee3c21"
+    },
+    "tools/prepare_environment.gd": {
+      "before": "cc6e8f071e9b5f42ed4da83b1fcf9673366d3f23f910b7c883794867e634ffa1",
+      "after": "cc6e8f071e9b5f42ed4da83b1fcf9673366d3f23f910b7c883794867e634ffa1"
+    },
+    "tools/prepare_environment.gd.uid": {
+      "before": "fc29f06ce1155d72078ef3c7f279bec9f962d10fe8b8ae5ef460584849106066",
+      "after": "fc29f06ce1155d72078ef3c7f279bec9f962d10fe8b8ae5ef460584849106066"
+    },
+    "tools/prepare_forest_tree.gd": {
+      "before": "4ccffe96d7481785c0be59e80953dceff0e987397871a6ae8eb872aa4f7e4e17",
+      "after": "4ccffe96d7481785c0be59e80953dceff0e987397871a6ae8eb872aa4f7e4e17"
+    },
+    "tools/prepare_forest_tree.gd.uid": {
+      "before": "ded5331985ce773028e2819903e9bf76e741418df2c7c0c3c3b7c0efeb77373a",
+      "after": "ded5331985ce773028e2819903e9bf76e741418df2c7c0c3c3b7c0efeb77373a"
+    },
+    "tools/prepare_launcher.gd": {
+      "before": "94a0b755b9f7a36a45a7b6c64c01e5945918a521e04d90a710c474b71906bd46",
+      "after": "94a0b755b9f7a36a45a7b6c64c01e5945918a521e04d90a710c474b71906bd46"
+    },
+    "tools/prepare_launcher.gd.uid": {
+      "before": "25bef4e9b9795593d914fbcace1f92bf2d545c43b3ec293b3ed99255294ef6ba",
+      "after": "25bef4e9b9795593d914fbcace1f92bf2d545c43b3ec293b3ed99255294ef6ba"
+    },
+    "tools/profile_island_android.py": {
+      "before": "ed4a01e003038620bd9d09785478c5cf86c494bbc71fb74cc7bd232cb222d240",
+      "after": "ed4a01e003038620bd9d09785478c5cf86c494bbc71fb74cc7bd232cb222d240"
+    },
+    "tools/stage_aru_sources.ps1": {
+      "before": "b2555de048cd280c1ccc8d12796e63acc6c70f901a4468e455a7583c4bfc2d91",
+      "after": "b2555de048cd280c1ccc8d12796e63acc6c70f901a4468e455a7583c4bfc2d91"
+    },
+    "project.godot": {
+      "before": "e24d4bb5c30bf2e248edcc008b27ae86667a7f5d6c2a0fab0f2242e2648a5039",
+      "after": "e24d4bb5c30bf2e248edcc008b27ae86667a7f5d6c2a0fab0f2242e2648a5039"
+    },
+    "export_presets.cfg": {
+      "before": "c886a8d070d3751794b402396b60a1c5b6bbe48e4dc09ac0f12ec7a4b6d5b1e6",
+      "after": "c886a8d070d3751794b402396b60a1c5b6bbe48e4dc09ac0f12ec7a4b6d5b1e6"
+    }
+  }
+}

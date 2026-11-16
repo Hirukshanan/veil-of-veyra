@@ -1,0 +1,358 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/island_enemy_navigation_check.gd remapped: res://tests/island_enemy_navigation_check.gd
+Completed load for: 'res://tests/island_enemy_navigation_check.gd' remapped 'res://tests/island_enemy_navigation_check.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+Loading resource: res://scenes/island_candidate.tscn remapped: res://scenes/island_candidate.tscn
+Loading resource: res://scripts/island_candidate.gd remapped: res://scripts/island_candidate.gd
+Loading resource: res://assets/environment/coastal_water.gdshader remapped: res://assets/environment/coastal_water.gdshader
+Completed load for: 'res://assets/environment/coastal_water.gdshader' remapped 'res://assets/environment/coastal_water.gdshader' at thread -1
+Loading resource: res://assets/ui/controls/lantern.svg remapped: res://assets/ui/controls/lantern.svg
+Loading resource: res://.godot/imported/lantern.svg-ec7efa2eec98127c0ca407edb69621ea.ctex remapped: res://.godot/imported/lantern.svg-ec7efa2eec98127c0ca407edb69621ea.ctex
+Completed load for: 'res://assets/ui/controls/lantern.svg' remapped 'res://assets/ui/controls/lantern.svg' at thread -1
+Loading resource: res://assets/ui/controls/collect.svg remapped: res://assets/ui/controls/collect.svg
+Loading resource: res://.godot/imported/collect.svg-3825b97aa2ab2625a4d23fe6f2423de5.ctex remapped: res://.godot/imported/collect.svg-3825b97aa2ab2625a4d23fe6f2423de5.ctex
+Completed load for: 'res://assets/ui/controls/collect.svg' remapped 'res://assets/ui/controls/collect.svg' at thread -1
+Loading resource: res://assets/ui/quest_scroll.svg remapped: res://assets/ui/quest_scroll.svg
+Loading resource: res://.godot/imported/quest_scroll.svg-652a99805c78589ccf5314c00e4bfbba.ctex remapped: res://.godot/imported/quest_scroll.svg-652a99805c78589ccf5314c00e4bfbba.ctex
+Completed load for: 'res://assets/ui/quest_scroll.svg' remapped 'res://assets/ui/quest_scroll.svg' at thread -1
+Loading resource: res://assets/ui/quest_parchment.jpg remapped: res://assets/ui/quest_parchment.jpg
+Loading resource: res://.godot/imported/quest_parchment.jpg-8a537ad11fd0fd546afb6cb5dce86dfb.ctex remapped: res://.godot/imported/quest_parchment.jpg-8a537ad11fd0fd546afb6cb5dce86dfb.ctex
+Completed load for: 'res://assets/ui/quest_parchment.jpg' remapped 'res://assets/ui/quest_parchment.jpg' at thread -1
+Loading resource: res://assets/ui/fonts/Cinzel.ttf remapped: res://assets/ui/fonts/Cinzel.ttf
+Loading resource: res://.godot/imported/Cinzel.ttf-d3e307c1e7b06d0807ae2fba7108ee17.fontdata remapped: res://.godot/imported/Cinzel.ttf-d3e307c1e7b06d0807ae2fba7108ee17.fontdata
+Completed load for: 'res://assets/ui/fonts/Cinzel.ttf' remapped 'res://assets/ui/fonts/Cinzel.ttf' at thread -1
+Loading resource: res://assets/ui/fonts/CrimsonText-Regular.ttf remapped: res://assets/ui/fonts/CrimsonText-Regular.ttf
+Loading resource: res://.godot/imported/CrimsonText-Regular.ttf-480ded16db14b756e993917d1a3bcaf4.fontdata remapped: res://.godot/imported/CrimsonText-Regular.ttf-480ded16db14b756e993917d1a3bcaf4.fontdata
+Completed load for: 'res://assets/ui/fonts/CrimsonText-Regular.ttf' remapped 'res://assets/ui/fonts/CrimsonText-Regular.ttf' at thread -1
+Loading resource: res://assets/audio/demon_boar/sword_swing.wav remapped: res://assets/audio/demon_boar/sword_swing.wav
+Loading resource: res://.godot/imported/sword_swing.wav-a12f39e6969f410f8a4bd2221c09ec76.sample remapped: res://.godot/imported/sword_swing.wav-a12f39e6969f410f8a4bd2221c09ec76.sample
+Completed load for: 'res://assets/audio/demon_boar/sword_swing.wav' remapped 'res://assets/audio/demon_boar/sword_swing.wav' at thread -1
+Loading resource: res://assets/characters/aru/starter_warrior.scn remapped: res://assets/characters/aru/starter_warrior.scn
+Loading resource: res://assets/characters/aru/starter_warrior_mesh.res remapped: res://assets/characters/aru/starter_warrior_mesh.res
+Loading resource: res://assets/characters/aru/ranger_color_1024.png remapped: res://assets/characters/aru/ranger_color_1024.png
+Loading resource: res://.godot/imported/ranger_color_1024.png-3ebb2c97706fabe7b99bb4d4f123aa51.s3tc.ctex remapped: res://.godot/imported/ranger_color_1024.png-3ebb2c97706fabe7b99bb4d4f123aa51.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/ranger_color_1024.png' remapped 'res://assets/characters/aru/ranger_color_1024.png' at thread -1
+Loading resource: res://assets/characters/aru/ranger_orm_1024.png remapped: res://assets/characters/aru/ranger_orm_1024.png
+Loading resource: res://.godot/imported/ranger_orm_1024.png-59f3931c8cf82119ac7e9fcbd8f65b79.s3tc.ctex remapped: res://.godot/imported/ranger_orm_1024.png-59f3931c8cf82119ac7e9fcbd8f65b79.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/ranger_orm_1024.png' remapped 'res://assets/characters/aru/ranger_orm_1024.png' at thread -1
+Loading resource: res://assets/characters/aru/ranger_normal_1024.png remapped: res://assets/characters/aru/ranger_normal_1024.png
+Loading resource: res://.godot/imported/ranger_normal_1024.png-525a756a298ebc4dfcb6ad61a50cb115.s3tc.ctex remapped: res://.godot/imported/ranger_normal_1024.png-525a756a298ebc4dfcb6ad61a50cb115.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/ranger_normal_1024.png' remapped 'res://assets/characters/aru/ranger_normal_1024.png' at thread -1
+Loading resource: res://assets/characters/aru/arms_color_1024.png remapped: res://assets/characters/aru/arms_color_1024.png
+Loading resource: res://.godot/imported/arms_color_1024.png-3d4b1e8058610bf45fcadf7379083b6d.s3tc.ctex remapped: res://.godot/imported/arms_color_1024.png-3d4b1e8058610bf45fcadf7379083b6d.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/arms_color_1024.png' remapped 'res://assets/characters/aru/arms_color_1024.png' at thread -1
+Loading resource: res://assets/characters/aru/brow_color_512.png remapped: res://assets/characters/aru/brow_color_512.png
+Loading resource: res://.godot/imported/brow_color_512.png-a395ad8628fc75e8b96afd3db99e5536.s3tc.ctex remapped: res://.godot/imported/brow_color_512.png-a395ad8628fc75e8b96afd3db99e5536.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/brow_color_512.png' remapped 'res://assets/characters/aru/brow_color_512.png' at thread -1
+Loading resource: res://assets/characters/quaternius/T_Eye_Brown.png remapped: res://assets/characters/quaternius/T_Eye_Brown.png
+Loading resource: res://.godot/imported/T_Eye_Brown.png-d5f3848aeb63f927066adc131a9f65c0.s3tc.ctex remapped: res://.godot/imported/T_Eye_Brown.png-d5f3848aeb63f927066adc131a9f65c0.s3tc.ctex
+Completed load for: 'res://assets/characters/quaternius/T_Eye_Brown.png' remapped 'res://assets/characters/quaternius/T_Eye_Brown.png' at thread -1
+Loading resource: res://assets/characters/aru/face_color_1024.png remapped: res://assets/characters/aru/face_color_1024.png
+Loading resource: res://.godot/imported/face_color_1024.png-a67dcafc454ed9f62054ea371164c342.s3tc.ctex remapped: res://.godot/imported/face_color_1024.png-a67dcafc454ed9f62054ea371164c342.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/face_color_1024.png' remapped 'res://assets/characters/aru/face_color_1024.png' at thread -1
+Loading resource: res://assets/characters/aru/face_normal_512.png remapped: res://assets/characters/aru/face_normal_512.png
+Loading resource: res://.godot/imported/face_normal_512.png-6fc040143e0177b1283bb495987ccc10.s3tc.ctex remapped: res://.godot/imported/face_normal_512.png-6fc040143e0177b1283bb495987ccc10.s3tc.ctex
+Completed load for: 'res://assets/characters/aru/face_normal_512.png' remapped 'res://assets/characters/aru/face_normal_512.png' at thread -1
+Completed load for: 'res://assets/characters/aru/starter_warrior_mesh.res' remapped 'res://assets/characters/aru/starter_warrior_mesh.res' at thread -1
+Completed load for: 'res://assets/characters/aru/starter_warrior.scn' remapped 'res://assets/characters/aru/starter_warrior.scn' at thread -1
+Loading resource: res://assets/characters/quaternius/UAL1_Standard.glb remapped: res://assets/characters/quaternius/UAL1_Standard.glb
+Loading resource: res://.godot/imported/UAL1_Standard.glb-6930eaa9813ed0c56145f7591fd98c49.scn remapped: res://.godot/imported/UAL1_Standard.glb-6930eaa9813ed0c56145f7591fd98c49.scn
+Completed load for: 'res://assets/characters/quaternius/UAL1_Standard.glb' remapped 'res://assets/characters/quaternius/UAL1_Standard.glb' at thread -1
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon.glb remapped: res://assets/characters/pigcraft/charcoal_dragon.glb
+Loading resource: res://.godot/imported/charcoal_dragon.glb-abb8d2b1b0e15f457612a325cb2fec9d.scn remapped: res://.godot/imported/charcoal_dragon.glb-abb8d2b1b0e15f457612a325cb2fec9d.scn
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg
+Loading resource: res://.godot/imported/charcoal_dragon_Image_0.jpg-2f003e65585af912e588885a10a14353.ctex remapped: res://.godot/imported/charcoal_dragon_Image_0.jpg-2f003e65585af912e588885a10a14353.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg' at thread -1
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_1.png remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_1.png
+Loading resource: res://.godot/imported/charcoal_dragon_Image_1.png-63bb9ecbeba0e155701bee8a134f7081.ctex remapped: res://.godot/imported/charcoal_dragon_Image_1.png-63bb9ecbeba0e155701bee8a134f7081.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_1.png' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_1.png' at thread -1
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_2.png remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_2.png
+Loading resource: res://.godot/imported/charcoal_dragon_Image_2.png-c086138901c4e1081ab45a8d5e4d3b1d.ctex remapped: res://.godot/imported/charcoal_dragon_Image_2.png-c086138901c4e1081ab45a8d5e4d3b1d.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_2.png' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_2.png' at thread -1
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon.glb' remapped 'res://assets/characters/pigcraft/charcoal_dragon.glb' at thread -1
+Loading resource: res://assets/environment/forest_tree_mobile.res remapped: res://assets/environment/forest_tree_mobile.res
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_diff_1k.jpg-d6e12a559685bb8bc31e78d80fb6851f.ctex remapped: res://.godot/imported/island_tree_01_diff_1k.jpg-d6e12a559685bb8bc31e78d80fb6851f.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_arm_1k.jpg-dc3aff4ce318b3ccef87fb9a894838d6.ctex remapped: res://.godot/imported/island_tree_01_arm_1k.jpg-dc3aff4ce318b3ccef87fb9a894838d6.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_nor_gl_1k.jpg-57dc3aaf47c0f33746e27f6e5f82ded0.ctex remapped: res://.godot/imported/island_tree_01_nor_gl_1k.jpg-57dc3aaf47c0f33746e27f6e5f82ded0.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_branches_diff_1k.jpg-8d1f3768daf1e94ede20a3e71cd39689.ctex remapped: res://.godot/imported/island_tree_01_branches_diff_1k.jpg-8d1f3768daf1e94ede20a3e71cd39689.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_branches_arm_1k.jpg-ef785295060209e9d19878a72b5575e2.ctex remapped: res://.godot/imported/island_tree_01_branches_arm_1k.jpg-ef785295060209e9d19878a72b5575e2.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_branches_nor_gl_1k.jpg-ce5e226f6301d3ce43a7125442c5b59e.ctex remapped: res://.godot/imported/island_tree_01_branches_nor_gl_1k.jpg-ce5e226f6301d3ce43a7125442c5b59e.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg' at thread -1
+Completed load for: 'res://assets/environment/forest_tree_mobile.res' remapped 'res://assets/environment/forest_tree_mobile.res' at thread -1
+Loading resource: res://assets/environment/tree_leaves.gdshader remapped: res://assets/environment/tree_leaves.gdshader
+Completed load for: 'res://assets/environment/tree_leaves.gdshader' remapped 'res://assets/environment/tree_leaves.gdshader' at thread -1
+Loading resource: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg remapped: res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg
+Loading resource: res://.godot/imported/island_tree_01_leaves_diff_1k.jpg-1e527f3b2b952359f2b96db2fb898af6.ctex remapped: res://.godot/imported/island_tree_01_leaves_diff_1k.jpg-1e527f3b2b952359f2b96db2fb898af6.ctex
+Completed load for: 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg' remapped 'res://assets/environment/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg' at thread -1
+Loading resource: res://assets/environment/island_ground.gdshader remapped: res://assets/environment/island_ground.gdshader
+Completed load for: 'res://assets/environment/island_ground.gdshader' remapped 'res://assets/environment/island_ground.gdshader' at thread -1
+Loading resource: res://assets/characters/demon_boar/demon_boar.glb remapped: res://assets/characters/demon_boar/demon_boar.glb
+Loading resource: res://.godot/imported/demon_boar.glb-aed7097ae775db7023f4fc4a44ec6c59.scn remapped: res://.godot/imported/demon_boar.glb-aed7097ae775db7023f4fc4a44ec6c59.scn
+Loading resource: res://assets/characters/demon_boar/demon_boar_base_color.jpg remapped: res://assets/characters/demon_boar/demon_boar_base_color.jpg
+Loading resource: res://.godot/imported/demon_boar_base_color.jpg-8f88ea4d1c8ccb1331f5c827c5518a8f.ctex remapped: res://.godot/imported/demon_boar_base_color.jpg-8f88ea4d1c8ccb1331f5c827c5518a8f.ctex
+Completed load for: 'res://assets/characters/demon_boar/demon_boar_base_color.jpg' remapped 'res://assets/characters/demon_boar/demon_boar_base_color.jpg' at thread -1
+Loading resource: res://assets/characters/demon_boar/demon_boar_normal_2048.png remapped: res://assets/characters/demon_boar/demon_boar_normal_2048.png
+Loading resource: res://.godot/imported/demon_boar_normal_2048.png-c7d2e6729b672f2bae76015b50617f08.ctex remapped: res://.godot/imported/demon_boar_normal_2048.png-c7d2e6729b672f2bae76015b50617f08.ctex
+Completed load for: 'res://assets/characters/demon_boar/demon_boar_normal_2048.png' remapped 'res://assets/characters/demon_boar/demon_boar_normal_2048.png' at thread -1
+Completed load for: 'res://assets/characters/demon_boar/demon_boar.glb' remapped 'res://assets/characters/demon_boar/demon_boar.glb' at thread -1
+Loading resource: res://assets/audio/demon_boar/warning.wav remapped: res://assets/audio/demon_boar/warning.wav
+Loading resource: res://.godot/imported/warning.wav-3418a10330f5d975618b0de26818783d.sample remapped: res://.godot/imported/warning.wav-3418a10330f5d975618b0de26818783d.sample
+Completed load for: 'res://assets/audio/demon_boar/warning.wav' remapped 'res://assets/audio/demon_boar/warning.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/charge.wav remapped: res://assets/audio/demon_boar/charge.wav
+Loading resource: res://.godot/imported/charge.wav-0aa5c69b75a24bad5b1e868172eae38f.sample remapped: res://.godot/imported/charge.wav-0aa5c69b75a24bad5b1e868172eae38f.sample
+Completed load for: 'res://assets/audio/demon_boar/charge.wav' remapped 'res://assets/audio/demon_boar/charge.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hurt.wav remapped: res://assets/audio/demon_boar/hurt.wav
+Loading resource: res://.godot/imported/hurt.wav-bd9237922f94e86f09d0347425a304cb.sample remapped: res://.godot/imported/hurt.wav-bd9237922f94e86f09d0347425a304cb.sample
+Completed load for: 'res://assets/audio/demon_boar/hurt.wav' remapped 'res://assets/audio/demon_boar/hurt.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/death.wav remapped: res://assets/audio/demon_boar/death.wav
+Loading resource: res://.godot/imported/death.wav-aac8a7351fe1abf7ba1660e483e90e98.sample remapped: res://.godot/imported/death.wav-aac8a7351fe1abf7ba1660e483e90e98.sample
+Completed load for: 'res://assets/audio/demon_boar/death.wav' remapped 'res://assets/audio/demon_boar/death.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hoof_a.wav remapped: res://assets/audio/demon_boar/hoof_a.wav
+Loading resource: res://.godot/imported/hoof_a.wav-95b5923077f3e24deef71cb23f5810c4.sample remapped: res://.godot/imported/hoof_a.wav-95b5923077f3e24deef71cb23f5810c4.sample
+Completed load for: 'res://assets/audio/demon_boar/hoof_a.wav' remapped 'res://assets/audio/demon_boar/hoof_a.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hoof_b.wav remapped: res://assets/audio/demon_boar/hoof_b.wav
+Loading resource: res://.godot/imported/hoof_b.wav-7057e659475dfb442f22863f2b00221b.sample remapped: res://.godot/imported/hoof_b.wav-7057e659475dfb442f22863f2b00221b.sample
+Completed load for: 'res://assets/audio/demon_boar/hoof_b.wav' remapped 'res://assets/audio/demon_boar/hoof_b.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hoof_c.wav remapped: res://assets/audio/demon_boar/hoof_c.wav
+Loading resource: res://.godot/imported/hoof_c.wav-c20ef91420b688634222b42338333758.sample remapped: res://.godot/imported/hoof_c.wav-c20ef91420b688634222b42338333758.sample
+Completed load for: 'res://assets/audio/demon_boar/hoof_c.wav' remapped 'res://assets/audio/demon_boar/hoof_c.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/scrape.wav remapped: res://assets/audio/demon_boar/scrape.wav
+Loading resource: res://.godot/imported/scrape.wav-7787adbc01a5a46414cd0619a608000b.sample remapped: res://.godot/imported/scrape.wav-7787adbc01a5a46414cd0619a608000b.sample
+Completed load for: 'res://assets/audio/demon_boar/scrape.wav' remapped 'res://assets/audio/demon_boar/scrape.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hit_light.wav remapped: res://assets/audio/demon_boar/hit_light.wav
+Loading resource: res://.godot/imported/hit_light.wav-d6934191a0d22e279749df20ca1bfe2b.sample remapped: res://.godot/imported/hit_light.wav-d6934191a0d22e279749df20ca1bfe2b.sample
+Completed load for: 'res://assets/audio/demon_boar/hit_light.wav' remapped 'res://assets/audio/demon_boar/hit_light.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/hit_heavy.wav remapped: res://assets/audio/demon_boar/hit_heavy.wav
+Loading resource: res://.godot/imported/hit_heavy.wav-02414e6bd8c031bcd1858e299c5d2397.sample remapped: res://.godot/imported/hit_heavy.wav-02414e6bd8c031bcd1858e299c5d2397.sample
+Completed load for: 'res://assets/audio/demon_boar/hit_heavy.wav' remapped 'res://assets/audio/demon_boar/hit_heavy.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/charge_impact.wav remapped: res://assets/audio/demon_boar/charge_impact.wav
+Loading resource: res://.godot/imported/charge_impact.wav-e850ffd462678f40e1f5ed0216b087e2.sample remapped: res://.godot/imported/charge_impact.wav-e850ffd462678f40e1f5ed0216b087e2.sample
+Completed load for: 'res://assets/audio/demon_boar/charge_impact.wav' remapped 'res://assets/audio/demon_boar/charge_impact.wav' at thread -1
+Loading resource: res://assets/audio/demon_boar/death_land.wav remapped: res://assets/audio/demon_boar/death_land.wav
+Loading resource: res://.godot/imported/death_land.wav-de46740b95fb2b1f073c877f6fcc0cb8.sample remapped: res://.godot/imported/death_land.wav-de46740b95fb2b1f073c877f6fcc0cb8.sample
+Completed load for: 'res://assets/audio/demon_boar/death_land.wav' remapped 'res://assets/audio/demon_boar/death_land.wav' at thread -1
+Loading resource: res://assets/environment/fern_02_mobile.scn remapped: res://assets/environment/fern_02_mobile.scn
+Loading resource: res://assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg remapped: res://assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg
+Loading resource: res://.godot/imported/fern_02_diff_1k.jpg-056c1299673303dc2cebd4010932b2e6.ctex remapped: res://.godot/imported/fern_02_diff_1k.jpg-056c1299673303dc2cebd4010932b2e6.ctex
+Completed load for: 'res://assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg' remapped 'res://assets/environment/polyhaven/fern_02/textures/fern_02_diff_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg remapped: res://assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg
+Loading resource: res://.godot/imported/fern_02_arm_1k.jpg-170b0389ed3a5df0a732a8e1a47f22d6.ctex remapped: res://.godot/imported/fern_02_arm_1k.jpg-170b0389ed3a5df0a732a8e1a47f22d6.ctex
+Completed load for: 'res://assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg' remapped 'res://assets/environment/polyhaven/fern_02/textures/fern_02_arm_1k.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg remapped: res://assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg
+Loading resource: res://.godot/imported/fern_02_nor_gl_1k.jpg-e979cadcee59a971ec374198e8171d2c.ctex remapped: res://.godot/imported/fern_02_nor_gl_1k.jpg-e979cadcee59a971ec374198e8171d2c.ctex
+Completed load for: 'res://assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg' remapped 'res://assets/environment/polyhaven/fern_02/textures/fern_02_nor_gl_1k.jpg' at thread -1
+Completed load for: 'res://assets/environment/fern_02_mobile.scn' remapped 'res://assets/environment/fern_02_mobile.scn' at thread -1
+Loading resource: res://assets/ui/brand/dragon_lantern.png remapped: res://assets/ui/brand/dragon_lantern.png
+Loading resource: res://.godot/imported/dragon_lantern.png-12090991065973ef1c33efe65c9257d0.ctex remapped: res://.godot/imported/dragon_lantern.png-12090991065973ef1c33efe65c9257d0.ctex
+Completed load for: 'res://assets/ui/brand/dragon_lantern.png' remapped 'res://assets/ui/brand/dragon_lantern.png' at thread -1
+Loading resource: res://assets/environment/new_island/terrain_surface.res remapped: res://assets/environment/new_island/terrain_surface.res
+Loading resource: res://scripts/island_surface_data.gd remapped: res://scripts/island_surface_data.gd
+Completed load for: 'res://scripts/island_surface_data.gd' remapped 'res://scripts/island_surface_data.gd' at thread -1
+Completed load for: 'res://assets/environment/new_island/terrain_surface.res' remapped 'res://assets/environment/new_island/terrain_surface.res' at thread -1
+Loading resource: res://assets/environment/new_island/region.gdshader remapped: res://assets/environment/new_island/region.gdshader
+Completed load for: 'res://assets/environment/new_island/region.gdshader' remapped 'res://assets/environment/new_island/region.gdshader' at thread -1
+Loading resource: res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg remapped: res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg
+Loading resource: res://.godot/imported/leafy_grass_Diffuse.jpg-0a3c4a60d9854e3a3feb2b21085aed5d.s3tc.ctex remapped: res://.godot/imported/leafy_grass_Diffuse.jpg-0a3c4a60d9854e3a3feb2b21085aed5d.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg' remapped 'res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg remapped: res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg
+Loading resource: res://.godot/imported/coast_sand_01_Diffuse.jpg-4994abe682c71155fefb3c9fc524ec73.s3tc.ctex remapped: res://.godot/imported/coast_sand_01_Diffuse.jpg-4994abe682c71155fefb3c9fc524ec73.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg' remapped 'res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg remapped: res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg
+Loading resource: res://.godot/imported/forest_ground_04_Diffuse.jpg-e1ba600d3b3494eaedc2ea18d361e3f6.s3tc.ctex remapped: res://.godot/imported/forest_ground_04_Diffuse.jpg-e1ba600d3b3494eaedc2ea18d361e3f6.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg' remapped 'res://assets/environment/polyhaven/forest_ground_04_Diffuse.jpg' at thread -1
+Loading resource: res://assets/environment/new_island/task542/cave_exterior.glb remapped: res://assets/environment/new_island/task542/cave_exterior.glb
+Loading resource: res://.godot/imported/cave_exterior.glb-2ce844950421c9b442ab68e1ff7b4d12.scn remapped: res://.godot/imported/cave_exterior.glb-2ce844950421c9b442ab68e1ff7b4d12.scn
+Completed load for: 'res://assets/environment/new_island/task542/cave_exterior.glb' remapped 'res://assets/environment/new_island/task542/cave_exterior.glb' at thread -1
+Loading resource: res://assets/environment/new_island/land.gdshader remapped: res://assets/environment/new_island/land.gdshader
+Completed load for: 'res://assets/environment/new_island/land.gdshader' remapped 'res://assets/environment/new_island/land.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task3/rock_albedo.png remapped: res://assets/environment/new_island/task3/rock_albedo.png
+Loading resource: res://.godot/imported/rock_albedo.png-1c129a65834159ebc35ec56d5abe7cca.s3tc.ctex remapped: res://.godot/imported/rock_albedo.png-1c129a65834159ebc35ec56d5abe7cca.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/task3/rock_albedo.png' remapped 'res://assets/environment/new_island/task3/rock_albedo.png' at thread -1
+Loading resource: res://assets/environment/new_island/river.gdshader remapped: res://assets/environment/new_island/river.gdshader
+Completed load for: 'res://assets/environment/new_island/river.gdshader' remapped 'res://assets/environment/new_island/river.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task3/rock.gdshader remapped: res://assets/environment/new_island/task3/rock.gdshader
+Completed load for: 'res://assets/environment/new_island/task3/rock.gdshader' remapped 'res://assets/environment/new_island/task3/rock.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task3/waterfall.gdshader remapped: res://assets/environment/new_island/task3/waterfall.gdshader
+Completed load for: 'res://assets/environment/new_island/task3/waterfall.gdshader' remapped 'res://assets/environment/new_island/task3/waterfall.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task3/rock_normal.png remapped: res://assets/environment/new_island/task3/rock_normal.png
+Loading resource: res://.godot/imported/rock_normal.png-8dbdf139e038413f8bfc5b529adb6bb7.s3tc.ctex remapped: res://.godot/imported/rock_normal.png-8dbdf139e038413f8bfc5b529adb6bb7.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/task3/rock_normal.png' remapped 'res://assets/environment/new_island/task3/rock_normal.png' at thread -1
+Loading resource: res://assets/environment/new_island/task542/rock_transition.gdshader remapped: res://assets/environment/new_island/task542/rock_transition.gdshader
+Completed load for: 'res://assets/environment/new_island/task542/rock_transition.gdshader' remapped 'res://assets/environment/new_island/task542/rock_transition.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task4/journey_mask.png remapped: res://assets/environment/new_island/task4/journey_mask.png
+Loading resource: res://.godot/imported/journey_mask.png-db5168a51150cd73c0343efe92ac8360.ctex remapped: res://.godot/imported/journey_mask.png-db5168a51150cd73c0343efe92ac8360.ctex
+Completed load for: 'res://assets/environment/new_island/task4/journey_mask.png' remapped 'res://assets/environment/new_island/task4/journey_mask.png' at thread -1
+Completed load for: 'res://scripts/island_candidate.gd' remapped 'res://scripts/island_candidate.gd' at thread -1
+Completed load for: 'res://scenes/island_candidate.tscn' remapped 'res://scenes/island_candidate.tscn' at thread -1
+Loading resource: res://assets/environment/new_island/WaterfallMountains.glb remapped: res://assets/environment/new_island/WaterfallMountains.glb
+Loading resource: res://.godot/imported/WaterfallMountains.glb-8d9eb6f3b9c1f83bb8d8dedf1d9ca22c.scn remapped: res://.godot/imported/WaterfallMountains.glb-8d9eb6f3b9c1f83bb8d8dedf1d9ca22c.scn
+Loading resource: res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg remapped: res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg
+Loading resource: res://.godot/imported/WaterfallMountains_waterfallmountains_albedo.jpg-fb96a5f23625201e66284dcbb7c280c0.s3tc.ctex remapped: res://.godot/imported/WaterfallMountains_waterfallmountains_albedo.jpg-fb96a5f23625201e66284dcbb7c280c0.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg' remapped 'res://assets/environment/new_island/WaterfallMountains_waterfallmountains_albedo.jpg' at thread -1
+Completed load for: 'res://assets/environment/new_island/WaterfallMountains.glb' remapped 'res://assets/environment/new_island/WaterfallMountains.glb' at thread -1
+Loading resource: res://assets/environment/new_island/WesternForest.glb remapped: res://assets/environment/new_island/WesternForest.glb
+Loading resource: res://.godot/imported/WesternForest.glb-49f26134ed1c874bd3c1a24342cec731.scn remapped: res://.godot/imported/WesternForest.glb-49f26134ed1c874bd3c1a24342cec731.scn
+Loading resource: res://assets/environment/new_island/WesternForest_westernforest_albedo.jpg remapped: res://assets/environment/new_island/WesternForest_westernforest_albedo.jpg
+Loading resource: res://.godot/imported/WesternForest_westernforest_albedo.jpg-02db34db5c1bbd37f568940f10d60b61.s3tc.ctex remapped: res://.godot/imported/WesternForest_westernforest_albedo.jpg-02db34db5c1bbd37f568940f10d60b61.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/WesternForest_westernforest_albedo.jpg' remapped 'res://assets/environment/new_island/WesternForest_westernforest_albedo.jpg' at thread -1
+Completed load for: 'res://assets/environment/new_island/WesternForest.glb' remapped 'res://assets/environment/new_island/WesternForest.glb' at thread -1
+Loading resource: res://assets/environment/new_island/RiverGrassland.glb remapped: res://assets/environment/new_island/RiverGrassland.glb
+Loading resource: res://.godot/imported/RiverGrassland.glb-a863254f7402fc69b6242663cf08bd44.scn remapped: res://.godot/imported/RiverGrassland.glb-a863254f7402fc69b6242663cf08bd44.scn
+Loading resource: res://assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg remapped: res://assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg
+Loading resource: res://.godot/imported/RiverGrassland_rivergrassland_albedo.jpg-11352772e267b12d47c92db6ad920ecc.s3tc.ctex remapped: res://.godot/imported/RiverGrassland_rivergrassland_albedo.jpg-11352772e267b12d47c92db6ad920ecc.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg' remapped 'res://assets/environment/new_island/RiverGrassland_rivergrassland_albedo.jpg' at thread -1
+Completed load for: 'res://assets/environment/new_island/RiverGrassland.glb' remapped 'res://assets/environment/new_island/RiverGrassland.glb' at thread -1
+LOD Generation: Triangles 19930, vertices 10444 (merged 10444)
+  LOD 1: 9964 triangles, error 0.00024029330234 (step error 0.00024029330234)
+  LOD 2: 4982 triangles, error 0.00105603958946 (step error 0.00105603958946)
+  LOD 3: 2490 triangles, error 0.00390395941213 (step error 0.00390395941213)
+  LOD 4: 1244 triangles, error 0.06212110072374 (step error 0.06212110072374)
+  LOD stop: got 1156 triangles when asking for 622
+Loading resource: res://assets/environment/new_island/EasternCaves.glb remapped: res://assets/environment/new_island/EasternCaves.glb
+Loading resource: res://.godot/imported/EasternCaves.glb-68bece61df8e5f1ec8391273d1d28755.scn remapped: res://.godot/imported/EasternCaves.glb-68bece61df8e5f1ec8391273d1d28755.scn
+Loading resource: res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg remapped: res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg
+Loading resource: res://.godot/imported/EasternCaves_easterncaves_albedo.jpg-b2edc6c7821f9870e57278962550da85.s3tc.ctex remapped: res://.godot/imported/EasternCaves_easterncaves_albedo.jpg-b2edc6c7821f9870e57278962550da85.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg' remapped 'res://assets/environment/new_island/EasternCaves_easterncaves_albedo.jpg' at thread -1
+Completed load for: 'res://assets/environment/new_island/EasternCaves.glb' remapped 'res://assets/environment/new_island/EasternCaves.glb' at thread -1
+Loading resource: res://assets/environment/new_island/SouthernBeach.glb remapped: res://assets/environment/new_island/SouthernBeach.glb
+Loading resource: res://.godot/imported/SouthernBeach.glb-6afdc0637345e08fc36a7c2e284ec40c.scn remapped: res://.godot/imported/SouthernBeach.glb-6afdc0637345e08fc36a7c2e284ec40c.scn
+Loading resource: res://assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg remapped: res://assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg
+Loading resource: res://.godot/imported/SouthernBeach_southernbeach_albedo.jpg-a4b2a622b47454817255924321622970.s3tc.ctex remapped: res://.godot/imported/SouthernBeach_southernbeach_albedo.jpg-a4b2a622b47454817255924321622970.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg' remapped 'res://assets/environment/new_island/SouthernBeach_southernbeach_albedo.jpg' at thread -1
+Completed load for: 'res://assets/environment/new_island/SouthernBeach.glb' remapped 'res://assets/environment/new_island/SouthernBeach.glb' at thread -1
+LOD Generation: Triangles 14794, vertices 7938 (merged 7938)
+  LOD 1: 7396 triangles, error 0.00012193264411 (step error 0.00012193264411)
+  LOD 2: 3698 triangles, error 0.00060629402287 (step error 0.00060629402287)
+  LOD 3: 1848 triangles, error 0.00291076139547 (step error 0.00291076139547)
+  LOD 4: 1232 triangles, error 0.25253993272781 (step error 0.25253993272781)
+  LOD stop: got 1232 triangles when asking for 616
+LOD Generation: Triangles 7913, vertices 4590 (merged 4590)
+  LOD 1: 3956 triangles, error 0.0170211084187 (step error 0.0170211084187)
+  LOD 2: 1978 triangles, error 0.0642056837678 (step error 0.0642056837678)
+  LOD 3: 1440 triangles, error 0.96949118375778 (step error 0.96949118375778)
+  LOD stop: got 1440 triangles when asking for 720
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_BaseColor.png-cb15a4fdb7bf8c2351279c70548b27f9.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_BaseColor.png-cb15a4fdb7bf8c2351279c70548b27f9.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_BaseColor.png' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_MetalRough.jpg-c634f6099ffc67533a299cf446256838.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_MetalRough.jpg-c634f6099ffc67533a299cf446256838.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_MetalRough.jpg' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png remapped: res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png
+Loading resource: res://.godot/imported/Dire_Wolf_Lite_DireWolf_Normal.png-ca275bffdddd4db7c7ac76269e39e037.ctex remapped: res://.godot/imported/Dire_Wolf_Lite_DireWolf_Normal.png-ca275bffdddd4db7c7ac76269e39e037.ctex
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png' remapped 'res://assets/characters/literock/Dire_Wolf_Lite_DireWolf_Normal.png' at thread -1
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/characters/literock/Dire_Wolf_Lite.glb remapped: res://assets/characters/literock/Dire_Wolf_Lite.glb
+Loading resource: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn remapped: res://.godot/imported/Dire_Wolf_Lite.glb-c6e23a366d4f880c6945c3743ec41441.scn
+Completed load for: 'res://assets/characters/literock/Dire_Wolf_Lite.glb' remapped 'res://assets/characters/literock/Dire_Wolf_Lite.glb' at thread -1
+Loading resource: res://assets/ui/controls/attack.svg remapped: res://assets/ui/controls/attack.svg
+Loading resource: res://.godot/imported/attack.svg-56bba3f8b33a0711d26a80fe85036ba1.ctex remapped: res://.godot/imported/attack.svg-56bba3f8b33a0711d26a80fe85036ba1.ctex
+Completed load for: 'res://assets/ui/controls/attack.svg' remapped 'res://assets/ui/controls/attack.svg' at thread -1
+Loading resource: res://assets/ui/controls/dodge.svg remapped: res://assets/ui/controls/dodge.svg
+Loading resource: res://.godot/imported/dodge.svg-3532fa3be80c7aec8cffe990649f10f0.ctex remapped: res://.godot/imported/dodge.svg-3532fa3be80c7aec8cffe990649f10f0.ctex
+Completed load for: 'res://assets/ui/controls/dodge.svg' remapped 'res://assets/ui/controls/dodge.svg' at thread -1
+Loading resource: res://assets/ui/controls/burst.svg remapped: res://assets/ui/controls/burst.svg
+Loading resource: res://.godot/imported/burst.svg-287a22c40906194412c80e71b2c53afa.ctex remapped: res://.godot/imported/burst.svg-287a22c40906194412c80e71b2c53afa.ctex
+Completed load for: 'res://assets/ui/controls/burst.svg' remapped 'res://assets/ui/controls/burst.svg' at thread -1
+Loading resource: res://assets/ui/controls/jump.svg remapped: res://assets/ui/controls/jump.svg
+Loading resource: res://.godot/imported/jump.svg-ab3008d284b94c8edfc97b5d5028dcbb.ctex remapped: res://.godot/imported/jump.svg-ab3008d284b94c8edfc97b5d5028dcbb.ctex
+Completed load for: 'res://assets/ui/controls/jump.svg' remapped 'res://assets/ui/controls/jump.svg' at thread -1
+Loading resource: res://assets/ui/controls/guard.svg remapped: res://assets/ui/controls/guard.svg
+Loading resource: res://.godot/imported/guard.svg-ec17f124136907d9084f3ebbb3d00728.ctex remapped: res://.godot/imported/guard.svg-ec17f124136907d9084f3ebbb3d00728.ctex
+Completed load for: 'res://assets/ui/controls/guard.svg' remapped 'res://assets/ui/controls/guard.svg' at thread -1
+Loading resource: res://assets/ui/controls/pause.svg remapped: res://assets/ui/controls/pause.svg
+Loading resource: res://.godot/imported/pause.svg-28354319b02ea3bdb898d896163fcb98.ctex remapped: res://.godot/imported/pause.svg-28354319b02ea3bdb898d896163fcb98.ctex
+Completed load for: 'res://assets/ui/controls/pause.svg' remapped 'res://assets/ui/controls/pause.svg' at thread -1
+Loading resource: res://assets/ui/controls/potion.svg remapped: res://assets/ui/controls/potion.svg
+Loading resource: res://.godot/imported/potion.svg-98e821e205267b7632642ef7752c4b9e.ctex remapped: res://.godot/imported/potion.svg-98e821e205267b7632642ef7752c4b9e.ctex
+Completed load for: 'res://assets/ui/controls/potion.svg' remapped 'res://assets/ui/controls/potion.svg' at thread -1
+Loading resource: res://assets/ui/controls/map.svg remapped: res://assets/ui/controls/map.svg
+Loading resource: res://.godot/imported/map.svg-24ca4df92776b8c604d5a7f105fecc2a.ctex remapped: res://.godot/imported/map.svg-24ca4df92776b8c604d5a7f105fecc2a.ctex
+Completed load for: 'res://assets/ui/controls/map.svg' remapped 'res://assets/ui/controls/map.svg' at thread -1
+Loading resource: res://assets/ui/controls/camp.svg remapped: res://assets/ui/controls/camp.svg
+Loading resource: res://.godot/imported/camp.svg-662399b4c1b316c0c1c2d07233adfa09.ctex remapped: res://.godot/imported/camp.svg-662399b4c1b316c0c1c2d07233adfa09.ctex
+Completed load for: 'res://assets/ui/controls/camp.svg' remapped 'res://assets/ui/controls/camp.svg' at thread -1
+Loading resource: res://assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg remapped: res://assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg
+Loading resource: res://.godot/imported/rocky_terrain_02_Diffuse.jpg-3a77b89190b48ed2ca66a08bfb582423.s3tc.ctex remapped: res://.godot/imported/rocky_terrain_02_Diffuse.jpg-3a77b89190b48ed2ca66a08bfb582423.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg' remapped 'res://assets/environment/polyhaven/rocky_terrain_02_Diffuse.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg remapped: res://assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg
+Loading resource: res://.godot/imported/rocky_terrain_02_nor_gl.jpg-e99d6a71e5e5cad098c1da65efd58f29.s3tc.ctex remapped: res://.godot/imported/rocky_terrain_02_nor_gl.jpg-e99d6a71e5e5cad098c1da65efd58f29.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg' remapped 'res://assets/environment/polyhaven/rocky_terrain_02_nor_gl.jpg' at thread -1
+Loading resource: res://assets/environment/polyhaven/rocky_terrain_02_Rough.jpg remapped: res://assets/environment/polyhaven/rocky_terrain_02_Rough.jpg
+Loading resource: res://.godot/imported/rocky_terrain_02_Rough.jpg-55a21c86058eb0a770149ca04ba0ae95.s3tc.ctex remapped: res://.godot/imported/rocky_terrain_02_Rough.jpg-55a21c86058eb0a770149ca04ba0ae95.s3tc.ctex
+Completed load for: 'res://assets/environment/polyhaven/rocky_terrain_02_Rough.jpg' remapped 'res://assets/environment/polyhaven/rocky_terrain_02_Rough.jpg' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/trunk_lod0.res remapped: res://assets/environment/new_island/vegetation/refinement/trunk_lod0.res
+Loading resource: res://assets/environment/new_island/vegetation/refinement/bark.gdshader remapped: res://assets/environment/new_island/vegetation/refinement/bark.gdshader
+Loading resource: res://assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc remapped: res://assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc' remapped 'res://assets/environment/new_island/vegetation/refinement/tree_common.gdshaderinc' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/bark.gdshader' remapped 'res://assets/environment/new_island/vegetation/refinement/bark.gdshader' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/trunk_lod0.res' remapped 'res://assets/environment/new_island/vegetation/refinement/trunk_lod0.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/canopy_lod0.res remapped: res://assets/environment/new_island/vegetation/refinement/canopy_lod0.res
+Loading resource: res://assets/environment/new_island/vegetation/refinement/foliage.gdshader remapped: res://assets/environment/new_island/vegetation/refinement/foliage.gdshader
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/foliage.gdshader' remapped 'res://assets/environment/new_island/vegetation/refinement/foliage.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/twig_clusters.png remapped: res://assets/environment/new_island/vegetation/refinement/twig_clusters.png
+Loading resource: res://.godot/imported/twig_clusters.png-649b3dbdf493c3582143af3c3278cb15.s3tc.ctex remapped: res://.godot/imported/twig_clusters.png-649b3dbdf493c3582143af3c3278cb15.s3tc.ctex
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/twig_clusters.png' remapped 'res://assets/environment/new_island/vegetation/refinement/twig_clusters.png' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/canopy_lod0.res' remapped 'res://assets/environment/new_island/vegetation/refinement/canopy_lod0.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/trunk_lod1.res remapped: res://assets/environment/new_island/vegetation/refinement/trunk_lod1.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/trunk_lod1.res' remapped 'res://assets/environment/new_island/vegetation/refinement/trunk_lod1.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/canopy_lod1.res remapped: res://assets/environment/new_island/vegetation/refinement/canopy_lod1.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/canopy_lod1.res' remapped 'res://assets/environment/new_island/vegetation/refinement/canopy_lod1.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/trunk_lod2.res remapped: res://assets/environment/new_island/vegetation/refinement/trunk_lod2.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/trunk_lod2.res' remapped 'res://assets/environment/new_island/vegetation/refinement/trunk_lod2.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/canopy_lod2.res remapped: res://assets/environment/new_island/vegetation/refinement/canopy_lod2.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/canopy_lod2.res' remapped 'res://assets/environment/new_island/vegetation/refinement/canopy_lod2.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/grass_lod0.res remapped: res://assets/environment/new_island/vegetation/refinement/grass_lod0.res
+Loading resource: res://assets/environment/new_island/vegetation/refinement/grass.gdshader remapped: res://assets/environment/new_island/vegetation/refinement/grass.gdshader
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/grass.gdshader' remapped 'res://assets/environment/new_island/vegetation/refinement/grass.gdshader' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/grass_lod0.res' remapped 'res://assets/environment/new_island/vegetation/refinement/grass_lod0.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/grass_lod1.res remapped: res://assets/environment/new_island/vegetation/refinement/grass_lod1.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/grass_lod1.res' remapped 'res://assets/environment/new_island/vegetation/refinement/grass_lod1.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/refinement/grass_lod2.res remapped: res://assets/environment/new_island/vegetation/refinement/grass_lod2.res
+Completed load for: 'res://assets/environment/new_island/vegetation/refinement/grass_lod2.res' remapped 'res://assets/environment/new_island/vegetation/refinement/grass_lod2.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/fern.res remapped: res://assets/environment/new_island/vegetation/fern.res
+Loading resource: res://assets/environment/new_island/vegetation/grass.gdshader remapped: res://assets/environment/new_island/vegetation/grass.gdshader
+Completed load for: 'res://assets/environment/new_island/vegetation/grass.gdshader' remapped 'res://assets/environment/new_island/vegetation/grass.gdshader' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/fern.res' remapped 'res://assets/environment/new_island/vegetation/fern.res' at thread -1
+Loading resource: res://assets/environment/new_island/vegetation/canopy_lod2.res remapped: res://assets/environment/new_island/vegetation/canopy_lod2.res
+Loading resource: res://assets/environment/new_island/vegetation/leaves.gdshader remapped: res://assets/environment/new_island/vegetation/leaves.gdshader
+Completed load for: 'res://assets/environment/new_island/vegetation/leaves.gdshader' remapped 'res://assets/environment/new_island/vegetation/leaves.gdshader' at thread -1
+Completed load for: 'res://assets/environment/new_island/vegetation/canopy_lod2.res' remapped 'res://assets/environment/new_island/vegetation/canopy_lod2.res' at thread -1
+Loading resource: res://assets/environment/new_island/task4/land.gdshader remapped: res://assets/environment/new_island/task4/land.gdshader
+Completed load for: 'res://assets/environment/new_island/task4/land.gdshader' remapped 'res://assets/environment/new_island/task4/land.gdshader' at thread -1
+Loading resource: res://assets/environment/new_island/task4/region.gdshader remapped: res://assets/environment/new_island/task4/region.gdshader
+Completed load for: 'res://assets/environment/new_island/task4/region.gdshader' remapped 'res://assets/environment/new_island/task4/region.gdshader' at thread -1
+PASS: six stable encounter identities/spawns, charge clearance, connected local routes, actual wolf/boar tree detours and five-region physics support
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

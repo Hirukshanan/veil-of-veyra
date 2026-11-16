@@ -1,0 +1,18 @@
+{
+  "name": "island_campaign_check",
+  "started_utc": "2026-11-15T19:09:11.303255+00:00",
+  "duration_s": 15.074,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_campaign_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

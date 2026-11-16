@@ -1,0 +1,27 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/mobile_hud_layout_check.gd remapped: res://tests/mobile_hud_layout_check.gd
+Completed load for: 'res://tests/mobile_hud_layout_check.gd' remapped 'res://tests/mobile_hud_layout_check.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+Loading resource: res://scripts/mobile_hud.gd remapped: res://scripts/mobile_hud.gd
+Loading resource: res://assets/ui/fonts/Cinzel.ttf remapped: res://assets/ui/fonts/Cinzel.ttf
+Loading resource: res://.godot/imported/Cinzel.ttf-d3e307c1e7b06d0807ae2fba7108ee17.fontdata remapped: res://.godot/imported/Cinzel.ttf-d3e307c1e7b06d0807ae2fba7108ee17.fontdata
+Completed load for: 'res://assets/ui/fonts/Cinzel.ttf' remapped 'res://assets/ui/fonts/Cinzel.ttf' at thread -1
+Loading resource: res://assets/ui/quest_scroll.svg remapped: res://assets/ui/quest_scroll.svg
+Loading resource: res://.godot/imported/quest_scroll.svg-652a99805c78589ccf5314c00e4bfbba.ctex remapped: res://.godot/imported/quest_scroll.svg-652a99805c78589ccf5314c00e4bfbba.ctex
+Completed load for: 'res://assets/ui/quest_scroll.svg' remapped 'res://assets/ui/quest_scroll.svg' at thread -1
+Completed load for: 'res://scripts/mobile_hud.gd' remapped 'res://scripts/mobile_hud.gd' at thread -1
+Loading resource: res://art_source/island/task54/baseline/scripts/mobile_hud.gd remapped: res://art_source/island/task54/baseline/scripts/mobile_hud.gd
+Completed load for: 'res://art_source/island/task54/baseline/scripts/mobile_hud.gd' remapped 'res://art_source/island/task54/baseline/scripts/mobile_hud.gd' at thread -1
+PASS:54 default landscape/scale/preset combinations; matched mirrored anchors, larger primaries, smaller secondary controls, exact boot/star centers and no rectangular touch overlap
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

@@ -1,0 +1,18 @@
+{
+  "name": "fast_travel_check",
+  "started_utc": "2026-11-15T17:39:26.175695+00:00",
+  "duration_s": 6.032,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/fast_travel_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

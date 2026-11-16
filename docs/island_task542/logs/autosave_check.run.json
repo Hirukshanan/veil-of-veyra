@@ -1,0 +1,18 @@
+{
+  "name": "autosave_check",
+  "started_utc": "2026-11-15T17:39:08.585960+00:00",
+  "duration_s": 6.785,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/autosave_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

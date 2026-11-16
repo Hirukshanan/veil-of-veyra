@@ -1,0 +1,15 @@
+{
+  "interior_vertices_unchanged": 1848,
+  "outer_vertices_adjusted": 1848,
+  "vertices_before": 4101,
+  "vertices_after": 4332,
+  "polygons_before": 4007,
+  "polygons_after": 4238,
+  "triangles_before": 8162,
+  "triangles": 8624,
+  "interior_positions_exact": true,
+  "new_textures": 0,
+  "minimum_cross_section_roof_clearance_m": 1.7999992370605469,
+  "boundary_edges": 0,
+  "non_manifold_edges": 0
+}

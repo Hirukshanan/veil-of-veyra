@@ -1,0 +1,13 @@
+{
+  "interior_vertex_mask_before": 1,
+  "interior_vertex_mask_after": 0,
+  "interior_vertices_corrected": 1848,
+  "all_positions_exact": true,
+  "all_faces_exact": true,
+  "other_vertex_colors_exact": true,
+  "vertices": 4332,
+  "triangles": 8624,
+  "new_geometry": 0,
+  "new_lights": 0,
+  "new_textures": 0
+}

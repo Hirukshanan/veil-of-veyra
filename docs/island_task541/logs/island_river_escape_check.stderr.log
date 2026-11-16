@@ -1,0 +1,5 @@
+SCRIPT ERROR: Assertion failed: Every accessible river test must enter and escape with the real controller
+   at: run (res://tests/island_river_escape_check.gd:26)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/island_river_escape_check.gd:26)
+       [1] walk (res://tests/island_river_escape_check.gd:33)

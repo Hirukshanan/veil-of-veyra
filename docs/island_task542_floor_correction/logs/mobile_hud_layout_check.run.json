@@ -1,0 +1,18 @@
+{
+  "name": "mobile_hud_layout_check",
+  "started_utc": "2026-11-15T19:11:41.144235+00:00",
+  "duration_s": 0.767,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/mobile_hud_layout_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

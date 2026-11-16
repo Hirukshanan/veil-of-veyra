@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+NATIVE_VIEW 01_south_cave calls 16.0 primitives 133207.0
+NATIVE_VIEW 02_west_waterfall calls 26.0 primitives 149258.0
+NATIVE_VIEW 03_east_bank calls 21.0 primitives 157531.0
+NATIVE_VIEW 04_cave_entrance calls 48.0 primitives 149557.0
+NATIVE_VIEW 05_cave_interior calls 39.0 primitives 152851.0
+NATIVE_VIEW 06_waterfall_distance calls 7.0 primitives 118149.0
+NATIVE_VIEW 07_waterfall_river calls 7.0 primitives 118149.0
+NATIVE_VIEW 08_bend calls 86.0 primitives 169507.0
+NATIVE_VIEW 09_chamber calls 62.0 primitives 160843.0
+NATIVE_VIEW 10_dragon calls 15.0 primitives 141926.0
+NATIVE_VIEW 11_ridge_overview calls 67.0 primitives 188964.0
+PASS: seven native Task 3 views and mobile-quality desktop counters captured

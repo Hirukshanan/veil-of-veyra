@@ -1,6 +1,6 @@
 extends Node3D
 
-# Candidate-only visual refinements. Static physics and approved surfaces are immutable.
+# Candidate rock surfaces and waterfall detailing share the existing static collision layers.
 const ROCK_SHADER=preload("res://assets/environment/new_island/task3/rock.gdshader")
 const FALL_SHADER=preload("res://assets/environment/new_island/task3/waterfall.gdshader")
 var added_triangles:=0
@@ -19,14 +19,53 @@ func populate(landscape:Node3D)->void:
 	for region in ["WaterfallMountains","EasternCaves"]:
 		for visual in landscape.get_node(region).find_children("*","MeshInstance3D",true,false):
 			visual.material_override=rock_material(true)
+			if region == "WaterfallMountains":
+				_clip_buried_cliff(visual, landscape)
 			# Normals only: vertex positions, faces, indices and collider resources stay exact.
 			_smooth_normals(visual);material_regions+=1
 	var grotto:MeshInstance3D=landscape.get_node("PlayableGrotto")
-	grotto.material_override=rock_material(false,true);_smooth_normals(grotto)
+	var ridge_material := rock_material(false, true)
+	ridge_material.shader = preload("res://assets/environment/new_island/task542/rock_transition.gdshader")
+	ridge_material.set_shader_parameter("ridge_surface", true)
+	ridge_material.set_shader_parameter("sand", preload("res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg"))
+	grotto.material_override = ridge_material
 	for light in landscape.get_children():
 		if light is OmniLight3D and light.position.distance_to(Vector3(76,3.1,2))<0.1:
 			light.light_energy=0.33;light.light_color=Color(0.73,0.69,0.58);light.omni_range=8
-	_build_entrance();_build_cave_finish(landscape);_build_fall();_build_foam(landscape)
+	_build_fall_support();_build_fall();_build_foam(landscape)
+
+func _clip_buried_cliff(visual: MeshInstance3D, landscape: Node3D) -> void:
+	var faces: PackedVector3Array = visual.mesh.get_faces()
+	var surface := SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for index in range(0, faces.size(), 3):
+		var polygon: Array[Vector3] = []
+		for corner in range(3):
+			var a: Vector3 = visual.global_transform * faces[index + corner]
+			var b: Vector3 = visual.global_transform * faces[index + (corner + 1) % 3]
+			var a_height: float = a.y - landscape.SURFACE.sample(Vector2(a.x, a.z))
+			var b_height: float = b.y - landscape.SURFACE.sample(Vector2(b.x, b.z))
+			if a_height >= 0:
+				polygon.append(a)
+			if (a_height >= 0) != (b_height >= 0):
+				var above: Vector3 = a if a_height >= 0 else b
+				var below: Vector3 = b if a_height >= 0 else a
+				for iteration in range(10):
+					var middle := above.lerp(below, .5)
+					if middle.y >= landscape.SURFACE.sample(Vector2(middle.x, middle.z)):
+						above = middle
+					else:
+						below = middle
+				polygon.append(above)
+		for triangle in range(1, polygon.size() - 1):
+			for vertex in [polygon[0], polygon[triangle], polygon[triangle + 1]]:
+				surface.set_color(Color.WHITE)
+				surface.add_vertex(visual.global_transform.affine_inverse() * vertex)
+	surface.generate_normals()
+	surface.index()
+	visual.mesh = surface.commit()
+	# Existing solid rock below ground remains backed by the connected terrain.
+	# The original collider is retained so this visual trim cannot remove support.
 
 func _smooth_normals(visual:MeshInstance3D)->void:
 	var original:Mesh=visual.mesh
@@ -58,58 +97,44 @@ func _visual(label:String,s:SurfaceTool,material:Material)->MeshInstance3D:
 func _triangle(s:SurfaceTool,a:Vector3,b:Vector3,c:Vector3)->void:
 	for p in [a,b,c]:s.set_uv(Vector2(p.x,p.z));s.add_vertex(p)
 
-func _arch(side:int,ring:int)->Vector3:
-	var angle:float=side*PI/24.0
-	if ring==0:
-		# Coincides with the existing twelve-sided vault at every second vertex.
-		var k:float=side/2.0;var lo:int=floori(k);var hi:int=mini(12,lo+1)
-		var a:=Vector3(76+cos(lo*PI/12)*(2.6+sin(lo*3.1)*.1),1.5+sin(lo*PI/12)*(3.8+sin(lo*3.1)*.1),-6)
-		var b:=Vector3(76+cos(hi*PI/12)*(2.6+sin(hi*3.1)*.1),1.5+sin(hi*PI/12)*(3.8+sin(hi*3.1)*.1),-6)
-		return a.lerp(b,k-lo)
-	var radius:float=7.9 if ring==2 else 6.1
-	var height:float=5.8 if ring==2 else 5.9
-	var rough:float=sin(side*1.73+ring)*.23+sin(side*.91)*.16
-	return Vector3(76+cos(angle)*(radius+rough),1.22+sin(angle)*(height+rough),(-.3 if ring==1 else 7.8)+sin(angle*3.0)*.55)
-
-func _build_entrance()->void:
-	var s:=SurfaceTool.new();s.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for ring in range(2):
-		for side in range(24):
-			var a:=_arch(side,ring);var b:=_arch(side+1,ring);var c:=_arch(side,ring+1);var d:=_arch(side+1,ring+1)
-			_triangle(s,a,b,c);_triangle(s,c,b,d)
-	var mantle:=_visual("FittedCaveRockMantle",s,rock_material(false,false,true))
-	# The previously visual-only entrance mantle is solid scenery, outside the vault.
-	mantle.create_trimesh_collision()
-	var body:StaticBody3D=mantle.get_child(0);body.collision_layer=1|4|8;body.collision_mask=0
+func _build_fall_support()->void:
+	var stone:=SurfaceTool.new()
+	stone.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var last:Array[Vector3]=[]
+	for row in range(16):
+		var t:=row/15.0
+		var ring:Array[Vector3]=[]
+		for side in range(32):
+			var angle:=TAU*side/32
+			var width:=lerpf(5.1,2.8,t)+.26*sin(angle*5+t*3)
+			var nose:=lerpf(-67.85,-70.63,t)-.2*sin(t*PI)
+			var z:=nose-2.7+2.7*cos(angle)
+			var x:=sin(angle)*width
+			var y:=lerpf(.05,8.94,t)+.24*sin(angle*3)*t
+			ring.append(Vector3(x,y,z))
+		if row>0:
+			for i in range(32):
+				var j:=(i+1)%32
+				_triangle(stone,last[i],ring[i],last[j])
+				_triangle(stone,last[j],ring[i],ring[j])
+		last=ring
+	for i in range(32):
+		_triangle(stone,last[i],Vector3(0,9,-73.4),last[(i+1)%32])
+	var ledge:=_visual("CascadeLedge",stone,rock_material())
+	ledge.create_trimesh_collision()
+	var body:StaticBody3D=ledge.get_child(0)
+	body.collision_layer=1|4|8
 	body.get_child(0).shape.backface_collision=true
 
 func _fall_point(u:float,t:float)->Vector3:
 	var center:float=0.12+sin(t*3.2)*.15
 	var width:float=1.16+sin(t*PI)*.20+t*.28+sin(t*19.0)*.09+sin(t*43.0)*.035
 	var side:float=u*2.0-1.0
-	var y:float=lerpf(5.35,1.64,t)
+	var y:float=lerpf(9.02,1.59,t)
 	var z:float=lerpf(-70.55,-67.72,t)+sin(t*PI)*.29
 	var point:=Vector3(center+side*width,y+sin(u*19+t*6)*.10*sin(t*PI)+sin(u*23.0)*.075*(1.0-t),z+sin(u*18+t*11)*.075+side*side*.12)
-	point.y=preload("res://assets/environment/new_island/terrain_surface.res").feature_height(point)
-	return point
 
-func _build_cave_finish(landscape:Node3D)->void:
-	var s:=SurfaceTool.new();s.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for row in range(24):
-		for col in range(8):
-			var corners:Array[Vector3]=[]
-			for pair in [Vector2i(col,row),Vector2i(col+1,row),Vector2i(col,row+1),Vector2i(col+1,row+1)]:
-				var x:float=73.28+pair.x*5.44/8.0;var z:float=-5.99+pair.y*15.97/24.0
-				corners.append(Vector3(x,maxf(1.5,landscape.SURFACE.sample(Vector2(x,z)))+.014,z))
-			_triangle(s,corners[0],corners[1],corners[2]);_triangle(s,corners[2],corners[1],corners[3])
-	# Close only the tiny visual slit between the rough vault and its old flat end cap.
-	for side in range(12):
-		var vertices:Array[Vector3]=[]
-		for index in [side,side+1]:
-			var rough:float=sin(8*2.3+index*3.1)*.1
-			vertices.append(Vector3(76+cos(index*PI/12)*(2.6+rough),1.5+sin(index*PI/12)*(3.8+rough),9.98))
-		_triangle(s,Vector3(76,1.5,9.98),vertices[0],vertices[1])
-	_visual("CaveRockFloorAndEndFinish",s,rock_material(false,true))
+	return point
 
 func _build_fall()->void:
 	var s:=SurfaceTool.new();s.begin(Mesh.PRIMITIVE_TRIANGLES)

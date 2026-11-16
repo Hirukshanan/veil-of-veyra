@@ -1,0 +1,22 @@
+[
+  {
+    "boar_health": 24,
+    "case": "new_border_spawn",
+    "charges": 5,
+    "elapsed_s": 30.5999999999999,
+    "five_completed_cycles": 5,
+    "hero_health": 9982,
+    "recoveries": 5,
+    "warnings": 5
+  },
+  {
+    "boar_health": 24,
+    "case": "hillside_charge_cycle",
+    "charges": 5,
+    "elapsed_s": 30.6000000000015,
+    "five_completed_cycles": 5,
+    "hero_health": 9982,
+    "recoveries": 5,
+    "warnings": 5
+  }
+]

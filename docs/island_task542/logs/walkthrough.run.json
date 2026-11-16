@@ -1,0 +1,22 @@
+{
+  "name": "walkthrough",
+  "started_utc": "2026-11-15T18:14:40.858913+00:00",
+  "duration_s": 76.565,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--resolution",
+    "1280x720",
+    "--position",
+    "-20000,-20000",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task542\\walk.gd",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\task542\\walkthrough"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

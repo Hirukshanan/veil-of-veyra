@@ -1,0 +1,18 @@
+{
+  "name": "island_enemy_navigation_check",
+  "started_utc": "2026-11-15T17:37:38.621642+00:00",
+  "duration_s": 13.304,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/island_enemy_navigation_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -30,7 +30,33 @@ func sample(point:Vector2) -> float:
 	var h:float=feature_height(Vector3(point.x,coarse_sample(point),point.y))
 	# Match the existing long boar capsule without moving its approved spawn.
 	h=lerpf(h,2.659828,1-smoothstep(1.7,3.0,point.distance_to(Vector2(33.5,-19.5))))
+	# Keep the approach flush with the existing relic floor and bed the new ridge.
+	if point.y >= -16 and point.y <= 59:
+		var axis:float=lerpf(76,65,smoothstep(6,24,point.y))
+		var width:float=lerpf(6,14,smoothstep(30,42,point.y))
+		var weight:float=(1-smoothstep(width,width+4,absf(point.x-axis)))*smoothstep(-16,-12,point.y)*(1-smoothstep(55,59,point.y))
+		h=lerpf(h,minf(h,1.32),weight)
+	# Feather the eastern ridge toes into the existing hillside outside cave headroom.
+	if point.x > 30 and point.x < 106 and point.y > -19 and point.y < 80:
+		var axis:float=lerpf(76,65,smoothstep(6,24,point.y))
+		var distance:float=absf(point.x-axis)
+		var shoulder:float=4.2*exp(-pow((distance-19.0)/8.0,2.0))
+		var margin:float=smoothstep(14.0,18.0,distance)*(1-smoothstep(29.0,38.0,distance))
+		var length_blend:float=smoothstep(-19.0,-5.0,point.y)*(1-smoothstep(55.0,80.0,point.y))
+		h+=shoulder*margin*length_blend
 	var z:float=point.y
+	# Build the headwater bed and both banks from one continuous cross-section.
+	if z >= -73 and z <= -32:
+		var offset:=absf(point.x-river_center(z))
+		var width:=river_width(z)
+		var level:=river_level(z)
+		var shore:=offset-width-.28*sin(z*.73)-.17*sin(z*1.42+point.x*.31)
+		var profile:=level+clampf(shore*.46,-.78,1.9)
+		var influence:float=(1-smoothstep(width+14,width+27,offset))*smoothstep(-73,-69,z)*(1-smoothstep(-37,-32,z))
+		if influence > 0:
+			var base:float=h
+			if z > -37:base=level-.75*(1-smoothstep(0,width,offset)) if shore<0 else maxf(level+.1,h)
+			return lerpf(base,profile,influence)
 	if z < -68 or z > 118:return h
 	var d:float=absf(point.x-river_center(z))
 	var w:float=river_width(z)
@@ -40,7 +66,7 @@ func sample(point:Vector2) -> float:
 		var side:float=signf(point.x-river_center(z))
 		var outer:=Vector2(river_center(z)+side*(w+24),z)
 		var top:float=feature_height(Vector3(outer.x,coarse_sample(outer),z))
-		var bank:float=lerpf(river_level(z),maxf(river_level(z),top),smoothstep(w,w+24,d))
+		var bank:float=lerpf(river_level(z),maxf(river_level(z)+1.2,top),smoothstep(w,w+24,d)) + .16*smoothstep(w,w+1,d)
 		var blend:float=smoothstep(-68,-64,z)*(1-smoothstep(-34,-30,z))*(1-smoothstep(w+22,w+24,d))
 		h=lerpf(h,bank,blend)
 		if d>w+.5:return h
@@ -66,7 +92,20 @@ func cuts(x:float,z:float) -> int:
 	return 4 if z>=-69 and z<=119 and absf(x-river_center(z))<river_width(z)+5 else 1
 
 func vertex_at(x:float,z:float) -> Vector3:
-	return Vector3(x,sample(Vector2(x,z)),z)
+	var p:=Vector2(x,z)
+	var grid:Vector2=(p-origin)/spacing
+	var cell:=grid.floor()
+	var f:=grid-cell
+	var center:=origin+(cell+Vector2(.5,.5))*spacing
+	var h:=sample(p)
+	# Refined edge vertices must lie on the adjacent coarse triangle edge.
+	if is_zero_approx(f.x) and f.y>0 and (cuts(center.x,center.y)==1 or cuts(center.x-spacing,center.y)==1):
+		var a:=Vector2(x,origin.y+cell.y*spacing)
+		h=lerpf(sample(a),sample(a+Vector2(0,spacing)),f.y)
+	elif is_zero_approx(f.y) and f.x>0 and (cuts(center.x,center.y)==1 or cuts(center.x,center.y-spacing)==1):
+		var a:=Vector2(origin.x+cell.x*spacing,z)
+		h=lerpf(sample(a),sample(a+Vector2(spacing,0)),f.x)
+	return Vector3(x,h,z)
 
 # Selective metre-scale correction, never a whole-island transform.
 func feature_height(p:Vector3)->float:

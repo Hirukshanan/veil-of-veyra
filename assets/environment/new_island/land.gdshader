@@ -3,8 +3,10 @@ uniform sampler2D grass:source_color,filter_linear_mipmap_anisotropic,repeat_ena
 uniform sampler2D sand:source_color,filter_linear_mipmap_anisotropic,repeat_enable;
 uniform sampler2D soil:source_color,filter_linear_mipmap_anisotropic,repeat_enable;
 uniform sampler2D trail_mask:filter_linear;
+uniform sampler2D cliff_rock:source_color,filter_linear_mipmap_anisotropic,repeat_enable;
 varying vec3 p;
-void vertex(){p=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;}
+varying vec3 world_normal;
+void vertex(){world_normal=normalize(MODEL_NORMAL_MATRIX*NORMAL);p=(MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;}
 void fragment(){
 	float angle=atan(p.z,p.x);
 	float radial=length(p.xz)-(5.0*sin(angle*3.0)+3.0*sin(angle*5.0)+1.5*sin(angle*7.0));
@@ -20,6 +22,15 @@ void fragment(){
 	vec3 color=mix(g,s,beach);
 	float path=texture(trail_mask,p.xz/256.0+0.5).r;
 	ALBEDO=mix(color,texture(soil,p.xz*0.25).rgb,path*0.62);
-	ROUGHNESS=0.94;
+	float mountain_zone=(1.0-smoothstep(16.0,28.0,abs(p.x)))*smoothstep(-95.0,-89.0,p.z)*(1.0-smoothstep(-56.0,-48.0,p.z));
+ vec3 weights=pow(abs(world_normal),vec3(4.0));weights/=max(dot(weights,vec3(1.0)),0.001);
+ vec3 stone=texture(cliff_rock,p.zy*0.43).rgb*weights.x+texture(cliff_rock,p.xz*0.43).rgb*weights.y+texture(cliff_rock,p.xy*0.43).rgb*weights.z;
+ float strata=sin(p.y*5.0+sin(p.x*0.7+p.z*0.4)*0.7)*0.5+0.5;
+ stone*=mix(vec3(0.73,0.76,0.77),vec3(0.86,0.84,0.79),strata);
+ float rocky=max(1.0-smoothstep(0.52,0.87,world_normal.y),smoothstep(2.8,7.5,p.y)*0.88);
+ float cascade_toe=(1.0-smoothstep(6.0,16.0,abs(p.x)))*smoothstep(-76.0,-71.0,p.z)*(1.0-smoothstep(-65.0,-59.0,p.z));
+ rocky=max(rocky,cascade_toe*0.94);
+ ALBEDO=mix(ALBEDO,stone,mountain_zone*rocky);
+ ROUGHNESS=0.94;
 	SPECULAR=0.18;
 }

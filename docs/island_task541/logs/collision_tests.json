@@ -1,0 +1,233 @@
+{
+  "all_solids_on_existing_enemy_mask": true,
+  "camera_checks": [
+    {
+      "camera": "(76.0, 5.643012, 5.611877)",
+      "clear": true,
+      "hero": "(76.0, 1.58, 0.0)",
+      "yaw": 0.0
+    },
+    {
+      "camera": "(80.27468, 4.960814, -0.0)",
+      "clear": true,
+      "hero": "(76.0, 1.58, 0.0)",
+      "yaw": 1.5707963267949
+    },
+    {
+      "camera": "(76.0, 5.643012, -5.611877)",
+      "clear": true,
+      "hero": "(76.0, 1.58, 0.0)",
+      "yaw": 3.14159265358979
+    },
+    {
+      "camera": "(71.62668, 5.011139, 0.0)",
+      "clear": true,
+      "hero": "(76.0, 1.58, 0.0)",
+      "yaw": 4.71238898038469
+    },
+    {
+      "camera": "(0.0, 5.208718, -34.38812)",
+      "clear": true,
+      "hero": "(0.0, 1.145704, -40.0)",
+      "yaw": 0.0
+    },
+    {
+      "camera": "(5.611876, 5.208716, -40.0)",
+      "clear": true,
+      "hero": "(0.0, 1.145704, -40.0)",
+      "yaw": 1.5707963267949
+    },
+    {
+      "camera": "(-0.0, 5.208716, -45.61188)",
+      "clear": true,
+      "hero": "(0.0, 1.145704, -40.0)",
+      "yaw": 3.14159265358979
+    },
+    {
+      "camera": "(-5.611877, 5.208716, -40.0)",
+      "clear": true,
+      "hero": "(0.0, 1.145704, -40.0)",
+      "yaw": 4.71238898038469
+    },
+    {
+      "camera": "(10.0, 5.290517, -49.38813)",
+      "clear": true,
+      "hero": "(10.0, 1.227507, -55.0)",
+      "yaw": 0.0
+    },
+    {
+      "camera": "(15.61188, 5.290518, -55.0)",
+      "clear": true,
+      "hero": "(10.0, 1.227507, -55.0)",
+      "yaw": 1.5707963267949
+    },
+    {
+      "camera": "(9.999999, 5.290519, -60.61188)",
+      "clear": true,
+      "hero": "(10.0, 1.227507, -55.0)",
+      "yaw": 3.14159265358979
+    },
+    {
+      "camera": "(4.388123, 5.290519, -55.0)",
+      "clear": true,
+      "hero": "(10.0, 1.227507, -55.0)",
+      "yaw": 4.71238898038469
+    },
+    {
+      "camera": "(-14.0, 13.01659, -2.388123)",
+      "clear": true,
+      "hero": "(-14.0, 8.953581, -8.0)",
+      "yaw": 0.0
+    },
+    {
+      "camera": "(-8.388124, 13.01659, -8.0)",
+      "clear": true,
+      "hero": "(-14.0, 8.953581, -8.0)",
+      "yaw": 1.5707963267949
+    },
+    {
+      "camera": "(-14.0, 13.01659, -13.61188)",
+      "clear": true,
+      "hero": "(-14.0, 8.953581, -8.0)",
+      "yaw": 3.14159265358979
+    },
+    {
+      "camera": "(-19.61188, 13.01659, -8.0)",
+      "clear": true,
+      "hero": "(-14.0, 8.953581, -8.0)",
+      "yaw": 4.71238898038469
+    }
+  ],
+  "cases": [
+    {
+      "case": "original_tree_trunk",
+      "contacts": 78,
+      "end": "(-64.39354, 1.874116, 13.974)",
+      "method": "unmodified player controller",
+      "start": "(-62.74781, 1.91976, 13.97421)"
+    },
+    {
+      "case": "cave_wall",
+      "contacts": 73,
+      "end": "(80.75275, 1.495578, 0.000003)",
+      "method": "unmodified player controller",
+      "start": "(76.0, 1.58, 0.0)"
+    },
+    {
+      "case": "wolf_AI_tree",
+      "contacts": 141,
+      "end": "(-64.09972, 1.86859, 13.97403)",
+      "trunk_distance_m": 1.04808807373047
+    },
+    {
+      "case": "WaterfallMountains_solid_0_wolf",
+      "contacts": 74,
+      "end": "(-13.76411, 2.912954, -93.17686)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(-13.72645, 2.530165, -94.53344)"
+    },
+    {
+      "case": "WaterfallMountains_solid_0_boar",
+      "contacts": 82,
+      "end": "(-13.73622, 2.981865, -93.84312)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(-13.72645, 2.530165, -94.53344)"
+    },
+    {
+      "case": "WaterfallMountains_solid_1_wolf",
+      "contacts": 74,
+      "end": "(-14.75186, 3.04267, -93.11434)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(-14.71886, 2.572683, -94.62006)"
+    },
+    {
+      "case": "WaterfallMountains_solid_1_boar",
+      "contacts": 4,
+      "end": "(-14.69537, 3.100777, -93.78207)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(-14.71886, 2.572683, -94.62006)"
+    },
+    {
+      "case": "EasternCaves_solid_0_wolf",
+      "contacts": 63,
+      "end": "(64.1455, 1.594914, -0.691507)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(62.68126, 1.677977, -1.121399)"
+    },
+    {
+      "case": "EasternCaves_solid_0_boar",
+      "contacts": 76,
+      "end": "(64.20161, 1.636385, 0.387753)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(62.68126, 1.677977, -1.121399)"
+    },
+    {
+      "case": "EasternCaves_solid_1_wolf",
+      "contacts": 77,
+      "end": "(63.98685, 1.619696, 0.382535)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(62.49641, 1.70833, 0.395504)"
+    },
+    {
+      "case": "EasternCaves_solid_1_boar",
+      "contacts": 19,
+      "end": "(64.19742, 1.636223, 0.380798)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(62.49641, 1.70833, 0.395504)"
+    },
+    {
+      "case": "cave_wall_wolf",
+      "contacts": 46,
+      "end": "(80.4491, 1.49357, -0.000398)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(76.0, 1.58, 0.0)"
+    },
+    {
+      "case": "cave_wall_boar",
+      "contacts": 44,
+      "end": "(80.66763, 1.499626, 0.001068)",
+      "method": "real enemy body/shape move_and_slide; AI held to isolate collision",
+      "start": "(76.0, 1.58, 0.0)"
+    }
+  ],
+  "new_original_root_proxies": 35,
+  "spawn_checks": [
+    {
+      "enemy": "CampDemon0",
+      "overlaps": 0,
+      "position": "(-72.0, 1.774241, 4.0)",
+      "solids": []
+    },
+    {
+      "enemy": "CampDemon1",
+      "overlaps": 0,
+      "position": "(-52.0, 1.417502, 4.0)",
+      "solids": []
+    },
+    {
+      "enemy": "CampDemon2",
+      "overlaps": 0,
+      "position": "(-40.0, 1.770815, -28.0)",
+      "solids": []
+    },
+    {
+      "enemy": "CampDemon3",
+      "overlaps": 0,
+      "position": "(-64.0, 1.248644, -24.0)",
+      "solids": []
+    },
+    {
+      "enemy": "CampDemon4",
+      "overlaps": 0,
+      "position": "(-68.0, 2.211786, 28.0)",
+      "solids": []
+    },
+    {
+      "enemy": "DemonBoar",
+      "overlaps": 0,
+      "position": "(-36.0, 0.394178, 12.0)",
+      "solids": []
+    }
+  ],
+  "static_shapes": 80
+}

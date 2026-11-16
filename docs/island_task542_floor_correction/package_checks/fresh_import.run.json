@@ -1,0 +1,15 @@
+{
+  "name": "fresh_import",
+  "started_utc": "2026-11-15T19:15:15.955695+00:00",
+  "duration_s": 36.77,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--editor",
+    "--path",
+    "PROJECT_ROOT",
+    "--import"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
