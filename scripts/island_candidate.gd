@@ -23,6 +23,7 @@ func _create_exploration() -> Node3D:
 	return preload("res://scripts/island_candidate_exploration.gd").new()
 
 func _ready() -> void:
+	_load_tracking()
 	super._ready()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
@@ -93,3 +94,82 @@ func _configure_encounters() -> void:
 	enemy_navigation.populate(landscape)
 	for actor in get_tree().get_nodes_in_group("combat_enemies"):
 		if positions.has(str(actor.name)):actor.navigation=enemy_navigation
+
+var tracked_quest := ""
+const TRACKING_PATH := "user://journal_tracking.cfg"
+
+func set_tracked_quest(id:String):
+	_refresh_quest_feedback()
+	tracked_quest=id
+	quest_feedback.clear()
+	var preference:=ConfigFile.new()
+	preference.set_value("journal","tracked",id)
+	preference.save(TRACKING_PATH)
+
+func _load_tracking():
+	var preference:=ConfigFile.new()
+	if FileAccess.file_exists(TRACKING_PATH) and preference.load(TRACKING_PATH)==OK:
+		var saved=preference.get_value("journal","tracked","")
+		if saved in ["main","watch","grove","relic"]: tracked_quest=saved
+
+var journal_view: Control
+
+func _show_journal() -> void:
+	if not started or game_finished or (get_tree().paused and not pause_menu_open):
+		return
+	var group := "Main"
+	var id := tracked_quest
+	if is_instance_valid(journal_view):
+		group = journal_view.section
+		id = journal_view.selected
+	elif id in ["watch","grove","relic"]:
+		group = "Side"
+	_clear_menu("Quest Journal","")
+	journal_open=true
+	pause_menu_open=true
+	menu_scroll.hide()
+	journal_view=preload("res://scripts/candidate_journal.gd").new()
+	journal_view.game=self
+	journal_view.section=group
+	journal_view.selected=id
+	menu_scroll.get_parent().add_child(journal_view)
+
+func _dismiss_journal():
+	if is_instance_valid(journal_view):
+		journal_view.hide()
+		journal_view.queue_free()
+		journal_view=null
+
+func _clear_menu(title:String,message:String,save_world:=true) -> void:
+	_dismiss_journal()
+	super._clear_menu(title,message,save_world)
+
+func _resume() -> void:
+	_dismiss_journal()
+	super._resume()
+
+func _close_journal_animated() -> void:
+	if is_instance_valid(journal_view):
+		journal_view.close(_resume)
+
+func _toggle_journal() -> void:
+	if journal_open:
+		_close_journal_animated()
+	else:
+		super._toggle_journal()
+
+func _toggle_pause() -> void:
+	if journal_open:
+		_close_journal_animated()
+	else:
+		super._toggle_pause()
+
+func tracked_hint(base:Dictionary) -> Dictionary:
+	if tracked_quest=="" or not _world_ready or Time.get_ticks_msec()<quest_feedback.get("until",0):
+		return base
+	var q:=preload("res://scripts/candidate_journal.gd").entry(self,tracked_quest)
+	if tracked_quest=="main":
+		var current:=CHAPTER_QUESTS.current(self)
+		return {"title":current.title,"message":current.message,"progress":q.objective}
+	if q.done: return base
+	return {"title":q.title.to_upper(),"message":q.next,"progress":"%s  %d/%d" % [q.objective,q.value,q.total]}

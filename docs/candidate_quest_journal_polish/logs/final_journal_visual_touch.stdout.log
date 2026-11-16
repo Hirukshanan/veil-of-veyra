@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+SCREEN 01_opening
+SCREEN 02_main_android
+SCREEN 03_side_reward
+SCREEN 04_tracked_relic
+SCREEN 05_closing
+SCREEN 06_tracked_hud
+SCREEN 07_completed_stamp
+SCREEN 08_main_selected
+SCREEN 09_bounty_secured
+SCREEN 10_small_safe_area
+SCREEN 11_reload_persistence
+SCREEN layout_1600x720
+SCREEN layout_800x450
+PASS: ornate opening/closing, touch selection, mobile prompts, tracking, rewards, swipe, safe areas and persistence

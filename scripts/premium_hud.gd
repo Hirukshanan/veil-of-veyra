@@ -123,7 +123,8 @@ func _map_labels() -> void:
 		if not combat_label: label.hide()
 
 func quest_content() -> Dictionary:
-	return preload("res://scripts/chapter_one_quests.gd").hud(scene)
+	var content := preload("res://scripts/chapter_one_quests.gd").hud(scene)
+	return scene.tracked_hint(content) if scene.has_method("tracked_hint") else content
 
 func _layout_images() -> void:
 	if not is_instance_valid(controller): return

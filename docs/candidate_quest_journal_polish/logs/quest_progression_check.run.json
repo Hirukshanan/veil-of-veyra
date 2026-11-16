@@ -1,0 +1,17 @@
+{
+  "name": "quest_progression_check",
+  "started_utc": "2026-11-16T14:34:15.394350+00:00",
+  "duration_s": 31.118,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/quest_progression_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

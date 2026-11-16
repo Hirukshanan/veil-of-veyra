@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "zip_CRC": true,
+  "manifest_hashes_verified": 73,
+  "fresh_offline_gallery": true,
+  "original_PNG_count": 14,
+  "missing_images": 0,
+  "original_PNG_bytes_preserved": true,
+  "video_duration_seconds": 15.45,
+  "suspected_secret_matches": 0,
+  "external_uploads": false
+}

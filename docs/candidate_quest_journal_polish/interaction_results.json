@@ -1,0 +1,17 @@
+{
+  "Android_device_measured": false,
+  "actors_held_for_capture": true,
+  "captured_frames": 203,
+  "checks": [
+    "Opening uses moving rollers and a clipped paper reveal; Android-style text uses existing Pick / Interact",
+    "Touch Main/Side navigation, bounty acceptance, selected relic tracking and closing animation update the HUD",
+    "Existing grove collection pays 25 once and shows completion stamp; bounty report retains deferred payment",
+    "Safe-area swipe, tracking preference, bounty report and 25-shard grove reward survive reload",
+    "Wide/compact landscapes and journal/pause shortcuts close safely through the matching animation"
+  ],
+  "grove_collection_and_bounty_use_existing_APIs": true,
+  "mobile_prompt_simulation": true,
+  "passed": true,
+  "platform": "Windows Godot Compatibility",
+  "playback_fps": 20
+}

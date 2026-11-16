@@ -1,0 +1,9 @@
+{
+  "closing_seconds": 0.2,
+  "fps": 30,
+  "frames": 66,
+  "mid_close_reveal_between_zero_and_one": true,
+  "opening_seconds": 0.28,
+  "passed": true,
+  "touch_close_recorded": true
+}

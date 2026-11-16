@@ -1,0 +1,22 @@
+{
+  "name": "journal_touch",
+  "started_utc": "2026-11-16T13:52:18.472860+00:00",
+  "duration_s": 69.265,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "EVIDENCE_ROOT\\ui.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--fixed-fps",
+    "12",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

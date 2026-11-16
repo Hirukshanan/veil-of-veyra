@@ -1,0 +1,22 @@
+{
+  "name": "journal_motion",
+  "started_utc": "2026-11-16T14:38:22.294068+00:00",
+  "duration_s": 63.49,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\journal_polish\\motion.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--fixed-fps",
+    "30",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\journal_polish\\motion"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

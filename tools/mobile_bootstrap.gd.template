@@ -10,7 +10,7 @@ func _ready():
 	var config=FileAccess.get_file_as_string("res://mobile_test/performance_config.json")
 	performance_config=JSON.parse_string(config)
 	# Let the native HUD use landscape width while retaining the same 720p 3D height cap.
-	if performance_config.get("task","")=="5.4":get_window().content_scale_aspect=Window.CONTENT_SCALE_ASPECT_EXPAND
+	if performance_config.get("task","") in ["5.4","6.1"]:get_window().content_scale_aspect=Window.CONTENT_SCALE_ASPECT_EXPAND
 	_apply_render_scale();get_viewport().size_changed.connect(_apply_render_scale)
 	var start:=Time.get_ticks_usec()
 	var game=preload("res://scenes/island_candidate.tscn").instantiate();add_child(game)

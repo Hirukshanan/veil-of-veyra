@@ -1,0 +1,22 @@
+{
+  "name": "final_journal_visual_touch",
+  "started_utc": "2026-11-16T14:35:49.645470+00:00",
+  "duration_s": 118.925,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\journal_polish\\review.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--fixed-fps",
+    "20",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\journal_polish\\capture_final"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
