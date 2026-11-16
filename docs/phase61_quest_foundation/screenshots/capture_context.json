@@ -1,0 +1,13 @@
+{
+  "3D_height": 720,
+  "actual_Godot": true,
+  "collection_screens_use_existing_interactions": true,
+  "enemy_physics_held": true,
+  "last_two_views_use_controlled_completion_fixture": true,
+  "platform": "Windows",
+  "resolution": [
+    1600,
+    720
+  ],
+  "screens_are_not_Android_performance_evidence": true
+}

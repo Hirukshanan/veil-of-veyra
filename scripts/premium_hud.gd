@@ -123,16 +123,7 @@ func _map_labels() -> void:
 		if not combat_label: label.hide()
 
 func quest_content() -> Dictionary:
-	var fragments: int=scene.seal_fragments.collected_ids.size() if is_instance_valid(scene.seal_fragments) else 0
-	var data: Dictionary={"title":"THE LANTERN'S SEAL","message":"Recover the three seal fragments.","progress":"Seal %d/3   •   Camps %d/5" % [fragments,5-scene.remaining_enemies]}
-	if scene.completed: data.message="The island is yours to explore."
-	elif scene.boss_spawned: data.message="Defeat the Tidewraith Dragon."
-	elif fragments==3 and scene.remaining_enemies==0: data.message="Restore the northern lantern."
-	if is_instance_valid(scene.herbs) and scene.player.global_position.distance_to(scene.herbs.GROVE.CENTER)<18 and (not scene.boss_spawned or scene.completed):
-		data.title="MOONLEAF GROVE"
-		data.message="Gather Moonleaf flowers (%d / 3)." % mini(3,scene.herbs.grove_count())
-		data.progress="Optional   •   25 shards reward" if not scene.world_data.grove_reward else "Reward collected   •   Explore the grove"
-	return data
+	return preload("res://scripts/chapter_one_quests.gd").hud(scene)
 
 func _layout_images() -> void:
 	if not is_instance_valid(controller): return

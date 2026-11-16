@@ -1,0 +1,49 @@
+{
+  "exterior_mask_retained": true,
+  "floor_samples": [
+    {
+      "hit": "(76.0, 1.457395, 4.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    },
+    {
+      "hit": "(73.0, 1.832919, 12.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    },
+    {
+      "hit": "(71.0, 2.066069, 15.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    },
+    {
+      "hit": "(68.0, 2.145619, 19.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    },
+    {
+      "hit": "(66.0, 2.389423, 25.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    },
+    {
+      "hit": "(64.0, 3.047826, 45.0)",
+      "interior_material": true,
+      "mask": 0,
+      "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+    }
+  ],
+  "passed": true,
+  "reserved_hall_visual_material_only": true,
+  "wall_sample": {
+    "hit": "(81.16432, 3.0, 0.0)",
+    "interior_material": true,
+    "mask": 0,
+    "surface": "/root/Main/NewIslandLandscape/PlayableGrotto"
+  }
+}

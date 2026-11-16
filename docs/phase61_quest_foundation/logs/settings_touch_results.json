@@ -1,0 +1,146 @@
+{
+  "cases": [
+    {
+      "case": "blank_title_touch_scroll",
+      "scroll_pixels": 100,
+      "slider_unchanged": true
+    },
+    {
+      "after": 1.05,
+      "before": 1.0,
+      "case": "slider_track_touch",
+      "scroll_pixels": 0
+    },
+    {
+      "case": "landscape_tabs_safe_areas",
+      "combinations": [
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(800, 450)",
+          "safe_rect": "[P: (36.0, 12.0), S: (740.0, 426.0)]",
+          "tab": "Controls"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(800, 450)",
+          "safe_rect": "[P: (36.0, 12.0), S: (740.0, 426.0)]",
+          "tab": "Camera"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(800, 450)",
+          "safe_rect": "[P: (36.0, 12.0), S: (740.0, 426.0)]",
+          "tab": "Graphics & Sound"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1280, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1220.0, 696.0)]",
+          "tab": "Controls"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1280, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1220.0, 696.0)]",
+          "tab": "Camera"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1280, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1220.0, 696.0)]",
+          "tab": "Graphics & Sound"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1600, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1540.0, 696.0)]",
+          "tab": "Controls"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1600, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1540.0, 696.0)]",
+          "tab": "Camera"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 2,
+          "footer_clear": true,
+          "resolution": "(1600, 720)",
+          "safe_rect": "[P: (36.0, 12.0), S: (1540.0, 696.0)]",
+          "tab": "Graphics & Sound"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(732, 414)",
+          "safe_rect": "[P: (36.0, 12.0), S: (672.0, 390.0)]",
+          "tab": "Controls"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(732, 414)",
+          "safe_rect": "[P: (36.0, 12.0), S: (672.0, 390.0)]",
+          "tab": "Camera"
+        },
+        {
+          "cards_within_width": true,
+          "columns": 1,
+          "footer_clear": true,
+          "resolution": "(732, 414)",
+          "safe_rect": "[P: (36.0, 12.0), S: (672.0, 390.0)]",
+          "tab": "Graphics & Sound"
+        }
+      ]
+    },
+    {
+      "case": "save_and_reset_preview_cancel",
+      "durable_file_unchanged_on_cancel": true,
+      "preserved_values": {
+        "camera_distance": 8.2,
+        "camera_sensitivity": 1.45,
+        "frame_limit": 30,
+        "hud_scale": 1.05,
+        "invert_y": false,
+        "left_handed": false,
+        "shadows_enabled": true,
+        "sound_volume": 0.35
+      }
+    },
+    {
+      "case": "failed_settings_write_retains_file_and_screen",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "platform": "automated actual Godot touch dispatch and scene reload; not phone usability",
+  "reloaded_values": {
+    "camera_distance": 8.2,
+    "camera_sensitivity": 1.45,
+    "frame_limit": 30,
+    "hud_scale": 1.05,
+    "invert_y": false,
+    "left_handed": false,
+    "shadows_enabled": true,
+    "sound_volume": 0.35
+  }
+}

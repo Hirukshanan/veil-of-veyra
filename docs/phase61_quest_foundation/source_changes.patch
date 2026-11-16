@@ -1,0 +1,159 @@
+diff --git a/scripts/campaign.gd b/scripts/campaign.gd
+index 361f4ed..d86b6c6 100644
+--- a/scripts/campaign.gd
++++ b/scripts/campaign.gd
+@@ -5,6 +5,10 @@ const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
+ const SETTINGS_PATH := "user://settings.cfg"
+ const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
+ const BOAR_SCRIPT = preload("res://scripts/demon_boar.gd")
++const CHAPTER_QUESTS = preload("res://scripts/chapter_one_quests.gd")
++var quest_feedback: Dictionary = {}
++var _quest_snapshot: Dictionary = {}
++
+ const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach ruins, clear the demon camps, and light the northern lantern to confront the Tidewraith. Your island progress is saved as you explore."
+ var world_data := CAMPAIGN_STORE.fresh_world()
+ var _world_ready := false
+@@ -92,6 +96,7 @@ func _build_lantern() -> void:
+ 	_bind_keys(&"interact", [KEY_E])
+ 
+ func _update_objective() -> void:
++	_refresh_quest_feedback()
+ 	var destination: Node3D = null
+ 	var objective := "Wolves %d" % remaining_enemies
+ 	if completed:
+@@ -238,6 +243,7 @@ func _ready() -> void:
+ 	_restore_world()
+ 	get_tree().auto_accept_quit = false
+ 	_world_ready = true
++	_quest_snapshot = CHAPTER_QUESTS.snapshot(self)
+ 	relic_hunt.progress_changed.connect(_world_changed)
+ 	exploration.progress_changed.connect(_world_changed)
+ 	_show_camp()
+@@ -771,20 +777,26 @@ func _toggle_journal() -> void:
+ 	elif not get_tree().paused:
+ 		_show_journal()
+ 
++func _refresh_quest_feedback() -> void:
++	if not _world_ready:
++		return
++	var state: Dictionary = CHAPTER_QUESTS.snapshot(self)
++	if not _quest_snapshot.is_empty():
++		var feedback: Dictionary = CHAPTER_QUESTS.feedback(_quest_snapshot, state)
++		if not feedback.is_empty():
++			feedback["until"] = Time.get_ticks_msec() + 5000
++			quest_feedback = feedback
++	_quest_snapshot = state
++
+ func _journal_text() -> String:
+-	var cleared := remaining_enemies == 0
+-	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
+-	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared and seal_fragments.complete() else "LOCKED - recover all 3 seal fragments and clear the demon camps")
+-	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
+-	if completed:
+-		dragon = "COMPLETE - continue exploring Veyra"
+-	return "%s\n\nSEAL FRAGMENTS: %d/3 recovered\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. Space / jump icon: jump. E / COLLECT / LIGHT: interact." % [WORLD_STORY, seal_fragments.collected_ids.size(), wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nBoundary: shallow water blocks deep-sea access. Waystone: " + get_node("IslandExploration").rescue_name()
++	_refresh_quest_feedback()
++	return CHAPTER_QUESTS.journal(self)
+ 
+ 
+ func _show_journal() -> void:
+ 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
+ 		return
+-	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + seal_fragments.journal_text() + "\n\n" + herbs.journal_text() + "\n\n" + herbs.grove_journal(world_data.grove_reward))
++	_clear_menu("QUESTS OF VEYRA", _journal_text())
+ 	journal_open = true
+ 	pause_menu_open = true
+ 	_menu_button("Return to hunt [Q / Esc]", _resume)
+diff --git a/scripts/island_candidate.gd b/scripts/island_candidate.gd
+index 2d7755a..b77ff4e 100644
+--- a/scripts/island_candidate.gd
++++ b/scripts/island_candidate.gd
+@@ -86,6 +86,8 @@ func _configure_encounters() -> void:
+ 		actor.position=landscape.ground_point(positions[str(actor.name)])+Vector3.UP*.08
+ 		actor.velocity=Vector3.ZERO;actor._home=actor.position;actor._patrol_goal=actor.position
+ 		encounter_log.append({"id":str(actor.name),"before":before,"after":actor.position,"health":actor.health})
++	# Bind the existing bounty to its western wolves after candidate placement.
++	keeper.target_enemy_ids.assign(["CampDemon0", "CampDemon1"])
+ 	enemy_navigation=preload("res://scripts/island_enemy_navigation.gd").new()
+ 	enemy_navigation.name="CandidateEnemyNavigation";add_child(enemy_navigation)
+ 	enemy_navigation.populate(landscape)
+diff --git a/scripts/premium_hud.gd b/scripts/premium_hud.gd
+index e0b897e..8ab4988 100644
+--- a/scripts/premium_hud.gd
++++ b/scripts/premium_hud.gd
+@@ -123,16 +123,7 @@ func _map_labels() -> void:
+ 		if not combat_label: label.hide()
+ 
+ func quest_content() -> Dictionary:
+-	var fragments: int=scene.seal_fragments.collected_ids.size() if is_instance_valid(scene.seal_fragments) else 0
+-	var data: Dictionary={"title":"THE LANTERN'S SEAL","message":"Recover the three seal fragments.","progress":"Seal %d/3   •   Camps %d/5" % [fragments,5-scene.remaining_enemies]}
+-	if scene.completed: data.message="The island is yours to explore."
+-	elif scene.boss_spawned: data.message="Defeat the Tidewraith Dragon."
+-	elif fragments==3 and scene.remaining_enemies==0: data.message="Restore the northern lantern."
+-	if is_instance_valid(scene.herbs) and scene.player.global_position.distance_to(scene.herbs.GROVE.CENTER)<18 and (not scene.boss_spawned or scene.completed):
+-		data.title="MOONLEAF GROVE"
+-		data.message="Gather Moonleaf flowers (%d / 3)." % mini(3,scene.herbs.grove_count())
+-		data.progress="Optional   •   25 shards reward" if not scene.world_data.grove_reward else "Reward collected   •   Explore the grove"
+-	return data
++	return preload("res://scripts/chapter_one_quests.gd").hud(scene)
+ 
+ func _layout_images() -> void:
+ 	if not is_instance_valid(controller): return
+diff --git a/scripts/shore_keeper.gd b/scripts/shore_keeper.gd
+index e036750..1d37e4e 100644
+--- a/scripts/shore_keeper.gd
++++ b/scripts/shore_keeper.gd
+@@ -2,6 +2,7 @@ extends Node
+ 
+ const CAMP := Vector3(-18, 0, 12)
+ const BONUS := 15
++var target_enemy_ids: Array[String] = []
+ var accepted := false
+ var reported := false
+ func _ready() -> void:
+@@ -12,10 +13,21 @@ func remaining() -> int:
+ 	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
+ 		if enemy.get_script() != preload("res://scripts/enemy.gd"):
+ 			continue
+-		if not enemy.is_queued_for_deletion() and enemy.health > 0 and enemy._home.distance_to(CAMP) < 6.0:
++		if not enemy.is_queued_for_deletion() and enemy.health > 0 and _matches_camp(enemy):
+ 			count += 1
+ 	return count
+ 
++func _matches_camp(enemy: Node3D) -> bool:
++	if not target_enemy_ids.is_empty():
++		return str(enemy.name) in target_enemy_ids
++	return enemy._home.distance_to(CAMP) < 6.0
++
++func _target_position() -> Vector3:
++	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
++		if enemy.get_script() == preload("res://scripts/enemy.gd") and _matches_camp(enemy) and enemy.health > 0 and not enemy.is_queued_for_deletion():
++			return enemy._home
++	return CAMP
++
+ func accept() -> void:
+ 	accepted = true
+ 
+@@ -44,5 +56,5 @@ func hint(origin: Vector3, camera_basis: Basis) -> String:
+ 		return "Western Watch: bounty secured"
+ 	if remaining() == 0:
+ 		return "QUEST: Western Watch ready to complete"
+-	var target := CAMP
++	var target := _target_position()
+ 	return ("Western camp | " if remaining() > 0 else "Return to Keeper | ") + preload("res://scripts/island_exploration.gd").direction_hint(origin, target, camera_basis)
+\ No newline at end of file
+diff --git a/tests/save_check.gd b/tests/save_check.gd
+index 280b544..4231165 100644
+--- a/tests/save_check.gd
++++ b/tests/save_check.gd
+@@ -76,7 +76,9 @@ func run():
+ 	current_scene = scene
+ 	await process_frame
+ 	scene._resume()
+-	for enemy in get_nodes_in_group("combat_enemies"): enemy.take_damage(1000)
++	for enemy in get_nodes_in_group("combat_enemies"):
++		if enemy.get_script() == scene.ENEMY_SCRIPT:
++			enemy.take_damage(1000)
+ 	await process_frame
+ 	scene.player.position=scene.lantern.position
+ 	scene.seal_fragments.restore([0,1,2])

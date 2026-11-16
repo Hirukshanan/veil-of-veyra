@@ -1,0 +1,18 @@
+{
+  "name": "beach_seals_check",
+  "started_utc": "2026-11-16T03:15:22.140557+00:00",
+  "duration_s": 16.345,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--verbose",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/beach_seals_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

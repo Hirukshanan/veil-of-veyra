@@ -1,0 +1,4 @@
+SCRIPT ERROR: Assertion failed.
+   at: run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/phase61/save_diagnostic.gd:87)
+   GDScript backtrace (most recent call first):
+       [0] run (C:/Users/Dark/Documents/Codex/2026-11-13/c/work/phase61/save_diagnostic.gd:87)

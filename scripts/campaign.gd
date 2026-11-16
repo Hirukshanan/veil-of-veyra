@@ -5,6 +5,10 @@ const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
 const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
 const BOAR_SCRIPT = preload("res://scripts/demon_boar.gd")
+const CHAPTER_QUESTS = preload("res://scripts/chapter_one_quests.gd")
+var quest_feedback: Dictionary = {}
+var _quest_snapshot: Dictionary = {}
+
 const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach ruins, clear the demon camps, and light the northern lantern to confront the Tidewraith. Your island progress is saved as you explore."
 var world_data := CAMPAIGN_STORE.fresh_world()
 var _world_ready := false
@@ -92,6 +96,7 @@ func _build_lantern() -> void:
 	_bind_keys(&"interact", [KEY_E])
 
 func _update_objective() -> void:
+	_refresh_quest_feedback()
 	var destination: Node3D = null
 	var objective := "Wolves %d" % remaining_enemies
 	if completed:
@@ -238,6 +243,7 @@ func _ready() -> void:
 	_restore_world()
 	get_tree().auto_accept_quit = false
 	_world_ready = true
+	_quest_snapshot = CHAPTER_QUESTS.snapshot(self)
 	relic_hunt.progress_changed.connect(_world_changed)
 	exploration.progress_changed.connect(_world_changed)
 	_show_camp()
@@ -771,20 +777,26 @@ func _toggle_journal() -> void:
 	elif not get_tree().paused:
 		_show_journal()
 
+func _refresh_quest_feedback() -> void:
+	if not _world_ready:
+		return
+	var state: Dictionary = CHAPTER_QUESTS.snapshot(self)
+	if not _quest_snapshot.is_empty():
+		var feedback: Dictionary = CHAPTER_QUESTS.feedback(_quest_snapshot, state)
+		if not feedback.is_empty():
+			feedback["until"] = Time.get_ticks_msec() + 5000
+			quest_feedback = feedback
+	_quest_snapshot = state
+
 func _journal_text() -> String:
-	var cleared := remaining_enemies == 0
-	var wave := "COMPLETE" if cleared else "%d remaining" % remaining_enemies
-	var light := "COMPLETE" if lantern_lit else ("READY - approach within 2.5 m and press E / LIGHT" if cleared and seal_fragments.complete() else "LOCKED - recover all 3 seal fragments and clear the demon camps")
-	var dragon := "ACTIVE - defeat the Tidewraith Dragon" if boss_spawned else "LOCKED - restore the lantern first"
-	if completed:
-		dragon = "COMPLETE - continue exploring Veyra"
-	return "%s\n\nSEAL FRAGMENTS: %d/3 recovered\n\n1. Clear the camps: %s\n\n2. Restore the lantern: %s\n\n3. Defeat the Tidewraith: %s\n\nOPTIONAL - RELICS\n%s\nFind all three relics and defeat the dragon for a one-time 20-shard reward.\n\n%s\n\nPROGRESS\nCleared enemies, collected plants/relics, waystones, health and potions are saved. You can continue exploring after the dragon falls. Unfinished enemies recover health on reload. Death returns you to the bound waystone.\n\nCONTROLS\nWASD / joystick: move. J / ATTACK: sword. Hold ATTACK / H: charged strike. K / DODGE: evade. Space / jump icon: jump. E / COLLECT / LIGHT: interact." % [WORLD_STORY, seal_fragments.collected_ids.size(), wave, light, dragon, relic_hunt.call("progress_text"), keeper.journal_text()] + "\n\nBoundary: shallow water blocks deep-sea access. Waystone: " + get_node("IslandExploration").rescue_name()
+	_refresh_quest_feedback()
+	return CHAPTER_QUESTS.journal(self)
 
 
 func _show_journal() -> void:
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
-	_clear_menu("QUESTS OF VEYRA", _journal_text() + "\n\n" + seal_fragments.journal_text() + "\n\n" + herbs.journal_text() + "\n\n" + herbs.grove_journal(world_data.grove_reward))
+	_clear_menu("QUESTS OF VEYRA", _journal_text())
 	journal_open = true
 	pause_menu_open = true
 	_menu_button("Return to hunt [Q / Esc]", _resume)

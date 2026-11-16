@@ -1,0 +1,14 @@
+{
+  "zip_crc": true,
+  "manifest_hashes_verified": 749,
+  "fresh_offline_gallery_passed": true,
+  "images": 11,
+  "missing_images": 0,
+  "original_PNG_bytes_preserved": true,
+  "fresh_project_import_passed": true,
+  "fresh_quest_progression_passed": true,
+  "fresh_save_compatibility_passed": true,
+  "production_main_preserved": true,
+  "Android_physical_testing": false,
+  "checked_utc": "2026-11-16T03:28:28.033996+00:00"
+}

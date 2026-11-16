@@ -86,6 +86,8 @@ func _configure_encounters() -> void:
 		actor.position=landscape.ground_point(positions[str(actor.name)])+Vector3.UP*.08
 		actor.velocity=Vector3.ZERO;actor._home=actor.position;actor._patrol_goal=actor.position
 		encounter_log.append({"id":str(actor.name),"before":before,"after":actor.position,"health":actor.health})
+	# Bind the existing bounty to its western wolves after candidate placement.
+	keeper.target_enemy_ids.assign(["CampDemon0", "CampDemon1"])
 	enemy_navigation=preload("res://scripts/island_enemy_navigation.gd").new()
 	enemy_navigation.name="CandidateEnemyNavigation";add_child(enemy_navigation)
 	enemy_navigation.populate(landscape)

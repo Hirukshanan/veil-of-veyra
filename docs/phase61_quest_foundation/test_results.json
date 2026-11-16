@@ -1,0 +1,843 @@
+{
+  "programs": 38,
+  "passed": 38,
+  "failed": [],
+  "runs": [
+    {
+      "name": "autosave_check",
+      "started_utc": "2026-11-16T03:18:10.265906+00:00",
+      "duration_s": 8.541,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/autosave_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "beach_seals_check",
+      "started_utc": "2026-11-16T03:15:22.140557+00:00",
+      "duration_s": 16.345,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/beach_seals_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "boar_campaign_check",
+      "started_utc": "2026-11-16T03:18:36.997005+00:00",
+      "duration_s": 7.544,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_campaign_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "boar_repeated_cycle_check",
+      "started_utc": "2026-11-16T03:18:44.554173+00:00",
+      "duration_s": 35.662,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boar_repeated_cycle_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "boss_phase_check",
+      "started_utc": "2026-11-16T03:18:35.719784+00:00",
+      "duration_s": 1.266,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/boss_phase_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "camera_check",
+      "started_utc": "2026-11-16T03:22:22.576217+00:00",
+      "duration_s": 5.027,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/camera_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "campaign_smoke",
+      "started_utc": "2026-11-16T03:17:35.724703+00:00",
+      "duration_s": 5.287,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/campaign_smoke.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "cave_floor_material_check",
+      "started_utc": "2026-11-16T03:19:38.146079+00:00",
+      "duration_s": 7.534,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/cave_floor_material_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "combat_check",
+      "started_utc": "2026-11-16T03:19:20.238981+00:00",
+      "duration_s": 7.544,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/combat_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "enemy_check",
+      "started_utc": "2026-11-16T03:19:37.370581+00:00",
+      "duration_s": 0.766,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/enemy_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "fast_travel_check",
+      "started_utc": "2026-11-16T03:18:27.415035+00:00",
+      "duration_s": 8.292,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/fast_travel_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "grove_check",
+      "started_utc": "2026-11-16T03:17:26.399554+00:00",
+      "duration_s": 9.297,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/grove_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "heavy_attack_check",
+      "started_utc": "2026-11-16T03:19:27.800791+00:00",
+      "duration_s": 9.547,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/heavy_attack_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "herbal_check",
+      "started_utc": "2026-11-16T03:15:38.501897+00:00",
+      "duration_s": 4.281,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/herbal_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "hud_customization_check",
+      "started_utc": "2026-11-16T03:22:56.642814+00:00",
+      "duration_s": 12.81,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/hud_customization_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "island_accessibility_collision_check",
+      "started_utc": "2026-11-16T03:20:23.156825+00:00",
+      "duration_s": 32.755,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_accessibility_collision_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "island_campaign_check",
+      "started_utc": "2026-11-16T03:17:41.028424+00:00",
+      "duration_s": 15.138,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_campaign_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "island_collision_check",
+      "started_utc": "2026-11-16T03:20:55.940640+00:00",
+      "duration_s": 10.297,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_collision_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "island_enemy_navigation_check",
+      "started_utc": "2026-11-16T03:23:09.478156+00:00",
+      "duration_s": 16.843,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_enemy_navigation_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "island_river_escape_check",
+      "started_utc": "2026-11-16T03:19:45.694363+00:00",
+      "duration_s": 37.429,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/island_river_escape_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "journal_check",
+      "started_utc": "2026-11-16T03:21:51.888240+00:00",
+      "duration_s": 5.53,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/journal_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "keeper_check",
+      "started_utc": "2026-11-16T03:21:57.443507+00:00",
+      "duration_s": 6.798,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/keeper_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "layout_check",
+      "started_utc": "2026-11-16T03:22:15.525720+00:00",
+      "duration_s": 7.035,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/layout_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_controls_check",
+      "started_utc": "2026-11-16T03:21:06.250621+00:00",
+      "duration_s": 7.038,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_controls_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_gestures_check",
+      "started_utc": "2026-11-16T03:21:13.304355+00:00",
+      "duration_s": 14.062,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_gestures_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_hud_layout_check",
+      "started_utc": "2026-11-16T03:21:27.386687+00:00",
+      "duration_s": 0.763,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_hud_layout_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "mobile_settings_touch_check",
+      "started_utc": "2026-11-16T03:21:32.979417+00:00",
+      "duration_s": 16.571,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/mobile_settings_touch_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "navigation_check",
+      "started_utc": "2026-11-16T03:22:04.258553+00:00",
+      "duration_s": 5.317,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/navigation_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "pause_check",
+      "started_utc": "2026-11-16T03:22:05.430866+00:00",
+      "duration_s": 5.034,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/pause_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "persistent_world_check",
+      "started_utc": "2026-11-16T03:17:56.184773+00:00",
+      "duration_s": 14.064,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/persistent_world_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "quest_hud_check",
+      "started_utc": "2026-11-16T03:22:09.590813+00:00",
+      "duration_s": 5.276,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/quest_hud_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "quest_progression_check",
+      "started_utc": "2026-11-16T03:21:04.382906+00:00",
+      "duration_s": 22.09,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/quest_progression_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "quest_save_compatibility_check",
+      "started_utc": "2026-11-16T03:21:26.484311+00:00",
+      "duration_s": 16.83,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/quest_save_compatibility_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "relic_check",
+      "started_utc": "2026-11-16T03:15:42.796283+00:00",
+      "duration_s": 5.784,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/relic_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [
+        "WARNING: The draw_rect() \"width\" argument has no effect when \"filled\" is \"true\"."
+      ],
+      "passed": true
+    },
+    {
+      "name": "safe_area_check",
+      "started_utc": "2026-11-16T03:21:56.869472+00:00",
+      "duration_s": 8.54,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/safe_area_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "save_check",
+      "started_utc": "2026-11-16T03:21:43.329883+00:00",
+      "duration_s": 8.542,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/save_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "settings_check",
+      "started_utc": "2026-11-16T03:21:49.569017+00:00",
+      "duration_s": 7.28,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/settings_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    },
+    {
+      "name": "sprint_check",
+      "started_utc": "2026-11-16T03:22:10.481836+00:00",
+      "duration_s": 5.027,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--verbose",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/sprint_check.gd",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "warnings": [],
+      "passed": true
+    }
+  ],
+  "quest_progression": {
+    "cases": [
+      "New/partial game: western bounty tracks actual candidate wolves; independent kills and partial seal/save progress preserved",
+      "Cave relic, ordinary herb and grove collected through existing systems; potion and one-time grove reward persist",
+      "Existing camps AND seal gate, lantern/boss flow, +80 victory/+15 bounty/+20 relic rewards and duplicate prevention survive reload"
+    ],
+    "final_shards": 140,
+    "future_story_prerequisites_derived_only": true,
+    "passed": true,
+    "save_schema": 4
+  },
+  "quest_save_compatibility": {
+    "all_relics_before_victory_deferred": true,
+    "final_shards": 188,
+    "items_equipment_health_potions_cave_position_preserved": true,
+    "passed": true,
+    "reload_no_duplicate_payment": true,
+    "reported_bounty_honored": true,
+    "synthetic_pre_phase61_version4": true
+  },
+  "physical_Android_testing": false,
+  "completed_utc": "2026-11-16T03:26:27.085536+00:00"
+}

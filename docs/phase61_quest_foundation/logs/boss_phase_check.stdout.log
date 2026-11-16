@@ -1,0 +1,29 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/boss_phase_check.gd remapped: res://tests/boss_phase_check.gd
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon.glb remapped: res://assets/characters/pigcraft/charcoal_dragon.glb
+Loading resource: res://.godot/imported/charcoal_dragon.glb-abb8d2b1b0e15f457612a325cb2fec9d.scn remapped: res://.godot/imported/charcoal_dragon.glb-abb8d2b1b0e15f457612a325cb2fec9d.scn
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg
+Loading resource: res://.godot/imported/charcoal_dragon_Image_0.jpg-2f003e65585af912e588885a10a14353.ctex remapped: res://.godot/imported/charcoal_dragon_Image_0.jpg-2f003e65585af912e588885a10a14353.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_0.jpg' at thread -1
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_1.png remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_1.png
+Loading resource: res://.godot/imported/charcoal_dragon_Image_1.png-63bb9ecbeba0e155701bee8a134f7081.ctex remapped: res://.godot/imported/charcoal_dragon_Image_1.png-63bb9ecbeba0e155701bee8a134f7081.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_1.png' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_1.png' at thread -1
+Loading resource: res://assets/characters/pigcraft/charcoal_dragon_Image_2.png remapped: res://assets/characters/pigcraft/charcoal_dragon_Image_2.png
+Loading resource: res://.godot/imported/charcoal_dragon_Image_2.png-c086138901c4e1081ab45a8d5e4d3b1d.ctex remapped: res://.godot/imported/charcoal_dragon_Image_2.png-c086138901c4e1081ab45a8d5e4d3b1d.ctex
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon_Image_2.png' remapped 'res://assets/characters/pigcraft/charcoal_dragon_Image_2.png' at thread -1
+Completed load for: 'res://assets/characters/pigcraft/charcoal_dragon.glb' remapped 'res://assets/characters/pigcraft/charcoal_dragon.glb' at thread -1
+Completed load for: 'res://tests/boss_phase_check.gd' remapped 'res://tests/boss_phase_check.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loaded system CA certificates
+PASS: scaled phase thresholds, one-time transition, preserved in-flight telegraph, enraged charge/recovery, attack labels, single hits and lethal skip
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

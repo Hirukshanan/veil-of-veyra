@@ -1,0 +1,16 @@
+{
+  "modified_source_files": [
+    "scripts/campaign.gd",
+    "scripts/island_candidate.gd",
+    "scripts/premium_hud.gd",
+    "scripts/shore_keeper.gd",
+    "tests/save_check.gd"
+  ],
+  "new_source_files": [
+    "scripts/chapter_one_quests.gd",
+    "tests/quest_progression_check.gd",
+    "tests/quest_save_compatibility_check.gd"
+  ],
+  "evidence_directory": "docs/phase61_quest_foundation/",
+  "git_staged_committed_or_pushed_by_this_task": false
+}

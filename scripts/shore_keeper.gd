@@ -2,6 +2,7 @@ extends Node
 
 const CAMP := Vector3(-18, 0, 12)
 const BONUS := 15
+var target_enemy_ids: Array[String] = []
 var accepted := false
 var reported := false
 func _ready() -> void:
@@ -12,9 +13,20 @@ func remaining() -> int:
 	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() != preload("res://scripts/enemy.gd"):
 			continue
-		if not enemy.is_queued_for_deletion() and enemy.health > 0 and enemy._home.distance_to(CAMP) < 6.0:
+		if not enemy.is_queued_for_deletion() and enemy.health > 0 and _matches_camp(enemy):
 			count += 1
 	return count
+
+func _matches_camp(enemy: Node3D) -> bool:
+	if not target_enemy_ids.is_empty():
+		return str(enemy.name) in target_enemy_ids
+	return enemy._home.distance_to(CAMP) < 6.0
+
+func _target_position() -> Vector3:
+	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
+		if enemy.get_script() == preload("res://scripts/enemy.gd") and _matches_camp(enemy) and enemy.health > 0 and not enemy.is_queued_for_deletion():
+			return enemy._home
+	return CAMP
 
 func accept() -> void:
 	accepted = true
@@ -44,5 +56,5 @@ func hint(origin: Vector3, camera_basis: Basis) -> String:
 		return "Western Watch: bounty secured"
 	if remaining() == 0:
 		return "QUEST: Western Watch ready to complete"
-	var target := CAMP
+	var target := _target_position()
 	return ("Western camp | " if remaining() > 0 else "Return to Keeper | ") + preload("res://scripts/island_exploration.gd").direction_hint(origin, target, camera_basis)

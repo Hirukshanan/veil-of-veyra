@@ -1,0 +1,15 @@
+{
+  "name": "save_fixture_diagnostic",
+  "started_utc": "2026-11-16T03:20:32.770523+00:00",
+  "duration_s": 5.544,
+  "exit_code": 1,
+  "script_error": true,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase61\\save_diagnostic.gd"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
