@@ -4,8 +4,8 @@ const PEDESTAL := Vector3(62.5,2.4,25)
 const WALL := Vector3(67,2.6,32)
 const DURATION := 18.0
 const FLAG := "lantern_awakening"
-const DRAGON = preload("res://assets/characters/pigcraft/charcoal_dragon.glb")
-const EYE_CENTER := Vector3(.1405,2.3004,-2.1986)
+const EYE_ATLAS = preload("res://assets/environment/lantern_awakening/approved_eye/eye_atlas.png")
+const EYE_FRAME_SECONDS := 0.2
 var game
 var active := false
 var clock := 0.0
@@ -19,8 +19,9 @@ var chunks:Array[MeshInstance3D] = []
 var cracks:Node3D
 var dust:CPUParticles3D
 var camera:Camera3D
-var eye:MeshInstance3D
-var eye_material:ShaderMaterial
+var eye:TextureRect
+var eye_frames:Array[AtlasTexture]=[]
+var eye_frame := -1
 var overlay:CanvasLayer
 var fade:ColorRect
 var skip_button:Button
@@ -39,7 +40,14 @@ var environment:Environment
 var cinematic_fill:OmniLight3D
 var starting_lantern := Vector3.ZERO
 var last_eye_open := 0.0
+const FRACTURE = preload("res://assets/audio/lantern_awakening/fracture.wav")
 var owns_audio_bus := false
+var trace_enabled := OS.get_environment("VEYRA_PROFILE_CINEMATIC")=="1"
+var trace:Array=[]
+func mark(label:String,begin:int):
+	if not trace_enabled:return
+	trace.append({"label":label,"us":Time.get_ticks_usec()-begin,"host_us":Time.get_ticks_usec(),"frame":Engine.get_process_frames(),"clock":clock})
+
 
 func eligible() -> bool:
 	return game.completed and game.lantern_lit and game.seal_fragments.complete() and 1 in game.relic_hunt.collected_ids
@@ -61,6 +69,13 @@ func _ready():
 	_build_camera_and_eye()
 	_build_audio()
 	_build_overlay()
+	# The enclosed camera needs the approved cave shell and event props only.
+	# Keep their normal gameplay layer; add a dedicated cinematic visibility bit.
+	game.landscape.get_node("PlayableGrotto").layers |= 1<<18
+	for item in game.player.find_children("*","GeometryInstance3D",true,false):item.layers |= 1<<18
+	for item in find_children("*","GeometryInstance3D",true,false):
+		item.layers |= 1<<18
+
 	if finished():apply_open_state()
 	set_process(true)
 func stone() -> StandardMaterial3D:
@@ -125,10 +140,10 @@ func _build_pedestal():
 	var flame:=StandardMaterial3D.new()
 	flame.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
 	flame.albedo_color=Color(1,.56,.16)
-	flame.emission_enabled=true;flame.emission=Color(1,.35,.06)
+	# Unshaded color already supplies the accepted flame brightness.
 	var core:=SphereMesh.new();core.radius=.12;core.height=.32
 	mesh(lantern_prop,core,Vector3.UP*.27,flame)
-	glow=OmniLight3D.new();glow.omni_range=9;glow.light_color=Color(1,.63,.25)
+	glow=OmniLight3D.new();glow.light_cull_mask=1<<18;glow.omni_range=9;glow.light_color=Color(1,.63,.25)
 	glow.light_energy=0;glow.shadow_enabled=false
 	lantern_prop.add_child(glow)
 	lantern_prop.hide()
@@ -184,14 +199,14 @@ func _build_wall():
 	dust.initial_velocity_min=.3;dust.initial_velocity_max=1.8
 	dust.gravity=Vector3(0,-.25,0);dust.scale_amount_min=.05;dust.scale_amount_max=.24
 	var particle:=SphereMesh.new();particle.radius=.18;particle.height=.36;particle.radial_segments=6;particle.rings=3
-	var dust_material:=StandardMaterial3D.new();dust_material.albedo_color=Color(.30,.26,.21,.32)
+	var dust_material:=StandardMaterial3D.new();dust_material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;dust_material.albedo_color=Color(.30,.26,.21,.32)
 	dust_material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
 	particle.material=dust_material;dust.mesh=particle;dust.emitting=false
 	dust.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(dust)
 
 func _build_camera_and_eye():
-	camera=Camera3D.new();camera.name="AwakeningCinematicCamera";camera.near=.08;camera.fov=58
+	camera=Camera3D.new();camera.far=50;camera.name="AwakeningCinematicCamera";camera.near=.08;camera.fov=58
 	add_child(camera)
 	environment=Environment.new();environment.background_mode=Environment.BG_COLOR
 	environment.background_color=Color.BLACK;environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR
@@ -200,60 +215,11 @@ func _build_camera_and_eye():
 	environment.fog_enabled=false;environment.fog_mode=Environment.FOG_MODE_DEPTH
 	environment.fog_light_color=Color.BLACK;environment.fog_depth_begin=5;environment.fog_depth_end=22
 	camera.environment=null
-	cinematic_fill=OmniLight3D.new()
+	cinematic_fill=OmniLight3D.new();cinematic_fill.light_cull_mask=1<<18
 	cinematic_fill.position=Vector3(66,5.7,27)
 	cinematic_fill.light_color=Color(.85,.70,.48)
 	cinematic_fill.omni_range=16;cinematic_fill.light_energy=0;cinematic_fill.shadow_enabled=false
 	add_child(cinematic_fill)
-	# Read the approved mesh resource directly; only an eye patch is instanced.
-	var state:=DRAGON.get_state()
-	var source_mesh:ArrayMesh
-	for node in range(state.get_node_count()):
-		if state.get_node_type(node)!=&"MeshInstance3D":continue
-		for property in range(state.get_node_property_count(node)):
-			if state.get_node_property_name(node,property)==&"mesh":
-				source_mesh=state.get_node_property_value(node,property)
-				break
-		if source_mesh!=null:break
-	assert(source_mesh!=null)
-	var patch:=SurfaceTool.new();patch.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for surface in range(source_mesh.get_surface_count()):
-		var arrays:=source_mesh.surface_get_arrays(surface)
-		var vertices:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
-		var indices:PackedInt32Array=arrays[Mesh.ARRAY_INDEX]
-		for triangle in range(indices.size()/3):
-			var near_eye:=false
-			for corner in range(3):
-				if vertices[indices[triangle*3+corner]].distance_to(EYE_CENTER)<.12:near_eye=true
-			if near_eye:
-				for corner in range(3):patch.add_vertex(vertices[indices[triangle*3+corner]]-EYE_CENTER)
-	patch.generate_normals()
-	eye=mesh(self,patch.commit(),Vector3(64,5.5,48),null)
-	eye.name="SingleCharcoalEyePatch";eye.scale=Vector3.ONE*20
-	# The approved left eye faces outward along +X, so present that side to the lens.
-	eye.rotation.y=PI*.5
-	eye.layers=1<<19
-	var shader:=Shader.new()
-	shader.code="""shader_type spatial;
-render_mode unshaded, cull_disabled;
-uniform float opening=0.0;
-varying vec3 p;
-void vertex(){p=VERTEX;}
-void fragment(){
- vec2 lens=vec2(p.z/.063,p.y/.027);
- float radius=length(lens);
- float iris=(1.0-smoothstep(.80,1.0,radius))*step(abs(p.y),opening*.027);
- float pupil=smoothstep(.003,.008,abs(p.z));
- float angle=atan(lens.y,lens.x);
- float fibers=.74+.11*sin(angle*91.0+radius*10.0)+.08*sin(angle*213.0+radius*17.0)+.06*sin(angle*37.0-radius*35.0);
- float glint=(1.0-smoothstep(.001,.004,length(vec2(p.z+.020,p.y-.008))))*iris;
- vec3 crimson=mix(vec3(.24,.002,.005),vec3(.95,.009,.020),pow(1.0-clamp(radius,0.0,1.0),.4));
- ALBEDO=(crimson*iris*pupil*fibers+vec3(.2,.06,.05)*glint)*opening;
- EMISSION=ALBEDO;
-}
-"""
-	eye_material=ShaderMaterial.new();eye_material.shader=shader
-	eye.material_override=eye_material;eye.hide()
 
 func _build_audio():
 	var bus:=AudioServer.get_bus_index("LanternCave")
@@ -277,6 +243,16 @@ func audio_3d(file:String,at:Vector3,gain:float) -> AudioStreamPlayer3D:
 
 func _build_overlay():
 	overlay=CanvasLayer.new();overlay.layer=40;add_child(overlay)
+	eye=TextureRect.new();eye.name="ApprovedDragonEye"
+	eye.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	eye.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+	eye.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	eye.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	for index in range(6):
+		var frame:=AtlasTexture.new();frame.atlas=EYE_ATLAS
+		frame.region=Rect2((index%3)*1280,(index/3)*720,1280,720)
+		frame.filter_clip=true;eye_frames.append(frame)
+	eye.texture=eye_frames[0];eye.hide();overlay.add_child(eye)
 	fade=ColorRect.new();fade.color=Color(0,0,0,0)
 	fade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	fade.mouse_filter=Control.MOUSE_FILTER_IGNORE;overlay.add_child(fade)
@@ -291,7 +267,10 @@ func _build_overlay():
 
 func start() -> bool:
 	if active or finished() or not eligible() or not near_pedestal() or not game.started or game.game_finished or game.player.health<=0 or get_tree().paused:return false
+	var measured_save:=Time.get_ticks_usec()
 	game._save_progress()
+	mark("start_save",measured_save)
+	var measured_start:=Time.get_ticks_usec()
 	game.player.set_move_input(Vector2.ZERO)
 	game.player.cancel_touch_camera()
 	game.player.cancel_swing()
@@ -317,10 +296,15 @@ func start() -> bool:
 	camera.fov=58;camera.environment=null
 	starting_lantern=game.player.global_position+Vector3(.25,1.1,0)
 	lantern_prop.show();hint.hide();overlay.show();fade.color.a=0
-	camera.cull_mask=0xFFFFF;camera.make_current()
+	camera.cull_mask=1<<18;camera.make_current()
+	mark("start_before_audio",measured_start)
+	var measured_audio:=Time.get_ticks_usec()
 	music.play();_event("lantern_placement")
+	mark("start_audio",measured_audio)
 	cinematic_fill.light_energy=2.0
+	var measured_sample:=Time.get_ticks_usec()
 	_sample(0)
+	mark("start_sample",measured_sample)
 	return true
 
 func _event(value:String):
@@ -333,10 +317,12 @@ func _process(delta:float):
 		hint.visible=not finished() and game.player.position.distance_to(PEDESTAL)<10
 		hint.text="Interact · Place lantern" if eligible() else "Ancient altar · dormant"
 		return
+	var measured_process:=Time.get_ticks_usec()
 	var previous:=clock
 	clock=minf(DURATION,clock+delta)
 	for cue in [[1.2,"stone_descent"],[4.2,"spreading_fractures"],[5.8,"wall_break"],[7.2,"distant_dragon_roar"],[8.0,"passage_camera"],[12.4,"complete_darkness"],[13.3,"crimson_eye_opening"],[15.7,"music_cut"],[18.0,"return_to_hero"]]:
 		if previous<float(cue[0]) and clock>=float(cue[0]):
+			var measured_cue:=Time.get_ticks_usec()
 			_event(cue[1])
 			match cue[1]:
 				"stone_descent":
@@ -348,11 +334,15 @@ func _process(delta:float):
 					dust.position=WALL+Vector3.UP*2
 					dust.restart();dust.emitting=true
 					rumble.position=WALL+Vector3.UP*2
-					rumble.stream=load("res://assets/audio/lantern_awakening/fracture.wav");rumble.play()
+					rumble.stream=FRACTURE;rumble.play()
 				"distant_dragon_roar":roar.play()
 				"crimson_eye_opening":breath.play()
 				"music_cut":music.stop()
+			mark("cue_"+str(cue[1]),measured_cue)
+	var measured_sample:=Time.get_ticks_usec()
 	_sample(clock)
+	mark("sample",measured_sample)
+	mark("process",measured_process)
 	if clock>=DURATION:_finish(false)
 
 func _sample(time:float):
@@ -387,12 +377,15 @@ func _sample(time:float):
 	if time>=12.4:
 		camera.environment=environment
 		camera.cull_mask=1<<19
-		eye.show()
-		last_eye_open=smoothstep(13.3,15.7,time)
-		eye_material.set_shader_parameter("opening",last_eye_open)
+		eye.visible=time>=13.3 and time<17.3
+		last_eye_open=clampf((time-13.3)/1.2,0,1)
+		var index:=clampi(int(floor((time-13.3)/EYE_FRAME_SECONDS)),0,5)
+		if index!=eye_frame:
+			eye.texture=eye_frames[index];eye_frame=index
 	var path_darkness:=.9*smoothstep(8.5,12.4,time) if time<12.4 else 0.0
 	fade.color.a=maxf(path_darkness,smoothstep(15.7,16.2,time)*(1-smoothstep(17.3,18,time)))
 	if time>=17.3:
+		glow.light_energy=0
 		eye.hide()
 		if is_instance_valid(old_camera):old_camera.make_current()
 
@@ -425,7 +418,7 @@ func _finish(skipped:bool):
 	_event("skipped" if skipped else "completed")
 	apply_open_state()
 	for sound in [music,rumble,roar,breath]:sound.stop()
-	cinematic_fill.light_energy=0
+	cinematic_fill.light_energy=0;glow.light_energy=0
 	eye.hide();overlay.hide();camera.clear_current()
 	if is_instance_valid(old_camera):old_camera.make_current()
 	for layer in hidden_layers:
@@ -440,7 +433,9 @@ func _finish(skipped:bool):
 	actor_physics.clear()
 	game.world_data[FLAG]=true
 	active=false
+	var measured_save:=Time.get_ticks_usec()
 	var saved:bool=game._save_progress()
+	mark("finish_save",measured_save)
 	game._resume()
 	game.quest_feedback={"title":"BEYOND THE SEAL","message":"The hidden passage is open." if saved else "Passage open. Save pending.","until":Time.get_ticks_msec()+6000}
 

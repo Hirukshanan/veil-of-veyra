@@ -1,0 +1,23 @@
+{
+  "name": "angle_original",
+  "started_utc": "2026-11-16T17:48:08.916583+00:00",
+  "duration_s": 117.239,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3_angle",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\angle_original.json",
+    "angle_original"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

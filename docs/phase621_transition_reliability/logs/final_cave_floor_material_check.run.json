@@ -1,0 +1,19 @@
+{
+  "name": "final_cave_floor_material_check",
+  "started_utc": "2026-11-16T18:13:03.377479+00:00",
+  "duration_s": 10.803,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/cave_floor_material_check.gd",
+    "--fixed-fps",
+    "60",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

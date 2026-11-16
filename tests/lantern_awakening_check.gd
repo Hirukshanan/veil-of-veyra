@@ -83,7 +83,7 @@ func run():
 	assert(not paused and event.finished() and scene.player.health==health)
 	assert(get_root().get_camera_3d()==previous_camera)
 	assert(scene.shards==80 and not scene.world_data.bounty_reward and not scene.world_data.relic_reward)
-	assert(event.last_eye_open>.99 and event.eye.layers==1<<19)
+	assert(event.last_eye_open>.99 and event.eye.get_parent()==event.overlay and event.eye_frame==5)
 	assert(not event.start())
 	assert(STORE.load_progress().data.world_data.lantern_awakening)
 	results.append({"full_sequence":event.events.duplicate(true),"camera_clearance_samples":samples,"health_unchanged":true,"reward_unchanged":true})

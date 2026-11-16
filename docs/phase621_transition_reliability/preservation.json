@@ -1,0 +1,12 @@
+{
+  "changed_existing_runtime_files": [
+    "project.godot",
+    "scripts/lantern_awakening.gd"
+  ],
+  "unchanged_runtime_files": 609,
+  "production_main_unchanged": true,
+  "production_activated": false,
+  "approved_models_audio_HUD_controls_terrain_quests_saves_and_enemy_sources_unchanged": true,
+  "automatic_preparation_enabled": false,
+  "rejected_preparation_not_shipped_in_runtime": true
+}

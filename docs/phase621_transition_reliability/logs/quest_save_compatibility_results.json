@@ -1,0 +1,9 @@
+{
+  "all_relics_before_victory_deferred": true,
+  "final_shards": 188,
+  "items_equipment_health_potions_cave_position_preserved": true,
+  "passed": true,
+  "reload_no_duplicate_payment": true,
+  "reported_bounty_honored": true,
+  "synthetic_pre_phase61_version4": true
+}

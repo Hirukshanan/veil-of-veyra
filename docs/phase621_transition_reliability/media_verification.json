@@ -1,0 +1,11 @@
+{
+  "actual_Godot_movie_and_engine_audio": true,
+  "fixed_step_visual_recording_fps": 20,
+  "not_live_FPS_proof": true,
+  "recorded_with_preparation_build_later_reverted": true,
+  "cinematic_body_unchanged": true,
+  "PCM_peak": 0.6640625,
+  "clipped_samples": 0,
+  "sample_rate": 48000,
+  "channels": 2
+}

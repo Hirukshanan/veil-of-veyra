@@ -1,0 +1,21 @@
+{
+  "name": "repeat",
+  "started_utc": "2026-11-16T17:11:37.593776+00:00",
+  "duration_s": 80.857,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\repeat.json",
+    "repeat"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

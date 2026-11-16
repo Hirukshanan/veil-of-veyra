@@ -1,0 +1,234 @@
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+SHADER ERROR: Unknown identifier in expression: 'MODELVIEW_MATRIX'.
+   at: (null) (res://assets/environment/lantern_awakening/stone.gdshader:17)
+   GDScript backtrace (most recent call first):
+       [0] stone (res://scripts/lantern_awakening.gd:78)
+       [1] _build_pedestal (res://scripts/lantern_awakening.gd:106)
+       [2] _ready (res://scripts/lantern_awakening.gd:63)
+       [3] _ready (res://scripts/island_candidate.gd:43)
+ERROR: Shader compilation failed.
+   at: set_code (drivers/gles3/storage/material_storage.cpp:3119)
+   GDScript backtrace (most recent call first):
+       [0] stone (res://scripts/lantern_awakening.gd:78)
+       [1] _build_pedestal (res://scripts/lantern_awakening.gd:106)
+       [2] _ready (res://scripts/lantern_awakening.gd:63)
+       [3] _ready (res://scripts/island_candidate.gd:43)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)
+WARNING: The draw_rect() "width" argument has no effect when "filled" is "true".
+   at: draw_rect (scene/main/canvas_item.cpp:925)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/premium_hud.gd:185)

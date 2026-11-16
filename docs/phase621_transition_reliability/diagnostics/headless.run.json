@@ -1,0 +1,18 @@
+{
+  "name": "headless",
+  "started_utc": "2026-11-16T17:08:34.213487+00:00",
+  "duration_s": 31.908,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--headless",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\headless.json",
+    "headless"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

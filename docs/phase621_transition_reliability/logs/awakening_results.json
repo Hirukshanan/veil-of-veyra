@@ -1,0 +1,67 @@
+{
+  "cases": [
+    "Incomplete requirements do not trigger; malformed or impossible optional flags are rejected",
+    {
+      "camera_clearance_samples": [
+        "(66.0, 4.8, 21.5)",
+        "(66.0, 4.5, 26.0)",
+        "(67.0, 4.8, 29.0)",
+        "(66.0, 5.0, 35.0)",
+        "(64.0, 5.5, 44.5)"
+      ],
+      "full_sequence": [
+        {
+          "seconds": 0.0,
+          "stage": "lantern_placement"
+        },
+        {
+          "seconds": 1.2,
+          "stage": "stone_descent"
+        },
+        {
+          "seconds": 4.22,
+          "stage": "spreading_fractures"
+        },
+        {
+          "seconds": 5.82,
+          "stage": "wall_break"
+        },
+        {
+          "seconds": 7.22,
+          "stage": "distant_dragon_roar"
+        },
+        {
+          "seconds": 8.02,
+          "stage": "passage_camera"
+        },
+        {
+          "seconds": 12.4,
+          "stage": "complete_darkness"
+        },
+        {
+          "seconds": 13.3,
+          "stage": "crimson_eye_opening"
+        },
+        {
+          "seconds": 15.7,
+          "stage": "music_cut"
+        },
+        {
+          "seconds": 18.0,
+          "stage": "return_to_hero"
+        },
+        {
+          "seconds": 18.0,
+          "stage": "completed"
+        }
+      ],
+      "health_unchanged": true,
+      "reward_unchanged": true
+    },
+    "Real hero capsule traverses opened passage and returns",
+    "Normal completion and immediate repeated Skip preserve the same open state, journal flag and 80-shard balance after reload"
+  ],
+  "optional_side_quests_required": false,
+  "passed": true,
+  "save_version": 4
+}

@@ -1,0 +1,19 @@
+{
+  "name": "approved_eye_check",
+  "started_utc": "2026-11-16T19:44:00.391201+00:00",
+  "duration_s": 67.863,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/approved_eye_check.gd",
+    "--fixed-fps",
+    "60",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

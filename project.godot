@@ -22,6 +22,11 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/handheld/orientation=0
 
+[editor]
+
+; Work around the reproduced Godot 4.7.2 threaded fresh-import crash.
+import/use_multiple_threads=false
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true

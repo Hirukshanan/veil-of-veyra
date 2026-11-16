@@ -1,0 +1,21 @@
+{
+  "name": "no_lights_hidden",
+  "started_utc": "2026-11-16T17:12:58.453234+00:00",
+  "duration_s": 63.582,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\no_lights_hidden.json",
+    "no_lights_hidden"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "trial": 1,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 7.283,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 2,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 5.355,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 3,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 4.986,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 4,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 4.488,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 5,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 4.582,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 6,
+    "threaded": true,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 4.49,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 1,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 5.145,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 2,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 9.333,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 3,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 8.465,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 4,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 8.699,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 5,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 8.638,
+    "only_fonts_no_game_scripts": true
+  },
+  {
+    "trial": 6,
+    "threaded": false,
+    "fresh_cache": true,
+    "files": 2,
+    "exit_code": 0,
+    "seconds": 8.37,
+    "only_fonts_no_game_scripts": true
+  }
+]

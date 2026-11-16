@@ -1,0 +1,21 @@
+{
+  "name": "main_prepared_v4",
+  "started_utc": "2026-11-16T17:44:15.827066+00:00",
+  "duration_s": 64.994,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\main_prepared_v4.json",
+    "main_prepared_v4"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

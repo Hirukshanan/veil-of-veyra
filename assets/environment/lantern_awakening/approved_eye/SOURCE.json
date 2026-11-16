@@ -1,0 +1,28 @@
+{
+  "source": "Owner-approved MP4 and GIF; supplied locally by project owner",
+  "video_sha256": "8d42c80cf8f88a4a4cf1fd41d1a12a31cef039b6689f8ef8d6a72ded6b3a7838",
+  "video_segment_start_seconds": 15.65,
+  "frame_source_timestamps": [
+    15.65,
+    15.85,
+    16.05,
+    16.25,
+    16.45,
+    16.65
+  ],
+  "GIF_frame_duration_seconds": 0.35,
+  "approved_speed_multiplier": 1.75,
+  "runtime_frame_duration_seconds": 0.2,
+  "opening_duration_seconds": 1.2,
+  "event_eye_start": 13.3,
+  "event_music_cut": 15.7,
+  "full_open_hold_until_music_cut_seconds": 1.4,
+  "atlas_dimensions": [
+    3840,
+    1440
+  ],
+  "uncompressed_RGBA_bytes": 22118400,
+  "audio_extracted": false,
+  "full_dragon_modified": false,
+  "last_open_frame_event_seconds": 14.3
+}

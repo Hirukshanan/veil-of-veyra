@@ -1,0 +1,216 @@
+{
+  "actual_Godot_movie_with_engine_audio": true,
+  "event_order": [
+    {
+      "seconds": 0.0,
+      "stage": "lantern_placement"
+    },
+    {
+      "seconds": 1.2,
+      "stage": "stone_descent"
+    },
+    {
+      "seconds": 4.25,
+      "stage": "spreading_fractures"
+    },
+    {
+      "seconds": 5.85,
+      "stage": "wall_break"
+    },
+    {
+      "seconds": 7.25,
+      "stage": "distant_dragon_roar"
+    },
+    {
+      "seconds": 8.05,
+      "stage": "passage_camera"
+    },
+    {
+      "seconds": 12.4,
+      "stage": "complete_darkness"
+    },
+    {
+      "seconds": 13.3,
+      "stage": "crimson_eye_opening"
+    },
+    {
+      "seconds": 15.7,
+      "stage": "music_cut"
+    },
+    {
+      "seconds": 18.0,
+      "stage": "return_to_hero"
+    },
+    {
+      "seconds": 18.0,
+      "stage": "completed"
+    }
+  ],
+  "final_shards": 80,
+  "fixed_movie_fps": 20,
+  "fixture": "Synthetic completed Chapter I save; optional quests incomplete; enemies held; normal hero controller approaches altar",
+  "inspection_views": "Matched cinematic ambient/fill for before/after wall and pedestal",
+  "passed": true,
+  "phone_execution": false,
+  "preparation_steps": [
+    {
+      "ms": 38152.431,
+      "step": "loading_ui"
+    },
+    {
+      "ms": 710.092,
+      "step": "material_0"
+    },
+    {
+      "ms": 738.895,
+      "step": "material_1"
+    },
+    {
+      "ms": 1667.969,
+      "step": "material_2"
+    },
+    {
+      "ms": 8.176,
+      "step": "material_3"
+    },
+    {
+      "ms": 11.67,
+      "step": "material_4"
+    },
+    {
+      "ms": 1621.501,
+      "step": "material_5"
+    },
+    {
+      "ms": 2377.441,
+      "step": "material_6"
+    },
+    {
+      "ms": 642.556,
+      "step": "material_7"
+    },
+    {
+      "ms": 6.752,
+      "step": "material_8"
+    },
+    {
+      "ms": 5.322,
+      "step": "material_9"
+    },
+    {
+      "ms": 1563.38,
+      "step": "material_10"
+    },
+    {
+      "ms": 804.984,
+      "step": "material_11"
+    },
+    {
+      "ms": 6.04,
+      "step": "view_0.00"
+    },
+    {
+      "ms": 1631.748,
+      "step": "view_1.30"
+    },
+    {
+      "ms": 6.083,
+      "step": "view_4.60"
+    },
+    {
+      "ms": 8.935,
+      "step": "view_6.00"
+    },
+    {
+      "ms": 6.649,
+      "step": "view_9.00"
+    },
+    {
+      "ms": 5.509,
+      "step": "view_12.39"
+    },
+    {
+      "ms": 8.46,
+      "step": "view_12.50"
+    },
+    {
+      "ms": 497.965,
+      "step": "view_17.40"
+    }
+  ],
+  "recording_is_fixed_step_visual_review_only": true,
+  "resolution": [
+    1280,
+    720
+  ],
+  "screens": [
+    {
+      "event_time": 0.0,
+      "name": "before_wall"
+    },
+    {
+      "event_time": 0.0,
+      "name": "before_pedestal"
+    },
+    {
+      "event_time": 0.0,
+      "name": "01_interact_gameplay"
+    },
+    {
+      "event_time": 0.7,
+      "name": "02_lantern_placed"
+    },
+    {
+      "event_time": 2.9,
+      "name": "03_stone_descending"
+    },
+    {
+      "event_time": 5.34999999999999,
+      "name": "04_spreading_cracks"
+    },
+    {
+      "event_time": 6.69999999999998,
+      "name": "05_wall_fracture"
+    },
+    {
+      "event_time": 8.99999999999999,
+      "name": "06_passage_camera"
+    },
+    {
+      "event_time": 11.45,
+      "name": "07_deep_hall"
+    },
+    {
+      "event_time": 12.85,
+      "name": "08_complete_darkness"
+    },
+    {
+      "event_time": 14.2500000000001,
+      "name": "09_eye_opening"
+    },
+    {
+      "event_time": 15.6500000000001,
+      "name": "10_crimson_eye"
+    },
+    {
+      "event_time": 16.5500000000001,
+      "name": "11_black_fade"
+    },
+    {
+      "event_time": 18.0,
+      "name": "12_hero_control_returned"
+    },
+    {
+      "event_time": 18.0,
+      "name": "after_wall"
+    },
+    {
+      "event_time": 18.0,
+      "name": "after_pedestal"
+    },
+    {
+      "event_time": 18.0,
+      "name": "13_journal_completed"
+    }
+  ]
+}

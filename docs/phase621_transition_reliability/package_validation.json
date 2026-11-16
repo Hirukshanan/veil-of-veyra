@@ -1,0 +1,32 @@
+{
+  "CRC_and_manifest_passed": true,
+  "hash_verified_files": 802,
+  "offline_gallery_passed": true,
+  "original_PNGs": 24,
+  "missing_images": 0,
+  "fresh_serial_imports": [
+    {
+      "name": "fresh_serial_1",
+      "started_utc": "2026-11-16T19:05:40.459057+00:00",
+      "duration_s": 144.793,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--editor",
+        "--path",
+        "PROJECT_ROOT",
+        "--import"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1",
+      "engine_errors": [],
+      "passed": true,
+      "fresh_extraction_without_cache": true,
+      "partial_cache_retried": false
+    }
+  ],
+  "fresh_full_cinematic_skip_save_test": null,
+  "production_main_preserved": true,
+  "full_performance_approval": false,
+  "Android_verified": false
+}

@@ -1,0 +1,21 @@
+{
+  "name": "visible_final_hero_2",
+  "started_utc": "2026-11-16T18:21:17.610643+00:00",
+  "duration_s": 64.656,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/cinematic_transition_profile.gd",
+    "--position",
+    "50,50",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\visible_final_hero_2.json",
+    "visible_final_hero_2"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

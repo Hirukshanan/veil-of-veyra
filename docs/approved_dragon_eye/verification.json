@@ -1,0 +1,114 @@
+{
+  "checks": [
+    {
+      "name": "approved_eye_check",
+      "started_utc": "2026-11-16T19:44:00.391201+00:00",
+      "duration_s": 67.863,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/approved_eye_check.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+    },
+    {
+      "name": "quest_save_compatibility_check",
+      "started_utc": "2026-11-16T19:45:08.259617+00:00",
+      "duration_s": 52.831,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--headless",
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/quest_save_compatibility_check.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "EVIDENCE_ROOT"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+    },
+    {
+      "name": "eye_live",
+      "started_utc": "2026-11-16T19:46:01.095249+00:00",
+      "duration_s": 76.89,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "res://tests/cinematic_transition_profile.gd",
+        "--position",
+        "50,50",
+        "--rendering-method",
+        "gl_compatibility",
+        "--",
+        "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\eye_integration\\live.json",
+        "approved_eye"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+    },
+    {
+      "name": "eye_movie",
+      "started_utc": "2026-11-16T19:47:17.989832+00:00",
+      "duration_s": 220.842,
+      "exit_code": 0,
+      "script_error": false,
+      "arguments": [
+        "--path",
+        "PROJECT_ROOT",
+        "--script",
+        "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\eye_integration\\capture.gd",
+        "--position",
+        "-20000,-20000",
+        "--rendering-method",
+        "gl_compatibility",
+        "--fixed-fps",
+        "20",
+        "--write-movie",
+        "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\eye_integration\\capture\\cinematic.avi",
+        "--",
+        "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\eye_integration\\capture"
+      ],
+      "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+    }
+  ],
+  "reference_comparison_SSIM_excluding_skip_corner": 1.0,
+  "eye_window": {
+    "frames": 1087,
+    "median_ms": 2.108,
+    "p95_ms": 2.936,
+    "p99_ms": 3.503,
+    "max_ms": 9.527,
+    "draw_calls_mean": 4.0,
+    "primitives_mean": 82.0,
+    "engine_static_bytes_max": 157758870.0
+  },
+  "entire_cinematic": {
+    "frames": 5787,
+    "median_ms": 2.976,
+    "p95_ms": 4.73,
+    "p99_ms": 5.956,
+    "max_ms": 3855.408,
+    "draw_calls_mean": 16.86642474511837,
+    "primitives_mean": 13086.558838776567,
+    "engine_static_bytes_max": 160275618.0
+  },
+  "Android_measured": false,
+  "existing_global_shader_freezes_claimed_fixed": false,
+  "opening_frame_seconds": 0.2,
+  "six_frame_sequence_seconds": 1.2,
+  "last_frame_first_visible_at_event_seconds": 14.3,
+  "music_cut_unchanged_at_seconds": 15.7
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "ModuleVersion": "4.7.2.0",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-16T17:18:51.4632938Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000003e6bf0d",
+    "ModuleName": "Godot_v4.7.2-stable_win64.exe"
+  },
+  {
+    "ModuleVersion": "4.7.2.0",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-16T16:29:36.3382168Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000003e0bc7d",
+    "ModuleName": "Godot_v4.7.2-stable_win64.exe"
+  },
+  {
+    "ModuleVersion": "30.0.101.1404",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-16T15:49:52.5678144Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000000297b14",
+    "ModuleName": "igxelpicd64.dll"
+  },
+  {
+    "ModuleVersion": "30.0.101.1404",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-16T15:20:55.3199256Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000000297b14",
+    "ModuleName": "igxelpicd64.dll"
+  },
+  {
+    "ModuleVersion": "30.0.101.1404",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-15T08:51:46.4044395Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000000297b14",
+    "ModuleName": "igxelpicd64.dll"
+  },
+  {
+    "ModuleVersion": "4.7.2.0",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-15T03:00:15.3054046Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000003e0bc7d",
+    "ModuleName": "Godot_v4.7.2-stable_win64.exe"
+  },
+  {
+    "ModuleVersion": "30.0.101.1404",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-14T21:55:48.6466894Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000000297b14",
+    "ModuleName": "igxelpicd64.dll"
+  },
+  {
+    "ModuleVersion": "30.0.101.1404",
+    "ExceptionCode": "c0000005",
+    "time": "2026-11-09T18:23:29.3950042Z",
+    "AppVersion": "4.7.2.0",
+    "FaultingOffset": "0000000000297b14",
+    "ModuleName": "igxelpicd64.dll"
+  }
+]

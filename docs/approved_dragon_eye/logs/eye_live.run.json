@@ -1,0 +1,21 @@
+{
+  "name": "eye_live",
+  "started_utc": "2026-11-16T19:46:01.095249+00:00",
+  "duration_s": 76.89,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/cinematic_transition_profile.gd",
+    "--position",
+    "50,50",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\eye_integration\\live.json",
+    "approved_eye"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

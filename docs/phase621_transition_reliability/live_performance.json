@@ -1,0 +1,545 @@
+{
+  "quantile_method": "nearest rank; median upper middle",
+  "Windows_measured": true,
+  "Android_measured": false,
+  "OS_driver_cache_not_manually_cleared": true,
+  "fresh_user_profile_and_Godot_shader_cache_each_run": true,
+  "summary": {
+    "visible_mobile_before_retry": {
+      "cinematic": {
+        "frames": 5559,
+        "median_ms": 3.168,
+        "p95_ms": 5.008,
+        "p99_ms": 5.986,
+        "max_ms": 3413.417,
+        "over_50_ms": 5,
+        "over_100_ms": 5,
+        "over_1000_ms": 2
+      },
+      "setup_including_common_settle_ms": 32114.632,
+      "largest_setup_frame_ms": 22941.098,
+      "actual_cinematic_frame_interval_sum_ms": 23346.795,
+      "transitions": {
+        "Placement": {
+          "frames": 221,
+          "median_ms": 4.748,
+          "p95_ms": 5.794,
+          "p99_ms": 6.715,
+          "max_ms": 3413.417,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 1
+        },
+        "Descent / dust": {
+          "frames": 638,
+          "median_ms": 4.463,
+          "p95_ms": 5.871,
+          "p99_ms": 6.973,
+          "max_ms": 1176.825,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 1
+        },
+        "Spreading cracks": {
+          "frames": 429,
+          "median_ms": 3.369,
+          "p95_ms": 4.309,
+          "p99_ms": 5.111,
+          "max_ms": 418.469,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Wall break": {
+          "frames": 386,
+          "median_ms": 3.527,
+          "p95_ms": 4.438,
+          "p99_ms": 5.429,
+          "max_ms": 9.441,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Roar": {
+          "frames": 212,
+          "median_ms": 3.675,
+          "p95_ms": 4.578,
+          "p99_ms": 5.628,
+          "max_ms": 9.303,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Passage camera": {
+          "frames": 1119,
+          "median_ms": 3.719,
+          "p95_ms": 4.889,
+          "p99_ms": 5.464,
+          "max_ms": 593.463,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Darkness": {
+          "frames": 393,
+          "median_ms": 1.879,
+          "p95_ms": 2.457,
+          "p99_ms": 2.909,
+          "max_ms": 427.608,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Eye opening": {
+          "frames": 1213,
+          "median_ms": 1.915,
+          "p95_ms": 2.529,
+          "p99_ms": 2.889,
+          "max_ms": 7.807,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Music cut": {
+          "frames": 786,
+          "median_ms": 1.98,
+          "p95_ms": 2.56,
+          "p99_ms": 3.128,
+          "max_ms": 7.052,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Hero camera return": {
+          "frames": 161,
+          "median_ms": 4.27,
+          "p95_ms": 5.345,
+          "p99_ms": 6.395,
+          "max_ms": 6.922,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Completion / save": {
+          "frames": 1,
+          "median_ms": 24.603,
+          "p95_ms": 24.603,
+          "p99_ms": 24.603,
+          "max_ms": 24.603,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        }
+      },
+      "automatic_preparation_enabled": false,
+      "audio_clock_offset_seconds": {
+        "median": 4.589560363527769,
+        "min": 3.2569200844797477,
+        "max": 5.459936661861299,
+        "note": "Sampled before the scene process callback; includes the preceding frame interval and audio-mix timing. Not a physical audio-output latency measurement."
+      }
+    },
+    "default_safe_1": {
+      "cinematic": {
+        "frames": 5428,
+        "median_ms": 3.168,
+        "p95_ms": 5.042,
+        "p99_ms": 5.99,
+        "max_ms": 2634.296,
+        "over_50_ms": 4,
+        "over_100_ms": 4,
+        "over_1000_ms": 1
+      },
+      "setup_including_common_settle_ms": 47005.691,
+      "largest_setup_frame_ms": 36731.714,
+      "actual_cinematic_frame_interval_sum_ms": 21456.347,
+      "transitions": {
+        "Placement": {
+          "frames": 268,
+          "median_ms": 3.825,
+          "p95_ms": 5.54,
+          "p99_ms": 6.312,
+          "max_ms": 2634.296,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 1
+        },
+        "Descent / dust": {
+          "frames": 692,
+          "median_ms": 4.073,
+          "p95_ms": 5.663,
+          "p99_ms": 6.681,
+          "max_ms": 538.141,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Spreading cracks": {
+          "frames": 471,
+          "median_ms": 3.346,
+          "p95_ms": 4.47,
+          "p99_ms": 5.353,
+          "max_ms": 8.432,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Wall break": {
+          "frames": 364,
+          "median_ms": 3.65,
+          "p95_ms": 5.36,
+          "p99_ms": 5.99,
+          "max_ms": 27.253,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Roar": {
+          "frames": 214,
+          "median_ms": 3.747,
+          "p95_ms": 4.975,
+          "p99_ms": 5.31,
+          "max_ms": 8.261,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Passage camera": {
+          "frames": 1163,
+          "median_ms": 3.754,
+          "p95_ms": 4.923,
+          "p99_ms": 5.547,
+          "max_ms": 8.786,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Darkness": {
+          "frames": 282,
+          "median_ms": 2.616,
+          "p95_ms": 3.891,
+          "p99_ms": 4.755,
+          "max_ms": 636.436,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Eye opening": {
+          "frames": 1116,
+          "median_ms": 2.065,
+          "p95_ms": 2.869,
+          "p99_ms": 3.297,
+          "max_ms": 5.298,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Music cut": {
+          "frames": 744,
+          "median_ms": 2.069,
+          "p95_ms": 2.774,
+          "p99_ms": 3.128,
+          "max_ms": 8.475,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Hero camera return": {
+          "frames": 113,
+          "median_ms": 4.857,
+          "p95_ms": 6.922,
+          "p99_ms": 7.495,
+          "max_ms": 156.867,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Completion / save": {
+          "frames": 1,
+          "median_ms": 40.038,
+          "p95_ms": 40.038,
+          "p99_ms": 40.038,
+          "max_ms": 40.038,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        }
+      },
+      "automatic_preparation_enabled": false,
+      "audio_clock_offset_seconds": {
+        "median": 2.9037899106369602,
+        "min": 2.469432104916862,
+        "max": 3.5298523997137004,
+        "note": "Sampled before the scene process callback; includes the preceding frame interval and audio-mix timing. Not a physical audio-output latency measurement."
+      }
+    },
+    "default_safe_2": {
+      "cinematic": {
+        "frames": 4116,
+        "median_ms": 3.837,
+        "p95_ms": 7.794,
+        "p99_ms": 10.286,
+        "max_ms": 4864.725,
+        "over_50_ms": 5,
+        "over_100_ms": 4,
+        "over_1000_ms": 1
+      },
+      "setup_including_common_settle_ms": 52363.983,
+      "largest_setup_frame_ms": 39116.864,
+      "actual_cinematic_frame_interval_sum_ms": 24266.643,
+      "transitions": {
+        "Placement": {
+          "frames": 241,
+          "median_ms": 4.086,
+          "p95_ms": 6.392,
+          "p99_ms": 13.077,
+          "max_ms": 4864.725,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 1
+        },
+        "Descent / dust": {
+          "frames": 629,
+          "median_ms": 4.189,
+          "p95_ms": 7.7,
+          "p99_ms": 11.219,
+          "max_ms": 514.073,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Spreading cracks": {
+          "frames": 314,
+          "median_ms": 4.503,
+          "p95_ms": 8.509,
+          "p99_ms": 10.598,
+          "max_ms": 14.06,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Wall break": {
+          "frames": 332,
+          "median_ms": 3.821,
+          "p95_ms": 7.156,
+          "p99_ms": 10.858,
+          "max_ms": 11.869,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Roar": {
+          "frames": 167,
+          "median_ms": 4.169,
+          "p95_ms": 8.777,
+          "p99_ms": 10.723,
+          "max_ms": 10.808,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Passage camera": {
+          "frames": 826,
+          "median_ms": 5.009,
+          "p95_ms": 8.65,
+          "p99_ms": 10.286,
+          "max_ms": 12.624,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Darkness": {
+          "frames": 279,
+          "median_ms": 2.49,
+          "p95_ms": 4.797,
+          "p99_ms": 5.661,
+          "max_ms": 631.956,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Eye opening": {
+          "frames": 721,
+          "median_ms": 3.067,
+          "p95_ms": 5.412,
+          "p99_ms": 6.305,
+          "max_ms": 9.682,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Music cut": {
+          "frames": 519,
+          "median_ms": 2.92,
+          "p95_ms": 5.021,
+          "p99_ms": 6.064,
+          "max_ms": 10.306,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Hero camera return": {
+          "frames": 87,
+          "median_ms": 6.685,
+          "p95_ms": 9.994,
+          "p99_ms": 725.912,
+          "max_ms": 725.912,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Completion / save": {
+          "frames": 1,
+          "median_ms": 73.849,
+          "p95_ms": 73.849,
+          "p99_ms": 73.849,
+          "max_ms": 73.849,
+          "over_50_ms": 1,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        }
+      },
+      "automatic_preparation_enabled": false,
+      "audio_clock_offset_seconds": {
+        "median": 5.097133516481809,
+        "min": 4.6956729720255606,
+        "max": 5.7204290881256,
+        "note": "Sampled before the scene process callback; includes the preceding frame interval and audio-mix timing. Not a physical audio-output latency measurement."
+      }
+    },
+    "default_safe_cap30": {
+      "cinematic": {
+        "frames": 534,
+        "median_ms": 33.337,
+        "p95_ms": 33.6,
+        "p99_ms": 34.296,
+        "max_ms": 5355.311,
+        "over_50_ms": 5,
+        "over_100_ms": 4,
+        "over_1000_ms": 1
+      },
+      "setup_including_common_settle_ms": 55568.586,
+      "largest_setup_frame_ms": 39926.963,
+      "actual_cinematic_frame_interval_sum_ms": 24667.735,
+      "transitions": {
+        "Placement": {
+          "frames": 34,
+          "median_ms": 33.352,
+          "p95_ms": 34.17,
+          "p99_ms": 5355.311,
+          "max_ms": 5355.311,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 1
+        },
+        "Descent / dust": {
+          "frames": 88,
+          "median_ms": 33.344,
+          "p95_ms": 33.568,
+          "p99_ms": 542.825,
+          "max_ms": 542.825,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Spreading cracks": {
+          "frames": 48,
+          "median_ms": 33.335,
+          "p95_ms": 33.461,
+          "p99_ms": 33.581,
+          "max_ms": 33.581,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Wall break": {
+          "frames": 42,
+          "median_ms": 33.34,
+          "p95_ms": 33.442,
+          "p99_ms": 33.461,
+          "max_ms": 33.461,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Roar": {
+          "frames": 24,
+          "median_ms": 33.352,
+          "p95_ms": 33.544,
+          "p99_ms": 34.208,
+          "max_ms": 34.208,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Passage camera": {
+          "frames": 132,
+          "median_ms": 33.34,
+          "p95_ms": 33.546,
+          "p99_ms": 34.216,
+          "max_ms": 34.296,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Darkness": {
+          "frames": 26,
+          "median_ms": 33.329,
+          "p95_ms": 33.502,
+          "p99_ms": 633.835,
+          "max_ms": 633.835,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Eye opening": {
+          "frames": 72,
+          "median_ms": 33.333,
+          "p95_ms": 33.515,
+          "p99_ms": 34.248,
+          "max_ms": 34.248,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Music cut": {
+          "frames": 48,
+          "median_ms": 33.346,
+          "p95_ms": 33.88,
+          "p99_ms": 33.892,
+          "max_ms": 33.892,
+          "over_50_ms": 0,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        },
+        "Hero camera return": {
+          "frames": 19,
+          "median_ms": 33.336,
+          "p95_ms": 570.583,
+          "p99_ms": 570.583,
+          "max_ms": 570.583,
+          "over_50_ms": 1,
+          "over_100_ms": 1,
+          "over_1000_ms": 0
+        },
+        "Completion / save": {
+          "frames": 1,
+          "median_ms": 65.898,
+          "p95_ms": 65.898,
+          "p99_ms": 65.898,
+          "max_ms": 65.898,
+          "over_50_ms": 1,
+          "over_100_ms": 0,
+          "over_1000_ms": 0
+        }
+      },
+      "automatic_preparation_enabled": false,
+      "audio_clock_offset_seconds": {
+        "median": 5.64221388555908,
+        "min": 5.218374508992513,
+        "max": 6.242033190551801,
+        "note": "Sampled before the scene process callback; includes the preceding frame interval and audio-mix timing. Not a physical audio-output latency measurement."
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mode": "parallel_1",
+  "threaded": true,
+  "fresh_extraction": true,
+  "cache_absent_before_run": true,
+  "partial_cache_reused": false,
+  "source_files": 611,
+  "seconds": 55.114,
+  "exit_code": 0,
+  "source_ZIP_sha256": "fcda77ee0c76e24621a51b4792509f328c7013a3a8ae3937d344bafa91a5a382"
+}

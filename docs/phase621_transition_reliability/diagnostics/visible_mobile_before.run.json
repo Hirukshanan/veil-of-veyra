@@ -1,0 +1,21 @@
+{
+  "name": "visible_mobile_before",
+  "started_utc": "2026-11-16T18:06:23.030105+00:00",
+  "duration_s": 70.443,
+  "exit_code": 3221225477,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\profile.gd",
+    "--position",
+    "50,50",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase621\\visible_mobile_before.json",
+    "visible_mobile_before"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

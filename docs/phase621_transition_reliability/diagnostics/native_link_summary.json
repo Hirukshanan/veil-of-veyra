@@ -1,0 +1,172 @@
+{
+  "local_replay_not_live_game_FPS": true,
+  "slow_calls": [
+    {
+      "call": 28027,
+      "cpu_ms": 1132.7655,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 27915,
+      "cpu_ms": 1053.1298,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 15410,
+      "cpu_ms": 1007.3887,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 37884,
+      "cpu_ms": 989.6837,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 31023,
+      "cpu_ms": 951.0397,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 27457,
+      "cpu_ms": 925.3714,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 30210,
+      "cpu_ms": 918.541,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 37779,
+      "cpu_ms": 906.2586,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 37163,
+      "cpu_ms": 898.6201,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 28617,
+      "cpu_ms": 890.9771,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 28507,
+      "cpu_ms": 881.3385,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 16091,
+      "cpu_ms": 871.6143,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 700966,
+      "cpu_ms": 844.321,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 25248,
+      "cpu_ms": 839.8492,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 29611,
+      "cpu_ms": 789.4798,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 700857,
+      "cpu_ms": 789.3237,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 31622,
+      "cpu_ms": 771.7598,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 24686,
+      "cpu_ms": 769.2954,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 37266,
+      "cpu_ms": 756.3634,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 15519,
+      "cpu_ms": 740.7358,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 57321,
+      "cpu_ms": 727.5426,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 30322,
+      "cpu_ms": 724.1589,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 26382,
+      "cpu_ms": 696.4732,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 26280,
+      "cpu_ms": 688.0235,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 30910,
+      "cpu_ms": 685.9315,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 14809,
+      "cpu_ms": 681.677,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 25359,
+      "cpu_ms": 678.771,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 57990,
+      "cpu_ms": 678.4058,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 14918,
+      "cpu_ms": 677.9353,
+      "function": "glLinkProgram"
+    },
+    {
+      "call": 29498,
+      "cpu_ms": 676.0826,
+      "function": "glLinkProgram"
+    }
+  ],
+  "aggregate_ms": {
+    "glGetSynciv": 1.4314,
+    "glBufferSubData": 10.2465,
+    "glDeleteTextures": 9.1579,
+    "glGenerateMipmap": 10.5118,
+    "glShaderSource": 46.8028,
+    "glBufferData": 5.7155,
+    "glTexImage2D": 104.4427,
+    "glCompileShader": 2054.117,
+    "glCompressedTexImage2D": 12.0979,
+    "glDrawArrays": 1.054,
+    "glDeleteProgram": 11.8625,
+    "glLinkProgram": 51445.5119,
+    "glDeleteBuffers": 1.3545
+  },
+  "full_GPU_trace_included": false,
+  "no_external_trace_upload": true
+}
