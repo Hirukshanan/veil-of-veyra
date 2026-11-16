@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+AWAKENING lantern_placement @ 0.0
+AWAKENING stone_descent @ 1.2
+AWAKENING spreading_fractures @ 4.22
+AWAKENING wall_break @ 5.82
+AWAKENING distant_dragon_roar @ 7.22
+AWAKENING passage_camera @ 8.02
+AWAKENING complete_darkness @ 12.4
+AWAKENING crimson_eye_opening @ 13.3
+AWAKENING music_cut @ 15.7
+AWAKENING return_to_hero @ 18.0
+AWAKENING completed @ 18.0
+AWAKENING lantern_placement @ 0.0
+AWAKENING skipped @ 0.0
+PASS: lantern prerequisites, full cinematic, collision/traversal, camera clearance, immunity, save/reload, duplicate guard and skip

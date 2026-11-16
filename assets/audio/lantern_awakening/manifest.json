@@ -1,0 +1,36 @@
+{
+  "sample_rate": 24000,
+  "files": [
+    {
+      "file": "stone.wav",
+      "duration_s": 4.2,
+      "peak": 0.72,
+      "sha256": "f3d9aec3260fe87b2fb341a3503989e496b9a53e2b2f050887ab35beeb7d7998"
+    },
+    {
+      "file": "fracture.wav",
+      "duration_s": 3.2,
+      "peak": 0.72,
+      "sha256": "d11b895cfbdba071c50e0ff7d13dec5035a8fa6f9b6781716353970a8bd54c2c"
+    },
+    {
+      "file": "breathing.wav",
+      "duration_s": 4.0,
+      "peak": 0.72,
+      "sha256": "62369e31fd2346c6b68d56381d4982a5a10f91aff402000046ee3b533837654e"
+    },
+    {
+      "file": "tension.wav",
+      "duration_s": 32.0,
+      "peak": 0.72,
+      "sha256": "074ef82b73023e1af3b8cdb956223bf6e6bb3ef03a7a2ceda47cfa6f79d18388"
+    },
+    {
+      "file": "dragon_roar.wav",
+      "duration_s": 6.0,
+      "peak": 0.72,
+      "sha256": "835f765e0df0c5d6a0de5d1940f99b18c1cea916f6d11168619ed2f101293348"
+    }
+  ],
+  "roar_source_sha256": "0dedce2dc44c280f35c1caef117abe8bbb9e242135079a35a5b1939af8bc7560"
+}

@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 30.0.101.1404 - Compatibility - Using Device: Intel - Intel(R) Iris(R) Xe Graphics
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 20 FPS...
+CAPTURE before_wall
+CAPTURE before_pedestal
+CAPTURE 01_interact_gameplay
+AWAKENING lantern_placement @ 0.0
+CAPTURE 02_lantern_placed
+AWAKENING stone_descent @ 1.2
+CAPTURE 03_stone_descending
+AWAKENING spreading_fractures @ 4.25
+CAPTURE 04_spreading_cracks
+AWAKENING wall_break @ 5.85
+CAPTURE 05_wall_fracture
+AWAKENING distant_dragon_roar @ 7.25
+AWAKENING passage_camera @ 8.05
+CAPTURE 06_passage_camera
+CAPTURE 07_deep_hall
+AWAKENING complete_darkness @ 12.4
+CAPTURE 08_complete_darkness
+AWAKENING crimson_eye_opening @ 13.3
+CAPTURE 09_eye_opening
+CAPTURE 10_crimson_eye
+AWAKENING music_cut @ 15.7
+CAPTURE 11_black_fade
+AWAKENING return_to_hero @ 18.0
+AWAKENING completed @ 18.0
+CAPTURE 12_hero_control_returned
+CAPTURE after_wall
+CAPTURE after_pedestal
+CAPTURE 13_journal_completed
+PASS: full in-engine cinematic with actual engine audio and matched cave evidence
+--------------------------------------------------------------------------------
+Done recording movie at path: C:\Users\Dark\Documents\Codex\2026-11-13\c\work\phase62\capture\cinematic.avi
+452 frames at 20 FPS (movie length: 00:00:22:12), recorded in 00:01:45 (20% of real-time speed).
+CPU render time: 32.90 seconds (average: 72.78 ms/frame)
+GPU render time: 1.77 seconds (average: 3.92 ms/frame)
+Encoding time: 9.83 seconds (average: 21.75 ms/frame)
+--------------------------------------------------------------------------------

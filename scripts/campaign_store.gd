@@ -40,6 +40,11 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 		if not world[key] is bool:
 			return false
 	# Additive optional encounter flag: version-4 and earlier saves remain valid.
+	# Optional v4 story flag. Earlier saves need no migration or new inventory.
+	if not world.get("lantern_awakening", false) is bool:
+		return false
+	if world.get("lantern_awakening", false) and (not completed or 1 not in world.relics):
+		return false
 	if not world.get("boar_defeated", false) is bool:
 		return false
 	if not world.position is Vector3 or not world.position.is_finite() or world.position.y < -8 or world.position.y > 50:

@@ -1,0 +1,33 @@
+{
+  "actual_Godot_movie": true,
+  "engine_audio_included": true,
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2
+      }
+    ],
+    "format": {
+      "duration": "22.600000"
+    }
+  },
+  "PCM_peak_linear": 0.6517333984375,
+  "PCM_peak_dBFS": -3.718600455476934,
+  "PCM_RMS_dBFS": -21.279261686887914,
+  "clipped_samples": 0,
+  "sample_rate": 48000,
+  "channels": 2,
+  "recording_is_fixed_step": true,
+  "Android_performance_evidence": false
+}

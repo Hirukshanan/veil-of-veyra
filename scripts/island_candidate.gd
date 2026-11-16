@@ -1,5 +1,6 @@
 extends "res://scripts/campaign.gd"
 
+var awakening: Node3D
 var landscape: Node3D
 var placement_ready := false
 var placement_log: Array[Dictionary] = []
@@ -37,6 +38,9 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	_configure_encounters()
+	awakening = preload("res://scripts/lantern_awakening.gd").new()
+	awakening.game = self
+	add_child(awakening)
 	placement_ready = true
 
 func _ground_node(node: Node3D, safe := false) -> void:
@@ -110,11 +114,13 @@ func _load_tracking():
 	var preference:=ConfigFile.new()
 	if FileAccess.file_exists(TRACKING_PATH) and preference.load(TRACKING_PATH)==OK:
 		var saved=preference.get_value("journal","tracked","")
-		if saved in ["main","watch","grove","relic"]: tracked_quest=saved
+		if saved in ["main","watch","grove","relic","awakening"]: tracked_quest=saved
 
 var journal_view: Control
 
 func _show_journal() -> void:
+	if is_instance_valid(awakening) and awakening.active:
+		return
 	if not started or game_finished or (get_tree().paused and not pause_menu_open):
 		return
 	var group := "Main"
@@ -145,6 +151,8 @@ func _clear_menu(title:String,message:String,save_world:=true) -> void:
 	super._clear_menu(title,message,save_world)
 
 func _resume() -> void:
+	if is_instance_valid(awakening) and awakening.active:
+		return
 	_dismiss_journal()
 	super._resume()
 
@@ -153,18 +161,26 @@ func _close_journal_animated() -> void:
 		journal_view.close(_resume)
 
 func _toggle_journal() -> void:
+	if is_instance_valid(awakening) and awakening.active:
+		return
 	if journal_open:
 		_close_journal_animated()
 	else:
 		super._toggle_journal()
 
 func _toggle_pause() -> void:
+	if is_instance_valid(awakening) and awakening.active:
+		awakening.skip()
+		return
 	if journal_open:
 		_close_journal_animated()
 	else:
 		super._toggle_pause()
 
 func tracked_hint(base:Dictionary) -> Dictionary:
+	if is_instance_valid(awakening) and completed and tracked_quest in ["", "main"] and not awakening.finished():
+		var objective:Dictionary=awakening.quest()
+		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
 	if tracked_quest=="" or not _world_ready or Time.get_ticks_msec()<quest_feedback.get("until",0):
 		return base
 	var q:=preload("res://scripts/candidate_journal.gd").entry(self,tracked_quest)
@@ -173,3 +189,25 @@ func tracked_hint(base:Dictionary) -> Dictionary:
 		return {"title":current.title,"message":current.message,"progress":q.objective}
 	if q.done: return base
 	return {"title":q.title.to_upper(),"message":q.next,"progress":"%s  %d/%d" % [q.objective,q.value,q.total]}
+
+func _pause_game() -> void:
+	if is_instance_valid(awakening) and awakening.active:
+		return
+	super._pause_game()
+
+func awakening_quest() -> Dictionary:
+	return awakening.quest()
+
+func _update_objective() -> void:
+	super._update_objective()
+	if is_instance_valid(awakening) and not awakening.active and not awakening.finished() and awakening.eligible() and awakening.near_pedestal():
+		interact_button.visible=true
+		interact_button.disabled=false
+		interact_button.icon=preload("res://assets/ui/controls/lantern.svg")
+		interact_button.accessibility_name="Interact · Place lantern"
+
+func _interact_world() -> void:
+	if is_instance_valid(awakening) and awakening.eligible() and awakening.near_pedestal() and not awakening.finished():
+		awakening.start()
+		return
+	super._interact_world()

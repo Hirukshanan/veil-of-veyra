@@ -1,0 +1,21 @@
+{
+  "name": "render_cost_baseline",
+  "started_utc": "2026-11-16T16:10:12.756566+00:00",
+  "duration_s": 44.194,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\metrics.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\baseline_metrics.json",
+    "baseline"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "fresh_awakening_check",
+  "started_utc": "2026-11-16T16:33:45.104528+00:00",
+  "duration_s": 29.21,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/lantern_awakening_check.gd",
+    "--fixed-fps",
+    "60",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

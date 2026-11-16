@@ -1,0 +1,17 @@
+{
+  "name": "save_check",
+  "started_utc": "2026-11-16T15:35:40.017286+00:00",
+  "duration_s": 11.059,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "res://tests/save_check.gd",
+    "--",
+    "EVIDENCE_ROOT"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

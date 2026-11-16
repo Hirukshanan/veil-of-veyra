@@ -24,6 +24,8 @@ var unroll := 0.0
 var last_layout_size := Vector2.ZERO
 
 static func entry(g, id: String) -> Dictionary:
+	if id=="awakening":
+		return g.awakening_quest()
 	var s := Q.snapshot(g)
 	var goal := Q.current(g)
 	match id:
@@ -241,9 +243,9 @@ func render():
 	stack.add_theme_constant_override("separation",10)
 	index_scroll.add_child(stack)
 	var ids:Array = []
-	for id in ["main","watch","relic","grove"]:
+	for id in ["main","awakening","watch","relic","grove"]:
 		var quest := entry(game,id)
-		if section==("Completed" if quest.done else "Main" if id=="main" else "Side"):
+		if section==("Completed" if quest.done else "Main" if id in ["main","awakening"] else "Side"):
 			ids.append(id)
 	if selected not in ids:
 		selected = "" if ids.is_empty() else ids[0]
@@ -309,7 +311,7 @@ func render():
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.self_modulate = Color("6d4b26")
 	rewards.add_child(icon)
-	if selected!="main":
+	if selected not in ["main","awakening"]:
 		rewards.add_child(Shard.new())
 		if selected!="grove":
 			icon.hide()

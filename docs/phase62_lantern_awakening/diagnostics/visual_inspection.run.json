@@ -1,0 +1,20 @@
+{
+  "name": "visual_inspection",
+  "started_utc": "2026-11-16T15:20:08.485051+00:00",
+  "duration_s": 51.711,
+  "exit_code": 3221225477,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\inspect.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\inspect"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

@@ -1,0 +1,46 @@
+{
+  "Android_measured": false,
+  "configuration": "1280x720, native HUD, 720-high 3D, shadows off, 30 FPS cap, actors held; live timing, no movie writer",
+  "platform": "Windows Intel Iris Xe / Godot Compatibility",
+  "rows": [
+    {
+      "draw_calls_mean": 34.0,
+      "engine_static_bytes": 142783970.0,
+      "frames": 90,
+      "gpu_ms_median": 2.39400005340576,
+      "max_frame_ms": 34.079,
+      "median_frame_ms": 33.343,
+      "name": "sealed_cave",
+      "p95_frame_ms": 33.494,
+      "render_cpu_ms_median": 1.06500005722046,
+      "submitted_primitives_mean": 143070.0,
+      "video_bytes": 264578930.0
+    },
+    {
+      "draw_calls_mean": 42.1296296296296,
+      "engine_static_bytes": 142931525.0,
+      "frames": 540,
+      "gpu_ms_median": 3.31800007820129,
+      "max_frame_ms": 5757.999,
+      "median_frame_ms": 33.334,
+      "name": "live_cinematic",
+      "p95_frame_ms": 33.422,
+      "render_cpu_ms_median": 1.13199996948242,
+      "submitted_primitives_mean": 117403.998148148,
+      "video_bytes": 275233034.0
+    },
+    {
+      "draw_calls_mean": 18.0,
+      "engine_static_bytes": 142858593.0,
+      "frames": 90,
+      "gpu_ms_median": 3.06699991226196,
+      "max_frame_ms": 33.582,
+      "median_frame_ms": 33.334,
+      "name": "opened_cave",
+      "p95_frame_ms": 33.437,
+      "render_cpu_ms_median": 0.921999990940094,
+      "submitted_primitives_mean": 142770.0,
+      "video_bytes": 275233034.0
+    }
+  ]
+}

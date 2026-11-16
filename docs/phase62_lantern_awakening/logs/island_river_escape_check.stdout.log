@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RIVER -62.0 west entry=true escape=true
+RIVER -62.0 east entry=true escape=true
+RIVER -52.0 west entry=true escape=true
+RIVER -52.0 east entry=true escape=true
+RIVER -40.0 west entry=true escape=true
+RIVER -40.0 east entry=true escape=true
+RIVER -25.0 west entry=true escape=true
+RIVER -25.0 east entry=true escape=true
+RIVER -10.0 west entry=true escape=true
+RIVER -10.0 east entry=true escape=true
+RIVER 5.0 west entry=true escape=true
+RIVER 5.0 east entry=true escape=true
+RIVER 20.0 west entry=true escape=true
+RIVER 20.0 east entry=true escape=true
+RIVER 35.0 west entry=true escape=true
+RIVER 35.0 east entry=true escape=true
+RIVER 50.0 west entry=true escape=true
+RIVER 50.0 east entry=true escape=true
+RIVER 65.0 west entry=true escape=true
+RIVER 65.0 east entry=true escape=true
+RIVER 80.0 west entry=true escape=true
+RIVER 80.0 east entry=true escape=true
+RIVER 95.0 west entry=true escape=true
+RIVER 95.0 east entry=true escape=true
+RIVER 105.0 west entry=true escape=true
+RIVER 105.0 east entry=true escape=true
+RESULT river passes 26/26

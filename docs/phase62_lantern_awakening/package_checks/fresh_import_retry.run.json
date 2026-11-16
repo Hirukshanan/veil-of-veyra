@@ -1,0 +1,16 @@
+{
+  "name": "fresh_import_retry",
+  "started_utc": "2026-11-16T16:32:31.742333+00:00",
+  "duration_s": 46.965,
+  "exit_code": 0,
+  "script_error": false,
+  "arguments": [
+    "--headless",
+    "--editor",
+    "--path",
+    "PROJECT_ROOT",
+    "--import",
+    "--verbose"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}

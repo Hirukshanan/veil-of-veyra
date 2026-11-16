@@ -1,0 +1,15 @@
+{
+  "status": "runtime_and_gallery_passed_with_import_retry",
+  "ZIP_crc": true,
+  "hash_verified_files": 709,
+  "fresh_offline_gallery": true,
+  "original_PNGs": 17,
+  "missing_images": 0,
+  "first_fresh_import_exit_code": 3221225477,
+  "fresh_import_retry_exit_code": 0,
+  "fresh_project_full_event_skip_save_reload_test": true,
+  "production_main_preserved": true,
+  "Android_performance_verified": false,
+  "desktop_transition_stalls_documented": true,
+  "initial_import_crash_documented": true
+}

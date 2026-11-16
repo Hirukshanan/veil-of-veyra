@@ -1,0 +1,11 @@
+{
+  "cases": [
+    "New/partial game: western bounty tracks actual candidate wolves; independent kills and partial seal/save progress preserved",
+    "Cave relic, ordinary herb and grove collected through existing systems; potion and one-time grove reward persist",
+    "Existing camps AND seal gate, lantern/boss flow, +80 victory/+15 bounty/+20 relic rewards and duplicate prevention survive reload"
+  ],
+  "final_shards": 140,
+  "future_story_prerequisites_derived_only": true,
+  "passed": true,
+  "save_schema": 4
+}

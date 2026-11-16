@@ -1,0 +1,21 @@
+{
+  "name": "render_cost_candidate",
+  "started_utc": "2026-11-16T15:48:33.704344+00:00",
+  "duration_s": 83.112,
+  "exit_code": 3221225477,
+  "script_error": false,
+  "arguments": [
+    "--path",
+    "PROJECT_ROOT",
+    "--script",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\metrics.gd",
+    "--position",
+    "-20000,-20000",
+    "--rendering-method",
+    "gl_compatibility",
+    "--",
+    "C:\\Users\\Dark\\Documents\\Codex\\2026-11-13\\c\\work\\phase62\\candidate_metrics.json",
+    "candidate"
+  ],
+  "profile": "unique isolated APPDATA; VEYRA_TEST=1"
+}
