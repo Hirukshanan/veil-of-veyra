@@ -1,5 +1,8 @@
 extends Resource
 
+const NORTH_RELIEF = preload("res://assets/environment/new_island/task55a/north_relief.tres")
+const EASTERN_SLOPE = preload("res://assets/environment/new_island/task55a/eastern_slope.tres")
+
 @export var origin := Vector2(-120,-120)
 @export var spacing := 1.25
 @export var columns := 193
@@ -27,6 +30,14 @@ func preserved_point(point: Vector3) -> Vector3:
 	return Vector3(INF,INF,INF)
 
 func sample(point:Vector2) -> float:
+	var height := _original_height(point)
+	if point.y < -42.5:
+		return height + NORTH_RELIEF.sample(point)
+	if point.x > 42.5:
+		return height + EASTERN_SLOPE.sample(point)
+	return height
+
+func _original_height(point: Vector2) -> float:
 	var h:float=feature_height(Vector3(point.x,coarse_sample(point),point.y))
 	# Match the existing long boar capsule without moving its approved spawn.
 	h=lerpf(h,2.659828,1-smoothstep(1.7,3.0,point.distance_to(Vector2(33.5,-19.5))))

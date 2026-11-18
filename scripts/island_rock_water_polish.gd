@@ -4,8 +4,6 @@ extends Node3D
 const ROCK_SHADER=preload("res://assets/environment/new_island/task3/rock.gdshader")
 const FALL_SHADER=preload("res://assets/environment/new_island/task3/waterfall.gdshader")
 var added_triangles:=0
-var material_regions:=0
-var smoothed_surfaces:=0
 
 func rock_material(ground:bool=false,inside:bool=false,portal:bool=false)->ShaderMaterial:
 	var m:=ShaderMaterial.new();m.shader=ROCK_SHADER
@@ -16,13 +14,6 @@ func rock_material(ground:bool=false,inside:bool=false,portal:bool=false)->Shade
 	return m
 
 func populate(landscape:Node3D)->void:
-	for region in ["WaterfallMountains","EasternCaves"]:
-		for visual in landscape.get_node(region).find_children("*","MeshInstance3D",true,false):
-			visual.material_override=rock_material(true)
-			if region == "WaterfallMountains":
-				_clip_buried_cliff(visual, landscape)
-			# Normals only: vertex positions, faces, indices and collider resources stay exact.
-			_smooth_normals(visual);material_regions+=1
 	var grotto:MeshInstance3D=landscape.get_node("PlayableGrotto")
 	var ridge_material := rock_material(false, true)
 	ridge_material.shader = preload("res://assets/environment/new_island/task542/rock_transition.gdshader")
@@ -32,61 +23,10 @@ func populate(landscape:Node3D)->void:
 	for light in landscape.get_children():
 		if light is OmniLight3D and light.position.distance_to(Vector3(76,3.1,2))<0.1:
 			light.light_energy=0.33;light.light_color=Color(0.73,0.69,0.58);light.omni_range=8
-	_build_fall_support();_build_fall();_build_foam(landscape)
-
-func _clip_buried_cliff(visual: MeshInstance3D, landscape: Node3D) -> void:
-	var faces: PackedVector3Array = visual.mesh.get_faces()
-	var surface := SurfaceTool.new()
-	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for index in range(0, faces.size(), 3):
-		var polygon: Array[Vector3] = []
-		for corner in range(3):
-			var a: Vector3 = visual.global_transform * faces[index + corner]
-			var b: Vector3 = visual.global_transform * faces[index + (corner + 1) % 3]
-			var a_height: float = a.y - landscape.SURFACE.sample(Vector2(a.x, a.z))
-			var b_height: float = b.y - landscape.SURFACE.sample(Vector2(b.x, b.z))
-			if a_height >= 0:
-				polygon.append(a)
-			if (a_height >= 0) != (b_height >= 0):
-				var above: Vector3 = a if a_height >= 0 else b
-				var below: Vector3 = b if a_height >= 0 else a
-				for iteration in range(10):
-					var middle := above.lerp(below, .5)
-					if middle.y >= landscape.SURFACE.sample(Vector2(middle.x, middle.z)):
-						above = middle
-					else:
-						below = middle
-				polygon.append(above)
-		for triangle in range(1, polygon.size() - 1):
-			for vertex in [polygon[0], polygon[triangle], polygon[triangle + 1]]:
-				surface.set_color(Color.WHITE)
-				surface.add_vertex(visual.global_transform.affine_inverse() * vertex)
-	surface.generate_normals()
-	surface.index()
-	visual.mesh = surface.commit()
-	# Existing solid rock below ground remains backed by the connected terrain.
-	# The original collider is retained so this visual trim cannot remove support.
-
-func _smooth_normals(visual:MeshInstance3D)->void:
-	var original:Mesh=visual.mesh
-	var importer:=ImporterMesh.new()
-	for index in range(original.get_surface_count()):
-		var arrays:Array=original.surface_get_arrays(index)
-		var positions:PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
-		var normals:PackedVector3Array=arrays[Mesh.ARRAY_NORMAL]
-		var sums:Dictionary={}
-		for i in positions.size():
-			var key:Vector3=positions[i].snapped(Vector3.ONE*0.0001)
-			sums[key]=sums.get(key,Vector3.ZERO)+normals[i]
-		for i in positions.size():
-			var normal:Vector3=sums[positions[i].snapped(Vector3.ONE*0.0001)].normalized()
-			if normal.dot(normals[i])>0.3:normals[i]=normal
-		arrays[Mesh.ARRAY_NORMAL]=normals
-		importer.add_surface(Mesh.PRIMITIVE_TRIANGLES,arrays)
-	importer.generate_lods(60.0,25.0,[])
-	var result:ArrayMesh=importer.get_mesh()
-	assert(result.get_faces()==original.get_faces(),"Task 3 normal pass must preserve all triangle positions/order")
-	visual.mesh=result;smoothed_surfaces+=1
+	var ground: MeshInstance3D = landscape.get_node("ConnectedTerrain")
+	_build_fall_support(ground.material_override)
+	_build_fall()
+	_build_foam(landscape)
 
 func _visual(label:String,s:SurfaceTool,material:Material)->MeshInstance3D:
 	s.generate_normals();var mesh:=MeshInstance3D.new();mesh.name=label;mesh.mesh=s.commit();mesh.material_override=material
@@ -97,7 +37,7 @@ func _visual(label:String,s:SurfaceTool,material:Material)->MeshInstance3D:
 func _triangle(s:SurfaceTool,a:Vector3,b:Vector3,c:Vector3)->void:
 	for p in [a,b,c]:s.set_uv(Vector2(p.x,p.z));s.add_vertex(p)
 
-func _build_fall_support()->void:
+func _build_fall_support(material: Material) -> void:
 	var stone:=SurfaceTool.new()
 	stone.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var last:Array[Vector3]=[]
@@ -120,7 +60,7 @@ func _build_fall_support()->void:
 		last=ring
 	for i in range(32):
 		_triangle(stone,last[i],Vector3(0,9,-73.4),last[(i+1)%32])
-	var ledge:=_visual("CascadeLedge",stone,rock_material())
+	var ledge:=_visual("CascadeLedge",stone,material)
 	ledge.create_trimesh_collision()
 	var body:StaticBody3D=ledge.get_child(0)
 	body.collision_layer=1|4|8
@@ -138,6 +78,7 @@ func _fall_point(u:float,t:float)->Vector3:
 
 func _build_fall()->void:
 	var s:=SurfaceTool.new();s.begin(Mesh.PRIMITIVE_TRIANGLES)
+	_add_spillway(s)
 	for row in range(28):
 		for col in range(12):
 			for pair in [Vector2i(col,row),Vector2i(col+1,row),Vector2i(col,row+1),Vector2i(col+1,row),Vector2i(col+1,row+1),Vector2i(col,row+1)]:
@@ -149,6 +90,16 @@ func _build_fall()->void:
 				s.set_uv(Vector2(u,t));s.add_vertex(_fall_point(split_u,t))
 	var m:=ShaderMaterial.new();m.shader=FALL_SHADER
 	_visual("CliffFollowingWaterfall",s,m)
+
+func _add_spillway(surface: SurfaceTool) -> void:
+	# Use the same flowing surface and join the existing curtain at its first row.
+	for column in range(12):
+		for corner in [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1)]:
+			var u: float = (column + corner.x) / 12.0
+			var lip := _fall_point(u, 0.0)
+			var source := Vector3(0.12 + (u * 2.0 - 1.0) * 0.72, 9.24, -73.4)
+			surface.set_uv(Vector2(u, 0.0 if corner.y == 1 else -0.19))
+			surface.add_vertex(lip if corner.y == 1 else source)
 
 func _build_foam(landscape:Node3D)->void:
 	# Duplicate only existing river-top faces; original water geometry is never edited.

@@ -17,12 +17,19 @@ func _ready() -> void:
 	name = "NewIslandLandscape"
 	_build_ground()
 	for region_name in REGION_FILES:
+		if region_name == "WaterfallMountains":
+			# The authored relief now belongs to the shared render and collision surface.
+			var mountain := Node3D.new()
+			mountain.name = region_name
+			add_child(mountain)
+			regions.append(mountain)
+			continue
 		var region: Node3D = load("res://assets/environment/new_island/"+region_name+".glb").instantiate()
 		region.name = region_name
 		add_child(region)
 		regions.append(region)
 		for mesh in region.find_children("*", "MeshInstance3D", true, false):
-			if (region_name == "EasternCaves") or (region_name == "WaterfallMountains" and str(mesh.name).contains("GradedTerrain")):
+			if region_name == "EasternCaves":
 				mesh.free()
 				continue
 			var bounds: AABB = mesh.mesh.get_aabb()
@@ -31,7 +38,6 @@ func _ready() -> void:
 			material.shader = preload("res://assets/environment/new_island/region.gdshader")
 			material.set_shader_parameter("source_map",source.albedo_texture)
 			material.set_shader_parameter("vertex_blend",region_name!="WesternForest")
-			material.set_shader_parameter("waterfall_region",region_name=="WaterfallMountains")
 			material.set_shader_parameter("footprint",Vector4(bounds.get_center().x,bounds.get_center().z,bounds.size.x*0.5,bounds.size.z*0.5))
 			material.set_shader_parameter("grass",preload("res://assets/environment/polyhaven/leafy_grass_Diffuse.jpg"))
 			material.set_shader_parameter("sand",preload("res://assets/environment/polyhaven/coast_sand_01_Diffuse.jpg"))

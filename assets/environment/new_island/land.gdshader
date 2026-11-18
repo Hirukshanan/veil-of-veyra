@@ -22,7 +22,7 @@ void fragment(){
 	vec3 color=mix(g,s,beach);
 	float path=texture(trail_mask,p.xz/256.0+0.5).r;
 	ALBEDO=mix(color,texture(soil,p.xz*0.25).rgb,path*0.62);
-	float mountain_zone=(1.0-smoothstep(16.0,28.0,abs(p.x)))*smoothstep(-95.0,-89.0,p.z)*(1.0-smoothstep(-56.0,-48.0,p.z));
+	float mountain_zone=(1.0-smoothstep(20.0,29.0,abs(p.x)))*smoothstep(-95.0,-89.0,p.z)*(1.0-smoothstep(-54.0,-46.0,p.z));
  vec3 weights=pow(abs(world_normal),vec3(4.0));weights/=max(dot(weights,vec3(1.0)),0.001);
  vec3 stone=texture(cliff_rock,p.zy*0.43).rgb*weights.x+texture(cliff_rock,p.xz*0.43).rgb*weights.y+texture(cliff_rock,p.xy*0.43).rgb*weights.z;
  float strata=sin(p.y*5.0+sin(p.x*0.7+p.z*0.4)*0.7)*0.5+0.5;

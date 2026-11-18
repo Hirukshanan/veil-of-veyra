@@ -23,7 +23,7 @@ func run():
 	for c in landscape.find_children("*","CollisionShape3D",true,false):
 		shape_count+=1
 		assert(not c.disabled and (c.get_parent().collision_layer&1)!=0,"All candidate solids must be detected by the existing wolf mask")
-	assert(shape_count==79, "Eastern apron and headwater cells share the continuous ground body; cave and all 35 tree proxies remain solid")
+	assert(shape_count==78, "Mountain relief and headwater cells share the continuous ground body; cave and all 35 tree proxies remain solid")
 	var test_trunk:CollisionShape3D=trunks.get_child(0)
 	var p:Vector3=test_trunk.position;p.y-=test_trunk.shape.height*.5
 	await hero_walk("original_tree_trunk",landscape.ground_point(p+Vector3.RIGHT*2.4)+Vector3.UP*.08,Vector2(-1,0),90)
@@ -46,7 +46,7 @@ func run():
 	var walls:Array=[]
 	for region_name in ["WaterfallMountains","EasternCaves"]:
 		var found:=0
-		var solids=landscape.get_node(region_name).find_children("*","MeshInstance3D",true,false) if region_name=="WaterfallMountains" else [landscape.get_node("PlayableGrotto")]
+		var solids=[landscape.get_node("RockWaterPolish/CascadeLedge")] if region_name=="WaterfallMountains" else [landscape.get_node("PlayableGrotto")]
 		for mesh in solids:
 			if str(mesh.name).contains("GradedTerrain"):continue
 			var faces:PackedVector3Array=mesh.mesh.get_faces()
