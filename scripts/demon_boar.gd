@@ -12,7 +12,29 @@ const WARNING_SECONDS := 1.8
 const RECOVERY_SECONDS := 1.4
 const HIT_SECONDS := 0.8
 const WORLD_MASK := 1 | 4 | 8
-enum State { IDLE, PATROL, CHASE, FACE, WARNING, CHARGE, RECOVERY, HURT, RETURN, DEAD }
+const ELITE_SIZE := 1.32
+const ELITE_CHARGE_SPEED := 4.3
+const SWEEP_WINDUP := .72
+const SWEEP_ACTIVE := .20
+const SWEEP_RECOVERY := .70
+const SWEEP_RANGE := 2.10
+const SWEEP_HALF_ANGLE := deg_to_rad(63.0)
+const STOMP_WINDUP := .88
+const STOMP_ACTIVE := .16
+const STOMP_RECOVERY := 1.02
+const STOMP_RADIUS := 1.53
+const STOMP_OFFSET := .42
+enum State { IDLE, PATROL, CHASE, FACE, WARNING, CHARGE, RECOVERY, HURT, RETURN, DEAD,
+	SWEEP_PREP, SWEEP_ACTIVE, STOMP_PREP, STOMP_ACTIVE, MELEE_RECOVERY }
+
+var elite := false
+var size_factor := 1.0
+var _close_time := 0.0
+var _last_melee := State.IDLE
+var _melee_recovery := 0.0
+var _charge_damaged := false
+var _walk_velocity := Vector3.ZERO
+var _orbit_side := 1.0
 
 var navigation: Node
 var _reposition_time := 0.0
@@ -64,6 +86,24 @@ func _ready() -> void:
 		# Damage uses the tusk area; the charge must not slide around its victim.
 		add_collision_exception_with(target)
 	_play("idle", 0.0)
+
+func enable_elite(factor: float = ELITE_SIZE) -> void:
+	assert(not elite)
+	elite = true
+	size_factor = clampf(factor, 1.30, 1.35)
+	_model.scale *= size_factor
+	var capsule: CapsuleShape3D = _body_collision.shape
+	capsule.radius = .48 * size_factor
+	capsule.height = 2.7 * size_factor
+	_body_collision.position.y = capsule.radius
+	var tusks: CollisionShape3D = _contact_area.get_child(0)
+	tusks.shape.size *= size_factor
+	tusks.position *= size_factor
+	_warning.top_level = true
+	_health_label.position.y *= size_factor
+	floor_snap_length = .38
+	preload("res://scripts/boar_melee_poses.gd").build(_model, animator, SWEEP_WINDUP, STOMP_WINDUP)
+	_feedback.prepare_elite_dust()
 
 func _build_body() -> void:
 	_model = MODEL.instantiate()
@@ -136,6 +176,8 @@ func _physics_process(delta: float) -> void:
 	var valid_target := is_instance_valid(target) and int(target.get("health")) > 0
 	var offset := _flat(target.global_position - global_position) if valid_target else Vector3.ZERO
 	var distance := offset.length() if valid_target else INF
+	if elite:
+		_close_time = minf(2.0, _close_time + delta) if distance < 1.87 * size_factor else maxf(0.0, _close_time - delta * 2.0)
 	_model.visible = distance < 45.0
 	_health_label.visible = distance < 18.0
 	if distance > 36.0 and state in [State.IDLE, State.PATROL]:
@@ -150,7 +192,12 @@ func _physics_process(delta: float) -> void:
 		_sense_time = 0.2
 		_line_clear = valid_target and distance < 22.0 and _clear_line(target)
 		var wanted := offset.normalized() if valid_target else Vector3.ZERO
-		_steering = _navigate(target.global_position) if state == State.CHASE and valid_target else (_steer(-wanted) if state == State.FACE else Vector3.ZERO)
+		_steering = _navigate(target.global_position) if state == State.CHASE and valid_target else (_steer(-wanted) if state == State.FACE and not elite else Vector3.ZERO)
+		if elite and state == State.CHASE and valid_target:
+			if distance < 2.10 * size_factor and _attack_delay > 0.0 and _line_clear:
+				_steering = _steer(wanted.cross(Vector3.UP) * _orbit_side - wanted * .22)
+			elif _blocked_by_wall():
+				_steering = _steer(_steering)
 	if state not in [State.IDLE, State.PATROL, State.RETURN] and (not valid_target or distance > 23.0 or _flat(global_position - _home).length() > 18.0):
 		_enter(State.RETURN)
 	var direction := offset.normalized() if distance > 0.01 and valid_target else Vector3.ZERO
@@ -158,7 +205,7 @@ func _physics_process(delta: float) -> void:
 	velocity.z = 0.0
 	match state:
 		State.IDLE, State.PATROL:
-			if distance < 10.0 and _line_clear:
+			if distance < (11.6 if elite else 10.0) and _line_clear:
 				_enter(State.CHASE)
 			elif state == State.IDLE and _elapsed >= 1.4:
 				_patrol_step += 1
@@ -172,14 +219,23 @@ func _physics_process(delta: float) -> void:
 				else:
 					_walk(_navigate(_patrol_goal if state == State.PATROL else _home), 0.65, delta)
 		State.CHASE:
-			if distance < 6.4 and _line_clear and _attack_delay <= 0.0 and _reposition_time <= 0.0:
+			if distance < (7.2 if elite else 6.4) and _line_clear and _attack_delay <= 0.0 and _reposition_time <= 0.0:
 				_enter(State.FACE)
 			else:
-				_walk(_steering, 2.6, delta)
+				var pace := 1.1 if elite and distance < 2.10 * size_factor and _attack_delay > 0.0 else 2.6
+				_walk(_steering, pace, delta)
 		State.FACE:
 			if not _line_clear or _elapsed > 3.0:
 				_reposition_time = .8
 				_enter(State.CHASE)
+			elif elite:
+				_turn(direction, delta)
+				var alignment := (-global_basis.z).dot(direction)
+				if _elapsed >= .23 and distance <= SWEEP_RANGE * size_factor and (alignment > .93 or distance < .38):
+					var stomp := distance < 1.65 * size_factor and _close_time >= 1.05 and _last_melee != State.STOMP_PREP
+					_enter(State.STOMP_PREP if stomp else State.SWEEP_PREP)
+				elif _elapsed >= .25 and alignment > .995:
+					_enter(State.WARNING)
 			elif distance < 2.6 and _elapsed < 0.65:
 				_walk(_steering, 0.65, delta)
 			else:
@@ -191,15 +247,36 @@ func _physics_process(delta: float) -> void:
 			if _elapsed >= WARNING_SECONDS:
 				_enter(State.CHARGE)
 		State.CHARGE:
-			velocity.x = _charge_direction.x * CHARGE_SPEED
-			velocity.z = _charge_direction.z * CHARGE_SPEED
+			var speed := CHARGE_SPEED
+			if elite:
+				speed = lerpf(2.0, ELITE_CHARGE_SPEED, smoothstep(0.0, .27, _elapsed))
+				speed = minf(speed, maxf(0.0, _charge_limit - _charge_travel) / delta)
+			velocity.x = _charge_direction.x * speed
+			velocity.z = _charge_direction.z * speed
 			_contact()
 		State.RECOVERY:
 			var speed := _recovery_speed * maxf(0.0, 1.0 - _elapsed / 0.5)
 			velocity.x = _charge_direction.x * speed
 			velocity.z = _charge_direction.z * speed
-			if _elapsed >= RECOVERY_SECONDS:
+			var duration := (1.12 if _charge_damaged else 1.52) if elite else RECOVERY_SECONDS
+			if _elapsed >= duration:
 				_attack_delay = 0.4
+				_enter(State.CHASE if valid_target else State.RETURN)
+		State.SWEEP_PREP, State.STOMP_PREP:
+			var stomp := state == State.STOMP_PREP
+			var windup := STOMP_WINDUP if stomp else SWEEP_WINDUP
+			_warning_material.albedo_color.a = lerpf(.27, .48, _elapsed / windup)
+			if _elapsed >= windup:
+				_enter(State.STOMP_ACTIVE if stomp else State.SWEEP_ACTIVE)
+		State.SWEEP_ACTIVE, State.STOMP_ACTIVE:
+			var stomp := state == State.STOMP_ACTIVE
+			if _elapsed >= (STOMP_ACTIVE if stomp else SWEEP_ACTIVE):
+				_enter(State.MELEE_RECOVERY)
+			else:
+				_melee_contact(stomp, delta)
+		State.MELEE_RECOVERY:
+			if _elapsed >= _melee_recovery:
+				_attack_delay = .38
 				_enter(State.CHASE if valid_target else State.RETURN)
 		State.HURT:
 			if _elapsed >= _hurt_duration:
@@ -216,20 +293,43 @@ func _physics_process(delta: float) -> void:
 	if state == State.CHARGE:
 		_charge_travel += _flat(global_position - before).length()
 		_contact()
-		if _charge_travel >= _charge_limit or _elapsed >= _charge_limit / CHARGE_SPEED or _blocked_by_wall():
+		var timeout := _charge_limit / (ELITE_CHARGE_SPEED if elite else CHARGE_SPEED) + (.34 if elite else 0.0)
+		if _charge_travel >= _charge_limit - (.005 if elite else 0.0) or _elapsed >= timeout or _blocked_by_wall():
 			_enter(State.RECOVERY)
 	elif state == State.RECOVERY and _blocked_by_wall():
 		_recovery_speed = 0.0
-	var speed := Vector2(velocity.x, velocity.z).length()
+	var travel := _flat(global_position - before).length()
+	var speed := travel / delta if elite else Vector2(velocity.x, velocity.z).length()
 	if state in [State.IDLE, State.PATROL, State.CHASE, State.FACE, State.RETURN]:
-		_play("run" if speed > 1.0 else ("walk" if speed > 0.05 else "idle"))
-	_feedback.sync_pose(_clip, animator.current_animation_position, delta, _flat(global_position - before).length() > 0.001, is_on_floor(), distance < 26.0)
-	animator.advance(delta)
+		_play("run" if speed > (1.45 if elite else 1.0) else ("walk" if speed > 0.05 else "idle"))
+	var step := delta
+	if elite:
+		var authored_speed := 0.0
+		match _clip:
+			"walk": authored_speed = .65
+			"run": authored_speed = 2.6
+			"charge_attack": authored_speed = CHARGE_SPEED
+		if authored_speed > 0.0:
+			step *= clampf(speed / (authored_speed * size_factor), .22, 1.35)
+		_align_model_to_floor(delta)
+	_feedback.sync_pose(_clip, animator.current_animation_position, delta, travel > 0.001, is_on_floor(), distance < 26.0, step)
+	animator.advance(step)
+
+func _align_model_to_floor(delta: float) -> void:
+	var goal := Quaternion.IDENTITY
+	if is_on_floor():
+		var normal := (global_basis.inverse() * get_floor_normal()).normalized()
+		var tilt := Quaternion(Vector3.UP, normal)
+		var angle := Vector3.UP.angle_to(normal)
+		if angle > 0.0001:
+			goal = Quaternion.IDENTITY.slerp(tilt, minf(1.0, deg_to_rad(11.0) / angle))
+	_model.quaternion = _model.quaternion.slerp(goal, minf(1.0, delta * 9.0))
 
 func _enter(next: State) -> void:
 	var previous := state
 	state = next
 	_elapsed = 0.0
+	_walk_velocity = Vector3.ZERO
 	_warning.hide()
 	match state:
 		State.WARNING:
@@ -241,20 +341,46 @@ func _enter(next: State) -> void:
 				_reposition_time = 1.0
 				_enter(State.CHASE)
 				return
-			var lane_length := _charge_limit + 1.45
-			_warning.mesh.size = Vector2(1.25, lane_length)
-			_warning.position.z = -lane_length * 0.5
+			if elite:
+				_draw_ground_warning(State.WARNING)
+			else:
+				var lane_length := _charge_limit + 1.45
+				_warning.mesh.size = Vector2(1.25, lane_length)
+				_warning.position.z = -lane_length * 0.5
 			_warning.show()
 			_play("charge_warning")
 			_feedback.cue("warning")
 		State.CHARGE:
 			_charge_travel = 0.0
 			_hit_victim = false
+			_charge_damaged = false
 			_play("charge_attack")
 			_feedback.cue("charge")
 		State.RECOVERY:
-			_recovery_speed = CHARGE_SPEED if previous == State.CHARGE else 0.0
+			_recovery_speed = (ELITE_CHARGE_SPEED * .55 if elite else CHARGE_SPEED) if previous == State.CHARGE else 0.0
 			_play("charge_recovery")
+			if elite and previous == State.CHARGE:
+				_feedback.dust_at(global_position - global_basis.z * .75 * size_factor, .60)
+		State.SWEEP_PREP, State.STOMP_PREP:
+			_last_melee = state
+			_hit_victim = false
+			_orbit_side *= -1.0
+			var stomp := state == State.STOMP_PREP
+			_melee_recovery = STOMP_RECOVERY if stomp else SWEEP_RECOVERY
+			_draw_ground_warning(state)
+			_warning.show()
+			_play("elite/ground_stomp" if stomp else "elite/tusk_sweep", .08)
+			_feedback.cue("stomp_prepare" if stomp else "sweep_prepare")
+		State.SWEEP_ACTIVE, State.STOMP_ACTIVE:
+			var stomp := state == State.STOMP_ACTIVE
+			_warning_material.albedo_color = Color(.94, .17, .07, .49)
+			_warning.show()
+			if stomp:
+				_feedback.cue("stomp_impact")
+				_feedback.dust_at(to_global(Vector3.FORWARD * STOMP_OFFSET * size_factor), 1.22)
+			else:
+				_feedback.cue("sweep_swing")
+			_melee_contact(stomp)
 		State.HURT:
 			_flinch_cooldown = 1.2
 			_play("hit_reaction")
@@ -277,13 +403,18 @@ func _navigate(goal: Vector3) -> Vector3:
 	return _steer(_flat(goal-global_position).normalized())
 
 func _walk(direction: Vector3, speed: float, delta: float) -> void:
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
+	var motion := direction * speed
+	if elite:
+		_walk_velocity = _walk_velocity.move_toward(motion, delta * 9.0)
+		motion = _walk_velocity
+	velocity.x = motion.x
+	velocity.z = motion.z
 	_turn(direction, delta)
 
 func _turn(direction: Vector3, delta: float) -> void:
 	if direction.length_squared() > 0.01:
-		rotation.y = lerp_angle(rotation.y, atan2(-direction.x, -direction.z), minf(1.0, delta * 7.0))
+		var angle := atan2(-direction.x, -direction.z)
+		rotation.y = rotate_toward(rotation.y, angle, delta * 3.6) if elite else lerp_angle(rotation.y, angle, minf(1.0, delta * 7.0))
 
 func _play(clip: String, blend := 0.12) -> void:
 	if _clip != clip:
@@ -304,22 +435,23 @@ func _cast(motion: Vector3) -> float:
 	var space:=get_world_3d().direct_space_state
 	var steps:=maxi(1,ceili(motion.length()/.6))
 	var from:=_body_collision.global_transform
+	var excluded := _excluded()
 	for step in range(steps):
 		var point:Vector3=global_position+motion*float(step+1)/steps
 		var support:float=-INF
 		for along in [-.85,0.,.85]:
-			var probe:Vector3=point-global_basis.z*along
-			var ray:=PhysicsRayQueryParameters3D.create(probe+Vector3.UP*2.2,probe-Vector3.UP*3.0,WORLD_MASK,_excluded())
+			var probe:Vector3=point-global_basis.z*along*size_factor
+			var ray:=PhysicsRayQueryParameters3D.create(probe+Vector3.UP*2.2,probe-Vector3.UP*3.0,WORLD_MASK,excluded)
 			var hit:Dictionary=space.intersect_ray(ray)
 			if hit.is_empty() or hit.normal.y<.75:return float(step)/steps
 			support=maxf(support,hit.position.y)
-		var next:=from;next.origin=point+Vector3.UP*(support-point.y+.54)
+		var next:=from;next.origin=point+Vector3.UP*(support-point.y+_body_collision.position.y+.06)
 		if absf(next.origin.y-from.origin.y)>.65:return float(step)/steps
 		# Start above floor contact, including the highest support under either end.
 		if step==0:from.origin.y=maxf(from.origin.y+.04,next.origin.y)
 		var query:=PhysicsShapeQueryParameters3D.new()
 		query.shape=_body_collision.shape;query.transform=from;query.margin=.01
-		query.motion=next.origin-from.origin;query.collision_mask=WORLD_MASK;query.exclude=_excluded()
+		query.motion=next.origin-from.origin;query.collision_mask=WORLD_MASK;query.exclude=excluded
 		var fraction:float=space.cast_motion(query)[0]
 		if fraction<.98:return (step+fraction)/steps
 		from=next
@@ -359,7 +491,97 @@ func _contact() -> void:
 		else:
 			body.call("take_damage", 18)
 		if int(body.get("health")) < before:
+			_charge_damaged = true
 			_feedback.cue("charge_impact")
+			if elite:
+				_feedback.camera_impact(body, .04)
+
+func _melee_contact(stomp: bool, delta: float = 0.0) -> void:
+	if _hit_victim or not is_instance_valid(target) or int(target.get("health")) <= 0:
+		return
+	var local := _warning.to_local(target.global_position)
+	if absf(local.y) > 1.0 or not _inside_melee(Vector2(local.x, local.z), stomp) or not _clear_line(target):
+		return
+	if not stomp and Vector2(local.x, local.z).length_squared() >= .015:
+		var angle := atan2(local.x, -local.z)
+		var first := lerpf(SWEEP_HALF_ANGLE, -SWEEP_HALF_ANGLE, clampf((_elapsed - delta) / .15, 0.0, 1.0))
+		var last := lerpf(SWEEP_HALF_ANGLE, -SWEEP_HALF_ANGLE, clampf(_elapsed / .15, 0.0, 1.0))
+		if angle < last - .30 or angle > first + .30:
+			return
+	_hit_victim = true
+	var before := int(target.get("health"))
+	var damage := 16 if stomp else 12
+	if not stomp and target.has_method("take_melee_damage"):
+		target.call("take_melee_damage", damage, self)
+	else:
+		target.call("take_damage", damage)
+	if int(target.get("health")) < before:
+		if not stomp:
+			_feedback.cue("sweep_impact")
+		_feedback.camera_impact(target, .046 if stomp else .024)
+
+func _inside_melee(point: Vector2, stomp: bool) -> bool:
+	if stomp:
+		return point.distance_squared_to(Vector2(0, -STOMP_OFFSET * size_factor)) <= pow(STOMP_RADIUS * size_factor, 2)
+	return point.length_squared() <= pow(SWEEP_RANGE * size_factor, 2) and (
+		point.length_squared() < .015 or -point.y >= point.length() * cos(SWEEP_HALF_ANGLE))
+
+func _draw_ground_warning(attack: State) -> void:
+	var surface := SurfaceTool.new()
+	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var color := Color(.93, .32, .06, .34)
+	if attack == State.WARNING:
+		var width := 1.05 * size_factor * .5
+		var length := _charge_limit + 1.50 * size_factor
+		var sections := ceili(length / .68)
+		var left := _warning_point(Vector2(-width, -.40 * size_factor))
+		var right := _warning_point(Vector2(width, -.40 * size_factor))
+		for index in range(1, sections + 1):
+			var z := lerpf(-.40 * size_factor, -length, float(index) / sections)
+			var next_left := _warning_point(Vector2(-width, z))
+			var next_right := _warning_point(Vector2(width, z))
+			_add_warning_triangle(surface, left, right, next_left)
+			_add_warning_triangle(surface, next_left, right, next_right)
+			left = next_left
+			right = next_right
+	else:
+		var stomp := attack == State.STOMP_PREP
+		var center := Vector2(0, -STOMP_OFFSET * size_factor) if stomp else Vector2.ZERO
+		var radius := (STOMP_RADIUS if stomp else SWEEP_RANGE) * size_factor
+		var arc := PI if stomp else SWEEP_HALF_ANGLE
+		var sections := 24 if stomp else 18
+		var origin := _warning_point(center)
+		var previous_mid := Vector3.ZERO
+		var previous_edge := Vector3.ZERO
+		for index in range(sections + 1):
+			var angle := lerpf(-arc, arc, float(index) / sections)
+			var direction := Vector2(sin(angle), -cos(angle))
+			var mid := _warning_point(center + direction * radius * .5)
+			var edge := _warning_point(center + direction * radius)
+			if index > 0:
+				_add_warning_triangle(surface, origin, previous_mid, mid)
+				_add_warning_triangle(surface, mid, previous_mid, edge)
+				_add_warning_triangle(surface, edge, previous_mid, previous_edge)
+			previous_mid = mid
+			previous_edge = edge
+		color = Color(.99, .25, .07, .35) if stomp else Color(1.0, .52, .08, .35)
+	_warning.global_transform = global_transform
+	_warning.mesh = surface.commit()
+	_warning_material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	_warning_material.albedo_color = color
+
+func _warning_point(local: Vector2) -> Vector3:
+	var point := to_global(Vector3(local.x, 0, local.y))
+	var ray := PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 2.0, 16)
+	var hit := get_world_3d().direct_space_state.intersect_ray(ray)
+	if not hit.is_empty():
+		point.y = hit.position.y
+	return to_local(point + Vector3.UP * .045)
+
+static func _add_warning_triangle(surface: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
+	surface.add_vertex(a)
+	surface.add_vertex(b)
+	surface.add_vertex(c)
 
 func take_damage(amount: int) -> void:
 	_receive_damage(amount)
@@ -379,7 +601,8 @@ func _receive_damage(amount: int, weapon := false, heavy := false, origin := Vec
 		_enter(State.DEAD)
 	else:
 		_feedback.cue("hurt")
-		if state not in [State.WARNING, State.CHARGE, State.RECOVERY, State.HURT] and _flinch_cooldown <= 0.0:
+		if state not in [State.WARNING, State.CHARGE, State.RECOVERY, State.HURT, State.SWEEP_PREP,
+				State.SWEEP_ACTIVE, State.STOMP_PREP, State.STOMP_ACTIVE, State.MELEE_RECOVERY] and _flinch_cooldown <= 0.0:
 			_hurt_duration = HIT_SECONDS
 			_enter(State.HURT)
 

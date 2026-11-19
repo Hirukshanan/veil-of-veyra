@@ -16,6 +16,11 @@ const CUES := {
 	"hit_heavy": [preload("res://assets/audio/demon_boar/hit_heavy.wav"), 2, -4.0],
 	"charge_impact": [preload("res://assets/audio/demon_boar/charge_impact.wav"), 2, -4.0],
 	"death_land": [preload("res://assets/audio/demon_boar/death_land.wav"), 2, -6.0],
+	"sweep_prepare": [preload("res://assets/audio/demon_boar/scrape.wav"), 0, -7.0, 1.18],
+	"sweep_swing": [preload("res://assets/audio/demon_boar/charge.wav"), 0, -12.0, 1.2],
+	"sweep_impact": [preload("res://assets/audio/demon_boar/hit_light.wav"), 2, -4.0, .85],
+	"stomp_prepare": [preload("res://assets/audio/demon_boar/warning.wav"), 0, -8.0, .84],
+	"stomp_impact": [preload("res://assets/audio/demon_boar/charge_impact.wav"), 2, -3.0, .78],
 }
 
 var voices: Array[AudioStreamPlayer3D] = []
@@ -23,8 +28,13 @@ var _hoof_index := 0
 var _motion_clip := ""
 var _hurt_time := 0.0
 var _sparks: Array[MeshInstance3D] = []
+var _dust: CPUParticles3D
+var _camera: Camera3D
+var _camera_base := 0.0
+var _camera_tween: Tween
 
 func _exit_tree() -> void:
+	_reset_camera()
 	for voice in voices:
 		voice.stop()
 		voice.stream = null
@@ -52,11 +62,82 @@ func cue(name: String) -> void:
 	var voice := voices[channel]
 	voice.stream = entry[0]
 	voice.volume_db = entry[2]
+	voice.pitch_scale = entry[3] if entry.size() > 3 else 1.0
 	voice.play()
 	cue_played.emit(name, channel)
 
-func sync_pose(clip: String, position: float, delta: float, moving: bool, grounded: bool, nearby: bool) -> void:
+func prepare_elite_dust() -> void:
+	_dust = CPUParticles3D.new()
+	_dust.name = "HoofDust"
+	_dust.emitting = false
+	_dust.one_shot = true
+	_dust.amount = 7
+	_dust.lifetime = .38
+	_dust.explosiveness = 1.0
+	_dust.direction = Vector3.UP
+	_dust.spread = 77.0
+	_dust.gravity = Vector3(0, -2.1, 0)
+	_dust.initial_velocity_min = 1.1
+	_dust.initial_velocity_max = 2.3
+	_dust.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	_dust.emission_sphere_radius = .28
+	_dust.scale_amount_min = .55
+	_dust.scale_amount_max = 1.25
+	_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var mesh := SphereMesh.new()
+	mesh.radius = .12
+	mesh.height = .24
+	mesh.radial_segments = 5
+	mesh.rings = 2
+	var material := StandardMaterial3D.new()
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.vertex_color_use_as_albedo = true
+	material.roughness = 1.0
+	mesh.material = material
+	_dust.mesh = mesh
+	var fade := Gradient.new()
+	fade.colors = PackedColorArray([Color(.65, .51, .34, .51), Color(.53, .44, .31, 0)])
+	_dust.color_ramp = fade
+	add_child(_dust)
+	_dust.top_level = true
+
+func dust_at(point: Vector3, scatter: float) -> void:
+	if not is_instance_valid(_dust):
+		return
+	var ray := PhysicsRayQueryParameters3D.create(point + Vector3.UP, point - Vector3.UP * 1.5, 16)
+	var floor_hit := get_world_3d().direct_space_state.intersect_ray(ray)
+	if not floor_hit.is_empty():
+		point.y = floor_hit.position.y
+	_dust.global_position = point + Vector3.UP * .15
+	_dust.emission_sphere_radius = .33 * scatter
+	_dust.restart()
+	_dust.emitting = true
+
+func camera_impact(body: Node3D, magnitude: float) -> void:
+	var arm := body.get("_camera_arm") as SpringArm3D
+	if not is_instance_valid(arm) or arm.get_child_count() == 0:
+		return
+	var camera := arm.get_child(0) as Camera3D
+	if not is_instance_valid(camera) or not camera.current:
+		return
+	_reset_camera()
+	_camera = camera
+	_camera_base = camera.v_offset
+	_camera_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_camera_tween.tween_property(camera, "v_offset", _camera_base - magnitude, .045)
+	_camera_tween.tween_property(camera, "v_offset", _camera_base, .125).set_ease(Tween.EASE_OUT)
+	_camera_tween.tween_callback(_reset_camera)
+
+func _reset_camera() -> void:
+	if _camera_tween and _camera_tween.is_running():
+		_camera_tween.kill()
+	if is_instance_valid(_camera):
+		_camera.v_offset = _camera_base
+	_camera = null
+
+func sync_pose(clip: String, position: float, delta: float, moving: bool, grounded: bool, nearby: bool, advance: float = -1.0) -> void:
 	_hurt_time = maxf(0.0, _hurt_time - delta)
+	var step := advance if advance >= 0.0 else delta
 	var changed := clip != _motion_clip
 	_motion_clip = clip
 	if not nearby:return
@@ -67,7 +148,7 @@ func sync_pose(clip: String, position: float, delta: float, moving: bool, ground
 	if not moving or not grounded:return
 	# Authored contacts: four walk feet per 1.2 s, paired run/charge feet per loop.
 	var interval := 0.3 if clip in ["walk", "run"] else (0.25 if clip == "charge_attack" else 0.0)
-	if interval > 0.0 and ((changed and position < delta) or floori((position + delta) / interval) > floori(position / interval)):
+	if interval > 0.0 and ((changed and position < step) or floori((position + step) / interval) > floori(position / interval)):
 		cue(["hoof_a", "hoof_b", "hoof_c"][_hoof_index % 3])
 		_hoof_index += 1
 
