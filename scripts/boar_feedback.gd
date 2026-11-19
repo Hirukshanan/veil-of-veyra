@@ -28,7 +28,9 @@ var _hoof_index := 0
 var _motion_clip := ""
 var _hurt_time := 0.0
 var _sparks: Array[MeshInstance3D] = []
-var _dust: CPUParticles3D
+var _polish: Node
+var _elite_actor
+var _breath_stream: AudioStreamWAV
 var _camera: Camera3D
 var _camera_base := 0.0
 var _camera_tween: Tween
@@ -65,55 +67,62 @@ func cue(name: String) -> void:
 	voice.pitch_scale = entry[3] if entry.size() > 3 else 1.0
 	voice.play()
 	cue_played.emit(name, channel)
+	if is_instance_valid(_polish):
+		if name == "charge":
+			_polish.charge_kick()
+		elif name == "scrape":
+			_polish.scrape()
 
 func prepare_elite_dust() -> void:
-	_dust = CPUParticles3D.new()
-	_dust.name = "HoofDust"
-	_dust.emitting = false
-	_dust.one_shot = true
-	_dust.amount = 7
-	_dust.lifetime = .38
-	_dust.explosiveness = 1.0
-	_dust.direction = Vector3.UP
-	_dust.spread = 77.0
-	_dust.gravity = Vector3(0, -2.1, 0)
-	_dust.initial_velocity_min = 1.1
-	_dust.initial_velocity_max = 2.3
-	_dust.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
-	_dust.emission_sphere_radius = .28
-	_dust.scale_amount_min = .55
-	_dust.scale_amount_max = 1.25
-	_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var mesh := SphereMesh.new()
-	mesh.radius = .12
-	mesh.height = .24
-	mesh.radial_segments = 5
-	mesh.rings = 2
-	var material := StandardMaterial3D.new()
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	material.vertex_color_use_as_albedo = true
-	material.roughness = 1.0
-	mesh.material = material
-	_dust.mesh = mesh
-	var fade := Gradient.new()
-	fade.colors = PackedColorArray([Color(.65, .51, .34, .51), Color(.53, .44, .31, 0)])
-	_dust.color_ramp = fade
-	add_child(_dust)
-	_dust.top_level = true
+	_elite_actor = get_parent()
+	var rig: Skeleton3D = _elite_actor._model.find_children("*", "Skeleton3D", true, false)[0]
+	_polish = preload("res://scripts/boar_combat_vfx.gd").new()
+	_polish.name = "CombatPolish"
+	add_child(_polish)
+	_polish.setup(_elite_actor, rig)
+	_breath_stream = _make_breath()
+	_polish.breath_released.connect(_play_breath)
 
-func dust_at(point: Vector3, scatter: float) -> void:
-	if not is_instance_valid(_dust):
+func dust_at(point: Vector3, _scatter: float) -> void:
+	if is_instance_valid(_polish):
+		_polish.ground_impact(point, _elite_actor.state == _elite_actor.State.STOMP_ACTIVE)
+
+func _play_breath(strength: float) -> void:
+	var voice := voices[0]
+	# A wind-up's authored voice has priority over the optional breath layer.
+	if voice.playing:
 		return
-	var ray := PhysicsRayQueryParameters3D.create(point + Vector3.UP, point - Vector3.UP * 1.5, 16)
-	var floor_hit := get_world_3d().direct_space_state.intersect_ray(ray)
-	if not floor_hit.is_empty():
-		point.y = floor_hit.position.y
-	_dust.global_position = point + Vector3.UP * .15
-	_dust.emission_sphere_radius = .33 * scatter
-	_dust.restart()
-	_dust.emitting = true
+	voice.stream = _breath_stream
+	voice.volume_db = lerpf(-23.0, -14.0, clampf(strength, 0.0, 1.0))
+	voice.pitch_scale = lerpf(.94, .81, clampf(strength, 0.0, 1.0))
+	voice.play()
+
+func _make_breath() -> AudioStreamWAV:
+	const RATE := 16000
+	const SAMPLES := 3680
+	var bytes := PackedByteArray()
+	bytes.resize(SAMPLES * 2)
+	var noise := RandomNumberGenerator.new()
+	noise.seed = 6303
+	var slow := 0.0
+	var fast := 0.0
+	for index in range(SAMPLES):
+		var time := float(index) / RATE
+		var sample := noise.randf_range(-1.0, 1.0)
+		fast = lerpf(fast, sample, .19)
+		slow = lerpf(slow, sample, .047)
+		var envelope := smoothstep(0.0, .028, time) * (1.0 - smoothstep(.04, .23, time))
+		var rasp := (fast - slow) * (.68 + .32 * sin(time * TAU * 41.0))
+		bytes.encode_s16(index * 2, roundi((rasp * .8 + slow * .31) * envelope * 27000))
+	var breath := AudioStreamWAV.new()
+	breath.format = AudioStreamWAV.FORMAT_16_BITS
+	breath.mix_rate = RATE
+	breath.data = bytes
+	return breath
 
 func camera_impact(body: Node3D, magnitude: float) -> void:
+	if is_instance_valid(_polish):
+		_polish.contact(body.global_position.lerp(global_position, .16) + Vector3.UP * .73, false)
 	var arm := body.get("_camera_arm") as SpringArm3D
 	if not is_instance_valid(arm) or arm.get_child_count() == 0:
 		return
@@ -140,6 +149,8 @@ func sync_pose(clip: String, position: float, delta: float, moving: bool, ground
 	var step := advance if advance >= 0.0 else delta
 	var changed := clip != _motion_clip
 	_motion_clip = clip
+	if is_instance_valid(_polish) and clip != "death":
+		_polish.animate_breath(delta)
 	if not nearby:return
 	if clip == "charge_warning" and position < 0.65 and position + delta >= 0.65:
 		cue("scrape")
@@ -150,11 +161,17 @@ func sync_pose(clip: String, position: float, delta: float, moving: bool, ground
 	var interval := 0.3 if clip in ["walk", "run"] else (0.25 if clip == "charge_attack" else 0.0)
 	if interval > 0.0 and ((changed and position < step) or floori((position + step) / interval) > floori(position / interval)):
 		cue(["hoof_a", "hoof_b", "hoof_c"][_hoof_index % 3])
+		if is_instance_valid(_polish):
+			_polish.hoof(_hoof_index)
 		_hoof_index += 1
 
 func strike(origin: Vector3, heavy: bool) -> void:
 	cue("hit_heavy" if heavy else "hit_light")
-	# Two brief crossed contact strokes; no particles, light, camera shake or hit stop.
+	if heavy and is_instance_valid(_polish):
+		var toward := origin - global_position
+		toward.y = 0.0
+		_polish.contact(global_position + toward.normalized() * .55 + Vector3.UP * 1.13, true)
+	# Keep the two existing crossed contact strokes independent of the dust.
 	_sparks = _sparks.filter(func(spark): return is_instance_valid(spark))
 	if _sparks.size() >= 2:
 		_sparks.pop_front().queue_free()
