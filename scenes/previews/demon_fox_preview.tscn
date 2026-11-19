@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemies/demon_fox.tscn" id="1_fox"]
+[ext_resource type="Script" path="res://scripts/previews/demon_fox_preview.gd" id="2_preview"]
+
+[sub_resource type="Environment" id="Environment_studio"]
+background_mode = 1
+background_color = Color(0.08, 0.11, 0.14, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.64, 0.73, 0.86, 1)
+ambient_light_energy = 0.60
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.145, 0.165, 0.181, 1)
+roughness = 0.96
+
+[sub_resource type="PlaneMesh" id="Mesh_floor"]
+material = SubResource("Material_floor")
+size = Vector2(40, 40)
+
+[sub_resource type="StyleBoxFlat" id="Panel_controls"]
+bg_color = Color(0.055, 0.076, 0.096, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+
+[node name="DemonFoxPreview" type="Node3D"]
+script = ExtResource("2_preview")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_studio")
+
+[node name="Key" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-54, -122, 0)
+light_color = Color(1, 0.92, 0.83, 1)
+light_energy = 1.02
+shadow_enabled = true
+directional_shadow_max_distance = 8.0
+
+[node name="Rim" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-33, 43, 0)
+light_color = Color(0.72, 0.81, 1, 1)
+light_energy = 0.70
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("Mesh_floor")
+
+[node name="Fox" parent="." instance=ExtResource("1_fox")]
+
+[node name="Camera" type="Camera3D" parent="."]
+current = true
+projection = 1
+size = 2.46
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="Interface"]
+offset_left = 24.0
+offset_top = 24.0
+theme_override_styles/panel = SubResource("Panel_controls")
+
+[node name="Controls" type="HBoxContainer" parent="Interface/Panel"]
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Interface/Panel/Controls"]
+text = "Demon Fox"
+
+[node name="Clips" type="OptionButton" parent="Interface/Panel/Controls"]
+custom_minimum_size = Vector2(150, 40)
+
+[node name="Replay" type="Button" parent="Interface/Panel/Controls"]
+text = "Replay"
+
+[node name="View" type="Button" parent="Interface/Panel/Controls"]
+text = "Change view"
