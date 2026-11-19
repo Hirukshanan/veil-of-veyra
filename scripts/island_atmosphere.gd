@@ -1,12 +1,20 @@
 extends Node3D
 
 # Candidate-only dressing. No physics, progression, vegetation or water edits.
+const LIGHTING := preload("res://scripts/island_lighting.gd")
 var landmark_positions:Array[Vector3]=[]
 var added_triangles:=0
+var _lighting: Node
+
+func set_boss_night(enabled: bool, duration: float = LIGHTING.TRANSITION_SECONDS) -> void:
+	_lighting.set_boss_night(enabled, duration)
 
 func populate(scene:Node3D)->void:
+	var world: WorldEnvironment
+	var sun: DirectionalLight3D
 	for node in scene.get_children():
 		if node is WorldEnvironment:
+			world = node
 			var environment:Environment=node.environment
 			var sky:ProceduralSkyMaterial=environment.sky.sky_material
 			sky.sky_top_color=Color(.20,.37,.52);sky.sky_horizon_color=Color(.66,.74,.73)
@@ -18,10 +26,15 @@ func populate(scene:Node3D)->void:
 			environment.fog_sun_scatter=.10;environment.fog_aerial_perspective=.18;environment.fog_sky_affect=.18
 			environment.volumetric_fog_enabled=false;environment.glow_enabled=false
 		if node is DirectionalLight3D:
+			sun = node
 			node.rotation_degrees=Vector3(-39,-32,0);node.light_color=Color(1.0,.94,.83);node.light_energy=1.12
 			node.directional_shadow_mode=DirectionalLight3D.SHADOW_ORTHOGONAL
 			node.directional_shadow_max_distance=26;node.directional_shadow_fade_start=.78
 			node.shadow_bias=.035;node.shadow_normal_bias=1.0
+	_lighting = LIGHTING.new()
+	_lighting.name = "IslandLighting"
+	_lighting.initialize(scene, sun, world.environment)
+	add_child(_lighting)
 	# Keep the existing shadow preference and settings menu behavior.
 	var landscape:Node3D=scene.landscape
 	for visual in landscape.find_children("*","MeshInstance3D",true,false):
