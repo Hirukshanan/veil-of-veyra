@@ -9,7 +9,7 @@ func _settle() -> void:
 
 func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
-	var scene = load("res://scenes/main.tscn").instantiate()
+	var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await process_frame

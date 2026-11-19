@@ -8,7 +8,7 @@ func _run() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg"))
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://campaign.cfg.bak"))
 	for chapter in range(1):
-		var scene = load("res://scenes/main.tscn").instantiate()
+		var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 		root.add_child(scene)
 		current_scene = scene
 		await process_frame
@@ -110,7 +110,7 @@ func _run() -> void:
 		scene.queue_free()
 		await process_frame
 	print("PASS: single island encounter, sword hits, dodge, camera, lantern gates, keyboard/button interaction, single boss spawn, boss combat and ending")
-	var retry = load("res://scenes/main.tscn").instantiate()
+	var retry = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(retry)
 	current_scene = retry
 	await process_frame

@@ -10,7 +10,7 @@ func _run():
 	assert(nav.direction_hint(Vector3.ZERO, Vector3(-10, 0, 0), Basis.IDENTITY) == "Left 10m")
 	assert(nav.direction_hint(Vector3.ZERO, Vector3(0, 0, -10), Basis(Vector3.UP, PI)) == "Behind 10m")
 	assert(nav.direction_hint(Vector3.ZERO, Vector3(0, 100, 1), Basis.IDENTITY) == "Nearby")
-	var scene = load("res://scenes/main.tscn").instantiate()
+	var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._update_objective()

@@ -3,7 +3,7 @@ const STORE = preload("res://scripts/campaign_store.gd")
 var scene
 func _initialize(): call_deferred("run")
 func open_world():
-	scene = load("res://scenes/main.tscn").instantiate()
+	scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._resume()

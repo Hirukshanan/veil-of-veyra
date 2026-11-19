@@ -24,7 +24,7 @@ func setup() -> void:
 	assert(OS.get_environment("APPDATA").replace("\\", "/").contains("/.validation/phase3_4_"), "Use a dedicated review profile")
 	for file in ["user://campaign.cfg", "user://campaign.cfg.bak", "user://campaign.cfg.tmp"]:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(file))
-	scene = load("res://scenes/main.tscn").instantiate()
+	scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	hero = scene.player

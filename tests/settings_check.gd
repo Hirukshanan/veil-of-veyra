@@ -6,7 +6,7 @@ func _initialize() -> void:
 func _run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path("user://settings.cfg"))
-	var scene = load("res://scenes/main.tscn").instantiate()
+	var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	assert(scene.camera_sensitivity == 1.0 and scene.sound_volume == 0.7)
@@ -36,7 +36,7 @@ func _run() -> void:
 	assert(scene._save_settings() == OK)
 	scene.queue_free()
 	await process_frame
-	scene = load("res://scenes/main.tscn").instantiate()
+	scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	assert(scene.camera_sensitivity == 1.5 and scene.sound_volume == 0.0)

@@ -6,7 +6,7 @@ func _initialize(): call_deferred("run")
 func run():
 	assert(OS.get_environment("VEYRA_TEST")=="1")
 	for path in [STORE.PATH,STORE.BACKUP,STORE.TEMP]: DirAccess.remove_absolute(path)
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._resume()

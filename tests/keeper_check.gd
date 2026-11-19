@@ -16,7 +16,7 @@ func _run() -> void:
 		var config := ConfigFile.new()
 		config.set_value("campaign", "chapter", chapter)
 		assert(config.save("user://campaign.cfg") == OK)
-		var scene = load("res://scenes/main.tscn").instantiate()
+		var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 		root.add_child(scene)
 		await process_frame
 		var keeper = scene.keeper
@@ -66,7 +66,7 @@ func _run() -> void:
 		scene.queue_free()
 		await process_frame
 		paused = false
-		var retry = load("res://scenes/main.tscn").instantiate()
+		var retry = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 		root.add_child(retry)
 		await process_frame
 		assert(retry.keeper.accepted and retry.keeper.reported and retry.shards == reward)

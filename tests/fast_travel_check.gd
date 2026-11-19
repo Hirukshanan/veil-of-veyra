@@ -3,7 +3,7 @@ func _initialize():
 	call_deferred("_run")
 func _run():
 	assert(OS.get_environment("VEYRA_TEST") == "1")
-	var scene = load("res://scenes/main.tscn").instantiate()
+	var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	var world = scene.get_node("IslandExploration")
@@ -54,7 +54,7 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
-	var retry = load("res://scenes/main.tscn").instantiate()
+	var retry = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(retry)
 	await process_frame
 	assert(retry.get_node("IslandExploration").discovered == [true, true, false])

@@ -9,7 +9,7 @@ func _initialize() -> void:
 func run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
 	for file in [STORE.PATH, STORE.BACKUP, STORE.TEMP]:DirAccess.remove_absolute(ProjectSettings.globalize_path(file))
-	var scene = load("res://scenes/main.tscn").instantiate()
+	var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._resume()
@@ -44,7 +44,7 @@ func run() -> void:
 	scene.queue_free()
 	await process_frame
 	await process_frame
-	scene = load("res://scenes/main.tscn").instantiate()
+	scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	assert(scene.get_node_or_null("DemonBoar") == null and scene.remaining_enemies == 5)

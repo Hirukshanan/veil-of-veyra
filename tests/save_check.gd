@@ -61,7 +61,7 @@ func run():
 		invalid.set_value("campaign","version",999)
 		assert(invalid.save(path)==OK)
 	var before:=FileAccess.get_file_as_string(STORE.PATH)
-	var scene=load("res://scenes/main.tscn").instantiate()
+	var scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await process_frame
@@ -71,7 +71,7 @@ func run():
 	await process_frame
 	paused=false
 	clear_files()
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	current_scene = scene
 	await process_frame

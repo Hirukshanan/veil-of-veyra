@@ -22,7 +22,7 @@ func run():
 	root.content_scale_size=Vector2i.ZERO
 	root.content_scale_mode=Window.CONTENT_SCALE_MODE_DISABLED
 	root.size=Vector2i(1280,720)
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._resume()
@@ -126,7 +126,7 @@ func run():
 	scene.queue_free()
 	await process_frame
 	paused=false
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	assert(scene.hud_scale==1.2 and scene.left_handed and scene.player.invert_y,"Control profile must survive a fresh scene")

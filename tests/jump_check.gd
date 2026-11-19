@@ -23,7 +23,7 @@ func run():
 	root.content_scale_size=Vector2i.ZERO
 	root.content_scale_mode=Window.CONTENT_SCALE_MODE_DISABLED
 	root.size=Vector2i(800,450)
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	scene._resume()

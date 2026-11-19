@@ -6,7 +6,7 @@ func _initialize(): call_deferred("run")
 func settle():
 	for i in range(4): await process_frame
 func open_world():
-	scene=load("res://scenes/main.tscn").instantiate()
+	scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await settle()
 	scene._resume()

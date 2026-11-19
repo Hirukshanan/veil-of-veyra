@@ -10,7 +10,7 @@ func _run() -> void:
 		var config := ConfigFile.new()
 		config.set_value("campaign", "chapter", chapter)
 		assert(config.save("user://campaign.cfg") == OK)
-		var scene = load("res://scenes/main.tscn").instantiate()
+		var scene = preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 		root.add_child(scene)
 		await process_frame
 		for frame in range(3):

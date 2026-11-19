@@ -26,8 +26,11 @@ def main():
  for n in ['uid_cache.bin','global_script_class_cache.cfg']:
   p=R/'.godot'/n
   if p.exists():shutil.copy2(p,stage/'.godot'/n)
- project=(R/'project.godot').read_text().replace('run/main_scene="res://scenes/main.tscn"','run/main_scene="res://mobile_test/main.tscn"')
- assert 'run/main_scene="res://mobile_test/main.tscn"' in project
+ project=(R/'project.godot').read_text(encoding='utf-8')
+ source_main=re.search(r'(?m)^run/main_scene="([^"\r\n]+)"[ \t]*$',project)
+ if source_main is None:raise ValueError('Project must declare a default scene')
+ production_main=source_main.group(1)
+ project=project[:source_main.start()]+'run/main_scene="res://mobile_test/main.tscn"'+project[source_main.end():]
  project=project.replace('config/name="Veil of Veyra"','config/name="Veil of Vera Island Test"')
  (stage/'project.godot').write_text(project)
  source=Path(__file__).parent
@@ -55,6 +58,6 @@ def main():
  run([args.godot,'--headless','--path',stage,'--export-debug','Island Android Test',apk],logs,'export',env)
  assert apk.exists() and apk.stat().st_size>1000000
  assert all(digest(R/n)==h for n,h in originals.items()),'Source changed during build'
- manifest={'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'apk':apk.name,'apk_bytes':apk.stat().st_size,'apk_sha256':digest(apk),'package':'com.hirukshanan.veilofveyra.islandtest','candidate':'res://scenes/island_candidate.tscn','staged_main':'res://mobile_test/main.tscn','production_main':'res://scenes/main.tscn','source_project_and_export_unchanged':True,'runtime_assets_and_scripts_unchanged':True,'source_hashes':originals,'quality_defaults':{'frame_limit':30,'shadows':False,'renderer':'gl_compatibility','design_viewport':[1280,720],'render_height_cap':args.render_height,'hud_resolution':'native; Task 5.4 enlarged matched controls' if args.task in ['5.4','6.1'] else 'native; unchanged layout','saved_preferences':'retained; defaults apply only to a fresh install'},'debug_build':True,'network_permission_requested':False,'instrumentation':'schema 2 local frame intervals, physical viewport/3D scale, CPU/GPU render timers, physics/collision counters and memory; unsupported timings are unavailable, not inferred','staging_path':str(stage)}
+ manifest={'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'apk':apk.name,'apk_bytes':apk.stat().st_size,'apk_sha256':digest(apk),'package':'com.hirukshanan.veilofveyra.islandtest','candidate':'res://scenes/island_candidate.tscn','staged_main':'res://mobile_test/main.tscn','production_main':production_main,'source_project_and_export_unchanged':True,'runtime_assets_and_scripts_unchanged':True,'source_hashes':originals,'quality_defaults':{'frame_limit':30,'shadows':False,'renderer':'gl_compatibility','design_viewport':[1280,720],'render_height_cap':args.render_height,'hud_resolution':'native; Task 5.4 enlarged matched controls' if args.task in ['5.4','6.1'] else 'native; unchanged layout','saved_preferences':'retained; defaults apply only to a fresh install'},'debug_build':True,'network_permission_requested':False,'instrumentation':'schema 2 local frame intervals, physical viewport/3D scale, CPU/GPU render timers, physics/collision counters and memory; unsupported timings are unavailable, not inferred','staging_path':str(stage)}
  (out/'build_manifest.json').write_text(json.dumps(manifest,indent=2));print(json.dumps({k:v for k,v in manifest.items() if k!='source_hashes'}),flush=True)
 if __name__=='__main__':main()

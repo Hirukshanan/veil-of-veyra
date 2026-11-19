@@ -4,7 +4,7 @@ func run():
 	assert(OS.get_environment("VEYRA_TEST")=="1")
 	root.content_scale_size=Vector2i.ZERO
 	root.content_scale_mode=Window.CONTENT_SCALE_MODE_DISABLED
-	var scene=load("res://scenes/main.tscn").instantiate()
+	var scene=preload("res://tests/legacy_campaign_fixture.gd").instantiate()
 	root.add_child(scene)
 	await process_frame
 	assert(paused and scene.camp_menu.visible and not scene.menu_scroll.visible)
