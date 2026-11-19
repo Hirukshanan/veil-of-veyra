@@ -1,5 +1,7 @@
 extends "res://scripts/campaign.gd"
 
+const FOX_ENCOUNTER := preload("res://scenes/enemies/demon_fox_combat.tscn")
+
 var awakening: Node3D
 var landscape: Node3D
 var placement_ready := false
@@ -100,6 +102,18 @@ func _configure_encounters() -> void:
 	enemy_navigation.populate(landscape)
 	for actor in get_tree().get_nodes_in_group("combat_enemies"):
 		if positions.has(str(actor.name)):actor.navigation=enemy_navigation
+	_spawn_fox()
+
+func _spawn_fox() -> void:
+	var marker: Marker3D = $DemonFoxSpawn
+	var fox := FOX_ENCOUNTER.instantiate() as CharacterBody3D
+	fox.position = landscape.ground_point(marker.position) + Vector3.UP * .015
+	fox.rotation = marker.rotation
+	fox.target = player
+	fox.navigation = enemy_navigation
+	# This optional encounter is scoped to the scene lifetime. Camp IDs, rewards
+	# and saved chapter state stay with the existing campaign encounters.
+	add_child(fox)
 
 var tracked_quest := ""
 const TRACKING_PATH := "user://journal_tracking.cfg"

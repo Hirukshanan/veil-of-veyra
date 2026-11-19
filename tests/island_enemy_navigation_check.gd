@@ -13,10 +13,17 @@ func run():
 	scene.player.set_physics_process(false);scene.player.health=10000
 	var navigation=scene.enemy_navigation;var landscape=scene.landscape
 	var expected:={"CampDemon0":0,"CampDemon1":1,"CampDemon2":2,"CampDemon3":0,"CampDemon4":1}
-	assert(scene.remaining_enemies==5 and get_nodes_in_group("combat_enemies").size()==6 and scene.get_node_or_null("CampDemon5")==null)
+	var fox = scene.get_node("DemonFox")
+	assert(scene.remaining_enemies==5 and get_nodes_in_group("combat_enemies").size()==7 and scene.get_node_or_null("CampDemon5")==null)
+	assert(fox.navigation == navigation and fox.target == scene.player and fox.health == 19)
+	var fox_spawn: Vector3 = fox.position
+	var support: Vector3 = landscape.ground_point(fox_spawn)
+	assert(absf(fox_spawn.y - support.y) <= .04 and fox_spawn.z < -12.0)
 	var spawn_rows:=[]
 	for row in scene.encounter_log:
 		var actor=scene.get_node(row.id);var collision:CollisionShape3D
+		var separation: Vector3 = actor.position - fox_spawn
+		assert(Vector2(separation.x, separation.z).length() > 20.0, "Fox should start outside the wolf and boar encounter areas")
 		for child in actor.get_children():
 			if child is CollisionShape3D:collision=child;break
 		var q:=PhysicsShapeQueryParameters3D.new();q.shape=collision.shape;q.transform=collision.global_transform.translated(Vector3.UP*.04);q.collision_mask=4|8
@@ -77,6 +84,27 @@ func run():
 	assert(boar.position.x<center.x-1.4,"Boar must reposition around the solid tree without a permanent blocked state")
 	rows.append({"case":"real_boar_tree_detour","center":center,"end":boar.position})
 	boar.set_physics_process(false)
+	# The Fox uses the same graph and a smaller real capsule when it returns home.
+	fox.position = landscape.ground_point(center + Vector3.RIGHT * 4) + Vector3.UP * .08
+	fox.velocity = Vector3.ZERO
+	fox._home = landscape.ground_point(center - Vector3.RIGHT * 4) + Vector3.UP * .08
+	fox._enter(fox.State.RETURN)
+	scene.player.position = landscape.ground_point(center - Vector3.RIGHT * 15)
+	fox.set_physics_process(true)
+	var closest := INF
+	for frame in range(260):
+		await physics_frame
+		closest = minf(closest, Vector2(fox.position.x - center.x, fox.position.z - center.z).length())
+		if fox.state == fox.State.IDLE:
+			break
+	assert(fox.state == fox.State.IDLE and fox.position.distance_to(fox._home) < .45 and fox.is_on_floor(),
+		"Fox should reach its home around the real woodland obstacle")
+	assert(closest > selected.shape.radius + .20, "Fox should stay outside the trunk")
+	rows.append({"case":"real_fox_return_detour","center":center,"end":fox.position,"min_trunk_distance_m":closest})
+	fox.set_physics_process(false)
+	var before := [scene.remaining_enemies, scene.shards, scene.world_data.cleared.duplicate(), scene.lantern_lit]
+	fox.take_damage(100)
+	assert(before == [scene.remaining_enemies, scene.shards, scene.world_data.cleared, scene.lantern_lit])
 	# Both actual enemy body shapes remain supported at representative regional paths.
 	var original_wolf:Vector3=wolf.position
 	for point in [Vector3(-56,0,12),Vector3(-36,0,-28),Vector3(0,0,-37),Vector3(76,1.58,0),Vector3(-20,0,82)]:
@@ -87,6 +115,6 @@ func run():
 				actor.velocity=Vector3(0,-.8,0);actor.move_and_slide();await physics_frame
 			assert(actor.position.y>start.y-.25,"Enemy bodies must not fall through regional support")
 			rows.append({"case":"five_region_body_support","actor":str(actor.name),"start":start,"end":actor.position})
-	FileAccess.open(output+"/navigation_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"new_enemy_count":0,"retired_ID_5_absent":true,"spawn_checks":spawn_rows,"boar_clear_full_length_lanes":clear_lanes,"nav_points":navigation.graph.get_point_count(),"nav_build_ms":navigation.build_ms,"path_requests":navigation.path_requests,"cases":rows},"  "))
-	print("PASS: six stable encounter identities/spawns, charge clearance, connected local routes, actual wolf/boar tree detours and five-region physics support")
+	FileAccess.open(output+"/navigation_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"new_enemy_count":1,"fox_spawn":fox_spawn,"retired_ID_5_absent":true,"spawn_checks":spawn_rows,"boar_clear_full_length_lanes":clear_lanes,"nav_points":navigation.graph.get_point_count(),"nav_build_ms":navigation.build_ms,"path_requests":navigation.path_requests,"cases":rows},"  "))
+	print("PASS: six preserved encounter IDs, one separately placed Fox, real wolf/boar/fox tree detours, ground support and independent quest state")
 	scene.queue_free();paused=false;await process_frame;await create_timer(.25,true,false,true).timeout;quit()

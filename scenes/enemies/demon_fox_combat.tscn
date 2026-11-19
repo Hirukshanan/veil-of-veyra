@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/demon_fox.gd" id="1_ai"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/demon_fox.tscn" id="2_model"]
+[ext_resource type="Script" path="res://scripts/fox_combat_feedback.gd" id="3_feedback"]
+
+[sub_resource type="CapsuleShape3D" id="Capsule_body"]
+radius = 0.27
+height = 1.46
+
+[node name="DemonFox" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 13
+floor_snap_length = 0.32
+script = ExtResource("1_ai")
+
+[node name="Body" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.27, 0.024)
+rotation_degrees = Vector3(90, 0, 0)
+shape = SubResource("Capsule_body")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+
+[node name="Feedback" type="Node3D" parent="."]
+script = ExtResource("3_feedback")
