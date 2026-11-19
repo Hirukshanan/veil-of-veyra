@@ -47,6 +47,8 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 		return false
 	if not world.get("boar_defeated", false) is bool:
 		return false
+	if world.has("guardian_quest") and not _valid_guardian_quest(world.guardian_quest, world.seal_fragments):
+		return false
 	if not world.position is Vector3 or not world.position.is_finite() or world.position.y < -8 or world.position.y > 50:
 		return false
 	var flat := Vector2(world.position.x, world.position.z)
@@ -58,7 +60,9 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 		return false
 	if not world.potions is int or world.potions < 0 or world.potions > 16:
 		return false
-	if (world.lantern and (world.cleared.size() != 6 or world.seal_fragments.size() != 3)) or (completed and not world.lantern):
+	if world.lantern and (world.seal_fragments.size() != 3 or (not world.has("guardian_quest") and world.cleared.size() != 6)):
+		return false
+	if completed and not world.lantern:
 		return false
 	if (world.reported and not world.accepted) or (world.relic_reward and (not completed or world.relics.size() != 3)) or (world.bounty_reward and (not completed or not world.reported)):
 		return false
@@ -68,6 +72,19 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 			grove_count += 1
 	if world.grove_reward and grove_count < 3:
 		return false
+	return true
+
+static func _valid_guardian_quest(progress: Variant, fragments: Array) -> bool:
+	if not progress is Dictionary or not progress.get("investigated") is bool or not progress.get("fox_defeated") is bool:
+		return false
+	var regions: Variant = progress.get("regions")
+	if not regions is Array or regions.size() > 3 or (progress.fox_defeated and 1 not in fragments):
+		return false
+	var seen := []
+	for region in regions:
+		if not region is int or region < 0 or region > 2 or region in seen:
+			return false
+		seen.append(region)
 	return true
 
 static func read_file(path: String) -> Dictionary:

@@ -5,6 +5,7 @@ const LOCATIONS := [Vector3(-40,0,52),Vector3(-47,0,55),Vector3(-43,0,59)]
 const REQUIRED := 3
 var collected_ids: Array[int] = []
 var fragments: Array[Node3D] = []
+var guardian_mode := false
 
 func _ready() -> void:
 	name = "BeachSealRuins"
@@ -44,13 +45,15 @@ func _ready() -> void:
 		blocker.collision_mask = 0
 	decor.free()
 	var sign := Label3D.new()
-	sign.text = "TIDESEAL RUINS\nRecover the lantern's three seal fragments"
+	sign.text = "TIDESEAL RUINS\nInvestigate the broken seal" if guardian_mode else "TIDESEAL RUINS\nRecover the lantern's three seal fragments"
 	sign.position = CENTER+Vector3(3,3,-5)
 	sign.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	sign.font_size = 28
 	sign.modulate = Color("9bdde0")
 	sign.visibility_range_end = 26
 	add_child(sign)
+	if guardian_mode:
+		return
 	var material := StandardMaterial3D.new()
 	material.albedo_color = Color("6cf0e2")
 	material.emission_enabled = true
@@ -91,9 +94,17 @@ func nearest(point: Vector3, max_distance: float = 2.0) -> Node3D:
 func collect(point: Vector3) -> bool:
 	var fragment := nearest(point)
 	if fragment == null: return false
-	collected_ids.append(int(fragment.get_meta("pickup_id")))
-	fragments.erase(fragment)
-	fragment.queue_free()
+	return recover(int(fragment.get_meta("pickup_id")))
+
+func recover(id: int) -> bool:
+	if id < 0 or id >= REQUIRED or id in collected_ids:
+		return false
+	collected_ids.append(id)
+	for fragment in fragments:
+		if fragment.get_meta("pickup_id") == id:
+			fragments.erase(fragment)
+			fragment.queue_free()
+			break
 	return true
 
 func complete() -> bool:

@@ -11,11 +11,6 @@ const COUNTER := 32
 const ALL_BEATS := BELL | CAMP | JUNCTION | SWORD | DODGE | COUNTER
 const CAMP_FINDING := "The fire is cold. The roots are warm."
 const JUNCTION_LINE := "See where the roots lead."
-const FRAGMENT_NOTES := [
-	"A seal held something dangerous below.",
-	"The ward holds where the stone is whole.",
-	"The ash crosses only through the break.",
-]
 
 var game
 var _wolf: Node3D
@@ -58,16 +53,16 @@ func _physics_process(delta: float) -> void:
 		return
 	_message_time = maxf(0.0, _message_time - delta)
 	var position: Vector3 = game.player.global_position
-	if not has_beat(BELL) and game.seal_fragments.collected_ids.is_empty() and position.distance_to(_beach) < 10.5:
+	if not has_beat(BELL) and not game.guardians.revealed() and position.distance_to(_beach) < 10.5:
 		_bell_delay -= delta
 		if _bell_delay <= 0.0:
 			_bell.stream = _bell_stream()
 			_bell.play()
 			_mark(BELL, true)
-	if has_beat(CAMP) and not has_beat(JUNCTION) and not game.seal_fragments.collected_ids.is_empty() and position.distance_to(_junction) < 3.15:
+	if has_beat(CAMP) and not has_beat(JUNCTION) and game.guardians.revealed() and position.distance_to(_junction) < 3.15:
 		_cue(JUNCTION_LINE, 5.5)
 		_mark(JUNCTION, true)
-	if not has_beat(JUNCTION) and not game.seal_fragments.collected_ids.is_empty():
+	if not has_beat(JUNCTION) and game.guardians.revealed():
 		_watch_wolf(position)
 
 func active() -> bool:
@@ -93,11 +88,13 @@ func inspect_camp() -> void:
 	_cue(CAMP_FINDING, 6.0)
 	_mark(CAMP, true)
 
-func fragment_recovered() -> void:
+func seal_investigated() -> void:
 	if not active():
 		return
-	var index: int = game.seal_fragments.collected_ids.size() - 1
-	_cue(FRAGMENT_NOTES[index], 5.0)
+	_cue("Three cursed guardians hold the seal.", 4.0)
+
+func active_message() -> String:
+	return _message if _message_time > 0.0 else ""
 
 func _cue(message: String, duration: float) -> void:
 	_message = message
@@ -134,12 +131,11 @@ func objective() -> Dictionary:
 	if not active():
 		return {}
 	var seals: int = game.seal_fragments.collected_ids.size()
-	var camps: int = clampi(5 - game.remaining_enemies, 0, 5)
 	var title := "THE WARNING"
 	var message := "Follow the ash to Tideseal Ruins."
-	var guide := "The warning bell fell silent. Follow the ash southwest from the beach waystone and recover a seal fragment at Tideseal Ruins."
+	var guide := "The warning bell fell silent. Follow the ash southwest from the beach waystone and investigate the broken seal at Tideseal Ruins."
 	var step := "Follow the ash to Tideseal Ruins."
-	if seals > 0:
+	if game.guardians.revealed():
 		title = "THE BROKEN SEAL"
 		message = "Follow the roots to the camp."
 		guide = "The broken ward once held something dangerous below. Follow the dark roots north of the ruins to the cold fire at the forest edge. Approach from the east to pass the wolf."
@@ -152,12 +148,11 @@ func objective() -> Dictionary:
 		if has_beat(JUNCTION):
 			title = "THE NORTHERN LANTERN"
 			message = "Restore the Northern Lantern."
-			guide = "See where the roots lead. Follow the woodland trail north toward the Northern Lantern. The seal and cleared camps are still needed to light it."
-			step = "Recover the %d missing seal fragments." % (3 - seals) if seals < 3 else (
-				"Clear the remaining camp wolves." if camps < 5 else "Use Interact at the Northern Lantern.")
-	var progress := "Seal %d/3 · Camps %d/5" % [seals, camps]
+			guide = "See where the roots lead. Follow the woodland trail north toward the Northern Lantern. Recover the fragments from the three guardians to light it."
+			step = "Recover the %d missing seal fragments." % (3 - seals) if seals < 3 else "Use Interact at the Northern Lantern."
+	var progress := "Seal fragments %d/3" % seals
 	if has_beat(JUNCTION) and seals < 3:
-		progress = "Seal %d/3 · %d missing · Camps %d/5" % [seals, 3 - seals, camps]
+		progress = "Seal %d/3 · %d missing" % [seals, 3 - seals]
 	return {"title": title, "message": message, "progress": progress, "guide": guide, "next": step}
 
 func hud_hint() -> Dictionary:

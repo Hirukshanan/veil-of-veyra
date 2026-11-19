@@ -104,12 +104,13 @@ func _update_objective() -> void:
 	elif boss_spawned:
 		objective = "Dragon"
 		destination = get_node_or_null("Tidewraith Dragon")
-	elif remaining_enemies == 0 and not seal_fragments.complete():
-		objective = "Seal fragments %d/3" % seal_fragments.collected_ids.size()
-		destination = seal_fragments.nearest(player.global_position, INF)
-	elif remaining_enemies == 0:
+	elif _lantern_ready():
 		objective = "Lantern"
 		destination = lantern
+	elif _uses_guardian_seal() or remaining_enemies == 0:
+		objective = "Seal fragments %d/3" % seal_fragments.collected_ids.size()
+		if not _uses_guardian_seal():
+			destination = seal_fragments.nearest(player.global_position, INF)
 	else:
 		var nearest := INF
 		for candidate in get_tree().get_nodes_in_group("combat_enemies"):
@@ -130,8 +131,8 @@ func _update_objective() -> void:
 		status_label.text += " | Grove complete +25 shards" if world_data.grove_reward else " | Grove %d/3" % mini(herbs.grove_count(), 3)
 	if not lantern_lit:
 		status_label.text += " | Seal %d/3" % seal_fragments.collected_ids.size()
-		if remaining_enemies == 0:
-			lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
+		if _uses_guardian_seal() or remaining_enemies == 0:
+			lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 	if _save_failed:
 		status_label.text += " | SAVE FAILED - open camp to retry"
 	relic_status.text = relic_hunt.call("progress_text")
@@ -140,7 +141,7 @@ func _update_objective() -> void:
 	interact_button.text = ""
 	interact_button.icon = preload("res://assets/ui/controls/lantern.svg")
 	interact_button.accessibility_name = "Light lantern"
-	interact_button.visible = remaining_enemies == 0 and seal_fragments.complete() and not lantern_lit
+	interact_button.visible = _lantern_ready() and not lantern_lit
 	interact_button.disabled = player.global_position.distance_to(lantern.global_position) > 2.5
 	if seal_fragments.nearest(player.global_position) != null:
 		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
@@ -153,8 +154,14 @@ func _update_objective() -> void:
 		interact_button.visible = true
 		interact_button.disabled = false
 
+func _uses_guardian_seal() -> bool:
+	return false
+
+func _lantern_ready() -> bool:
+	return (_uses_guardian_seal() or remaining_enemies == 0) and seal_fragments.complete()
+
 func _interact_lantern() -> void:
-	if not started or game_finished or get_tree().paused or remaining_enemies > 0 or not seal_fragments.complete() or lantern_lit:
+	if not started or game_finished or get_tree().paused or not _lantern_ready() or lantern_lit:
 		return
 	if player.global_position.distance_to(lantern.global_position) > 2.5:
 		return
@@ -238,7 +245,7 @@ func _ready() -> void:
 	add_child(relic_hunt)
 	keeper = preload("res://scripts/shore_keeper.gd").new()
 	add_child(keeper)
-	seal_fragments = preload("res://scripts/beach_seals.gd").new()
+	seal_fragments = _create_seal_fragments()
 	add_child(seal_fragments)
 	_restore_world()
 	get_tree().auto_accept_quit = false
@@ -250,6 +257,11 @@ func _ready() -> void:
 
 func _create_exploration() -> Node3D:
 	return preload("res://scripts/island_exploration.gd").new()
+
+func _create_seal_fragments() -> Node3D:
+	var seals := preload("res://scripts/beach_seals.gd").new()
+	seals.guardian_mode = _uses_guardian_seal()
+	return seals
 
 func _build_enemies() -> void:
 	remaining_enemies = 0
@@ -654,8 +666,8 @@ func _heal() -> void:
 
 func _on_enemy_defeated() -> void:
 	remaining_enemies = maxi(0, remaining_enemies - 1)
-	if remaining_enemies == 0 and not game_finished:
-		lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
+	if not lantern_lit and not game_finished and (_uses_guardian_seal() or remaining_enemies == 0):
+		lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 	_update_objective()
 
 func _on_boss_defeated() -> void:
@@ -833,6 +845,8 @@ func _show_island_map() -> void:
 	map.player_heading = player.global_rotation.y
 	map.bound_waystone = exploration.checkpoint_index
 	map.discovered = exploration.discovered.duplicate()
+	map.guardian_mode = _uses_guardian_seal()
+	map.quest_markers = guardian_map_markers()
 	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():
 			continue
@@ -840,11 +854,19 @@ func _show_island_map() -> void:
 			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
 				map.camps_cleared[index] = false
 	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: rolling hills. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
+	if map.guardian_mode:
+		legend = "Cyan diamond: Tideseal Ruins. Green leaf: Moonleaf Grove. Gold square: discovered waystone.\nNorthern Lantern: %s." % (
+			"LIT" if lantern_lit else "READY · seal complete" if _lantern_ready() else "LOCKED · requires 3/3 fragments")
+		if not map.quest_markers.is_empty() and not _lantern_ready():
+			legend += "\n1 Dire Warg · 2 Demon Fox · 3 Demon Boar. Rings show search regions. Pins appear when you discover a region."
+		elif not lantern_lit and not _lantern_ready():
+			legend += "\nInvestigate the broken seal at Tideseal Ruins."
 	if boss_spawned:
 		legend += " The dragon is at the ruins."
 	legend += "\n\nTRAILS\nFrom Tideseal Ruins, follow the woodland trail north past Western Rise to the lantern ruins. The north-east path reaches Ancient Grove (gold ring); its eastern trail returns to the forest camp. Moonleaf Grove remains the optional flower clearing on the south-east trail."
-	for index in range(3):
-		legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
+	if not map.guardian_mode:
+		for index in range(3):
+			legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
 	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovered waystones remain saved. Travel does not restore health, stamina or potions."
 	_clear_menu("ISLAND MAP", legend)
 	pause_menu_open = true
@@ -861,6 +883,9 @@ func _show_island_map() -> void:
 		# Destinations precede the long legend, with Resume always first.
 		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 3 + index)
 	_menu_button("Pause menu", _pause_game)
+
+func guardian_map_markers() -> Array[Dictionary]:
+	return []
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
 		return
@@ -961,8 +986,8 @@ func _restore_world() -> void:
 		lantern_label.text = "LANTERN RESTORED"
 		if not completed:
 			_spawn_boss()
-	elif remaining_enemies == 0:
-		lantern_label.text = "LIGHT THE LANTERN" if seal_fragments.complete() else "RECOVER THE LANTERN SEAL"
+	elif _uses_guardian_seal() or remaining_enemies == 0:
+		lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 
 func _claim_optional_rewards() -> void:
 	if herbs.grove_count() >= herbs.GROVE_GOAL and not world_data.grove_reward:

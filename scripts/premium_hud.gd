@@ -2,6 +2,7 @@ extends Control
 
 const TITLE = preload("res://assets/ui/fonts/Cinzel.ttf")
 const QUEST_ICON=preload("res://assets/ui/quest_scroll.svg")
+const QUEST_MARKER := preload("res://scripts/quest_map_marker.gd")
 const GOLD := Color("c9b783")
 const INK := Color("f2ebd9")
 var scene
@@ -32,12 +33,15 @@ func _ready() -> void:
 	var timer:=Timer.new()
 	timer.wait_time=0.1
 	timer.autostart=true
-	timer.timeout.connect(func():
-		queue_redraw()
-		if is_instance_valid(_map_overlay): _map_overlay.queue_redraw())
+	timer.timeout.connect(refresh_guidance)
 	add_child(timer)
 	resized.connect(_layout_images)
 	_layout_images()
+
+func refresh_guidance() -> void:
+	queue_redraw()
+	if is_instance_valid(_map_overlay):
+		_map_overlay.queue_redraw()
 
 func _circle_image(texture: Texture2D) -> TextureRect:
 	var image:=TextureRect.new()
@@ -202,6 +206,13 @@ func _draw() -> void:
 			if posmod(bearing,45)==0:
 				_text(at+Vector2(-6,16*f),["N","NE","E","SE","S","SW","W","NW"][posmod(bearing/45,8)],11*f)
 		draw_colored_polygon(PackedVector2Array([Vector2(middle-4,19),Vector2(middle+4,19),Vector2(middle,25)]),GOLD)
+		for marker in scene.guardian_map_markers():
+			if not marker.tracked:
+				continue
+			var target: Vector3 = marker.point - hero.global_position
+			var offset := wrapf(rad_to_deg(atan2(target.x, -target.z)) - heading, -180.0, 180.0)
+			var marker_x := middle + clampf(offset / 180.0, -.455, .455) * compass_width
+			QUEST_MARKER.draw(self, Vector2(marker_x, 18 + 46 * f), marker, maxf(4.5, 6.5 * f), 0.0)
 	# Only this compact quick bar appears in gameplay; editing panels live elsewhere.
 	for i in range(3):
 		var center:=Vector2(size.x*0.5+(i-1)*66*f,size.y-48*f)
@@ -220,11 +231,19 @@ func map_overlay(canvas: Control) -> void:
 	canvas.draw_string(TITLE,Vector2(center.x-5,14),"N",HORIZONTAL_ALIGNMENT_LEFT,-1,12,INK)
 	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if is_instance_valid(enemy) and enemy.health>0:
+			if scene.has_method("hide_enemy_map_dot") and scene.hide_enemy_map_dot(enemy):
+				continue
 			var at:=center+Vector2(enemy.global_position.x,enemy.global_position.z)*radius/125
 			if at.distance_to(center)<radius-8: canvas.draw_circle(at,2.4,Color("da674e"))
-	if is_instance_valid(scene.seal_fragments) and not scene.seal_fragments.complete():
+	var show_ruins: bool = scene.show_ruins_map_marker() if scene.has_method("show_ruins_map_marker") else (
+		is_instance_valid(scene.seal_fragments) and not scene.seal_fragments.complete())
+	if show_ruins:
 		var seal:=center+Vector2(-44,54)*radius/125
 		canvas.draw_colored_polygon(PackedVector2Array([seal+Vector2(0,-4),seal+Vector2(4,0),seal+Vector2(0,4),seal+Vector2(-4,0)]),Color("e6c55f"))
+	for marker in scene.guardian_map_markers():
+		var point: Vector3 = marker.point
+		var marker_at := center + Vector2(point.x, point.z) * radius / 125.0
+		QUEST_MARKER.draw(canvas, marker_at, marker, maxf(4.6, radius * .083), radius / 125.0)
 	var at:=center+Vector2(scene.player.global_position.x,scene.player.global_position.z)*radius/125
 	var heading: float=scene.player.global_rotation.y
 	var forward:=Vector2(-sin(heading),-cos(heading))

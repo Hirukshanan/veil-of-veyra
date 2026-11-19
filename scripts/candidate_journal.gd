@@ -26,6 +26,10 @@ var last_layout_size := Vector2.ZERO
 static func entry(g, id: String) -> Dictionary:
 	if id=="awakening":
 		return g.awakening_quest()
+	if g.has_method("guardian_journal"):
+		var guardian: Dictionary = g.guardian_journal(id)
+		if not guardian.is_empty():
+			return guardian
 	var s := Q.snapshot(g)
 	var goal := Q.current(g)
 	match id:
@@ -249,15 +253,17 @@ func render():
 	stack.add_theme_constant_override("separation",10)
 	index_scroll.add_child(stack)
 	var ids:Array = []
-	for id in ["main","awakening","watch","relic","grove"]:
+	var guardian_ids: Array = game.guardian_journal_ids() if game.has_method("guardian_journal_ids") else []
+	var quest_ids := ["main"] + guardian_ids + ["awakening", "watch", "relic", "grove"]
+	for id in quest_ids:
 		var quest := entry(game,id)
-		if section==("Completed" if quest.done else "Main" if id in ["main","awakening"] else "Side"):
+		if section==("Completed" if quest.done else "Main" if id in ["main","awakening"] or id in guardian_ids else "Side"):
 			ids.append(id)
 	if selected not in ids:
 		selected = "" if ids.is_empty() else ids[0]
 	for id in ids:
 		var quest := entry(game,id)
-		var item := button(stack,str(quest.title).capitalize(),choose.bind(section,id),selected==id)
+		var item := button(stack,quest.title if id in guardian_ids else str(quest.title).capitalize(),choose.bind(section,id),selected==id)
 		item.custom_minimum_size.y = 58
 		match id:
 			"watch": item.icon = preload("res://assets/ui/controls/attack.svg")
@@ -292,6 +298,8 @@ func render():
 		heading.add_child(Stamp.new())
 		label(detail,"COMPLETED",14,true)
 	label(detail,quest.description,21 if compact else 23)
+	if quest.has("finding"):
+		label(detail,quest.finding,21 if compact else 23)
 	label(detail,quest.objective if selected=="main" else quest.objective+"   %d / %d" % [quest.value,quest.total],16 if compact else 18,true)
 	var bar := ProgressBar.new()
 	bar.max_value = quest.total
@@ -332,7 +340,7 @@ func render():
 			button(actions,"Accept bounty",game._accept_scroll_quest)
 		elif game.keeper.remaining()==0:
 			button(actions,"Report bounty",game._complete_scroll_quest)
-	if not quest.done:
+	if not quest.done and not quest.get("locked", false):
 		button(actions,"Tracked" if game.tracked_quest==selected else "Track quest",track,game.tracked_quest==selected)
 	detail.modulate.a = .7
 	content_motion = create_tween()

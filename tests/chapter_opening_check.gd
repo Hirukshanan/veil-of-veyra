@@ -4,6 +4,7 @@ const CANDIDATE := preload("res://scenes/island_candidate.tscn")
 const JOURNAL := preload("res://scripts/candidate_journal.gd")
 const STORE := preload("res://scripts/campaign_store.gd")
 const OPENING := preload("res://scripts/chapter_opening.gd")
+const GUARDIANS := preload("res://scripts/chapter_guardians.gd")
 
 var _scene
 var _hero
@@ -29,18 +30,17 @@ func _run() -> void:
 	assert(not paused and _hero.is_physics_processing())
 	print("PASS: The warning starts at the existing beach with control active")
 	for point in [Vector2(-4, 27), Vector2(-5.6, 34.4), Vector2(-12.2, 39.3), Vector2(-20.4, 43.2),
-		Vector2(-28.9, 46.1), Vector2(-36.4, 48.8), Vector2(-40, 52)]:
+		Vector2(-28.9, 46.1), Vector2(-36.4, 48.8), Vector2(-40, 52), Vector2(-44, 54)]:
 		assert(await _walk(point), "Reach the shore route waypoint " + str(point))
-	var fragment = _scene.seal_fragments.nearest(_hero.position)
-	assert(fragment != null and fragment.get_meta("pickup_id") == 0)
+	assert(_scene.interact_button.accessibility_name == "Investigate broken seal")
 	_key(KEY_E)
-	assert(_scene.seal_fragments.collected_ids == [0])
-	assert(_hint().title == "THE BROKEN SEAL" and _hint().message == OPENING.FRAGMENT_NOTES[0])
+	assert(_scene.guardians.revealed() and _scene.seal_fragments.collected_ids.is_empty())
+	assert(_hint().title == "DEFEAT THE DIRE WARG" and _hint().message == "Three cursed guardians hold the seal.")
 	_key(KEY_E)
-	assert(_scene.seal_fragments.collected_ids == [0])
+	assert(_scene.seal_fragments.collected_ids.is_empty())
 	var bank := STORE.load_progress()
-	assert(bank.error == OK and bank.data.world_data.seal_fragments == [0])
-	print("PASS: Walked the shore clue route, used E, kept the original fragment ID, and revealed the ward")
+	assert(bank.error == OK and bank.data.world_data[GUARDIANS.SAVE_KEY].investigated)
+	print("PASS: Walked the shore clue route, used E, and revealed the guardian objectives")
 	var camp: Vector3 = _scene.opening._camp
 	for point in [Vector2(-44, 48.5), Vector2(-44.4, 43.9), Vector2(-46.1, 37.7), Vector2(-49.4, 32.4),
 			Vector2(camp.x, camp.z)]:
@@ -68,21 +68,21 @@ func _run() -> void:
 	for point in [Vector2(-49, 28.6), Vector2(-44.4, 27.9), Vector2(-40.9, 27.1), Vector2(-37, 27)]:
 		assert(await _walk(point), "Reach the woodland junction waypoint " + str(point))
 	assert(_scene.opening.has_beat(OPENING.JUNCTION) and _hint().message == OPENING.JUNCTION_LINE)
-	assert(_hint().title == "THE NORTHERN LANTERN" and "2 missing" in _hint().progress)
+	assert("0/3" in _hint().progress and JOURNAL.entry(_scene, GUARDIANS.LANTERN).locked)
 	assert(_scene.remaining_enemies == 5 and _scene.shards == 0 and not _scene.lantern_lit)
 	assert(_clearance > 28.5, "Beginner route stays beyond the Fox encounter and its leash")
 	print("RESULT bypass route %.2f simulated seconds; nearest Fox distance %.1f m" % [float(_ticks - _opening_ticks) / 30.0, _clearance])
 	assert(_scene._save_progress())
 	var saved := STORE.load_progress()
 	assert(saved.error == OK and not saved.migrated)
-	assert(saved.data.world_data.seal_fragments == [0] and saved.data.world_data[OPENING.SAVE_KEY] == 7)
+	assert(saved.data.world_data.seal_fragments.is_empty() and saved.data.world_data[OPENING.SAVE_KEY] == 7)
 	await _unload_scene()
 	await _load_scene()
 	await _wait(8)
 	assert(_scene.opening.has_beat(OPENING.JUNCTION) and _scene.opening._bell.stream == null)
-	assert(_hint().message == "Restore the Northern Lantern." and "2 missing" in _hint().progress)
-	assert(OPENING.CAMP_FINDING in JOURNAL.entry(_scene, "main").description)
-	assert(_scene.world_data[OPENING.SAVE_KEY] == 7 and _scene.seal_fragments.collected_ids == [0])
+	assert(_hint().title == "DEFEAT THE DIRE WARG" and "0/3" in _hint().progress)
+	assert(JOURNAL.entry(_scene, "main").finding == OPENING.CAMP_FINDING)
+	assert(_scene.world_data[OPENING.SAVE_KEY] == 7 and _scene.seal_fragments.collected_ids.is_empty())
 	print("PASS: Junction lead, missing fragments, no camp/reward changes, and durable v4 reload without repeat triggers")
 	await _unload_scene()
 	assert(STORE.save_progress(bank.data) == OK)
@@ -127,7 +127,7 @@ func _walk(point: Vector2, radius := .63) -> bool:
 	return false
 
 func _wolf_route() -> void:
-	assert(_scene.seal_fragments.collected_ids == [0] and not _scene.opening.has_beat(OPENING.CAMP))
+	assert(_scene.guardians.revealed() and _scene.seal_fragments.collected_ids.is_empty() and not _scene.opening.has_beat(OPENING.CAMP))
 	var wolf = _scene.get_node("CampDemon4")
 	for point in [Vector2(-46, 49), Vector2(-51.5, 42), Vector2(-56.9, 38), Vector2(-60.1, 35)]:
 		assert(await _walk(point), "Reach the existing southwestern wolf's approach")

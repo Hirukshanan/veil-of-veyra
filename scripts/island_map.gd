@@ -1,11 +1,14 @@
 extends Control
 
 const MAP = preload("res://scripts/island_exploration.gd")
+const QUEST_MARKER := preload("res://scripts/quest_map_marker.gd")
 var player_position := Vector3.ZERO
 var player_heading := 0.0
 var camps_cleared: Array[bool] = [true, true, true]
 var bound_waystone := -1
 var discovered: Array[bool] = [true, false, false]
+var guardian_mode := false
+var quest_markers: Array[Dictionary] = []
 
 func _ready() -> void:
 	_fit_height()
@@ -46,11 +49,12 @@ func _draw() -> void:
 			line.append(_point(point))
 		draw_polyline(line, Color(0.74, 0.65, 0.43), 4.0, true)
 	for index in range(3):
-		var camp: Vector3 = MAP.CAMPS[index]
-		var spot := _point(camp)
-		var color := Color(0.4, 0.95, 0.6) if camps_cleared[index] else Color(1, 0.3, 0.24)
-		draw_circle(spot, 7, color)
-		_caption(spot + (Vector2(14, 5) if index == 1 else Vector2(-25, -14)), ["West", "Forest", "Ruins"][index], Color.WHITE)
+		if not guardian_mode:
+			var camp: Vector3 = MAP.CAMPS[index]
+			var spot := _point(camp)
+			var color := Color(0.4, 0.95, 0.6) if camps_cleared[index] else Color(1, 0.3, 0.24)
+			draw_circle(spot, 7, color)
+			_caption(spot + (Vector2(14, 5) if index == 1 else Vector2(-25, -14)), ["West", "Forest", "Ruins"][index], Color.WHITE)
 		var stone := _point(MAP.CHECKPOINTS[index])
 		draw_rect(Rect2(stone - Vector2(5, 5), Vector2(10, 10)), Color.WHITE if bound_waystone == index else (Color(1, 0.78, 0.25) if discovered[index] else Color(0.4, 0.45, 0.48)))
 		_caption(stone + Vector2(9, 5), str(index + 1), Color.WHITE)
@@ -67,6 +71,8 @@ func _draw() -> void:
 	_caption(ancient + Vector2(14, -26), "Ancient Grove", Color(1.0, 0.86, 0.61))
 	var rise := _point(Vector3(-64, 0, 18))
 	_caption(rise + Vector2(-105, 0), "Western Rise", Color(0.78, 0.83, 0.75))
+	for marker in quest_markers:
+		QUEST_MARKER.draw(self, _point(marker.point), marker, 8.0, (minf(size.x, size.y) * .5 - 38.0) / terrain.OUTER_RADIUS)
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))
 	var right := Vector2(-forward.y, forward.x)

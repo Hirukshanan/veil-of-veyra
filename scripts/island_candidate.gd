@@ -2,9 +2,12 @@ extends "res://scripts/campaign.gd"
 
 const FOX_ENCOUNTER := preload("res://scenes/enemies/demon_fox_combat.tscn")
 const CHAPTER_OPENING := preload("res://scripts/chapter_opening.gd")
+const CHAPTER_GUARDIANS := preload("res://scripts/chapter_guardians.gd")
 
 var awakening: Node3D
 var opening: Node3D
+var guardians := CHAPTER_GUARDIANS.new(self)
+var _region_check := 0.0
 var landscape: Node3D
 var placement_ready := false
 var placement_log: Array[Dictionary] = []
@@ -12,10 +15,14 @@ var encounter_log: Array[Dictionary] = []
 var enemy_navigation: Node3D
 
 func _restore_world() -> void:
+	guardians.restore()
 	super._restore_world()
 	# The legacy restore samples the old height function; validate this saved point
 	# against the new collision instead, including a legitimate cave floor.
 	player.global_position = world_data.position
+
+func _uses_guardian_seal() -> bool:
+	return true
 
 func _build_island() -> void:
 	landscape = preload("res://scripts/island_landscape.gd").new()
@@ -50,6 +57,17 @@ func _ready() -> void:
 	opening.game = self
 	add_child(opening)
 	placement_ready = true
+	guardians.refresh_tracking(true)
+
+func _physics_process(delta: float) -> void:
+	if not placement_ready or not started or game_finished or player.health <= 0:
+		return
+	_region_check -= delta
+	if _region_check <= 0.0:
+		_region_check = .25
+		if guardians.discover_regions():
+			_save_progress()
+			_redraw_tracking()
 
 func _ground_node(node: Node3D, safe := false) -> void:
 	var before := node.global_position
@@ -111,32 +129,67 @@ func _configure_encounters() -> void:
 	_spawn_fox()
 
 func _spawn_fox() -> void:
+	if guardians.fox_defeated():
+		return
 	var marker: Marker3D = $DemonFoxSpawn
 	var fox := FOX_ENCOUNTER.instantiate() as CharacterBody3D
 	fox.position = landscape.ground_point(marker.position) + Vector3.UP * .015
 	fox.rotation = marker.rotation
 	fox.target = player
 	fox.navigation = enemy_navigation
-	# This optional encounter is scoped to the scene lifetime. Camp IDs, rewards
-	# and saved chapter state stay with the existing campaign encounters.
+	fox.defeated.connect(_defeat_fox)
 	add_child(fox)
+
+func _defeat_world_enemy(index: int) -> void:
+	if index == CHAPTER_GUARDIANS.WARG_INDEX and index not in world_data.cleared:
+		guardians.recover(0)
+	super._defeat_world_enemy(index)
+	_redraw_tracking()
+
+func _defeat_fox() -> void:
+	if not guardians.fox_defeated():
+		guardians.recover(1)
+		_save_progress()
+		_update_objective()
+		_redraw_tracking()
+
+func _defeat_boar() -> void:
+	if not world_data.get("boar_defeated", false):
+		guardians.recover(2)
+	super._defeat_boar()
+	_update_objective()
+	_redraw_tracking()
+
+func _interact_lantern() -> void:
+	var was_lit := lantern_lit
+	super._interact_lantern()
+	if lantern_lit and not was_lit:
+		guardians.refresh_tracking(false)
+		_redraw_tracking()
 
 var tracked_quest := ""
 const TRACKING_PATH := "user://journal_tracking.cfg"
 
 func set_tracked_quest(id:String):
+	if (id == CHAPTER_GUARDIANS.LANTERN or guardians.index_for(id) >= 0) and not guardians.can_track(id):
+		return
+	if tracked_quest == id:
+		return
 	_refresh_quest_feedback()
 	tracked_quest=id
 	quest_feedback.clear()
 	var preference:=ConfigFile.new()
 	preference.set_value("journal","tracked",id)
 	preference.save(TRACKING_PATH)
+	_redraw_tracking()
 
 func _load_tracking():
 	var preference:=ConfigFile.new()
 	if FileAccess.file_exists(TRACKING_PATH) and preference.load(TRACKING_PATH)==OK:
 		var saved=preference.get_value("journal","tracked","")
-		if saved in ["main","watch","grove","relic","awakening"]: tracked_quest=saved
+		if saved is String and (saved in ["main","watch","grove","relic","awakening",CHAPTER_GUARDIANS.LANTERN]
+				or guardians.index_for(saved) >= 0):
+			tracked_quest = saved
 
 var journal_view: Control
 
@@ -203,6 +256,12 @@ func tracked_hint(base:Dictionary) -> Dictionary:
 	if is_instance_valid(awakening) and completed and tracked_quest in ["", "main"] and not awakening.finished():
 		var objective:Dictionary=awakening.quest()
 		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
+	if placement_ready:
+		var target: Dictionary = guardians.hud(tracked_quest)
+		if not target.is_empty():
+			if tracked_quest != CHAPTER_GUARDIANS.LANTERN and not opening.active_message().is_empty():
+				target.message = opening.active_message()
+			return target
 	if is_instance_valid(opening) and tracked_quest in ["", "main"]:
 		var hint: Dictionary = opening.hud_hint()
 		if not hint.is_empty():
@@ -232,12 +291,39 @@ func opening_journal() -> Dictionary:
 		goal["finding"] = CHAPTER_OPENING.CAMP_FINDING
 	return goal
 
+func guardian_journal(id: String) -> Dictionary:
+	if not placement_ready:
+		return {}
+	var row: Dictionary = guardians.journal(id)
+	if id == "main" and not row.is_empty() and opening.has_beat(CHAPTER_OPENING.CAMP):
+		row["finding"] = CHAPTER_OPENING.CAMP_FINDING
+	return row
+
+func guardian_journal_ids() -> Array[String]:
+	return guardians.ids() if placement_ready else []
+
+func guardian_map_markers() -> Array[Dictionary]:
+	return guardians.markers() if placement_ready else []
+
+func hide_enemy_map_dot(enemy: Node) -> bool:
+	for guardian in CHAPTER_GUARDIANS.GUARDIANS:
+		if enemy.name == guardian.actor:
+			return true
+	return false
+
+func show_ruins_map_marker() -> bool:
+	return placement_ready and not guardians.revealed()
+
+func _redraw_tracking() -> void:
+	if is_instance_valid(mobile_hud) and is_instance_valid(mobile_hud.chrome):
+		mobile_hud.chrome.refresh_guidance()
+
 func _show_camp() -> void:
 	super._show_camp()
-	var flags := CHAPTER_OPENING.saved_flags(world_data)
-	if not lantern_lit and not completed and (flags & CHAPTER_OPENING.JUNCTION) == 0:
-		camp_menu._art_heading.text = "THE LANTERN'S SEAL"
-		camp_menu._art_caption.text = "The inland camps have gone quiet.\nFollow the ash inland."
+	if not lantern_lit and not completed:
+		camp_menu._art_heading.text = "THE THREE CURSED GUARDIANS" if guardians.revealed() else "THE LANTERN'S SEAL"
+		camp_menu._art_caption.text = "The three fragments restore the Northern Lantern." if guardians.revealed() else (
+			"The inland camps have gone quiet.\nFollow the ash inland.")
 
 func _update_objective() -> void:
 	super._update_objective()
@@ -246,6 +332,11 @@ func _update_objective() -> void:
 		interact_button.disabled=false
 		interact_button.icon=preload("res://assets/ui/controls/lantern.svg")
 		interact_button.accessibility_name="Interact · Place lantern"
+	elif _can_investigate_seal():
+		interact_button.visible = true
+		interact_button.disabled = false
+		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
+		interact_button.accessibility_name = "Investigate broken seal"
 	elif _can_inspect_camp():
 		interact_button.visible = true
 		interact_button.disabled = false
@@ -253,17 +344,24 @@ func _update_objective() -> void:
 		interact_button.accessibility_name = "Inspect abandoned camp"
 
 func _interact_world() -> void:
+	if not started or game_finished or get_tree().paused or player.health <= 0:
+		return
 	if is_instance_valid(awakening) and awakening.eligible() and awakening.near_pedestal() and not awakening.finished():
 		awakening.start()
+		return
+	if _can_investigate_seal():
+		guardians.investigate()
+		_update_objective()
+		_redraw_tracking()
 		return
 	if _can_inspect_camp():
 		opening.inspect_camp()
 		_update_objective()
 		return
-	var before: int = seal_fragments.collected_ids.size()
 	super._interact_world()
-	if is_instance_valid(opening) and seal_fragments.collected_ids.size() > before:
-		opening.fragment_recovered()
+
+func _can_investigate_seal() -> bool:
+	return placement_ready and started and not game_finished and not get_tree().paused and player.health > 0 and guardians.can_investigate()
 
 func _can_inspect_camp() -> bool:
 	if not is_instance_valid(opening) or not opening.can_inspect():
