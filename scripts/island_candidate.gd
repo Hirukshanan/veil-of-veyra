@@ -1,8 +1,10 @@
 extends "res://scripts/campaign.gd"
 
 const FOX_ENCOUNTER := preload("res://scenes/enemies/demon_fox_combat.tscn")
+const CHAPTER_OPENING := preload("res://scripts/chapter_opening.gd")
 
 var awakening: Node3D
+var opening: Node3D
 var landscape: Node3D
 var placement_ready := false
 var placement_log: Array[Dictionary] = []
@@ -43,6 +45,10 @@ func _ready() -> void:
 	awakening = preload("res://scripts/lantern_awakening.gd").new()
 	awakening.game = self
 	add_child(awakening)
+	opening = CHAPTER_OPENING.new()
+	opening.name = "ChapterOpening"
+	opening.game = self
+	add_child(opening)
 	placement_ready = true
 
 func _ground_node(node: Node3D, safe := false) -> void:
@@ -197,6 +203,10 @@ func tracked_hint(base:Dictionary) -> Dictionary:
 	if is_instance_valid(awakening) and completed and tracked_quest in ["", "main"] and not awakening.finished():
 		var objective:Dictionary=awakening.quest()
 		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
+	if is_instance_valid(opening) and tracked_quest in ["", "main"]:
+		var hint: Dictionary = opening.hud_hint()
+		if not hint.is_empty():
+			return hint
 	if tracked_quest=="" or not _world_ready or Time.get_ticks_msec()<quest_feedback.get("until",0):
 		return base
 	var q:=preload("res://scripts/candidate_journal.gd").entry(self,tracked_quest)
@@ -214,6 +224,21 @@ func _pause_game() -> void:
 func awakening_quest() -> Dictionary:
 	return awakening.quest()
 
+func opening_journal() -> Dictionary:
+	if not is_instance_valid(opening):
+		return {}
+	var goal: Dictionary = opening.objective()
+	if opening.has_beat(CHAPTER_OPENING.CAMP):
+		goal["finding"] = CHAPTER_OPENING.CAMP_FINDING
+	return goal
+
+func _show_camp() -> void:
+	super._show_camp()
+	var flags := CHAPTER_OPENING.saved_flags(world_data)
+	if not lantern_lit and not completed and (flags & CHAPTER_OPENING.JUNCTION) == 0:
+		camp_menu._art_heading.text = "THE LANTERN'S SEAL"
+		camp_menu._art_caption.text = "The inland camps have gone quiet.\nFollow the ash inland."
+
 func _update_objective() -> void:
 	super._update_objective()
 	if is_instance_valid(awakening) and not awakening.active and not awakening.finished() and awakening.eligible() and awakening.near_pedestal():
@@ -221,9 +246,27 @@ func _update_objective() -> void:
 		interact_button.disabled=false
 		interact_button.icon=preload("res://assets/ui/controls/lantern.svg")
 		interact_button.accessibility_name="Interact · Place lantern"
+	elif _can_inspect_camp():
+		interact_button.visible = true
+		interact_button.disabled = false
+		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
+		interact_button.accessibility_name = "Inspect abandoned camp"
 
 func _interact_world() -> void:
 	if is_instance_valid(awakening) and awakening.eligible() and awakening.near_pedestal() and not awakening.finished():
 		awakening.start()
 		return
+	if _can_inspect_camp():
+		opening.inspect_camp()
+		_update_objective()
+		return
+	var before: int = seal_fragments.collected_ids.size()
 	super._interact_world()
+	if is_instance_valid(opening) and seal_fragments.collected_ids.size() > before:
+		opening.fragment_recovered()
+
+func _can_inspect_camp() -> bool:
+	if not is_instance_valid(opening) or not opening.can_inspect():
+		return false
+	var position: Vector3 = player.global_position
+	return seal_fragments.nearest(position) == null and herbs.nearest(position) == null

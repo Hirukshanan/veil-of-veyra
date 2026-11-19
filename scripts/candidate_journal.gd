@@ -35,7 +35,13 @@ static func entry(g, id: String) -> Dictionary:
 			return row("Keeper's Relics","Search the grassland trail, mountain foothills and eastern cave.","Golden relics",s.relics,3,"20 Tide Shards after victory.","Approach a golden relic." if s.relics<3 else "Defeat the Tidewraith." if not s.completed else "Claimed.",s.relic_reward)
 		"grove":
 			return row("Moonleaf Grove","Follow the meadow paths to the grove beyond the river.","Grove flowers",mini(3,s.grove),3,"One potion per flower and 25 Tide Shards for three.","Gather Moonleaf in the grove." if not s.grove_reward else "Claimed.",s.grove_reward)
-	return row(goal.title,goal.guide,"Seal %d/3   ·   Camps %d/5" % [s.seals,5-s.camps],s.seals+5-s.camps+int(s.lantern)+int(s.completed),10,goal.reward,goal.next,s.completed)
+	var intro: Dictionary = g.opening_journal() if g.has_method("opening_journal") else {}
+	var description: String = intro.get("guide", goal.guide)
+	var finding: String = intro.get("finding", "")
+	if not finding.is_empty() and not description.contains(finding):
+		description += "\n\n" + finding
+	var progress: String = intro.get("progress", "Seal %d/3   ·   Camps %d/5" % [s.seals,5-s.camps])
+	return row(intro.get("title", goal.title),description,progress,s.seals+5-s.camps+int(s.lantern)+int(s.completed),10,goal.reward,intro.get("next", goal.next),s.completed)
 
 static func row(title,description,objective,value,total,reward,next,done) -> Dictionary:
 	return {"title":title,"description":description,"objective":objective,"value":value,"total":total,"reward":reward,"next":next,"done":done}
