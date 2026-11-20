@@ -1,14 +1,17 @@
 extends RefCounted
 
 const SAVE_KEY := "guardian_quest"
+const GROVE_FLAG := "ancient_grove_investigated"
+const GROVE_CENTER := preload("res://scripts/chapter_one_region.gd").GROVE_CENTER
 const TITLE := "The Three Cursed Guardians"
 const DESCRIPTION := "The broken seal's three fragments have been absorbed by powerful cursed creatures. Defeat the guardians and recover the fragments to restore the Northern Lantern."
 const LANTERN := "restore_lantern"
 const WARG_INDEX := 2
+const WARG_HOME := Vector3(37, 0, -47)
 const GUARDIANS := [
-	{"id": "guardian_warg", "name": "Dire Warg", "actor": "CampDemon2", "region": "Northern Woodland",
-		"center": Vector3(-32, 0, -23), "radius": 14.0, "color": Color("ef9e64"),
-		"trail": "Follow the inland trail north from Woodland Junction, then take the woodland fork."},
+	{"id": "guardian_warg", "name": "Dire Warg", "actor": "CampDemon2", "region": "Northern Foothills",
+		"center": Vector3(35, 0, -45), "radius": 13.0, "color": Color("ef9e64"),
+		"trail": "Follow the trail from the Northern Lantern toward Ancient Grove, then skirt east below the mountain ridge."},
 	{"id": "guardian_fox", "name": "Demon Fox", "actor": "DemonFox", "region": "Western Forest",
 		"center": Vector3(-74, 0, -16), "radius": 14.0, "color": Color("ec81b2"),
 		"trail": "Take the western forest trail past Western Rise and search the outer woods."},
@@ -18,6 +21,7 @@ const GUARDIANS := [
 ]
 
 var game
+var grove_point: Vector3
 
 func _init(scene) -> void:
 	game = scene
@@ -31,6 +35,11 @@ func restore() -> void:
 			world.seal_fragments.append(0)
 		if world.get("boar_defeated", false) and 2 not in world.seal_fragments:
 			world.seal_fragments.append(2)
+	var progress: Dictionary = world[SAVE_KEY]
+	if not progress.get("foothill_marker", false):
+		# Discover the relocated Warg's region independently of the old woodland.
+		progress.regions.erase(0)
+		progress.foothill_marker = true
 
 func revealed() -> bool:
 	return game.world_data[SAVE_KEY].investigated or game.seal_fragments.complete()
@@ -47,6 +56,24 @@ func investigate() -> void:
 	game.opening.seal_investigated()
 	refresh_tracking(true)
 	game._save_progress()
+
+func can_investigate_grove() -> bool:
+	return game.lantern_lit and not game.completed and not game.world_data.get(GROVE_FLAG, false) \
+		and game.player.global_position.distance_to(grove_point) <= 2.8
+
+func investigate_grove() -> void:
+	if not can_investigate_grove():
+		return
+	game.world_data[GROVE_FLAG] = true
+	game._save_progress()
+
+func grove_objective() -> Dictionary:
+	if game.world_data.get(GROVE_FLAG, false):
+		return _row("The Cursed Bear", "Warm ash winds around the roots at Ancient Grove. A great beast has scored the stones.",
+			"Encounter pending", 0, 1, "Chapter I continues here in a future update.",
+			"Explore Veyra while the Cursed Bear encounter is pending.", false)
+	return _row("Investigate Ancient Grove", "The restored lantern reveals a trail of ash leading northeast into Ancient Grove.",
+		"Search the roots", 0, 1, "Learn what feeds the curse.", "Follow the trail northeast from the lantern and investigate the roots.", false)
 
 func recover(fragment: int) -> void:
 	if fragment == 1:
@@ -111,7 +138,9 @@ func refresh_tracking(choose_guardian: bool) -> void:
 func journal(id: String) -> Dictionary:
 	if not revealed():
 		return {}
-	if id == "main" and not game.lantern_lit:
+	if id == "main" and game.lantern_lit:
+		return game.awakening_quest() if game.completed else grove_objective()
+	if id == "main":
 		var count: int = game.seal_fragments.collected_ids.size()
 		var task := "Defeat the guardians in any order." if count < 3 else "Restore the Northern Lantern."
 		return _row(TITLE, DESCRIPTION, "Seal fragments %d/3" % count, count, 3,
@@ -124,7 +153,7 @@ func journal(id: String) -> Dictionary:
 		var result := _row("Restore the Northern Lantern", description,
 			"Restored" if lit else "Seal complete" if ready else "Locked · requires 3/3 fragments",
 			game.seal_fragments.collected_ids.size(), 3, "Restore the seal's light.",
-			"The Northern Lantern is restored." if lit else step, lit)
+			"Investigate Ancient Grove." if lit else step, lit)
 		result["locked"] = not ready
 		return result
 	var index := index_for(id)
@@ -137,7 +166,15 @@ func journal(id: String) -> Dictionary:
 		"Fragment recovered." if done else "Search " + guardian.region + ".", done)
 
 func hud(id: String) -> Dictionary:
-	if not revealed() or game.lantern_lit:
+	if game.lantern_lit:
+		if game.completed or id not in ["", "main"]:
+			return {}
+		var goal := grove_objective()
+		var message: String = goal.next
+		if can_investigate_grove():
+			message = "Interact to investigate the roots."
+		return {"title": goal.title.to_upper(), "message": message, "progress": goal.objective}
+	if not revealed():
 		return {}
 	var count: int = game.seal_fragments.collected_ids.size()
 	if id == LANTERN and can_track(id):
@@ -176,6 +213,9 @@ func markers() -> Array[Dictionary]:
 	if can_track(LANTERN):
 		result.append({"id": LANTERN, "badge": "L", "point": game.lantern.global_position,
 			"radius": 0.0, "color": Color("fbdfa0"), "tracked": game.tracked_quest == LANTERN})
+	elif game.lantern_lit and not game.completed and not game.world_data.get(GROVE_FLAG, false):
+		result.append({"id": "main", "badge": "G", "point": grove_point, "radius": 0.0,
+			"color": Color("fbdfa0"), "tracked": game.tracked_quest in ["", "main"]})
 	return result
 
 func _target(index: int) -> Vector3:

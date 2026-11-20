@@ -34,9 +34,9 @@ static func entry(g, id: String) -> Dictionary:
 	var goal := Q.current(g)
 	match id:
 		"watch":
-			return row("Western Watch","Two wolves still haunt the western forest trails.","Western wolves",2-s.watch_remaining,2,"15 Tide Shards after reporting and victory.","Accept the bounty." if not s.accepted else ("Clear the western pair." if s.watch_remaining else ("Report your success." if not s.reported else "Claimed." if s.bounty_reward else "Defeat the Tidewraith.")),s.bounty_reward)
+			return row("Western Watch","Two wolves still haunt the western forest trails.","Western wolves",2-s.watch_remaining,2,"15 Tide Shards after reporting and victory.","Accept the bounty." if not s.accepted else ("Clear the western pair." if s.watch_remaining else ("Report your success." if not s.reported else "Claimed." if s.bounty_reward else "Await Chapter I victory.")),s.bounty_reward)
 		"relic":
-			return row("Keeper's Relics","Search the grassland trail, mountain foothills and eastern cave.","Golden relics",s.relics,3,"20 Tide Shards after victory.","Approach a golden relic." if s.relics<3 else "Defeat the Tidewraith." if not s.completed else "Claimed.",s.relic_reward)
+			return row("Keeper's Relics","Search the grassland trail, mountain foothills and eastern cave.","Golden relics",s.relics,3,"20 Tide Shards after victory.","Approach a golden relic." if s.relics<3 else "Await Chapter I victory." if not s.completed else "Claimed.",s.relic_reward)
 		"grove":
 			return row("Moonleaf Grove","Follow the meadow paths to the grove beyond the river.","Grove flowers",mini(3,s.grove),3,"One potion per flower and 25 Tide Shards for three.","Gather Moonleaf in the grove." if not s.grove_reward else "Claimed.",s.grove_reward)
 	var intro: Dictionary = g.opening_journal() if g.has_method("opening_journal") else {}

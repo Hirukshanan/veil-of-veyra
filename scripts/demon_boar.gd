@@ -82,8 +82,7 @@ func _ready() -> void:
 	_feedback = preload("res://scripts/boar_feedback.gd").new()
 	_feedback.name = "CombatFeedback"
 	add_child(_feedback)
-	if target is PhysicsBody3D:
-		# Damage uses the tusk area; the charge must not slide around its victim.
+	if target is PhysicsBody3D and not target.get_collision_mask_value(2):
 		add_collision_exception_with(target)
 	_play("idle", 0.0)
 
@@ -232,7 +231,11 @@ func _physics_process(delta: float) -> void:
 				_turn(direction, delta)
 				var alignment := (-global_basis.z).dot(direction)
 				if _elapsed >= .23 and distance <= SWEEP_RANGE * size_factor and (alignment > .93 or distance < .38):
-					var stomp := distance < 1.65 * size_factor and _close_time >= 1.05 and _last_melee != State.STOMP_PREP
+					var stomp_distance := 1.65 * size_factor
+					if target is PhysicsBody3D and target.get_collision_mask_value(2):
+						# A blocking hero can crowd the tusks without entering the torso.
+						stomp_distance = 1.76 * size_factor
+					var stomp := distance < stomp_distance and _close_time >= 1.05 and _last_melee != State.STOMP_PREP
 					_enter(State.STOMP_PREP if stomp else State.SWEEP_PREP)
 				elif _elapsed >= .25 and alignment > .995:
 					_enter(State.WARNING)
@@ -292,7 +295,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if state == State.CHARGE:
 		_charge_travel += _flat(global_position - before).length()
-		_contact()
+		_contact(true)
 		var timeout := _charge_limit / (ELITE_CHARGE_SPEED if elite else CHARGE_SPEED) + (.34 if elite else 0.0)
 		if _charge_travel >= _charge_limit - (.005 if elite else 0.0) or _elapsed >= timeout or _blocked_by_wall():
 			_enter(State.RECOVERY)
@@ -478,23 +481,28 @@ func _blocked_by_wall() -> bool:
 			return true
 	return false
 
-func _contact() -> void:
+func _contact(check_body_contact := false) -> void:
 	if state != State.CHARGE or _hit_victim or not is_instance_valid(target):
 		return
-	for body in _contact_area.get_overlapping_bodies():
-		if body != target or _flat(body.global_position - global_position).dot(_charge_direction) <= 0.0 or not _clear_line(body):
-			continue
-		_hit_victim = true
-		var before := int(body.get("health"))
-		if body.has_method("take_charge_damage"):
-			body.call("take_charge_damage", 18, _charge_direction)
-		else:
-			body.call("take_damage", 18)
-		if int(body.get("health")) < before:
-			_charge_damaged = true
-			_feedback.cue("charge_impact")
-			if elite:
-				_feedback.camera_impact(body, .04)
+	var contact := _contact_area.overlaps_body(target)
+	if not contact and check_body_contact:
+		for index in range(get_slide_collision_count()):
+			if get_slide_collision(index).get_collider() == target:
+				contact = true
+				break
+	if not contact or _flat(target.global_position - global_position).dot(_charge_direction) <= 0.0 or not _clear_line(target):
+		return
+	_hit_victim = true
+	var before := int(target.get("health"))
+	if target.has_method("take_charge_damage"):
+		target.call("take_charge_damage", 18, _charge_direction)
+	else:
+		target.call("take_damage", 18)
+	if int(target.get("health")) < before:
+		_charge_damaged = true
+		_feedback.cue("charge_impact")
+		if elite:
+			_feedback.camera_impact(target, .04)
 
 func _melee_contact(stomp: bool, delta: float = 0.0) -> void:
 	if _hit_victim or not is_instance_valid(target) or int(target.get("health")) <= 0:

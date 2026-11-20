@@ -110,8 +110,12 @@ func _leap(dodged: bool) -> void:
 		_dodge()
 	assert(await _wait_state(_fox.State.RECOVER))
 	assert(_fox._locked_direction == direction and _fox._landing == landing)
-	assert(not _fox._feedback._warning.visible and _fox.is_on_floor() and _fox.position.distance_to(landing) < .16,
-		"Landing %s versus %s, on floor %s, blocked %s, ring %s" % [_fox.position, landing, _fox.is_on_floor(), _fox._blocked_flight, _fox._feedback._warning.visible])
+	assert(not _fox._feedback._warning.visible and _fox.is_on_floor() and not _fox._blocked_flight)
+	if dodged:
+		assert(_fox.position.distance_to(landing) < .16, "A clear leap reaches its locked landing")
+	else:
+		assert(_fox._flight_contact and _fox.position.z > landing.z and _fox.position.z > 1.0,
+			"A direct leap must land at the hero's body, outside their capsule")
 	assert(_hero.health == (100 if dodged else 87) and _hero_hits == (0 if dodged else 1))
 	if not dodged:
 		assert(await _wait_state(_fox.State.REPOSITION))

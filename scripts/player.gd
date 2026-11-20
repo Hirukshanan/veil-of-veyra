@@ -256,7 +256,12 @@ func attack() -> void:
 	if health <= 0 or swing_id != _swing_id:
 		return
 	var connected := false
-	for body in _attack_area.get_overlapping_bodies():
+	var targets := _attack_area.get_overlapping_bodies()
+	for area in _attack_area.get_overlapping_areas():
+		var body := _weapon_target(area)
+		if body != null:
+			targets.append(body)
+	for body in targets:
 		if body.has_method("take_damage") and int(body.get("health")) > 0:
 			var before := int(body.get("health"))
 			_deal_weapon_hit(body, damage, false)
@@ -285,9 +290,10 @@ func _perform_spirit_burst() -> void:
 	query.shape = sphere
 	query.transform = Transform3D(Basis.IDENTITY, global_position + Vector3.UP)
 	query.collision_mask = 2
+	query.collide_with_areas = true
 	for hit in get_world_3d().direct_space_state.intersect_shape(query, 32):
-		var body: Node3D = hit.collider
-		if body.has_method("take_damage") and int(body.get("health")) > 0:
+		var body := _weapon_target(hit.collider)
+		if body != null and body.has_method("take_damage") and int(body.get("health")) > 0:
 			body.call("take_damage", attack_damage * 3)
 	play_sound("sword")
 	var pulse := MeshInstance3D.new()
@@ -377,6 +383,11 @@ func _deal_weapon_hit(body: Node3D, amount: int, heavy: bool) -> void:
 		body.call("take_weapon_hit", amount, heavy, global_position)
 	else:
 		body.call("take_damage", amount)
+
+func _weapon_target(collider: Node3D) -> Node3D:
+	if collider is Area3D:
+		return collider.get_parent() as Node3D if collider.is_in_group("weapon_hurtboxes") else null
+	return collider
 
 func take_charge_damage(amount: int, direction: Vector3) -> void:
 	var before := health
@@ -635,10 +646,11 @@ func heavy_attack() -> void:
 	query.shape = shape
 	query.transform = Transform3D(Basis.IDENTITY, global_position + Vector3.UP)
 	query.collision_mask = 2
+	query.collide_with_areas = true
 	var connected := false
 	for hit in get_world_3d().direct_space_state.intersect_shape(query, 32):
-		var body: Node3D = hit.collider
-		if not body.has_method("take_damage") or int(body.get("health")) <= 0:
+		var body := _weapon_target(hit.collider)
+		if body == null or not body.has_method("take_damage") or int(body.get("health")) <= 0:
 			continue
 		var offset := body.global_position - global_position
 		var flat := Vector3(offset.x, 0, offset.z)

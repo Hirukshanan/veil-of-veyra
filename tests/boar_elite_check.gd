@@ -188,7 +188,8 @@ func _stagger() -> void:
 	results.append({"heavy_counter_damage": health - boar.health, "interrupted": true, "recovered": true})
 
 func _selection() -> void:
-	await _reset(1.7)
+	# Start just outside the two solid capsules while remaining within tusk reach.
+	await _reset(2.24)
 	assert(await _wait_for(boar.State.SWEEP_PREP, 32))
 	assert(await _wait_for(boar.State.STOMP_PREP, 125), "A player crowding the boar draws a different close attack")
 	results.append({"natural_close_sequence": ["Tusk Sweep", "Ground Stomp"]})
@@ -219,6 +220,8 @@ func _riverbank() -> void:
 	var start: Vector3 = boar.position
 	assert(await _wait_for(boar.State.WARNING, 95), "Bank pursuit can set a clear charge")
 	assert(await _wait_for(boar.State.CHARGE, 65))
+	# Clear the committed lane so this case measures terrain traversal alone.
+	hero.position.x += 3.0
 	assert(await _wait_for(boar.State.RECOVERY, 65))
 	assert(start.distance_to(boar.position) > 3.0 and boar.is_on_floor(), "Scaled boar traverses the uneven bank")
 	assert(await _wait_for(boar.State.CHASE, 60), "Bank charge recovers into pursuit")

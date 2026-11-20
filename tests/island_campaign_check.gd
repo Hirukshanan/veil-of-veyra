@@ -56,7 +56,7 @@ func run():
 	assert(scene.shards==240 and scene.player.health==73 and scene.potions==6)
 	assert(scene.player.position.distance_to(Vector3(76,1.58,0))<0.4,"Cave reload must not teleport onto the roof")
 	assert(scene.herbs.collected_ids==[1,4,8] and scene.relic_hunt.collected_ids.has(1))
-	# Existing boar reward, camp/lantern/dragon progression and upgrades remain functional.
+	# Existing boar reward and lantern restoration remain functional.
 	scene._resume()
 	var boar=scene.get_node("DemonBoar")
 	boar.take_damage(1000)
@@ -69,14 +69,13 @@ func run():
 	scene.seal_fragments.restore([0,1,2])
 	scene.player.position=scene.lantern.position
 	scene._interact_lantern()
-	assert(scene.boss_spawned and scene.lantern_lit)
-	scene.get_node("Tidewraith Dragon").take_damage(10000)
-	assert(scene.completed and scene.shards==340)
-	assert(STORE.load_progress().data.completed)
+	assert(not scene.boss_spawned and scene.lantern_lit)
+	assert(not scene.completed and scene.shards==260)
+	assert(STORE.load_progress().data.world_data.lantern)
 	scene.queue_free()
 	paused=false
 	await process_frame
 	# Allow fixture audio voices to release before process shutdown.
 	await create_timer(.75,true,false,true).timeout
-	print("PASS: legacy equipment/quest/health preservation, safe relocation, real cave entry/relic, cave save reload, one-time boar reward and unchanged lantern/dragon progression")
+	print("PASS: legacy equipment/quest/health preservation, safe relocation, cave save reload, one-time boar reward and lantern restoration")
 	quit()

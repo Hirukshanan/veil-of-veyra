@@ -24,6 +24,14 @@ func _restore_world() -> void:
 func _uses_guardian_seal() -> bool:
 	return true
 
+func _lantern_spawns_boss() -> bool:
+	return false
+
+func _build_player() -> void:
+	super._build_player()
+	player.set_collision_mask_value(2, true)
+	player.set_collision_mask_value(ENEMY_SCRIPT.BODY_LAYER, true)
+
 func _build_island() -> void:
 	landscape = preload("res://scripts/island_landscape.gd").new()
 	add_child(landscape)
@@ -56,6 +64,7 @@ func _ready() -> void:
 	opening.name = "ChapterOpening"
 	opening.game = self
 	add_child(opening)
+	guardians.grove_point = landscape.ground_point(CHAPTER_GUARDIANS.GROVE_CENTER)
 	placement_ready = true
 	guardians.refresh_tracking(true)
 
@@ -102,15 +111,17 @@ func _ground_gameplay() -> void:
 	player.velocity = Vector3.ZERO
 	player._camera_pivot.global_position = player.global_position+Vector3.UP*1.2
 
-func _spawn_boss() -> void:
-	super._spawn_boss()
-	var dragon := get_node_or_null("Tidewraith Dragon")
-	if dragon != null:dragon.position.y = landscape.height_at(Vector2(dragon.position.x,dragon.position.z))
-
 func _configure_encounters() -> void:
 	# Preserve spawn IDs, species, rewards and save flags; move only existing actors.
 	# Do this after accepted vegetation generation so no foliage placement changes.
-	var positions:={"CampDemon0":Vector3(-72,0,4),"CampDemon1":Vector3(-52,0,4),"CampDemon2":Vector3(-40,0,-28),"CampDemon3":Vector3(-64,0,-24),"CampDemon4":Vector3(-68,0,28),"DemonBoar":Vector3(-36,0,12)}
+	var positions := {
+		"CampDemon0": Vector3(-72, 0, 4),
+		"CampDemon1": Vector3(-52, 0, -16),
+		"CampDemon2": CHAPTER_GUARDIANS.WARG_HOME,
+		"CampDemon3": Vector3(28, 0, 39),
+		"CampDemon4": Vector3(-68, 0, 28),
+		"DemonBoar": Vector3(-36, 0, 12),
+	}
 	for actor in get_tree().get_nodes_in_group("combat_enemies"):
 		if not positions.has(str(actor.name)):continue
 		var before:Vector3=actor.position
@@ -320,7 +331,11 @@ func _redraw_tracking() -> void:
 
 func _show_camp() -> void:
 	super._show_camp()
-	if not lantern_lit and not completed:
+	if lantern_lit and not completed:
+		var goal: Dictionary = guardians.grove_objective()
+		camp_menu._art_heading.text = goal.title.to_upper()
+		camp_menu._art_caption.text = goal.next
+	elif not lantern_lit and not completed:
 		camp_menu._art_heading.text = "THE THREE CURSED GUARDIANS" if guardians.revealed() else "THE LANTERN'S SEAL"
 		camp_menu._art_caption.text = "The three fragments restore the Northern Lantern." if guardians.revealed() else (
 			"The inland camps have gone quiet.\nFollow the ash inland.")
@@ -332,6 +347,11 @@ func _update_objective() -> void:
 		interact_button.disabled=false
 		interact_button.icon=preload("res://assets/ui/controls/lantern.svg")
 		interact_button.accessibility_name="Interact · Place lantern"
+	elif _can_investigate_grove():
+		interact_button.visible = true
+		interact_button.disabled = false
+		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
+		interact_button.accessibility_name = "Investigate Ancient Grove"
 	elif _can_investigate_seal():
 		interact_button.visible = true
 		interact_button.disabled = false
@@ -349,6 +369,11 @@ func _interact_world() -> void:
 	if is_instance_valid(awakening) and awakening.eligible() and awakening.near_pedestal() and not awakening.finished():
 		awakening.start()
 		return
+	if _can_investigate_grove():
+		guardians.investigate_grove()
+		_update_objective()
+		_redraw_tracking()
+		return
 	if _can_investigate_seal():
 		guardians.investigate()
 		_update_objective()
@@ -362,6 +387,9 @@ func _interact_world() -> void:
 
 func _can_investigate_seal() -> bool:
 	return placement_ready and started and not game_finished and not get_tree().paused and player.health > 0 and guardians.can_investigate()
+
+func _can_investigate_grove() -> bool:
+	return placement_ready and started and not game_finished and not get_tree().paused and player.health > 0 and guardians.can_investigate_grove()
 
 func _can_inspect_camp() -> bool:
 	if not is_instance_valid(opening) or not opening.can_inspect():

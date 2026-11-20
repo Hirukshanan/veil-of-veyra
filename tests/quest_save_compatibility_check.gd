@@ -52,7 +52,18 @@ func run():
 	assert("bonus awaits victory" in scene._journal_text())
 	scene.player.position = scene.lantern.position
 	scene._interact_lantern()
-	scene.get_node("Tidewraith Dragon").take_damage(10000)
+	assert(scene.lantern_lit and not scene.completed and not scene.boss_spawned)
+	assert(scene.shards == 73 and not scene.world_data.bounty_reward and not scene.world_data.relic_reward)
+	# Reopen a historical save that had already earned the original victory.
+	var historical: Dictionary = STORE.load_progress().data
+	historical.completed = true
+	historical.shards += 80
+	await close_world()
+	assert(STORE.save_progress(historical) == OK)
+	await open_world()
+	assert(scene.completed and scene.lantern_lit and not scene.boss_spawned,
+		"Historical victory and lantern must load without a Dragon encounter: %s" % str([scene.completed, scene.lantern_lit, scene.boss_spawned]))
+	scene._claim_optional_rewards()
 	assert(scene.completed and scene.shards == 188)
 	assert(scene.world_data.relic_reward and scene.world_data.bounty_reward)
 	scene._claim_optional_rewards()

@@ -160,6 +160,9 @@ func _uses_guardian_seal() -> bool:
 func _lantern_ready() -> bool:
 	return (_uses_guardian_seal() or remaining_enemies == 0) and seal_fragments.complete()
 
+func _lantern_spawns_boss() -> bool:
+	return true
+
 func _interact_lantern() -> void:
 	if not started or game_finished or get_tree().paused or not _lantern_ready() or lantern_lit:
 		return
@@ -168,7 +171,8 @@ func _interact_lantern() -> void:
 	lantern_lit = true
 	lantern_flame.show()
 	lantern_label.text = "LANTERN RESTORED"
-	_spawn_boss()
+	if _lantern_spawns_boss():
+		_spawn_boss()
 	_save_progress()
 	_update_objective()
 
@@ -524,7 +528,8 @@ func _cost(level: int) -> int:
 	return (level + 1) * 20
 
 func _show_keeper_request() -> void:
-	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and defeat the dragon to earn 20 bonus shards. The relics may be collected before or after victory.\n\nThis quest is optional. Collected relics are saved.")
+	var victory := "defeat the dragon" if _lantern_spawns_boss() else "record Chapter I victory"
+	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and %s to earn 20 bonus shards. The relics may be collected before or after victory.\n\nThis quest is optional. Collected relics are saved." % victory)
 	_menu_button("Back to camp", _show_camp)
 
 func _show_burst_guide() -> void:
@@ -986,7 +991,7 @@ func _restore_world() -> void:
 	if lantern_lit:
 		lantern_flame.show()
 		lantern_label.text = "LANTERN RESTORED"
-		if not completed:
+		if not completed and _lantern_spawns_boss():
 			_spawn_boss()
 	elif _uses_guardian_seal() or remaining_enemies == 0:
 		lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"

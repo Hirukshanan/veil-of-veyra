@@ -43,6 +43,8 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	# Optional v4 story flag. Earlier saves need no migration or new inventory.
 	if not world.get("lantern_awakening", false) is bool:
 		return false
+	if not world.get("ancient_grove_investigated", false) is bool or (world.get("ancient_grove_investigated", false) and not world.lantern):
+		return false
 	if world.get("lantern_awakening", false) and (not completed or 1 not in world.relics):
 		return false
 	if not world.get("boar_defeated", false) is bool:
@@ -76,6 +78,8 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 
 static func _valid_guardian_quest(progress: Variant, fragments: Array) -> bool:
 	if not progress is Dictionary or not progress.get("investigated") is bool or not progress.get("fox_defeated") is bool:
+		return false
+	if not progress.get("foothill_marker", false) is bool:
 		return false
 	var regions: Variant = progress.get("regions")
 	if not regions is Array or regions.size() > 3 or (progress.fox_defeated and 1 not in fragments):

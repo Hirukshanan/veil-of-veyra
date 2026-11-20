@@ -16,6 +16,17 @@ func run():
 	var fox = scene.get_node("DemonFox")
 	assert(scene.remaining_enemies==5 and get_nodes_in_group("combat_enemies").size()==7 and scene.get_node_or_null("CampDemon5")==null)
 	assert(fox.navigation == navigation and fox.target == scene.player and fox.health == 19)
+	var warg: Node3D = scene.get_node("CampDemon2")
+	var grassland_wolf: Node3D = scene.get_node("CampDemon3")
+	assert(warg.position.x > 30 and warg.position.z < -40 and grassland_wolf.position.x > 20 and grassland_wolf.position.z > 30)
+	var residents := get_nodes_in_group("combat_enemies")
+	for i in range(residents.size()):
+		for j in range(i + 1, residents.size()):
+			var first: Node3D = residents[i]
+			var second: Node3D = residents[j]
+			var offset := first.position - second.position
+			assert(Vector2(offset.x, offset.z).length() > _alert_radius(first) + _alert_radius(second),
+				"Encounter spawn detection zones overlap: %s and %s" % [first.name, second.name])
 	var fox_spawn: Vector3 = fox.position
 	var support: Vector3 = landscape.ground_point(fox_spawn)
 	assert(absf(fox_spawn.y - support.y) <= .04 and fox_spawn.z < -12.0)
@@ -116,5 +127,10 @@ func run():
 			assert(actor.position.y>start.y-.25,"Enemy bodies must not fall through regional support")
 			rows.append({"case":"five_region_body_support","actor":str(actor.name),"start":start,"end":actor.position})
 	FileAccess.open(output+"/navigation_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"new_enemy_count":1,"fox_spawn":fox_spawn,"retired_ID_5_absent":true,"spawn_checks":spawn_rows,"boar_clear_full_length_lanes":clear_lanes,"nav_points":navigation.graph.get_point_count(),"nav_build_ms":navigation.build_ms,"path_requests":navigation.path_requests,"cases":rows},"  "))
-	print("PASS: six preserved encounter IDs, one separately placed Fox, real wolf/boar/fox tree detours, ground support and independent quest state")
+	print("PASS: seven encounters across woodland, grassland and foothills, separate spawn aggro zones and real navigation detours")
 	scene.queue_free();paused=false;await process_frame;await create_timer(.25,true,false,true).timeout;quit()
+
+func _alert_radius(actor: Node3D) -> float:
+	if actor.name == "DemonFox":
+		return actor.sense_range
+	return 11.6 if actor.name == "DemonBoar" else 11.0

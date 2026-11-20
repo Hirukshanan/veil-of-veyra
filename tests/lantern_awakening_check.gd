@@ -20,6 +20,8 @@ func close_world():
 	await create_timer(.75,true,false,true).timeout
 
 func fixture():
+	# Developer-only legacy-victory fixture in the isolated VEYRA_TEST profile.
+	# The current Chapter I route cannot unlock the reveal while the Bear is pending.
 	var data:=STORE.DEFAULTS.duplicate(true)
 	data.world_data=STORE.fresh_world()
 	data.completed=true;data.shards=80

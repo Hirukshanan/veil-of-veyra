@@ -62,6 +62,7 @@ var _locked_direction := Vector3.FORWARD
 var _launch: Vector3
 var _landing: Vector3
 var _blocked_flight := false
+var _flight_contact := false
 var _evade_direction: Vector3
 var _recover_clip_start := 0.0
 var _clip := ""
@@ -75,7 +76,7 @@ func _ready() -> void:
 	_home = global_position
 	_goal = _home
 	_rng.randomize()
-	if target is PhysicsBody3D:
+	if target is PhysicsBody3D and not target.get_collision_mask_value(2):
 		add_collision_exception_with(target)
 	add_to_group("combat_enemies")
 	animator = _model.find_children("*", "AnimationPlayer", true, false).front() as AnimationPlayer
@@ -186,7 +187,7 @@ func _think(delta: float, offset: Vector3, distance: float) -> Vector3:
 				_face(steer, delta)
 			return steer * (patrol_speed if distance < 1.7 else chase_speed)
 		State.FLIGHT:
-			if not _blocked_flight:
+			if not _blocked_flight and not _flight_contact:
 				var fraction := clampf(_elapsed / maxf(leap_flight, .01), 0.0, 1.0)
 				# Cover the lane once, with a brief rise in speed and a soft landing brake.
 				fraction = lerpf(fraction, smoothstep(0.0, 1.0, fraction), .32)
@@ -209,7 +210,7 @@ func _finish_step() -> void:
 				_enter(State.STRIKE if action == Attack.BITE else State.FLIGHT)
 		State.FLIGHT:
 			if _elapsed >= leap_flight:
-				if _blocked_flight or not is_on_floor() or _flat(global_position - _landing).length() > .33:
+				if _blocked_flight or not is_on_floor() or (not _flight_contact and _flat(global_position - _landing).length() > .33):
 					_enter(State.RECOVER)
 				else:
 					_feedback.land(global_position)
@@ -233,13 +234,24 @@ func _finish_step() -> void:
 func _move(order: Vector3, delta: float) -> void:
 	var horizontal := order
 	if state not in [State.FLIGHT, State.EVADE]:
+		if state in [State.PATROL, State.CHASE, State.REPOSITION, State.RETURN] and not order.is_zero_approx():
+			# Let the paws turn into the path before accelerating through a sharp corner.
+			var alignment := _flat(-global_basis.z).normalized().dot(order.normalized())
+			order *= smoothstep(.24, .90, alignment)
 		horizontal = _flat(velocity).move_toward(order, (24.0 if order.is_zero_approx() else 16.0) * delta)
 	velocity = horizontal + Vector3.UP * (minf(0.0, velocity.y) - GRAVITY * delta)
 	move_and_slide()
 	if is_on_floor():
 		velocity.y = 0.0
 	if state in [State.FLIGHT, State.EVADE] and is_on_wall():
-		_blocked_flight = true
+		for index in range(get_slide_collision_count()):
+			var contact := get_slide_collision(index)
+			if absf(contact.get_normal().y) >= .65:
+				continue
+			if state == State.FLIGHT and contact.get_collider() == target:
+				_flight_contact = true
+			else:
+				_blocked_flight = true
 	var pitch_roll := Vector3.ZERO
 	if is_on_floor():
 		var normal := global_basis.inverse() * get_floor_normal()
@@ -263,6 +275,7 @@ func _enter(next: State) -> void:
 			_play("Bite" if action == Attack.BITE else "Quick Leap", .06)
 		State.FLIGHT, State.EVADE:
 			_blocked_flight = false
+			_flight_contact = false
 		State.RECOVER:
 			_recover_clip_start = .54 if action == Attack.BITE else (.78 if previous == State.FLIGHT else .89)
 		State.STAGGER:
@@ -304,6 +317,10 @@ func _try_hit() -> void:
 	var difference := target.global_position - global_position
 	var offset := _flat(difference)
 	var reach := bite_reach if action == Attack.BITE else leap_radius
+	if action == Attack.LEAP and _flight_contact:
+		# The torso stops at body contact. The leap still strikes ahead of it.
+		var forward_gap := (_landing - global_position).dot(_locked_direction)
+		offset -= _locked_direction * clampf(forward_gap, 0.0, .65)
 	if offset.length_squared() > reach * reach or absf(difference.y) > .85 or not _clear_sight():
 		return
 	if action == Attack.BITE and offset.length_squared() > .04 and offset.normalized().dot(_locked_direction) < .68:

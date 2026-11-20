@@ -1,8 +1,12 @@
 extends Node3D
 
-# Small shared static graph around the six approved encounters. No terrain edits,
-# extra colliders, per-enemy navmesh baking or per-frame whole-island searches.
+# Shared static graph over the encounter areas and their approaches.
 const STEP:=2.0
+const REGIONS := [
+	Rect2i(-48, -26, 43, 51), # Western woods
+	Rect2i(8, -32, 22, 20), # Northern foothills
+	Rect2i(10, 10, 14, 19), # Southern grassland
+]
 var graph:=AStar3D.new()
 var points:Dictionary={}
 var routes:Dictionary={}
@@ -16,14 +20,15 @@ func populate(source:Node3D)->void:
 	landscape=source;var start:=Time.get_ticks_usec()
 	_capsule=CapsuleShape3D.new();_capsule.radius=1.0;_capsule.height=2.8
 	var query:=PhysicsShapeQueryParameters3D.new();query.shape=_capsule;query.collision_mask=4|8
-	for z in range(-26,25):
-		for x in range(-48,-5):
-			var hit:Dictionary=landscape.ground_hit(Vector3(x*STEP,0,z*STEP))
-			if hit.is_empty() or hit.normal.y<.86 or hit.position.y<.1:continue
-			query.transform.origin=hit.position+Vector3.UP*1.53
-			if not get_world_3d().direct_space_state.intersect_shape(query).is_empty():continue
-			var key:=Vector2i(x,z);var id:=points.size()
-			points[key]=id;graph.add_point(id,hit.position+Vector3.UP*.08)
+	for region in REGIONS:
+		for z in range(region.position.y, region.end.y):
+			for x in range(region.position.x, region.end.x):
+				var hit:Dictionary=landscape.ground_hit(Vector3(x*STEP,0,z*STEP))
+				if hit.is_empty() or hit.normal.y<.86 or hit.position.y<.1:continue
+				query.transform.origin=hit.position+Vector3.UP*1.53
+				if not get_world_3d().direct_space_state.intersect_shape(query).is_empty():continue
+				var key:=Vector2i(x,z);var id:=points.size()
+				points[key]=id;graph.add_point(id,hit.position+Vector3.UP*.08)
 	for key in points:
 		for delta in [Vector2i.RIGHT,Vector2i.DOWN,Vector2i(1,1),Vector2i(-1,1)]:
 			var other:Vector2i=key+delta

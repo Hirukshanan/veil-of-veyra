@@ -7,6 +7,7 @@ var fox: CharacterBody3D
 func _ready() -> void:
 	_setup_input()
 	_build_player()
+	player.set_collision_mask_value(2, true)
 	player.position = Vector3(0, .06, 2.2)
 	player.rescue_position = player.position
 	_build_hud()

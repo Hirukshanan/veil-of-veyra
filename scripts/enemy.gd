@@ -3,6 +3,7 @@ extends CharacterBody3D
 signal defeated
 
 const GRAVITY := 22.0
+const BODY_LAYER := 6
 enum Kind { SHORE, SCOUT, BRUTE }
 
 var navigation: Node
@@ -27,6 +28,7 @@ var _hit_time := 0.0
 var _material: StandardMaterial3D
 var _warning: MeshInstance3D
 var _visual: Node3D
+var _weapon_hurtbox: Area3D
 var _strike_time := 0.0
 var _home := Vector3.ZERO
 var _alert := false
@@ -183,6 +185,10 @@ func take_damage(amount: int) -> void:
 	_warning.hide()
 	_attack_cooldown = maxf(_attack_cooldown, 0.35)
 	if health <= 0:
+		collision_layer = 0
+		collision_mask = 0
+		if _weapon_hurtbox != null:
+			_weapon_hurtbox.collision_layer = 0
 		_visual.show_defeat(get_parent())
 		defeated.emit()
 		queue_free()
@@ -204,6 +210,8 @@ func _build_body() -> void:
 	collision.shape = shape
 	collision.position.y = body_height * 0.5
 	add_child(collision)
+	if target is PhysicsBody3D and target.get_collision_mask_value(BODY_LAYER):
+		_fit_candidate_body(collision)
 	_health_label = Label3D.new()
 	_health_label.position.y = body_height + 0.4
 	_health_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -225,6 +233,29 @@ func _build_body() -> void:
 	_warning.material_override = warning_material
 	_warning.hide()
 	add_child(_warning)
+
+func _fit_candidate_body(collision: CollisionShape3D) -> void:
+	# Keep the authored weapon target while fitting the physical capsule to the torso.
+	_weapon_hurtbox = Area3D.new()
+	_weapon_hurtbox.name = "WeaponHurtbox"
+	_weapon_hurtbox.collision_layer = collision_layer
+	_weapon_hurtbox.collision_mask = 0
+	_weapon_hurtbox.monitoring = false
+	var weapon_shape := CollisionShape3D.new()
+	weapon_shape.shape = collision.shape
+	weapon_shape.transform = collision.transform
+	_weapon_hurtbox.add_child(weapon_shape)
+	_weapon_hurtbox.add_to_group("weapon_hurtboxes")
+	add_child(_weapon_hurtbox)
+
+	collision_layer = 0
+	set_collision_layer_value(BODY_LAYER, true)
+	var torso := CapsuleShape3D.new()
+	torso.radius = [.37, .31, .49][kind]
+	torso.height = [1.92, 1.62, 2.58][kind]
+	collision.shape = torso
+	collision.position.y = torso.radius
+	collision.rotation.x = PI * .5
 
 
 func _process(delta: float) -> void:

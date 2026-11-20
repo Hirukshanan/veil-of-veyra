@@ -159,7 +159,7 @@ func _wolf_route() -> void:
 	assert(_hint().message == "Counter while it recovers." and _scene.opening.has_beat(OPENING.DODGE))
 	await _wait(6)
 	var target := Vector2(wolf.position.x, wolf.position.z)
-	assert(await _walk(target, 1.28))
+	assert(await _walk(target, 1.55), "Reach sword range without crossing the wolf's body")
 	var wolf_health: int = wolf.health
 	_hero.attack()
 	await _wait(7)
