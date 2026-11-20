@@ -628,7 +628,7 @@ func _save_settings() -> Error:
 	if error!=OK and FileAccess.file_exists(SETTINGS_PATH+".bak"):DirAccess.rename_absolute(SETTINGS_PATH+".bak",SETTINGS_PATH)
 	return error
 
-func _load_settings() -> void:
+func _load_settings(is_android: bool = OS.has_feature("android")) -> void:
 	var config := ConfigFile.new()
 	if config.load(SETTINGS_PATH)!=OK:config.load(SETTINGS_PATH+".bak")
 	camera_sensitivity = _setting_number(config, "camera_sensitivity", 1.0, 0.25, 2.0)
@@ -640,10 +640,12 @@ func _load_settings() -> void:
 	if FileAccess.file_exists("user://hud_profile.cfg"): left_handed=false
 	camera_distance = _setting_number(config, "camera_distance", 6.3, 4.0, 9.0)
 	sound_volume = _setting_number(config, "sound_volume", 0.7, 0.0, 1.0)
-	var saved_shadows: Variant = config.get_value("settings", "shadows_enabled", true)
-	shadows_enabled = saved_shadows if saved_shadows is bool else true
-	var saved_limit: Variant = config.get_value("settings", "frame_limit", 60)
-	frame_limit = saved_limit if saved_limit is int and saved_limit in [30, 60] else 60
+	var default_shadows := not is_android
+	var default_limit := 30 if is_android else 60
+	var saved_shadows: Variant = config.get_value("settings", "shadows_enabled", default_shadows)
+	shadows_enabled = saved_shadows if saved_shadows is bool else default_shadows
+	var saved_limit: Variant = config.get_value("settings", "frame_limit", default_limit)
+	frame_limit = saved_limit if saved_limit is int and saved_limit in [30, 60] else default_limit
 	_apply_settings()
 
 func _setting_number(config: ConfigFile, key: String, fallback: float, minimum: float, maximum: float) -> float:

@@ -76,10 +76,49 @@ func _run() -> void:
 	assert(scene.camera_distance == 4.0)
 	assert(scene.frame_limit == 60 and Engine.max_fps == 60, "Invalid limits must not remove the cap")
 	assert(scene.shadows_enabled and sun.shadow_enabled, "Invalid shadow settings must use default")
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(scene.SETTINGS_PATH))
+	_check_android_graphics(scene, sun)
 	print("PASS: settings controls, pause, camera scaling, save/reload, discard, mute, sound streams, invalid values")
 	paused = false
 	await create_timer(0.4).timeout
 	scene.queue_free()
 	await process_frame
 	quit()
+
+func _check_android_graphics(scene, sun: DirectionalLight3D) -> void:
+	var settings_path: String = scene.SETTINGS_PATH
+	var backup_path := settings_path + ".bak"
+	scene._load_settings(true)
+	assert(scene.frame_limit == 30 and Engine.max_fps == 30)
+	assert(not scene.shadows_enabled and not sun.shadow_enabled)
+	assert(DirAccess.remove_absolute(settings_path) == OK)
+	if FileAccess.file_exists(backup_path):
+		assert(DirAccess.remove_absolute(backup_path) == OK)
+
+	scene._load_settings(true)
+	assert(scene.frame_limit == 30 and Engine.max_fps == 30, "Fresh Android installs use 30 FPS")
+	assert(not scene.shadows_enabled and not sun.shadow_enabled, "Fresh Android installs start with shadows off")
+	assert(not FileAccess.file_exists(settings_path), "Loading defaults must not write a settings file")
+
+	scene._show_settings(scene._show_camp)
+	scene.settings_screen.select_tab("Graphics & Sound")
+	var frame_choice: OptionButton = scene.settings_screen.find_child("FrameLimitChoice", true, false)
+	frame_choice.select(1)
+	frame_choice.item_selected.emit(1)
+	assert(scene.frame_limit == 60 and Engine.max_fps == 60)
+	assert(not scene.shadows_enabled and not sun.shadow_enabled, "Selecting 60 FPS must leave shadows off")
+	assert(scene._save_settings() == OK)
+
+	scene.shadows_enabled = true
+	assert(scene._save_settings() == OK)
+	var saved_hash := FileAccess.get_sha256(settings_path)
+	scene._load_settings(true)
+	assert(scene.frame_limit == 60 and Engine.max_fps == 60)
+	assert(scene.shadows_enabled and sun.shadow_enabled, "Existing shadow preferences must be applied")
+	assert(FileAccess.get_sha256(settings_path) == saved_hash)
+
+	assert(DirAccess.remove_absolute(settings_path) == OK)
+	scene._load_settings(true)
+	assert(scene.frame_limit == 60 and Engine.max_fps == 60)
+	assert(not scene.shadows_enabled and not sun.shadow_enabled, "The saved backup must take precedence over defaults")
+	assert(DirAccess.remove_absolute(backup_path) == OK)
+	print("PASS: Android defaults, 60 FPS option, and saved graphics preferences")
