@@ -14,6 +14,9 @@ var form_counts:=PackedInt32Array([0,0,0])
 var form_by_anchor:Dictionary={}
 var tree_materials:Array[ShaderMaterial]=[]
 var grass_materials:Array[ShaderMaterial]=[]
+var _grass_viewer := Vector2.INF
+var _grass_lod_viewer := Vector2.INF
+var _tree_lod_viewer := Vector2.INF
 
 func populate(owner_landscape:Node3D,supplementary:Array[Transform3D])->void:
 	landscape=owner_landscape
@@ -21,6 +24,7 @@ func populate(owner_landscape:Node3D,supplementary:Array[Transform3D])->void:
 	for entry in landscape.get_parent().placement_log:clear_points.append(entry.after)
 	_build_trees(supplementary)
 	_build_groundcover()
+	_update_grass_counts()
 	_update_density()
 
 func _build_trees(supplementary:Array[Transform3D])->void:
@@ -158,37 +162,69 @@ func _batch(mesh:Mesh,transforms:Array[Transform3D],center:Vector3,rng:RandomNum
 	add_child(visual)
 	return visual
 
-func _process(delta:float)->void:
-	if landscape!=null:
-		var point:Vector3=landscape.get_parent().player.global_position
-		for material in grass_materials:material.set_shader_parameter("grass_viewer",point)
-	elapsed+=delta
-	if elapsed<.25:return
-	elapsed=0
+func _process(delta: float) -> void:
+	if landscape == null:
+		return
+	var hero: Vector3 = landscape.get_parent().player.global_position
+	_update_grass_viewer(hero)
+	elapsed += delta
+	if elapsed < .25:
+		return
+	elapsed = 0
 	_update_density()
 
-func _update_density()->void:
-	if landscape==null:return
-	var hero:Vector3=landscape.get_parent().player.global_position
-	for material in grass_materials:material.set_shader_parameter("grass_viewer",hero)
+func _update_grass_viewer(hero: Vector3) -> void:
+	# The grass shader uses only the horizontal position.
+	var point := Vector2(hero.x, hero.z)
+	if point == _grass_viewer:
+		return
+	_grass_viewer = point
+	for material in grass_materials:
+		material.set_shader_parameter("grass_viewer", hero)
+
+func _update_grass_counts() -> void:
+	var fractions := [.26, .26, .26] if overview else [1.0, 1.0, .55]
 	for patch in patches:
-		var distance:float=Vector2(hero.x-patch.center.x,hero.z-patch.center.z).length()
 		for index in range(3):
-			var visual:MultiMeshInstance3D=patch.levels[index]
-			# Conservative gates surround shader crossfades; no whole-chunk density jump.
-			visual.visible=(index==2) if overview else ((distance<23.5) if index==0 else ((distance>8.5 and distance<41.5) if index==1 else (distance>26.5 and distance<56)))
-			visual.multimesh.visible_instance_count=ceili(patch.count*([1.0,1.0,.55][index] if not overview else .26))
-	var camera:Camera3D=get_viewport().get_camera_3d()
-	var viewer:Vector3=camera.global_position if camera!=null else hero
-	for tree in trees:
-		var level:int=tree.get_meta("tree_lod")
-		var distance:float=Vector2(viewer.x-tree.global_position.x,viewer.z-tree.global_position.z).length()
-		tree.visible=(level==2) if overview else ((distance<46) if level==0 else ((distance>30 and distance<86) if level==1 else (distance>70 and distance<165)))
+			var visual: MultiMeshInstance3D = patch.levels[index]
+			visual.multimesh.visible_instance_count = ceili(patch.count * fractions[index])
+
+func _update_density() -> void:
+	if landscape == null:
+		return
+	var hero: Vector3 = landscape.get_parent().player.global_position
+	_update_grass_viewer(hero)
+	var hero_xz := Vector2(hero.x, hero.z)
+	if hero_xz != _grass_lod_viewer:
+		_grass_lod_viewer = hero_xz
+		for patch in patches:
+			var distance: float = hero_xz.distance_to(Vector2(patch.center.x, patch.center.z))
+			# Keep the gates around the shader crossfades.
+			patch.levels[0].visible = not overview and distance < 23.5
+			patch.levels[1].visible = not overview and distance > 8.5 and distance < 41.5
+			patch.levels[2].visible = overview or (distance > 26.5 and distance < 56.0)
+	var camera := get_viewport().get_camera_3d()
+	var viewer := camera.global_position if camera != null else hero
+	var viewer_xz := Vector2(viewer.x, viewer.z)
+	if viewer_xz != _tree_lod_viewer:
+		_tree_lod_viewer = viewer_xz
+		for tree in trees:
+			var level: int = tree.get_meta("tree_lod")
+			var distance := viewer_xz.distance_to(Vector2(tree.global_position.x, tree.global_position.z))
+			match level:
+				0: tree.visible = not overview and distance < 46.0
+				1: tree.visible = not overview and distance > 30.0 and distance < 86.0
+				2: tree.visible = overview or (distance > 70.0 and distance < 165.0)
 
 func density_at(distance:float)->float:
 	return lerpf(lerpf(1.0,.5,smoothstep(10,22,distance)),.22,smoothstep(28,40,distance))
 
-func set_review_overview(enabled:bool)->void:
-	overview=enabled
-	for material in tree_materials+grass_materials:material.set_shader_parameter("overview",enabled)
+func set_review_overview(enabled: bool) -> void:
+	if overview != enabled:
+		overview = enabled
+		_grass_lod_viewer = Vector2.INF
+		_tree_lod_viewer = Vector2.INF
+		_update_grass_counts()
+	for material in tree_materials + grass_materials:
+		material.set_shader_parameter("overview", enabled)
 	_update_density()
