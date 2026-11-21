@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/previews/cursed_bear_combat_preview.gd" id="1_preview"]
+
+[sub_resource type="Environment" id="Environment_arena"]
+background_mode = 1
+background_color = Color(0.08, 0.12, 0.15, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.65, 0.74, 0.86, 1)
+ambient_light_energy = 0.66
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.145, 0.175, 0.168, 1)
+roughness = 0.96
+
+[sub_resource type="BoxMesh" id="Mesh_floor"]
+material = SubResource("Material_floor")
+size = Vector3(34, 1, 34)
+
+[sub_resource type="BoxShape3D" id="Shape_floor"]
+size = Vector3(34, 1, 34)
+
+[sub_resource type="BoxMesh" id="WallMesh"]
+material = SubResource("Material_floor")
+size = Vector3(3, 3, 1)
+
+[sub_resource type="BoxShape3D" id="WallShape"]
+size = Vector3(3, 3, 1)
+[node name="CursedBearCombatPreview" type="Node3D"]
+script = ExtResource("1_preview")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_arena")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, -123, 0)
+light_color = Color(1, 0.92, 0.83, 1)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(0, -0.5, 0)
+collision_layer = 29
+collision_mask = 0
+
+[node name="Surface" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("Mesh_floor")
+
+[node name="Shape" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("Shape_floor")
+
+[node name="Pillar" type="StaticBody3D" parent="."]
+position = Vector3(5, 1.5, 1)
+collision_layer = 13
+collision_mask = 0
+
+[node name="Surface" type="MeshInstance3D" parent="Pillar"]
+mesh = SubResource("WallMesh")
+
+[node name="Shape" type="CollisionShape3D" parent="Pillar"]
+shape = SubResource("WallShape")
