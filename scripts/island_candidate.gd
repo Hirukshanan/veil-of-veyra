@@ -4,6 +4,10 @@ const FOX_ENCOUNTER := preload("res://scenes/enemies/demon_fox_combat.tscn")
 const CHAPTER_OPENING := preload("res://scripts/chapter_opening.gd")
 const CHAPTER_GUARDIANS := preload("res://scripts/chapter_guardians.gd")
 
+const BEAR_SCENE := "res://scenes/enemies/cursed_bear_boss.tscn"
+const BEAR_DEN := Vector3(67, 2.55, 27.5)
+const BEAR_ENTRY := Vector3(67.8, 2.35, 20.6)
+var cave_bear: CharacterBody3D
 var awakening: Node3D
 var opening: Node3D
 var guardians := CHAPTER_GUARDIANS.new(self)
@@ -43,6 +47,8 @@ func _create_exploration() -> Node3D:
 	return preload("res://scripts/island_candidate_exploration.gd").new()
 
 func _ready() -> void:
+	awakening = preload("res://scripts/lantern_awakening.gd").new()
+	awakening.game = self
 	_load_tracking()
 	super._ready()
 	await get_tree().physics_frame
@@ -57,8 +63,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	_configure_encounters()
-	awakening = preload("res://scripts/lantern_awakening.gd").new()
-	awakening.game = self
+	awakening.passage_opened.connect(_finish_bear_chapter)
 	add_child(awakening)
 	opening = CHAPTER_OPENING.new()
 	opening.name = "ChapterOpening"
@@ -74,9 +79,65 @@ func _physics_process(delta: float) -> void:
 	_region_check -= delta
 	if _region_check <= 0.0:
 		_region_check = .25
+		_update_bear_encounter()
 		if guardians.discover_regions():
 			_save_progress()
 			_redraw_tracking()
+
+func _update_bear_encounter() -> void:
+	if completed or not lantern_lit or not world_data.get(CHAPTER_GUARDIANS.GROVE_FLAG, false) or world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
+		return
+	var point: Vector3 = player.global_position
+	# The outer ridge above the grotto shares its XZ footprint.
+	var inside_height := point.y > 1.3 and point.y < 6.3
+	if is_instance_valid(cave_bear):
+		if not inside_height or point.z < 16 or point.z > 32 or absf(point.x - 67) > 10:
+			cave_bear.queue_free()
+			cave_bear = null
+			boss_name_label.hide()
+			boss_health_bar.hide()
+		return
+	if not inside_height or point.z < 19.5 or point.z > 31 or absf(point.x - 67) > 6.0:
+		return
+	var pad := BEAR_DEN if point.distance_to(BEAR_DEN) > 4.0 else BEAR_ENTRY
+	var ray := PhysicsRayQueryParameters3D.create(pad + Vector3.UP, pad + Vector3.DOWN, 16)
+	var floor_hit := get_world_3d().direct_space_state.intersect_ray(ray)
+	if floor_hit.is_empty() or floor_hit.collider.get_parent() != landscape.get_node("PlayableGrotto"):
+		return
+	var under_player := PhysicsRayQueryParameters3D.create(point + Vector3.UP * .25, point + Vector3.DOWN * 3, 16)
+	var support := get_world_3d().direct_space_state.intersect_ray(under_player)
+	if support.is_empty() or support.collider != floor_hit.collider:
+		return
+	cave_bear = load(BEAR_SCENE).instantiate()
+	cave_bear.position = floor_hit.position + Vector3.UP * .04
+	cave_bear.rotation.y = atan2(pad.x - point.x, pad.z - point.z)
+	cave_bear.target = player
+	cave_bear.health_changed.connect(_bear_health_changed)
+	cave_bear.defeated.connect(_bear_victory, CONNECT_ONE_SHOT)
+	add_child(cave_bear)
+	_bear_health_changed(cave_bear.health, cave_bear.MAX_HEALTH)
+
+func _bear_health_changed(value: int, maximum: int) -> void:
+	boss_name_label.text = "CURSED BEAR"
+	boss_health_bar.max_value = maximum
+	boss_health_bar.value = value
+	boss_name_label.visible = value > 0
+	boss_health_bar.visible = value > 0
+
+func _bear_victory() -> void:
+	if world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
+		return
+	world_data[CHAPTER_GUARDIANS.BEAR_FLAG] = true
+	_update_objective()
+	_redraw_tracking()
+	_save_progress()
+
+func _finish_bear_chapter() -> void:
+	if completed or not world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
+		return
+	completed = true
+	shards = mini(999999, shards + 80)
+	_claim_optional_rewards()
 
 func _ground_node(node: Node3D, safe := false) -> void:
 	var before := node.global_position
@@ -264,7 +325,7 @@ func _toggle_pause() -> void:
 		super._toggle_pause()
 
 func tracked_hint(base:Dictionary) -> Dictionary:
-	if is_instance_valid(awakening) and completed and tracked_quest in ["", "main"] and not awakening.finished():
+	if placement_ready and completed and tracked_quest in ["", "main"] and not awakening.finished():
 		var objective:Dictionary=awakening.quest()
 		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
 	if placement_ready:
@@ -293,9 +354,12 @@ func _pause_game() -> void:
 
 func awakening_quest() -> Dictionary:
 	var quest: Dictionary = awakening.quest()
-	if not completed:
+	if world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false) and not completed:
+		quest.objective = "Cursed Bear defeated · Bring the cave relic to the altar"
+		quest.next = "Approach the inner chamber altar and use Interact." if 1 in relic_hunt.collected_ids else "Search the entrance chamber for the cave relic."
+	elif not completed:
 		quest.description = "Beyond the cave's outer chambers, a sealed altar keeps the deeper passage shut."
-		quest.objective = "Locked · Cursed Bear encounter pending"
+		quest.objective = "Locked · Defeat the Cursed Bear"
 		quest.next = "Follow the ash to Ancient Grove. The cave altar awaits the Grove's guardian."
 		quest.locked = true
 	return quest
@@ -348,7 +412,7 @@ func _show_camp() -> void:
 
 func _update_objective() -> void:
 	super._update_objective()
-	if is_instance_valid(awakening) and not awakening.active and not awakening.finished() and awakening.eligible() and awakening.near_pedestal():
+	if placement_ready and not awakening.active and not awakening.finished() and awakening.eligible() and awakening.near_pedestal():
 		interact_button.visible=true
 		interact_button.disabled=false
 		interact_button.icon=preload("res://assets/ui/controls/lantern.svg")

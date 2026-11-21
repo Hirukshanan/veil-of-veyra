@@ -1,6 +1,7 @@
 extends RefCounted
 
 const SAVE_KEY := "guardian_quest"
+const BEAR_FLAG := "cursed_bear_defeated"
 const GROVE_FLAG := "ancient_grove_investigated"
 const GROVE_CENTER := preload("res://scripts/chapter_one_region.gd").GROVE_CENTER
 const TITLE := "The Three Cursed Guardians"
@@ -74,10 +75,12 @@ func investigate_grove() -> void:
 	game._save_progress()
 
 func grove_objective() -> Dictionary:
+	if game.world_data.get(BEAR_FLAG, false):
+		return game.awakening_quest()
 	if game.world_data.get(GROVE_FLAG, false):
 		return _row("The Cursed Bear", "Warm ash winds around the roots at Ancient Grove. A great beast has scored the stones.",
-			"Encounter pending", 0, 1, "Chapter I continues here in a future update.",
-			"Explore Veyra while the Cursed Bear encounter is pending.", false)
+			"Defeat the Cursed Bear", 0, 1, "Unseal the cave altar.",
+			"Enter the eastern cave. Follow the bend beyond the relic to the inner chamber.", false)
 	return _row("Investigate Ancient Grove", "The restored lantern reveals a trail of ash leading northeast into Ancient Grove.",
 		"Search the roots", 0, 1, "Learn what feeds the curse.", "Follow the trail northeast from the lantern and investigate the roots.", false)
 

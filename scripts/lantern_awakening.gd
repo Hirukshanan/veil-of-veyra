@@ -1,5 +1,7 @@
 extends Node3D
 
+signal passage_opened
+
 const PEDESTAL := Vector3(62.5,2.4,25)
 const WALL := Vector3(67,2.6,32)
 const DURATION := 18.0
@@ -50,7 +52,7 @@ func mark(label:String,begin:int):
 
 
 func eligible() -> bool:
-	return game.completed and game.lantern_lit and game.seal_fragments.complete() and 1 in game.relic_hunt.collected_ids
+	return (game.completed or game.world_data.get("cursed_bear_defeated", false)) and game.lantern_lit and game.seal_fragments.complete() and 1 in game.relic_hunt.collected_ids
 
 func finished() -> bool:
 	return game.world_data.get(FLAG,false)
@@ -59,8 +61,8 @@ func near_pedestal() -> bool:
 	return game.player.global_position.distance_to(PEDESTAL)<2.7
 
 func quest() -> Dictionary:
-	var count := int(game.completed)+int(game.lantern_lit)+int(game.seal_fragments.complete())+int(1 in game.relic_hunt.collected_ids)
-	return {"title":"The Lantern Awakening","description":"The cave relic names a stone altar in the inner chamber. Bring the restored lantern's light to its ancient platform.","objective":"Island victory · restored lantern · whole seal · cave relic","value":5 if finished() else count,"total":5,"reward":"The hidden passage remains open.","next":"The crimson eye watches from the depths." if finished() else "Approach the inner chamber altar and use Interact." if eligible() else "Resolve the island's curse, restore the northern lantern and find the cave relic.","done":finished()}
+	var count := int(game.completed or game.world_data.get("cursed_bear_defeated", false))+int(game.lantern_lit)+int(game.seal_fragments.complete())+int(1 in game.relic_hunt.collected_ids)
+	return {"title":"The Lantern Awakening","description":"The cave relic names a stone altar in the inner chamber. Bring the restored lantern's light to its ancient platform.","objective":"Guardian overcome · restored lantern · whole seal · cave relic","value":5 if finished() else count,"total":5,"reward":"The hidden passage remains open.","next":"The crimson eye watches from the depths." if finished() else "Approach the inner chamber altar and use Interact." if eligible() else "Resolve the island's curse, restore the northern lantern and find the cave relic.","done":finished()}
 
 func _ready():
 	name="LanternAwakening"
@@ -432,6 +434,7 @@ func _finish(skipped:bool):
 		if is_instance_valid(actor):actor.set_physics_process(actor_physics[actor])
 	actor_physics.clear()
 	game.world_data[FLAG]=true
+	passage_opened.emit()
 	active=false
 	var measured_save:=Time.get_ticks_usec()
 	var saved:bool=game._save_progress()

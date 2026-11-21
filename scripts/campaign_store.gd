@@ -43,6 +43,8 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	# Optional v4 story flag. Earlier saves need no migration or new inventory.
 	if not world.get("lantern_awakening", false) is bool:
 		return false
+	if not world.get("cursed_bear_defeated", false) is bool or (world.get("cursed_bear_defeated", false) and not world.get("ancient_grove_investigated", false)):
+		return false
 	if not world.get("ancient_grove_investigated", false) is bool or (world.get("ancient_grove_investigated", false) and not world.lantern):
 		return false
 	if world.get("lantern_awakening", false) and (not completed or 1 not in world.relics):
