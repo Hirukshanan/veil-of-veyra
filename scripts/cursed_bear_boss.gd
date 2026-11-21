@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+signal bite_connected(point: Vector3)
 signal defeated
 signal health_changed(value: int, maximum: int)
 signal state_changed
@@ -302,7 +303,10 @@ func _try_hit() -> void:
 	else:
 		if attack == Attack.CLAWS and _strike == 2:
 			amount += 5
+		var previous_health: int = target.health
 		target.call("take_melee_damage", amount, self)
+		if attack == Attack.BITE and target.health < previous_health:
+			bite_connected.emit(target.global_position + Vector3.UP)
 
 func _finish_charge(wall: bool) -> void:
 	_wall_stagger = wall
