@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/cursed_bear/cursed_bear_corrected.glb" id="1"]
+
+[sub_resource type="GDScript" id="Controls"]
+script/source = "extends Node3D
+
+@onready var player: AnimationPlayer = $Bear.find_children(\"*\", \"AnimationPlayer\", true, false)[0]
+@onready var selector: OptionButton = $Views/Playback/Clip
+
+func _ready() -> void:
+	for view in $Views/Row.get_children():
+		var camera: Camera3D = get_node(str(view.name))
+		camera.look_at(Vector3(0, 0.34, 0))
+		view.pressed.connect(camera.make_current)
+	for clip in player.get_animation_list():
+		if clip != \"RESET\":
+			selector.add_item(clip)
+			if clip == \"Walk_Loop\":
+				selector.select(selector.item_count - 1)
+	selector.item_selected.connect(play_clip)
+	$Views/Playback/Replay.pressed.connect(func(): play_clip(selector.selected))
+	play_clip(selector.selected)
+
+func play_clip(index: int) -> void:
+	player.stop()
+	player.play(selector.get_item_text(index))
+	player.advance(0)"
+
+[sub_resource type="Environment" id="Studio"]
+background_mode = 1
+background_color = Color(0.23, 0.24, 0.25, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Ground"]
+albedo_color = Color(0.23, 0.24, 0.25, 1)
+roughness = 1.0
+
+[sub_resource type="PlaneMesh" id="Plane"]
+material = SubResource("Ground")
+size = Vector2(8, 8)
+
+[node name="CursedBearCorrectedPreview" type="Node3D"]
+script = SubResource("Controls")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Studio")
+
+[node name="Key" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-50, 48, 0)
+light_energy = 1.15
+shadow_enabled = true
+directional_shadow_max_distance = 5.0
+
+[node name="Fill" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-32, -125, 0)
+light_energy = 0.6
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("Plane")
+
+[node name="Bear" parent="." instance=ExtResource("1")]
+position = Vector3(0, 0.33380058, 0)
+
+[node name="Front" type="Camera3D" parent="."]
+position = Vector3(2, 0.58, 0)
+projection = 1
+size = 1.1
+
+
+[node name="Side" type="Camera3D" parent="."]
+current = true
+position = Vector3(0, 0.55, 2)
+projection = 1
+size = 1.1
+
+[node name="Rear" type="Camera3D" parent="."]
+position = Vector3(-2, 0.58, 0)
+projection = 1
+size = 1.1
+
+[node name="Views" type="CanvasLayer" parent="."]
+
+[node name="Row" type="HBoxContainer" parent="Views"]
+offset_left = 12.0
+offset_top = 12.0
+
+[node name="Front" type="Button" parent="Views/Row"]
+text = "Front"
+
+[node name="Side" type="Button" parent="Views/Row"]
+text = "Side"
+
+[node name="Rear" type="Button" parent="Views/Row"]
+text = "Rear"
+
+[node name="Playback" type="HBoxContainer" parent="Views"]
+offset_left = 12.0
+offset_top = 50.0
+
+[node name="Clip" type="OptionButton" parent="Views/Playback"]
+
+[node name="Replay" type="Button" parent="Views/Playback"]
+text = "Replay"
+
