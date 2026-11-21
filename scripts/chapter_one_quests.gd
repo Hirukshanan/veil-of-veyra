@@ -64,7 +64,7 @@ static func journal(scene) -> String:
 	var requirements := future_prerequisites(scene)
 	var ready: bool = requirements.values().all(func(value): return value)
 	text += "\n\nBEYOND THE LANTERN — FUTURE STORY\n" + ("The island victory, seal and cave relic are recorded." if ready else "The deeper mystery follows island victory, the complete seal and discovery of the cave relic.")
-	text += " The deeper hall holds another mystery. Lantern-lit exploration and ancient discoveries will reveal more of its sleeping Dragon in a future story."
+	text += " A low echo carries through the deeper hall. The old stone keeps its source hidden."
 	var chapter_route := "The guardian fragments restore the Northern Lantern and reveal the trail toward Ancient Grove." if guardian_flow else "Quieting the forest camps and recovering its fragments opens the northern lantern."
 	text += "\n\nCHAPTER I — A LIGHT TO RECLAIM\nAru follows a shattered seal from the shore into Veyra's corrupted trails. %s The grasslands, foothills and cave preserve relics of an older mystery.\n\nSAVED JOURNEY\nCollected items, cleared wolves, bounty acceptance/report, reward flags, equipment, potions and waystones persist. Collected objectives remain available in any order. Unfinished enemies recover health after reload." % chapter_route
 	text += "\nWaystone: " + scene.get_node("IslandExploration").rescue_name() + "\nBoundary: shallow water blocks deep-sea access."

@@ -120,7 +120,7 @@ func _configure_encounters() -> void:
 		"CampDemon2": CHAPTER_GUARDIANS.WARG_HOME,
 		"CampDemon3": Vector3(28, 0, 39),
 		"CampDemon4": Vector3(-68, 0, 28),
-		"DemonBoar": Vector3(-36, 0, 12),
+		"DemonBoar": CHAPTER_GUARDIANS.BOAR_HOME,
 	}
 	for actor in get_tree().get_nodes_in_group("combat_enemies"):
 		if not positions.has(str(actor.name)):continue
@@ -292,7 +292,13 @@ func _pause_game() -> void:
 	super._pause_game()
 
 func awakening_quest() -> Dictionary:
-	return awakening.quest()
+	var quest: Dictionary = awakening.quest()
+	if not completed:
+		quest.description = "Beyond the cave's outer chambers, a sealed altar keeps the deeper passage shut."
+		quest.objective = "Locked · Cursed Bear encounter pending"
+		quest.next = "Follow the ash to Ancient Grove. The cave altar awaits the Grove's guardian."
+		quest.locked = true
+	return quest
 
 func opening_journal() -> Dictionary:
 	if not is_instance_valid(opening):

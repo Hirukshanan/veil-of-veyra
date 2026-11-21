@@ -3,8 +3,9 @@ extends Node3D
 # Shared static graph over the encounter areas and their approaches.
 const STEP:=2.0
 const REGIONS := [
-	Rect2i(-48, -26, 43, 51), # Western woods
+	Rect2i(-48, -23, 43, 48), # Western woods and central shelf
 	Rect2i(8, -32, 22, 20), # Northern foothills
+	Rect2i(13, -12, 15, 12), # Eastern terrace
 	Rect2i(10, 10, 14, 19), # Southern grassland
 ]
 var graph:=AStar3D.new()

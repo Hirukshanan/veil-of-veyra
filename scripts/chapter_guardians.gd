@@ -8,16 +8,17 @@ const DESCRIPTION := "The broken seal's three fragments have been absorbed by po
 const LANTERN := "restore_lantern"
 const WARG_INDEX := 2
 const WARG_HOME := Vector3(37, 0, -47)
+const BOAR_HOME := Vector3(-20, 0, -34)
 const GUARDIANS := [
 	{"id": "guardian_warg", "name": "Dire Warg", "actor": "CampDemon2", "region": "Northern Foothills",
 		"center": Vector3(35, 0, -45), "radius": 13.0, "color": Color("ef9e64"),
 		"trail": "Follow the trail from the Northern Lantern toward Ancient Grove, then skirt east below the mountain ridge."},
-	{"id": "guardian_fox", "name": "Demon Fox", "actor": "DemonFox", "region": "Western Forest",
-		"center": Vector3(-74, 0, -16), "radius": 14.0, "color": Color("ec81b2"),
-		"trail": "Take the western forest trail past Western Rise and search the outer woods."},
-	{"id": "guardian_boar", "name": "Demon Boar", "actor": "DemonBoar", "region": "Western Rise",
-		"center": Vector3(-43, 0, 9), "radius": 13.0, "color": Color("e4ce70"),
-		"trail": "Follow the roots from Woodland Junction toward the hillside at Western Rise."},
+	{"id": "guardian_fox", "name": "Demon Fox", "actor": "DemonFox", "region": "Eastern Terrace",
+		"center": Vector3(44, 0, -22), "radius": 12.0, "color": Color("ec81b2"),
+		"trail": "Follow the east-bank trail north, then search the open terrace below the eastern cliffs."},
+	{"id": "guardian_boar", "name": "Demon Boar", "actor": "DemonBoar", "region": "Central Shelf",
+		"center": Vector3(-22, 0, -33), "radius": 12.0, "color": Color("e4ce70"),
+		"trail": "Follow the trail north from the Northern Lantern, then skirt the ridge west to the low shelf."},
 ]
 
 var game
@@ -40,6 +41,11 @@ func restore() -> void:
 		# Discover the relocated Warg's region independently of the old woodland.
 		progress.regions.erase(0)
 		progress.foothill_marker = true
+	if not progress.get("central_east_markers", false):
+		# The old search areas do not count as discovery of the new homes.
+		progress.regions.erase(1)
+		progress.regions.erase(2)
+		progress.central_east_markers = true
 
 func revealed() -> bool:
 	return game.world_data[SAVE_KEY].investigated or game.seal_fragments.complete()

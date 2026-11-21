@@ -79,8 +79,9 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 static func _valid_guardian_quest(progress: Variant, fragments: Array) -> bool:
 	if not progress is Dictionary or not progress.get("investigated") is bool or not progress.get("fox_defeated") is bool:
 		return false
-	if not progress.get("foothill_marker", false) is bool:
-		return false
+	for marker in ["foothill_marker", "central_east_markers"]:
+		if not progress.get(marker, false) is bool:
+			return false
 	var regions: Variant = progress.get("regions")
 	if not regions is Array or regions.size() > 3 or (progress.fox_defeated and 1 not in fragments):
 		return false

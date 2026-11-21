@@ -9,7 +9,6 @@ const CHAPTER_QUESTS = preload("res://scripts/chapter_one_quests.gd")
 var quest_feedback: Dictionary = {}
 var _quest_snapshot: Dictionary = {}
 
-const WORLD_STORY := "Explore Veyra. Recover three seal fragments from the beach ruins, clear the demon camps, and light the northern lantern to confront the Tidewraith. Your island progress is saved as you explore."
 var world_data := CAMPAIGN_STORE.fresh_world()
 var _world_ready := false
 var _autosave_time := 0.0
@@ -100,7 +99,7 @@ func _update_objective() -> void:
 	var destination: Node3D = null
 	var objective := "Wolves %d" % remaining_enemies
 	if completed:
-		objective = "Explore Veyra - Tidewraith defeated"
+		objective = "Explore Veyra"
 	elif boss_spawned:
 		objective = "Dragon"
 		destination = get_node_or_null("Tidewraith Dragon")
@@ -505,7 +504,7 @@ func _show_camp() -> void:
 	camp_menu.show()
 	var stage := "Recover the beach ruins seal fragments.\nClear the camps to restore the lantern."
 	if lantern_lit:
-		stage = "The seal is broken.\nDefeat the Tidewraith at the northern ruins."
+		stage = "The restored lantern reveals a trail of ash.\nThe roots lead inland."
 	elif remaining_enemies == 0:
 		stage = "The camps are quiet.\nRecover the beach seal to light the lantern." if not seal_fragments.complete() else "The seal is whole.\nLight the northern lantern to break the curse."
 	camp_menu.configure(shards, blade_level, armor_level, _cost(blade_level), _cost(armor_level), completed, notice, stage)
@@ -533,11 +532,21 @@ func _show_keeper_request() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_burst_guide() -> void:
-	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing; hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. It interrupts ordinary enemies but not the dragon.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
+	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing. Hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. Use it to interrupt ordinary enemies.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
-	_clear_menu("KNOW YOUR ENEMY", "EMBER WOLF: a corrupted wolf. Balanced movement and melee damage.\n\nASH STALKER: a smaller, fast and fragile wolf. Its short warning leads to a lighter strike.\n\nDIRE WARG: a large, tough wolf. Its wide attack deals heavy damage after a longer warning.\n\nWolves patrol close to their camps. A yellow !, a low growl and a snarl mean they detected you. These large demons crouch before biting and lunge on contact. They chase nearby hunters, then return home if pulled too far. Leave their warning circles or interrupt their windups with a sword hit.\n\nDEMON BOAR: an optional forest-trail encounter. Watch its red lane, then move sideways or dodge. The charge commits to that direction. Light hits still hurt it, but a heavy strike can stagger its preparation or charge. Guard cannot stop this heavy body attack. Strike during recovery. Defeating it awards 20 Tide Shards once; it is not required for the lantern.\n\nTIDEWRAITH DRAGON: move aside from breath and dodge sideways from charges. At half health it becomes ENRAGED: shorter warnings and recovery, faster charges. Sword hits do not interrupt the dragon.")
+	var entries := PackedStringArray([
+		"EMBER WOLF — A corrupted wolf with a steady pace and a close-range bite.",
+		"ASH STALKER — A smaller, quicker wolf. Watch for its short wind-up.",
+		"DIRE WARG — A heavy guardian whose wide bite follows a longer warning.",
+		"Wolves patrol near their camps. A yellow ! and a low growl mean they have noticed you. Step out of the warning circle or interrupt the wind-up with a sword hit.",
+		"DEMON BOAR — Dodge sideways out of its red charge lane. Strike in recovery or use a heavy hit to interrupt its wind-up. Its charge breaks through guard.",
+	])
+	if _uses_guardian_seal():
+		entries.append("DEMON FOX — Watch for the crouch before it leaps. Dodge away from the landing mark and counter as it recovers.")
+		entries.append("Camp watchkeepers speak of a low rumble beneath the northern ridge. When it comes, even the wolves fall silent.")
+	_clear_menu("KNOW YOUR ENEMY", "\n\n".join(entries))
 	_menu_button("Back to camp", _show_camp)
 
 func _upgrade(blade: bool) -> void:
@@ -874,7 +883,8 @@ func _show_island_map() -> void:
 	if not map.guardian_mode:
 		for index in range(3):
 			legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
-	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. Enemies within 14 m of either end block travel; an active dragon blocks all travel. Discovered waystones remain saved. Travel does not restore health, stamina or potions."
+	var travel_warning := "Hostile enemies, including guardians, block travel when they are within 14 m of you or your destination." if map.guardian_mode else "Enemies within 14 m of either end block travel; an active dragon blocks all travel."
+	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. %s Discovered waystones remain saved. Travel does not restore health, stamina or potions." % travel_warning
 	_clear_menu("ISLAND MAP", legend)
 	pause_menu_open = true
 	_menu_button("Return to hunt [Esc]", _resume)
@@ -909,7 +919,8 @@ func _interact_world() -> void:
 	_interact_lantern()
 
 func _show_heavy_guide() -> void:
-	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds, or press H, for a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger.\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo.")
+	var stagger_note := "Ordinary wolves stagger for 0.65 seconds. Elite enemies may resist the stagger." if _uses_guardian_seal() else "Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger."
+	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds, or press H, for a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. %s\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo." % stagger_note)
 	_menu_button("Back to camp", _show_camp)
 
 func _travel_waystone(index: int) -> void:

@@ -79,7 +79,7 @@ void fragment() {
 	_art_image.material = material
 	_art_tag = _label("VEYRA  /  ISLAND CHRONICLES",11,INK,false,_art)
 	_art_tag.add_theme_color_override("font_color",GOLD)
-	_art_heading = _label("THE TIDEWRAITH",23,INK,true,_art)
+	_art_heading = _label("THE LANTERN'S SEAL",23,INK,true,_art)
 	_art_caption = _label("Clear the camps. Restore the lantern.\nFace the darkness beyond the reef.",15,Color("b5c7c4"),false,_art)
 	_art_caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	resized.connect(_layout)
@@ -100,7 +100,7 @@ func configure(shards: int, blade: int, armor: int, blade_cost: int, armor_cost:
 	elif "fail" in notice.to_lower():
 		_footer.text = "Save failed. Keep the game open; return to camp to retry."
 	_footer.modulate = Color("ffba91") if "fail" in notice.to_lower() or "unreadable" in notice.to_lower() else Color.WHITE
-	_art_heading.text = "LIGHT RETURNS" if completed else "THE TIDEWRAITH"
+	_art_heading.text = "LIGHT RETURNS" if completed else "THE LANTERN'S SEAL"
 	_art_caption.text = "The island endures. Explore the grove\nand complete your remaining quests." if completed else stage
 	_eyebrow.text = "THE ISLAND REMEMBERS" if completed else "A WARDEN'S JOURNEY"
 	_layout()

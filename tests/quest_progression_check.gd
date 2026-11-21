@@ -52,13 +52,51 @@ func marker(id: String) -> Dictionary:
 			return item
 	return {}
 
+func assert_early_copy(text: String) -> void:
+	for spoiler in ["tidewraith", "dragon", "breath", "enraged", "half health"]:
+		assert(not text.to_lower().contains(spoiler), "Early Chapter I UI exposed: " + spoiler)
+
 func run():
 	assert(OS.get_environment("VEYRA_TEST") == "1")
+	var old_tracking := STORE.DEFAULTS.duplicate(true)
+	old_tracking.world_data = STORE.fresh_world()
+	old_tracking.world_data[GUARDIANS.SAVE_KEY] = {
+		"investigated": false, "regions": [1, 2], "fox_defeated": false, "foothill_marker": true,
+	}
+	assert(STORE.save_progress(old_tracking) == OK)
 	await open_world()
+	assert(scene.world_data[GUARDIANS.SAVE_KEY].regions.is_empty(),
+		"An old map discovery must not reveal a relocated guardian's precise position")
 	assert(scene.remaining_enemies == 5 and scene.keeper.remaining() == 2)
 	assert(scene.guardian_journal_ids().is_empty() and scene.guardian_map_markers().is_empty())
 	assert(scene.seal_fragments.collected_ids.is_empty() and scene.seal_fragments.fragments.is_empty())
 	assert(not QUESTS.future_prerequisites(scene).chapter_victory)
+	scene._show_camp()
+	assert_early_copy(scene.camp_menu._art_heading.text + scene.camp_menu._art_caption.text)
+	scene._show_enemy_guide()
+	var guide: String = scene.menu_box.get_child(1).text
+	assert_early_copy(guide)
+	assert("northern ridge" in guide and "DEMON FOX" in guide)
+	scene._show_burst_guide()
+	assert_early_copy(scene.menu_box.get_child(1).text)
+	scene._show_heavy_guide()
+	var heavy_guide: String = scene.menu_box.get_child(1).text
+	assert_early_copy(heavy_guide)
+	assert("Elite enemies may resist the stagger." in heavy_guide)
+	scene._resume()
+	scene._show_island_map()
+	assert(scene.menu_box.has_node("IslandMap"))
+	var found_travel_legend := false
+	for control in scene.menu_box.get_children():
+		if control is Label:
+			assert_early_copy(control.text)
+			if "FAST TRAVEL" in control.text:
+				assert("including guardians" in control.text and "14 m" in control.text)
+				found_travel_legend = true
+	assert(found_travel_legend)
+	print("PASS: Heavy Attack Guide and Island Map use guardian-mode copy without Dragon spoilers")
+	scene._resume()
+	assert_early_copy(scene._journal_text())
 	scene._show_journal()
 	scene._accept_scroll_quest()
 	scene._complete_scroll_quest()
@@ -80,15 +118,21 @@ func run():
 		assert(pin.radius > 0.0 and pin.point == guardian.center and pin.badge not in badges)
 		badges.append(pin.badge)
 	assert(JOURNAL.entry(scene, GUARDIANS.LANTERN).locked)
+	var awakening := JOURNAL.entry(scene, "awakening")
+	assert(awakening.locked and "Cursed Bear" in awakening.objective)
 	scene.set_tracked_quest(GUARDIANS.LANTERN)
 	assert(scene.tracked_quest == "guardian_warg")
 	scene._show_journal()
+	scene.journal_view.choose("Main", "awakening")
+	for label in scene.journal_view.find_children("*", "Label", true, false):
+		assert_early_copy(label.text)
+	print("PASS: Camp, Enemy Guide, Spirit Burst guide and Quest Journal keep the northern mystery and hide Dragon combat")
 	scene.journal_view.choose("Main", "guardian_fox")
 	scene.journal_view.track()
 	assert(scene.tracked_quest == "guardian_fox" and marker("guardian_fox").tracked and not marker("guardian_warg").tracked)
 	scene._resume()
 	var hint: Dictionary = scene.guardians.hud(scene.tracked_quest)
-	assert(hint.title == "DEFEAT THE DEMON FOX" and "Western Forest" in hint.message and "0/1" in hint.progress)
+	assert(hint.title == "DEFEAT THE DEMON FOX" and "Eastern Terrace" in hint.message and "0/1" in hint.progress)
 	var fox = scene.get_node("DemonFox")
 	assert(scene.hide_enemy_map_dot(fox) and marker("guardian_fox").point != fox.global_position)
 	scene.player.position = scene.landscape.ground_point(GUARDIANS.GUARDIANS[1].center)
@@ -155,6 +199,7 @@ func run():
 	await reload_world()
 	assert(scene.lantern_lit and not scene.boss_spawned and not scene.completed)
 	assert(JOURNAL.entry(scene, "main").title == "Investigate Ancient Grove")
+	assert_early_copy(scene._journal_text())
 	scene.player.position = scene.guardians.grove_point
 	scene._update_objective()
 	assert(scene.interact_button.visible and scene.interact_button.accessibility_name == "Investigate Ancient Grove")

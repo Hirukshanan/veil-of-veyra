@@ -18,7 +18,10 @@ func run():
 	assert(fox.navigation == navigation and fox.target == scene.player and fox.health == 19)
 	var warg: Node3D = scene.get_node("CampDemon2")
 	var grassland_wolf: Node3D = scene.get_node("CampDemon3")
+	var boar = scene.get_node("DemonBoar")
 	assert(warg.position.x > 30 and warg.position.z < -40 and grassland_wolf.position.x > 20 and grassland_wolf.position.z > 30)
+	assert(fox.position.x > 40 and fox.position.z > -30 and boar.position.x > -25 and boar.position.z < -25)
+	assert(scene.get_node("CampDemon4").position.x < -55 and scene.get_node("CampDemon4").position.z > 20)
 	var residents := get_nodes_in_group("combat_enemies")
 	for i in range(residents.size()):
 		for j in range(i + 1, residents.size()):
@@ -30,35 +33,42 @@ func run():
 	var fox_spawn: Vector3 = fox.position
 	var support: Vector3 = landscape.ground_point(fox_spawn)
 	assert(absf(fox_spawn.y - support.y) <= .04 and fox_spawn.z < -12.0)
+	for actor in residents:
+		var ground: Dictionary = landscape.ground_hit(actor.global_position)
+		assert(not ground.is_empty() and ground.normal.y > .86 and ground.position.y > .25)
+		var collider := actor.find_children("*", "CollisionShape3D", false, false)[0] as CollisionShape3D
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.shape = collider.shape
+		query.transform = collider.global_transform.translated(Vector3.UP * .04)
+		query.collision_mask = 4 | 8
+		assert(scene.get_world_3d().direct_space_state.intersect_shape(query).is_empty(),
+			"Encounter has an overlapping body at spawn: " + str(actor.name))
 	var spawn_rows:=[]
 	for row in scene.encounter_log:
-		var actor=scene.get_node(row.id);var collision:CollisionShape3D
+		var actor=scene.get_node(row.id)
 		var separation: Vector3 = actor.position - fox_spawn
 		assert(Vector2(separation.x, separation.z).length() > 20.0, "Fox should start outside the wolf and boar encounter areas")
-		for child in actor.get_children():
-			if child is CollisionShape3D:collision=child;break
-		var q:=PhysicsShapeQueryParameters3D.new();q.shape=collision.shape;q.transform=collision.global_transform.translated(Vector3.UP*.04);q.collision_mask=4|8
-		assert(scene.get_world_3d().direct_space_state.intersect_shape(q).is_empty(),"Exact unchanged actor collision must be clear at its new spawn")
 		if expected.has(row.id):
 			assert(actor.kind==expected[row.id] and actor.health==[18,17,21][actor.kind])
 			assert(actor.attack_damage==[8,5,16][actor.kind])
 		else:assert(actor.health==24 and actor.REWARD_SHARDS==20)
 		spawn_rows.append({"id":row.id,"position":actor.position,"shape_clear":true,"health":actor.health,"display_name":actor.display_name if "display_name" in actor else "DEMON BOAR"})
 	# A full stopped pose and charge path must have room at the boar's new border.
-	var boar=scene.get_node("DemonBoar");var clear_lanes:=0
+	var clear_lanes:=0
 	for index in range(12):
 		boar.rotation.y=index*TAU/12
 		if boar._cast(-boar.global_basis.z*7.02)>.98:clear_lanes+=1
 	assert(clear_lanes>=8,"The border encounter must have several unobstructed charging directions")
 	boar.rotation=Vector3.ZERO
 	# Graph is derived from actual terrain/collision, with no collider or scenery edits.
-	assert(navigation.graph.get_point_count()>800 and navigation.graph.get_point_count()<2500)
-	for actor_name in expected:
-		var actor=scene.get_node(actor_name);var original:Vector3=actor.position
+	assert(navigation.graph.get_point_count()>800 and navigation.graph.get_point_count()<2700)
+	for actor in residents:
+		var original: Vector3 = actor.position
 		var target:Vector3=original+Vector3(4,0,3)
 		var end_id:int=navigation.graph.get_closest_point(target);var start_id:int=navigation.graph.get_closest_point(original)
-		assert(navigation.graph.get_id_path(start_id,end_id).size()>1,"Existing woodland encounter needs a connected local pursuit route")
-		rows.append({"case":"spawn_local_path","actor":actor_name,"points":navigation.graph.get_id_path(start_id,end_id).size()})
+		assert(navigation.graph.get_point_position(start_id).distance_to(original) < 3.0)
+		assert(navigation.graph.get_id_path(start_id,end_id).size()>1,"Encounter needs a connected local pursuit route: " + str(actor.name))
+		rows.append({"case":"spawn_local_path","actor":actor.name,"points":navigation.graph.get_id_path(start_id,end_id).size()})
 	# Real wolf controller follows an A* detour around an existing mature tree.
 	var trunks:Node3D=landscape.get_node("MatureTreeTrunks")
 	var selected:CollisionShape3D
@@ -127,7 +137,7 @@ func run():
 			assert(actor.position.y>start.y-.25,"Enemy bodies must not fall through regional support")
 			rows.append({"case":"five_region_body_support","actor":str(actor.name),"start":start,"end":actor.position})
 	FileAccess.open(output+"/navigation_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"new_enemy_count":1,"fox_spawn":fox_spawn,"retired_ID_5_absent":true,"spawn_checks":spawn_rows,"boar_clear_full_length_lanes":clear_lanes,"nav_points":navigation.graph.get_point_count(),"nav_build_ms":navigation.build_ms,"path_requests":navigation.path_requests,"cases":rows},"  "))
-	print("PASS: seven encounters across woodland, grassland and foothills, separate spawn aggro zones and real navigation detours")
+	print("PASS: seven supported spawns and local paths across five regions, separate aggro zones and real navigation detours")
 	scene.queue_free();paused=false;await process_frame;await create_timer(.25,true,false,true).timeout;quit()
 
 func _alert_radius(actor: Node3D) -> float:
