@@ -42,6 +42,8 @@ func herb(id: int):
 	for item in scene.herbs.plants.duplicate():
 		if int(item.get_meta("pickup_id")) == id:
 			scene.player.position = item.global_position
+			await physics_frame
+			await physics_frame
 			scene._interact_world()
 			break
 	assert(id in scene.herbs.collected_ids)
@@ -161,10 +163,10 @@ func run():
 	evidence.append("Fox first: defeat recovered Fragment 2 once, completed objective stayed saved, and its pin vanished immediately")
 	await relic(1)
 	assert(scene.quest_feedback.title == "RELIC DISCOVERED")
-	herb(0)
+	await herb(0)
 	assert(scene.potions == 4)
 	for id in [8, 9, 10]:
-		herb(id)
+		await herb(id)
 	assert(scene.world_data.grove_reward and scene.shards == 25 and scene.potions == 7)
 	for repeat in range(3):
 		scene._claim_optional_rewards()
@@ -200,11 +202,20 @@ func run():
 	assert(scene.lantern_lit and not scene.boss_spawned and not scene.completed)
 	assert(JOURNAL.entry(scene, "main").title == "Investigate Ancient Grove")
 	assert_early_copy(scene._journal_text())
-	scene.player.position = scene.guardians.grove_point
+	var roots: MeshInstance3D = scene.landscape.get_node("AncientGroveRoots")
+	assert(roots.is_visible_in_tree() and roots.get_aabb().size.y > 1.0)
+	assert(marker("main").point == roots.global_position)
+	assert(roots.global_position.distance_to(scene.landscape.ground_point(GUARDIANS.GROVE_CENTER)) < .05)
+	scene.player.position = roots.global_position + Vector3.BACK * 3.2
+	scene._interact_world()
+	assert(not scene.guardians.can_investigate_grove() and not scene.world_data.get(GUARDIANS.GROVE_FLAG, false))
+	scene.player.position = roots.global_position + Vector3.BACK * 2.4
 	scene._update_objective()
 	assert(scene.interact_button.visible and scene.interact_button.accessibility_name == "Investigate Ancient Grove")
 	scene._interact_world()
 	assert(scene.world_data[GUARDIANS.GROVE_FLAG] and JOURNAL.entry(scene, "main").title == "The Cursed Bear")
+	scene._interact_world()
+	assert(not scene.guardians.can_investigate_grove() and scene.shards == 45)
 	assert(scene.guardian_map_markers().is_empty() and not scene.completed and not paused)
 	await relic(0)
 	await relic(2)

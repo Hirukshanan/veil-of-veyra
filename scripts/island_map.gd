@@ -67,15 +67,17 @@ func _draw() -> void:
 	_caption(grove+Vector2(-28,20),"Moonleaf Grove",Color(0.65,1.0,0.7))
 	var region = terrain.REGION
 	var ancient := _point(region.GROVE_CENTER)
-	draw_arc(ancient, 8.0, 0, TAU, 24, Color(0.98, 0.78, 0.42), 2.0, true)
+	for marker in quest_markers:
+		if marker.badge == "G":
+			ancient = _point(marker.point)
+			break
+	if not guardian_mode:
+		draw_arc(ancient, 8.0, 0, TAU, 24, Color(0.98, 0.78, 0.42), 2.0, true)
 	draw_line(ancient + Vector2(4, -5), ancient + Vector2(12, -24), Color(0.98, 0.78, 0.42), 1.0, true)
 	_caption(ancient + Vector2(14, -26), "Ancient Grove", Color(1.0, 0.86, 0.61))
 	var rise := _point(Vector3(-64, 0, 18))
 	_caption(rise + Vector2(-105, 0), "Western Rise", Color(0.78, 0.83, 0.75))
 	for marker in quest_markers:
-		# The labelled Ancient Grove ring already locates this objective.
-		if marker.badge == "G":
-			continue
 		QUEST_MARKER.draw(self, _point(marker.point), marker, 8.0, (minf(size.x, size.y) * .5 - 38.0) / terrain.OUTER_RADIUS)
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))

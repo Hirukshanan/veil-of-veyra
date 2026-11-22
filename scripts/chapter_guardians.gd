@@ -23,7 +23,10 @@ const GUARDIANS := [
 ]
 
 var game
-var grove_point: Vector3
+var grove_roots: MeshInstance3D
+var grove_point: Vector3:
+	get:
+		return grove_roots.global_position
 
 func _init(scene) -> void:
 	game = scene
@@ -64,9 +67,11 @@ func investigate() -> void:
 	refresh_tracking(true)
 	game._save_progress()
 
+func grove_pending() -> bool:
+	return is_instance_valid(grove_roots) and grove_roots.is_visible_in_tree() and game.lantern_lit and not game.completed and not game.world_data.get(GROVE_FLAG, false)
+
 func can_investigate_grove() -> bool:
-	return game.lantern_lit and not game.completed and not game.world_data.get(GROVE_FLAG, false) \
-		and game.player.global_position.distance_to(grove_point) <= 2.8
+	return grove_pending() and game.player.global_position.distance_to(grove_point) <= 2.8
 
 func investigate_grove() -> void:
 	if not can_investigate_grove():
@@ -82,7 +87,7 @@ func grove_objective() -> Dictionary:
 			"Defeat the Cursed Bear", 0, 1, "Unseal the cave altar.",
 			"Enter the eastern cave. Beyond the relic, follow the bend and descend the hidden stone steps.", false)
 	return _row("Investigate Ancient Grove", "The restored lantern reveals a trail of ash leading northeast into Ancient Grove.",
-		"Search the roots", 0, 1, "Learn what feeds the curse.", "Follow the trail northeast from the lantern and investigate the roots.", false)
+		"Search the roots", 0, 1, "Learn what feeds the curse.", "Follow the northeast trail to the ember-veined roots by the river.", false)
 
 func recover(fragment: int) -> void:
 	if fragment == 1:
@@ -222,7 +227,7 @@ func markers() -> Array[Dictionary]:
 	if can_track(LANTERN):
 		result.append({"id": LANTERN, "badge": "L", "point": game.lantern.global_position,
 			"radius": 0.0, "color": Color("fbdfa0"), "tracked": game.tracked_quest == LANTERN})
-	elif game.lantern_lit and not game.completed and not game.world_data.get(GROVE_FLAG, false):
+	elif grove_pending():
 		result.append({"id": "main", "badge": "G", "point": grove_point, "radius": 0.0,
 			"color": Color("fbdfa0"), "tracked": game.tracked_quest in ["", "main"]})
 	return result

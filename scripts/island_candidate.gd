@@ -76,7 +76,11 @@ func _ready() -> void:
 	opening.name = "ChapterOpening"
 	opening.game = self
 	add_child(opening)
-	guardians.grove_point = landscape.ground_point(CHAPTER_GUARDIANS.GROVE_CENTER)
+	var roots := preload("res://scripts/ancient_grove_roots.gd").new()
+	roots.name = "AncientGroveRoots"
+	roots.position = landscape.ground_point(CHAPTER_GUARDIANS.GROVE_CENTER)
+	landscape.add_child(roots)
+	guardians.grove_roots = roots
 	var soundtrack := preload("res://scripts/chapter_island_music.gd").new()
 	soundtrack.name = "ChapterIslandMusic"
 	add_child(soundtrack)
