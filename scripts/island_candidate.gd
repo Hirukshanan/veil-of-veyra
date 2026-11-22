@@ -77,6 +77,9 @@ func _ready() -> void:
 	opening.game = self
 	add_child(opening)
 	guardians.grove_point = landscape.ground_point(CHAPTER_GUARDIANS.GROVE_CENTER)
+	var soundtrack := preload("res://scripts/chapter_island_music.gd").new()
+	soundtrack.name = "ChapterIslandMusic"
+	add_child(soundtrack)
 	placement_ready = true
 	guardians.refresh_tracking(true)
 
