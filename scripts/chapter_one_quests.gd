@@ -81,10 +81,10 @@ static func hud(scene) -> Dictionary:
 	data.message = goal.message
 	data.progress = "Seal %d/3   •   Camps %d/5" % [scene.seal_fragments.collected_ids.size(), clampi(5-scene.remaining_enemies,0,5)]
 	if not scene.boss_spawned or scene.completed:
-		if scene.player.global_position.distance_to(scene.herbs.GROVE.CENTER) < 18:
+		if scene.player.global_position.distance_to(scene.herbs.grove_center()) < 18:
 			data.title = "MOONLEAF GROVE"
-			data.message = "Gather Moonleaf flowers (%d / 3)." % mini(3, scene.herbs.grove_count())
-			data.progress = "25 shards + healing potions" if not scene.world_data.grove_reward else "Reward collected   •   Explore the grove"
+			data.message = "Collect glowing Moonleaf (%d/3)." % mini(3, scene.herbs.grove_count())
+			data.progress = "25 shards + healing potions" if not scene.world_data.grove_reward else "Grove complete · 25 Tide Shards received"
 		elif scene.keeper.accepted and not scene.keeper.reported and scene.keeper.remaining() == 0:
 			data.title = "WESTERN WATCH"
 			data.message = "Complete bounty in QUEST."
@@ -96,9 +96,15 @@ static func hud(scene) -> Dictionary:
 	if not scene.quest_feedback.is_empty() and Time.get_ticks_msec() < scene.quest_feedback.until:
 		data.title = scene.quest_feedback.title
 		data.message = scene.quest_feedback.message
+		data.progress = scene.quest_feedback.get("progress", data.progress)
 	return data
 
 static func feedback(previous: Dictionary, state: Dictionary) -> Dictionary:
+	if state.grove > previous.grove:
+		var progress := "One healing potion per flower"
+		if state.grove_reward and not previous.grove_reward:
+			progress = "+25 Tide Shards received"
+		return {"title": "MOONLEAF COLLECTED", "message": "%d/3 flowers · +1 potion" % mini(3, state.grove), "progress": progress}
 	for entry in [["grove_reward", "GROVE COMPLETE", "+25 Tide Shards received."], ["relic_reward", "RELICS COMPLETE", "+20 Tide Shards received."], ["bounty_reward", "BOUNTY COMPLETE", "+15 Tide Shards received."]]:
 		if state[entry[0]] and not previous[entry[0]]:
 			return {"title": entry[1], "message": entry[2]}

@@ -8,6 +8,7 @@ var camps_cleared: Array[bool] = [true, true, true]
 var bound_waystone := -1
 var discovered: Array[bool] = [true, false, false]
 var guardian_mode := false
+var moonleaf_grove_position := preload("res://scripts/moonleaf_grove.gd").CENTER
 var quest_markers: Array[Dictionary] = []
 
 func _ready() -> void:
@@ -61,9 +62,9 @@ func _draw() -> void:
 	var seals := _point(preload("res://scripts/beach_seals.gd").CENTER)
 	draw_colored_polygon(PackedVector2Array([seals+Vector2(0,-7),seals+Vector2(6,0),seals+Vector2(0,7),seals+Vector2(-6,0)]),Color(0.35,0.9,1.0))
 	_caption(seals+Vector2(-30,-11),"Tideseal",Color(0.65,0.95,1.0))
-	var grove := _point(preload("res://scripts/moonleaf_grove.gd").CENTER)
+	var grove := _point(moonleaf_grove_position)
 	draw_colored_polygon(PackedVector2Array([grove+Vector2(-6,5),grove+Vector2(-4,-4),grove+Vector2(6,-6),grove+Vector2(4,4)]),Color(0.35,1.0,0.48))
-	_caption(grove+Vector2(-28,20),"Moonleaf",Color(0.65,1.0,0.7))
+	_caption(grove+Vector2(-28,20),"Moonleaf Grove",Color(0.65,1.0,0.7))
 	var region = terrain.REGION
 	var ancient := _point(region.GROVE_CENTER)
 	draw_arc(ancient, 8.0, 0, TAU, 24, Color(0.98, 0.78, 0.42), 2.0, true)
@@ -72,6 +73,9 @@ func _draw() -> void:
 	var rise := _point(Vector3(-64, 0, 18))
 	_caption(rise + Vector2(-105, 0), "Western Rise", Color(0.78, 0.83, 0.75))
 	for marker in quest_markers:
+		# The labelled Ancient Grove ring already locates this objective.
+		if marker.badge == "G":
+			continue
 		QUEST_MARKER.draw(self, _point(marker.point), marker, 8.0, (minf(size.x, size.y) * .5 - 38.0) / terrain.OUTER_RADIUS)
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))

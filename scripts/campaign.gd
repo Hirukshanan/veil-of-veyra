@@ -126,7 +126,7 @@ func _update_objective() -> void:
 	if is_instance_valid(destination):
 		guidance = " | " + preload("res://scripts/island_exploration.gd").direction_hint(player.global_position, destination.global_position, player._camera_pivot.global_basis)
 	status_label.text = "%s%s | Potions %d" % [objective, guidance, potions]
-	if player.global_position.distance_to(herbs.GROVE.CENTER) < 18.0:
+	if player.global_position.distance_to(herbs.grove_center()) < 18.0:
 		status_label.text += " | Grove complete +25 shards" if world_data.grove_reward else " | Grove %d/3" % mini(herbs.grove_count(), 3)
 	if not lantern_lit:
 		status_label.text += " | Seal %d/3" % seal_fragments.collected_ids.size()
@@ -213,6 +213,7 @@ func _toggle_pause() -> void:
 func _ready() -> void:
 	herbs = preload("res://scripts/herbal_plants.gd").new()
 	herbs.name = "HerbalPlants"
+	herbs.candidate_grove = _uses_guardian_seal()
 	add_child(herbs)
 	_load_progress()
 	# Retain the retired spawn ID as cleared so version-2 quest saves stay compatible.
@@ -220,6 +221,7 @@ func _ready() -> void:
 		world_data.cleared.append(5)
 	environment_chapter = 0
 	super._ready()
+	herbs.collector = player
 	player.camera_zoom_finished.connect(_on_camera_zoom_finished)
 	_load_settings()
 	player.set("max_health", 100 + armor_level * 25)
@@ -862,6 +864,7 @@ func _show_island_map() -> void:
 	map.bound_waystone = exploration.checkpoint_index
 	map.discovered = exploration.discovered.duplicate()
 	map.guardian_mode = _uses_guardian_seal()
+	map.moonleaf_grove_position = herbs.grove_center()
 	map.quest_markers = guardian_map_markers()
 	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
 		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():

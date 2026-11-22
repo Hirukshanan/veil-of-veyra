@@ -38,7 +38,7 @@ static func entry(g, id: String) -> Dictionary:
 		"relic":
 			return row("Keeper's Relics","Search the grassland trail, mountain foothills and eastern cave.","Golden relics",s.relics,3,"20 Tide Shards after victory.","Approach a golden relic." if s.relics<3 else "Await Chapter I victory." if not s.completed else "Claimed.",s.relic_reward)
 		"grove":
-			return row("Moonleaf Grove","Follow the meadow paths to the grove beyond the river.","Grove flowers",mini(3,s.grove),3,"One potion per flower and 25 Tide Shards for three.","Gather Moonleaf in the grove." if not s.grove_reward else "Claimed.",s.grove_reward)
+			return row("Moonleaf Grove","Cross the river to the southeast meadow. Look for three blue-green flowers.","Grove flowers",mini(3,s.grove),3,"One potion per flower and 25 Tide Shards for three.","Gather Moonleaf in the grove." if not s.grove_reward else "Claimed.",s.grove_reward)
 	var intro: Dictionary = g.opening_journal() if g.has_method("opening_journal") else {}
 	var description: String = intro.get("guide", goal.guide)
 	var finding: String = intro.get("finding", "")

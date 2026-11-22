@@ -191,7 +191,12 @@ func _ground_gameplay() -> void:
 			enemy._home = enemy.global_position
 			enemy._patrol_goal = enemy.global_position
 	_ground_node(lantern,true)
-	for item in herbs.plants:_ground_node(item,true)
+	for item in herbs.plants:
+		_ground_node(item, not item.has_node("HarvestArea"))
+	var grove := preload("res://scripts/moonleaf_grove.gd").new()
+	grove.candidate = true
+	add_child(grove)
+	grove.populate_candidate(landscape)
 	for item in seal_fragments.fragments:_ground_node(item,true)
 	for item in relic_hunt.relics:
 		if int(item.get_meta("pickup_id")) == 1:item.global_position=Vector3(76,1.58,5)
@@ -374,6 +379,10 @@ func tracked_hint(base:Dictionary) -> Dictionary:
 	if placement_ready and completed and tracked_quest in ["", "main"] and not awakening.finished():
 		var objective:Dictionary=awakening.quest()
 		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
+	if quest_feedback.get("title") == "MOONLEAF COLLECTED" and Time.get_ticks_msec() < quest_feedback.get("until", 0):
+		return base
+	if base.title == "MOONLEAF GROVE" and tracked_quest in ["", "main", "grove"]:
+		return base
 	if placement_ready:
 		var target: Dictionary = guardians.hud(tracked_quest)
 		if not target.is_empty():
@@ -478,6 +487,14 @@ func _update_objective() -> void:
 		interact_button.disabled = false
 		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
 		interact_button.accessibility_name = "Inspect abandoned camp"
+
+	if interact_button.accessibility_name == "Collect herb":
+		var plant: Node3D = herbs.nearest(player.global_position)
+		if plant != null and plant.has_node("HarvestArea"):
+			interact_button.accessibility_name = "Collect Moonleaf"
+			herbs.set_prompt(plant)
+			return
+	herbs.set_prompt(null)
 
 func _interact_world() -> void:
 	if not started or game_finished or get_tree().paused or player.health <= 0:
