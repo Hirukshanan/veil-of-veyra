@@ -58,7 +58,7 @@ func finished() -> bool:
 	return game.world_data.get(FLAG,false)
 
 func near_pedestal() -> bool:
-	return game.player.global_position.distance_to(PEDESTAL)<2.7
+	return to_local(game.player.global_position).distance_to(PEDESTAL)<2.7
 
 func quest() -> Dictionary:
 	var count := int(game.completed or game.world_data.get("cursed_bear_defeated", false))+int(game.lantern_lit)+int(game.seal_fragments.complete())+int(1 in game.relic_hunt.collected_ids)
@@ -296,7 +296,7 @@ func start() -> bool:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	active=true;clock=0;stage="placement";events.clear()
 	camera.fov=58;camera.environment=null
-	starting_lantern=game.player.global_position+Vector3(.25,1.1,0)
+	starting_lantern=to_local(game.player.global_position)+Vector3(.25,1.1,0)
 	lantern_prop.show();hint.hide();overlay.show();fade.color.a=0
 	camera.cull_mask=1<<18;camera.make_current()
 	mark("start_before_audio",measured_start)
@@ -314,15 +314,37 @@ func _event(value:String):
 	events.append({"stage":value,"seconds":snappedf(clock,.01)})
 	print("AWAKENING ",value," @ ",snappedf(clock,.01))
 
+func _gate_cues() -> Array:
+	return [[4.2,"spreading_fractures"],[5.8,"wall_break"]]
+
+func _on_gate_motion() -> void:
+	gate.get_child(0).set_deferred("disabled",true)
+	dust.position=WALL+Vector3.UP*2
+	dust.restart();dust.emitting=true
+	rumble.position=WALL+Vector3.UP*2
+	rumble.stream=FRACTURE;rumble.play()
+
+func _darkness_cue() -> float:
+	return 12.4
+
+func _eye_cue() -> float:
+	return 13.3
+
+func _on_darkness() -> void:
+	pass
+
+func _on_eye_opening() -> void:
+	breath.play()
+
 func _process(delta:float):
 	if not active:
-		hint.visible=not finished() and game.player.position.distance_to(PEDESTAL)<10
+		hint.visible=not finished() and to_local(game.player.global_position).distance_to(PEDESTAL)<10
 		hint.text="Interact · Place lantern" if eligible() else "Ancient altar · dormant"
 		return
 	var measured_process:=Time.get_ticks_usec()
 	var previous:=clock
 	clock=minf(DURATION,clock+delta)
-	for cue in [[1.2,"stone_descent"],[4.2,"spreading_fractures"],[5.8,"wall_break"],[7.2,"distant_dragon_roar"],[8.0,"passage_camera"],[12.4,"complete_darkness"],[13.3,"crimson_eye_opening"],[15.7,"music_cut"],[18.0,"return_to_hero"]]:
+	for cue in ([[1.2,"stone_descent"]]+_gate_cues()+[[7.2,"distant_dragon_roar"],[8.0,"passage_camera"],[_darkness_cue(),"complete_darkness"],[_eye_cue(),"crimson_eye_opening"],[15.7,"music_cut"],[18.0,"return_to_hero"]]):
 		if previous<float(cue[0]) and clock>=float(cue[0]):
 			var measured_cue:=Time.get_ticks_usec()
 			_event(cue[1])
@@ -331,14 +353,10 @@ func _process(delta:float):
 					rumble.play()
 					dust.position=PEDESTAL+Vector3.UP*.3
 					dust.restart();dust.emitting=true
-				"wall_break":
-					gate.get_child(0).set_deferred("disabled",true)
-					dust.position=WALL+Vector3.UP*2
-					dust.restart();dust.emitting=true
-					rumble.position=WALL+Vector3.UP*2
-					rumble.stream=FRACTURE;rumble.play()
+				"wall_break","seal_retraction": _on_gate_motion()
 				"distant_dragon_roar":roar.play()
-				"crimson_eye_opening":breath.play()
+				"complete_darkness":_on_darkness()
+				"crimson_eye_opening":_on_eye_opening()
 				"music_cut":music.stop()
 			mark("cue_"+str(cue[1]),measured_cue)
 	var measured_sample:=Time.get_ticks_usec()
@@ -369,11 +387,11 @@ func _sample(time:float):
 		var framing:=smoothstep(3.25,4.3,time)
 		camera.position=Vector3(66,4.8,21.5).lerp(Vector3(66,4.5,26),framing)
 		var altar_target:=PEDESTAL+Vector3.UP*lerpf(1.4,.3,descent)
-		camera.look_at(altar_target.lerp(WALL+Vector3.UP*2.5,framing))
+		camera.look_at(to_global(altar_target.lerp(WALL+Vector3.UP*2.5,framing)))
 	else:
 		var travel:=smoothstep(7.2,12.4,time)
 		camera.position=Vector3(66,4.5,26).lerp(Vector3(64,5.5,44.5),travel)
-		camera.look_at((WALL+Vector3.UP*2.5).lerp(Vector3(64,5.5,48),travel))
+		camera.look_at(to_global((WALL+Vector3.UP*2.5).lerp(Vector3(64,5.5,48),travel)))
 		camera.fov=lerpf(58,45,travel)
 		cinematic_fill.light_energy=2.0*(1-travel)
 	if time>=12.4:

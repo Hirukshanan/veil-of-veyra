@@ -5,8 +5,8 @@ const CHAPTER_OPENING := preload("res://scripts/chapter_opening.gd")
 const CHAPTER_GUARDIANS := preload("res://scripts/chapter_guardians.gd")
 
 const BEAR_SCENE := "res://scenes/enemies/cursed_bear_boss.tscn"
-const BEAR_DEN := Vector3(67, 2.55, 27.5)
-const BEAR_ENTRY := Vector3(67.8, 2.35, 20.6)
+const TEMPLE := preload("res://scripts/buried_temple.gd")
+var temple: TEMPLE = _create_bear_temple()
 var cave_bear: CharacterBody3D
 var awakening: Node3D
 var opening: Node3D
@@ -17,6 +17,9 @@ var placement_ready := false
 var placement_log: Array[Dictionary] = []
 var encounter_log: Array[Dictionary] = []
 var enemy_navigation: Node3D
+
+func _create_bear_temple() -> TEMPLE:
+	return TEMPLE.new()
 
 func _restore_world() -> void:
 	guardians.restore()
@@ -46,13 +49,17 @@ func _build_decor() -> void:
 func _create_exploration() -> Node3D:
 	return preload("res://scripts/island_candidate_exploration.gd").new()
 
+func _create_awakening() -> Node3D:
+	return preload("res://scripts/lantern_awakening.gd").new()
+
 func _ready() -> void:
-	awakening = preload("res://scripts/lantern_awakening.gd").new()
+	awakening = _create_awakening()
 	awakening.game = self
 	_load_tracking()
 	super._ready()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	add_child(temple)
 	_ground_gameplay()
 	landscape.populate_ground_detail()
 	var atmosphere := preload("res://scripts/island_atmosphere.gd").new()
@@ -76,6 +83,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not placement_ready or not started or game_finished or player.health <= 0:
 		return
+	_update_temple_thresholds()
 	_region_check -= delta
 	if _region_check <= 0.0:
 		_region_check = .25
@@ -84,32 +92,63 @@ func _physics_process(delta: float) -> void:
 			_save_progress()
 			_redraw_tracking()
 
-func _update_bear_encounter() -> void:
-	if completed or not lantern_lit or not world_data.get(CHAPTER_GUARDIANS.GROVE_FLAG, false) or world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
-		return
-	var point: Vector3 = player.global_position
-	# The outer ridge above the grotto shares its XZ footprint.
-	var inside_height := point.y > 1.3 and point.y < 6.3
-	if is_instance_valid(cave_bear):
-		if not inside_height or point.z < 16 or point.z > 32 or absf(point.x - 67) > 10:
+func _sanctum_open() -> bool:
+	return completed or world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false)
+
+func _temple_unlocked() -> bool:
+	return _sanctum_open() or (lantern_lit and world_data.get(CHAPTER_GUARDIANS.GROVE_FLAG, false))
+
+func _cross_threshold(destination: Vector3) -> void:
+	player.global_position = destination
+	player.velocity = Vector3.ZERO
+	player._camera_pivot.global_position = destination + Vector3.UP * 1.2
+	player.reset_physics_interpolation()
+	# Bridge the paired doorways with a brief dark threshold; controls stay live.
+	var transition := CanvasLayer.new()
+	transition.layer = 1
+	add_child(transition)
+	var shade := ColorRect.new()
+	transition.add_child(shade)
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	shade.color = Color(.025,.021,.018,.95)
+	var fade := transition.create_tween()
+	fade.tween_property(shade,"color:a",0.0,.22)
+	fade.tween_callback(transition.queue_free)
+
+func _update_temple_thresholds() -> void:
+	var p: Vector3 = player.position
+	if is_instance_valid(temple.chamber):
+		var retreat := p.z < -22.7
+		var sanctum := p.z > 22.4 and _sanctum_open()
+		if not retreat and not sanctum and TEMPLE.inside(p): return
+		if retreat or sanctum:
+			_cross_threshold(TEMPLE.INNER + Vector3.BACK*1.8 if sanctum else TEMPLE.OUTER + Vector3.FORWARD*2)
+		if is_instance_valid(cave_bear):
 			cave_bear.queue_free()
 			cave_bear = null
 			boss_name_label.hide()
 			boss_health_bar.hide()
+		temple.leave()
 		return
-	if not inside_height or point.z < 19.5 or point.z > 31 or absf(point.x - 67) > 6.0:
+	if not _temple_unlocked() or p.y < 1 or p.y > 5: return
+	if p.distance_to(TEMPLE.OUTER)<9 and not temple.open:
+		temple.unlock(_sanctum_open())
+	if absf(p.x-TEMPLE.OUTER.x)>2: return
+	var entering := p.z > 19.53 and p.z < 20.55 and temple.veil.position.y < 1.8
+	var returning := p.z > 21.24 and p.z < 22.2 and _sanctum_open()
+	if entering or returning:
+		temple.populate(_sanctum_open())
+		_cross_threshold(Vector3(0,34.12,20.1) if returning else TEMPLE.TOP + Vector3(0,.12,-1))
+
+func _update_bear_encounter() -> void:
+	if not is_instance_valid(temple.chamber) or _sanctum_open() or is_instance_valid(cave_bear):
 		return
-	var pad := BEAR_DEN if point.distance_to(BEAR_DEN) > 4.0 else BEAR_ENTRY
-	var ray := PhysicsRayQueryParameters3D.create(pad + Vector3.UP, pad + Vector3.DOWN, 16)
-	var floor_hit := get_world_3d().direct_space_state.intersect_ray(ray)
-	if floor_hit.is_empty() or floor_hit.collider.get_parent() != landscape.get_node("PlayableGrotto"):
-		return
-	var under_player := PhysicsRayQueryParameters3D.create(point + Vector3.UP * .25, point + Vector3.DOWN * 3, 16)
-	var support := get_world_3d().direct_space_state.intersect_ray(under_player)
-	if support.is_empty() or support.collider != floor_hit.collider:
-		return
+	var point: Vector3 = player.global_position
+	if point.z < -5.3: return
+	var pad := TEMPLE.DEN if point.distance_to(TEMPLE.DEN)>4 else TEMPLE.DEN+Vector3.LEFT*6
 	cave_bear = load(BEAR_SCENE).instantiate()
-	cave_bear.position = floor_hit.position + Vector3.UP * .04
+	cave_bear.position = pad + Vector3.UP*.08
 	cave_bear.rotation.y = atan2(pad.x - point.x, pad.z - point.z)
 	cave_bear.target = player
 	cave_bear.health_changed.connect(_bear_health_changed)
@@ -128,6 +167,7 @@ func _bear_victory() -> void:
 	if world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
 		return
 	world_data[CHAPTER_GUARDIANS.BEAR_FLAG] = true
+	temple.unseal()
 	_update_objective()
 	_redraw_tracking()
 	_save_progress()
@@ -168,7 +208,13 @@ func _ground_gameplay() -> void:
 	if exploration.checkpoint_index >= 0:player.rescue_position = exploration.checkpoint_position(exploration.checkpoint_index)+Vector3.UP
 	else:player.rescue_position = exploration.checkpoint_position(0)+Vector3.UP
 	# All original save IDs/equipment/health are preserved; relocate only unsafe support.
-	player.global_position = landscape.supported_saved_point(player.global_position)
+	var restored: Vector3 = player.global_position
+	if TEMPLE.inside(restored) and _temple_unlocked():
+		temple.populate(_sanctum_open())
+	else:
+		player.global_position = landscape.supported_saved_point(restored)
+		if not _sanctum_open() and absf(restored.x-67)<8 and restored.y<6 and restored.z>20 and restored.z<34:
+			player.global_position = TEMPLE.OUTER + Vector3.FORWARD*2
 	player.velocity = Vector3.ZERO
 	player._camera_pivot.global_position = player.global_position+Vector3.UP*1.2
 

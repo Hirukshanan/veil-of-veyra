@@ -80,7 +80,7 @@ func grove_objective() -> Dictionary:
 	if game.world_data.get(GROVE_FLAG, false):
 		return _row("The Cursed Bear", "Warm ash winds around the roots at Ancient Grove. A great beast has scored the stones.",
 			"Defeat the Cursed Bear", 0, 1, "Unseal the cave altar.",
-			"Enter the eastern cave. Follow the bend beyond the relic to the inner chamber.", false)
+			"Enter the eastern cave. Beyond the relic, follow the bend and descend the hidden stone steps.", false)
 	return _row("Investigate Ancient Grove", "The restored lantern reveals a trail of ash leading northeast into Ancient Grove.",
 		"Search the roots", 0, 1, "Learn what feeds the curse.", "Follow the trail northeast from the lantern and investigate the roots.", false)
 
