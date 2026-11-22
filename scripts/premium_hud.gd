@@ -12,6 +12,9 @@ var _map_image: TextureRect
 var _map_overlay: Control
 var _title_font: Font
 static var _shared_title_font: Font
+var _quest_fields: Array[TextParagraph] = []
+var _quest_strings := PackedStringArray()
+var _quest_scale := 0.0
 
 class MapOverlay extends Control:
 	var hud
@@ -166,6 +169,40 @@ func _bar(rect: Rect2, value: float, color: Color) -> void:
 	outline.append(edge[0])
 	draw_polyline(outline,GOLD,1.2,true)
 
+func _quest_paragraph(value: String, font: Font, pixels: int, width: float) -> TextParagraph:
+	var paragraph := TextParagraph.new()
+	paragraph.width = width
+	paragraph.break_flags = TextServer.BREAK_MANDATORY | TextServer.BREAK_WORD_BOUND | TextServer.BREAK_ADAPTIVE
+	paragraph.add_string(value, font, pixels)
+	return paragraph
+
+func _draw_quest(f: float) -> void:
+	var content := quest_content()
+	var strings := PackedStringArray([content.title, content.message, content.progress])
+	var width := 286.0 * f
+	var padding := 13.0 * f
+	var title_x := 39.0 * f
+	var objective_x := 31.0 * f
+	if strings != _quest_strings or f != _quest_scale:
+		_quest_strings = strings
+		_quest_scale = f
+		_quest_fields.assign([
+			_quest_paragraph(strings[0], _title_font, maxi(12, int(16*f)), width - title_x - padding),
+			_quest_paragraph(strings[1], ThemeDB.fallback_font, maxi(11, int(14*f)), width - objective_x - padding),
+			_quest_paragraph(strings[2], ThemeDB.fallback_font, maxi(11, int(12*f)), width - 2.0*padding)
+		])
+	var title_y := 7.0 * f
+	var objective_y := maxf(34.0*f, title_y + _quest_fields[0].get_size().y + 4.0*f)
+	var progress_y := maxf(60.0*f, objective_y + _quest_fields[1].get_size().y + 5.0*f)
+	var height := maxf(94.0*f, progress_y + _quest_fields[2].get_size().y + 10.0*f)
+	var origin := Vector2(20, 118*f + 18)
+	_panel(Rect2(origin, Vector2(width, height)))
+	draw_texture_rect(QUEST_ICON, Rect2(origin + Vector2(9,8)*f, Vector2.ONE*23*f), false, GOLD)
+	draw_rect(Rect2(origin + Vector2(padding, objective_y + 4.0*f), Vector2.ONE*10*f), GOLD, scene.completed)
+	_quest_fields[0].draw(get_canvas_item(), origin + Vector2(title_x, title_y), GOLD)
+	_quest_fields[1].draw(get_canvas_item(), origin + Vector2(objective_x, objective_y), INK)
+	_quest_fields[2].draw(get_canvas_item(), origin + Vector2(padding, progress_y), Color("c7c9b8"))
+
 func _draw() -> void:
 	if not is_instance_valid(scene) or not is_instance_valid(controller): return
 	var f: float=controller.ui_factor(size)
@@ -181,14 +218,7 @@ func _draw() -> void:
 	_text(origin+Vector2(160*f,43*f),"%d / %d" % [hero.health,hero.max_health],13*f)
 	_bar(Rect2(origin+Vector2(92*f,53*f),Vector2(208*f,17*f)),hero.stamina/100.0,Color("16778c"))
 	_text(origin+Vector2(166*f,66*f),"%d / 100" % int(hero.stamina),12*f)
-	var quest:=Rect2(20,118*f+18,286*f,94*f)
-	_panel(quest)
-	draw_texture_rect(QUEST_ICON,Rect2(quest.position+Vector2(9*f,8*f),Vector2.ONE*23*f),false,GOLD)
-	var content:=quest_content()
-	_text(quest.position+Vector2(39*f,24*f),content.title,16*f,GOLD,true)
-	draw_rect(Rect2(quest.position+Vector2(13*f,38*f),Vector2.ONE*10*f),GOLD,scene.completed,1)
-	_text(quest.position+Vector2(31*f,48*f),content.message,14*f)
-	_text(quest.position+Vector2(13*f,73*f),content.progress,12*f,Color("c7c9b8"))
+	_draw_quest(f)
 	var utilities: Dictionary=controller.rectangles(size)
 	var left:=origin.x+327*f+20
 	var right: float=utilities.CampButton.position.x-18
