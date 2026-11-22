@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bear_audio_review.gd" id="1"]
+
+[ext_resource type="PackedScene" path="res://assets/environment/buried_shrine/polished_hall.glb" id="2"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1")
+polish_model = ExtResource("2")
+connected_awakening = true
+dragon_cavern = true
+
+[node name="DemonFoxSpawn" type="Marker3D" parent="."]
+position = Vector3(46, 0, -20)
+rotation_degrees = Vector3(0, -67, 0)

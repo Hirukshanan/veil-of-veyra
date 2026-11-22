@@ -14,7 +14,7 @@ func _ready() -> void:
 func _update_bear_encounter() -> void:
 	if not shrine.in_cell or _sanctum_open(): return
 	if not is_instance_valid(cave_bear):
-		cave_bear = load(BEAR_SCENE).instantiate()
+		cave_bear = _create_cave_bear()
 		cave_bear.position = SHRINE.LAIR
 		cave_bear.rotation.y = -.13
 		cave_bear.health_changed.connect(_bear_health_changed)
@@ -25,6 +25,9 @@ func _update_bear_encounter() -> void:
 		_start_bear_combat()
 	else:
 		bear_intro.start(player,cave_bear)
+
+func _create_cave_bear() -> CharacterBody3D:
+	return load(BEAR_SCENE).instantiate()
 
 func _finish_intro() -> void:
 	world_data[INTRO_FLAG] = true
