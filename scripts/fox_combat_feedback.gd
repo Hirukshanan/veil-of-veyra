@@ -1,26 +1,55 @@
 extends Node3D
 
-const GROWL := preload("res://assets/audio/demon_boar/warning.wav")
-const IMPACT := preload("res://assets/audio/demon_boar/hit_light.wav")
-const LAND := preload("res://assets/audio/demon_boar/death_land.wav")
-const HURT := preload("res://assets/audio/demon_boar/hurt.wav")
-const STEPS := [preload("res://assets/audio/demon_boar/hoof_a.wav"),
-	preload("res://assets/audio/demon_boar/hoof_b.wav"), preload("res://assets/audio/demon_boar/hoof_c.wav")]
-const WALK_CONTACTS := [0.0, .36, .50, .86]
-const RUN_CONTACTS := [.44, .52, .88, .97]
+const FOX_AUDIO := preload("res://scripts/fox_combat_audio.gd")
+const VEIL_SHADER := preload("res://scripts/fox_veil.gdshader")
 
-var _voice: AudioStreamPlayer3D
-var _feet: AudioStreamPlayer3D
+const RIPPLE_SHADER := """
+shader_type spatial;
+render_mode unshaded, cull_disabled, shadows_disabled, depth_draw_never;
+uniform float progress : hint_range(0.0, 1.0);
+void fragment() {
+	vec2 point = UV * 2.0 - 1.0;
+	float radius = mix(0.17, 0.92, progress);
+	float distance_to_edge = abs(length(point) - radius);
+	float band = 1.0 - smoothstep(0.012, 0.074, distance_to_edge);
+	float arc = 0.62 + 0.38 * sin(atan(point.y, point.x) * 5.0 - progress * 7.0);
+	ALBEDO = vec3(0.97, 0.045, 0.115);
+	ALPHA = band * arc * smoothstep(0.0, 0.15, progress) * pow(1.0 - progress, 1.35) * 0.82;
+}
+"""
+const VEIL_WARNING_SECONDS := .48
+const RIPPLE_START := .30
+const RIPPLE_SECONDS := .34
+
+class VeilSurface:
+	var mesh: MeshInstance3D
+	var index: int
+	var original: Material
+	var effect: ShaderMaterial
+
+var _veil_surfaces: Array[VeilSurface] = []
+var _trail: GPUParticles3D
+var _burst: GPUParticles3D
+var _ripple: MeshInstance3D
+var _ripple_material: ShaderMaterial
+var _ripple_time := 0.0
+var _veil_amount := 0.0
+var _tell_amount := 0.0
+var _veiled := false
+var _telling := false
+var _materials_swapped := false
+
+var audio: Node3D
 var _warning: MeshInstance3D
 var _warning_material: StandardMaterial3D
 var _dust: CPUParticles3D
-var _step_index := 0
 var _label: Label3D
 var _maximum := 0
 
 func _ready() -> void:
-	_voice = _make_voice(.56)
-	_feet = _make_voice(.10)
+	audio = FOX_AUDIO.new()
+	audio.name = "FoxAudio"
+	add_child(audio)
 	_label = Label3D.new()
 	_label.position.y = 1.23
 	_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -41,28 +70,13 @@ func _ready() -> void:
 	add_child(_warning)
 	_build_dust()
 
-func _exit_tree() -> void:
-	for voice in [_voice, _feet]:
-		if is_instance_valid(voice):
-			voice.stop()
-			voice.stream = null
-
-func _make_voice(height: float) -> AudioStreamPlayer3D:
-	var voice := AudioStreamPlayer3D.new()
-	voice.position.y = height
-	voice.max_polyphony = 1
-	voice.max_distance = 16.0
-	voice.unit_size = 3.0
-	add_child(voice)
-	return voice
-
 func _build_dust() -> void:
 	_dust = CPUParticles3D.new()
 	_dust.top_level = true
 	_dust.emitting = false
 	_dust.one_shot = true
-	_dust.amount = 6
-	_dust.lifetime = .24
+	_dust.amount = 8
+	_dust.lifetime = .28
 	_dust.explosiveness = 1.0
 	_dust.direction = Vector3.UP
 	_dust.spread = 77.0
@@ -73,7 +87,7 @@ func _build_dust() -> void:
 	_dust.scale_amount_max = 1.14
 	_dust.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var puff := SphereMesh.new()
-	puff.radius = .055
+	puff.radius = .068
 	puff.height = .09
 	puff.radial_segments = 5
 	puff.rings = 3
@@ -123,40 +137,189 @@ func update_health(value: int) -> void:
 	_label.text = "DEMON FOX  %d / %d" % [value, _maximum]
 
 func defeat() -> void:
+	_veiled = false
+	_telling = false
+	_veil_amount = 0.0
+	_restore_materials()
+	for particles in [_trail, _burst, _dust]:
+		particles.emitting = false
+		particles.hide()
+	_ripple.hide()
 	_label.hide()
+	audio.death_begin()
 
 func alert() -> void:
-	_play(_voice, GROWL, -14.0, 1.28)
+	audio.alert()
 
 func hurt() -> void:
-	_play(_voice, HURT, -20.0, 1.23)
+	audio.hurt()
 
-func impact() -> void:
-	_play(_voice, IMPACT, -13.0, 1.16)
+func impact(bite: bool) -> void:
+	audio.impact(bite)
 
 func land(at: Vector3) -> void:
-	_play(_feet, LAND, -19.0, 1.17)
+	audio.land()
 	_dust.global_position = at + Vector3.UP * .10 - global_basis.z * .34
 	_dust.restart()
 	_dust.emitting = true
 
-func steps(clip: String, before: float, after: float, length: float) -> void:
-	if _feet.playing or length <= 0.0 or clip not in ["Walk", "Run"]:
-		return
-	for contact in WALK_CONTACTS if clip == "Walk" else RUN_CONTACTS:
-		var time: float = contact * length
-		var crossed := before <= time and time < after
-		if after < before:
-			crossed = time >= before or time < after
-		if crossed:
-			_play(_feet, STEPS[_step_index % STEPS.size()], -23.0, 1.18 + .09 * (_step_index % 3))
-			_step_index += 1
-			return
+func prepare_veil(model: Node3D) -> void:
+	for child in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh := child as MeshInstance3D
+		if mesh.mesh == null:
+			continue
+		for index in mesh.mesh.get_surface_count():
+			var coat := mesh.get_active_material(index) as BaseMaterial3D
+			if coat == null:
+				continue
+			var surface := VeilSurface.new()
+			surface.mesh = mesh
+			surface.index = index
+			surface.original = mesh.get_surface_override_material(index)
+			surface.effect = ShaderMaterial.new()
+			surface.effect.shader = VEIL_SHADER
+			surface.effect.render_priority = -2
+			if coat.normal_enabled:
+				surface.effect.set_shader_parameter("coat_normal", coat.normal_texture)
+				surface.effect.set_shader_parameter("normal_strength", coat.normal_scale)
+			surface.effect.set_shader_parameter("coat", coat.albedo_texture)
+			surface.effect.set_shader_parameter("coat_color", coat.albedo_color)
+			surface.effect.set_shader_parameter("coat_roughness", coat.roughness)
+			_veil_surfaces.append(surface)
+	_trail = _build_spectral_particles(false)
+	_burst = _build_spectral_particles(true)
+	_build_ripple()
 
-func _play(voice: AudioStreamPlayer3D, stream: AudioStream, gain: float, pitch: float) -> void:
-	var camera := get_viewport().get_camera_3d()
-	if camera != null and camera.global_position.distance_squared_to(global_position) < 256.0:
-		voice.stream = stream
-		voice.volume_db = gain
-		voice.pitch_scale = pitch
-		voice.play()
+func _build_spectral_particles(burst: bool) -> GPUParticles3D:
+	var particles := GPUParticles3D.new()
+	particles.emitting = false
+	particles.one_shot = burst
+	particles.amount = 8 if burst else 6
+	particles.lifetime = .28 if burst else .23
+	particles.explosiveness = 1.0 if burst else 0.0
+	particles.local_coords = false
+	particles.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	particles.visibility_aabb = AABB(Vector3(-2, -1, -2), Vector3(4, 3, 4))
+	var process_material := ParticleProcessMaterial.new()
+	process_material.direction = Vector3.UP if burst else Vector3(0, .10, -1)
+	process_material.spread = 85.0 if burst else 12.0
+	process_material.particle_flag_align_y = not burst
+	process_material.gravity = Vector3(0, -.8, 0)
+	process_material.initial_velocity_min = .75 if burst else .13
+	process_material.initial_velocity_max = 2.0 if burst else .64
+	process_material.scale_min = .7
+	process_material.scale_max = 1.3
+	var taper := Curve.new()
+	taper.add_point(Vector2(0, .85))
+	taper.add_point(Vector2(.20, 1))
+	taper.add_point(Vector2(1, .10))
+	var taper_texture := CurveTexture.new()
+	taper_texture.curve = taper
+	process_material.scale_curve = taper_texture
+	var gradient := Gradient.new()
+	gradient.set_color(0, Color(.87, .13, .22, .72 if burst else .60))
+	gradient.set_color(1, Color(.46, .07, .13, 0.0))
+	var ramp := GradientTexture1D.new()
+	ramp.gradient = gradient
+	process_material.color_ramp = ramp
+	particles.process_material = process_material
+	var fleck := SphereMesh.new()
+	fleck.radius = .032 if burst else .016
+	fleck.height = .064 if burst else .21
+	fleck.radial_segments = 4
+	fleck.rings = 2
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.vertex_color_use_as_albedo = true
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	fleck.material = material
+	particles.draw_pass_1 = fleck
+	add_child(particles)
+	return particles
+
+func _build_ripple() -> void:
+	_ripple = MeshInstance3D.new()
+	_ripple.top_level = true
+	_ripple.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(2.5, 2.5)
+	_ripple.mesh = plane
+	var shader := Shader.new()
+	shader.code = RIPPLE_SHADER
+	_ripple_material = ShaderMaterial.new()
+	_ripple_material.shader = shader
+	_ripple.material_override = _ripple_material
+	_ripple.hide()
+	add_child(_ripple)
+
+func _start_ripple() -> void:
+	_ripple_time = 0.0
+	_ripple.global_position = global_position + Vector3.UP * .21
+	_ripple_material.set_shader_parameter("progress", 0.0)
+	_ripple.show()
+
+func spectral_burst(point: Vector3) -> void:
+	_burst.global_position = point
+	_burst.restart()
+	_burst.emitting = true
+
+func set_veil(active: bool) -> void:
+	_veiled = active
+	_telling = false
+	_label.hide()
+	if active:
+		_tell_amount = 0.0
+		if not _materials_swapped:
+			for surface in _veil_surfaces:
+				surface.mesh.set_surface_override_material(surface.index, surface.effect)
+			_materials_swapped = true
+		audio.veil_started()
+	else:
+		if not _ripple.visible:
+			_start_ripple()
+		spectral_burst(global_position + Vector3.UP * .38)
+		audio.veil_ended()
+
+func _restore_materials() -> void:
+	if not _materials_swapped:
+		return
+	for surface in _veil_surfaces:
+		surface.mesh.set_surface_override_material(surface.index, surface.original)
+	_materials_swapped = false
+
+func update_motion(delta: float, movement: Vector3, attack_trail: bool) -> void:
+	var speed := movement.length()
+	_trail.position = Vector3(0, .37, .83) if attack_trail else Vector3(0, .33, .31)
+	_trail.emitting = speed > .4 and (_veiled or attack_trail)
+	if _trail.emitting:
+		_trail.global_basis = Basis.looking_at(-movement, Vector3.UP)
+	if _ripple.visible:
+		_ripple_time += delta
+		_ripple_material.set_shader_parameter("progress", minf(_ripple_time / RIPPLE_SECONDS, 1.0))
+		if _ripple_time >= RIPPLE_SECONDS:
+			_ripple.hide()
+	if not _materials_swapped:
+		return
+	if _telling:
+		var before := _tell_amount
+		_tell_amount = minf(_tell_amount + delta / VEIL_WARNING_SECONDS, 1.0)
+		if before < RIPPLE_START / VEIL_WARNING_SECONDS and _tell_amount >= RIPPLE_START / VEIL_WARNING_SECONDS:
+			_start_ripple()
+	var materializing := _telling and _tell_amount >= .86
+	var target_veil := 1.0 if _veiled and not materializing else 0.0
+	var duration := .25 if target_veil > 0.0 else .22
+	_veil_amount = move_toward(_veil_amount, target_veil, delta / duration)
+	if not _veiled and is_zero_approx(_veil_amount):
+		_restore_materials()
+		_label.show()
+		return
+	for surface in _veil_surfaces:
+		surface.effect.set_shader_parameter("veil", smoothstep(0.0, 1.0, _veil_amount))
+		surface.effect.set_shader_parameter("tell", _tell_amount)
+		surface.effect.set_shader_parameter("motion", clampf(speed / 2.35, 0.0, 1.0))
+
+func veil_tell() -> void:
+	if _telling:
+		return
+	_telling = true
+	audio.veil_warning()

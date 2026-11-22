@@ -3,7 +3,7 @@ extends CharacterBody3D
 signal defeated
 signal state_changed(previous: int, current: int)
 
-enum State { IDLE, PATROL, ALERT, CHASE, WINDUP, FLIGHT, STRIKE, RECOVER, EVADE, REPOSITION, STAGGER, RETURN, DEATH }
+enum State { IDLE, PATROL, ALERT, CHASE, WINDUP, FLIGHT, STRIKE, RECOVER, EVADE, REPOSITION, STAGGER, RETURN, DEATH, VEIL, STALK }
 enum Attack { NONE, BITE, LEAP }
 
 const WORLD_MASK := 1 | 4 | 8
@@ -57,6 +57,11 @@ var _hit_time := 0.0
 var _stagger_length := 0.0
 var _hit_spent := false
 var _bite_count := 0
+var _veil_cooldown := 2.6
+var _orbit_side := 1.0
+var _orbit_timer := 0.0
+var _orbit_direction := Vector3.ZERO
+var _phantom_strike := false
 var _patrol_index := 0
 var _locked_direction := Vector3.FORWARD
 var _launch: Vector3
@@ -81,6 +86,7 @@ func _ready() -> void:
 	add_to_group("combat_enemies")
 	animator = _model.find_children("*", "AnimationPlayer", true, false).front() as AnimationPlayer
 	animator.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	_feedback.prepare_veil(_model)
 	_feedback.update_health(health)
 	_play("Idle")
 
@@ -88,6 +94,7 @@ func _physics_process(delta: float) -> void:
 	_elapsed += delta
 	if state == State.DEATH:
 		animator.advance(delta)
+		_feedback.audio.death_pose(animator.current_animation_position)
 		if _elapsed >= 5.0:
 			queue_free()
 		return
@@ -103,14 +110,20 @@ func _physics_process(delta: float) -> void:
 		return
 	_leap_cooldown = maxf(0.0, _leap_cooldown - delta)
 	_evade_cooldown = maxf(0.0, _evade_cooldown - delta)
+	_veil_cooldown = maxf(0.0, _veil_cooldown - delta)
 	_update_sight(delta, distance)
-	if state in [State.ALERT, State.CHASE, State.REPOSITION, State.EVADE] and _should_return(distance):
+	if state in [State.ALERT, State.CHASE, State.REPOSITION, State.EVADE, State.VEIL, State.STALK] and _should_return(distance):
 		_enter(State.RETURN)
 	var started_in := state
 	var order := _think(delta, offset, distance)
 	var before := global_position
 	_move(order, delta)
-	_advance_pose(delta, _flat(global_position - before).length() / delta)
+	var movement := _flat(global_position - before) / delta
+	_feedback.update_motion(delta, movement, state in [State.FLIGHT, State.EVADE])
+	_advance_pose(delta, movement.length())
+	var pawsteps_allowed := is_on_floor() and state not in [State.FLIGHT, State.EVADE]
+	_feedback.audio.update_movement(delta, movement.length(), pawsteps_allowed, state == State.STALK,
+		state == State.CHASE and distance <= sense_range)
 	if started_in == state:
 		_finish_step()
 
@@ -146,7 +159,7 @@ func _think(delta: float, offset: Vector3, distance: float) -> Vector3:
 				_enter(State.ALERT)
 			elif state == State.REPOSITION and _observe_swing(delta, distance):
 				return Vector3.ZERO
-			elif to_goal.length() < .32 or _elapsed > timeout:
+			elif to_goal.length() < .32 or _elapsed > timeout or (state == State.REPOSITION and distance > leap_max_range):
 				if state == State.RETURN and to_goal.length() >= .32:
 					_elapsed = 0.0
 				else:
@@ -162,7 +175,33 @@ func _think(delta: float, offset: Vector3, distance: float) -> Vector3:
 			_face(heading, delta)
 			if _elapsed >= .50:
 				_enter(State.CHASE)
+		State.VEIL, State.STALK:
+			var veiled := state == State.VEIL
+			var duration := 2.55 if veiled else .78
+			if _elapsed >= duration:
+				_phantom_strike = veiled
+				_enter(State.CHASE)
+				return Vector3.ZERO
+			if duration - _elapsed <= .48:
+				_face(heading, delta)
+				if veiled:
+					_feedback.veil_tell()
+				return Vector3.ZERO
+			_orbit_timer -= delta
+			if _orbit_timer <= 0.0:
+				_orbit_timer = .24
+				var radial := clampf((distance - (1.08 if veiled else 2.4)) * .9, -.7, 1.4)
+				var tangent := heading.cross(Vector3.UP) * _orbit_side
+				_orbit_direction = (tangent + heading * radial).normalized()
+				if not _inside_leash(global_position + _orbit_direction) or not _path_clear(_orbit_direction, .95):
+					_orbit_direction = Vector3.ZERO
+					_orbit_side *= -1.0
+			_face(_orbit_direction, delta, 5.4)
+			return _orbit_direction * (chase_speed if veiled else 1.65)
 		State.CHASE:
+			if _visible_target and distance <= leap_max_range and _veil_cooldown <= 0.0 and not _phantom_strike:
+				_enter(State.VEIL)
+				return Vector3.ZERO
 			if _observe_swing(delta, distance):
 				return Vector3.ZERO
 			if _reaction >= 0.0:
@@ -190,7 +229,7 @@ func _think(delta: float, offset: Vector3, distance: float) -> Vector3:
 			if not _blocked_flight and not _flight_contact:
 				var fraction := clampf(_elapsed / maxf(leap_flight, .01), 0.0, 1.0)
 				# Cover the lane once, with a brief rise in speed and a soft landing brake.
-				fraction = lerpf(fraction, smoothstep(0.0, 1.0, fraction), .32)
+				fraction += .10 * sin(PI * fraction)
 				var expected := _launch.lerp(_landing, fraction)
 				var remaining := maxf(0.0, _flat(expected - global_position).dot(_locked_direction))
 				return _locked_direction * remaining / delta
@@ -209,7 +248,7 @@ func _finish_step() -> void:
 			if _elapsed >= (bite_windup if action == Attack.BITE else leap_windup):
 				_enter(State.STRIKE if action == Attack.BITE else State.FLIGHT)
 		State.FLIGHT:
-			if _elapsed >= leap_flight:
+			if (_elapsed >= leap_flight * .5 and is_on_floor()) or _elapsed >= leap_flight + .65:
 				if _blocked_flight or not is_on_floor() or (not _flight_contact and _flat(global_position - _landing).length() > .33):
 					_enter(State.RECOVER)
 				else:
@@ -221,12 +260,17 @@ func _finish_step() -> void:
 				_enter(State.RECOVER)
 		State.RECOVER:
 			if _elapsed >= (bite_recovery if action == Attack.BITE else leap_recovery):
-				var retreat := action == Attack.LEAP or _bite_count % 2 == 1
+				var was_leap := action == Attack.LEAP
 				action = Attack.NONE
-				if retreat:
+				_phantom_strike = false
+				if was_leap:
 					_reposition()
-				else:
+				elif _bite_count < 2 and _rng.randf() < .48:
 					_enter(State.CHASE)
+				elif _rng.randf() < .65:
+					_enter(State.STALK)
+				else:
+					_reposition()
 		State.EVADE:
 			if _elapsed >= .40:
 				_reposition()
@@ -234,12 +278,14 @@ func _finish_step() -> void:
 func _move(order: Vector3, delta: float) -> void:
 	var horizontal := order
 	if state not in [State.FLIGHT, State.EVADE]:
-		if state in [State.PATROL, State.CHASE, State.REPOSITION, State.RETURN] and not order.is_zero_approx():
+		if state in [State.PATROL, State.CHASE, State.REPOSITION, State.RETURN, State.VEIL, State.STALK] and not order.is_zero_approx():
 			# Let the paws turn into the path before accelerating through a sharp corner.
 			var alignment := _flat(-global_basis.z).normalized().dot(order.normalized())
-			order *= smoothstep(.24, .90, alignment)
+			var forward := _flat(-global_basis.z).normalized()
+			order = (order.normalized() if state == State.REPOSITION else forward) * order.length() * smoothstep(.24, .90, alignment)
 		horizontal = _flat(velocity).move_toward(order, (24.0 if order.is_zero_approx() else 16.0) * delta)
-	velocity = horizontal + Vector3.UP * (minf(0.0, velocity.y) - GRAVITY * delta)
+	var vertical := velocity.y if state == State.FLIGHT else minf(0.0, velocity.y)
+	velocity = horizontal + Vector3.UP * (vertical - GRAVITY * delta)
 	move_and_slide()
 	if is_on_floor():
 		velocity.y = 0.0
@@ -267,13 +313,34 @@ func _enter(next: State) -> void:
 		velocity = Vector3.ZERO
 	if next != State.WINDUP and next != State.FLIGHT:
 		_feedback.hide_warning()
+	if previous == State.VEIL and next != State.DEATH:
+		_feedback.set_veil(false)
+	if next in [State.STAGGER, State.RETURN, State.DEATH]:
+		_phantom_strike = false
+	if next in [State.VEIL, State.STALK, State.REPOSITION]:
+		_bite_count = 0
 	match next:
+		State.VEIL, State.STALK:
+			_orbit_side = -1.0 if _rng.randf() < .5 else 1.0
+			_orbit_timer = 0.0
+			if next == State.VEIL:
+				_veil_cooldown = _rng.randf_range(6.0, 8.0)
+				_feedback.set_veil(true)
 		State.ALERT:
 			_play("Alert")
 			_feedback.alert()
 		State.WINDUP:
 			_play("Bite" if action == Attack.BITE else "Quick Leap", .06)
+			_feedback.audio.windup(action == Attack.BITE)
+		State.STRIKE:
+			if action == Attack.BITE:
+				_feedback.audio.bite_snap()
 		State.FLIGHT, State.EVADE:
+			if next == State.FLIGHT:
+				velocity.y = GRAVITY * .5 * (leap_flight + get_physics_process_delta_time())
+				_feedback.audio.takeoff()
+			else:
+				_feedback.audio.dodge()
 			_blocked_flight = false
 			_flight_contact = false
 		State.RECOVER:
@@ -329,7 +396,8 @@ func _try_hit() -> void:
 	var before := int(target.get("health"))
 	target.take_melee_damage(bite_damage if action == Attack.BITE else leap_damage, self)
 	if int(target.get("health")) < before:
-		_feedback.impact()
+		_feedback.impact(action == Attack.BITE)
+		_feedback.spectral_burst(global_position.lerp(target.global_position, .68) + Vector3.UP * .47)
 	if _hit_time > 0.0:
 		var parry := _hit_time
 		_hit_time = 0.0
@@ -341,11 +409,11 @@ func _observe_swing(delta: float, distance: float) -> bool:
 		return false
 	var swing := int(target.get("_swing_id"))
 	var remaining := float(target.get("_heavy_time"))
-	if remaining > 0.0 and swing != _observed_swing:
+	if float(target.get("_attack_time")) > 0.0 and swing != _observed_swing:
 		_observed_swing = swing
 		# Only read the visible heavy wind-up, with time for a physical sidestep.
-		_reaction = .20 if remaining >= .93 and _visible_target and distance >= .72 and distance <= 2.60 and _rng.randf() < evade_chance else -1.0
-	if _reaction < 0.0 or remaining < .63:
+		_reaction = .20 if (remaining >= .93 or remaining <= 0.0) and _visible_target and distance >= .72 and distance <= 2.60 and _rng.randf() < evade_chance else -1.0
+	if _reaction < 0.0 or (remaining > 0.0 and remaining < .63):
 		_reaction = -1.0
 		return false
 	_reaction -= delta
@@ -404,14 +472,14 @@ func _advance_pose(delta: float, speed: float) -> void:
 		animator.seek(animator.current_animation_length * phase, true, true)
 		return
 	if state not in [State.ALERT, State.STAGGER]:
-		_play("Run" if speed > 1.14 else ("Walk" if speed > .17 else "Idle"))
+		_play("Run" if speed > (1.00 if _clip == "Run" else 1.24) else ("Walk" if speed > .17 else "Idle"))
 	var before := animator.current_animation_position
 	var rate := clampf(speed / 1.17, .85, 2.1) if _clip == "Run" else 1.0
 	if _clip == "Walk":
 		rate = clampf(speed / .44, .72, 1.85)
 	animator.advance(delta * rate)
 	if is_on_floor() and speed > .28:
-		_feedback.steps(_clip, before, animator.current_animation_position, animator.current_animation_length)
+		_feedback.audio.steps(_clip, before, animator.current_animation_position, animator.current_animation_length)
 
 func _play(clip: String, blend := .12, restart := false) -> void:
 	if _clip == clip and not restart:
@@ -423,7 +491,7 @@ func _play(clip: String, blend := .12, restart := false) -> void:
 	animator.advance(0.0)
 
 func take_damage(amount: int) -> void:
-	if amount <= 0 or health <= 0:
+	if amount <= 0 or health <= 0 or state == State.VEIL:
 		return
 	HIT_NUMBERS.show_hit(self, mini(amount, health), 1.19)
 	health = maxi(0, health - amount)
@@ -433,10 +501,10 @@ func take_damage(amount: int) -> void:
 	else:
 		_feedback.hurt()
 		# Light strikes interrupt preparation. The airborne leap keeps momentum.
-		if state not in [State.FLIGHT, State.STAGGER] and (state != State.RECOVER or _elapsed > .20):
-			stagger(.26)
+		if state not in [State.FLIGHT, State.EVADE, State.STAGGER] and (state != State.RECOVER or _elapsed > .20):
+			stagger(.26, true)
 
-func stagger(duration: float) -> void:
+func stagger(duration: float, from_hit := false) -> void:
 	if health <= 0:
 		return
 	if state == State.STAGGER:
@@ -446,6 +514,8 @@ func stagger(duration: float) -> void:
 	_stagger_length = duration
 	velocity = Vector3.ZERO
 	_enter(State.STAGGER)
+	if not from_hit:
+		_feedback.audio.stagger()
 
 func _route(destination: Vector3) -> Vector3:
 	if is_instance_valid(navigation):
