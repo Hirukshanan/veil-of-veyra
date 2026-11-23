@@ -6,9 +6,12 @@ var grove: Investigation
 func _init() -> void:
 	guardians = preload("res://scripts/grove_investigation_quest.gd").new(self)
 
+func _create_grove() -> Investigation:
+	return Investigation.new()
+
 func _ready() -> void:
 	await super._ready()
-	grove = Investigation.new()
+	grove = _create_grove()
 	grove.name = "GroveInvestigation"
 	add_child(grove)
 	grove.populate(self)

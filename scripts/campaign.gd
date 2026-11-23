@@ -131,7 +131,8 @@ func _update_objective() -> void:
 	if not lantern_lit:
 		status_label.text += " | Seal %d/3" % seal_fragments.collected_ids.size()
 		if _uses_guardian_seal() or remaining_enemies == 0:
-			lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
+			if lantern_label:
+				lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 	if _save_failed:
 		status_label.text += " | SAVE FAILED - open camp to retry"
 	relic_status.text = relic_hunt.call("progress_text")
@@ -169,8 +170,10 @@ func _interact_lantern() -> void:
 		return
 	lantern_lit = true
 	_award_shards(_lantern_shard_reward())
-	lantern_flame.show()
-	lantern_label.text = "LANTERN RESTORED"
+	if lantern_flame:
+		lantern_flame.show()
+	if lantern_label:
+		lantern_label.text = "LANTERN RESTORED"
 	if _lantern_spawns_boss():
 		_spawn_boss()
 	_save_progress()
@@ -695,7 +698,8 @@ func _heal() -> void:
 func _on_enemy_defeated() -> void:
 	remaining_enemies = maxi(0, remaining_enemies - 1)
 	if not lantern_lit and not game_finished and (_uses_guardian_seal() or remaining_enemies == 0):
-		lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
+		if lantern_label:
+			lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 	_update_objective()
 
 func _on_boss_defeated() -> void:
@@ -1013,12 +1017,15 @@ func _restore_world() -> void:
 	_on_health_changed(player.health, player.max_health)
 	lantern_lit = world_data.lantern
 	if lantern_lit:
-		lantern_flame.show()
-		lantern_label.text = "LANTERN RESTORED"
+		if lantern_flame:
+			lantern_flame.show()
+		if lantern_label:
+			lantern_label.text = "LANTERN RESTORED"
 		if not completed and _lantern_spawns_boss():
 			_spawn_boss()
 	elif _uses_guardian_seal() or remaining_enemies == 0:
-		lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
+		if lantern_label:
+			lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 
 func _claim_optional_rewards() -> void:
 	if herbs.grove_count() >= herbs.GROVE_GOAL and not world_data.grove_reward:

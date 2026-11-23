@@ -57,13 +57,24 @@ func populate(island) -> void:
 	lantern_gold = _material(Color("926d43"))
 	lantern_gold.emission_enabled = true
 	lantern_gold.emission = Color("ffb950")
-	_sigil(game.lantern, Vector3(0,.89,.55), .32, lantern_gold)
-	var slab := _site("SplitSealstone", STONE)
-	clues.append(slab)
-	_build_stone(slab)
+	clues.append(_make_seal_clue())
 	var tracks := _site("RakedBank", PRINTS)
 	clues.append(tracks)
 	_build_tracks(tracks)
+	_build_guidance()
+	sound.name = "ClueResonance"
+	sound.max_distance = 17
+	sound.unit_size = 4
+	sound.volume_db = -9
+	add_child(sound)
+
+func _make_seal_clue() -> Node3D:
+	var slab := _site("SplitSealstone", STONE)
+	_build_stone(slab)
+	return slab
+
+func _build_guidance() -> void:
+	_sigil(game.lantern, Vector3(0,.89,.55), .32, lantern_gold)
 	var start: Vector3 = game.lantern.global_position
 	_trail([start, Vector3(2,0,-26),Vector3(4.5,0,-32),Vector3(5.5,0,-38), clues[0].global_position], Color("ffc369"))
 	_trail([clues[0].global_position, Vector3(6.2,0,-45.6),STONE], Color("f97d49"))
@@ -71,11 +82,9 @@ func populate(island) -> void:
 	var east := [PRINTS]
 	east.append_array(OUTWARD)
 	_trail(east, Color("e49a59"))
-	sound.name = "ClueResonance"
-	sound.max_distance = 17
-	sound.unit_size = 4
-	sound.volume_db = -9
-	add_child(sound)
+
+func lantern_message() -> String:
+	return "The light is leaving the Lantern. Follow it northeast."
 
 func refresh(animate: bool) -> void:
 	var n := stage()
@@ -95,7 +104,7 @@ func refresh(animate: bool) -> void:
 		else:
 			material.set_shader_parameter("front", length+3)
 	if animate and n == 0:
-		_react(game.lantern.global_position, 1, "The light is leaving the Lantern. Follow it northeast.")
+		_react(game.lantern.global_position, 1, lantern_message())
 	set_process(game.lantern_lit and not game._sanctum_open())
 
 func investigate() -> void:

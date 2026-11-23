@@ -3,6 +3,7 @@ extends Control
 const MAP = preload("res://scripts/island_exploration.gd")
 const QUEST_MARKER := preload("res://scripts/quest_map_marker.gd")
 var player_position := Vector3.ZERO
+var waystones := MAP.CHECKPOINTS.duplicate()
 var player_heading := 0.0
 var camps_cleared: Array[bool] = [true, true, true]
 var bound_waystone := -1
@@ -56,7 +57,7 @@ func _draw() -> void:
 			var color := Color(0.4, 0.95, 0.6) if camps_cleared[index] else Color(1, 0.3, 0.24)
 			draw_circle(spot, 7, color)
 			_caption(spot + (Vector2(14, 5) if index == 1 else Vector2(-25, -14)), ["West", "Forest", "Ruins"][index], Color.WHITE)
-		var stone := _point(MAP.CHECKPOINTS[index])
+		var stone := _point(waystones[index])
 		draw_rect(Rect2(stone - Vector2(5, 5), Vector2(10, 10)), Color.WHITE if bound_waystone == index else (Color(1, 0.78, 0.25) if discovered[index] else Color(0.4, 0.45, 0.48)))
 		_caption(stone + Vector2(9, 5), str(index + 1), Color.WHITE)
 	var seals := _point(preload("res://scripts/beach_seals.gd").CENTER)
@@ -78,7 +79,11 @@ func _draw() -> void:
 	var rise := _point(Vector3(-64, 0, 18))
 	_caption(rise + Vector2(-105, 0), "Western Rise", Color(0.78, 0.83, 0.75))
 	for marker in quest_markers:
-		QUEST_MARKER.draw(self, _point(marker.point), marker, 8.0, (minf(size.x, size.y) * .5 - 38.0) / terrain.OUTER_RADIUS)
+		var at := _point(marker.point)
+		QUEST_MARKER.draw(self, at, marker, 8.0, (minf(size.x, size.y) * .5 - 38.0) / terrain.OUTER_RADIUS)
+		if marker.has("label"):
+			draw_line(at + Vector2(6,6), at + Vector2(15,17), marker.color, 1.0, true)
+			_caption(at + Vector2(18,22), marker.label, marker.color)
 	var hero := _point(player_position)
 	var forward := Vector2(-sin(player_heading), -cos(player_heading))
 	var right := Vector2(-forward.y, forward.x)

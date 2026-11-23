@@ -1,5 +1,7 @@
 extends Node3D
 
+signal broken_seal_read
+
 const CLUES := preload("res://scripts/chapter_opening_clues.gd")
 const SAVE_KEY := "chapter_opening"
 const BELL := 1
@@ -32,7 +34,10 @@ func _ready() -> void:
 	_beach = game.get_node("IslandExploration").checkpoint_position(0)
 	var clues := CLUES.new()
 	clues.landscape = game.landscape
+	clues.show_shore_ash = not game.guardians.revealed()
 	add_child(clues)
+	if clues.shore_ash:
+		broken_seal_read.connect(clues.shore_ash.queue_free, CONNECT_ONE_SHOT)
 	_camp = clues.camp_site
 	_junction = clues.junction
 	_bell = AudioStreamPlayer3D.new()
@@ -89,6 +94,7 @@ func inspect_camp() -> void:
 	_mark(CAMP, true)
 
 func seal_investigated() -> void:
+	broken_seal_read.emit()
 	if not active():
 		return
 	_cue("Three cursed guardians hold the seal.", 4.0)
@@ -137,8 +143,8 @@ func objective() -> Dictionary:
 	var step := "Follow the ash to Tideseal Ruins."
 	if game.guardians.revealed():
 		title = "THE BROKEN SEAL"
-		message = "Follow the roots to the camp."
-		guide = "The broken ward once held something dangerous below. Follow the dark roots north of the ruins to the cold fire at the forest edge. Approach from the east to pass the wolf."
+		message = "Find the camp north of the ruins."
+		guide = "The broken ward once held something dangerous below. Look north of the ruins for the cold fire at the forest edge. Approach from the east to pass the wolf."
 		step = "Inspect the abandoned camp."
 		if has_beat(CAMP):
 			title = "THE WARM ROOTS"

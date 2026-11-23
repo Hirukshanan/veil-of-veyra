@@ -6,6 +6,7 @@ const PATH := "user://campaign.cfg"
 const BACKUP := PATH + ".bak"
 const TEMP := PATH + ".tmp"
 const VERSION := 4
+const TIDEWARDEN := "tidewarden_seals"
 const DEFAULTS := {"shards": 0, "blade_level": 0, "armor_level": 0, "completed": false}
 const MAXIMUMS := {"shards": 999999, "blade_level": 4, "armor_level": 4}
 
@@ -27,6 +28,12 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 			if not value is int or value < 0 or value >= limit or value in seen:
 				return false
 			seen.append(value)
+	var shrine_progress: Variant = world.get(TIDEWARDEN, 0)
+	if not shrine_progress is int or shrine_progress < 0 or shrine_progress > 15:
+		return false
+	for id in 3:
+		if (shrine_progress & (1 << id)) != 0 and id not in world.seal_fragments:
+			return false
 	if not world.discovered is Array or world.discovered.size() != 3:
 		return false
 	for value in world.discovered:

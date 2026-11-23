@@ -42,7 +42,8 @@ func _physics_process(delta: float) -> void:
 	if not active or not is_instance_valid(player) or int(player.get("health")) <= 0:
 		return
 	for relic in relics.duplicate():
-		relic.get_child(0).rotate_y(delta)
+		if not relic.has_meta("grounded_relic"):
+			relic.get_child(0).rotate_y(delta)
 		if player.global_position.distance_to(relic.global_position) <= 1.4:
 			collected_ids.append(int(relic.get_meta("pickup_id")))
 			relics.erase(relic)
@@ -55,6 +56,8 @@ func _process(_delta: float) -> void:
 	if camera == null:
 		return
 	for relic in relics:
+		if relic.get_child_count() < 2:
+			continue
 		var label := relic.get_child(1) as Label3D
 		label.visible = camera.global_position.distance_to(label.global_position) > 3.0
 

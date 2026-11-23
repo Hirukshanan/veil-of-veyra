@@ -10,14 +10,10 @@ const SHORE_TRAIL := [
 	Vector3(-20.4, 0, 43.2), Vector3(-28.9, 0, 46.1), Vector3(-36.4, 0, 48.8),
 	Vector3(-42, 0, 52.3),
 ]
-const ROOT_TRAIL := [
-	Vector3(-43.9, 0, 50.7), Vector3(-44.4, 0, 43.9), Vector3(-46.1, 0, 37.7),
-	Vector3(-49.4, 0, 32.4), CAMP_SITE, Vector3(-48.9, 0, 28.5),
-	Vector3(-44.4, 0, 27.9), Vector3(-40.9, 0, 27.1), Vector3(-37, 0, 27),
-	Vector3(-38.8, 0, 22.0), Vector3(-40.2, 0, 16.7),
-]
 
 var landscape: Node3D
+var show_shore_ash := true
+var shore_ash: MeshInstance3D
 var camp_site: Vector3
 var junction: Vector3
 var _stone: Material
@@ -40,14 +36,12 @@ func _ready() -> void:
 	_build_shore_ruin()
 	_build_fire()
 	_block(self, junction + Vector3(.70, .32, -.43), Vector3(.46, .76, .45), Vector3(.09, -.39, -.13), _stone)
-	var tracks := SurfaceTool.new()
-	tracks.begin(Mesh.PRIMITIVE_TRIANGLES)
-	_mark_trail(tracks, SHORE_TRAIL, .28)
-	_mark_trail(tracks, ROOT_TRAIL, .23)
-	_ground_ribbon(tracks, [camp_site + Vector3(-.95, 0, -.74), camp_site, camp_site + Vector3(.77, 0, .50)], .70)
-	_ground_ribbon(tracks, [camp_site, camp_site + Vector3(.73, 0, -.9), camp_site + Vector3(1.93, 0, -1.22)], .24)
-	_ground_ribbon(tracks, [camp_site, camp_site + Vector3(-1.17, 0, .61), camp_site + Vector3(-1.78, 0, 1.63)], .25)
-	_add_ash(self, tracks)
+	if show_shore_ash:
+		var tracks := SurfaceTool.new()
+		tracks.begin(Mesh.PRIMITIVE_TRIANGLES)
+		_mark_trail(tracks, SHORE_TRAIL, .28)
+		shore_ash = _add_ash(self, tracks)
+		shore_ash.name = "BeachAshApproach"
 
 func _build_shore_ruin() -> void:
 	var base: Vector3 = landscape.ground_point(SHORE_STONE)
@@ -93,12 +87,13 @@ func _block(parent: Node3D, point: Vector3, size: Vector3, angle: Vector3, mater
 	parent.add_child(piece)
 	return piece
 
-func _add_ash(parent: Node3D, surface: SurfaceTool) -> void:
+func _add_ash(parent: Node3D, surface: SurfaceTool) -> MeshInstance3D:
 	var mesh := MeshInstance3D.new()
 	mesh.mesh = surface.commit()
 	mesh.material_override = _ash
 	mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(mesh)
+	return mesh
 
 func _mark_trail(surface: SurfaceTool, points: Array, width: float) -> void:
 	for index in range(points.size() - 1):
