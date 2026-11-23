@@ -17,8 +17,12 @@ const DAMAGE := [8, 21, 18, 5, 10]
 const WORLD := 13
 const MAX_HEALTH := 90
 const CHARGE_SPEED := 5.2
+const REVIEW_CHARGE_SPEED := 6.35
+const CHARGE_AIM_TIME := .62
+const CHARGE_AIM_LIMIT := .67
 
 var target: CharacterBody3D
+var playtest_combat := false
 var health := MAX_HEALTH
 var state := State.IDLE
 var attack := Attack.BITE
@@ -38,6 +42,7 @@ var _waypoints: Array[Vector3] = []
 var _next_detour := 0.0
 var _wall_stagger := false
 var _charge_dir := Vector3.ZERO
+var _charge_start_yaw := 0.0
 var _clip := ""
 var _pace := 1.0
 var _exclude: Array[RID] = []
@@ -68,6 +73,8 @@ func _physics_process(delta: float) -> void:
 	animator.advance(delta * _pace)
 	if state == State.DEAD:
 		if not animator.is_playing():
+			if playtest_combat:
+				_build_corpse_collision()
 			set_physics_process(false)
 		return
 	_clock += delta
@@ -125,6 +132,11 @@ func _tick(delta: float) -> Vector3:
 				return Vector3.ZERO
 			if _clock >= _plan_time:
 				_plan_time = _clock + .12
+				if playtest_combat and distance <= 3.35 and direction.dot(-global_basis.z) < .30 \
+					and _last_attack != Attack.SLAM and _clock >= _available[Attack.SLAM] and _clear_sight() \
+					and _supported(global_position, target.global_position):
+					_begin(Attack.SLAM)
+					return Vector3.ZERO
 				if direction.dot(-global_basis.z) > .83 and _clear_sight():
 					var choice := _choose(distance)
 					if choice >= 0 and _supported(global_position, target.global_position):
@@ -140,8 +152,13 @@ func _tick(delta: float) -> Vector3:
 				_play("Run_Loop" if fast else "Walk_Loop", 1.39 if fast else 1.55)
 				return -global_basis.z * speed if _steering.dot(-global_basis.z) > .91 else Vector3.ZERO
 		State.WINDUP:
-			if attack == Attack.CHARGE and _phase < .40:
-				_face(direction, delta)
+			if attack == Attack.CHARGE:
+				if playtest_combat and _phase < CHARGE_AIM_TIME and distance > 1.6 and direction != Vector3.ZERO:
+					var offset_yaw := angle_difference(_charge_start_yaw, atan2(-direction.x, -direction.z))
+					var desired := _charge_start_yaw + clampf(offset_yaw, -CHARGE_AIM_LIMIT, CHARGE_AIM_LIMIT)
+					rotation.y = rotate_toward(rotation.y, desired, 1.65 * delta)
+				elif not playtest_combat and _phase < .40:
+					_face(direction, delta)
 			if _phase >= _duration:
 				if attack == Attack.CHARGE:
 					_charge_dir = -global_basis.z
@@ -154,7 +171,10 @@ func _tick(delta: float) -> Vector3:
 				if _phase >= _duration or not _supported(global_position, global_position + _charge_dir * 1.6):
 					_finish_charge(false)
 				else:
-					return _charge_dir * CHARGE_SPEED
+					var speed := CHARGE_SPEED
+					if playtest_combat:
+						speed = lerpf(3.6, REVIEW_CHARGE_SPEED, smoothstep(0.0, .24, _phase))
+					return _charge_dir * speed
 			elif _phase >= _duration:
 				if attack == Attack.CLAWS and _strike < 2:
 					_strike += 1
@@ -182,12 +202,13 @@ func _choose(distance: float) -> int:
 			choices.append(candidate)
 	if choices.is_empty():
 		return -1
-	if enraged and Attack.CLAWS in choices:
+	if not playtest_combat and enraged and Attack.CLAWS in choices:
 		return Attack.CLAWS
 	return choices.pick_random()
 
 func _begin(choice: int) -> void:
 	attack = choice as Attack
+	_charge_start_yaw = rotation.y
 	_last_attack = choice
 	_waypoints.clear()
 	_available[choice] = _clock + COOLDOWNS[choice] * (.78 if enraged else 1.0)
@@ -311,7 +332,28 @@ func _try_hit() -> void:
 func _finish_charge(wall: bool) -> void:
 	_wall_stagger = wall
 	_play("Charge_Impact_Stop", 1.2 if wall else 1.0)
-	_enter(State.RECOVER, .32 if wall else 1.2)
+	_enter(State.RECOVER, .32 if wall else (1.02 if playtest_combat else 1.2))
+
+func _build_corpse_collision() -> void:
+	var skeleton := $Model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var hip := to_local(skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("Pelvis")).origin))
+	var chest := to_local(skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("Chest")).origin))
+	var axis := Vector3(chest.x - hip.x, 0.0, chest.z - hip.z)
+	var body := StaticBody3D.new()
+	body.name = "CorpseCollision"
+	body.collision_layer = 1
+	body.collision_mask = 0
+	add_child(body)
+	var collider := CollisionShape3D.new()
+	var hull := CapsuleShape3D.new()
+	hull.radius = .69
+	hull.height = axis.length() + 1.52
+	collider.shape = hull
+	collider.position = (hip + chest) * .5
+	collider.position.y = .70
+	if axis.length_squared() > .01:
+		collider.basis = Basis(Quaternion(Vector3.UP, axis.normalized()))
+	body.add_child(collider)
 
 func take_damage(amount: int) -> void:
 	take_weapon_hit(amount, false, global_position)
@@ -356,7 +398,8 @@ func _draw_warning() -> void:
 	if attack == Attack.CHARGE:
 		var left := Vector3(-1.33, 0, 0)
 		var right := Vector3(1.33, 0, 0)
-		var end: Vector3 = Vector3.FORWARD * (CHARGE_SPEED * ACTIVE[attack] + 2.45)
+		var speed := REVIEW_CHARGE_SPEED if playtest_combat else CHARGE_SPEED
+		var end: Vector3 = Vector3.FORWARD * (speed * ACTIVE[attack] + 2.45)
 		for vertex: Vector3 in [left, right, left + end, right, right + end, left + end]:
 			mesh.surface_add_vertex(vertex)
 	else:
