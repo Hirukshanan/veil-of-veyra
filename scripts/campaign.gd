@@ -23,6 +23,11 @@ var menu_box: VBoxContainer
 var quest_parchment: TextureRect
 var camp_menu: Control
 var menu_scroll: ScrollContainer
+var menu_shade: ColorRect
+var pause_panel := false
+var pause_back := Callable()
+const MENU_TITLE := preload("res://assets/ui/fonts/Cinzel.ttf")
+const MENU_BODY := preload("res://assets/ui/fonts/CrimsonText-Regular.ttf")
 var notice := ""
 var progress_unreadable := false
 var potions := 3
@@ -199,6 +204,12 @@ class PauseOverlay extends CanvasLayer:
 			get_viewport().set_input_as_handled()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST and _world_ready:
+		if is_instance_valid(settings_screen):
+			settings_screen.cancel()
+		else:
+			_toggle_pause()
+		return
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and _world_ready:
 		_quit_world()
 		return
@@ -209,7 +220,9 @@ func _notification(what: int) -> void:
 func _toggle_pause() -> void:
 	if game_finished or not started:
 		return
-	if pause_menu_open:
+	if pause_back.is_valid():
+		pause_back.call()
+	elif pause_menu_open:
 		_resume()
 	elif not get_tree().paused:
 		_pause_game()
@@ -258,6 +271,7 @@ func _ready() -> void:
 	add_child(seal_fragments)
 	_restore_world()
 	get_tree().auto_accept_quit = false
+	get_tree().quit_on_go_back = false
 	_world_ready = true
 	_quest_snapshot = CHAPTER_QUESTS.snapshot(self)
 	relic_hunt.progress_changed.connect(_world_changed)
@@ -399,6 +413,7 @@ func _build_campaign_ui() -> void:
 	overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(overlay)
 	var shade := ColorRect.new()
+	menu_shade = shade
 	shade.color = Color(0.015, 0.035, 0.055, 1.0)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(shade)
@@ -448,6 +463,9 @@ void fragment() {
 	_layout_menu()
 
 func _layout_menu() -> void:
+	if pause_panel:
+		_layout_pause_panel()
+		return
 	if journal_open:
 		var screen: Vector2 = menu_scroll.get_parent().size
 		var width := minf(820.0, screen.x - 12.0)
@@ -466,6 +484,11 @@ func _layout_menu() -> void:
 
 func _clear_menu(title: String, message: String, save_world := true) -> void:
 	_close_settings()
+	pause_panel = false
+	pause_back = Callable()
+	menu_scroll.remove_theme_stylebox_override("panel")
+	menu_box.add_theme_constant_override("separation", 12)
+	menu_shade.color = Color("04090eff")
 	if _world_ready and save_world:
 		_save_progress()
 	camp_menu.hide()
@@ -582,6 +605,8 @@ func _upgrade(blade: bool) -> void:
 
 func _resume() -> void:
 	_close_settings()
+	pause_panel = false
+	pause_back = Callable()
 	journal_open = false
 	quest_parchment.hide()
 	_layout_menu()
@@ -595,14 +620,90 @@ func _resume() -> void:
 func _pause_game() -> void:
 	if game_finished or not started:
 		return
-	_clear_menu("EXPLORATION PAUSED", "Island progress saves on quest actions, every five seconds, and when opening menus. Unfinished enemies and the dragon recover health after reloading.")
+	_clear_menu("Paused", "")
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
-	_menu_button("Quest Journal [Q]", _show_journal)
-	_menu_button("Island Map", _show_island_map)
+	_menu_button("Quest Journal", _show_journal)
+	_menu_button("Island Map", _show_pause_map)
 	_menu_button("Save and return to camp", _show_camp)
-	_menu_button("Settings", func(): _show_settings(_pause_game))
-	_menu_button("Quit", _quit_world)
+	_menu_button("Settings", _show_pause_settings)
+	_menu_button("Quit", _confirm_pause_quit)
+	_style_pause_panel()
+	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
+
+func _show_pause_map() -> void:
+	_show_island_map()
+	pause_back = _pause_game
+
+func _show_pause_settings() -> void:
+	_show_settings(_pause_game)
+	pause_back = _pause_game
+
+func _confirm_pause_quit() -> void:
+	_clear_menu("Leave the island?", "Your progress will be saved.")
+	_menu_button("Keep playing", _pause_game)
+	_menu_button("Save and quit", _quit_world)
+	_style_pause_panel()
+	pause_back = _pause_game
+	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
+
+func _style_pause_panel() -> void:
+	pause_panel = true
+	menu_shade.color = Color("110c10a6")
+	var heading := menu_box.get_child(0) as Label
+	heading.add_theme_font_override("font", MENU_TITLE)
+	heading.add_theme_color_override("font_color", Color("f5dfad"))
+	var note := menu_box.get_child(1) as Label
+	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	note.custom_minimum_size.y = 0
+	note.add_theme_font_override("font", MENU_BODY)
+	note.add_theme_color_override("font_color", Color("c7b798"))
+	if note.text.is_empty():
+		note.text = "Island progress is saved automatically. Unfinished enemies recover on reload."
+		menu_box.move_child(note, -1)
+	for control in menu_box.get_children():
+		if control is Button:
+			_style_pause_button(control)
+	_layout_pause_panel()
+
+func _style_pause_button(button: Button) -> void:
+	button.add_theme_font_override("font", MENU_TITLE)
+	button.add_theme_color_override("font_color", Color("ead8b2"))
+	button.add_theme_color_override("font_hover_color", Color("fff1cd"))
+	button.add_theme_color_override("font_pressed_color", Color("fff1cd"))
+	button.add_theme_color_override("font_focus_color", Color("ffedc1"))
+	button.add_theme_stylebox_override("normal", _bronze_box(Color("251c18"),Color("775631"),1))
+	button.add_theme_stylebox_override("hover", _bronze_box(Color("3d2a1b"),Color("b68a52"),1))
+	button.add_theme_stylebox_override("pressed", _bronze_box(Color("54351f"),Color("cc9959"),1))
+	button.add_theme_stylebox_override("focus", _bronze_box(Color.TRANSPARENT,Color("edc686"),2))
+
+func _bronze_box(fill: Color, edge: Color, thickness: int) -> StyleBoxFlat:
+	var box := StyleBoxFlat.new()
+	box.bg_color = fill
+	box.border_color = edge
+	box.set_border_width_all(thickness)
+	box.set_corner_radius_all(3)
+	return box
+
+func _layout_pause_panel() -> void:
+	var screen: Vector2 = menu_scroll.get_parent().size
+	var width := minf(screen.x-24.0, 480.0)
+	var height := minf(screen.y-24.0, (516.0 if pause_menu_open else 280.0))
+	var inset := (screen-Vector2(width,height))*.5
+	menu_scroll.offset_left = inset.x
+	menu_scroll.offset_right = -inset.x
+	menu_scroll.offset_top = inset.y
+	menu_scroll.offset_bottom = -inset.y
+	var panel := _bronze_box(Color("191413f5"),Color("ac824b"),1)
+	panel.set_content_margin_all(18.0)
+	menu_scroll.add_theme_stylebox_override("panel",panel)
+	menu_box.add_theme_constant_override("separation",8)
+	for control in menu_box.get_children():
+		if control is Button:
+			control.custom_minimum_size.y = 52.0
+			control.add_theme_font_size_override("font_size",19)
+		elif control is Label:
+			control.add_theme_font_size_override("font_size",37 if control == menu_box.get_child(0) else 18)
 
 func _close_settings()->void:
 	if is_instance_valid(settings_screen):settings_screen.process_mode=Node.PROCESS_MODE_DISABLED;settings_screen.hide();settings_screen.queue_free()
