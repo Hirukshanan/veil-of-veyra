@@ -275,7 +275,6 @@ func _ready() -> void:
 	_world_ready = true
 	_quest_snapshot = CHAPTER_QUESTS.snapshot(self)
 	relic_hunt.progress_changed.connect(_world_changed)
-	exploration.progress_changed.connect(_world_changed)
 	_show_camp()
 
 func _create_exploration() -> Node3D:
@@ -360,11 +359,6 @@ func _build_campaign_ui() -> void:
 	heal_button.name = "HealButton"
 	heal_button.pressed.connect(_heal)
 	controls.add_child(heal_button)
-	var map_button := _make_button("",Vector2.ZERO,Vector2(44,44))
-	map_button.name="MapButton"
-	_set_action_icon(map_button,"map","Island map")
-	map_button.pressed.connect(_show_island_map)
-	controls.add_child(map_button)
 	var camp_button := _make_button("",Vector2.ZERO,Vector2(44,44))
 	camp_button.name="CampButton"
 	_set_action_icon(camp_button,"camp","Equipment and camp")
@@ -624,16 +618,11 @@ func _pause_game() -> void:
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Quest Journal", _show_journal)
-	_menu_button("Island Map", _show_pause_map)
 	_menu_button("Save and return to camp", _show_camp)
 	_menu_button("Settings", _show_pause_settings)
 	_menu_button("Quit", _confirm_pause_quit)
 	_style_pause_panel()
 	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
-
-func _show_pause_map() -> void:
-	_show_island_map()
-	pause_back = _pause_game
 
 func _show_pause_settings() -> void:
 	_show_settings(_pause_game)
@@ -830,8 +819,8 @@ func _show_save_failure() -> void:
 
 func _on_player_defeated() -> void:
 	super._on_player_defeated()
-	_clear_menu("RETURN TO YOUR WAYSTONE", "Return to your bound waystone. Cleared camps, collected items and upgrades remain saved; remaining enemies recover health.")
-	_menu_button("Return to waystone", _reload)
+	_clear_menu("JOURNEY ENDED", "Recover at the beach. Cleared camps, collected items and upgrades remain saved; remaining enemies recover health.")
+	_menu_button("Recover at the beach", _reload)
 	_menu_button("Quit", _quit_world)
 
 func _confirm_reset() -> void:
@@ -968,57 +957,6 @@ func _show_journal() -> void:
 			control.add_theme_stylebox_override("normal", _button_style(Color("61442d")))
 			control.add_theme_stylebox_override("hover", _button_style(Color("84603c")))
 			control.add_theme_stylebox_override("pressed", _button_style(Color("473020")))
-func _show_island_map() -> void:
-	if not started or game_finished or (get_tree().paused and not pause_menu_open):
-		return
-	var exploration = get_node("IslandExploration")
-	var map = preload("res://scripts/island_map.gd").new()
-	map.name = "IslandMap"
-	map.player_position = player.global_position
-	map.player_heading = player.global_rotation.y
-	map.bound_waystone = exploration.checkpoint_index
-	map.discovered = exploration.discovered.duplicate()
-	map.guardian_mode = _uses_guardian_seal()
-	map.moonleaf_grove_position = herbs.grove_center()
-	map.quest_markers = guardian_map_markers()
-	for enemy in get_tree().get_nodes_in_group("combat_enemies"):
-		if enemy.get_script() != ENEMY_SCRIPT or enemy.health <= 0 or enemy.is_queued_for_deletion():
-			continue
-		for index in range(3):
-			if enemy._home.distance_to(exploration.CAMPS[index]) < 6.0:
-				map.camps_cleared[index] = false
-	var legend := "Cyan diamond: Tideseal Ruins (3 fragments needed for the lantern). Green leaf: Moonleaf Grove (gather 3 grove flowers for 25 shards). Grey triangles: rolling hills. Open QUEST to accept and complete the Western Watch bounty.\nCyan arrow: you and your facing direction. Red camp: wolves remain. Green camp: cleared. Gold square: discovered; grey square: undiscovered; white square: bound.\nWaystones: 1 Beach, 2 Forest, 3 Ruins. North is at the top.\nBoundary: shallow water blocks deep-sea access. Waystone: %s.\nLantern at waystone 3: %s." % [exploration.rescue_name(), "LIT" if lantern_lit else ("READY" if remaining_enemies == 0 and seal_fragments.complete() else "LOCKED - camps and seal fragments required")]
-	if map.guardian_mode:
-		legend = "Cyan diamond: Tideseal Ruins. Green leaf: Moonleaf Grove. Gold square: discovered waystone.\nNorthern Lantern: %s." % (
-			"LIT" if lantern_lit else "READY · seal complete" if _lantern_ready() else "LOCKED · requires 3/3 fragments")
-		if not map.quest_markers.is_empty() and not _lantern_ready():
-			legend += "\n1 Dire Warg · 2 Demon Fox · 3 Demon Boar. Rings show search regions. Pins appear when you discover a region."
-		elif not lantern_lit and not _lantern_ready():
-			legend += "\nInvestigate the broken seal at Tideseal Ruins."
-	if boss_spawned:
-		legend += " The dragon is at the ruins."
-	legend += "\n\nTRAILS\nFrom Tideseal Ruins, follow the woodland trail north past Western Rise to the lantern ruins. The north-east path reaches Ancient Grove (gold ring); its eastern trail returns to the forest camp. Moonleaf Grove remains the optional flower clearing on the south-east trail."
-	if not map.guardian_mode:
-		for index in range(3):
-			legend += "\n%s camp: %s" % [["West", "Forest", "Ruins" ][index], "CLEARED" if map.camps_cleared[index] else "WOLVES REMAIN"]
-	var travel_warning := "Hostile enemies, including guardians, block travel when they are within 14 m of you or your destination." if map.guardian_mode else "Enemies within 14 m of either end block travel; an active dragon blocks all travel."
-	legend += "\n\nFAST TRAVEL\nVisit a waystone to discover it, then choose a destination below. %s Discovered waystones remain saved. Travel does not restore health, stamina or potions." % travel_warning
-	_clear_menu("ISLAND MAP", legend)
-	pause_menu_open = true
-	_menu_button("Return to hunt [Esc]", _resume)
-	menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 1)
-	menu_box.add_child(map)
-	menu_box.move_child(map, 2)
-	for index in range(3):
-		var reason: String = exploration.travel_block_reason(index)
-		var caption: String = "Travel to " + ["Beach", "Forest", "Ruins"][index]
-		if not reason.is_empty():
-			caption += " - " + reason
-		_menu_button(caption, _travel_waystone.bind(index), not reason.is_empty())
-		# Destinations precede the long legend, with Resume always first.
-		menu_box.move_child(menu_box.get_child(menu_box.get_child_count() - 1), 3 + index)
-	_menu_button("Pause menu", _pause_game)
-
 func guardian_map_markers() -> Array[Dictionary]:
 	return []
 func _interact_world() -> void:
@@ -1040,14 +978,6 @@ func _show_heavy_guide() -> void:
 	var stagger_note := "Ordinary wolves stagger for 0.65 seconds. Elite enemies may resist the stagger." if _uses_guardian_seal() else "Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger."
 	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds, or press H, for a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. %s\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo." % stagger_note)
 	_menu_button("Back to camp", _show_camp)
-
-func _travel_waystone(index: int) -> void:
-	if not started or game_finished or not pause_menu_open or not get_tree().paused:
-		return
-	if get_node("IslandExploration").travel_to(index):
-		_resume()
-	else:
-		_show_island_map()
 
 func _accept_scroll_quest() -> void:
 	if not journal_open or not started or game_finished:
@@ -1074,9 +1004,6 @@ func _capture_world() -> void:
 	world_data.herbs = herbs.collected_ids.duplicate()
 	world_data.seal_fragments = seal_fragments.collected_ids.duplicate()
 	world_data.relics = relic_hunt.collected_ids.duplicate()
-	var exploration = get_node("IslandExploration")
-	world_data.discovered = exploration.discovered.duplicate()
-	world_data.checkpoint = exploration.checkpoint_index
 	world_data.lantern = lantern_lit
 	world_data.position = player.global_position
 	world_data.health = int(player.health)
@@ -1088,10 +1015,6 @@ func _restore_world() -> void:
 	herbs.restore(world_data.herbs)
 	seal_fragments.restore(world_data.seal_fragments)
 	relic_hunt.restore(world_data.relics)
-	var exploration = get_node("IslandExploration")
-	exploration.discovered.assign(world_data.discovered)
-	if world_data.checkpoint >= 0:
-		exploration.bind_waystone(world_data.checkpoint)
 	keeper.accepted = world_data.accepted
 	keeper.reported = world_data.reported
 	potions = world_data.potions

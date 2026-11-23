@@ -139,12 +139,9 @@ Code, game text, documentation, and commit messages are written in English.
 - Existing pursuit speeds, warning durations, damage and attack ranges are retained. Larger bodies still need physical-device playtesting.
 - Mountains use procedural rock geometry; this is not a new traversable mountain quest or a finished photorealistic landscape.
 
-## Waystone fast travel (0.8.0-dev)
-- Beach is known initially; visit Forest and Ruins waystones to discover them for the current hunt.
-- Pause > Island Map provides destination buttons with explicit blocked reasons and discovered/undiscovered marker colors.
-- Travel is blocked by living enemies within 14 metres of departure or destination, active dragon encounters, or unfinished player combat actions.
-- Travel clears motion and queued attacks, updates camera and rescue binding, and resumes gameplay. No health, stamina or potion refill.
-- Discovery resets on hunt restart/chapter reload; campaign save format is unchanged.
+## Island navigation
+- The circular HUD minimap shows Aru's heading and quest markers.
+- Older saves still load and retain their saved positions and progress.
 
 ## Quest scroll and circular controls (0.9.0-dev)
 - Dedicated HUD scroll icon opens full objectives, rewards, progress and Western Watch acceptance/completion from anywhere. NPC dialogue is no longer required; the Keeper remains scenery.

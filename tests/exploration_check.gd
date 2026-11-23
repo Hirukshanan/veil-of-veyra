@@ -12,7 +12,7 @@ func _run():
 	scene._resume()
 	await physics_frame
 	var space = scene.get_world_3d().direct_space_state
-	for point in exploration.CAMPS + exploration.CHECKPOINTS:
+	for point in exploration.CAMPS + [exploration.BEACH_SPAWN]:
 		var result = space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 4, point + Vector3.DOWN * 4, 1))
 		assert(not result.is_empty() and absf(result.position.y) < 0.1)
 	var terrain = preload("res://scripts/island_terrain.gd")
@@ -28,9 +28,6 @@ func _run():
 			assert(not ground.is_empty() and absf(ground.position.y) < 0.1, "Curved trails must stay on the combat plateau")
 	var beach = space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0, 4, terrain.INNER_RADIUS+8), Vector3(0, -4, terrain.INNER_RADIUS+8), 1))
 	assert(not beach.is_empty() and beach.position.y < -0.5 and beach.position.y > -1.2)
-	hero.position = exploration.CHECKPOINTS[1]
-	exploration._physics_process(0.1)
-	assert(exploration.checkpoint_index == 1)
 	# Emergency rescue fires only for genuine falls well below the surface.
 	# The shallow-water wall blocks normal sea entry, so y < -4.0 is the new threshold.
 	var health = hero.health
@@ -55,5 +52,5 @@ func _run():
 	scene.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: expanded camp/checkpoint ground, sloped beach, emergency fall rescue and penalty, local aggro and leash")
+	print("PASS: expanded camp and beach ground, sloped beach, emergency fall rescue and penalty, local aggro and leash")
 	quit()

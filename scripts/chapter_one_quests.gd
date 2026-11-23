@@ -59,15 +59,15 @@ static func journal(scene) -> String:
 	text += "\n\nMOONLEAF — %d plants gathered\nEach Moonleaf plant gives one healing potion. Use HEAL while injured to recover up to 50 health. Follow meadow and river-crossing paths to Moonleaf Grove." % state.herbs
 	text += "\nMOONLEAF GROVE — " + ("COMPLETE — 25 shards received" if state.grove_reward else "%d/3 grove flowers" % mini(state.grove,3))
 	text += "\nReward: 25 shards automatically on gathering three grove flowers, plus their normal potions. Other Moonleaf does not count toward the grove reward. All rewards are paid once."
-	text += "\n\nTRAVEL AND PREPARATION\nApproach waystones to discover and bind them. Discovered waystones support return travel. Spend Tide Shards on blade/armor upgrades at camp."
+	text += "\n\nPREPARATION\nUse the minimap to follow your current objective. Spend Tide Shards on blade/armor upgrades at camp."
 	text += " The Demon Boar guards a seal fragment and awards 20 shards once." if guardian_flow else " Optional Demon Boar: 20 shards once; it is not required by the lantern."
 	var requirements := future_prerequisites(scene)
 	var ready: bool = requirements.values().all(func(value): return value)
 	text += "\n\nBEYOND THE LANTERN — FUTURE STORY\n" + ("The island victory, seal and cave relic are recorded." if ready else "The deeper mystery follows island victory, the complete seal and discovery of the cave relic.")
 	text += " A low echo carries through the deeper hall. The old stone keeps its source hidden."
 	var chapter_route := "The guardian fragments restore the Northern Lantern and reveal the trail toward Ancient Grove." if guardian_flow else "Quieting the forest camps and recovering its fragments opens the northern lantern."
-	text += "\n\nCHAPTER I — A LIGHT TO RECLAIM\nAru follows a shattered seal from the shore into Veyra's corrupted trails. %s The grasslands, foothills and cave preserve relics of an older mystery.\n\nSAVED JOURNEY\nCollected items, cleared wolves, bounty acceptance/report, reward flags, equipment, potions and waystones persist. Collected objectives remain available in any order. Unfinished enemies recover health after reload." % chapter_route
-	text += "\nWaystone: " + scene.get_node("IslandExploration").rescue_name() + "\nBoundary: shallow water blocks deep-sea access."
+	text += "\n\nCHAPTER I — A LIGHT TO RECLAIM\nAru follows a shattered seal from the shore into Veyra's corrupted trails. %s The grasslands, foothills and cave preserve relics of an older mystery.\n\nSAVED JOURNEY\nCollected items, cleared wolves, bounty acceptance/report, reward flags, equipment and potions persist. Collected objectives remain available in any order. Unfinished enemies recover health after reload." % chapter_route
+	text += "\nBoundary: shallow water blocks deep-sea access."
 	if not scene.quest_feedback.is_empty():
 		text += "\n\nRECENT PROGRESS\n" + scene.quest_feedback.title + " — " + scene.quest_feedback.message
 	return text

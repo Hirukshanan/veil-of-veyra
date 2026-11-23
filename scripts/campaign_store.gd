@@ -11,7 +11,7 @@ const DEFAULTS := {"shards": 0, "blade_level": 0, "armor_level": 0, "completed":
 const MAXIMUMS := {"shards": 999999, "blade_level": 4, "armor_level": 4}
 
 static func fresh_world() -> Dictionary:
-	return {"cleared": [], "herbs": [], "relics": [], "discovered": [true,false,false], "checkpoint": -1, "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "relic_reward": false, "bounty_reward": false, "grove_reward": false, "seal_fragments": []}
+	return {"cleared": [], "herbs": [], "relics": [], "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "relic_reward": false, "bounty_reward": false, "grove_reward": false, "seal_fragments": []}
 
 static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	if not world is Dictionary:
@@ -34,15 +34,6 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	for id in 3:
 		if (shrine_progress & (1 << id)) != 0 and id not in world.seal_fragments:
 			return false
-	if not world.discovered is Array or world.discovered.size() != 3:
-		return false
-	for value in world.discovered:
-		if not value is bool:
-			return false
-	if not world.discovered[0] or not world.checkpoint is int or world.checkpoint < -1 or world.checkpoint > 2:
-		return false
-	if world.checkpoint >= 0 and not world.discovered[world.checkpoint]:
-		return false
 	for key in ["lantern", "accepted", "reported", "relic_reward", "bounty_reward", "grove_reward"]:
 		if not world[key] is bool:
 			return false
@@ -142,6 +133,9 @@ static func read_file(path: String) -> Dictionary:
 		data.world_data["seal_fragments"] = [0,1,2] if data.world_data.get("lantern",false) == true else []
 	if not valid_world(data.world_data, data.completed, data.armor_level):
 		return {"error": ERR_INVALID_DATA}
+	# Earlier saves may contain the removed fast-travel state.
+	data.world_data.erase("discovered")
+	data.world_data.erase("checkpoint")
 	return {"error": OK, "data": data, "migrated": version != VERSION}
 
 static func load_progress() -> Dictionary:

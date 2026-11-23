@@ -75,11 +75,7 @@ func check(n: int) -> void:
 		assert(pin.point.distance_to(game.grove.clues[n].global_position) > 1.0)
 	else:
 		assert(not game.world_data.has(STORY.PARTIAL))
-	if not capture:
-		game._show_island_map()
-		assert(game.menu_box.get_node("IslandMap").quest_markers.back() == pin)
-		game._resume()
-	print("PASS stage ",n," journal/HUD/map/gate")
+	print("PASS stage ",n," journal/HUD/minimap/gate")
 
 func run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
@@ -131,9 +127,7 @@ func run() -> void:
 		await walk(Vector3(18,0,-36))
 		await ticks(60)
 	else:
-		game._show_island_map()
-		assert(game.menu_box.get_node("IslandMap").quest_markers.back().point == STORY.CAVE_MOUTH)
-		game._resume()
+		assert(game.guardian_map_markers().back().point == STORY.CAVE_MOUTH)
 		for point in STORY.OUTWARD: await walk(point)
 		for point in [Vector3(76,0,5),Vector3(75,0,10),Vector3(71,0,15),Vector3(68,0,18.8)]: await walk(point)
 		await ticks(110)

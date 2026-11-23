@@ -86,8 +86,8 @@ func rectangles(bounds: Vector2, draft: Dictionary = {}, use_settings := true) -
 		center=center.clamp(Vector2.ONE*(diameter*0.5+8),bounds-Vector2.ONE*(diameter*0.5+8))
 		result[key]=Rect2(center-Vector2.ONE*diameter*0.5,Vector2.ONE*diameter)
 	var map_diameter := 132*f
-	for i in range(4):
-		result[["CampButton","QuestScrollButton","MapButton","PauseButton"][i]]=Rect2(bounds.x-20-map_diameter-18-200+i*52,20,44,44)
+	for i in range(3):
+		result[["CampButton","QuestScrollButton","PauseButton"][i]]=Rect2(bounds.x-20-map_diameter-18-148+i*52,20,44,44)
 	return result
 
 func refresh() -> void:

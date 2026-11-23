@@ -130,4 +130,4 @@ func grove_count() -> int:
 
 func grove_journal(rewarded: bool) -> String:
 	var stage := "COMPLETE - 25 shards received" if rewarded else ("%d/3 flowers gathered" % mini(grove_count(), GROVE_GOAL))
-	return "MOONLEAF GROVE: %s\nFollow the eastern trail from the Beach waystone into the south-east meadow. The green leaf on MAP marks the grove. Gather 3 cyan-flowered plants inside the grove for 25 shards, paid once automatically. Each flower also adds one healing potion. Ordinary Moonleaf elsewhere does not count for this quest." % stage
+	return "MOONLEAF GROVE: %s\nFollow the eastern trail from the beach into the south-east meadow. The grove marker on the minimap marks the grove. Gather 3 cyan-flowered plants inside the grove for 25 shards, paid once automatically. Each flower also adds one healing potion. Ordinary Moonleaf elsewhere does not count for this quest." % stage

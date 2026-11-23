@@ -39,7 +39,7 @@ func run():
 	assert(legacy.save(STORE.PATH)==OK)
 	await open_world()
 	assert(scene.shards==55 and scene.blade_level==1 and scene.herbs.collected==3)
-	assert(scene.remaining_enemies==4 and scene.get_node("IslandExploration").checkpoint_index==1)
+	assert(scene.remaining_enemies==4 and not scene.world_data.has("checkpoint"))
 	assert(not scene.world_data.grove_reward and scene.herbs.grove_count()==0)
 	var grove=scene.get_node("IslandExploration/MoonleafGrove")
 	assert(grove.position==scene.herbs.GROVE.CENTER)

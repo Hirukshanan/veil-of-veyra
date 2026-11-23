@@ -86,18 +86,7 @@ func run():
 	assert_early_copy(heavy_guide)
 	assert("Elite enemies may resist the stagger." in heavy_guide)
 	scene._resume()
-	scene._show_island_map()
-	assert(scene.menu_box.has_node("IslandMap"))
-	var found_travel_legend := false
-	for control in scene.menu_box.get_children():
-		if control is Label:
-			assert_early_copy(control.text)
-			if "FAST TRAVEL" in control.text:
-				assert("including guardians" in control.text and "14 m" in control.text)
-				found_travel_legend = true
-	assert(found_travel_legend)
-	print("PASS: Heavy Attack Guide and Island Map use guardian-mode copy without Dragon spoilers")
-	scene._resume()
+	print("PASS: Heavy Attack Guide uses guardian-mode copy without Dragon spoilers")
 	assert_early_copy(scene._journal_text())
 	scene._show_journal()
 	scene._accept_scroll_quest()

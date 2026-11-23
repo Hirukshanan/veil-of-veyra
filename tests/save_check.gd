@@ -37,7 +37,7 @@ func run():
 	assert(STORE.load_progress().data==latest)
 	assert(STORE.read_file(STORE.BACKUP).data==initial)
 	# Future, malformed and inconsistent world snapshots must fall back, not be coerced.
-	for bad in [{"herbs":[0,0]}, {"discovered":[true,"yes",false]}, {"checkpoint":2}, {"position":Vector3(NAN,0,0)}, {"health":1000}, {"potions":-1}, {"lantern":true}, {"bounty_reward":true}]:
+	for bad in [{"herbs":[0,0]}, {"position":Vector3(NAN,0,0)}, {"health":1000}, {"potions":-1}, {"lantern":true}, {"bounty_reward":true}]:
 		var broken:=latest.duplicate(true)
 		broken.world_data.merge(bad,true)
 		var config:=ConfigFile.new()

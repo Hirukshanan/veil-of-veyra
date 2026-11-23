@@ -26,7 +26,8 @@ func _restore_world() -> void:
 	super._restore_world()
 	# The legacy restore samples the old height function; validate this saved point
 	# against the new collision instead, including a legitimate cave floor.
-	player.global_position = world_data.position
+	if world_data.health > 0:
+		player.global_position = world_data.position
 
 func _uses_guardian_seal() -> bool:
 	return true
@@ -228,13 +229,9 @@ func _ground_gameplay() -> void:
 	_ground_node(seal_fragments.get_node("Scenery"))
 	# Western Watch is a journal-only Node, not a physical NPC.
 	var exploration = get_node("IslandExploration")
-	for index in range(3):
-		var point: Vector3 = landscape.safe_point(exploration.CHECKPOINTS[index])
-		exploration.grounded_checkpoints.append(point)
-		exploration.get_node("Waystone%d"%index).global_position = point
-		exploration._waystone_labels[index].global_position = point+Vector3.UP*2
-	if exploration.checkpoint_index >= 0:player.rescue_position = exploration.checkpoint_position(exploration.checkpoint_index)+Vector3.UP
-	else:player.rescue_position = exploration.checkpoint_position(0)+Vector3.UP
+	player.rescue_position = landscape.safe_point(exploration.BEACH_SPAWN)+Vector3.UP
+	if world_data.health <= 0:
+		player.global_position = player.rescue_position
 	# All original save IDs/equipment/health are preserved; relocate only unsafe support.
 	var restored: Vector3 = player.global_position
 	if TEMPLE.inside(restored) and _temple_unlocked():

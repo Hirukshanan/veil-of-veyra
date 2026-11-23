@@ -119,4 +119,4 @@ func restore(ids: Array) -> void:
 
 func journal_text() -> String:
 	var state := "COMPLETE - lantern seal recovered" if complete() else "%d/3 recovered"%collected_ids.size()
-	return "LANTERN SEAL: %s\nFollow the south-west trail from Beach waystone to Tideseal Ruins. The cyan diamond on MAP marks the ruins. Approach each fragment and tap the hand icon / E. Recover all three fragments and clear the demon camps to light the northern lantern. The fragments are quest items; they do not consume potions or reset when reopening."%state
+	return "LANTERN SEAL: %s\nFollow the south-west trail from the beach to Tideseal Ruins. The seal marker on the minimap marks the ruins. Approach each fragment and tap the hand icon / E. Recover all three fragments and clear the demon camps to light the northern lantern. The fragments are quest items; they do not consume potions or reset when reopening."%state

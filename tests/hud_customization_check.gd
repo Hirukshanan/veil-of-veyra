@@ -49,7 +49,7 @@ func run():
 	var hud=scene.mobile_hud
 	assert(scene.find_child("HUDCustomization",true,false)==null,"Customization must never be permanently visible")
 	assert(scene.find_child("TargetSwitchButton",true,false)==null and scene.find_child("TargetLockButton",true,false)==null,"Removed target controls must not appear in gameplay")
-	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton","CampButton","QuestScrollButton","MapButton","PauseButton"]
+	var allowed_buttons: Array=["AttackButton","DodgeButton","JumpButton","GuardButton","SpiritBurstButton","InteractButton","HealButton","CampButton","QuestScrollButton","PauseButton"]
 	for button in scene.find_children("*","Button",true,false):
 		if button.is_visible_in_tree():
 			assert(button.name in allowed_buttons,"Only gameplay actions/navigation may be visible: "+button.name)
@@ -60,7 +60,7 @@ func run():
 	assert("explore" in hud.chrome.quest_content().message,"Completed journeys must not show an already-defeated boss objective")
 	scene.boss_spawned=false
 	scene.completed=false
-	assert(hud.control("GuardButton")!=null and hud.control("MapButton")!=null)
+	assert(hud.control("GuardButton")!=null and hud.control("MapButton")==null)
 	assert(root.get_camera_3d()==scene.player._camera_arm.get_child(0),"Portrait and minimap must not steal the gameplay camera")
 	# An old profile's retired button must not erase the rest of a custom layout.
 	var legacy:=ConfigFile.new()

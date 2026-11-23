@@ -163,7 +163,7 @@ func journal(id: String) -> Dictionary:
 	if id == LANTERN:
 		var ready: bool = game.seal_fragments.complete()
 		var lit: bool = game.lantern_lit
-		var description := "The Northern Lantern stands at the northern ruins, beside the Ruins waystone."
+		var description := "The Northern Lantern stands at the northern ruins."
 		var step := "Recover all three fragments to unlock the lantern." if not ready else "Approach the Northern Lantern and use LIGHT / E."
 		var result := _row("Restore the Northern Lantern", description,
 			"Restored" if lit else "Seal complete" if ready else "Locked · requires 3/3 fragments",

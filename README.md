@@ -13,9 +13,9 @@ Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for A
 - **Sword combat:** three-hit combos, dodge, stamina-powered heavy attacks, and Spirit Burst.
 - **Starter warrior:** rigged cloth/leather Ranger outfit, shaped boots/bracers, hood and light shoulder protection replace the provisional body/clothing. Eleven animation clips drive the 65-bone rig. [Hero visual review and measured limits](docs/CH1_HERO_UPGRADE_REPORT.md); owner approval and phone profiling remain pending.
 - **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
-- **Lantern seal quest:** follow the south-west trail from the Beach waystone, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on MAP marks Tideseal Ruins.
+- **Lantern seal quest:** follow the south-west trail from the beach, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on the minimap marks Tideseal Ruins.
 - **Optional quests:** gather three grove flowers in Moonleaf Grove for a one-time 25-shard reward, recover Keeper relics, and complete the Western Watch bounty through the quest scroll.
-- **Waystones:** discover rescue points and fast-travel between safe destinations through the island map.
+- **Minimap:** follow heading and quest markers from the circular HUD display.
 - **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
 - **Camp menu:** dragon-and-lantern artwork, prominent Continue action, shard/equipment cards, upgrades, and quick access to quests, guides, settings and New journey.
 - **Mobile HUD:** gold/dark portrait, actual HP/stamina, compact quests, compass, minimap, circular actions, movement-side sprint and bottom-center potion slots. **Settings > Controls > Customize HUD** provides drag, resize, opacity, Battle/Classic/Left-Handed presets, Save and Reset. Camera, safe-area, shadow and 30/60 FPS settings remain available.
@@ -53,7 +53,7 @@ godot --editor --path .
 | Spirit Burst | L | Starburst icon |
 | Collect herb / light lantern | E | Contextual hand / lantern icon |
 | Quest journal | Q | Scroll icon / Pause → Quest Journal |
-| Map / fast travel | Pause → Island Map | Pause → Island Map |
+| Minimap | Top-right HUD | Top-right HUD |
 | Pause / resume | Escape | Pause icon / Resume |
 | Heal | On-screen button | Potion icon |
 
@@ -63,15 +63,15 @@ Gameplay action buttons use icons without text labels. Tap/release the sword for
 
 One continuous island replaces the three sequential hunts. Recover the three lantern-seal fragments from Tideseal Ruins on the south-west coast, clear five demons across three camps, restore the lantern, and defeat the Tidewraith; then continue exploring without advancing a level or reloading the map.
 
-Cleared enemies, seal fragments, collected Moonleaf herbs and relics, Western Watch status, discovered/bound waystones, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. Periodic autosaves write an independent snapshot in the background so storage I/O does not block movement. Quest, menu and normal-exit saves finish pending writes before saving the newest state; reset and scene exit also wait for the writer. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
+Cleared enemies, seal fragments, collected Moonleaf herbs and relics, Western Watch status, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. Periodic autosaves write an independent snapshot in the background so storage I/O does not block movement. Quest, menu and normal-exit saves finish pending writes before saving the newest state; reset and scene exit also wait for the writer. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
 
-Death returns Aru to the bound waystone at full health while preserving world progress and potion stock. Dragon rewards and optional relic/bounty rewards are paid once; optional quests can finish after victory. Moonleaf plants are finite pickups in this prototype and do not respawn. The original eight pickups retain their IDs; five more grow in Moonleaf Grove, reached by the eastern trail from the Beach waystone. A green leaf on the island map marks the grove. Only grove flowers count toward its three-flower quest; each flower also provides one potion.
+Death returns Aru to the beach at full health while preserving world progress and potion stock. Dragon rewards and optional relic/bounty rewards are paid once; optional quests can finish after victory. Moonleaf plants are finite pickups in this prototype and do not respawn. The original eight pickups retain their IDs; five more grow in Moonleaf Grove, reached by the eastern trail from the beach. A green leaf on the minimap marks the grove. Only grove flowers count toward its three-flower quest; each flower also provides one potion.
 
 Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. Earlier saves with an already-lit lantern automatically receive completed seal-fragment progress, keeping the lantern and dragon encounter state intact. New journey explicitly resets the world; save failures keep the existing journey intact.
 
 Aru can wade a short distance into shallow coastal water. An invisible boundary follows the irregular coastline and blocks deeper water while allowing movement along the shore and back to land; ordinary water entry does not cost health or teleport Aru. Genuine falls below the terrain still trigger emergency rescue and its existing health penalty. Older saved positions outside the boundary are moved just inside it without changing health or progress. After terrain changes, saved positions below the new ground are raised safely above it.
 
-Approach a waystone to discover it and bind a rescue point. Beach is known initially. Fast travel requires a discovered destination, no nearby enemies at either end, and no active dragon encounter. Travel does not refill health, stamina, or potions.
+Use the circular minimap to follow island objectives while exploring on foot.
 
 ## Android builds
 

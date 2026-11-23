@@ -31,7 +31,7 @@ var _uses_touch := OS.has_feature("mobile")
 
 func _ready() -> void:
 	_wolf = game.get_node_or_null("CampDemon4")
-	_beach = game.get_node("IslandExploration").checkpoint_position(0)
+	_beach = game.landscape.safe_point(game.get_node("IslandExploration").BEACH_SPAWN)
 	var clues := CLUES.new()
 	clues.landscape = game.landscape
 	clues.show_shore_ash = not game.guardians.revealed()
@@ -139,7 +139,7 @@ func objective() -> Dictionary:
 	var seals: int = game.seal_fragments.collected_ids.size()
 	var title := "THE WARNING"
 	var message := "Follow the ash to Tideseal Ruins."
-	var guide := "The warning bell fell silent. Follow the ash southwest from the beach waystone and investigate the broken seal at Tideseal Ruins."
+	var guide := "The warning bell fell silent. Follow the ash southwest from the beach and investigate the broken seal at Tideseal Ruins."
 	var step := "Follow the ash to Tideseal Ruins."
 	if game.guardians.revealed():
 		title = "THE BROKEN SEAL"

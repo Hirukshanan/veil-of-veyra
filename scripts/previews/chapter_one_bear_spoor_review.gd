@@ -2,7 +2,6 @@ extends "res://scripts/previews/chapter_one_tidewarden_visual_review.gd"
 
 const SPOOR := preload("res://scripts/previews/spoor_shrine.gd")
 const BANK := preload("res://scripts/previews/spoor_grove.gd")
-const WAYSTONE := Vector3(-46.1,0,54.1)
 
 func _create_tidewarden() -> Tidewarden:
 	return SPOOR.new()
@@ -21,12 +20,6 @@ func _build_lantern() -> void:
 func _ground_gameplay() -> void:
 	super._ground_gameplay()
 	lantern.global_position = landscape.ground_point(Tidewarden.CENTER)
-	var travel = get_node("IslandExploration")
-	travel.grounded_checkpoints[2] = landscape.ground_point(WAYSTONE)
-	travel.get_node("Waystone2").queue_free()
-	travel._waystone_labels.pop_back().queue_free()
-	if travel.checkpoint_index == 2:
-		player.rescue_position = travel.checkpoint_position(2)+Vector3.UP
 	# The gold shape behind the lamp was a real relic. Keep its pickup ID and
 	# collection radius, seated in the earth beyond the Grove carving.
 	for relic in relic_hunt.relics:
@@ -49,14 +42,6 @@ func _update_objective() -> void:
 		interact_button.disabled = false
 		interact_button.icon = preload("res://assets/ui/controls/collect.svg")
 		interact_button.accessibility_name = SPOOR.PROMPT
-
-func _show_island_map() -> void:
-	super._show_island_map()
-	if is_instance_valid(menu_box):
-		var map = menu_box.get_node_or_null("IslandMap")
-		if map:
-			map.waystones[2] = get_node("IslandExploration").checkpoint_position(2)
-			map.queue_redraw()
 
 func _interact_world() -> void:
 	if is_instance_valid(tidewarden) and tidewarden.tree_in_reach():

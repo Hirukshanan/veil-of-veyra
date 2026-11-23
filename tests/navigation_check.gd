@@ -23,15 +23,11 @@ func _run():
 	scene._update_objective()
 	assert("Lantern" in scene.status_label.text)
 	assert("Boundary: shallow water" in scene._journal_text())
-	var map = scene.get_node("IslandExploration")
-	map.player.position = map.CHECKPOINTS[1]
-	map._physics_process(0.01)
-	assert("Waystone: Forest" in scene._journal_text())
 	scene._spawn_boss()
 	scene._update_objective()
 	assert("Dragon" in scene.status_label.text)
 	scene.queue_free()
 	await process_frame
 	paused = false
-	print("PASS: camera-relative bearings, vertical distance exclusion, objective progression and bound-waystone journal")
+	print("PASS: camera-relative bearings, vertical distance exclusion, objective progression and journal boundary guidance")
 	quit()

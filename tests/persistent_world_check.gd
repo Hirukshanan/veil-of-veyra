@@ -41,9 +41,7 @@ func run():
 	enemy.take_damage(1000)
 	await process_frame
 	assert(scene.remaining_enemies==4)
-	var exploration=scene.get_node("IslandExploration")
 	hero.position=Vector3(0,0,2)
-	exploration.bind_waystone(1)
 	scene.keeper.accept()
 	hero.health=63
 	scene._process(5.1)
@@ -57,10 +55,9 @@ func run():
 	assert(scene.herbs.collected_ids==[0] and scene.potions==4)
 	assert(scene.relic_hunt.collected_ids==[0])
 	assert(scene.player.health==63 and scene.player.position.distance_to(Vector3(0,0,2))<0.1)
-	exploration=scene.get_node("IslandExploration")
-	assert(exploration.checkpoint_index==1 and exploration.discovered==[true,true,false])
+	assert(not scene.world_data.has("checkpoint") and not scene.world_data.has("discovered"))
 	assert(scene.keeper.accepted)
-	# Death preserves world pickups and returns to the bound waystone.
+	# Death preserves world pickups and recovers at the beach.
 	scene.player._invulnerability_time=0
 	scene.player.take_damage(1000)
 	assert(scene.game_finished)
