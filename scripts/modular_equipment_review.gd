@@ -4,13 +4,8 @@ const EQUIPMENT := preload("res://scripts/aru_modular_equipment.gd")
 
 var modular: EQUIPMENT
 
-func _open_armory() -> void:
-	title_screen.hide()
-	var screen: CanvasLayer = load("res://scripts/modular_armory_screen.gd").new()
-	screen.name = "Armory"
-	screen.game = self
-	screen.closed.connect(_show_title)
-	add_child(screen)
+func _armory_screen_path() -> String:
+	return "res://scripts/modular_armory_screen.gd"
 
 func _apply_loadout() -> void:
 	super._apply_loadout()

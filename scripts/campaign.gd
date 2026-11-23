@@ -168,6 +168,7 @@ func _interact_lantern() -> void:
 	if player.global_position.distance_to(lantern.global_position) > 2.5:
 		return
 	lantern_lit = true
+	_award_shards(_lantern_shard_reward())
 	lantern_flame.show()
 	lantern_label.text = "LANTERN RESTORED"
 	if _lantern_spawns_boss():
@@ -295,8 +296,17 @@ func _defeat_boar() -> void:
 	if world_data.get("boar_defeated", false):
 		return
 	world_data["boar_defeated"] = true
-	shards = mini(999999, shards + BOAR_SCRIPT.REWARD_SHARDS)
+	_award_shards(_boar_shard_reward())
 	_save_progress()
+
+func _award_shards(amount: int) -> void:
+	shards = mini(CAMPAIGN_STORE.MAXIMUMS.shards, shards + amount)
+
+func _lantern_shard_reward() -> int:
+	return 0
+
+func _boar_shard_reward() -> int:
+	return BOAR_SCRIPT.REWARD_SHARDS
 
 func _spawn_boss() -> void:
 	if completed or boss_spawned:

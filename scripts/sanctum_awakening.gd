@@ -18,10 +18,8 @@ const CLEAR_TIME := 8.05
 var seal_materials: Array[ShaderMaterial] = []
 
 func _build_wall():
-	super._build_wall()
-	for piece in chunks:
-		piece.hide()
-	cracks.hide()
+	_build_gate_collision()
+	_build_dust()
 
 func attach_sanctum(shrine: Node3D) -> void:
 	if is_instance_valid(passage): return

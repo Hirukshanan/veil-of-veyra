@@ -177,12 +177,7 @@ func _build_wall():
 		piece.set_meta("rest",piece.position)
 		piece.set_meta("velocity",Vector3(center.x*.4,1.3+center.y*.3,1.3+rng.randf()))
 		chunks.append(piece)
-	gate=StaticBody3D.new();gate.name="HiddenPassageSeal";gate.position=WALL+Vector3.UP*2.7
-	gate.collision_layer=1|4|8;gate.collision_mask=0
-	add_child(gate)
-	var collision:=CollisionShape3D.new();collision.name="SealCollision"
-	var shape:=BoxShape3D.new();shape.size=Vector3(9.4,5.5,1.4)
-	collision.shape=shape;gate.add_child(collision)
+	_build_gate_collision()
 	cracks=Node3D.new();add_child(cracks)
 	var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.albedo_color=Color(.48,.25,.09)
@@ -194,6 +189,17 @@ func _build_wall():
 			var visible:=mesh(cracks,line,(a+b)*.5,material)
 			visible.quaternion=Quaternion(Vector3.UP,(b-a).normalized())
 			visible.hide()
+	_build_dust()
+
+func _build_gate_collision():
+	gate=StaticBody3D.new();gate.name="HiddenPassageSeal";gate.position=WALL+Vector3.UP*2.7
+	gate.collision_layer=1|4|8;gate.collision_mask=0
+	add_child(gate)
+	var collision:=CollisionShape3D.new();collision.name="SealCollision"
+	var shape:=BoxShape3D.new();shape.size=Vector3(9.4,5.5,1.4)
+	collision.shape=shape;gate.add_child(collision)
+
+func _build_dust():
 	dust=CPUParticles3D.new();dust.name="StoneDust";dust.amount=32
 	dust.position=WALL+Vector3.UP*2
 	dust.lifetime=2.5;dust.one_shot=true;dust.explosiveness=.55

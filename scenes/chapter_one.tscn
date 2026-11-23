@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/island_candidate.tscn" id="1"]
-[ext_resource type="Script" path="res://scripts/armory_island.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/chapter_one_economy.gd" id="2"]
+[ext_resource type="PackedScene" path="res://assets/environment/buried_shrine/polished_hall.glb" id="3"]
 
 [node name="Main" instance=ExtResource("1")]
 script = ExtResource("2")
+polish_model = ExtResource("3")
+connected_awakening = true
+dragon_cavern = true

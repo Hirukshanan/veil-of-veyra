@@ -6,7 +6,7 @@ const CHAPTER_GUARDIANS := preload("res://scripts/chapter_guardians.gd")
 
 const BEAR_SCENE := "res://scenes/enemies/cursed_bear_boss.tscn"
 const TEMPLE := preload("res://scripts/buried_temple.gd")
-var temple: TEMPLE = _create_bear_temple()
+var temple: TEMPLE
 var cave_bear: CharacterBody3D
 var awakening: Node3D
 var opening: Node3D
@@ -53,13 +53,14 @@ func _create_awakening() -> Node3D:
 	return preload("res://scripts/lantern_awakening.gd").new()
 
 func _ready() -> void:
+	temple = _create_bear_temple()
+	add_child(temple)
 	awakening = _create_awakening()
 	awakening.game = self
 	_load_tracking()
 	super._ready()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-	add_child(temple)
 	_ground_gameplay()
 	landscape.populate_ground_detail()
 	var atmosphere := preload("res://scripts/island_atmosphere.gd").new()
@@ -86,6 +87,11 @@ func _ready() -> void:
 	add_child(soundtrack)
 	placement_ready = true
 	guardians.refresh_tracking(true)
+
+func _exit_tree() -> void:
+	if is_instance_valid(awakening) and awakening.get_parent() == null:
+		awakening.free()
+	super._exit_tree()
 
 func _physics_process(delta: float) -> void:
 	if not placement_ready or not started or game_finished or player.health <= 0:
@@ -174,6 +180,7 @@ func _bear_victory() -> void:
 	if world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
 		return
 	world_data[CHAPTER_GUARDIANS.BEAR_FLAG] = true
+	_award_shards(_bear_shard_reward())
 	temple.unseal()
 	_update_objective()
 	_redraw_tracking()
@@ -183,8 +190,17 @@ func _finish_bear_chapter() -> void:
 	if completed or not world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false):
 		return
 	completed = true
-	shards = mini(999999, shards + 80)
+	_award_shards(_chapter_shard_reward())
 	_claim_optional_rewards()
+
+func _bear_shard_reward() -> int:
+	return 0
+
+func _chapter_shard_reward() -> int:
+	return 80
+
+func _grove_shard_reward() -> int:
+	return 0
 
 func _ground_node(node: Node3D, safe := false) -> void:
 	var before := node.global_position

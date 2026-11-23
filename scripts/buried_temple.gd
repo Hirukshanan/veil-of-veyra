@@ -12,7 +12,7 @@ var door: MeshInstance3D
 var stone := StandardMaterial3D.new()
 var trim: StandardMaterial3D
 var open := false
-var exposed_steps := Node3D.new()
+var exposed_steps: Node3D
 
 func _ready() -> void:
 	stone.albedo_texture = preload("res://assets/environment/new_island/task3/rock_albedo.png")
@@ -30,6 +30,7 @@ func _ready() -> void:
 	block(self, OUTER + Vector3(0,4.7,.8), Vector3(5,2,1.2))
 	block(self, OUTER + Vector3(0,1.7,1), Vector3(4.2,4,.45))
 	veil = block(self, OUTER + Vector3(0,1.6,-.55), Vector3(4.3,4,.8))
+	exposed_steps = Node3D.new()
 	add_child(exposed_steps)
 	exposed_steps.hide()
 	for i in 4:

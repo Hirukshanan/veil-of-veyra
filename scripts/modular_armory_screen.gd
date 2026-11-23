@@ -8,6 +8,10 @@ var option := 0
 var inspecting := false
 var modular_preview: EQUIPMENT
 
+func _ready() -> void:
+	option = maxi(0,game.gear_selection().blade)
+	super._ready()
+
 func _build_preview(parent: Control) -> void:
 	super._build_preview(parent)
 	var frame := canvas as SubViewportContainer

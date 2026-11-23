@@ -11,7 +11,10 @@ var introduced := false
 
 
 func _create_bear_temple() -> TEMPLE:
-	return SHRINE.new()
+	shrine = SHRINE.new()
+	shrine.polish_model = polish_model
+	shrine.dragon_cavern = dragon_cavern
+	return shrine
 
 func _create_awakening() -> Node3D:
 	if connected_awakening:
@@ -21,20 +24,18 @@ func _create_awakening() -> Node3D:
 	return super._create_awakening()
 
 func _ready() -> void:
-	shrine = temple as SHRINE
-	shrine.polish_model = polish_model
-	shrine.dragon_cavern = dragon_cavern
 	await super._ready()
 	if polish_model:
 		var gameplay_camera := player._camera_arm.get_child(0) as Camera3D
 		gameplay_camera.cull_mask &= ~(1 << 18)
-	cinema_shell = MeshInstance3D.new()
-	var grotto := landscape.get_node("PlayableGrotto") as MeshInstance3D
-	cinema_shell.mesh = grotto.mesh
-	cinema_shell.material_override = grotto.material_override
-	cinema_shell.layers = 1<<18
-	cinema_shell.hide()
-	awakening.add_child(cinema_shell)
+	if not connected_awakening:
+		cinema_shell = MeshInstance3D.new()
+		var grotto := landscape.get_node("PlayableGrotto") as MeshInstance3D
+		cinema_shell.mesh = grotto.mesh
+		cinema_shell.material_override = grotto.material_override
+		cinema_shell.layers = 1<<18
+		cinema_shell.hide()
+		awakening.add_child(cinema_shell)
 	if shrine.in_cell: _place_sanctum()
 
 func _owns_cell(point: Vector3) -> bool:

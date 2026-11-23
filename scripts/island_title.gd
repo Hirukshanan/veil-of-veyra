@@ -39,6 +39,9 @@ func _uses_title_screen() -> bool:
 func _armory_action() -> Callable:
 	return Callable()
 
+func _store_action() -> Callable:
+	return Callable()
+
 func _clear_menu(title: String, message: String, save_world := true) -> void:
 	super._clear_menu(title, message, save_world and (started or not _uses_title_screen()))
 
@@ -74,7 +77,7 @@ func _build_title() -> void:
 	continue_button = _title_button(art, "Continue", Rect2(127, 272, 362, 79), _continue_journey)
 	new_game_button = _title_button(art, "New Game", Rect2(127, 371, 362, 67), _new_journey)
 	_title_button(art, "Armory", Rect2(127, 459, 362, 68), _armory_action())
-	_title_button(art, "Store", Rect2(127, 547, 362, 68))
+	_title_button(art, "Store", Rect2(127, 547, 362, 68), _store_action())
 	_title_button(art, "Settings", Rect2(127, 635, 362, 68), _open_title_settings)
 	_title_button(art, "About", Rect2(127, 724, 362, 69), _open_title_about)
 

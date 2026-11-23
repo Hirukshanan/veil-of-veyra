@@ -1,4 +1,4 @@
-extends "res://scripts/island_candidate.gd"
+extends "res://scripts/ancient_grove_review.gd"
 
 const LEVEL_CAP := 4
 
@@ -14,11 +14,14 @@ func _armory_action() -> Callable:
 
 func _open_armory() -> void:
 	title_screen.hide()
-	var screen: CanvasLayer = load("res://scripts/armory_screen.gd").new()
+	var screen: CanvasLayer = load(_armory_screen_path()).new()
 	screen.name = "Armory"
 	screen.game = self
 	screen.closed.connect(_show_title)
 	add_child(screen)
+
+func _armory_screen_path() -> String:
+	return "res://scripts/armory_screen.gd"
 
 func _restore_world() -> void:
 	super._restore_world()

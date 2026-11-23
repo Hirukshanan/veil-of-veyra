@@ -77,6 +77,7 @@ func investigate_grove() -> void:
 	if not can_investigate_grove():
 		return
 	game.world_data[GROVE_FLAG] = true
+	game._award_shards(game._grove_shard_reward())
 	game._save_progress()
 
 func grove_objective() -> Dictionary:

@@ -107,6 +107,7 @@ func investigate() -> void:
 	if n == 2:
 		game.world_data.erase(PARTIAL)
 		game.world_data[DONE] = true
+		game._award_shards(game._grove_shard_reward())
 	else:
 		game.world_data[PARTIAL] = n+1
 	game.set_tracked_quest("main")

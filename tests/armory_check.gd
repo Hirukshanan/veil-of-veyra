@@ -1,7 +1,7 @@
 extends SceneTree
 
 const STORE := preload("res://scripts/campaign_store.gd")
-const SCENE := "res://scenes/chapter_one.tscn"
+const SCENE := "res://scenes/previews/armory_review.tscn"
 var game
 var screen
 var output := ""
@@ -44,7 +44,6 @@ func shot(label: String) -> void:
 
 func run() -> void:
 	assert(OS.get_environment("VEYRA_TEST") == "1")
-	assert(ProjectSettings.get_setting("application/run/main_scene") == SCENE)
 	var args := OS.get_cmdline_user_args()
 	mobile = args.has("mobile")
 	if args.size() > 1:
