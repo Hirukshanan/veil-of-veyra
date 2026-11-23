@@ -1,6 +1,11 @@
 extends Node3D
 
 const MODEL_PATH := "res://assets/characters/literock/Dire_Wolf_Lite.glb"
+const MODEL_SCALES := [1.25, 1.05, 1.25]
+# Backward paw travel per second during each imported stance, at source scale.
+const WALK_STRIDE := 1.19
+const RUN_STRIDE := 6.35
+const CONTACT_PHASE := 0.10 / 0.24
 var kind := 0
 var skin: StandardMaterial3D
 var animator: AnimationPlayer
@@ -19,7 +24,7 @@ func _ready() -> void:
 		add_child(_fallback)
 		return
 	_model = load(MODEL_PATH).instantiate()
-	_model.scale = Vector3.ONE * [1.25, 1.05, 1.7][kind]
+	_model.scale = Vector3.ONE * MODEL_SCALES[kind]
 	_model.rotation.y = PI # Imported wolf faces +Z; combat faces -Z.
 	add_child(_model)
 	animator = _model.find_children("*", "AnimationPlayer", true, false)[0]
@@ -41,15 +46,21 @@ func animate(delta: float, speed: float, anticipation: float, strike: float, hur
 	if _fallback != null:
 		_fallback.animate(delta, speed, anticipation, strike, hurt)
 		return
-	var next := "bite" if anticipation > 0.0 or strike > 0.0 or threat > 0.0 else ("run" if speed > 2.5 else ("walk" if speed > 0.1 else "idle"))
+	var show_threat := threat > 0.0 and speed < .25
+	var next := "bite" if anticipation > 0.0 or strike > 0.0 or show_threat else ("run" if speed > 2.5 else ("walk" if speed > 0.1 else "idle"))
 	if hurt > 0.0:
 		next = "idle"
 	if next != _clip:
-		animator.play(next, 0.08)
+		animator.speed_scale = 1.0
+		animator.play(next, 0.10)
 		_clip = next
 	if next == "bite":
 		# Sample anticipation/contact/recovery from the gameplay clock; no second damage timer.
-		var pose := 0.65 + (1.0 - strike) * 0.35 if strike > 0.0 else anticipation * 0.65
+		var pose := anticipation * 0.255
+		if strike > 0.0:
+			# The imported jaw reaches forward at normalized time 0.5.
+			var elapsed := 1.0 - strike
+			pose = lerpf(.255, .5, elapsed / CONTACT_PHASE) if elapsed < CONTACT_PHASE else lerpf(.5, 1.0, (elapsed-CONTACT_PHASE)/(1.0-CONTACT_PHASE))
 		if threat > 0.0 and anticipation <= 0.0 and strike <= 0.0:
 			pose = 0.18 + sin(threat * PI) * 0.32
 		animator.seek(pose, true)
@@ -57,7 +68,8 @@ func animate(delta: float, speed: float, anticipation: float, strike: float, hur
 	else:
 		if not animator.is_playing():
 			animator.play(next)
-		animator.speed_scale = clampf(speed / (3.1 if next == "run" else 2.15), 0.6, 1.6) if next != "idle" else 1.0
+		var stride: float = (RUN_STRIDE if next == "run" else WALK_STRIDE) * MODEL_SCALES[kind]
+		animator.speed_scale = clampf(speed / stride, 0.05, 2.15) if next != "idle" else 1.0
 
 func show_defeat(world: Node3D) -> void:
 	if _defeated:
