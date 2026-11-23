@@ -6,6 +6,7 @@ const TERRAIN = preload("res://scripts/island_terrain.gd")
 const SURFACE = preload("res://assets/environment/new_island/terrain_surface.res")
 const REGION_CENTERS := [Vector2(0,-68), Vector2(-64,-8), Vector2(5,2), Vector2(68,-10), Vector2(0,66)]
 const REVIEW_POINTS := [Vector3(0,0,-37), Vector3(-64,0,12), Vector3(8,0,24), Vector3(68,0,-36), Vector3(0,0,82)]
+var terrain_data: Resource = SURFACE
 var regions: Array[Node3D] = []
 var ground_triangles := 0
 var ready_for_play := false
@@ -45,7 +46,7 @@ func _ready() -> void:
 			material.set_shader_parameter("trail_mask",TERRAIN.trail_mask())
 			mesh.material_override = material
 			# Update the existing render mesh before building its matching physics shape.
-			preload("res://scripts/island_accessibility.gd").fit_region(mesh,region_name,SURFACE)
+			preload("res://scripts/island_accessibility.gd").fit_region(mesh,region_name,terrain_data)
 			mesh.create_trimesh_collision()
 			var body: StaticBody3D = mesh.get_child(0)
 			body.collision_layer = 1 | 4 | 8 | 16
@@ -144,21 +145,21 @@ func supported_saved_point(point: Vector3) -> Vector3:
 func _build_ground() -> void:
 	var surface := SurfaceTool.new()
 	surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for z in range(SURFACE.columns-1):
-		for x in range(SURFACE.columns-1):
+	for z in range(terrain_data.columns-1):
+		for x in range(terrain_data.columns-1):
 			# One owner per cell: regional patches share these exact edge vertices.
-			if SURFACE.cells[z*(SURFACE.columns-1)+x] not in [0,1,4]:continue
-			var px:float=SURFACE.origin.x+x*SURFACE.spacing
-			var pz:float=SURFACE.origin.y+z*SURFACE.spacing
-			var step:float=SURFACE.spacing
-			var cuts:int=SURFACE.cuts(px+step*.5,pz+step*.5)
+			if terrain_data.cells[z*(terrain_data.columns-1)+x] not in [0,1,4]:continue
+			var px:float=terrain_data.origin.x+x*terrain_data.spacing
+			var pz:float=terrain_data.origin.y+z*terrain_data.spacing
+			var step:float=terrain_data.spacing
+			var cuts:int=terrain_data.cuts(px+step*.5,pz+step*.5)
 			var spacing:float=step/cuts
 			for dz in range(cuts):
 				for dx in range(cuts):
-					var a:Vector3=SURFACE.vertex_at(px+dx*spacing,pz+dz*spacing)
-					var b:Vector3=SURFACE.vertex_at(a.x+spacing,a.z)
-					var c:Vector3=SURFACE.vertex_at(a.x,a.z+spacing)
-					var d:Vector3=SURFACE.vertex_at(b.x,c.z)
+					var a:Vector3=terrain_data.vertex_at(px+dx*spacing,pz+dz*spacing)
+					var b:Vector3=terrain_data.vertex_at(a.x+spacing,a.z)
+					var c:Vector3=terrain_data.vertex_at(a.x,a.z+spacing)
+					var d:Vector3=terrain_data.vertex_at(b.x,c.z)
 					for vertex in [a,b,c,b,d,c]:surface.add_vertex(vertex)
 					ground_triangles+=2
 
@@ -198,24 +199,27 @@ func _build_water() -> void:
 	add_child(sea)
 	var water := SurfaceTool.new()
 	water.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for z in range(SURFACE.columns-1):
-		var pz:float=SURFACE.origin.y+z*SURFACE.spacing
+	var estuary := SurfaceTool.new()
+	estuary.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for z in range(terrain_data.columns-1):
+		var pz:float=terrain_data.origin.y+z*terrain_data.spacing
 		if pz < -70 or pz > 118:continue
-		for x in range(SURFACE.columns-1):
-			var px:float=SURFACE.origin.x+x*SURFACE.spacing
+		var builder := estuary if terrain_data.grade_estuary and pz >= 90.0 else water
+		for x in range(terrain_data.columns-1):
+			var px:float=terrain_data.origin.x+x*terrain_data.spacing
 			if absf(px-_river_center(pz))>_river_width(pz)+3:continue
-			var step:float=SURFACE.spacing
+			var step:float=terrain_data.spacing
 			# Refine only the channel corridor, keeping the rest of the island cheap.
-			var cuts:int=SURFACE.cuts(px+step*.5,pz+step*.5)
+			var cuts:int=terrain_data.cuts(px+step*.5,pz+step*.5)
 			var spacing:float=step/cuts
 			for dz in range(cuts):
 				for dx in range(cuts):
-					var a:Vector3=SURFACE.vertex_at(px+dx*spacing,pz+dz*spacing)
-					var b:Vector3=SURFACE.vertex_at(a.x+spacing,a.z)
-					var c:Vector3=SURFACE.vertex_at(a.x,a.z+spacing)
-					var d:Vector3=SURFACE.vertex_at(b.x,c.z)
-					_add_wet_triangle(water,[a,b,c])
-					_add_wet_triangle(water,[b,d,c])
+					var a:Vector3=terrain_data.vertex_at(px+dx*spacing,pz+dz*spacing)
+					var b:Vector3=terrain_data.vertex_at(a.x+spacing,a.z)
+					var c:Vector3=terrain_data.vertex_at(a.x,a.z+spacing)
+					var d:Vector3=terrain_data.vertex_at(b.x,c.z)
+					_add_wet_triangle(builder,[a,b,c])
+					_add_wet_triangle(builder,[b,d,c])
 
 	water.generate_normals()
 	water.index()
@@ -227,6 +231,17 @@ func _build_water() -> void:
 	river.material_override = river_material
 	river.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(river)
+	if terrain_data.grade_estuary:
+		estuary.generate_normals()
+		estuary.index()
+		var outlet := MeshInstance3D.new()
+		outlet.name = "EstuaryWater"
+		outlet.mesh = estuary.commit()
+		var outlet_material := ShaderMaterial.new()
+		outlet_material.shader = preload("res://assets/environment/new_island/estuary.gdshader")
+		outlet.material_override = outlet_material
+		outlet.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		add_child(outlet)
 
 static func _river_center(z:float) -> float:
 	var upper:float=(z+68)*22.0/30.0+3.0*sin(clampf((z+68)/30.0,0,1)*PI)
@@ -256,8 +271,10 @@ func _add_wet_triangle(surface:SurfaceTool,triangle:Array[Vector3]) -> void:
 	for index in range(1,polygon.size()-1):
 		for vertex_index in [0,index,index+1]:
 			var vertex:=polygon[vertex_index]
-			vertex.y=_river_surface_height(vertex.z)
-			surface.set_color(Color(1 if shore[vertex_index] else 0,1,1,1))
+			var level := _river_surface_height(vertex.z)
+			var depth := clampf(level - vertex.y, 0.0, 1.0)
+			vertex.y = level
+			surface.set_color(Color(1 if shore[vertex_index] else 0, depth if terrain_data.grade_estuary else 1.0, 1, 1))
 			surface.set_uv(Vector2((vertex.x-_river_center(vertex.z))/_river_width(vertex.z)*0.5+0.5,vertex.z*0.15))
 			surface.add_vertex(vertex)
 
@@ -268,7 +285,7 @@ func ground_hit(point: Vector3) -> Dictionary:
 
 func ground_point(point: Vector3) -> Vector3:
 	var hit := ground_hit(point)
-	return Vector3(point.x,hit.position.y if not hit.is_empty() else height_at(Vector2(point.x,point.z)),point.z)
+	return Vector3(point.x,hit.position.y if not hit.is_empty() else terrain_data.sample(Vector2(point.x,point.z)),point.z)
 
 func safe_point(point: Vector3) -> Vector3:
 	var preserved:Vector3=SURFACE.preserved_point(point)

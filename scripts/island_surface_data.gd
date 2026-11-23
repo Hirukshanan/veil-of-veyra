@@ -3,6 +3,8 @@ extends Resource
 const NORTH_RELIEF = preload("res://assets/environment/new_island/task55a/north_relief.tres")
 const EASTERN_SLOPE = preload("res://assets/environment/new_island/task55a/eastern_slope.tres")
 
+var grade_estuary := false
+
 @export var origin := Vector2(-120,-120)
 @export var spacing := 1.25
 @export var columns := 193
@@ -31,6 +33,14 @@ func preserved_point(point: Vector3) -> Vector3:
 
 func sample(point:Vector2) -> float:
 	var height := _original_height(point)
+	if grade_estuary and point.y > 85.0 and point.y < 113.0:
+		# Give both banks a gradual cross-slope through the old flat waterline strip.
+		var z := point.y
+		var bank_offset := absf(point.x - river_center(z)) - river_width(z)
+		var extent := smoothstep(85.0, 94.0, z) * (1.0 - smoothstep(105.0, 113.0, z))
+		var edge_blend := 1.0 - smoothstep(1.0, 3.1, absf(bank_offset))
+		var bank_height := maxf(-1.45, river_level(z)) + bank_offset * .29
+		height = lerpf(height, bank_height, extent * edge_blend)
 	if point.y < -42.5:
 		return height + NORTH_RELIEF.sample(point)
 	if point.x > 42.5:
