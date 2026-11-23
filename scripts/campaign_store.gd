@@ -51,6 +51,9 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 		return false
 	if not world.get("boar_defeated", false) is bool:
 		return false
+	for slot in ["blade_equipped", "armor_equipped"]:
+		if not world.get(slot, true) is bool:
+			return false
 	if world.has("guardian_quest") and not _valid_guardian_quest(world.guardian_quest, world.seal_fragments):
 		return false
 	if not world.position is Vector3 or not world.position.is_finite() or world.position.y < -8 or world.position.y > 50:

@@ -13,6 +13,8 @@ var _dead := false
 var _grounded := true
 var _meshes: Array[Node] = []
 var _flash: StandardMaterial3D
+var _plain_outfit: StandardMaterial3D
+var idle_only := false
 
 
 func _ready() -> void:
@@ -27,6 +29,8 @@ func _ready() -> void:
 	model.add_child(animator)
 	var library := AnimationLibrary.new()
 	for clip in CLIPS:
+		if idle_only and clip != "Sword_Idle":
+			continue
 		var animation: Animation = source_player.get_animation(clip).duplicate(true)
 		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Walk", "Sprint", "Jump"] else Animation.LOOP_NONE
 		for track in range(animation.get_track_count() - 1, -1, -1):
@@ -61,6 +65,19 @@ func _ready() -> void:
 	_flash.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_flash.albedo_color = Color(1, 0.15, 0.1, 0.55)
 	animator.play("Sword_Idle")
+
+func set_armor_protection_visible(equipped: bool) -> void:
+	for mesh: MeshInstance3D in _meshes:
+		for index in mesh.mesh.get_surface_count():
+			var outfit: Material = mesh.mesh.surface_get_material(index)
+			if outfit == null or outfit.resource_name != "Aru cloth and leather":
+				continue
+			if _plain_outfit == null:
+				_plain_outfit = outfit.duplicate()
+				_plain_outfit.albedo_color = Color("a49b87")
+				_plain_outfit.metallic = 0.0
+				_plain_outfit.metallic_texture = null
+			mesh.set_surface_override_material(index, null if equipped else _plain_outfit)
 
 func update_motion(delta: float, speed: float, hurt: bool, grounded := true) -> void:
 	for mesh in _meshes:

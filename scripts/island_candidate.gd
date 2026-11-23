@@ -1,4 +1,4 @@
-extends "res://scripts/campaign.gd"
+extends "res://scripts/island_title.gd"
 
 const FOX_ENCOUNTER := preload("res://scenes/enemies/demon_fox_combat.tscn")
 const CHAPTER_OPENING := preload("res://scripts/chapter_opening.gd")

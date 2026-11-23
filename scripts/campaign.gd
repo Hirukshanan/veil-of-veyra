@@ -224,9 +224,9 @@ func _ready() -> void:
 	herbs.collector = player
 	player.camera_zoom_finished.connect(_on_camera_zoom_finished)
 	_load_settings()
-	player.set("max_health", 100 + armor_level * 25)
-	player.set("health", 100 + armor_level * 25)
-	player.set("attack_damage", 1 + blade_level)
+	player.set("max_health", PLAYER_SCRIPT.armor_vitality(armor_level))
+	player.set("health", PLAYER_SCRIPT.armor_vitality(armor_level))
+	player.set("attack_damage", PLAYER_SCRIPT.blade_power(blade_level))
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_build_campaign_ui()
 	mobile_hud = preload("res://scripts/mobile_hud.gd").new()
@@ -558,11 +558,11 @@ func _upgrade(blade: bool) -> void:
 	shards -= _cost(level)
 	if blade:
 		blade_level += 1
-		player.set("attack_damage", 1 + blade_level)
+		player.set("attack_damage", PLAYER_SCRIPT.blade_power(blade_level))
 	else:
 		armor_level += 1
-		player.set("max_health", 100 + armor_level * 25)
-		player.set("health", 100 + armor_level * 25)
+		player.set("max_health", PLAYER_SCRIPT.armor_vitality(armor_level))
+		player.set("health", PLAYER_SCRIPT.armor_vitality(armor_level))
 	_on_health_changed(int(player.get("health")), int(player.get("max_health")))
 	_save_progress()
 	_show_camp()

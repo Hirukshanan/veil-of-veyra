@@ -6,7 +6,9 @@ signal camera_zoom_finished(distance:float)
 
 const MOVE_SPEED := 5.2
 const SPRINT_SPEED := 8.3
-var stamina := 100.0
+const MAX_STAMINA := 100.0
+const GUARD_DAMAGE_FACTOR := 0.3
+var stamina := MAX_STAMINA
 var sprint_enabled := false
 const DODGE_SPEED := 12.0
 const GRAVITY := 22.0
@@ -27,6 +29,7 @@ const BURST_RADIUS := 3.0
 var health := 100
 var max_health := 100
 var attack_damage := 1
+var blade_equipped := true
 var _touch_move := Vector2.ZERO
 var _dodge_direction := Vector3.ZERO
 var _dodge_time := 0.0
@@ -63,6 +66,12 @@ var _burst_requested := false
 var _swing_id := 0
 var _attack_buffer := 0.0
 var _charge_knockback := Vector3.ZERO
+
+static func blade_power(upgrade_level: int) -> int:
+	return 1 + upgrade_level
+
+static func armor_vitality(upgrade_level: int) -> int:
+	return 100 + upgrade_level * 25
 
 
 func _ready() -> void:
@@ -232,6 +241,8 @@ func set_move_input(value: Vector2) -> void:
 
 
 func attack() -> void:
+	if not blade_equipped:
+		return
 	end_guard()
 	if get_tree().paused or health <= 0:
 		return
@@ -271,6 +282,8 @@ func attack() -> void:
 
 
 func spirit_burst() -> void:
+	if not blade_equipped:
+		return
 	end_guard()
 	if get_tree().paused or health <= 0 or spirit < SPIRIT_MAX or _attack_cooldown > 0.0:
 		return
@@ -362,7 +375,7 @@ func take_damage(amount: int, attacker: Node3D=null) -> void:
 				attacker.set("_hit_time",0.4)
 				play_sound("sword")
 				return
-			amount=maxi(1,ceili(amount*0.3))
+			amount=maxi(1,ceili(amount*GUARD_DAMAGE_FACTOR))
 	cancel_swing()
 	health = maxi(0, health - amount)
 	play_sound("hurt")
@@ -482,6 +495,11 @@ func _build_weapon() -> void:
 	grip.position.y = -0.13
 	grip.material_override = _weapon_material(Color(0.19, 0.12, 0.1), 0.0, 0.82)
 	_weapon.add_child(grip)
+
+func set_equipment_visuals(blade: bool, armor: bool) -> void:
+	blade_equipped = blade
+	_weapon.visible = blade
+	_visual.set_armor_protection_visible(armor)
 
 
 func _make_curved_blade() -> ArrayMesh:
@@ -615,9 +633,11 @@ func _sprint_speed(delta: float, input_strength: float) -> float:
 			return SPRINT_SPEED
 		sprint_enabled = false
 	else:
-		stamina = minf(100.0, stamina + 18.0 * delta)
+		stamina = minf(MAX_STAMINA, stamina + 18.0 * delta)
 	return MOVE_SPEED
 func heavy_attack() -> void:
+	if not blade_equipped:
+		return
 	end_guard()
 	if get_tree().paused or health <= 0 or stamina < HEAVY_COST or _attack_cooldown > 0.0 or _dodge_time > 0.0 or _hit_time > 0.0:
 		return
