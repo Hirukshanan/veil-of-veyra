@@ -81,6 +81,7 @@ func _ready() -> void:
 		tab.toggle_mode = true
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		tabs.append(tab)
+	_add_equipment_selector(column)
 	stats = _label(column, "", 19, GOLD)
 	var scroll := preload("res://scripts/mobile_settings.gd").TouchScroll.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -100,6 +101,9 @@ func _ready() -> void:
 	upgrade_button = _button(actions, "Upgrade", _change.bind(true))
 	status = _label(column, "", 17, GOLD)
 	_refresh()
+
+func _add_equipment_selector(_column: VBoxContainer) -> void:
+	pass
 
 func _build_preview(parent: Control) -> void:
 	var box := PanelContainer.new()
