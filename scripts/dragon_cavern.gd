@@ -97,6 +97,12 @@ func _block(shrine: Node3D, at: Vector3, size: Vector3, material: Material) -> v
 	piece.position = at
 	shrine.solid(at,size,self)
 
+func close_bridge_parapet_ends(shrine: Node3D, rock: StandardMaterial3D) -> void:
+	var lining := passage_stone(rock,Color(.31,.32,.35))
+	# Join the last stones to the end wall, using the same visible/solid builder.
+	for side in [-1, 1]:
+		_block(shrine, Vector3(AXIS + side*2.08, 34.61, 80.64), Vector3(.44, 1.22, .70), lining)
+
 # A few layered rock curtains give scale without filling the walkable route.
 func _add_depth(source: StandardMaterial3D) -> void:
 	var stone := passage_stone(source,Color(.28,.29,.33))

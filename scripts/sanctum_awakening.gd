@@ -10,6 +10,7 @@ var crimson := StandardMaterial3D.new()
 var seal_lights: Array[OmniLight3D] = []
 var passage: Node3D
 var extend_passage := false
+var bridge_recovery_review := false
 var cavern: Node3D
 var corridor_environment: Environment
 const GATE_POWER_TIME := 4.4
@@ -85,6 +86,8 @@ func attach_sanctum(shrine: Node3D) -> void:
 		cavern = preload("res://scripts/dragon_cavern.gd").new()
 		passage.add_child(cavern)
 		cavern.build(shrine,stone(),EYE_ATLAS)
+		if bridge_recovery_review:
+			cavern.close_bridge_parapet_ends(shrine, stone())
 	if finished(): apply_open_state()
 
 func _static_seal_frame(part: MeshInstance3D) -> bool:
