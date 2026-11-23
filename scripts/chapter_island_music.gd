@@ -17,6 +17,7 @@ var _exploration_position := 0.0
 var _want_combat := false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	game = get_parent()
 	exploration = _make_track(EXPLORATION)
 	combat = _make_track(COMBAT)
@@ -31,6 +32,14 @@ func _make_track(source: AudioStreamMP3) -> AudioStreamPlayer:
 	return player
 
 func _process(delta: float) -> void:
+	# The title runs over a paused world. Reuse its exploration track when play begins.
+	var at_title: bool = not game.started and is_instance_valid(game.title_screen)
+	var pause_music := get_tree().paused and not at_title
+	for track in [exploration, combat]:
+		if track.stream_paused != pause_music:
+			track.stream_paused = pause_music
+	if pause_music:
+		return
 	var playable: bool = game.placement_ready and game.started and not game.game_finished and game.player.health > 0
 	var quiet: bool = not playable or game.awakening.active or _bear_music_active()
 	if quiet:
@@ -45,7 +54,7 @@ func _process(delta: float) -> void:
 			if _enemy_engaged():
 				_combat_hold = RELEASE_SECONDS
 		_want_combat = _combat_hold > 0.0
-	_fade(exploration, not quiet and not _want_combat, -19.0, delta)
+	_fade(exploration, at_title or (not quiet and not _want_combat), -19.0, delta)
 	_fade(combat, not quiet and _want_combat, -17.0, delta)
 
 func _bear_music_active() -> bool:
