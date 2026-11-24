@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="26" viewBox="0 0 320 26" role="img" aria-label="Godot 4.7.2, GDScript, Android ARM64">
+  <g fill="#211e23" stroke="#a07b4b"><rect x="1" y="1" width="99" height="24" rx="5"/><rect x="108" y="1" width="82" height="24" rx="5"/><rect x="198" y="1" width="121" height="24" rx="5"/></g>
+  <g fill="#f1d8b2" font-family="Verdana, sans-serif" font-size="12" text-anchor="middle"><text x="50" y="17">Godot 4.7.2</text><text x="149" y="17">GDScript</text><text x="258" y="17">Android ARM64</text></g>
+</svg>

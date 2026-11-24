@@ -1,26 +1,88 @@
+<p align="center">
+  <img src="assets/ui/brand/homepg_veil_of_veyra.png" width="100%" alt="Veil of Veyra home screen. A dragon holds a crimson lantern beside the Chapter I menu.">
+</p>
+
 # Veil of Veyra
 
-**The Curse Awakens — Chapter I**
+**The Curse Awakens · Chapter I**
 
-Created and developed by **Logachandran Hirukshanan**.
+A single-player dark fantasy action RPG for Android, created and developed by **Logachandran Hirukshanan**.
 
-Veil of Veyra is a single-player dark fantasy action RPG built for Android landscape play. As Aru, explore a curse-stricken island, recover the fragments of an ancient seal, and follow the Lantern’s trail beneath the forest. Desktop play is available for development and validation.
+![Godot 4.7.2, GDScript, Android ARM64](docs/screenshots/technology.svg)
 
-![Aru exploring the Chapter I island in Godot](docs/screenshots/chapter-one-exploration.png)
+A warning bell falls silent on the shore. Playing as Aru, you follow a stain of ash from the beach camp to Tideseal Ruins, where an ancient seal lies broken. Three cursed guardians carry its fragments. The first mystery is how to rekindle the Northern Lantern. The next is what left claw marks in the grove beyond it.
 
-## Playable Chapter I
+[Combat footage](#in-combat) · [Touch controls](#playing-on-android) · [Island and progression](#across-the-island) · [Run the project](#run-the-project)
 
-- **Explore a connected island.** Cross the coast, forest, foothills and riverbanks, discover the Tidewarden Shrine and Ancient Grove, and use the Quest Journal and circular minimap to track objectives.
-- **Fight with readable timing.** Chain sword attacks, guard, dodge and use Spirit Burst. Wolves populate the island, and the Dire Warg, Demon Fox and Demon Boar guard the seal fragments. The Cursed Bear encounter takes place in the eastern cave.
-- **Restore the seal.** Take the guardian fragments to the forest shrine and investigate the signs of the curse. Chapter I closes with Lantern Awakening and a cinematic.
-- **Build Aru’s loadout.** Buy potions and standard equipment in the Store with Tide Shards. Preview, equip and upgrade owned gear in the Armory. Equipment ownership, upgrade levels and currency balances persist in the campaign save.
-- **Earn Veil Gems.** The rare currency is awarded once per eligible guardian, boss and Chapter I milestone. It is reserved for future cosmetic appearances. The current Store sells consumables and standard equipment.
+## In combat
 
-![The Chapter I Armory with Aru, equipment preview and upgrade details](docs/screenshots/chapter-one-armory.png)
+<p align="center"><img src="docs/screenshots/bear-fight.gif" width="100%" alt="Aru faces the Cursed Bear in the ruined temple. An orange charge lane stretches across the floor before the Bear closes the distance."></p>
 
-## Run locally
+**Cursed Bear · Eastern cave.** From behind Aru, you can see the charge lane turn with him during the wind-up. Once the Bear commits, a sideways dodge clears the lane. A collision with the temple wall briefly staggers the Bear, giving Aru time to step back in. At 40% health the Bear enters Rage and its recovery windows shorten. The loop above is an excerpt from the in-engine encounter recording.
 
-Install standard **Godot 4.7.2**, Git and Git LFS. The project uses GDScript and the GL Compatibility renderer.
+<table>
+<tr>
+<td width="50%"><a href="docs/screenshots/boar-stomp.jpg"><img src="docs/screenshots/boar-stomp.jpg" alt="Dust rises under the Demon Boar’s hooves as the stomp lands, with Aru just beyond the orange circle."></a><br><b>Demon Boar · Ground stomp</b><br>Aru is just outside the impact circle as the hooves hit. Staying close invites a tusk sweep or stomp. At a distance, watch for the charge.</td>
+<td width="50%"><a href="docs/screenshots/fox-counter.jpg"><img src="docs/screenshots/fox-counter.jpg" alt="Aru swings his curved blade during the Demon Fox’s leap, with the landing ring beneath him and a damage number above the Fox."></a><br><b>Demon Fox · Leap and counter</b><br>The landing ring gives away the Fox’s destination. Here Aru’s blade catches it mid-approach. During Phantom Veil, follow the shimmer and crimson eyes to read its next flank.</td>
+</tr>
+</table>
+
+Both stills were captured in the playable Chapter I island with a close review camera. Tap the sword for a light strike, hold for a heavy blow, or keep enough stamina to dodge the next attack. A full Spirit meter unlocks Spirit Burst.
+
+## Playing on Android
+
+<a href="docs/screenshots/chapter-one-exploration.png"><img src="docs/screenshots/field-controls.jpg" width="100%" alt="Chapter I landscape HUD with numbered callouts for movement, camera space, combat buttons, potion and navigation."></a>
+
+| On the screen | How to use it |
+| --- | --- |
+| **1 · Movement stick** | Drag to walk. Hold beyond the upper rim to sprint. Drag farther up and hold for auto-sprint, then touch the stick again to stop. |
+| **2 · Open camera space** | Drag across open space to look around while moving. Pinch to adjust the camera distance. |
+| **3 · Combat buttons** | Tap the sword to attack or hold it for **0.4 seconds** for a heavy strike. Hold the shield to guard. Dodge, Jump and Spirit Burst have separate buttons. |
+| **4 · Quick items and interactions** | Tap the potion at the bottom to heal. Near a plant, seal socket or investigation clue, use the contextual Pick / Interact prompt. |
+| **5 · Navigation** | Use the top-right circular minimap and compass to keep your heading. Open the journal scroll to choose a tracked objective, or pause to save and return to camp. |
+
+<details>
+<summary><b>Keyboard and mouse bindings for development</b></summary>
+
+| Action | Binding |
+| --- | --- |
+| Move / sprint | WASD or arrow keys / Shift |
+| Orbit camera | Hold the right mouse button and drag |
+| Light / heavy attack | J / H |
+| Guard / dodge / jump | F / K / Space |
+| Spirit Burst / interact | L / E |
+| Journal / pause | Q / Esc |
+| Heal | Click the potion slot |
+
+</details>
+
+## Across the island
+
+**The forest shrine.** The journal lets you track one guardian at a time and approach the three hunts in any order. At the Forgotten Tidewarden Shrine, each recovered fragment fits its own socket. Restoring all three lights the central beacon. Heavy prints and damaged bark carry the investigation onward to Ancient Grove and the eastern cave.
+
+[![The Root, Tide and Beacon sockets illuminated in moss-green, cyan and gold](docs/screenshots/seal-details.jpg)](docs/screenshots/tidewarden-shrine.png)
+
+*The three lit seals, pictured in the shrine visual review. Select the image for the complete shrine in Chapter I.*
+
+**Equipment and rewards.** The Store spends Tide Shards on potions and standard equipment. The Armory lets you rotate Aru, preview gear, equip it and compare the next upgrade against your current stats. The Embersteel Sword shares weapon upgrades with the starter blade. Equipment ownership, upgrades, currencies and quest progress carry through saves.
+
+<table>
+<tr>
+<td width="50%"><a href="docs/screenshots/equipment-store.png"><img src="docs/screenshots/equipment-store.png" alt="The Store showing the Embersteel Sword, Thornward Shield and Reinforced Ranger Armor."></a><br><b>Store</b> · Inspect an item and its Tide Shard price.</td>
+<td width="50%"><a href="docs/screenshots/chapter-one-armory.png"><img src="docs/screenshots/chapter-one-armory.png" alt="Aru on the Armory platform beside his equipped blade, stats and upgrade cost."></a><br><b>Armory</b> · Inspect the fit on Aru before committing to a loadout.</td>
+</tr>
+</table>
+
+**Veil Gems** are first-clear rewards. Each fragment guardian grants one, the Cursed Bear grants two, and finishing Chapter I grants one more. The chapter total is six. Crimson equipment appearances and cosmetic spending are planned.
+
+## Run the project
+
+| | Project details |
+| --- | --- |
+| **Game** | Playable Chapter I, version **0.12.7**. Android landscape, single player. |
+| **Stack** | Godot **4.7.2** standard edition, GDScript, GL Compatibility renderer, Git LFS for large assets. |
+| **Development machine** | A graphics driver compatible with Godot’s GL Compatibility renderer, Git and Git LFS. |
+| **Android export** | Matching Godot export templates, Java SDK and Android SDK. The debug preset targets ARM64. |
 
 ```sh
 git lfs install
@@ -30,38 +92,28 @@ git lfs pull
 git lfs fsck --objects HEAD
 ```
 
-1. Install the licensed [Dire Wolf Lite model](assets/characters/literock/README.md) locally for the intended wolf visuals.
-2. Open `project.godot` in Godot and let imports finish.
-3. Press **F5** to run the project. The normal entry point is `scenes/chapter_one.tscn`.
+Follow the [licensed character asset setup](assets/characters/literock/README.md) for the intended enemy visuals. Open `project.godot`, allow imports to finish, then press **F5**. The normal entry point is [Chapter I](scenes/chapter_one.tscn).
 
-## Controls
+<details>
+<summary><b>Repository guide and validation</b></summary>
 
-| Action | Android landscape | Desktop development |
-| --- | --- | --- |
-| Move and sprint | Virtual joystick. Hold past its upper edge to sprint | WASD or arrow keys, Shift to sprint |
-| Camera | Drag to orbit, pinch to zoom | Hold right mouse button and drag |
-| Sword and heavy attack | Tap or hold the sword button | J / H |
-| Guard, dodge and jump | Guard, Dodge and Jump buttons | F / K / Space |
-| Spirit Burst | Spirit Burst button | L |
-| Interact and heal | Interact and potion buttons | E to interact, click the potion button |
-| Quest Journal and pause | Journal and Pause buttons | Q / Esc |
-
-The circular minimap shows heading and nearby objectives.
-
-## Build and validate
-
-- [Android setup and debug export](ANDROID_SETUP.md) covers SDK prerequisites, signing, package verification and device checks.
-- [Validation](VALIDATION.md) lists active Chapter I regressions and shows how to isolate test saves.
-- [Release status](RELEASE_STATUS.md) summarizes the playable build and remaining work. Physical device coverage and sustained thermal performance still need validation. Crimson equipment and cosmetic purchases are planned.
-
-## Repository layout
-
-| Path | Contents |
+| Directory | Contents |
 | --- | --- |
-| `scenes/`, `scripts/` | Playable scenes, gameplay, menus and isolated previews |
-| `assets/` | Runtime models, textures, UI, audio and attribution |
-| `art_source/` | Editable art sources and asset preparation history |
-| `tests/`, `tools/` | Godot regression scripts and build tools |
-| `docs/` | [Documentation index](docs/README.md), project credits and milestone evidence |
+| `scenes/` and `scripts/` | Chapter entry point, island, combat, quests and menus |
+| `assets/` and `art_source/` | Runtime assets, editable art sources and attribution |
+| `tests/` and `tools/` | Godot regression scripts, preparation tools and build helpers |
+| `docs/` | Design records, milestone evidence, screenshots and credits |
 
-See [Game Design](GAME_DESIGN.md) for the current design and [Project Credits](docs/PROJECT_CREDITS.md) for creator, soundtrack and third-party attributions. Individual asset licenses and source notices are stored alongside the assets.
+[Android setup and debug export](ANDROID_SETUP.md) · [Regression tests and isolated saves](VALIDATION.md) · [Documentation index](docs/README.md)
+
+</details>
+
+## Development status
+
+Chapter I is playable from the opening warning through the shrine, Grove investigation, cave encounter and Lantern Awakening finale. Physical Android acceptance is still pending for touch, audio, cinematics, memory and sustained FPS and temperature. Samsung Galaxy A37 is a validation target. Minimum supported device specifications have yet to be established. See [release status](RELEASE_STATUS.md).
+
+## Credits and licensing
+
+**Logachandran Hirukshanan** — creation, development, game design, story and worldbuilding, creative direction, original soundtrack and music direction. Custom soundtracks were produced under his direction using AI-assisted music generation.
+
+Aru’s base character, outfit and animation library are by Quaternius. Literock Studios supplied the Dire Wolf Lite model, Pigcraft created the original dragon model, and Poly Haven contributors supplied environment assets. License terms vary by asset. See [project credits, source records and license notices](docs/PROJECT_CREDITS.md).
