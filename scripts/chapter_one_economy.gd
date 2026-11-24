@@ -11,7 +11,17 @@ const BEAR_SHARDS := 38
 const CHAPTER_SHARDS := 42
 const POTION_PRICE := 8
 const STORE_POTION_LIMIT := 5
-const CURRENCIES := preload("res://scripts/currency_display.gd")
+const STORE_SCREEN := preload("res://scripts/chapter_store_screen.gd")
+const STORE_ITEMS := [
+	{"name":"Healing Potion", "category":0, "price":POTION_PRICE, "bit":0, "art":"potion",
+		"copy":"Restores up to 50 health."},
+	{"name":"Embersteel Sword", "category":1, "price":20, "bit":CAMPAIGN_STORE.EMBERSTEEL, "art":"blade",
+		"copy":"A forged embersteel blade. Shares your weapon upgrades."},
+	{"name":"Thornward Shield", "category":1, "price":15, "bit":CAMPAIGN_STORE.THORNWARD, "art":"shield",
+		"copy":"Bronze-bound oak with a thorn engraving. Uses your existing guard."},
+	{"name":"Reinforced Ranger Armor", "category":1, "price":20, "bit":CAMPAIGN_STORE.REINFORCED, "art":"armor",
+		"copy":"Fitted plates for Aru’s Ranger Outfit. Shares your armor upgrades."},
+]
 
 func _cost(level: int) -> int:
 	return UPGRADE_COSTS[clampi(level, 0, UPGRADE_COSTS.size()-1)]
@@ -62,48 +72,58 @@ func _chapter_shard_reward() -> int:
 	return CHAPTER_SHARDS if world_data.get("bear_shards_paid", false) == true else super._chapter_shard_reward()
 
 func _store_action() -> Callable:
-	return _show_store
+	return _open_store.bind(false)
 
-func _show_store(feedback := "") -> void:
+func _pause_store_action() -> Callable:
+	return _open_store.bind(true)
+
+func _toggle_pause() -> void:
+	var store := get_node_or_null("StoreScreen")
+	if is_instance_valid(store):
+		store.close()
+		return
+	super._toggle_pause()
+
+func _open_store(in_game: bool) -> void:
+	if has_node("StoreScreen"):
+		return
 	if is_instance_valid(title_screen):
 		title_screen.hide()
-	var detail := "Healing potions carried  %d\n\nA potion restores up to 50 health. The Store refills your pouch up to %d potions." % [potions, STORE_POTION_LIMIT]
-	var can_save := not progress_unreadable and (started or _has_valid_journey())
-	if not can_save:
-		detail += "\nStart or continue a valid journey to buy supplies."
-	elif potions >= STORE_POTION_LIMIT:
-		detail += "\nYour pouch is stocked."
-	elif shards < POTION_PRICE:
-		detail += "\nYou need %d more Tide Shards." % (POTION_PRICE-shards)
-	if not feedback.is_empty():
-		detail += "\n" + feedback
-	_clear_menu("STORE", detail, false)
-	var balances := CURRENCIES.new()
-	menu_box.add_child(balances)
-	balances.update_balances(shards, veil_gems)
-	_menu_button("Buy healing potion  ·  %d Tide Shards" % POTION_PRICE, _buy_potion,
-		not can_save or potions >= STORE_POTION_LIMIT or shards < POTION_PRICE)
-	var buy := menu_box.get_child(-1) as Button
-	CURRENCIES.style_price(buy)
-	_menu_button("Back to menu", _show_title)
-	var back := menu_box.get_child(-1) as Button
-	# Style the existing heading and body before inserting the currency row.
-	_style_pause_panel(370.0)
-	menu_box.move_child(balances, 1)
-	menu_shade.color = Color("110c10")
-	(back if buy.disabled else buy).grab_focus()
+	overlay.hide()
+	var screen := STORE_SCREEN.new()
+	screen.name = "StoreScreen"
+	screen.game = self
+	screen.closed.connect(_pause_game if in_game else _show_title)
+	add_child(screen)
 
-func _buy_potion() -> void:
-	if progress_unreadable or (not started and not _has_valid_journey()) or shards < POTION_PRICE or potions >= STORE_POTION_LIMIT:
-		return
-	shards -= POTION_PRICE
-	potions += 1
-	var saved_potions: int = world_data.potions
-	world_data.potions = potions
+func store_owns(item: Dictionary) -> bool:
+	return item.bit != 0 and (world_data.get(CAMPAIGN_STORE.OWNED_EQUIPMENT, 0) & item.bit) != 0
+
+func buy_store_item(index: int) -> String:
+	if index < 0 or index >= STORE_ITEMS.size():
+		return "Item unavailable"
+	if progress_unreadable or (not started and not _has_valid_journey()):
+		return "Start or continue a valid journey to purchase supplies"
+	var item: Dictionary = STORE_ITEMS[index]
+	if store_owns(item):
+		return "Already owned"
+	var is_potion: bool = item.bit == 0
+	if is_potion and potions >= STORE_POTION_LIMIT:
+		return "Potion pouch is full"
+	if shards < item.price:
+		return "Insufficient Tide Shards"
+
+	var previous_world := world_data.duplicate(true)
+	var previous_potions := potions
+	shards -= item.price
+	if is_potion:
+		potions += 1
+		world_data.potions = potions
+	else:
+		world_data[CAMPAIGN_STORE.OWNED_EQUIPMENT] |= item.bit
 	if not _save_progress(started):
-		shards += POTION_PRICE
-		potions -= 1
-		world_data.potions = saved_potions
-		_show_store("Purchase could not be saved. Your shards were restored.")
-		return
-	_show_store("Healing potion added.")
+		shards += item.price
+		potions = previous_potions
+		world_data = previous_world
+		return "Purchase could not be saved"
+	return "Purchase Successful"

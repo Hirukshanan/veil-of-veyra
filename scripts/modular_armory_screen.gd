@@ -75,7 +75,7 @@ func _refresh() -> void:
 	var slot: String = SLOTS[section]
 	var saved: Dictionary = game.gear_selection()
 	var active: bool = saved[slot] == option
-	var locked: bool = option == 1 and game.gear_level(slot) < 1
+	var locked: bool = not game.owns_gear(slot, option)
 	for i in choices.size():
 		choices[i].visible = i < ITEMS[section].size()
 		if choices[i].visible:
@@ -90,7 +90,7 @@ func _refresh() -> void:
 	equip_button.show()
 	equip_button.text = "Unequip" if active else "Equip"
 	equip_button.disabled = locked or game.equipment_locked()
-	var owned := "Locked · Requires level 1" if locked else "Equipped" if active else "Owned"
+	var owned := "Available in the Store" if locked else "Equipped" if active else "Owned"
 	if slot == "shield":
 		detail.text = "Reinforced oak with a bronze thorn engraving. Guard uses the existing combat rules."
 		levels.text = owned + "\nNo stat change"

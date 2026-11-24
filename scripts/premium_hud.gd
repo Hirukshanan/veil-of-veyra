@@ -262,7 +262,7 @@ func _draw_currency_reward(f: float) -> void:
 	if scene.reward_shards > 0:
 		rewards.append([CURRENCIES.SHARD, "+%d Tide Shards" % scene.reward_shards])
 	if scene.reward_gems > 0:
-		rewards.append([CURRENCIES.GEM, "+%d Veil Gems" % scene.reward_gems])
+		rewards.append([CURRENCIES.GEM, "+1 Veil Gem" if scene.reward_gems == 1 else "+%d Veil Gems" % scene.reward_gems])
 	var panel_rect := Rect2(Vector2(size.x * .5 - 105 * f, 65 * f), Vector2(210 * f, (12 + 28 * rewards.size()) * f))
 	_panel(panel_rect)
 	var at := panel_rect.position + Vector2(12, 6) * f

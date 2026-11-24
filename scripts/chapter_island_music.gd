@@ -34,11 +34,12 @@ func _make_track(source: AudioStreamMP3) -> AudioStreamPlayer:
 func _process(delta: float) -> void:
 	# The title runs over a paused world. Reuse its exploration track when play begins.
 	var at_title: bool = not game.started and is_instance_valid(game.title_screen)
-	var pause_music := get_tree().paused and not at_title
+	var in_store := game.has_node("StoreScreen")
+	var pause_music := get_tree().paused and not at_title and not in_store
 	for track in [exploration, combat]:
 		if track.stream_paused != pause_music:
 			track.stream_paused = pause_music
-	if pause_music:
+	if pause_music or (in_store and not at_title):
 		return
 	var playable: bool = game.placement_ready and game.started and not game.game_finished and game.player.health > 0
 	var quiet: bool = not playable or game.awakening.active or _bear_music_active()

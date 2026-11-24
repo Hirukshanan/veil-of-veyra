@@ -5,13 +5,17 @@ const TERRAIN = preload("res://scripts/island_terrain.gd")
 const PATH := "user://campaign.cfg"
 const BACKUP := PATH + ".bak"
 const TEMP := PATH + ".tmp"
-const VERSION := 5
+const VERSION := 6
+const OWNED_EQUIPMENT := "owned_equipment"
+const EMBERSTEEL := 1
+const THORNWARD := 2
+const REINFORCED := 4
 const TIDEWARDEN := "tidewarden_seals"
 const DEFAULTS := {"shards": 0, "veil_gems": 0, "blade_level": 0, "armor_level": 0, "completed": false}
 const MAXIMUMS := {"shards": 999999, "veil_gems": 999999, "blade_level": 4, "armor_level": 4}
 
 static func fresh_world() -> Dictionary:
-	return {"cleared": [], "herbs": [], "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "bounty_reward": false, "grove_reward": false, "seal_fragments": []}
+	return {"cleared": [], "herbs": [], "lantern": false, "position": Vector3(0,0,27), "health": 100, "potions": 3, "accepted": false, "reported": false, "bounty_reward": false, "grove_reward": false, "seal_fragments": [], OWNED_EQUIPMENT: 0}
 
 static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 	if not world is Dictionary:
@@ -28,6 +32,9 @@ static func valid_world(world: Variant, completed: bool, armor: int) -> bool:
 			if not value is int or value < 0 or value >= limit or value in seen:
 				return false
 			seen.append(value)
+	var owned: Variant = world.get(OWNED_EQUIPMENT, 0)
+	if not owned is int or owned < 0 or owned > 7:
+		return false
 	var shrine_progress: Variant = world.get(TIDEWARDEN, 0)
 	if not shrine_progress is int or shrine_progress < 0 or shrine_progress > 15:
 		return false
@@ -101,7 +108,7 @@ static func read_file(path: String) -> Dictionary:
 	if error != OK:
 		return {"error": error}
 	var version: Variant = config.get_value("campaign", "version", 1)
-	if not version is int or version not in [1, 2, 3, 4, VERSION]:
+	if not version is int or version not in [1, 2, 3, 4, 5, VERSION]:
 		return {"error": ERR_INVALID_DATA}
 	var data := {}
 	for key in DEFAULTS:
@@ -131,16 +138,30 @@ static func read_file(path: String) -> Dictionary:
 	if version < 4 and data.world_data is Dictionary:
 		data.world_data = data.world_data.duplicate(true)
 		data.world_data["seal_fragments"] = [0,1,2] if data.world_data.get("lantern",false) == true else []
+	if version < 6 and data.world_data is Dictionary:
+		data.world_data[OWNED_EQUIPMENT] = legacy_ownership(data)
 	if not valid_world(data.world_data, data.completed, data.armor_level):
 		return {"error": ERR_INVALID_DATA}
 	data.world_data.erase("relics")
 	data.world_data.erase("relic_reward")
-	if version < VERSION:
+	if version < 5:
 		data.veil_gems = legacy_gem_credit(data.world_data, data.completed)
 	# Earlier saves may contain the removed fast-travel state.
 	data.world_data.erase("discovered")
 	data.world_data.erase("checkpoint")
 	return {"error": OK, "data": data, "migrated": version != VERSION}
+
+static func legacy_ownership(data: Dictionary) -> int:
+	# The shield was available to every existing journey before Store ownership.
+	var owned := THORNWARD
+	var equipped: Variant = data.world_data.get("modular_equipment", {})
+	if not equipped is Dictionary:
+		equipped = {}
+	if data.blade_level >= 1 or equipped.get("blade") == 1:
+		owned |= EMBERSTEEL
+	if data.armor_level >= 1 or equipped.get("armor") == 1:
+		owned |= REINFORCED
+	return owned
 
 static func legacy_gem_credit(world: Dictionary, completed: bool) -> int:
 	# Older saves used index 2 for a normal wolf.

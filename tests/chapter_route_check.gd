@@ -67,7 +67,7 @@ func run() -> void:
 		DirAccess.remove_absolute(path)
 	await open_world()
 	assert(scene.remaining_enemies == 5 and scene.get_node_or_null("CampDemon5") == null)
-	assert(STORE.VERSION == 5, "The dual-currency campaign uses save schema 5")
+	assert(STORE.VERSION == 6, "The Store campaign uses save schema 6")
 	var region: Node3D = scene.get_node("IslandExploration/ChapterOneRegion")
 	assert(region.get_node("AncientGrove").global_position == REGION.GROVE_CENTER)
 	assert(region.get_node("DragonPerch").global_position == REGION.DRAGON_PERCH)

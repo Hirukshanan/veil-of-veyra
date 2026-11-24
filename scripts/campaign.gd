@@ -637,11 +637,17 @@ func _pause_game() -> void:
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Quest Journal", _show_journal)
+	var store_action := _pause_store_action()
+	if store_action.is_valid():
+		_menu_button("Store", store_action)
 	_menu_button("Save and return to camp", _save_and_return_from_pause)
 	_menu_button("Settings", _show_pause_settings)
 	_menu_button("Quit", _confirm_pause_quit)
 	_style_pause_panel()
 	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
+
+func _pause_store_action() -> Callable:
+	return Callable()
 
 func _save_and_return_from_pause() -> void:
 	_show_camp()

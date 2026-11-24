@@ -2,13 +2,20 @@ extends HBoxContainer
 
 const SHARD := preload("res://assets/ui/currency/tide_shard.png")
 const GEM := preload("res://assets/ui/currency/veil_gem.png")
+var icon_size := 30
+var currency_divider := false
 var shard_label: Label
 var gem_label: Label
 
 func _ready() -> void:
 	alignment = BoxContainer.ALIGNMENT_END
-	add_theme_constant_override("separation", 10)
+	add_theme_constant_override("separation", 14)
 	shard_label = _balance(SHARD, "Tide Shards")
+	if currency_divider:
+		var gap := Control.new()
+		gap.custom_minimum_size.x = 8
+		gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(gap)
 	gem_label = _balance(GEM, "Veil Gems")
 
 func _balance(icon: Texture2D, currency: String) -> Label:
@@ -16,7 +23,7 @@ func _balance(icon: Texture2D, currency: String) -> Label:
 	image.texture = icon
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	image.custom_minimum_size = Vector2(30, 30)
+	image.custom_minimum_size = Vector2.ONE * icon_size
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(image)
 	var amount := Label.new()

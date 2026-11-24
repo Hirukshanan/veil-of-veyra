@@ -16,14 +16,21 @@ func _apply_loadout() -> void:
 		modular.bind_hero(player)
 	modular.apply(gear_selection())
 
+func owns_gear(slot: String, option: int) -> bool:
+	if option < 0 or (slot != "shield" and option == 0):
+		return true
+	var bit: int = {"blade": CAMPAIGN_STORE.EMBERSTEEL, "shield": CAMPAIGN_STORE.THORNWARD,
+		"armor": CAMPAIGN_STORE.REINFORCED}.get(slot, 0)
+	return (world_data.get(CAMPAIGN_STORE.OWNED_EQUIPMENT, 0) & bit) != 0
+
 func gear_selection() -> Dictionary:
 	var stored: Variant = world_data.get("modular_equipment", {})
 	if not stored is Dictionary:
 		stored = {}
 	return {
-		"blade": 1 if equipped("blade") and blade_level >= 1 and stored.get("blade") == 1 else (0 if equipped("blade") else -1),
-		"shield": 0 if stored.get("shield") == 0 else -1,
-		"armor": 1 if equipped("armor") and armor_level >= 1 and stored.get("armor") == 1 else (0 if equipped("armor") else -1),
+		"blade": 1 if equipped("blade") and owns_gear("blade", 1) and stored.get("blade") == 1 else (0 if equipped("blade") else -1),
+		"shield": 0 if stored.get("shield") == 0 and owns_gear("shield", 0) else -1,
+		"armor": 1 if equipped("armor") and owns_gear("armor", 1) and stored.get("armor") == 1 else (0 if equipped("armor") else -1),
 	}
 
 func select_gear(slot: String, option: int) -> String:
@@ -31,8 +38,8 @@ func select_gear(slot: String, option: int) -> String:
 		return "Equipment changes are unavailable."
 	if slot == "shield" and option == 1:
 		return "Shield unavailable."
-	if option == 1 and gear_level(slot) < 1:
-		return "Requires the existing level 1 upgrade."
+	if not owns_gear(slot, option):
+		return "Purchase this equipment in the Store."
 	var previous := world_data.duplicate(true)
 	var previous_health: int = player.health
 	var selection := gear_selection()
