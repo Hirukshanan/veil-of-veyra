@@ -10,6 +10,8 @@ enum Attack { CLAWS, SLAM, CHARGE, ROAR, BITE }
 
 const CLIPS := ["Light_Claw_Left", "Ground_Slam", "Charge_Start", "Roar", "Forward_Bite"]
 const COOLDOWNS := [3.8, 6.5, 7.0, 8.0, 2.4]
+const RAGE_ATTACK_SPEED := 1.10
+const RAGE_REACH := 1.10
 const REACH := [3.35, 4.35, 11.0, 5.15, 3.10]
 const WINDUP := [.41, 1.24, 1.0, .76, .46]
 const ACTIVE := [.17, .20, 1.70, .22, .16]
@@ -163,7 +165,7 @@ func _tick(delta: float) -> Vector3:
 				if attack == Attack.CHARGE:
 					_charge_dir = -global_basis.z
 					_play("Charge_Loop", 2.07)
-				_enter(State.EXECUTE, ACTIVE[attack])
+				_enter(State.EXECUTE, ACTIVE[attack] if attack == Attack.CHARGE else ACTIVE[attack] / _pace)
 				_try_hit()
 		State.EXECUTE:
 			_try_hit()
@@ -193,12 +195,15 @@ func _tick(delta: float) -> Vector3:
 					_plan_time = 0
 	return Vector3.ZERO
 
+func _reach_scale() -> float:
+	return RAGE_REACH if enraged else 1.0
+
 func _choose(distance: float) -> int:
 	var choices: Array[int] = []
 	for candidate in Attack.size():
 		if _clock < _available[candidate] or candidate == _last_attack:
 			continue
-		if distance <= REACH[candidate] and (candidate != Attack.CHARGE or distance >= 4.4):
+		if distance <= REACH[candidate] * (1.0 if candidate == Attack.CHARGE else _reach_scale()) and (candidate != Attack.CHARGE or distance >= 4.4):
 			choices.append(candidate)
 	if choices.is_empty():
 		return -1
@@ -227,9 +232,10 @@ func _windup() -> void:
 		clip = "Heavy_Double_Claw"
 		start = .85
 		duration = .45
-	_play(clip, 1.0, start)
+	var pace := RAGE_ATTACK_SPEED if enraged else 1.0
+	_play(clip, pace, start)
 	_draw_warning()
-	_enter(State.WINDUP, duration)
+	_enter(State.WINDUP, duration / pace)
 
 func _face(direction: Vector3, delta: float) -> void:
 	if direction.length_squared() > .01:
@@ -309,9 +315,9 @@ func _try_hit() -> void:
 		return
 	var flat := Vector2(point.x, -point.z)
 	if attack == Attack.CHARGE:
-		if absf(flat.x) > 1.33 or flat.y < 0 or flat.y > 2.45:
+		if absf(flat.x) > 1.33 * _reach_scale() or flat.y < 0 or flat.y > 2.45 * _reach_scale():
 			return
-	elif flat.length() > REACH[attack]:
+	elif flat.length() > REACH[attack] * _reach_scale():
 		return
 	elif attack in [Attack.BITE, Attack.CLAWS] and flat.normalized().y < cos(_half_angle()):
 		return
@@ -394,12 +400,12 @@ func _half_angle() -> float:
 func _draw_warning() -> void:
 	var mesh := ImmediateMesh.new()
 	mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
-	var radius: float = REACH[attack]
+	var radius: float = REACH[attack] * _reach_scale()
 	if attack == Attack.CHARGE:
-		var left := Vector3(-1.33, 0, 0)
-		var right := Vector3(1.33, 0, 0)
+		var left := Vector3(-1.33 * _reach_scale(), 0, 0)
+		var right := Vector3(1.33 * _reach_scale(), 0, 0)
 		var speed := REVIEW_CHARGE_SPEED if playtest_combat else CHARGE_SPEED
-		var end: Vector3 = Vector3.FORWARD * (speed * ACTIVE[attack] + 2.45)
+		var end: Vector3 = Vector3.FORWARD * (speed * ACTIVE[attack] + 2.45 * _reach_scale())
 		for vertex: Vector3 in [left, right, left + end, right, right + end, left + end]:
 			mesh.surface_add_vertex(vertex)
 	else:

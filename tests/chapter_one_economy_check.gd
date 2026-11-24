@@ -56,14 +56,17 @@ func run() -> void:
 	assert(game.shards == 4)
 	game.get_node("CampDemon2").take_damage(10000)
 	assert(game.shards == 24 and game.seal_fragments.collected_ids == [0])
-	game._show_camp()
-	game.camp_menu.buttons.store.pressed.emit()
+	game._pause_game()
+	menu_button("Save and return").pressed.emit()
+	assert(game.title_screen.visible and not game.camp_menu and paused)
+	game.title_screen.find_child("Store",true,false).pressed.emit()
 	assert(not menu_button("Buy").disabled)
 	await screenshot("store")
 	menu_button("Buy").pressed.emit()
 	assert(game.shards == 16 and game.potions == 4 and STORE.load_progress().data.world_data.potions == 4)
-	menu_button("Back to camp").pressed.emit()
-	assert(game.camp_menu.visible)
+	menu_button("Back to menu").pressed.emit()
+	assert(game.title_screen.visible)
+	game.continue_button.pressed.emit()
 	assert(game.change_gear("blade",true) == "Upgrade saved.")
 	assert(game.shards == 0 and hero.attack_damage == 2)
 	assert(game.select_gear("blade",1) == "Loadout saved.")
@@ -90,13 +93,18 @@ func run() -> void:
 	assert(game.change_gear("blade",true) == "Upgrade saved.")
 	assert(game.shards == 0 and hero.attack_damage == 3 and hero.max_health == 125)
 	assert(game.change_gear("blade",true) == "You need more Tide Shards.")
+	for index in 3:
+		game.tidewarden.interact(index)
 	hero.position = game.lantern.global_position
 	game._interact_lantern()
 	assert(game.shards == 12 and game.lantern_lit and not game.boss_spawned and not game._temple_unlocked())
 	game._interact_lantern()
 	assert(game.shards == 12)
+	hero.global_position = game.tidewarden.landmark.to_global(Vector3(0, 0, 2.6))
+	game.tidewarden.inspect_tree()
+	assert(game.tidewarden.read_claws())
 	for i in 3:
-		hero.position = game.grove.clues[i].global_position + Vector3.BACK*.7
+		hero.position = game.grove.clues[i].global_position + Vector3.BACK*1.4
 		game._interact_world()
 		assert(game.grove.stage() == i+1)
 		if i < 2:
@@ -145,6 +153,9 @@ func run() -> void:
 	assert(game.shards == 58 and game.world_data[QUEST.BEAR_FLAG] and not game.completed)
 	game._bear_victory()
 	assert(game.shards == 58)
+	# Pass around the fallen Bear before entering the sanctum.
+	await walk(Vector2(2.7, hero.position.z))
+	await walk(Vector2(2.7,17))
 	await walk(Vector2(0,19))
 	assert(game._save_progress())
 	await open_world()
@@ -168,7 +179,7 @@ func run() -> void:
 	game.title_screen.find_child("Store",true,false).pressed.emit()
 	menu_button("Buy").pressed.emit()
 	assert(game.shards == 92 and game.potions == 5 and menu_button("Buy").disabled)
-	game._buy_potion(game._show_title)
+	game._buy_potion()
 	assert(game.shards == 92 and game.potions == 5)
 	var legacy: Dictionary = STORE.load_progress().data
 	legacy.shards = 11

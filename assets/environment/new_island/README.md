@@ -1,6 +1,6 @@
 # Owner-supplied island regional derivatives
 
-Generation credit: **Hirukshanan using Tripo3D**. The owner supplied `Island.glb`; the unmodified original and editable derivative are in `art_source/island/`. No upload or regeneration service was used for integration.
+Generation credit: **Logachandran Hirukshanan using Tripo3D**. The owner supplied `Island.glb`; the unmodified original and editable derivative are in `art_source/island/`. No upload or regeneration service was used for integration.
 
 Five independently sized regional GLBs keep the supplied UVs and 2K derivatives of the five original 4K albedos. `regions.json` records actual metric dimensions, centers and transforms. Blender processing tapers four slab edges into the new ground, replants the forest's retained tree parts, removes broad forest reconstruction sheets/low fragments, cuts a real cave entrance, and grades channels into the meadow/beach/mountain outflow. These changes are significant terrain preparation, not a whole-scene scale operation. Runtime LOD generation, mipmaps and S3TC/ETC2 VRAM texture imports are enabled. Generated prefixed JPGs are the actual Godot texture dependencies; do not omit their .import settings.
 

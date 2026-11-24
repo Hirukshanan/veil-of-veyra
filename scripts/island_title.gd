@@ -2,7 +2,7 @@ extends "res://scripts/campaign.gd"
 
 const HOME_ART := preload("res://assets/ui/brand/homepg_veil_of_vera.png")
 
-enum Entry { TITLE, CAMP, PLAY }
+enum Entry { TITLE, PLAY }
 
 const ENTRY_KEY := &"veil_title_entry"
 var title_screen: CanvasLayer
@@ -37,6 +37,7 @@ class ArtworkButton extends Button:
 			var at := Vector2(size.x * edge, size.y * .5)
 			draw_colored_polygon(PackedVector2Array([at-Vector2(radius,0),at-Vector2(0,radius),at+Vector2(radius,0),at+Vector2(0,radius)]),tint)
 
+var about_screen: Control
 var starting_new_game := false
 
 func _initialize_title() -> void:
@@ -47,14 +48,14 @@ func _initialize_title() -> void:
 	match entry:
 		Entry.PLAY:
 			_resume()
-		Entry.CAMP:
-			started = true
-			_show_camp()
 		_:
 			_build_title()
 			_show_title()
 
 func _toggle_pause() -> void:
+	if is_instance_valid(about_screen):
+		about_screen.close()
+		return
 	if not started and is_instance_valid(title_screen) and not title_screen.visible:
 		var armory := get_node_or_null("Armory")
 		if armory:
@@ -65,15 +66,28 @@ func _toggle_pause() -> void:
 	super._toggle_pause()
 
 func _show_camp() -> void:
-	if started or not _uses_title_screen():
+	if not _uses_title_screen():
 		super._show_camp()
+	elif started:
+		_save_and_return_from_pause()
 	elif is_instance_valid(title_screen):
 		_show_title()
 	else:
 		get_tree().paused = true
 
-func _uses_title_screen() -> bool:
-	return false
+func _save_and_return_from_pause() -> void:
+	if not _uses_title_screen():
+		super._save_and_return_from_pause()
+		return
+	if not _save_progress():
+		_show_save_failure(_save_and_return_from_pause)
+		return
+	started = false
+	get_tree().paused = true
+	pause_menu_open = false
+	if not is_instance_valid(title_screen):
+		_build_title()
+	_show_title()
 
 func _armory_action() -> Callable:
 	return Callable()
@@ -96,26 +110,25 @@ func _build_title() -> void:
 	title_screen.layer = 20
 	title_screen.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(title_screen)
-	var backdrop := ColorRect.new()
-	backdrop.color = Color("11131b")
+	var backdrop := TextureRect.new()
+	backdrop.texture = HOME_ART
+	backdrop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	title_screen.add_child(backdrop)
 	var safe := preload("res://scripts/safe_area.gd").new()
 	backdrop.add_child(safe)
-	var fit := AspectRatioContainer.new()
-
-	fit.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	fit.ratio = float(HOME_ART.get_width()) / HOME_ART.get_height()
-	fit.stretch_mode = AspectRatioContainer.STRETCH_FIT
-	safe.add_child(fit)
 	var art := TextureRect.new()
 	art.name = "HomeArtwork"
 	art.texture = HOME_ART
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_SCALE
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	fit.add_child(art)
+	art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	safe.add_child(art)
 
-	# The supplied artwork includes the labels. The controls share its fitted rectangle.
+	# The supplied artwork includes the labels. The controls share the artwork rectangle.
 	continue_button = _title_button(art, "Continue", Rect2(127, 272, 362, 79), _continue_journey)
 	new_game_button = _title_button(art, "New Game", Rect2(127, 371, 362, 67), _new_journey)
 	_title_button(art, "Armory", Rect2(127, 459, 362, 68), _armory_action())
@@ -161,12 +174,17 @@ func _open_title_settings() -> void:
 	_show_settings(_show_title)
 
 func _open_title_about() -> void:
+	if is_instance_valid(about_screen):
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 21
+	layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(layer)
+	about_screen = preload("res://scripts/about_screen.gd").new()
+	layer.add_child(about_screen)
+	about_screen.closed.connect(_show_title)
+	about_screen.tree_exited.connect(layer.queue_free)
 	title_screen.hide()
-	_show_art_credits()
-	var heading := menu_box.get_child(0) as Label
-	heading.text = "ABOUT"
-	var back := menu_box.get_child(menu_box.get_child_count() - 1) as Button
-	back.text = "Back to title"
 
 func _continue_journey() -> void:
 	title_screen.hide()
@@ -190,5 +208,5 @@ func _reset_world() -> void:
 
 func _reload() -> void:
 	if _uses_title_screen():
-		get_tree().set_meta(ENTRY_KEY, Entry.PLAY if starting_new_game else (Entry.CAMP if started else Entry.TITLE))
+		get_tree().set_meta(ENTRY_KEY, Entry.PLAY if starting_new_game else Entry.TITLE)
 	super._reload()

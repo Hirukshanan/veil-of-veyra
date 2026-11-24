@@ -1,5 +1,7 @@
 # Veil of Veyra
 
+Created and developed by **Logachandran Hirukshanan**. See [project credits](docs/PROJECT_CREDITS.md) for game design, creative direction, soundtrack and asset provenance.
+
 *Working title; the player name, title, and story details can change as we shape the game together.*
 
 ## Game idea

@@ -1,11 +1,16 @@
 extends "res://scripts/previews/tidewarden_visual_shrine.gd"
 
 const TREE := Vector3(19.2,0,-26)
+const GROVE_APPROACH := [
+	TREE + Vector3(0,0,3.25), Vector3(17,0,-24), Vector3(17,0,-26),
+	Vector3(13,0,-31), Vector3(9,0,-36), Vector3(9,0,-42.9)
+]
 const READ := "riverside_claws_read"
 const FINDING := "Four deep cuts expose fresh wood. The great pawprints turn north toward Ancient Grove."
 const PROMPT := "Inspect the claw marks"
 var landmark: Node3D
 var grove_tracks: MeshInstance3D
+var tree_to_grove_tracks: MeshInstance3D
 var eastern_tracks: MeshInstance3D
 
 static func spoor_route() -> Array:
@@ -20,6 +25,8 @@ func populate(island) -> void:
 	grove_tracks.name = "BearImpressions"
 	grove_tracks.visible = complete()
 	beacon_awakened.connect(grove_tracks.show)
+	tree_to_grove_tracks = _tracks(GROVE_APPROACH, 0.65)
+	tree_to_grove_tracks.name = "TracksToAncientGrove"
 	_build_cave_guidance()
 	landmark = preload("res://scripts/previews/riverside_veteran_tree.gd").new()
 	landmark.name = "ClawMarkedRiverTree"
@@ -32,25 +39,25 @@ func _build_cave_guidance() -> void:
 	eastern_tracks = _tracks(east)
 	eastern_tracks.name = "EasternBankImpressions"
 	eastern_tracks.hide()
-	_refresh_eastern_tracks()
+	_refresh_tracks()
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	_refresh_eastern_tracks()
+	_refresh_tracks()
 
-func _refresh_eastern_tracks() -> void:
-	var active: bool = complete() and game.grove.stage()==3 and not game._sanctum_open()
-	if active != eastern_tracks.visible:
-		eastern_tracks.visible = active
+func _refresh_tracks() -> void:
+	var stage: int = game.grove.stage()
+	tree_to_grove_tracks.visible = read_claws() and stage == 0
+	eastern_tracks.visible = complete() and stage == 3 and not game._sanctum_open()
 
-func _tracks(path: Array) -> MeshInstance3D:
+func _tracks(path: Array, first_print := 4.1) -> MeshInstance3D:
 	var soil := SurfaceTool.new()
 	soil.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var curve := Curve3D.new()
 	for point: Vector3 in path:
 		curve.add_point(point)
 	var length := curve.get_baked_length()
-	var distance := 4.1
+	var distance := first_print
 	var group := 0
 	while distance < length-.6:
 		for step in 2 + group%2:
@@ -122,6 +129,8 @@ func inspect_tree() -> void:
 	if not tree_in_reach():
 		return
 	game.world_data[READ] = true
+	game.set_tracked_quest("main")
+	_refresh_tracks()
 	game.grove._react(landmark.global_position+Vector3(0,2,1.6),2,FINDING)
 	game._save_progress()
 	game._redraw_tracking()
@@ -130,7 +139,7 @@ func next_step() -> String:
 	if complete() and not read_claws():
 		return "Follow the broken groups of pawprints to the old tree on the riverbank."
 	if complete() and game.grove.stage()<3:
-		return "Read the evidence at Ancient Grove." if game.lantern_lit else "Restore the Northern Lantern at the shrine beacon."
+		return "Follow the pawprints along the west bank to Ancient Grove." if game.lantern_lit else "Restore the Northern Lantern at the shrine beacon."
 	return super.next_step()
 
 func objective() -> Dictionary:

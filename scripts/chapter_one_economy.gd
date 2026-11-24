@@ -46,15 +46,10 @@ func _chapter_shard_reward() -> int:
 	# A legacy save between the Bear and the altar still has its full payout due.
 	return CHAPTER_SHARDS if world_data.get("bear_shards_paid", false) == true else super._chapter_shard_reward()
 
-func _build_campaign_ui() -> void:
-	super._build_campaign_ui()
-	camp_menu.enable_store()
-	camp_menu.store_requested.connect(func(): _show_store(_show_camp))
-
 func _store_action() -> Callable:
-	return func(): _show_store(_show_title)
+	return _show_store
 
-func _show_store(back: Callable, feedback := "") -> void:
+func _show_store(feedback := "") -> void:
 	if is_instance_valid(title_screen):
 		title_screen.hide()
 	var detail := "Tide Shards  %d\nHealing potions carried  %d\n\nA potion restores up to 50 health. The Store refills your pouch up to %d potions." % [
@@ -69,11 +64,14 @@ func _show_store(back: Callable, feedback := "") -> void:
 	if not feedback.is_empty():
 		detail += "\n" + feedback
 	_clear_menu("STORE", detail, false)
-	_menu_button("Buy healing potion  ·  %d Tide Shards" % POTION_PRICE, _buy_potion.bind(back),
+	_menu_button("Buy healing potion  ·  %d Tide Shards" % POTION_PRICE, _buy_potion,
 		not can_save or potions >= STORE_POTION_LIMIT or shards < POTION_PRICE)
-	_menu_button("Back to menu" if back == _show_title else "Back to camp", back)
+	_menu_button("Back to menu", _show_title)
+	_style_pause_panel()
+	menu_shade.color = Color("110c10")
+	(menu_box.get_child(3) if menu_box.get_child(2).disabled else menu_box.get_child(2)).grab_focus()
 
-func _buy_potion(back: Callable) -> void:
+func _buy_potion() -> void:
 	if progress_unreadable or (not started and not _has_valid_journey()) or shards < POTION_PRICE or potions >= STORE_POTION_LIMIT:
 		return
 	shards -= POTION_PRICE
@@ -84,6 +82,6 @@ func _buy_potion(back: Callable) -> void:
 		shards += POTION_PRICE
 		potions -= 1
 		world_data.potions = saved_potions
-		_show_store(back, "Purchase could not be saved. Your shards were restored.")
+		_show_store("Purchase could not be saved. Your shards were restored.")
 		return
-	_show_store(back, "Healing potion added.")
+	_show_store("Healing potion added.")

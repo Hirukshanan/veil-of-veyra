@@ -13,6 +13,8 @@ config_version=5
 config/quit_on_go_back=false
 
 config/name="Veil of Veyra"
+config/version="0.12.7"
+config/description="An independent Android game created and developed by Logachandran Hirukshanan."
 config/icon="res://assets/ui/brand/launcher.png"
 run/main_scene="res://scenes/chapter_one.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")

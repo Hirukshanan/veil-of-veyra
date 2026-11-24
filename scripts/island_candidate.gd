@@ -476,6 +476,8 @@ func _redraw_tracking() -> void:
 
 func _show_camp() -> void:
 	super._show_camp()
+	if not camp_menu:
+		return
 	if lantern_lit and not completed:
 		var goal: Dictionary = guardians.grove_objective()
 		camp_menu._art_heading.text = goal.title.to_upper()

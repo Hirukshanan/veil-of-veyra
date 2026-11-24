@@ -8,7 +8,6 @@ signal guides_requested
 signal settings_requested
 signal reset_requested
 signal quit_requested
-signal store_requested
 
 const TITLE_FONT = preload("res://assets/ui/fonts/Cinzel.ttf")
 const ART = preload("res://assets/ui/brand/dragon_lantern.png")
@@ -106,10 +105,6 @@ func configure(shards: int, blade: int, armor: int, blade_cost: int, armor_cost:
 	_eyebrow.text = "THE ISLAND REMEMBERS" if completed else "A WARDEN'S JOURNEY"
 	_layout()
 
-func enable_store() -> void:
-	_button("store", "Store", store_requested)
-	_layout()
-
 func _button(id: String, text: String, event: Signal, primary := false) -> void:
 	var button := Button.new()
 	button.name = id.capitalize() + "Button"
@@ -193,8 +188,6 @@ func _layout() -> void:
 		detail.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
 		button.tooltip_text=detail.text
 	var navigation := ["quests","guides","settings","reset","quit"]
-	if buttons.has("store"):
-		navigation.insert(2,"store")
 	var nav_width := (width-gap*.5*(navigation.size()-1))/navigation.size()
 	for index in navigation.size():
 		var id: String = navigation[index]

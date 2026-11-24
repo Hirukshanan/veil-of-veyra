@@ -17,10 +17,10 @@ func open_game() -> void:
 
 func check_clean_ground() -> void:
 	assert_layout()
-	# All remaining direct ground meshes in this shrine are the footing and the two print groups.
+	# All remaining direct ground meshes in this shrine are the footing and the print groups.
 	for child in tide.get_children():
 		if child is MeshInstance3D:
-			assert(child in [tide.grove_tracks,tide.eastern_tracks,tide.get_node("FittedStoneCourt")],str(child.name))
+			assert(child in [tide.grove_tracks,tide.tree_to_grove_tracks,tide.eastern_tracks,tide.get_node("FittedStoneCourt")],str(child.name))
 	assert(not game.opening.has_node("OpeningClues/BeachAshApproach"))
 	assert(tide.find_children("*","CollisionObject3D",true,false).size() == 6, "Three pillars, two beacon shapes on separate bodies and the tree")
 
@@ -45,7 +45,7 @@ func run() -> void:
 	await open_game()
 	assert(not game.has_node("ChapterLantern") and not game.grove.has_node("SplitSealstone"))
 	assert(not game.get_node("IslandExploration").has_node("Waystone2") and game.grove.routes.is_empty())
-	assert(not tide.grove_tracks.visible and not tide.eastern_tracks.visible and not tide.read_claws())
+	assert(not tide.grove_tracks.visible and not tide.eastern_tracks.visible and not tide.read_claws() and not tide.tree_to_grove_tracks.visible)
 	await place(Vector3(0,0,-20))
 	keyboard()
 	assert(not game.lantern_lit)
@@ -82,7 +82,7 @@ func run() -> void:
 	assert(tide.read_claws() and not tide.tree_in_reach() and game.grove.stage()==0 and game.shards==96)
 	assert(SHRINE.FINDING in game.guardian_journal("main").description and marker("main").point!=SHRINE.TREE)
 	await open_game()
-	assert(tide.read_claws() and not game._temple_unlocked())
+	assert(tide.read_claws() and tide.tree_to_grove_tracks.visible and not game._temple_unlocked())
 	check_clean_ground()
 	assert(STORE.save_progress(unread)==OK)
 	await open_game()
@@ -91,11 +91,12 @@ func run() -> void:
 	mobile()
 	await ticks(8)
 	assert(tide.read_claws() and not game._temple_unlocked())
-	for point in [Vector3(17,0,-26),Vector3(13,0,-31),Vector3(9,0,-36)]:
+	for point in SHRINE.GROVE_APPROACH.slice(1):
 		assert(await walk_to(point),"Blocked Grove approach at %s"%point)
 	for i in 3:
 		var clue: Node3D=game.grove.clues[i]
-		await place(clue.to_global(Vector3(0,0,.97)) if i==1 else clue.global_position)
+		if i > 0:
+			assert(await walk_to(clue.global_position + Vector3(0,0,-1.4)))
 		assert(game._can_investigate_grove())
 		keyboard()
 		assert(game.grove.stage()==i+1)

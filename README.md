@@ -1,5 +1,7 @@
 # Veil of Veyra
 
+Created and developed by **Logachandran Hirukshanan**. See [project credits](docs/PROJECT_CREDITS.md) for game design, creative direction, soundtrack and asset provenance.
+
 An original third-person action RPG set on a demon-haunted island. Play as Aru, reclaim the lanterns, and confront the Tidewraith Dragon.
 
 Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for Android and keyboard/mouse controls for desktop development.

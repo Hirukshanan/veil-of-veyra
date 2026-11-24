@@ -2,6 +2,11 @@ extends "res://scripts/grove_investigation.gd"
 
 const INLAY := Vector3(8.8,0,-43.15)
 
+func in_reach() -> bool:
+	if stage() == 1:
+		return game.lantern_lit and clues[1].global_position.distance_to(game.player.global_position) <= 2.8
+	return super.in_reach()
+
 func _make_seal_clue() -> Node3D:
 	# A low, split bedrock shelf at the original Grove instead of a detached upright.
 	var slab := _site("BuriedWardCarving",INLAY)

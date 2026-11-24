@@ -440,6 +440,15 @@ void fragment() {
 	menu_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu_box.add_theme_constant_override("separation", 12)
 	menu_scroll.add_child(menu_box)
+	if not _uses_title_screen():
+		_build_camp_menu(menu_safe)
+	menu_safe.resized.connect(_layout_menu)
+	_layout_menu()
+
+func _uses_title_screen() -> bool:
+	return false
+
+func _build_camp_menu(menu_safe: Control) -> void:
 	camp_menu = preload("res://scripts/camp_menu.gd").new()
 	camp_menu.name = "CampMenu"
 	camp_menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -453,8 +462,6 @@ void fragment() {
 	camp_menu.reset_requested.connect(_confirm_reset)
 	camp_menu.quit_requested.connect(_quit_world)
 	camp_menu.hide()
-	menu_safe.resized.connect(_layout_menu)
-	_layout_menu()
 
 func _layout_menu() -> void:
 	if pause_panel:
@@ -485,7 +492,8 @@ func _clear_menu(title: String, message: String, save_world := true) -> void:
 	menu_shade.color = Color("04090eff")
 	if _world_ready and save_world:
 		_save_progress()
-	camp_menu.hide()
+	if camp_menu:
+		camp_menu.hide()
 	menu_scroll.show()
 	journal_open = false
 	quest_parchment.hide()
@@ -564,7 +572,7 @@ func _show_keeper_request() -> void:
 	_menu_button("Back to camp", _show_camp)
 
 func _show_burst_guide() -> void:
-	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing. Hitting a crowd still grants only 25.\n\nAt 100 spirit, press L or BURST to spend it on a 3-metre area attack dealing three times your blade damage. Use it to interrupt ordinary enemies.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
+	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing. Hitting a crowd still grants only 25.\n\nAt 100 spirit, tap BURST to spend it on a 3-metre area attack dealing three times your blade damage. Use it to interrupt ordinary enemies.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
 	_menu_button("Back to camp", _show_camp)
 
 func _show_enemy_guide() -> void:
@@ -618,11 +626,14 @@ func _pause_game() -> void:
 	pause_menu_open = true
 	_menu_button("Resume", _resume)
 	_menu_button("Quest Journal", _show_journal)
-	_menu_button("Save and return to camp", _show_camp)
+	_menu_button("Save and return to camp", _save_and_return_from_pause)
 	_menu_button("Settings", _show_pause_settings)
 	_menu_button("Quit", _confirm_pause_quit)
 	_style_pause_panel()
 	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
+
+func _save_and_return_from_pause() -> void:
+	_show_camp()
 
 func _show_pause_settings() -> void:
 	_show_settings(_pause_game)
@@ -812,9 +823,9 @@ func _retry_save_and_return() -> void:
 	else:
 		_show_save_failure()
 
-func _show_save_failure() -> void:
+func _show_save_failure(retry := Callable()) -> void:
 	_clear_menu("PROGRESS NOT SAVED", notice, false)
-	_menu_button("Retry save and return", _retry_save_and_return)
+	_menu_button("Retry save and return", retry if retry.is_valid() else _retry_save_and_return)
 	_menu_button("Return without saving this session", _reload)
 
 func _on_player_defeated() -> void:
@@ -976,7 +987,7 @@ func _interact_world() -> void:
 
 func _show_heavy_guide() -> void:
 	var stagger_note := "Ordinary wolves stagger for 0.65 seconds. Elite enemies may resist the stagger." if _uses_guardian_seal() else "Ordinary wolves stagger for 0.65 seconds; the dragon does not stagger."
-	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds, or press H, for a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. %s\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo." % stagger_note)
+	_clear_menu("HEAVY ATTACK", "Hold the sword button for 0.4 seconds to perform a committed heavy strike. Tap and release the sword button for a normal attack. It costs 40 stamina immediately and hits after a 0.6-second charge, dealing four times blade damage in a 2.6-metre forward arc.\n\nMovement slows during the 1.1-second attack and stamina recovery stops. The orange ground arc shows your strike direction. %s\n\nDodge, taking damage, or opening a menu cancels the pending hit. Spent stamina is not refunded. Missing still costs stamina. A connected strike grants 25 spirit and resets the normal combo." % stagger_note)
 	_menu_button("Back to camp", _show_camp)
 
 func _accept_scroll_quest() -> void:

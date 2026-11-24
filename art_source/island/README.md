@@ -1,6 +1,6 @@
 # Island source and local preparation
 
-Credit: Hirukshanan using Tripo3D. `Island_original.glb` is preserved byte-for-byte from the supplied file, with its five original 4K color images. `island_regions.blend` is the editable prepared five-region source with packed 2K images. It has no gameplay rig/animation. Runtime connecting terrain and cave interior are authored in Godot, not baked into this .blend.
+Credit: Logachandran Hirukshanan using Tripo3D. `Island_original.glb` is preserved byte-for-byte from the supplied file, with its five original 4K color images. `island_regions.blend` is the editable prepared five-region source with packed 2K images. It has no gameplay rig/animation. Runtime connecting terrain and cave interior are authored in Godot, not baked into this .blend.
 
 Local reproduction from the repository root (substitute installed executables):
 

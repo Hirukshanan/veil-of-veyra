@@ -22,3 +22,5 @@ Android icon configuration follows the [Godot 4.7 Android export settings](https
 ## Gameplay control icons
 
 The original project-native SVGs in `controls/` represent sword attack, dodge, sprint, Spirit Burst, healing, pause, collection and lantern interaction. They contain no lettering. Screen-reader action names remain available through Godot accessibility properties. Resource/hold rings are drawn by `round_button.gd`; combat shortcuts remain documented in Field guide.
+
+The About page uses the project-owner-supplied "brand/about_tidewraith.png" artwork. The main menu artwork and the separately referenced camp and launcher source retain their documented provenance.

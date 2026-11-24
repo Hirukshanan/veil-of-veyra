@@ -65,7 +65,7 @@ func guardian_journal(id: String) -> Dictionary:
 		if _follow_tracks():
 			row.next = tidewarden.next_step()
 		elif grove.stage() < 3:
-			row.next = ["Search the tangled roots on the west bank at Ancient Grove.","Trace the old seal on the broken bedrock beside the roots.","Read the heavy tracks on the lower bank."][grove.stage()]
+			row.next = ["Follow the west bank to the tangled roots at Ancient Grove.","Trace the old seal on the broken bedrock beside the roots.","Read the heavy tracks on the lower bank."][grove.stage()]
 	return row
 
 func tracked_hint(base: Dictionary) -> Dictionary:
@@ -88,6 +88,9 @@ func guardian_map_markers() -> Array[Dictionary]:
 		if _follow_tracks():
 			pin.point = SPOOR.TREE
 			pin.radius = 7.
+		elif grove and grove.stage()==0 and is_instance_valid(tidewarden) and tidewarden.read_claws():
+			pin.point = grove.clues[0].global_position
+			pin.radius = 3.0
 		elif grove and grove.stage()==1:
 			pin.point = BANK.INLAY
 			pin.radius = 4.

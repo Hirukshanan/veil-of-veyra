@@ -2,7 +2,7 @@ extends Node3D
 
 const ROOM_BUS := "BearTempleVoices"
 const SUSPENSE := preload("res://assets/audio/bear_encounter/suspense.ogg")
-const BATTLE := preload("res://assets/audio/bear_encounter/battle.ogg")
+const BATTLE := preload("res://assets/audio/chapter_music/combat.mp3")
 const RAGE := preload("res://assets/audio/bear_encounter/rage.ogg")
 const EYE := preload("res://assets/audio/bear_encounter/eye_cue.wav")
 const ACCENT := preload("res://assets/audio/bear_encounter/roar_cue.wav")
@@ -44,7 +44,9 @@ func _ready() -> void:
 		AudioServer.add_bus_effect(index,room)
 		owns_bus = true
 	bed = _track(SUSPENSE)
-	battle = _track(_loop(BATTLE))
+	var action_track := BATTLE.duplicate() as AudioStreamMP3
+	action_track.loop = true
+	battle = _track(action_track)
 	rage = _track(_loop(RAGE))
 	accent = _track()
 	breath_voice = _voice()
@@ -137,7 +139,7 @@ func _process(delta: float) -> void:
 	duck = move_toward(duck,float(duck_hold>0.),delta*(10. if duck_hold>0. else 1.28))
 	var dip := duck*8.
 	bed.volume_db = linear_to_db(maxf(.0001,music_gain.x)) - 18. - dip
-	battle.volume_db = linear_to_db(maxf(.0001,music_gain.y)) - 14. - dip
+	battle.volume_db = linear_to_db(maxf(.0001,music_gain.y)) - 17. - dip
 	rage.volume_db = linear_to_db(maxf(.0001,music_gain.z)) - 17. - dip
 	if not intro and music_gain.x<=0.: bed.stop()
 	if not fighting and music_gain.y<=0. and (retreat_time>3.1 or defeated):

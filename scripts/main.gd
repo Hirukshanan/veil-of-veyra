@@ -252,7 +252,7 @@ func _build_hud() -> void:
 
 	var hint := Label.new()
 	hint.name = "ControlsHint"
-	hint.text = "Drag open space to turn the camera" if OS.has_feature("mobile") else "WASD: Move   J: Attack   K: Dodge   Space: Jump   Esc: Pause"
+	hint.text = "Drag open space to turn the camera"
 	hint.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	hint.offset_left = 28
 	hint.offset_right = -210
