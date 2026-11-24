@@ -151,7 +151,7 @@ func _build_header(parent: Control) -> void:
 	_button(row, "Back to menu", close)
 	var heading := _label(row, "Store", 36, GOLD, true)
 	heading.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var brand := _label(row, "VEIL OF VERA", 23, GOLD, true)
+	var brand := _label(row, "VEIL OF VEYRA", 23, GOLD, true)
 	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	brand.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL

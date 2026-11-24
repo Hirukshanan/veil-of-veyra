@@ -8,7 +8,7 @@ This guide covers local development APKs for **Veil of Veyra**. Run commands fro
 2. Install export templates matching the editor version through Godot's export-template manager.
 3. Install compatible Java and Android SDK components using the [official Android export guide](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_android.html).
 4. Configure **Java SDK Path** and **Android SDK Path** in Godot's editor settings.
-5. Follow the [wolf asset setup](assets/characters/literock/README.md) for the intended enemy visuals.
+5. Run `git lfs pull`, then follow the [wolf asset setup](assets/characters/literock/README.md) for the intended enemy visuals.
 6. Open the project and allow imports to finish.
 
 Examples assume the executable is available as `godot` on `PATH`. Substitute your executable name if necessary.
@@ -41,7 +41,7 @@ Alternatively, use **Project → Export → Android Debug** in the editor.
 
 | Preset field | Development configuration |
 | --- | --- |
-| App label | Veil of Veyra Dev |
+| App label | Veil of Veyra |
 | Package | `com.hirukshanan.veilofveyra.dev` |
 | Architecture | ARM64 |
 | Orientation | Landscape |
@@ -56,6 +56,7 @@ Confirm the export succeeds. With Android SDK build tools and platform tools on 
 
 ```sh
 apksigner verify builds/android/veyra-debug.apk
+aapt dump badging builds/android/veyra-debug.apk
 adb install -r builds/android/veyra-debug.apk
 ```
 
@@ -67,8 +68,9 @@ Record the app build, device model, Android version, and observed failures.
 
 - Installation, startup, relaunch, and saved campaign progress.
 - Simultaneous movement, camera drag, attacks, dodge, and Spirit Burst.
-- Keeper dialogue, relics, waystone discovery, and safe travel.
-- Chapter objectives, boss encounters, defeat, and retry.
+- Guardian fragments, Tidewarden Shrine, Ancient Grove investigation and circular minimap guidance.
+- Boss encounters, defeat and retry, Lantern Awakening, bridge recovery and Chapter I completion.
+- Store purchases, equipment selection, upgrades and both currency balances.
 - Readable menus and reachable controls around display cutouts.
 - Background/resume, sound, and settings persistence.
 - Sustained frame rate, temperature, and battery behavior.

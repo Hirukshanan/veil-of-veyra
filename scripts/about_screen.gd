@@ -73,7 +73,7 @@ func _ready() -> void:
 	page.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	page.add_theme_constant_override("separation",10)
 	scroll.add_child(page)
-	label(page,"VEIL OF VERA",40,true)
+	label(page,"VEIL OF VEYRA",40,true)
 	label(page,"The Curse Awakens",25,true)
 	label(page,"An ancient darkness stirs beneath a forgotten island. As Aru, a lone warrior, restore a mysterious lantern and follow the traces of a curse buried deep within the land.",24)
 	label(page,"Created & developed by",22,true)

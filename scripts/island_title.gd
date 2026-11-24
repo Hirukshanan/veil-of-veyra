@@ -1,6 +1,6 @@
 extends "res://scripts/campaign.gd"
 
-const HOME_ART := preload("res://assets/ui/brand/homepg_veil_of_vera.png")
+const HOME_ART := preload("res://assets/ui/brand/homepg_veil_of_veyra.png")
 
 enum Entry { TITLE, PLAY }
 

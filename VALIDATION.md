@@ -1,4 +1,59 @@
-# Gameplay validation — 2026-11-03
+# Veil of Veyra validation
+
+Validate the normal Chapter I entry point in Godot 4.7.2. Use a separate user-data profile for each test, since several checks write campaign saves.
+
+## Windows PowerShell
+
+From the repository root, with the Godot console executable available as `godot`:
+
+```powershell
+$previousAppData = $env:APPDATA
+$previousTestFlag = $env:VEYRA_TEST
+try {
+    $env:VEYRA_TEST = '1'
+    $env:APPDATA = Join-Path $PWD ('.validation/run-' + [guid]::NewGuid())
+    New-Item -ItemType Directory -Force "$env:APPDATA/Godot/app_userdata/Veil of Veyra" | Out-Null
+    godot --headless --path . --import
+    if ($LASTEXITCODE -ne 0) { throw 'Godot import failed' }
+    godot --headless --path . --quit-after 180
+    if ($LASTEXITCODE -ne 0) { throw 'Godot startup failed' }
+    foreach ($check in @(
+        'demon_wolf_polish_check',
+        'cursed_bear_combat_check',
+        'demon_fox_combat_check',
+        'forest_spoor_check',
+        'chapter_one_economy_check',
+        'chapter_store_check',
+        'chapter_armory_mobile_check',
+        'chapter_armory_upgrade_validation',
+        'dragon_bridge_check',
+        'minimap_only_check'
+    )) {
+        $env:APPDATA = Join-Path $PWD ('.validation/' + $check + '-' + [guid]::NewGuid())
+        New-Item -ItemType Directory -Force "$env:APPDATA/Godot/app_userdata/Veil of Veyra" | Out-Null
+        $log = Join-Path $env:APPDATA 'godot.log'
+        godot --headless --path . --script "res://tests/$check.gd" --fixed-fps 60 --quit-after 15000 --log-file $log
+        if ($LASTEXITCODE -ne 0 -or (Select-String -Path $log -Pattern 'SCRIPT ERROR:|SHADER ERROR:|^ERROR:')) {
+            throw "Failed: $check"
+        }
+        if (-not (Select-String -Path $log -Pattern '^PASS')) { throw "No PASS output: $check" }
+    }
+} finally {
+    $env:APPDATA = $previousAppData
+    $env:VEYRA_TEST = $previousTestFlag
+}
+```
+
+Check the script’s final PASS line and any shutdown warnings. A time-limited Godot process can exit successfully even when an assertion prevented completion. On desktop, run **F5** with a renderer to verify the title artwork, button alignment and Back navigation from About, Store and Armory.
+
+[Android setup](ANDROID_SETUP.md) covers APK metadata, installation and physical-device checks. Headless and simulated touch results do not establish sustained device FPS or thermal performance.
+
+See the [documentation index](docs/README.md) for earlier validation and reproduction records.
+
+<details>
+<summary>Historical notes from the original development snapshots</summary>
+
+## Gameplay validation — 2026-11-03
 
 ## Balanced primary controls — 2026-11-14
 
@@ -734,3 +789,5 @@ Debug version: 0.3.0-dev (code 13).
 - Archive integrity passed. Starter warrior scene, existing animation library and jump icon are included. Development tests/tools are excluded. Export stderr was empty.
 - Size: 101,042,919 bytes; SHA-256: `a5d0e762b8216dbfb71c06bd9839f19b8348e431bc60afaf409954302423d8a3`.
 - Packaging verification only. Phone installation, saved progress, redesigned/customized controls, hero appearance and sustained performance remain pending.
+
+</details>

@@ -1,10 +1,12 @@
-# Chapter I status
+# Chapter I status — November 2026 development snapshot
 
-Latest visual follow-up (2026-11-14): the owner rejected the previous hero. A rigged CC0 Ranger outfit replaces its base-body/procedural clothing presentation; the existing face and animation systems are retained. [Hero upgrade evidence](CH1_HERO_UPGRADE_REPORT.md) is ready for review. This replacement is **not approved** merely because checks pass. Phase 3 remains unstarted; final hero/HUD approval and phone acceptance are pending.
+For the current playable build, see [Release Status](../RELEASE_STATUS.md).
+
+Visual follow-up in this snapshot (2026-11-14): the owner rejected the previous hero. A rigged CC0 Ranger outfit replaces its base-body/procedural clothing presentation; the existing face and animation systems are retained. [Hero upgrade evidence](CH1_HERO_UPGRADE_REPORT.md) is ready for review. This replacement is **not approved** merely because checks pass. Phase 3 remains unstarted; final hero/HUD approval and phone acceptance are pending.
 
 Audit date: 2026-11-13 (Asia/Colombo). Project: **Veil of Veyra**, existing Godot repository.
 
-Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied by the owner. This is a design specification to reconcile with the actual game, not evidence that its features already exist. Preserve the repository's Veyra name and established Aru/lantern content until a naming change is explicitly requested.
+Planning input: `Veil_of_Vera_Chapter_I_Agent_Plan_UPDATED.md`, v1.1, supplied by the owner. This is a design specification to reconcile with the actual game, not evidence that its features already exist. The game title is Veil of Veyra.
 
 ## Execution boundaries
 

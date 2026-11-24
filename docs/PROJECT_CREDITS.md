@@ -1,4 +1,4 @@
-# Veil of Vera project credits
+# Veil of Veyra project credits
 
 Created and developed by **Logachandran Hirukshanan**. An independent Android game project.
 
@@ -11,7 +11,7 @@ Game design, story and worldbuilding, creative direction, programming and develo
 - The Island and Demon Boar generation notes credit Logachandran Hirukshanan using Tripo3D. Their runtime geometry and associated systems were developed for the project.
 - The Cursed Bear has a project-provided original GLB, editable Blender rig sources and a corrected animated runtime model. The Demon Fox has a project-specific mobile rigged GLB and custom gameplay integration. The retained asset records do not identify the original generation tools for these two creatures.
 - The equipment modeling source builds the modular weapons, shield and armor in Blender. Quaternius retains the original Aru base character, outfit and animation credit.
-- Pigcraft created the Charcoal Black Dark Dragon, CC BY 4.0. Logachandran Hirukshanan receives the Veil of Vera adaptation, rig, animation and gameplay integration credit.
+- Pigcraft created the Charcoal Black Dark Dragon, CC BY 4.0. Logachandran Hirukshanan receives the Veil of Veyra adaptation, rig, animation and gameplay integration credit.
 - Tidewarden Shrine and quest environments are custom Godot work. Reused scans and textures retain Poly Haven credit.
 
 ## Third-party notices

@@ -1,141 +1,67 @@
 # Veil of Veyra
 
-Created and developed by **Logachandran Hirukshanan**. See [project credits](docs/PROJECT_CREDITS.md) for game design, creative direction, soundtrack and asset provenance.
+**The Curse Awakens — Chapter I**
 
-An original third-person action RPG set on a demon-haunted island. Play as Aru, reclaim the lanterns, and confront the Tidewraith Dragon.
+Created and developed by **Logachandran Hirukshanan**.
 
-Built with **Godot 4.7.2** and **GDScript**, with landscape touch controls for Android and keyboard/mouse controls for desktop development.
+Veil of Veyra is a single-player dark fantasy action RPG built for Android landscape play. As Aru, explore a curse-stricken island, recover the fragments of an ancient seal, and follow the Lantern’s trail beneath the forest. Desktop play is available for development and validation.
 
-> **In development:** a playable prototype with one persistent island. Art, audio, combat balance, performance testing, and release preparation are still evolving.
+![Aru exploring the Chapter I island in Godot](docs/screenshots/chapter-one-exploration.png)
 
-## Explore, fight, reclaim
+## Playable Chapter I
 
-- **Island exploration:** a larger island with six scattered, walkable grassy hills, tall woodland areas, forest trails, ruins and hunting camps. A clear sandy coast surrounds the land.
-- **Connected trails:** walk north from Tideseal Ruins past Western Rise and through the western woodland to the lantern ruins. Continue north-east to Ancient Grove, then return through the eastern woodland to the forest camp. The map marks both Ancient Grove and the separate optional Moonleaf Grove. Ancient Grove is currently an exploration clearing; its later story encounter is not implemented.
-- **Sword combat:** three-hit combos, dodge, stamina-powered heavy attacks, and Spirit Burst.
-- **Starter warrior:** rigged cloth/leather Ranger outfit, shaped boots/bracers, hood and light shoulder protection replace the provisional body/clothing. Eleven animation clips drive the 65-bone rig. [Hero visual review and measured limits](docs/CH1_HERO_UPGRADE_REPORT.md); owner approval and phone profiling remain pending.
-- **Demon encounters:** three wolf variants and a dragon boss with an enraged phase.
-- **Lantern seal quest:** follow the south-west trail from the beach, recover three seal fragments using the hand icon/E, then light the northern lantern once the camps are clear. A cyan diamond on the minimap marks Tideseal Ruins.
-- **Optional quests:** gather three grove flowers in Moonleaf Grove for a one-time 25-shard reward, recover Keeper relics, and complete the Western Watch bounty through the quest scroll.
-- **Minimap:** follow heading and quest markers from the circular HUD display.
-- **Progression:** earn shards, upgrade blade and armor, and save island progress throughout exploration.
-- **Camp menu:** dragon-and-lantern artwork, prominent Continue action, shard/equipment cards, upgrades, and quick access to quests, guides, settings and New journey.
-- **Mobile HUD:** gold/dark portrait, actual HP/stamina, compact quests, compass, minimap, circular actions, movement-side sprint and bottom-center potion slots. **Settings > Controls > Customize HUD** provides drag, resize, opacity, Battle/Classic/Left-Handed presets, Save and Reset. Camera, safe-area, shadow and 30/60 FPS settings remain available.
+- **Explore a connected island.** Cross the coast, forest, foothills and riverbanks, discover the Tidewarden Shrine and Ancient Grove, and use the Quest Journal and circular minimap to track objectives.
+- **Fight with readable timing.** Chain sword attacks, guard, dodge and use Spirit Burst. Wolves populate the island, and the Dire Warg, Demon Fox and Demon Boar guard the seal fragments. The Cursed Bear encounter takes place in the eastern cave.
+- **Restore the seal.** Take the guardian fragments to the forest shrine and investigate the signs of the curse. Chapter I closes with Lantern Awakening and a cinematic.
+- **Build Aru’s loadout.** Buy potions and standard equipment in the Store with Tide Shards. Preview, equip and upgrade owned gear in the Armory. Equipment ownership, upgrade levels and currency balances persist in the campaign save.
+- **Earn Veil Gems.** The rare currency is awarded once per eligible guardian, boss and Chapter I milestone. It is reserved for future cosmetic appearances. The current Store sells consumables and standard equipment.
 
-## New island review candidate
-
-The owner-supplied Tripo3D island has a separately tested connected-map candidate at `scenes/island_candidate.tscn`. Open that scene and run the current scene (F6) for review; normal F5/main gameplay keeps the existing approved map until visual approval. See [inspection](docs/ISLAND_INSPECTION.md) and [actual gameplay, tests and remaining art limitations](docs/ISLAND_INTEGRATION_REVIEW.md). The original GLB, editable Blender source and rollback checkpoint are preserved. The production main scene remains unchanged. A separate Android candidate test APK and local profiling kit are documented in [Task 5](docs/island_task5/REPORT.md); physical Samsung A37 / 8 GB performance remains unverified. See [versioned island content and review artifacts](docs/ISLAND_GIT_CONTENTS.md) for checkout and validation notes.
+![The Chapter I Armory with Aru, equipment preview and upgrade details](docs/screenshots/chapter-one-armory.png)
 
 ## Run locally
 
-1. Install the standard **Godot 4.7.2** editor; .NET is not required.
-2. Clone or download this repository.
-3. Import `project.godot` and allow asset imports to finish.
-4. Install the separately distributed wolf model for the intended visuals; see [asset setup](#assets-and-credits).
-5. Press **F5** and select **Continue exploring Veyra** in the camp menu.
-
-The project uses Godot's **GL Compatibility** renderer. Command examples assume the executable is available as `godot` on your `PATH`; substitute your executable name or local path if needed.
+Install standard **Godot 4.7.2**, Git and Git LFS. The project uses GDScript and the GL Compatibility renderer.
 
 ```sh
-godot --editor --path .
+git lfs install
+git clone https://github.com/Hirukshanan/veil-of-veyra.git
+cd veil-of-veyra
+git lfs pull
+git lfs fsck --objects HEAD
 ```
+
+1. Install the licensed [Dire Wolf Lite model](assets/characters/literock/README.md) locally for the intended wolf visuals.
+2. Open `project.godot` in Godot and let imports finish.
+3. Press **F5** to run the project. The normal entry point is `scenes/chapter_one.tscn`.
 
 ## Controls
 
-| Action | Keyboard / mouse | Touch |
+| Action | Android landscape | Desktop development |
 | --- | --- | --- |
-| Move | WASD / arrow keys | Left joystick |
-| Camera | Hold right mouse button and drag | Swipe open right-side space; left side in left-handed mode |
-| Sprint | Shift | Running figure icon |
-| Sword combo | J | Tap the sword icon |
-| Heavy attack | H | Hold the sword icon for 0.4 seconds |
-| Dodge | K | Evasion/boot icon |
-| Guard / timed parry | Hold F | Hold shield icon; frontal ordinary melee only |
-| Jump | Space | Jumping figure near the attack button |
-| Spirit Burst | L | Starburst icon |
-| Collect herb / light lantern | E | Contextual hand / lantern icon |
-| Quest journal | Q | Scroll icon / Pause → Quest Journal |
-| Minimap | Top-right HUD | Top-right HUD |
-| Pause / resume | Escape | Pause icon / Resume |
-| Heal | On-screen button | Potion icon |
+| Move and sprint | Virtual joystick. Hold past its upper edge to sprint | WASD or arrow keys, Shift to sprint |
+| Camera | Drag to orbit, pinch to zoom | Hold right mouse button and drag |
+| Sword and heavy attack | Tap or hold the sword button | J / H |
+| Guard, dodge and jump | Guard, Dodge and Jump buttons | F / K / Space |
+| Spirit Burst | Spirit Burst button | L |
+| Interact and heal | Interact and potion buttons | E to interact, click the potion button |
+| Quest Journal and pause | Journal and Pause buttons | Q / Esc |
 
-Gameplay action buttons use icons without text labels. Tap/release the sword for a normal attack; hold for 0.4 seconds for one heavy attack. Moving the finger off the button or opening a menu cancels a pending hold. Collection responds on touch-down or the E key event. Jump is available while grounded and moving, with no double jump; attacks, dodges and hit reactions must finish before takeoff. Space jumps and K dodges. Heavy attacks cost **40 stamina**. Spirit Burst requires a full spirit meter. In-game guides explain combat timing and optional rewards.
+The circular minimap shows heading and nearby objectives.
 
-## Progress and travel
+## Build and validate
 
-One continuous island replaces the three sequential hunts. Recover the three lantern-seal fragments from Tideseal Ruins on the south-west coast, clear five demons across three camps, restore the lantern, and defeat the Tidewraith; then continue exploring without advancing a level or reloading the map.
+- [Android setup and debug export](ANDROID_SETUP.md) covers SDK prerequisites, signing, package verification and device checks.
+- [Validation](VALIDATION.md) lists active Chapter I regressions and shows how to isolate test saves.
+- [Release status](RELEASE_STATUS.md) summarizes the playable build and remaining work. Physical device coverage and sustained thermal performance still need validation. Crimson equipment and cosmetic purchases are planned.
 
-Cleared enemies, seal fragments, collected Moonleaf herbs and relics, Western Watch status, location, health, potions, shards and upgrades are saved on quest actions, menu opening, every five seconds of exploration, and on normal exit. Periodic autosaves write an independent snapshot in the background so storage I/O does not block movement. Quest, menu and normal-exit saves finish pending writes before saving the newest state; reset and scene exit also wait for the writer. A forced termination may lose the last few seconds. Surviving enemies and an unfinished dragon encounter restart at full health after reloading; spirit and stamina are session resources.
+## Repository layout
 
-Death returns Aru to the beach at full health while preserving world progress and potion stock. Dragon rewards and optional relic/bounty rewards are paid once; optional quests can finish after victory. Moonleaf plants are finite pickups in this prototype and do not respawn. The original eight pickups retain their IDs; five more grow in Moonleaf Grove, reached by the eastern trail from the beach. A green leaf on the minimap marks the grove. Only grove flowers count toward its three-flower quest; each flower also provides one potion.
-
-Older chapter and persistent-island saves migrate automatically, retaining shards, upgrades and final completion. Old saves did not store current-hunt pickups or camp clears, so an unfinished legacy journey starts with fresh island objectives. Final completion prevents the dragon from spawning again. Earlier saves with an already-lit lantern automatically receive completed seal-fragment progress, keeping the lantern and dragon encounter state intact. New journey explicitly resets the world; save failures keep the existing journey intact.
-
-Aru can wade a short distance into shallow coastal water. An invisible boundary follows the irregular coastline and blocks deeper water while allowing movement along the shore and back to land; ordinary water entry does not cost health or teleport Aru. Genuine falls below the terrain still trigger emergency rescue and its existing health penalty. Older saved positions outside the boundary are moved just inside it without changing health or progress. After terrain changes, saved positions below the new ground are raised safely above it.
-
-Use the circular minimap to follow island objectives while exploring on foot.
-
-## Android builds
-
-The `Android Debug` preset produces an ARM64 development APK. Configure the Android SDK, Java, and matching Godot export templates first. Create `builds/android`, then run:
-
-```sh
-godot --headless --path . --export-debug "Android Debug" builds/android/veyra-debug.apk
-```
-
-See [Android setup](ANDROID_SETUP.md) for portable setup instructions, verification, and device checks. Build outputs and signing keys are excluded from Git. Production signing, AAB delivery, and store preparation remain unfinished.
-
-## Assets and credits
-
-| Asset | Source and setup |
+| Path | Contents |
 | --- | --- |
-| Hero base and animations | [Quaternius asset notes](assets/characters/quaternius/README.md) |
-| Dire Wolf Lite | [Literock asset notes and installation](assets/characters/literock/README.md) |
-| Ground textures and scanned foliage | [Environment credits](assets/environment/README.md) |
+| `scenes/`, `scripts/` | Playable scenes, gameplay, menus and isolated previews |
+| `assets/` | Runtime models, textures, UI, audio and attribution |
+| `art_source/` | Editable art sources and asset preparation history |
+| `tests/`, `tools/` | Godot regression scripts and build tools |
+| `docs/` | [Documentation index](docs/README.md), project credits and milestone evidence |
 
-**The wolf source model is not included in Git.** Obtain it from the creator and follow the installation notes. Without it, the game uses procedural fallback creatures. Install the model before evaluating the intended visuals or exporting them.
-
-The three wolf variants share one model with different sizes and colors. The starter tunic, fitted trousers and boots are provisional; terrain and mountains are procedural. The dragon uses an optimized, rigged [Charcoal Black Dark Dragon by Pigcraft](assets/characters/pigcraft/README.md), included under CC BY 4.0. Its hovering combat motions are custom and remain subject to device playtesting.
-
-Third-party assets retain their respective licenses. Repository access does not grant redistribution rights to those assets. Consult the linked notes before reuse.
-
-## Project structure
-
-| Directory | Purpose |
-| --- | --- |
-| `scenes/` | Game scene entry points |
-| `scripts/` | Combat, campaign, exploration, UI, and persistence |
-| `assets/` | Art, shaders, and attribution |
-| `tests/` | Godot regression checks |
-| `tools/` | Development and asset-preparation utilities |
-| `builds/` | Local export output; ignored by Git |
-
-## Development checks
-
-Run tests with isolated save storage to protect personal playthroughs. From the repository root, this PowerShell example restores the environment afterward:
-
-```powershell
-$previousAppData = $env:APPDATA
-$previousTestMode = $env:VEYRA_TEST
-try {
-    $env:APPDATA = Join-Path (Get-Location) '.validation'
-    $env:VEYRA_TEST = '1'
-    godot --headless --path . --script res://tests/gameplay_check.gd
-} finally {
-    $env:APPDATA = $previousAppData
-    $env:VEYRA_TEST = $previousTestMode
-}
-```
-
-Additional targeted checks cover combat, quests, saves, terrain, UI, and travel. See [validation notes](VALIDATION.md) for recorded results and limitations.
-
-## Current priorities
-
-- Improve character presentation, environmental detail, and audio.
-- Playtest combat, navigation, and touch controls on physical Android devices.
-- Measure sustained performance and investigate shutdown resource warnings.
-- Finish release artwork, signing, packaging, and store requirements.
-
-See [release status](RELEASE_STATUS.md) for implemented systems and remaining work.
-
-Combat uses movement-facing sword attacks and a manually controlled camera. Camera drags belong to one finger that starts in open space; joystick/action fingers do not turn the view. Joystick and main attack share a 144-pixel base diameter, equal bottom/side margins and mirrored lower-corner centers. Sprint sits above the joystick. Smaller dodge, guard and jump buttons cluster around attack, with optional burst and contextual interaction above. Healing occupies the bottom-center quick slots. Target lock is absent. Left-Handed mirrors the arrangement. Users can reposition/resize controls in Customize HUD; Reset restores the balanced default. Large configuration panels appear only in the separate paused editor. Changes apply only after Save; Cancel discards them. Physical-phone acceptance remains open. See the [balanced HUD review](docs/CH1_BALANCED_HUD_REPORT.md) for actual screenshots, sizes and verification.
+See [Game Design](GAME_DESIGN.md) for the current design and [Project Credits](docs/PROJECT_CREDITS.md) for creator, soundtrack and third-party attributions. Individual asset licenses and source notices are stored alongside the assets.

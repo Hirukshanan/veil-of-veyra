@@ -1,4 +1,25 @@
-# Veil of Veyra — development status
+# Veil of Veyra release status
+
+**The Curse Awakens — Chapter I** is playable from `scenes/chapter_one.tscn`. The current project version is **0.12.7**, read from [project.godot](project.godot). The Android Debug preset maintains its own build metadata in [export_presets.cfg](export_presets.cfg).
+
+## Current baseline
+
+- The connected island, guardian fragments, Tidewarden Shrine, Ancient Grove, Cursed Bear, Lantern Awakening and the final bridge recovery are part of the playable chapter.
+- The approved title menu, Store, Armory and About screen use the Veil of Veyra branding. The Store uses Tide Shards for consumables and standard equipment, while the Armory manages owned gear and upgrades.
+- Tide Shards, Veil Gems, quest flags, equipment ownership and upgrades persist via the campaign save. See [Validation](VALIDATION.md) for checks and the limits of desktop verification.
+
+## Remaining work
+
+- Crimson equipment appearances and Veil Gem cosmetic purchases are pending.
+- Physical Android acceptance still needs touch, save, audio, cinematic, FPS, memory and sustained thermal checks across devices.
+- The Android Debug preset is intended for local builds. Release signing and distribution belong to a later release pass.
+
+The [documentation index](docs/README.md) points to historical milestone reports and preserved visual evidence.
+
+<details>
+<summary>Historical notes from the original development snapshots</summary>
+
+## Veil of Veyra — development status
 
 ## Latest Android package — 2026-11-14
 
@@ -167,3 +188,5 @@ These are planned changes, not features of the current build.
 - Owned camera pointer, mirrored open-camera zone, two-thumb layout, moved sprint/heal, saved scale/invert-Y/handedness and held-button cancellation through menus.
 - Provisional starter tunic/trousers/boots on the retained CC0 rig; no replacement model or earned-equipment migration.
 - Desktop checks and native captures are recorded in docs/CH1_PHASE2_REPORT.md. Physical phone touch/performance, final outfit acceptance and Android packaging remain open. No Phase 3 implementation, branch, commit or push by the agent.
+
+</details>

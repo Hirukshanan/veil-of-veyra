@@ -1,14 +1,38 @@
 .godot/
 .validation/
+builds/
 android/build/
+export_templates/
+*.apk
+*.aab
+*.pck
+*.idsig
+*.log
+*.tmp
+*.swp
+*.blend[0-9]
+__pycache__/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local credentials and Android signing material.
+.env
+.env.*
+!.env.example
 *.keystore
 *.jks
-builds/
+*.p12
+*.pfx
+keystore.properties
+key.properties
+local.properties
+export_credentials.cfg
 
 # Creator license prohibits redistribution of the standalone model.
 assets/characters/literock/*.glb
 
-# Local review archives duplicate the canonical source and evidence below.
+# Generated review outputs duplicate the canonical source and evidence.
 docs/island_visual_verification.zip
 docs/island_polish_task*/candidate_patch/
 docs/island_task*/source_patch/

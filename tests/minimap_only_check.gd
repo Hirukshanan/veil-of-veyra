@@ -1,7 +1,7 @@
 extends SceneTree
 
 const STORE := preload("res://scripts/campaign_store.gd")
-const SCENE := preload("res://scenes/previews/chapter_one_bear_spoor_review.tscn")
+const SCENE := preload("res://scenes/chapter_one.tscn")
 const FORMER_PADS := [Vector3(0,0,27), Vector3(0,0,2), Vector3(0,0,-20)]
 var game
 var output := ""
@@ -64,7 +64,7 @@ func run() -> void:
 	for node in game.menu_box.get_children():
 		if node is Button:
 			captions.append(node.text)
-	assert(paused and captions == ["Resume", "Quest Journal", "Save and return to camp", "Settings", "Quit"])
+	assert(paused and captions == ["Resume", "Quest Journal", "Store", "Save and return to camp", "Settings", "Quit"])
 	for frame in 5:
 		await process_frame
 	await shot("02_Pause_Menu")

@@ -6,7 +6,7 @@
 - License text: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Credit: "Charcoal Black Dark Dragon" by Pigcraft, CC BY 4.0.
-Custom adaptation and gameplay integration by Logachandran Hirukshanan for Veil of Vera: reduced mesh, consolidated duplicate UV channels,
+Custom adaptation and gameplay integration by Logachandran Hirukshanan for Veil of Veyra: reduced mesh, consolidated duplicate UV channels,
 normalized orientation/scale, added 21-bone skinning and eight combat motion clips.
 Original black scales, wing textures, and ivory horns are retained.
 The creator does not endorse this game.

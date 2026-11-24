@@ -108,7 +108,7 @@ func _build_header(root: VBoxContainer) -> void:
 	header_row.add_theme_constant_override("separation", 18)
 	_button(header_row, "Back to menu", _close)
 	_label(header_row, "Armory", 35, STORE.GOLD, true)
-	var brand := _label(header_row, "VEIL OF VERA", 23, STORE.GOLD, true)
+	var brand := _label(header_row, "VEIL OF VEYRA", 23, STORE.GOLD, true)
 	brand.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	brand.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	balance = CURRENCIES.new()

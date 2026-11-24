@@ -31,7 +31,7 @@ def main():
  if source_main is None:raise ValueError('Project must declare a default scene')
  production_main=source_main.group(1)
  project=project[:source_main.start()]+'run/main_scene="res://mobile_test/main.tscn"'+project[source_main.end():]
- project=project.replace('config/name="Veil of Veyra"','config/name="Veil of Vera Island Test"')
+ project=project.replace('config/name="Veil of Veyra"','config/name="Veil of Veyra Island Test"')
  (stage/'project.godot').write_text(project)
  source=Path(__file__).parent
  # Script lives under tools/ in the repository; deployed copies live in mobile_test/ only in staging.
@@ -39,7 +39,7 @@ def main():
  (stage/'mobile_test/performance_config.json').write_text(json.dumps({'task':args.task,'experiment':('accepted_cap720' if args.task in ['5.2','5.3','5.4','6.1'] else 'cap720_trial') if args.render_height else 'native_baseline','render_height':args.render_height,'single_changed_variable':'Phase 6.1 quests with approved cave refinements and mobile controls; accepted 720p rendering preserved' if args.task=='6.1' else 'Task 5.4 mobile controls/settings; accepted 720p rendering preserved' if args.task=='5.4' else ('Task 5.3 encounters/navigation and repeating boar combat; accepted 720p preserved' if args.task=='5.3' else 'Task 5.2 geometry/collisions; accepted 720p rendering preserved') if args.task in ['5.2','5.3'] else '3D rendering resolution only','phone_improvement_verified':False},indent=2))
  for src,dst in [('mobile_bootstrap.gd','bootstrap.gd'),('mobile_probe.gd','probe.gd')]:shutil.copy2(source/(src+".template"),stage/'mobile_test'/dst)
  (stage/'mobile_test/main.tscn').write_text('[gd_scene load_steps=2 format=3]\n\n[ext_resource type="Script" path="res://mobile_test/bootstrap.gd" id="1"]\n\n[node name="IslandAndroidTest" type="Node"]\nscript = ExtResource("1")\n')
- preset=(R/'export_presets.cfg').read_text().replace('name="Android Debug"','name="Island Android Test"').replace('export_path="builds/android/veyra-debug.apk"','export_path=""').replace('package/unique_name="com.hirukshanan.veilofveyra.dev"','package/unique_name="com.hirukshanan.veilofveyra.islandtest"').replace('package/name="Veil of Veyra Dev"','package/name="Veil of Vera Island Test"')
+ preset=(R/'export_presets.cfg').read_text().replace('name="Android Debug"','name="Island Android Test"').replace('export_path="builds/android/veyra-debug.apk"','export_path=""').replace('package/unique_name="com.hirukshanan.veilofveyra.dev"','package/unique_name="com.hirukshanan.veilofveyra.islandtest"').replace('package/name="Veil of Veyra"','package/name="Veil of Veyra Island Test"')
  preset=preset.replace('include_filter=""','include_filter="mobile_test/*.json,assets/**/*.json,assets/**/*.bin,*.json,*.bin"')
  preset=preset.replace('exclude_filter="','exclude_filter="art_source/*,docs/*,tests/*,tools/*,.validation/*,builds/*,',1)
  assert 'com.hirukshanan.veilofveyra.islandtest' in preset
@@ -54,7 +54,7 @@ def main():
  (godot_profile/'editor_settings-4.7.tres').write_text(settings)
  env=os.environ.copy();env['APPDATA']=str(profile);env['JAVA_HOME']=str(args.java);env['ANDROID_HOME']=str(args.sdk);env['PATH']=str(args.java/'bin')+os.pathsep+env.get('PATH','')
  run([args.godot,'--headless','--editor','--path',stage,'--import'],logs,'import',env)
- apk=out/('Veil_of_Vera_Phase61_720p_Candidate.apk' if args.task=='6.1' else 'Veil_of_Vera_Task54_720p_Candidate.apk' if args.task=='5.4' else ('Veil_of_Vera_Task53_720p_Candidate.apk' if args.task=='5.3' else ('Veil_of_Vera_Task52_720p_Candidate.apk' if args.task=='5.2' else ('Veil_of_Vera_Task51_Native_Baseline.apk' if args.render_height==0 else 'Veil_of_Vera_Task51_720p_Trial.apk'))))
+ apk=out/('Veil_of_Veyra_Phase61_720p_Candidate.apk' if args.task=='6.1' else 'Veil_of_Veyra_Task54_720p_Candidate.apk' if args.task=='5.4' else ('Veil_of_Veyra_Task53_720p_Candidate.apk' if args.task=='5.3' else ('Veil_of_Veyra_Task52_720p_Candidate.apk' if args.task=='5.2' else ('Veil_of_Veyra_Task51_Native_Baseline.apk' if args.render_height==0 else 'Veil_of_Veyra_Task51_720p_Trial.apk'))))
  run([args.godot,'--headless','--path',stage,'--export-debug','Island Android Test',apk],logs,'export',env)
  assert apk.exists() and apk.stat().st_size>1000000
  assert all(digest(R/n)==h for n,h in originals.items()),'Source changed during build'
