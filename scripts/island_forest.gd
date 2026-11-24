@@ -80,6 +80,4 @@ func _clear_ground(point: Vector2,trail: Image) -> bool:
 		if point.distance_to(Vector2(clearing.x,clearing.z))<clearing.w: return false
 	for herb in preload("res://scripts/herbal_plants.gd").LOCATIONS:
 		if point.distance_to(Vector2(herb.x,herb.z))<2.5: return false
-	for relic in [Vector2(-22,15),Vector2(22,-7),Vector2(-6,-29)]:
-		if point.distance_to(relic)<3.0: return false
 	return true

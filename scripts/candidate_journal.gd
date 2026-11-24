@@ -35,8 +35,6 @@ static func entry(g, id: String) -> Dictionary:
 	match id:
 		"watch":
 			return row("Western Watch","Two wolves still haunt the western forest trails.","Western wolves",2-s.watch_remaining,2,"15 Tide Shards after reporting and victory.","Accept the bounty." if not s.accepted else ("Clear the western pair." if s.watch_remaining else ("Report your success." if not s.reported else "Claimed." if s.bounty_reward else "Await Chapter I victory.")),s.bounty_reward)
-		"relic":
-			return row("Keeper's Relics","Search the grassland trail, mountain foothills and eastern cave.","Golden relics",s.relics,3,"20 Tide Shards after victory.","Approach a golden relic." if s.relics<3 else "Await Chapter I victory." if not s.completed else "Claimed.",s.relic_reward)
 		"grove":
 			return row("Moonleaf Grove","Cross the river to the southeast meadow. Look for three blue-green flowers.","Grove flowers",mini(3,s.grove),3,"One potion per flower and 25 Tide Shards for three.","Gather Moonleaf in the grove." if not s.grove_reward else "Claimed.",s.grove_reward)
 	var intro: Dictionary = g.opening_journal() if g.has_method("opening_journal") else {}
@@ -254,7 +252,7 @@ func render():
 	index_scroll.add_child(stack)
 	var ids:Array = []
 	var guardian_ids: Array = game.guardian_journal_ids() if game.has_method("guardian_journal_ids") else []
-	var quest_ids := ["main"] + guardian_ids + ["awakening", "watch", "relic", "grove"]
+	var quest_ids := ["main"] + guardian_ids + ["awakening", "watch", "grove"]
 	for id in quest_ids:
 		var quest := entry(game,id)
 		if section==("Completed" if quest.done else "Main" if id in ["main","awakening"] or id in guardian_ids else "Side"):
@@ -267,7 +265,6 @@ func render():
 		item.custom_minimum_size.y = 58
 		match id:
 			"watch": item.icon = preload("res://assets/ui/controls/attack.svg")
-			"relic": item.icon = preload("res://assets/ui/controls/collect.svg")
 			"grove": item.icon = preload("res://assets/ui/controls/potion.svg")
 			_: item.icon = preload("res://assets/ui/quest_scroll.svg")
 		item.expand_icon = true

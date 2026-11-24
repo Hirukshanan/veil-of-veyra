@@ -22,14 +22,13 @@ func run():
 	data.world_data.health=73
 	data.world_data.potions=6
 	data.world_data.herbs=[1,4,8]
-	data.world_data.relics=[2]
 	data.world_data.seal_fragments=[0]
 	data.world_data.cleared=[0,5]
 	assert(STORE.save_progress(data)==OK)
 	await load_candidate()
 	assert(scene.shards==240 and scene.blade_level==3 and scene.armor_level==2)
 	assert(scene.player.health==73 and scene.potions==6 and scene.player.max_health==150)
-	assert(scene.herbs.collected_ids==[1,4,8] and scene.relic_hunt.collected_ids==[2] and scene.seal_fragments.collected_ids==[0])
+	assert(scene.herbs.collected_ids==[1,4,8] and scene.seal_fragments.collected_ids==[0])
 	assert(scene.remaining_enemies==4 and scene.get_node_or_null("CampDemon0")==null and scene.get_node_or_null("CampDemon5")==null)
 	assert(scene.player.position.y>0,"Old unsafe location gets support without resetting progress")
 	scene._resume()
@@ -44,7 +43,6 @@ func run():
 		ticks+=1
 	assert(ticks<360,"Real hero must enter and traverse the grotto")
 	assert(scene.player.health==health and scene.player.position.y>1.3 and scene.player.position.y<2.2)
-	assert(1 in scene.relic_hunt.collected_ids,"The existing relic ID is collectable inside the new cave")
 	scene.player.set_move_input(Vector2.ZERO)
 	scene.player.position=Vector3(76,1.58,0)
 	assert(scene._save_progress())
@@ -55,7 +53,7 @@ func run():
 	await load_candidate()
 	assert(scene.shards==240 and scene.player.health==73 and scene.potions==6)
 	assert(scene.player.position.distance_to(Vector3(76,1.58,0))<0.4,"Cave reload must not teleport onto the roof")
-	assert(scene.herbs.collected_ids==[1,4,8] and scene.relic_hunt.collected_ids.has(1))
+	assert(scene.herbs.collected_ids==[1,4,8])
 	# Existing boar reward and lantern restoration remain functional.
 	scene._resume()
 	var boar=scene.get_node("DemonBoar")

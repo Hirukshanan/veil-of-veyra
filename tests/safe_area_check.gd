@@ -26,7 +26,7 @@ func _run() -> void:
 				control.test_safe_rect = bounds
 				control.refresh()
 		await _settle()
-		for menu in [scene._show_camp, scene._show_keeper_request, scene._show_enemy_guide, scene._show_burst_guide, func(): scene._show_settings(scene._show_camp)]:
+		for menu in [scene._show_camp, scene._show_enemy_guide, scene._show_burst_guide, func(): scene._show_settings(scene._show_camp)]:
 			menu.call()
 			await _settle()
 			if is_instance_valid(scene.settings_screen):

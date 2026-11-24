@@ -33,10 +33,6 @@ func run():
 	assert(scene.potions==4 and herbs.collected==1)
 	scene._interact_world()
 	assert(scene.potions==4)
-	var relic=scene.relic_hunt.relics[0]
-	hero.position=relic.position
-	scene.relic_hunt._physics_process(0.01)
-	assert(scene.relic_hunt.collected==1)
 	var enemy=scene.get_node("CampDemon0")
 	enemy.take_damage(1000)
 	await process_frame
@@ -53,7 +49,6 @@ func run():
 	await open_world()
 	assert(scene.remaining_enemies==4 and scene.get_node_or_null("CampDemon0")==null)
 	assert(scene.herbs.collected_ids==[0] and scene.potions==4)
-	assert(scene.relic_hunt.collected_ids==[0])
 	assert(scene.player.health==63 and scene.player.position.distance_to(Vector3(0,0,2))<0.1)
 	assert(not scene.world_data.has("checkpoint") and not scene.world_data.has("discovered"))
 	assert(scene.keeper.accepted)
@@ -86,23 +81,19 @@ func run():
 	assert(scene.shards==before+80)
 	scene._resume()
 	# Optional quests can finish after victory, with exactly one payment.
-	for item in scene.relic_hunt.relics.duplicate():
-		scene.player.position=item.position
-		scene.relic_hunt._physics_process(0.01)
-	assert(scene.shards==before+100)
 	scene._show_journal()
 	scene._complete_scroll_quest()
-	assert(scene.shards==before+115)
+	assert(scene.shards==before+95)
 	scene._complete_scroll_quest()
-	assert(scene.shards==before+115)
+	assert(scene.shards==before+95)
 	scene._resume()
 	scene._pause_game()
 	await close_world()
 	await open_world()
 	assert(scene.completed and not scene.game_finished)
 	assert(scene.get_node_or_null("Tidewraith Dragon")==null)
-	assert(scene.relic_hunt.collected==3 and scene.keeper.reported)
-	assert(scene.shards==before+115)
+	assert(scene.keeper.reported)
+	assert(scene.shards==before+95)
 	assert(scene._save_progress())
 	await close_world()
 	print("PASS: persistent island, pickups, cleared demons, waystones, health/potions, death resume, lantern resume, continued exploration and one-time rewards")

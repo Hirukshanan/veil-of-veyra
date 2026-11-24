@@ -36,8 +36,6 @@ func _run() -> void:
 			query.collision_mask = 8
 			assert(not space.intersect_ray(query).is_empty(), "Decor must block the player")
 		var objectives: Array[Vector3] = [scene.lantern.global_position]
-		for relic in scene.relic_hunt.relics:
-			objectives.append(relic.global_position)
 		for point in objectives:
 			var ground := space.intersect_ray(PhysicsRayQueryParameters3D.create(point + Vector3.UP * 5, point + Vector3.DOWN * 5, 1))
 			assert(not ground.is_empty() and absf(ground.position.y) < 0.1, "Objectives must stay on walkable ground")

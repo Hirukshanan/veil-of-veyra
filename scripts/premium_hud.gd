@@ -1,5 +1,7 @@
 extends Control
 
+const CURRENCIES := preload("res://scripts/currency_display.gd")
+
 const TITLE = preload("res://assets/ui/fonts/Cinzel.ttf")
 const QUEST_ICON=preload("res://assets/ui/quest_scroll.svg")
 const QUEST_MARKER := preload("res://scripts/quest_map_marker.gd")
@@ -243,6 +245,7 @@ func _draw() -> void:
 			var offset := wrapf(rad_to_deg(atan2(target.x, -target.z)) - heading, -180.0, 180.0)
 			var marker_x := middle + clampf(offset / 180.0, -.455, .455) * compass_width
 			QUEST_MARKER.draw(self, Vector2(marker_x, 18 + 46 * f), marker, maxf(4.5, 6.5 * f), 0.0)
+	_draw_currency_reward(f)
 	# Only this compact quick bar appears in gameplay; editing panels live elsewhere.
 	for i in range(3):
 		var center:=Vector2(size.x*0.5+(i-1)*66*f,size.y-48*f)
@@ -251,6 +254,25 @@ func _draw() -> void:
 		if i!=potion_side: _text(center+Vector2(-5,5),"—",14*f,Color("6c766e"))
 	var potion_rect: Rect2=utilities.HealButton
 	_text(potion_rect.end-Vector2(8,3),"%d" % scene.potions,14*f,GOLD)
+
+func _draw_currency_reward(f: float) -> void:
+	if Time.get_ticks_msec() >= scene.reward_until:
+		return
+	var rewards := []
+	if scene.reward_shards > 0:
+		rewards.append([CURRENCIES.SHARD, "+%d Tide Shards" % scene.reward_shards])
+	if scene.reward_gems > 0:
+		rewards.append([CURRENCIES.GEM, "+%d Veil Gems" % scene.reward_gems])
+	var panel_rect := Rect2(Vector2(size.x * .5 - 105 * f, 65 * f), Vector2(210 * f, (12 + 28 * rewards.size()) * f))
+	_panel(panel_rect)
+	var at := panel_rect.position + Vector2(12, 6) * f
+	for reward in rewards:
+		var icon: Texture2D = reward[0]
+		var scale_factor := 23.0 * f / maxf(icon.get_width(), icon.get_height())
+		var icon_size := icon.get_size() * scale_factor
+		draw_texture_rect(icon, Rect2(at + Vector2((23.0 * f - icon_size.x) * .5, 0), icon_size), false)
+		_text(at + Vector2(32, 19) * f, reward[1], 17 * f)
+		at.y += 28 * f
 
 func map_overlay(canvas: Control) -> void:
 	if not is_instance_valid(scene): return

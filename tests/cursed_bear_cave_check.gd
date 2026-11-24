@@ -59,7 +59,7 @@ func run() -> void:
 	assert(is_instance_valid(bear) and bear.is_on_floor() and bear.animator.get_animation_list().size() == 16)
 	game._update_bear_encounter()
 	assert(game.cave_bear == bear)
-	assert(1 in game.relic_hunt.collected_ids and not game.awakening.eligible())
+	assert(not game.awakening.eligible())
 	if movie:
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(OS.get_cmdline_user_args()[0]+"/after.png")
@@ -73,7 +73,7 @@ func run() -> void:
 	clearance.transform.origin.y += .15
 	clearance.collision_mask = 4
 	assert(space.intersect_shape(clearance).is_empty(), "Spawn capsule touches cave walls or props")
-	print("PASS: entrance, relic, curved passage, gated spawn, headroom ", ceiling.position.y-bear.position.y)
+	print("PASS: entrance, curved passage, gated spawn, headroom ", ceiling.position.y-bear.position.y)
 	# Retreat via the same pass, then re-enter for a fresh attempt.
 	if not movie:
 		await walk(Vector2(0,-12))
@@ -146,10 +146,7 @@ func run() -> void:
 		assert(game.shards == before_shards and game.awakening.eligible() and not game.awakening.finished())
 	await threshold(Vector2(0,24),false)
 	await walk(Vector2(64.4,25))
-	var relics: Array = game.relic_hunt.collected_ids.duplicate()
-	game.relic_hunt.collected_ids.erase(1)
-	assert(not game.awakening.eligible(), "Bear victory alone cannot unlock the cinematic")
-	game.relic_hunt.collected_ids.assign(relics)
+	assert(game.awakening.eligible())
 	if not movie:
 		await threshold(Vector2(67.8,21.45),true)
 		await walk(Vector2(0,-4))

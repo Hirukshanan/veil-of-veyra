@@ -51,7 +51,7 @@ func _original_height(point: Vector2) -> float:
 	var h:float=feature_height(Vector3(point.x,coarse_sample(point),point.y))
 	# Match the existing long boar capsule without moving its approved spawn.
 	h=lerpf(h,2.659828,1-smoothstep(1.7,3.0,point.distance_to(Vector2(33.5,-19.5))))
-	# Keep the approach flush with the existing relic floor and bed the new ridge.
+	# Keep the approach flush with the existing cave floor and bed the new ridge.
 	if point.y >= -16 and point.y <= 59:
 		var axis:float=lerpf(76,65,smoothstep(6,24,point.y))
 		var width:float=lerpf(6,14,smoothstep(30,42,point.y))

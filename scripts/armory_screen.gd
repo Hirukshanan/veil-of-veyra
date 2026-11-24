@@ -18,7 +18,8 @@ var game
 var section := 0
 var preview: PlayerPreview
 var canvas: Control
-var balance: Label
+const CURRENCIES := preload("res://scripts/currency_display.gd")
+var balance: HBoxContainer
 var stats: Label
 var item: Label
 var detail: Label
@@ -59,7 +60,8 @@ func _ready() -> void:
 	_button(header, "Back to menu", _close)
 	var title := _label(header, "Armory", 32, GOLD, true)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	balance = _label(header, "", 22, GOLD)
+	balance = CURRENCIES.new()
+	header.add_child(balance)
 	var layout := HBoxContainer.new()
 	layout.add_theme_constant_override("separation", 20)
 	layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -205,7 +207,7 @@ func _change(upgrade: bool) -> void:
 
 func _refresh() -> void:
 	preview.set_equipment_visuals(game.equipped("blade"), game.equipped("armor"))
-	balance.text = "%d Tide Shards" % game.shards
+	balance.update_balances(game.shards, game.veil_gems)
 	stats.text = "Attack  %d     Health  %d     Stamina  %d\nGuard defense  %d%% damage reduction" % [
 		game.player.attack_damage,game.player.max_health,PLAYER.MAX_STAMINA,roundi((1.0-PLAYER.GUARD_DAMAGE_FACTOR)*100)]
 	for i in tabs.size():
@@ -228,6 +230,8 @@ func _refresh() -> void:
 	levels.text += "\nNext level  ·  %s\nRequired  ·  %d Tide Shards" % [next_stats,cost] if level < game.LEVEL_CAP else "\nMaximum level reached"
 	equip_button.text = "Unequip" if equipped else "Equip"
 	equip_button.disabled = game.equipment_locked()
+	upgrade_button.text = "Upgrade · %d Tide Shards" % cost if level < game.LEVEL_CAP else "Upgrade"
+	CURRENCIES.style_price(upgrade_button)
 	upgrade_button.disabled = level >= game.LEVEL_CAP or game.shards < cost or game.equipment_locked()
 	if game.equipment_locked():
 		status.text = "This save could not be read."

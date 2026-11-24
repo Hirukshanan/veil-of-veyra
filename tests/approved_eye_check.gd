@@ -23,7 +23,7 @@ func fixture():
 	var data:=STORE.DEFAULTS.duplicate(true)
 	data.world_data=STORE.fresh_world()
 	data.completed=true;data.shards=80
-	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"relics":[1],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
+	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
 	assert(STORE.save_progress(data)==OK)
 
 func run():
@@ -35,8 +35,6 @@ func run():
 	assert(not event.eligible() and not event.start())
 	scene.completed=true;scene.lantern_lit=true
 	scene.seal_fragments.restore([0,1,2])
-	assert(not event.eligible(),"Cave relic is required")
-	scene.relic_hunt.restore([1])
 	assert(event.eligible())
 	for prerequisite in ["completed","lantern_lit"]:
 		scene.set(prerequisite,false)
@@ -56,7 +54,7 @@ func run():
 	await open_world()
 	event=scene.awakening
 	assert(event.eligible() and not event.finished())
-	assert(scene.keeper.accepted==false and scene.herbs.grove_count()==0 and scene.relic_hunt.collected==1)
+	assert(scene.keeper.accepted==false and scene.herbs.grove_count()==0)
 	assert(scene.interact_button.visible)
 	var ray:=PhysicsRayQueryParameters3D.create(Vector3(67,4,29),Vector3(67,4,35),4)
 	await physics_frame
@@ -82,7 +80,7 @@ func run():
 				samples.append(point)
 	assert(not paused and event.finished() and scene.player.health==health)
 	assert(get_root().get_camera_3d()==previous_camera)
-	assert(scene.shards==80 and not scene.world_data.bounty_reward and not scene.world_data.relic_reward)
+	assert(scene.shards==80 and not scene.world_data.bounty_reward)
 	assert(event.last_eye_open>.99 and event.eye.get_parent()==event.overlay and event.eye_frame==5)
 	for sample in [[13.29,0],[13.3,0],[13.51,1],[13.71,2],[13.91,3],[14.11,4],[14.31,5],[15.6,5]]:
 		event._sample(sample[0]);assert(event.eye_frame==sample[1])
@@ -111,7 +109,7 @@ func run():
 	assert(event.finished() and not event.active and not event.start())
 	await physics_frame
 	assert(event.gate.get_child(0).disabled and scene.shards==80)
-	assert(scene.relic_hunt.collected_ids==[1])
+	assert(not scene.world_data.has("relics"))
 	assert(scene.awakening_quest().done)
 	await close_world()
 	# Skip before the physical gate opens, then verify the same persistent result.

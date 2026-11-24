@@ -27,7 +27,7 @@ func run():
 	root.size=Vector2i(1280,720)
 	var data:=STORE.DEFAULTS.duplicate(true);data.world_data=STORE.fresh_world()
 	data.completed=true;data.shards=80
-	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"relics":[1],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
+	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
 	assert(STORE.save_progress(data)==OK)
 	var settings:=ConfigFile.new()
 	settings.set_value("settings","shadows_enabled",false)

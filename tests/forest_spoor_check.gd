@@ -1,6 +1,6 @@
 extends "res://tests/tidewarden_visual_review_check.gd"
 
-const REVIEW := "res://scenes/previews/chapter_one_bear_spoor_review.tscn"
+const REVIEW := "res://scenes/chapter_one.tscn"
 const SHRINE := preload("res://scripts/previews/spoor_shrine.gd")
 const BANK := preload("res://scripts/previews/spoor_grove.gd")
 
@@ -102,17 +102,12 @@ func run() -> void:
 		assert(game.grove.stage()==i+1)
 	await open_game()
 	assert(game._temple_unlocked() and tide.read_claws() and game.shards==104)
-	assert(marker("main").badge=="C" and tide.eastern_tracks.visible and game.relic_hunt.collected_ids.is_empty())
-	await place(Vector3(-6,0,-29))
-	assert(game.relic_hunt.collected_ids.is_empty())
-	await place(Vector3(2,0,-44))
-	assert(game.relic_hunt.collected_ids == [2])
-	assert(game._save_progress())
-	await open_game()
-	assert(game.relic_hunt.collected_ids == [2] and not game.relic_hunt.has_node("KeeperRelic3"))
+	assert(marker("main").badge=="C" and tide.eastern_tracks.visible)
+	assert(game.find_children("KeeperRelic*", "Node3D", true, false).is_empty())
+	assert(not game.world_data.has("relics"))
 	print("PASS physical spoor route, grounded prints, sealed and restored states, keyboard and touch inspections, reload, legacy Lantern reward, Grove and cave gate")
 	game.queue_free()
 	await ticks(12)
 	assert(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)==0)
-	print("PASS grounded relic ID and reload, zero orphan nodes on teardown")
+	print("PASS removed relics and zero orphan nodes on teardown")
 	quit()

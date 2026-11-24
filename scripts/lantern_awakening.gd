@@ -52,7 +52,7 @@ func mark(label:String,begin:int):
 
 
 func eligible() -> bool:
-	return (game.completed or game.world_data.get("cursed_bear_defeated", false)) and game.lantern_lit and game.seal_fragments.complete() and 1 in game.relic_hunt.collected_ids
+	return (game.completed or game.world_data.get("cursed_bear_defeated", false)) and game.lantern_lit and game.seal_fragments.complete()
 
 func finished() -> bool:
 	return game.world_data.get(FLAG,false)
@@ -61,8 +61,8 @@ func near_pedestal() -> bool:
 	return to_local(game.player.global_position).distance_to(PEDESTAL)<2.7
 
 func quest() -> Dictionary:
-	var count := int(game.completed or game.world_data.get("cursed_bear_defeated", false))+int(game.lantern_lit)+int(game.seal_fragments.complete())+int(1 in game.relic_hunt.collected_ids)
-	return {"title":"The Lantern Awakening","description":"The cave relic names a stone altar in the inner chamber. Bring the restored lantern's light to its ancient platform.","objective":"Guardian overcome · restored lantern · whole seal · cave relic","value":5 if finished() else count,"total":5,"reward":"The hidden passage remains open.","next":"The crimson eye watches from the depths." if finished() else "Approach the inner chamber altar and use Interact." if eligible() else "Resolve the island's curse, restore the northern lantern and find the cave relic.","done":finished()}
+	var count := int(game.completed or game.world_data.get("cursed_bear_defeated", false))+int(game.lantern_lit)+int(game.seal_fragments.complete())
+	return {"title":"The Lantern Awakening","description":"Bring the restored Lantern to the ancient altar in the inner chamber.","objective":"Guardian overcome · restored lantern · whole seal","value":4 if finished() else count,"total":4,"reward":"The hidden passage remains open.","next":"The crimson eye watches from the depths." if finished() else "Approach the inner chamber altar and use Interact." if eligible() else "Restore the Northern Lantern and defeat the Cursed Bear.","done":finished()}
 
 func _ready():
 	name="LanternAwakening"
@@ -158,7 +158,7 @@ func _build_wall():
 	var rock:=stone()
 	var rng:=RandomNumberGenerator.new();rng.seed=6202
 	# A removable stone seal fills the existing reserved-hall arch, with no edits
-	# to the approved cave mesh, relic route or collision source.
+	# to the approved cave mesh, entrance route or collision source.
 	var cells:Array=JSON.parse_string(FileAccess.get_file_as_string("res://assets/environment/lantern_awakening/seal_cells.json"))
 	for cell in cells:
 		var center:=Vector2.ZERO

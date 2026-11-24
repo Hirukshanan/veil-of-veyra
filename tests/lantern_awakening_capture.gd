@@ -29,7 +29,7 @@ func run():
 	output=OS.get_cmdline_user_args()[0];DirAccess.make_dir_recursive_absolute(output)
 	var data:=STORE.DEFAULTS.duplicate(true);data.world_data=STORE.fresh_world()
 	data.completed=true;data.shards=80
-	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"relics":[1],"lantern":true,"position":Vector3(62.5,2.4,22)},true)
+	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"lantern":true,"position":Vector3(62.5,2.4,22)},true)
 	assert(STORE.save_progress(data)==OK)
 	root.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_EXPAND
 	root.size=Vector2i(1280,720)

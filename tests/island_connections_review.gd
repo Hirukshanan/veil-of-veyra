@@ -45,9 +45,7 @@ func run() -> void:
 			queue.append(next)
 	var goals: Array[Dictionary] = []
 	for index_region in range(5):goals.append({"name":scene.landscape.REGION_FILES[index_region],"position":scene.landscape.safe_point(scene.landscape.REVIEW_POINTS[index_region])})
-	for item in scene.herbs.plants+scene.seal_fragments.fragments+scene.relic_hunt.relics:
-		# The under-roof relic is covered by real interior traversal separately.
-		if item in scene.relic_hunt.relics and int(item.get_meta("pickup_id"))==1:continue
+	for item in scene.herbs.plants+scene.seal_fragments.fragments:
 		goals.append({"name":str(item.name),"position":item.global_position})
 	goals.append({"name":"Lantern","position":scene.lantern.global_position})
 	for goal in goals:

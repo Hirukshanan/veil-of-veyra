@@ -222,9 +222,6 @@ func _ground_gameplay() -> void:
 	add_child(grove)
 	grove.populate_candidate(landscape)
 	for item in seal_fragments.fragments:_ground_node(item,true)
-	for item in relic_hunt.relics:
-		if int(item.get_meta("pickup_id")) == 1:item.global_position=Vector3(76,1.58,5)
-		else:_ground_node(item,true)
 	# Keep the original quest scenery and NPC; only its support height changes.
 	_ground_node(seal_fragments.get_node("Scenery"))
 	# Western Watch is a journal-only Node, not a physical NPC.
@@ -330,7 +327,7 @@ func _load_tracking():
 	var preference:=ConfigFile.new()
 	if FileAccess.file_exists(TRACKING_PATH) and preference.load(TRACKING_PATH)==OK:
 		var saved=preference.get_value("journal","tracked","")
-		if saved is String and (saved in ["main","watch","grove","relic","awakening",CHAPTER_GUARDIANS.LANTERN]
+		if saved is String and (saved in ["main","watch","grove","awakening",CHAPTER_GUARDIANS.LANTERN]
 				or guardians.index_for(saved) >= 0):
 			tracked_quest = saved
 
@@ -346,7 +343,7 @@ func _show_journal() -> void:
 	if is_instance_valid(journal_view):
 		group = journal_view.section
 		id = journal_view.selected
-	elif id in ["watch","grove","relic"]:
+	elif id in ["watch","grove"]:
 		group = "Side"
 	_clear_menu("Quest Journal","")
 	journal_open=true
@@ -398,7 +395,7 @@ func _toggle_pause() -> void:
 func tracked_hint(base:Dictionary) -> Dictionary:
 	if placement_ready and completed and tracked_quest in ["", "main"] and not awakening.finished():
 		var objective:Dictionary=awakening.quest()
-		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Cave relic recorded"}
+		return {"title":objective.title.to_upper(),"message":objective.next,"progress":"Seal recovered · Lantern restored"}
 	if quest_feedback.get("title") == "MOONLEAF COLLECTED" and Time.get_ticks_msec() < quest_feedback.get("until", 0):
 		return base
 	if base.title == "MOONLEAF GROVE" and tracked_quest in ["", "main", "grove"]:
@@ -430,8 +427,8 @@ func _pause_game() -> void:
 func awakening_quest() -> Dictionary:
 	var quest: Dictionary = awakening.quest()
 	if world_data.get(CHAPTER_GUARDIANS.BEAR_FLAG, false) and not completed:
-		quest.objective = "Cursed Bear defeated · Bring the cave relic to the altar"
-		quest.next = "Approach the inner chamber altar and use Interact." if 1 in relic_hunt.collected_ids else "Search the entrance chamber for the cave relic."
+		quest.objective = "Cursed Bear defeated · Reach the altar"
+		quest.next = "Approach the inner chamber altar and use Interact."
 	elif not completed:
 		quest.description = "Beyond the cave's outer chambers, a sealed altar keeps the deeper passage shut."
 		quest.objective = "Locked · Defeat the Cursed Bear"

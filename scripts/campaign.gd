@@ -3,7 +3,6 @@ extends "res://scripts/main.gd"
 const SAVE_PATH := "user://campaign.cfg"
 const CAMPAIGN_STORE = preload("res://scripts/campaign_store.gd")
 const SETTINGS_PATH := "user://settings.cfg"
-const RELIC_HUNT_SCRIPT = preload("res://scripts/relic_hunt.gd")
 const BOAR_SCRIPT = preload("res://scripts/demon_boar.gd")
 const CHAPTER_QUESTS = preload("res://scripts/chapter_one_quests.gd")
 var quest_feedback: Dictionary = {}
@@ -15,6 +14,10 @@ var _autosave_time := 0.0
 var _autosave_thread: Thread
 var _save_failed := false
 var shards := 0
+var veil_gems := 0
+var reward_until := 0
+var reward_shards := 0
+var reward_gems := 0
 var blade_level := 0
 var armor_level := 0
 var completed := false
@@ -25,6 +28,7 @@ var camp_menu: Control
 var menu_scroll: ScrollContainer
 var menu_shade: ColorRect
 var pause_panel := false
+var pause_panel_height := 0.0
 var pause_back := Callable()
 const MENU_TITLE := preload("res://assets/ui/fonts/Cinzel.ttf")
 const MENU_BODY := preload("res://assets/ui/fonts/CrimsonText-Regular.ttf")
@@ -52,8 +56,7 @@ var lantern_flame: MeshInstance3D
 var lantern_label: Label3D
 var interact_button: Button
 var lantern_lit := false
-var relic_hunt: Node3D
-var relic_status: Label
+var watch_status: Label
 var keeper: Node
 
 func _process(delta: float) -> void:
@@ -140,9 +143,8 @@ func _update_objective() -> void:
 				lantern_label.text = "LIGHT THE LANTERN" if _lantern_ready() else "RECOVER THE LANTERN SEAL"
 	if _save_failed:
 		status_label.text += " | SAVE FAILED - open camp to retry"
-	relic_status.text = relic_hunt.call("progress_text")
 	if is_instance_valid(keeper):
-		relic_status.text += "\n" + keeper.hint(player.global_position, player._camera_pivot.global_basis)
+		watch_status.text = keeper.hint(player.global_position, player._camera_pivot.global_basis)
 	interact_button.text = ""
 	interact_button.icon = preload("res://assets/ui/controls/lantern.svg")
 	interact_button.accessibility_name = "Light lantern"
@@ -262,9 +264,6 @@ func _ready() -> void:
 		boar.target = player
 		boar.defeated.connect(_defeat_boar)
 		add_child(boar)
-	relic_hunt = RELIC_HUNT_SCRIPT.new()
-	relic_hunt.set("player", player)
-	add_child(relic_hunt)
 	keeper = preload("res://scripts/shore_keeper.gd").new()
 	add_child(keeper)
 	seal_fragments = _create_seal_fragments()
@@ -274,7 +273,6 @@ func _ready() -> void:
 	get_tree().quit_on_go_back = false
 	_world_ready = true
 	_quest_snapshot = CHAPTER_QUESTS.snapshot(self)
-	relic_hunt.progress_changed.connect(_world_changed)
 	_show_camp()
 
 func _create_exploration() -> Node3D:
@@ -316,7 +314,25 @@ func _defeat_boar() -> void:
 	_save_progress()
 
 func _award_shards(amount: int) -> void:
+	var previous := shards
 	shards = mini(CAMPAIGN_STORE.MAXIMUMS.shards, shards + amount)
+	_note_currency_reward(shards - previous, 0)
+
+func _award_veil_gems(amount: int) -> void:
+	var previous := veil_gems
+	veil_gems = mini(CAMPAIGN_STORE.MAXIMUMS.veil_gems, veil_gems + amount)
+	_note_currency_reward(0, veil_gems - previous)
+
+func _note_currency_reward(shard_gain: int, gem_gain: int) -> void:
+	if shard_gain <= 0 and gem_gain <= 0:
+		return
+	var now := Time.get_ticks_msec()
+	if now >= reward_until:
+		reward_shards = 0
+		reward_gems = 0
+	reward_shards += shard_gain
+	reward_gems += gem_gain
+	reward_until = now + 4500
 
 func _lantern_shard_reward() -> int:
 	return 0
@@ -378,19 +394,19 @@ func _build_campaign_ui() -> void:
 	quest_button.tooltip_text = "Quest scroll: objectives, rewards and progress [Q]"
 	quest_button.pressed.connect(_show_journal)
 	controls.add_child(quest_button)
-	relic_status = Label.new()
-	relic_status.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
-	relic_status.add_theme_constant_override("outline_size", 4)
-	relic_status.anchor_right = 1.0
-	relic_status.offset_left = 30
-	relic_status.offset_right = -210
-	relic_status.offset_top = 84
-	relic_status.offset_bottom = 126
-	relic_status.clip_text = true
-	relic_status.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	relic_status.add_theme_font_size_override("font_size", 15)
-	relic_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
-	controls.add_child(relic_status)
+	watch_status = Label.new()
+	watch_status.add_theme_color_override("font_outline_color", Color(0.02, 0.04, 0.05, 0.95))
+	watch_status.add_theme_constant_override("outline_size", 4)
+	watch_status.anchor_right = 1.0
+	watch_status.offset_left = 30
+	watch_status.offset_right = -210
+	watch_status.offset_top = 84
+	watch_status.offset_bottom = 126
+	watch_status.clip_text = true
+	watch_status.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	watch_status.add_theme_font_size_override("font_size", 15)
+	watch_status.add_theme_color_override("font_color", Color(0.95, 0.8, 0.45))
+	controls.add_child(watch_status)
 	interact_button = _make_button("", Vector2(-204, -188), Vector2(-124, -108))
 	interact_button.name = "InteractButton"
 	interact_button.expand_icon = true
@@ -486,6 +502,7 @@ func _layout_menu() -> void:
 func _clear_menu(title: String, message: String, save_world := true) -> void:
 	_close_settings()
 	pause_panel = false
+	pause_panel_height = 0.0
 	pause_back = Callable()
 	menu_scroll.remove_theme_stylebox_override("panel")
 	menu_box.add_theme_constant_override("separation", 12)
@@ -559,17 +576,11 @@ func _show_field_guide() -> void:
 	_menu_button("Enemy guide", _show_enemy_guide)
 	_menu_button("Heavy Attack guide", _show_heavy_guide)
 	_menu_button("Spirit Burst guide", _show_burst_guide)
-	_menu_button("Keeper's request (+20 bonus shards)", _show_keeper_request)
 	_menu_button("Art credits", _show_art_credits)
 	_menu_button("Back to camp", _show_camp)
 
 func _cost(level: int) -> int:
 	return (level + 1) * 20
-
-func _show_keeper_request() -> void:
-	var victory := "defeat the dragon" if _lantern_spawns_boss() else "record Chapter I victory"
-	_clear_menu("THE KEEPER'S REQUEST", "Three relics remain scattered around this island. Walk near each golden relic to recover it. Find all three and %s to earn 20 bonus shards. The relics may be collected before or after victory.\n\nThis quest is optional. Collected relics are saved." % victory)
-	_menu_button("Back to camp", _show_camp)
 
 func _show_burst_guide() -> void:
 	_clear_menu("SPIRIT BURST", "Each sword swing that damages an enemy grants 25 spirit. Missing grants nothing. Hitting a crowd still grants only 25.\n\nAt 100 spirit, tap BURST to spend it on a 3-metre area attack dealing three times your blade damage. Use it to interrupt ordinary enemies.\n\nSpirit resets when you reopen the island. An empty burst still spends the charge.")
@@ -608,13 +619,13 @@ func _upgrade(blade: bool) -> void:
 func _resume() -> void:
 	_close_settings()
 	pause_panel = false
+	pause_panel_height = 0.0
 	pause_back = Callable()
 	journal_open = false
 	quest_parchment.hide()
 	_layout_menu()
 	pause_menu_open = false
 	started = true
-	relic_hunt.set("active", true)
 	overlay.hide()
 	get_tree().paused = false
 	_update_objective()
@@ -647,8 +658,9 @@ func _confirm_pause_quit() -> void:
 	pause_back = _pause_game
 	(menu_box.get_child(1 if pause_menu_open else 2) as Button).grab_focus()
 
-func _style_pause_panel() -> void:
+func _style_pause_panel(preferred_height := 0.0) -> void:
 	pause_panel = true
+	pause_panel_height = preferred_height
 	menu_shade.color = Color("110c10a6")
 	var heading := menu_box.get_child(0) as Label
 	heading.add_theme_font_override("font", MENU_TITLE)
@@ -688,7 +700,8 @@ func _bronze_box(fill: Color, edge: Color, thickness: int) -> StyleBoxFlat:
 func _layout_pause_panel() -> void:
 	var screen: Vector2 = menu_scroll.get_parent().size
 	var width := minf(screen.x-24.0, 480.0)
-	var height := minf(screen.y-24.0, (516.0 if pause_menu_open else 280.0))
+	var default_height := 516.0 if pause_menu_open else 280.0
+	var height := minf(screen.y - 24.0, pause_panel_height if pause_panel_height > 0.0 else default_height)
 	var inset := (screen-Vector2(width,height))*.5
 	menu_scroll.offset_left = inset.x
 	menu_scroll.offset_right = -inset.x
@@ -861,7 +874,7 @@ func _progress_snapshot(capture := true) -> Dictionary:
 	if capture and _world_ready:
 		_capture_world()
 	var data := {}
-	for key in ["shards", "blade_level", "armor_level", "completed", "world_data"]:
+	for key in ["shards", "veil_gems", "blade_level", "armor_level", "completed", "world_data"]:
 		data[key] = get(key)
 	return data.duplicate(true)
 
@@ -1014,7 +1027,6 @@ func _show_art_credits() -> void:
 func _capture_world() -> void:
 	world_data.herbs = herbs.collected_ids.duplicate()
 	world_data.seal_fragments = seal_fragments.collected_ids.duplicate()
-	world_data.relics = relic_hunt.collected_ids.duplicate()
 	world_data.lantern = lantern_lit
 	world_data.position = player.global_position
 	world_data.health = int(player.health)
@@ -1025,7 +1037,6 @@ func _capture_world() -> void:
 func _restore_world() -> void:
 	herbs.restore(world_data.herbs)
 	seal_fragments.restore(world_data.seal_fragments)
-	relic_hunt.restore(world_data.relics)
 	keeper.accepted = world_data.accepted
 	keeper.reported = world_data.reported
 	potions = world_data.potions
@@ -1064,15 +1075,12 @@ func _restore_world() -> void:
 
 func _claim_optional_rewards() -> void:
 	if herbs.grove_count() >= herbs.GROVE_GOAL and not world_data.grove_reward:
-		shards = mini(999999, shards + herbs.GROVE_REWARD)
+		_award_shards(herbs.GROVE_REWARD)
 		world_data.grove_reward = true
 	if not completed:
 		return
-	if relic_hunt.collected == 3 and not world_data.relic_reward:
-		shards = mini(999999, shards + 20)
-		world_data.relic_reward = true
 	if keeper.reported and not world_data.bounty_reward:
-		shards = mini(999999, shards + 15)
+		_award_shards(15)
 		world_data.bounty_reward = true
 
 func _world_changed() -> void:

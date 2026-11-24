@@ -85,21 +85,21 @@ func run():
 	await tap("Accept bounty")
 	await frames(10)
 	assert(scene.keeper.accepted and not scene.keeper.reported)
-	await tap("Keeper's Relics")
+	await tap("Moonleaf Grove")
 	await frames(15)
 	await tap("Track quest")
 	await frames(15)
-	assert(scene.tracked_quest=="relic")
-	await shot("04_tracked_relic")
+	assert(scene.tracked_quest=="grove")
+	await shot("04_tracked_grove")
 	await tap("Return to hunt")
 	assert(paused and scene.journal_view.closing)
 	await frames(2)
 	await shot("05_closing")
 	await frames(18)
 	assert(not paused and not is_instance_valid(scene.journal_view))
-	assert(scene.mobile_hud.chrome.quest_content().title=="KEEPER'S RELICS")
+	assert(scene.mobile_hud.chrome.quest_content().title=="MOONLEAF GROVE")
 	await shot("06_tracked_hud")
-	checks.append("Touch Main/Side navigation, bounty acceptance, selected relic tracking and closing animation update the HUD")
+	checks.append("Touch Main/Side navigation, bounty acceptance, selected grove tracking and closing animation update the HUD")
 	# Use existing plant interactions to show an actually completed optional reward.
 	for id in [8,9,10]:
 		for herb in scene.herbs.plants.duplicate():
@@ -133,7 +133,7 @@ func run():
 	safe.test_safe_rect=Rect2(34,12,732,360)
 	safe.refresh()
 	await frames(8)
-	await tap("Keeper's Relics")
+	await tap("Moonleaf Grove")
 	await frames(8)
 	var scroll = scene.journal_view.detail_scroll
 	var point:Vector2=scroll.get_global_rect().get_center()
@@ -165,7 +165,7 @@ func run():
 	await process_frame
 	await create_timer(.75,true,false,true).timeout
 	await open_world()
-	assert(scene.tracked_quest=="relic" and scene.keeper.reported)
+	assert(scene.tracked_quest=="grove" and scene.keeper.reported)
 	assert(scene.world_data.grove_reward and scene.shards==25)
 	open_journal()
 	await frames(12)

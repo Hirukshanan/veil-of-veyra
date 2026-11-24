@@ -23,7 +23,7 @@ func _ready() -> void:
 			safe.resized.connect(call_deferred.bind("refresh"))
 	scene.status_label.hide()
 	scene.health_label.hide()
-	scene.relic_status.hide()
+	scene.watch_status.hide()
 	chrome=preload("res://scripts/premium_hud.gd").new()
 	chrome.name="GameplayHUD"
 	chrome.scene=scene

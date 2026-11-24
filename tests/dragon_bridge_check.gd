@@ -16,7 +16,7 @@ func ticks(count: int) -> void:
 		await physics_frame
 
 func open_world() -> void:
-	assert(change_scene_to_file("res://scenes/chapter_one.tscn" if baseline else SCENE) == OK)
+	assert(change_scene_to_file("res://scenes/previews/chapter_one_bear_playtest.tscn" if baseline else SCENE) == OK)
 	await scene_changed
 	game = current_scene
 	while not is_instance_valid(game.title_screen):
@@ -116,7 +116,7 @@ func press_against_parapets() -> void:
 func check_progress() -> void:
 	assert(game.completed and game.awakening.finished() and game.lantern_lit)
 	assert(game.world_data.cursed_bear_defeated and game.world_data.ancient_grove_investigated)
-	assert(game.seal_fragments.collected_ids == [0,1,2] and 1 in game.relic_hunt.collected_ids)
+	assert(game.seal_fragments.collected_ids == [0,1,2])
 	assert(game.shards == 92 and game.potions == 4 and hero.health == 96)
 
 func run() -> void:
@@ -132,7 +132,7 @@ func run() -> void:
 	data.armor_level = 1
 	data.world_data = STORE.fresh_world()
 	data.world_data.merge({"position":Vector3(AXIS,34.08,45.6),"health":96,"potions":4,
-		"lantern":true,"seal_fragments":[0,1,2],"relics":[1],"cleared":[0,2,5],"boar_defeated":true,
+		"lantern":true,"seal_fragments":[0,1,2],"cleared":[0,2,5],"boar_defeated":true,
 		"ancient_grove_investigated":true,"cursed_bear_defeated":true,"lantern_awakening":true,
 		"guardian_quest":{"investigated":true,"regions":[],"fox_defeated":true}}, true)
 	assert(STORE.save_progress(data) == OK)

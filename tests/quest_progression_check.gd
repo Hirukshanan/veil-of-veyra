@@ -28,16 +28,6 @@ func reload_world():
 	await create_timer(.3, true, false, true).timeout
 	await open_world()
 
-func relic(id: int):
-	for item in scene.relic_hunt.relics.duplicate():
-		if int(item.get_meta("pickup_id")) == id:
-			scene.player.position = item.global_position
-			await physics_frame
-			await physics_frame
-			break
-	scene._update_objective()
-	assert(id in scene.relic_hunt.collected_ids)
-
 func herb(id: int):
 	for item in scene.herbs.plants.duplicate():
 		if int(item.get_meta("pickup_id")) == id:
@@ -150,8 +140,6 @@ func run():
 	assert(scene.get_node_or_null("DemonFox") == null and JOURNAL.entry(scene, "guardian_fox").value == 1)
 	assert(1 in scene.world_data[GUARDIANS.SAVE_KEY].regions and scene.tracked_quest == "guardian_warg")
 	evidence.append("Fox first: defeat recovered Fragment 2 once, completed objective stayed saved, and its pin vanished immediately")
-	await relic(1)
-	assert(scene.quest_feedback.title == "RELIC DISCOVERED")
 	await herb(0)
 	assert(scene.potions == 4)
 	for id in [8, 9, 10]:
@@ -161,9 +149,9 @@ func run():
 		scene._claim_optional_rewards()
 	assert(scene.shards == 25)
 	await reload_world()
-	assert(1 in scene.relic_hunt.collected_ids and scene.shards == 25 and scene.potions == 7)
+	assert(scene.shards == 25 and scene.potions == 7)
 	assert(scene.world_data.grove_reward)
-	evidence.append("Cave relic, ordinary herb and grove collected through existing systems; potion and one-time grove reward persist")
+	evidence.append("Ordinary herb and grove collected through existing systems; potion and one-time grove reward persist")
 	scene.get_node("CampDemon0").take_damage(10000)
 	scene.get_node("CampDemon1").take_damage(10000)
 	scene._show_journal()
@@ -175,7 +163,7 @@ func run():
 	scene.player.position = scene.lantern.position
 	scene._interact_lantern()
 	assert(not scene.lantern_lit, "Lantern must remain locked at 2/3")
-	scene.set_tracked_quest("relic")
+	scene.set_tracked_quest("grove")
 	scene.get_node("CampDemon2").take_damage(10000)
 	assert(scene.seal_fragments.collected_ids == [1, 2, 0] and scene.tracked_quest == GUARDIANS.LANTERN)
 	assert(scene.guardian_map_markers().size() == 1 and marker(GUARDIANS.LANTERN).tracked)
@@ -206,21 +194,19 @@ func run():
 	scene._interact_world()
 	assert(not scene.guardians.can_investigate_grove() and scene.shards == 45)
 	assert(scene.guardian_map_markers().is_empty() and not scene.completed and not paused)
-	await relic(0)
-	await relic(2)
-	assert(not scene.world_data.relic_reward and not scene.world_data.bounty_reward and scene.shards == 45)
+	assert(not scene.world_data.bounty_reward and scene.shards == 45)
 	for repeat in range(4):
 		scene._claim_optional_rewards()
 	assert(scene.shards == 45)
 	assert(not QUESTS.future_prerequisites(scene).chapter_victory and not scene.awakening.eligible())
 	await reload_world()
-	assert(not scene.completed and not scene.boss_spawned and scene.shards == 45 and scene.relic_hunt.collected == 3)
+	assert(not scene.completed and not scene.boss_spawned and scene.shards == 45)
 	assert(scene.world_data[GUARDIANS.GROVE_FLAG] and scene.world_data.grove_reward)
 	assert(scene.lantern_lit and not scene.awakening.eligible())
 	evidence.append("Lantern restoration, Ancient Grove investigation and deferred rewards persist while the Bear encounter is pending")
 	print("PASS: Ancient Grove was investigated and persisted with the Bear and chapter victory pending")
 	var config := ConfigFile.new()
-	assert(config.load(STORE.PATH) == OK and config.get_value("campaign", "version") == 4)
+	assert(config.load(STORE.PATH) == OK and config.get_value("campaign", "version") == STORE.VERSION)
 	assert(not scene.world_data.has("quest_states"), "Existing saved objective fields remain canonical")
 	var output: String = OS.get_cmdline_user_args()[0]
 	FileAccess.open(output + "/quest_progression_results.json", FileAccess.WRITE).store_string(JSON.stringify({"passed": true, "cases": evidence, "final_shards": scene.shards, "save_schema": 4, "future_story_prerequisites_derived_only": true}, "  "))

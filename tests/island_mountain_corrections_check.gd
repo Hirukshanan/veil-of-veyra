@@ -49,10 +49,9 @@ func _run() -> void:
 		Vector2(76, 5), Vector2(75, 10), Vector2(71, 15), Vector2(68, 19), Vector2(66, 25),
 		Vector2(68, 19), Vector2(71, 15), Vector2(75, 10), Vector2(76, 5), Vector2(76, -17)
 	], PI)
-	assert(1 in scene.relic_hunt.collected_ids, "Existing cave relic remains collectable")
 	var report := FileAccess.open(output.path_join("mountain_routes.json"), FileAccess.WRITE)
 	report.store_string(JSON.stringify({"passed": true, "route_waypoints": walked, "video_frames": frame,
-		"video_fps": 20, "cave_relic_collected": true}, "  "))
+		"video_fps": 20}, "  "))
 	report.close()
 	print("PASS: mountain passage, eastern hillside and cave walked with the original controller and spring arm")
 	scene.queue_free()

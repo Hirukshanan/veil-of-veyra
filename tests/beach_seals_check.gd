@@ -31,7 +31,6 @@ func write_legacy(version: int, lit: bool, completed: bool):
 	world.erase("seal_fragments")
 	world.herbs=[0,8]
 	world.potions=5
-	world.relics=[1]
 	world.lantern=lit
 	if lit: world.cleared=[0,1,2,3,4,5]
 	config.set_value("campaign","world",world)
@@ -111,7 +110,7 @@ func run():
 			write_legacy(version,lit,won)
 			await open_world()
 			assert(not scene.progress_unreadable and scene.shards==123 and scene.blade_level==2)
-			assert(scene.herbs.collected_ids==[0,8] and scene.relic_hunt.collected_ids==[1])
+			assert(scene.herbs.collected_ids==[0,8])
 			assert(scene.lantern_lit==lit and scene.completed==won)
 			assert(scene.seal_fragments.complete()==lit)
 			assert(scene.boss_spawned==(lit and not won))

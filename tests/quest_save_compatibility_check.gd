@@ -36,24 +36,24 @@ func run():
 	assert(scene.shards == 73 and scene.blade_level == 2 and scene.armor_level == 3)
 	assert(scene.player.health == 137 and scene.potions == 6)
 	assert(scene.keeper.accepted and scene.keeper.reported and scene.keeper.remaining() == 1)
-	assert(scene.relic_hunt.collected_ids == [1] and scene.seal_fragments.collected_ids == [0])
+	assert(not scene.world_data.has("relics") and scene.seal_fragments.collected_ids == [0])
 	assert(scene.player.position.distance_to(Vector3(76,1.58,5)) < .1)
 	assert(scene._save_progress())
 	assert(STORE.load_progress().data.world_data.reported)
-	assert(not scene.world_data.bounty_reward and not scene.world_data.relic_reward)
+	assert(not scene.world_data.bounty_reward)
 	await close_world()
-	# All relics obtained before victory: bonuses remain deferred, then pay once.
+	# Legacy collected relics are ignored. The reported bounty still pays once.
 	data.world_data.cleared = [0,1,2,3,4,5]
 	data.world_data.seal_fragments = [0,1,2]
 	data.world_data.relics = [0,1,2]
 	assert(STORE.save_progress(data) == OK)
 	await open_world()
-	assert(scene.shards == 73 and scene.relic_hunt.collected == 3)
-	assert("bonus awaits victory" in scene._journal_text())
+	assert(scene.shards == 73)
+	assert(not scene.world_data.has("relics"))
 	scene.player.position = scene.lantern.position
 	scene._interact_lantern()
 	assert(scene.lantern_lit and not scene.completed and not scene.boss_spawned)
-	assert(scene.shards == 73 and not scene.world_data.bounty_reward and not scene.world_data.relic_reward)
+	assert(scene.shards == 73 and not scene.world_data.bounty_reward)
 	# Reopen a historical save that had already earned the original victory.
 	var historical: Dictionary = STORE.load_progress().data
 	historical.completed = true
@@ -64,18 +64,18 @@ func run():
 	assert(scene.completed and scene.lantern_lit and not scene.boss_spawned,
 		"Historical victory and lantern must load without a Dragon encounter: %s" % str([scene.completed, scene.lantern_lit, scene.boss_spawned]))
 	scene._claim_optional_rewards()
-	assert(scene.completed and scene.shards == 188)
-	assert(scene.world_data.relic_reward and scene.world_data.bounty_reward)
+	assert(scene.completed and scene.shards == 168)
+	assert(scene.world_data.bounty_reward)
 	scene._claim_optional_rewards()
-	assert(scene.shards == 188 and scene._save_progress())
+	assert(scene.shards == 168 and scene._save_progress())
 	await close_world()
 	await open_world()
-	assert(scene.completed and scene.shards == 188)
+	assert(scene.completed and scene.shards == 168)
 	assert(scene.blade_level == 2 and scene.armor_level == 3 and scene.potions == 6)
 	scene._claim_optional_rewards()
-	assert(scene.shards == 188)
+	assert(scene.shards == 168)
 	var output: String = OS.get_cmdline_user_args()[0]
-	FileAccess.open(output+"/quest_save_compatibility_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"synthetic_pre_phase61_version4":true,"reported_bounty_honored":true,"items_equipment_health_potions_cave_position_preserved":true,"all_relics_before_victory_deferred":true,"final_shards":188,"reload_no_duplicate_payment":true},"  "))
+	FileAccess.open(output+"/quest_save_compatibility_results.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"synthetic_pre_phase61_version4":true,"reported_bounty_honored":true,"items_equipment_health_potions_cave_position_preserved":true,"removed_relic_state_ignored":true,"final_shards":168,"reload_no_duplicate_payment":true},"  "))
 	await close_world()
 	await create_timer(.75,true,false,true).timeout
 	print("PASS: pre-Phase-6.1 saves, existing bounty credit, inventory, equipment and deferred rewards preserved")

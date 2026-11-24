@@ -32,7 +32,7 @@ func run():
 	var baseline:bool=OS.get_cmdline_user_args()[1]=="baseline"
 	var data:=STORE.DEFAULTS.duplicate(true);data.world_data=STORE.fresh_world()
 	data.completed=true;data.shards=80
-	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"relics":[1],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
+	data.world_data.merge({"cleared":[0,1,2,3,4,5],"seal_fragments":[0,1,2],"lantern":true,"position":Vector3(62.5,2.4,23)},true)
 	assert(STORE.save_progress(data)==OK)
 	root.size=Vector2i(1280,720);root.content_scale_aspect=Window.CONTENT_SCALE_ASPECT_EXPAND
 	scene=load("res://scenes/island_candidate.tscn").instantiate();root.add_child(scene)

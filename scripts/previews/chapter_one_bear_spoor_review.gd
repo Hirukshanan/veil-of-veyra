@@ -20,20 +20,6 @@ func _build_lantern() -> void:
 func _ground_gameplay() -> void:
 	super._ground_gameplay()
 	lantern.global_position = landscape.ground_point(Tidewarden.CENTER)
-	# The gold shape behind the lamp was a real relic. Keep its pickup ID and
-	# collection radius, seated in the earth beyond the Grove carving.
-	for relic in relic_hunt.relics:
-		if relic.get_meta("pickup_id") == 2:
-			relic.global_position = landscape.ground_point(Vector3(2.0,0,-44.0))
-			relic.set_meta("grounded_relic",true)
-			relic.get_child(1).free()
-			var gem := relic.get_child(0) as MeshInstance3D
-			gem.position.y = .21
-			gem.rotation = Vector3(.23,.6,.53)
-			var brass := gem.material_override.duplicate() as StandardMaterial3D
-			brass.emission_enabled = false
-			brass.metallic = .38
-			gem.material_override = brass
 
 func _update_objective() -> void:
 	super._update_objective()
