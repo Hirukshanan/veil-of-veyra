@@ -16,9 +16,9 @@ A warning bell falls silent on the shore. Playing as Aru, you follow a stain of 
 
 ## In combat
 
-<p align="center"><img src="docs/screenshots/bear-fight.gif" width="100%" alt="Aru faces the Cursed Bear in the ruined temple. An orange charge lane stretches across the floor before the Bear closes the distance."></p>
+<p align="center"><img src="docs/screenshots/bear-fight.gif" width="100%" alt="Aru dodges sideways as the Cursed Bear charges across the ruined temple. The quest objective wraps inside the upper-left panel."></p>
 
-**Cursed Bear · Eastern cave.** From behind Aru, you can see the charge lane turn with him during the wind-up. Once the Bear commits, a sideways dodge clears the lane. A collision with the temple wall briefly staggers the Bear, giving Aru time to step back in. At 40% health the Bear enters Rage and its recovery windows shorten. The loop above is an excerpt from the in-engine encounter recording.
+**Cursed Bear · Eastern cave.** An orange lane marks the Bear's charge as it lines up Aru. A sideways dodge lets the Bear rush past. Later in the fight, it enters Rage at 40% health and recovers faster between attacks.
 
 <table>
 <tr>
