@@ -4,9 +4,6 @@ const EQUIPMENT := preload("res://scripts/aru_modular_equipment.gd")
 
 var modular: EQUIPMENT
 
-func _armory_screen_path() -> String:
-	return "res://scripts/modular_armory_screen.gd"
-
 func _apply_loadout() -> void:
 	super._apply_loadout()
 	if not is_instance_valid(modular):

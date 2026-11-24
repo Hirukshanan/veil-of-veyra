@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal closed
 
+const PlayerPreview := preload("res://scripts/armory_preview_actor.gd")
 const PLAYER := preload("res://scripts/player.gd")
 const DISPLAY_FONT := preload("res://assets/ui/fonts/Cinzel.ttf")
 const GOLD := Color("f1c686")
@@ -32,12 +33,6 @@ var yaw := PI + .34
 var drag_finger := -1
 var dragging := false
 
-class PlayerPreview extends "res://scripts/player.gd":
-	func _ready() -> void:
-		_visual = preload("res://scripts/hero_visual.gd").new()
-		_visual.idle_only = true
-		add_child(_visual)
-		_build_weapon()
 
 func _ready() -> void:
 	layer = 21

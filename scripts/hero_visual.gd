@@ -15,6 +15,7 @@ var _meshes: Array[Node] = []
 var _flash: StandardMaterial3D
 var _plain_outfit: StandardMaterial3D
 var idle_only := false
+var relaxed_preview_idle := false
 
 
 func _ready() -> void:
@@ -28,11 +29,10 @@ func _ready() -> void:
 	animator = AnimationPlayer.new()
 	model.add_child(animator)
 	var library := AnimationLibrary.new()
-	for clip in CLIPS:
-		if idle_only and clip != "Sword_Idle":
-			continue
+	var idle_clip := "Idle" if idle_only and relaxed_preview_idle else "Sword_Idle"
+	for clip in ([idle_clip] if idle_only else CLIPS):
 		var animation: Animation = source_player.get_animation(clip).duplicate(true)
-		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Sword_Idle", "Walk", "Sprint", "Jump"] else Animation.LOOP_NONE
+		animation.loop_mode = Animation.LOOP_LINEAR if clip in ["Idle", "Sword_Idle", "Walk", "Sprint", "Jump"] else Animation.LOOP_NONE
 		for track in range(animation.get_track_count() - 1, -1, -1):
 			var bone_name := animation.track_get_path(track).get_subname(0)
 			var target_bone := skeleton.find_bone(bone_name)
@@ -64,7 +64,7 @@ func _ready() -> void:
 	_flash.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_flash.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_flash.albedo_color = Color(1, 0.15, 0.1, 0.55)
-	animator.play("Sword_Idle")
+	animator.play(idle_clip)
 
 func set_armor_protection_visible(equipped: bool) -> void:
 	for mesh: MeshInstance3D in _meshes:

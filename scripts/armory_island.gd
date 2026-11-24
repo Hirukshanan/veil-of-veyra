@@ -21,7 +21,7 @@ func _open_armory() -> void:
 	add_child(screen)
 
 func _armory_screen_path() -> String:
-	return "res://scripts/armory_screen.gd"
+	return "res://scripts/modular_armory_screen.gd"
 
 func _restore_world() -> void:
 	super._restore_world()
